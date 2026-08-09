@@ -222,7 +222,7 @@ import { ref } from 'vue'
 import { useAuthStore } from '~/stores/auth'
 import Building3DHero from '~/components/Building3DHero.vue'
 
-definePageMeta({ middleware: 'guest' })
+definePageMeta({ middleware: 'guest', layout: 'auth' })
 const authStore = useAuthStore()
 const router = useRouter()
 
