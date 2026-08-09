@@ -189,6 +189,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { useAuthStore } from '~/stores/auth'
 
 definePageMeta({ layout: 'auth', middleware: 'guest' })
 
