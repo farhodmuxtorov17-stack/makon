@@ -3,19 +3,21 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { User, UserRole } from '~/types'
 
+const mockUser: User = {
+  id: 'u1',
+  login: 'admin',
+  fullName: 'Farhod Muxtorov',
+  email: 'farhod@makon.uz',
+  phone: '+998 90 123 45 67',
+  role: 'SUPER_HEAD',
+  organizationId: 'org-1',
+  buildingScopes: ['b1', 'b2', 'b3'],
+  isActive: true,
+  createdAt: '2024-01-01T00:00:00',
+}
+
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>({
-    id: 'u1',
-    login: 'admin',
-    fullName: 'Farhod Muxtorov',
-    email: 'farhod@makon.uz',
-    phone: '+998 90 123 45 67',
-    role: 'SUPER_HEAD',
-    organizationId: 'org-1',
-    buildingScopes: ['b1', 'b2', 'b3'],
-    isActive: true,
-    createdAt: '2024-01-01T00:00:00',
-  })
+  const user = ref<User | null>(null)
 
   const role = computed(() => user.value?.role || null)
   const isAuthenticated = computed(() => !!user.value)
@@ -40,14 +42,20 @@ export const useAuthStore = defineStore('auth', () => {
     return labels[user.value?.role as UserRole] || ''
   })
 
-  function login(login: string, password: string) {
-    // Mock auth
-    return login === 'admin' && password === 'admin123'
+  function login(loginVal: string, password: string) {
+    if (loginVal === 'admin' && password === 'admin123') {
+      user.value = mockUser
+      return true
+    }
+    return false
   }
 
   function loginErI(pin: string) {
-    // Mock ERI auth
-    return pin.length === 14
+    if (pin.length === 14) {
+      user.value = mockUser
+      return true
+    }
+    return false
   }
 
   function logout() {
