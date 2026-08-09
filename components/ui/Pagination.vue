@@ -12,7 +12,9 @@
         :key="p"
         :class="['min-w-[32px] h-8 rounded-lg text-xs font-semibold transition-colors', p === page ? 'bg-primary-600 text-white' : 'text-neutral-500 hover:bg-neutral-100']"
         @click="$emit('update:page', p)"
-      >{{ p }}</button>
+      >
+        {{ p }}
+      </button>
       <button :disabled="page >= totalPages" class="btn-ghost btn-icon" @click="$emit('update:page', page + 1)">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
       </button>

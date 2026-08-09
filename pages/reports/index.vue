@@ -25,18 +25,20 @@
     <div class="card">
       <div class="card-header"><h3 class="font-semibold">So'nggi eksportlar</h3></div>
       <!-- Desktop -->
-      <div class="table-wrapper hidden md:block"><table class="table">
-        <thead><tr><th>Turi</th><th>Format</th><th>Holat</th><th>Sana</th><th></th></tr></thead>
-        <tbody>
-          <tr v-for="e in exports" :key="e.id">
-            <td class="font-medium">{{ e.type }}</td>
-            <td><span class="badge-neutral">{{ e.format }}</span></td>
-            <td><StatusBadge :status="e.status" :dot="true" /></td>
-            <td class="text-neutral-500 text-xs">{{ formatDate(e.createdAt) }}</td>
-            <td><button v-if="e.fileUrl" class="btn-ghost btn-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> Yuklab olish</button></td>
-          </tr>
-        </tbody>
-      </table></div>
+      <div class="table-wrapper hidden md:block">
+        <table class="table">
+          <thead><tr><th>Turi</th><th>Format</th><th>Holat</th><th>Sana</th><th></th></tr></thead>
+          <tbody>
+            <tr v-for="e in exports" :key="e.id">
+              <td class="font-medium">{{ e.type }}</td>
+              <td><span class="badge-neutral">{{ e.format }}</span></td>
+              <td><StatusBadge :status="e.status" :dot="true" /></td>
+              <td class="text-neutral-500 text-xs">{{ formatDate(e.createdAt) }}</td>
+              <td><button v-if="e.fileUrl" class="btn-ghost btn-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> Yuklab olish</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <!-- Mobile -->
       <div class="md:hidden divide-y divide-neutral-50">
         <div v-for="e in exports" :key="e.id" class="p-4 flex items-center justify-between">

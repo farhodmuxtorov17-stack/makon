@@ -5,10 +5,10 @@
     </svg>
     <input
       :value="modelValue"
-      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       type="text"
       :placeholder="placeholder"
       class="input pl-10"
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
   </div>
 </template>

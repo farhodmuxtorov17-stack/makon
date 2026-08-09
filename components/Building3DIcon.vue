@@ -3,7 +3,7 @@
     <svg :viewBox="`0 0 ${size} ${size}`" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient :id="`front-${id}`" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" :stop-color="color" stop-opacity="0.9" />
+          <stop offset="0%" :stop-color="bldColor" stop-opacity="0.9" />
           <stop offset="100%" :stop-color="darkColor" stop-opacity="1" />
         </linearGradient>
         <linearGradient :id="`side-${id}`" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -12,7 +12,7 @@
         </linearGradient>
         <linearGradient :id="`top-${id}`" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" :stop-color="lightColor" stop-opacity="1" />
-          <stop offset="100%" :stop-color="color" stop-opacity="1" />
+          <stop offset="100%" :stop-color="bldColor" stop-opacity="1" />
         </linearGradient>
         <linearGradient :id="`win-${id}`" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#ffc94a" stop-opacity="0.9" />
@@ -66,7 +66,8 @@
 
         <!-- Windows front -->
         <g v-for="r in 3" :key="'bfw' + r">
-          <rect v-for="c in 3" :key="'bfw' + r + c"
+          <rect
+            v-for="c in 3" :key="'bfw' + r + c"
             :x="size * (0.34 + c * 0.08)" :y="size * (0.5 + r * 0.12)"
             :width="size * 0.04" :height="size * 0.06"
             :fill="`url(#win-${id})`" :opacity="windows[(r - 1) * 3 + c - 1] ? 0.9 : 0.25" rx="1"
@@ -75,7 +76,8 @@
         </g>
         <!-- Windows side -->
         <g v-for="r in 3" :key="'bsw' + r">
-          <rect v-for="c in 2" :key="'bsw' + r + c"
+          <rect
+            v-for="c in 2" :key="'bsw' + r + c"
             :x="size * (0.63 + c * 0.06)" :y="size * (0.42 + r * 0.12)"
             :width="size * 0.04" :height="size * 0.06"
             :fill="`url(#win-${id})`" :opacity="windows[9 + (r - 1) * 2 + c - 1] ? 0.8 : 0.2" rx="1"
@@ -97,7 +99,8 @@
 
         <!-- Windows front -->
         <g v-for="r in 4" :key="'cw' + r">
-          <rect v-for="c in 2" :key="'cw' + r + c"
+          <rect
+            v-for="c in 2" :key="'cw' + r + c"
             :x="size * (0.34 + c * 0.07)" :y="size * (0.5 + r * 0.1)"
             :width="size * 0.05" :height="size * 0.05"
             :fill="`url(#win-${id})`" :opacity="windows[(r - 1) * 2 + c - 1] ? 0.9 : 0.25" rx="1"
@@ -134,7 +137,7 @@ const colorMap: Record<string, { color: string; dark: string; light: string }> =
 }
 
 const colors = computed(() => colorMap[props.color] || colorMap['#6356f7'])
-const color = computed(() => colors.value.color)
+const bldColor = computed(() => colors.value.color)
 const darkColor = computed(() => colors.value.dark)
 const lightColor = computed(() => colors.value.light)
 

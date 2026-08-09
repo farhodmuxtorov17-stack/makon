@@ -112,8 +112,8 @@
             <p class="text-xs text-ink-400 mt-0.5">Oxirgi 6 oylik ko'rsatkichlar</p>
           </div>
           <div class="flex items-center gap-1 p-1 bg-ink-100 rounded-lg">
-            <button @click="chartPeriod = '6'" :class="['px-3 py-1.5 rounded-md text-xs font-semibold transition-all', chartPeriod === '6' ? 'bg-white shadow-sm text-brand-700' : 'text-ink-400']">6 oy</button>
-            <button @click="chartPeriod = '12'" :class="['px-3 py-1.5 rounded-md text-xs font-semibold transition-all', chartPeriod === '12' ? 'bg-white shadow-sm text-brand-700' : 'text-ink-400']">12 oy</button>
+            <button :class="['px-3 py-1.5 rounded-md text-xs font-semibold transition-all', chartPeriod === '6' ? 'bg-white shadow-sm text-brand-700' : 'text-ink-400']" @click="chartPeriod = '6'">6 oy</button>
+            <button :class="['px-3 py-1.5 rounded-md text-xs font-semibold transition-all', chartPeriod === '12' ? 'bg-white shadow-sm text-brand-700' : 'text-ink-400']" @click="chartPeriod = '12'">12 oy</button>
           </div>
         </div>
         <div class="card-body pt-2">
@@ -146,7 +146,8 @@
 
     <!-- Quick actions - Premium style -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <NuxtLink v-for="(action, i) in quickActions" :key="action.label" :to="action.path"
+      <NuxtLink
+        v-for="(action, i) in quickActions" :key="action.label" :to="action.path"
         class="group relative card-hover p-5 animate-fade-in-up overflow-hidden"
         :style="{ animationDelay: (i * 50) + 'ms' }"
       >

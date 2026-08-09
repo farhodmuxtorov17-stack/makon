@@ -27,20 +27,22 @@
 
     <!-- Desktop -->
     <div class="card hidden md:block">
-      <div class="table-wrapper"><table class="table">
-        <thead><tr><th>Raqam</th><th>Turi</th><th>Tavsif</th><th>Unit</th><th>Ustuvorlik</th><th>Holat</th><th>Sana</th></tr></thead>
-        <tbody>
-          <tr v-for="r in pagedRequests" :key="r.id" class="cursor-pointer">
-            <td class="font-mono text-xs font-medium">{{ r.number }}</td>
-            <td><span class="badge-neutral">{{ typeLabel(r.type) }}</span></td>
-            <td class="text-neutral-500 max-w-xs truncate">{{ r.description }}</td>
-            <td class="text-neutral-500">{{ unitNumber(r.unitId) }}</td>
-            <td><span :class="priorityBadge(r.priority)">{{ priorityLabel(r.priority) }}</span></td>
-            <td><StatusBadge :status="r.status" :dot="true" /></td>
-            <td class="text-neutral-500 text-xs">{{ formatDate(r.createdAt) }}</td>
-          </tr>
-        </tbody>
-      </table></div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead><tr><th>Raqam</th><th>Turi</th><th>Tavsif</th><th>Unit</th><th>Ustuvorlik</th><th>Holat</th><th>Sana</th></tr></thead>
+          <tbody>
+            <tr v-for="r in pagedRequests" :key="r.id" class="cursor-pointer">
+              <td class="font-mono text-xs font-medium">{{ r.number }}</td>
+              <td><span class="badge-neutral">{{ typeLabel(r.type) }}</span></td>
+              <td class="text-neutral-500 max-w-xs truncate">{{ r.description }}</td>
+              <td class="text-neutral-500">{{ unitNumber(r.unitId) }}</td>
+              <td><span :class="priorityBadge(r.priority)">{{ priorityLabel(r.priority) }}</span></td>
+              <td><StatusBadge :status="r.status" :dot="true" /></td>
+              <td class="text-neutral-500 text-xs">{{ formatDate(r.createdAt) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <Pagination v-if="filtered.length > perPage" :page="page" :per-page="perPage" :total="filtered.length" @update:page="page = $event" />
       <EmptyState v-if="!filtered.length" title="So'rovlar topilmadi" icon="M11.42 7.83a6 6 0 015.68 1.78" />
     </div>

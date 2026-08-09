@@ -100,20 +100,20 @@
         <!-- Tab switcher -->
         <div class="flex gap-1 p-1 bg-ink-100 rounded-xl mb-6">
           <button
-            @click="mode = 'eri'"
             :class="[
               'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200',
               mode === 'eri' ? 'bg-white text-brand-700 shadow-sm' : 'text-ink-400 hover:text-ink-600'
             ]"
+            @click="mode = 'eri'"
           >
             ERI orqali kirish
           </button>
           <button
-            @click="mode = 'password'"
             :class="[
               'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200',
               mode === 'password' ? 'bg-white text-brand-700 shadow-sm' : 'text-ink-400 hover:text-ink-600'
             ]"
+            @click="mode = 'password'"
           >
             Login — parol
           </button>
@@ -135,7 +135,7 @@
         </transition>
 
         <!-- Form -->
-        <form @submit.prevent="handleSubmit" class="space-y-4">
+        <form class="space-y-4" @submit.prevent="handleSubmit">
           <template v-if="mode === 'eri'">
             <div>
               <label class="label">Tashkilot nomi <span class="text-rose-500">*</span></label>
@@ -169,7 +169,7 @@
               <label class="label">Parol <span class="text-rose-500">*</span></label>
               <div class="relative">
                 <input v-model="passwordInput" :type="showPassword ? 'text' : 'password'" class="input pr-11" placeholder="••••••••" />
-                <button type="button" @click="showPassword = !showPassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600">
+                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600" @click="showPassword = !showPassword">
                   <svg v-if="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>

@@ -42,7 +42,7 @@
               <span class="text-[10px] font-bold text-ink-500 uppercase tracking-widest">{{ section.title }}</span>
               <div class="flex-1 h-px bg-white/5" />
             </div>
-            <div v-else class="h-px mx-3 my-2 bg-white/5" v-if="si > 0" />
+            <div v-if="!uiStore.sidebarCollapsed && si > 0" class="h-px mx-3 my-2 bg-white/5" />
 
             <NuxtLink
               v-for="item in section.items"

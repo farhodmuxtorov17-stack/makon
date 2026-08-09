@@ -24,19 +24,21 @@
 
     <!-- Desktop -->
     <div class="card hidden md:block">
-      <div class="table-wrapper"><table class="table">
-        <thead><tr><th>Sana</th><th>Invoys</th><th>Mijoz</th><th>Summa</th><th>Usul</th><th>Holat</th></tr></thead>
-        <tbody>
-          <tr v-for="p in pagedPayments" :key="p.id">
-            <td class="text-neutral-500 text-xs">{{ formatDate(p.paidAt || p.createdAt) }}</td>
-            <td class="font-mono text-xs">{{ invoiceNumber(p.invoiceId) }}</td>
-            <td class="text-neutral-500">{{ invoiceTenant(p.invoiceId) }}</td>
-            <td class="font-mono font-bold">{{ formatNumber(p.amount) }}</td>
-            <td><span class="badge-neutral">{{ methodLabel(p.method) }}</span></td>
-            <td><StatusBadge :status="p.status" :dot="true" /></td>
-          </tr>
-        </tbody>
-      </table></div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead><tr><th>Sana</th><th>Invoys</th><th>Mijoz</th><th>Summa</th><th>Usul</th><th>Holat</th></tr></thead>
+          <tbody>
+            <tr v-for="p in pagedPayments" :key="p.id">
+              <td class="text-neutral-500 text-xs">{{ formatDate(p.paidAt || p.createdAt) }}</td>
+              <td class="font-mono text-xs">{{ invoiceNumber(p.invoiceId) }}</td>
+              <td class="text-neutral-500">{{ invoiceTenant(p.invoiceId) }}</td>
+              <td class="font-mono font-bold">{{ formatNumber(p.amount) }}</td>
+              <td><span class="badge-neutral">{{ methodLabel(p.method) }}</span></td>
+              <td><StatusBadge :status="p.status" :dot="true" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <Pagination v-if="filtered.length > perPage" :page="page" :per-page="perPage" :total="filtered.length" @update:page="page = $event" />
       <EmptyState v-if="!filtered.length" title="To'lovlar topilmadi" icon="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2" />
     </div>

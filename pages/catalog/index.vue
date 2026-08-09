@@ -28,9 +28,13 @@
       <div class="flex flex-col md:flex-row gap-3">
         <div class="flex-1"><SearchInput v-model="search" placeholder="Sarlavha bo'yicha qidirish..." /></div>
         <div class="flex gap-2">
-          <button v-for="t in typeFilters" :key="t.key"
+          <button
+            v-for="t in typeFilters" :key="t.key"
             :class="['btn btn-sm transition-all', activeType === t.key ? 'bg-brand-600 text-white shadow-sm' : 'bg-white border border-ink-200 text-ink-600 hover:bg-ink-50']"
-            @click="activeType = t.key">{{ t.label }}</button>
+            @click="activeType = t.key"
+          >
+            {{ t.label }}
+          </button>
         </div>
       </div>
 
@@ -38,7 +42,8 @@
 
       <!-- Grid -->
       <div v-if="filtered.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <NuxtLink v-for="(l, i) in filtered" :key="l.id" :to="`/catalog/${l.id}`"
+        <NuxtLink
+          v-for="(l, i) in filtered" :key="l.id" :to="`/catalog/${l.id}`"
           class="card-hover overflow-hidden cursor-pointer group block animate-fade-in-up"
           :style="{ animationDelay: (i * 50) + 'ms' }"
         >

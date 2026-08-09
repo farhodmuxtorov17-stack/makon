@@ -30,20 +30,22 @@
 
     <!-- Desktop -->
     <div class="card hidden md:block">
-      <div class="table-wrapper"><table class="table">
-        <thead><tr><th>SKU</th><th>Nomi</th><th>Kategoriya</th><th>Zaxira</th><th>Min</th><th>Narx</th><th>Ta'minotchi</th></tr></thead>
-        <tbody>
-          <tr v-for="i in pagedItems" :key="i.id">
-            <td class="font-mono text-xs">{{ i.sku }}</td>
-            <td class="font-medium text-neutral-900">{{ i.name }}</td>
-            <td><span class="badge-neutral">{{ i.category }}</span></td>
-            <td><span :class="i.stock < i.minStock ? 'text-danger-600 font-bold' : 'text-neutral-700'">{{ i.stock }} {{ i.unit }}</span></td>
-            <td class="text-neutral-400">{{ i.minStock }}</td>
-            <td class="font-mono">{{ formatNumber(i.unitPrice) }}</td>
-            <td class="text-neutral-500">{{ supplierName(i.supplierId) }}</td>
-          </tr>
-        </tbody>
-      </table></div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead><tr><th>SKU</th><th>Nomi</th><th>Kategoriya</th><th>Zaxira</th><th>Min</th><th>Narx</th><th>Ta'minotchi</th></tr></thead>
+          <tbody>
+            <tr v-for="i in pagedItems" :key="i.id">
+              <td class="font-mono text-xs">{{ i.sku }}</td>
+              <td class="font-medium text-neutral-900">{{ i.name }}</td>
+              <td><span class="badge-neutral">{{ i.category }}</span></td>
+              <td><span :class="i.stock < i.minStock ? 'text-danger-600 font-bold' : 'text-neutral-700'">{{ i.stock }} {{ i.unit }}</span></td>
+              <td class="text-neutral-400">{{ i.minStock }}</td>
+              <td class="font-mono">{{ formatNumber(i.unitPrice) }}</td>
+              <td class="text-neutral-500">{{ supplierName(i.supplierId) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <Pagination v-if="filtered.length > perPage" :page="page" :per-page="perPage" :total="filtered.length" @update:page="page = $event" />
       <EmptyState v-if="!filtered.length" title="Itemlar topilmadi" icon="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2" />
     </div>

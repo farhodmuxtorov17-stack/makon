@@ -93,8 +93,10 @@
               <span class="text-xs font-bold text-ink-900">{{ occupancyPercent(b) }}%</span>
             </div>
             <div class="h-2 rounded-full bg-ink-100 overflow-hidden">
-              <div class="h-full rounded-full transition-all duration-500 group-hover:opacity-80"
-                :style="{ width: occupancyPercent(b) + '%', background: `linear-gradient(to right, ${buildingColor(b)}, ${buildingColor(b)}dd)` }" />
+              <div
+                class="h-full rounded-full transition-all duration-500 group-hover:opacity-80"
+                :style="{ width: occupancyPercent(b) + '%', background: `linear-gradient(to right, ${buildingColor(b)}, ${buildingColor(b)}dd)` }"
+              />
             </div>
           </div>
         </div>
@@ -141,7 +143,7 @@
     </div>
 
     <!-- Mobile cards -->
-    <div class="md:hidden space-y-3" v-if="view === 'table'">
+    <div v-if="view === 'table'" class="md:hidden space-y-3">
       <div v-for="b in pagedBuildings" :key="b.id" class="card p-4" @click="navigateTo(`/management/buildings/${b.id}`)">
         <div class="flex items-center gap-3 mb-2">
           <div class="w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden" :class="buildingBgClass(b)">

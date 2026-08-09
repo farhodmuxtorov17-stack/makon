@@ -20,19 +20,21 @@
 
     <!-- Desktop -->
     <div class="card hidden md:block">
-      <div class="table-wrapper"><table class="table">
-        <thead><tr><th>Foydalanuvchi</th><th>Login</th><th>Email</th><th>Rol</th><th>Holat</th><th>Yaratilgan</th></tr></thead>
-        <tbody>
-          <tr v-for="u in filtered" :key="u.id" class="cursor-pointer">
-            <td><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center"><span class="text-xs font-bold text-white">{{ u.initials }}</span></div><span class="font-medium">{{ u.name }}</span></div></td>
-            <td class="font-mono text-xs">{{ u.login }}</td>
-            <td class="text-neutral-500">{{ u.email }}</td>
-            <td><span :class="roleClass(u.role)">{{ roleLabel(u.role) }}</span></td>
-            <td><span :class="u.active ? 'badge-success' : 'badge-neutral'">{{ u.active ? 'Faol' : 'Nofaol' }}</span></td>
-            <td class="text-neutral-500 text-xs">{{ formatDate(u.createdAt) }}</td>
-          </tr>
-        </tbody>
-      </table></div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead><tr><th>Foydalanuvchi</th><th>Login</th><th>Email</th><th>Rol</th><th>Holat</th><th>Yaratilgan</th></tr></thead>
+          <tbody>
+            <tr v-for="u in filtered" :key="u.id" class="cursor-pointer">
+              <td><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center"><span class="text-xs font-bold text-white">{{ u.initials }}</span></div><span class="font-medium">{{ u.name }}</span></div></td>
+              <td class="font-mono text-xs">{{ u.login }}</td>
+              <td class="text-neutral-500">{{ u.email }}</td>
+              <td><span :class="roleClass(u.role)">{{ roleLabel(u.role) }}</span></td>
+              <td><span :class="u.active ? 'badge-success' : 'badge-neutral'">{{ u.active ? 'Faol' : 'Nofaol' }}</span></td>
+              <td class="text-neutral-500 text-xs">{{ formatDate(u.createdAt) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <EmptyState v-if="!filtered.length" title="Foydalanuvchilar topilmadi" icon="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1" />
     </div>
 

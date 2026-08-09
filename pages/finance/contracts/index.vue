@@ -25,21 +25,23 @@
 
     <!-- Desktop -->
     <div class="card hidden md:block">
-      <div class="table-wrapper"><table class="table">
-        <thead><tr><th>Raqam</th><th>Mijoz</th><th>Turi</th><th>Boshlanish</th><th>Tugash</th><th>Oylik</th><th>ERI</th><th>Holat</th></tr></thead>
-        <tbody>
-          <tr v-for="c in pagedContracts" :key="c.id" class="cursor-pointer">
-            <td class="font-mono text-xs font-medium">{{ c.number }}</td>
-            <td class="font-medium text-neutral-900">{{ c.tenantName }}</td>
-            <td><span :class="c.type === 'RENT' ? 'badge-info' : 'badge-success'">{{ c.type === 'RENT' ? 'Ijara' : 'Sotuv' }}</span></td>
-            <td class="text-neutral-500 text-xs">{{ formatDate(c.startDate) }}</td>
-            <td class="text-neutral-500 text-xs">{{ formatDate(c.endDate) }}</td>
-            <td class="font-mono">{{ formatNumber(c.monthlyAmount) }}</td>
-            <td><span v-if="c.eriSigned" class="badge-success">✓ Imzolangan</span><span v-else class="badge-neutral">—</span></td>
-            <td><StatusBadge :status="c.status" :dot="true" /></td>
-          </tr>
-        </tbody>
-      </table></div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead><tr><th>Raqam</th><th>Mijoz</th><th>Turi</th><th>Boshlanish</th><th>Tugash</th><th>Oylik</th><th>ERI</th><th>Holat</th></tr></thead>
+          <tbody>
+            <tr v-for="c in pagedContracts" :key="c.id" class="cursor-pointer">
+              <td class="font-mono text-xs font-medium">{{ c.number }}</td>
+              <td class="font-medium text-neutral-900">{{ c.tenantName }}</td>
+              <td><span :class="c.type === 'RENT' ? 'badge-info' : 'badge-success'">{{ c.type === 'RENT' ? 'Ijara' : 'Sotuv' }}</span></td>
+              <td class="text-neutral-500 text-xs">{{ formatDate(c.startDate) }}</td>
+              <td class="text-neutral-500 text-xs">{{ formatDate(c.endDate) }}</td>
+              <td class="font-mono">{{ formatNumber(c.monthlyAmount) }}</td>
+              <td><span v-if="c.eriSigned" class="badge-success">✓ Imzolangan</span><span v-else class="badge-neutral">—</span></td>
+              <td><StatusBadge :status="c.status" :dot="true" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <Pagination v-if="filtered.length > perPage" :page="page" :per-page="perPage" :total="filtered.length" @update:page="page = $event" />
       <EmptyState v-if="!filtered.length" title="Shartnomalar topilmadi" icon="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586" />
     </div>
