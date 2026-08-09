@@ -1,260 +1,237 @@
 <template>
-  <div class="min-h-screen flex">
-    <!-- Left: Brand showcase -->
-    <div class="hidden lg:flex lg:w-[48%] bg-ink-950 relative overflow-hidden flex-col justify-between p-12">
-      <!-- Gradient glows -->
-      <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-600/20 rounded-full blur-[120px] pointer-events-none" />
-      <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gold-500/10 rounded-full blur-[100px] pointer-events-none" />
-      <div class="absolute inset-0 bg-grid-dark opacity-30 pointer-events-none" />
-
+  <div class="min-h-screen flex bg-ink-50">
+    <!-- ═══ Left: Form ═══ -->
+    <div class="flex-1 flex flex-col lg:max-w-[640px] bg-white relative">
       <!-- Top nav -->
-      <div class="relative z-10 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-lg shadow-brand-600/30">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3-2 3 2 3-2 3 2z" />
-            </svg>
+      <div class="px-8 py-6 flex items-center justify-between">
+        <NuxtLink to="/" class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg shadow-brand-600/20">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
           </div>
           <div>
-            <p class="text-white font-bold text-xl font-display tracking-tight">MAKON</p>
-            <p class="text-[10px] text-ink-400 font-medium tracking-widest uppercase">Real Estate Platform</p>
+            <div class="font-display font-bold text-ink-900 text-lg leading-none">MAKON</div>
+            <div class="text-[10px] text-ink-400 font-medium tracking-wide uppercase mt-0.5">Real Estate</div>
           </div>
-        </div>
-        <div class="flex items-center gap-4 text-sm">
-          <button class="text-ink-400 hover:text-white transition-colors flex items-center gap-1.5">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Platforma haqida
-          </button>
-          <button class="text-ink-400 hover:text-white transition-colors flex items-center gap-1.5">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6z M9 4v16 M15 6v16" />
-            </svg>
-            O'zbekcha
-          </button>
-        </div>
+        </NuxtLink>
+        <NuxtLink to="/" class="text-sm text-ink-500 hover:text-ink-900 transition-colors font-medium flex items-center gap-1">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          Bosh sahifa
+        </NuxtLink>
       </div>
 
-      <!-- Center: 3D Building Showcase -->
-      <div class="relative z-10 flex flex-col items-center justify-center flex-1 py-12">
-        <Building3DHero />
-      </div>
-
-      <!-- Bottom: Features -->
-      <div class="relative z-10 grid grid-cols-2 gap-4">
-        <div class="glass-dark rounded-2xl p-5">
-          <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
+      <!-- Form -->
+      <div class="flex-1 flex items-center justify-center px-8 pb-8">
+        <div class="w-full max-w-[420px]">
+          <!-- Heading -->
+          <div class="mb-8 animate-fade-in-up">
+            <div class="badge badge-info mb-4 px-3 py-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+              Enterprise · v2.0
             </div>
-            <div>
-              <p class="text-white font-semibold text-sm">Xavfsiz ulanish</p>
-              <p class="text-ink-400 text-xs">SSL 256-bit shifrlash</p>
-            </div>
+            <h1 class="font-display text-3xl font-bold text-ink-900 mb-2">Xush kelibsiz</h1>
+            <p class="text-ink-500 text-sm">Boshqaruv paneliga kirish uchun tizimga kiring</p>
           </div>
-        </div>
-        <div class="glass-dark rounded-2xl p-5">
-          <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
-              <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+
+          <!-- Tab toggle -->
+          <div class="flex p-1 bg-ink-100 rounded-xl mb-6">
+            <button
+              class="flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ease-premium flex items-center justify-center gap-2"
+              :class="activeTab === 'eri' ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-500'"
+              @click="activeTab = 'eri'"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4" /><path d="M12 3l8 4v5c0 5-3.5 9-8 10-4.5-1-8-5-8-10V7l8-4z" /></svg>
+              ERI orqali
+            </button>
+            <button
+              class="flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ease-premium flex items-center justify-center gap-2"
+              :class="activeTab === 'password' ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-500'"
+              @click="activeTab = 'password'"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
+              Login — parol
+            </button>
+          </div>
+
+          <!-- ERI form -->
+          <div v-if="activeTab === 'eri'" class="space-y-4 animate-fade-in">
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+              <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="10" /></svg>
+              </div>
+              <div>
+                <div class="text-emerald-900 text-sm font-semibold">Eng xavfsiz usul</div>
+                <div class="text-emerald-700 text-xs">Elektron raqamli imzo yordamida tizimga kiring</div>
+              </div>
+            </div>
+
+            <div>
+              <label class="label">Tashkilot nomi</label>
+              <select v-model="form.organization" class="input appearance-none cursor-pointer">
+                <option>Urban Office MCHJ</option>
+                <option>Business Plaza Group</option>
+                <option>Makon Properties</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="label">STIR</label>
+                <input v-model="form.stir" class="input" placeholder="305 123 456" />
+              </div>
+              <div>
+                <label class="label">Telefon</label>
+                <input v-model="form.phone" class="input" placeholder="+998 90 123 45 67" />
+              </div>
             </div>
             <div>
-              <p class="text-white font-semibold text-sm">Ma'lumotlar himoyasi</p>
-              <p class="text-ink-400 text-xs">ISO/IEC 27001 standarti</p>
+              <label class="label">Foydalanuvchi</label>
+              <input v-model="form.user" class="input" placeholder="Azizbek Karimov" />
             </div>
+            <button class="btn btn-primary w-full btn-lg mt-2" @click="login">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4" /><path d="M12 3l8 4v5c0 5-3.5 9-8 10-4.5-1-8-5-8-10V7l8-4z" /></svg>
+              ERI orqali tasdiqlash
+            </button>
+          </div>
+
+          <!-- Password form -->
+          <div v-else class="space-y-4 animate-fade-in">
+            <div>
+              <label class="label">Email yoki login</label>
+              <input v-model="form.email" class="input" placeholder="admin@makon.uz" />
+            </div>
+            <div>
+              <label class="label">Parol</label>
+              <div class="relative">
+                <input v-model="form.password" class="input pr-10" :type="showPassword ? 'text' : 'password'" placeholder="••••••••" />
+                <button class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600" @click="showPassword = !showPassword">
+                  <svg v-if="!showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
+                  <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input v-model="form.remember" type="checkbox" class="w-4 h-4 rounded border-ink-300 text-brand-600 focus:ring-brand-400" />
+                <span class="text-sm text-ink-600">Eslab qolish</span>
+              </label>
+              <a class="text-sm text-brand-600 hover:text-brand-700 font-medium cursor-pointer">Parolni unutdingizmi?</a>
+            </div>
+            <button class="btn btn-primary w-full btn-lg mt-2" @click="login">
+              Tizimga kirish
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+
+          <!-- Divider -->
+          <div class="flex items-center gap-4 my-6">
+            <div class="flex-1 h-px bg-ink-100"></div>
+            <span class="text-xs text-ink-400 font-medium">yoki</span>
+            <div class="flex-1 h-px bg-ink-100"></div>
+          </div>
+
+          <!-- Telegram mini-app CTA -->
+          <button class="w-full flex items-center justify-center gap-2.5 py-3 rounded-xl border border-ink-200 hover:border-brand-300 hover:bg-brand-50/50 transition-all duration-200 group">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#229ED9"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.164.164-.302.302-.617.302l.213-3.053 5.56-5.022c.242-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" /></svg>
+            <span class="text-sm font-semibold text-ink-700 group-hover:text-ink-900">Telegram Mini-App orqali kirish</span>
+          </button>
+
+          <!-- Footer -->
+          <div class="mt-8 flex items-center justify-center gap-4 text-xs text-ink-400">
+            <span>© 2026 MAKON</span>
+            <span>·</span>
+            <a class="hover:text-ink-600 cursor-pointer">Maxfiylik</a>
+            <span>·</span>
+            <a class="hover:text-ink-600 cursor-pointer">Shartlar</a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Right: Auth form -->
-    <div class="flex-1 flex items-center justify-center p-6 md:p-12 bg-ink-50 relative overflow-hidden">
-      <!-- Subtle background glow -->
-      <div class="absolute top-0 right-0 w-96 h-96 bg-brand-100/40 rounded-full blur-[100px] pointer-events-none" />
+    <!-- ═══ Right: Showcase (iPhone + Tablet) ═══ -->
+    <div class="hidden lg:flex flex-1 mesh-gradient noise-overlay relative overflow-hidden items-center justify-center">
+      <!-- Background grid -->
+      <div class="absolute inset-0 bg-grid-dark opacity-40"></div>
 
-      <div class="w-full max-w-md relative z-10 animate-fade-in-up">
-        <!-- Mobile logo -->
-        <div class="lg:hidden flex items-center gap-3 mb-8 justify-center">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-lg shadow-brand-600/30">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3-2 3 2 3-2 3 2z" />
-            </svg>
+      <!-- Glow orbs -->
+      <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-1/4 left-1/4 w-64 h-64 bg-brand-800/15 rounded-full blur-[100px]"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 flex flex-col items-center gap-8 px-12">
+        <!-- Heading -->
+        <div class="text-center mb-2 animate-fade-in-down">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-white/60 text-xs font-medium">Telegram Mini-App · iOS · Android · Web</span>
           </div>
-          <div>
-            <p class="text-ink-900 font-bold text-2xl font-display tracking-tight">MAKON</p>
-            <p class="text-[10px] text-ink-400 font-medium tracking-widest uppercase">Real Estate Platform</p>
-          </div>
+          <h2 class="font-display text-3xl font-bold text-white mb-3">Bir tizim — barcha qurilmalarda</h2>
+          <p class="text-white/40 text-sm max-w-md">iPhone, planshet va kompyuterda — MAKON boshqaruvi doim qoʻlingizda</p>
         </div>
 
-        <!-- Header -->
-        <div class="mb-8">
-          <h1 class="text-3xl font-bold text-ink-900 font-display tracking-tight">Xush kelibsiz</h1>
-          <p class="text-ink-400 mt-2">Boshqaruv paneliga kirish uchun tizimga kiring</p>
-        </div>
-
-        <!-- Tab switcher -->
-        <div class="flex gap-1 p-1 bg-ink-100 rounded-xl mb-6">
-          <button
-            :class="[
-              'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200',
-              mode === 'eri' ? 'bg-white text-brand-700 shadow-sm' : 'text-ink-400 hover:text-ink-600'
-            ]"
-            @click="mode = 'eri'"
-          >
-            ERI orqali kirish
-          </button>
-          <button
-            :class="[
-              'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200',
-              mode === 'password' ? 'bg-white text-brand-700 shadow-sm' : 'text-ink-400 hover:text-ink-600'
-            ]"
-            @click="mode = 'password'"
-          >
-            Login — parol
-          </button>
-        </div>
-
-        <!-- ERI Info banner -->
-        <transition name="slide" mode="default">
-          <div v-if="mode === 'eri'" class="mb-5 p-4 rounded-xl bg-emerald-50 border border-emerald-100 flex items-start gap-3">
-            <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg class="w-4.5 h-4.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:18px;height:18px;">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm font-semibold text-emerald-900">Eng xavfsiz usul</p>
-              <p class="text-xs text-emerald-700 mt-0.5">Elektron raqamli imzo yordamida tizimga kiring</p>
-            </div>
+        <!-- Devices -->
+        <div class="relative flex items-end justify-center gap-4 scale-[0.85]">
+          <!-- Tablet (behind, left) -->
+          <div class="mb-16 opacity-80" style="transform: perspective(800px) rotateY(12deg) rotateX(-5deg);">
+            <TabletMockup width="320px" height="220px" />
           </div>
-        </transition>
 
-        <!-- Form -->
-        <form class="space-y-4" @submit.prevent="handleSubmit">
-          <template v-if="mode === 'eri'">
-            <div>
-              <label class="label">Tashkilot nomi <span class="text-rose-500">*</span></label>
-              <select class="input cursor-pointer">
-                <option>Urban Office MCHJ</option>
-                <option>Makon Development MCHJ</option>
-                <option>Tashkent Real Estate MCHJ</option>
-              </select>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <label class="label">STIR <span class="text-rose-500">*</span></label>
-                <input class="input" placeholder="305 123 456" />
-              </div>
-              <div>
-                <label class="label">Telefon raqam <span class="text-rose-500">*</span></label>
-                <input class="input" placeholder="+998 90 123 45 67" />
-              </div>
-            </div>
-            <div>
-              <label class="label">Foydalanuvchi <span class="text-rose-500">*</span></label>
-              <input class="input" placeholder="Azizbek Karimov" />
-            </div>
-          </template>
-          <template v-else>
-            <div>
-              <label class="label">Login <span class="text-rose-500">*</span></label>
-              <input v-model="loginInput" class="input" placeholder="admin" />
-            </div>
-            <div>
-              <label class="label">Parol <span class="text-rose-500">*</span></label>
-              <div class="relative">
-                <input v-model="passwordInput" :type="showPassword ? 'text' : 'password'" class="input pr-11" placeholder="••••••••" />
-                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600" @click="showPassword = !showPassword">
-                  <svg v-if="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-.03m3.29.03l3.29.03M3 3l18 18" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </template>
-
-          <div v-if="error" class="text-sm text-rose-600 bg-rose-50 rounded-lg px-4 py-2.5">{{ error }}</div>
-
-          <!-- Submit -->
-          <button type="submit" class="w-full btn-primary-glow btn-lg" :disabled="loading">
-            <svg v-if="loading" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-            <span v-else>{{ mode === 'eri' ? 'ERI orqali tasdiqlash' : 'Tizimga kirish' }}</span>
-          </button>
-
-          <p v-if="mode === 'eri'" class="text-xs text-center text-ink-400">
-            ERI qurilmangiz ulanganligiga ishonch hosil qing
-          </p>
-        </form>
-
-        <!-- Demo notice -->
-        <div class="mt-6 p-4 rounded-xl bg-ink-100/60 border border-ink-200/60 flex items-start gap-3">
-          <svg class="w-5 h-5 text-ink-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <div>
-            <p class="text-xs font-semibold text-ink-600">Demo kirish</p>
-            <p class="text-xs text-ink-400 mt-0.5">Login: <code class="font-mono bg-white rounded px-1.5 py-0.5 text-brand-600">admin</code> · Parol: <code class="font-mono bg-white rounded px-1.5 py-0.5 text-brand-600">admin123</code></p>
+          <!-- iPhone (front, right) -->
+          <div class="relative z-10" style="transform: perspective(800px) rotateY(-8deg) rotateX(3deg);">
+            <PhoneMockup />
           </div>
         </div>
 
-        <!-- Footer -->
-        <p class="mt-6 text-center text-xs text-ink-400">
-          Yordam kerakmi? <a href="#" class="text-brand-600 font-semibold hover:text-brand-700 transition-colors">Yordam va qo'llanma</a>
-        </p>
+        <!-- Platform badges -->
+        <div class="flex items-center gap-6 mt-4">
+          <div class="flex items-center gap-2 text-white/40 text-xs">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C1.3 16.42-.21 11.45 1.71 8.03c.93-1.66 2.62-2.72 4.45-2.75 1.3-.03 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.42-1.37 2.74zM12 3.74c.7-.84 1.85-1.47 2.84-1.51.12 1.17-.35 2.34-.99 3.16-.66.85-1.77 1.51-2.85 1.42-.14-1.16.49-2.35 1.2-3.07z" /></svg>
+            iOS
+          </div>
+          <div class="w-px h-4 bg-white/10"></div>
+          <div class="flex items-center gap-2 text-white/40 text-xs">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341c-.487.169-.79.226-.79.226s-.302-.057-.789-.226c-1.225-.403-2.454-1.169-3.45-2.215-.169-.169-.339-.339-.487-.508v3.45c0 .113-.057.226-.169.339-.226.226-.508.339-.79.339s-.564-.113-.79-.339c-.112-.113-.169-.226-.169-.339v-3.45c-.148.169-.318.339-.487.508-.996 1.046-2.225 1.812-3.45 2.215-.487.169-.79.226-.79.226s-.302-.057-.789-.226c-1.225-.403-2.454-1.169-3.45-2.215.14.14.28.28.42.42.169.169.339.339.487.508v5.78c0 .113.057.226.169.339.226.226.508.339.79.339s.564-.113.79-.339c.112-.113.169-.226.169-.339v-2.74c1.4.403 2.8.403 4.2 0v2.74c0 .113.057.226.169.339" /></svg>
+            Android
+          </div>
+          <div class="w-px h-4 bg-white/10"></div>
+          <div class="flex items-center gap-2 text-white/40 text-xs">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>
+            Web
+          </div>
+          <div class="w-px h-4 bg-white/10"></div>
+          <div class="flex items-center gap-2 text-white/40 text-xs">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#229ED9"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.164.164-.302.302-.617.302l.213-3.053 5.56-5.022c.242-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" /></svg>
+            Telegram
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAuthStore } from '~/stores/auth'
-import Building3DHero from '~/components/Building3DHero.vue'
-
 definePageMeta({ middleware: 'guest', layout: 'auth' })
-const authStore = useAuthStore()
-const router = useRouter()
 
-const mode = ref<'eri' | 'password'>('eri')
-const loginInput = ref('')
-const passwordInput = ref('')
+const activeTab = ref<'eri' | 'password'>('eri')
 const showPassword = ref(false)
-const loading = ref(false)
-const error = ref('')
+const router = useRouter()
+const authStore = useAuthStore()
 
-function handleSubmit() {
-  error.value = ''
-  loading.value = true
+const form = reactive({
+  organization: 'Urban Office MCHJ',
+  stir: '305 123 456',
+  phone: '+998 90 123 45 67',
+  user: 'Azizbek Karimov',
+  email: '',
+  password: '',
+  remember: true,
+})
 
-  setTimeout(() => {
-    if (mode.value === 'password') {
-      if (!authStore.login(loginInput.value, passwordInput.value)) {
-        error.value = 'Login yoki parol noto\'g\'ri. Demo: admin / admin123'
-        loading.value = false
-        return
-      }
-    } else {
-      // ERI mode — auto-success for demo
-      authStore.loginErI('30512345678901')
-    }
-    loading.value = false
-    router.push('/dashboard/executive')
-  }, 800)
+function login() {
+  authStore.login({
+    name: form.user || 'Admin User',
+    email: form.email || 'admin@makon.uz',
+    role: 'executive',
+    organization: form.organization,
+  })
+  router.push('/dashboard/executive')
 }
 </script>
-
-<style scoped>
-.slide-enter-active, .slide-leave-active { transition: all 0.25s ease; }
-.slide-enter-from, .slide-leave-to { opacity: 0; transform: translateY(-8px); }
-</style>

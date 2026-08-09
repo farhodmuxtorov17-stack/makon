@@ -10,7 +10,9 @@
     "parser": "@typescript-eslint/parser",
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "extraFileExtensions": [".vue"]
+    "extraFileExtensions": [
+      ".vue"
+    ]
   },
   "extends": [
     "eslint:recommended",
@@ -37,7 +39,13 @@
     "defineModel": "readonly",
     "withDefaults": "readonly",
     "clearError": "readonly",
-    "useState": "readonly"
+    "useState": "readonly",
+    "h": "readonly",
+    "useAuthStore": "readonly",
+    "useBuildingStore": "readonly",
+    "useFinanceStore": "readonly",
+    "useServiceStore": "readonly",
+    "useUIStore": "readonly"
   },
   "rules": {
     "vue/multi-word-component-names": "off",
@@ -47,8 +55,21 @@
     "vue/require-default-prop": "off",
     "no-dupe-keys": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
     "no-useless-escape": "off"
   }
 }

@@ -12,19 +12,19 @@ export default defineNuxtConfig({
   app: {
     baseURL: process.env.NODE_ENV === 'production' ? '/makon/' : '/',
     head: {
-      title: 'MAKON — Kochmulk Boshqaruvi Tizimi',
+      title: 'MAKON — Koʻchmulk Boshqaruvi Tizimi',
       htmlAttrs: { lang: 'uz' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'MAKON — zamonaviy kochmulk boshqaruvi platformasi' },
+        { name: 'description', content: 'MAKON — zamonaviy koʻchmulk boshqaruvi platformasi' },
+        { name: 'theme-color', content: '#0a0b0f' },
       ],
       link: [
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'preconnect', href: 'https://api.fontshare.com' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap',
+          href: 'https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700,900&display=swap',
         },
       ],
     },
