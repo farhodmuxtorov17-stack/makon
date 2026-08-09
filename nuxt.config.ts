@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     typeCheck: false,
   },
   app: {
+    baseURL: process.env.NODE_ENV === 'production' ? '/makon/' : '/',
     head: {
       title: 'MAKON — Kochmulk Boshqaruvi Tizimi',
       htmlAttrs: { lang: 'uz' },
@@ -38,7 +39,7 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
-    preset: 'node-server',
+    preset: process.env.NODE_ENV === 'production' ? 'static' : 'node-server',
   },
   ssr: true,
 })
