@@ -16,8 +16,30 @@ const mockUser: User = {
   createdAt: '2024-01-01T00:00:00',
 }
 
+const STORAGE_KEY = 'makon-auth-user'
+
+function loadUser(): User | null {
+  if (typeof window === 'undefined') return null
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    return JSON.parse(raw) as User
+  } catch {
+    return null
+  }
+}
+
+function saveUser(u: User | null) {
+  if (typeof window === 'undefined') return
+  if (u) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(u))
+  } else {
+    localStorage.removeItem(STORAGE_KEY)
+  }
+}
+
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>(null)
+  const user = ref<User | null>(loadUser())
 
   const role = computed(() => user.value?.role || null)
   const isAuthenticated = computed(() => !!user.value)
@@ -45,6 +67,7 @@ export const useAuthStore = defineStore('auth', () => {
   function login(loginVal: string, password: string) {
     if (loginVal === 'admin' && password === 'admin123') {
       user.value = mockUser
+      saveUser(mockUser)
       return true
     }
     return false
@@ -53,6 +76,7 @@ export const useAuthStore = defineStore('auth', () => {
   function loginErI(pin: string) {
     if (pin.length === 14) {
       user.value = mockUser
+      saveUser(mockUser)
       return true
     }
     return false
@@ -60,6 +84,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   function logout() {
     user.value = null
+    saveUser(null)
   }
 
   return { user, role, isAuthenticated, initials, roleLabel, login, loginErI, logout }
