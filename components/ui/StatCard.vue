@@ -57,7 +57,7 @@ const props = withDefaults(
     label: string
     value: number | string
     type?: 'number' | 'currency' | 'percent'
-    color?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral'
+    color?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral' | 'accent'
     icon?: string
     trend?: number | null
   }>(),
@@ -88,10 +88,11 @@ const colors: Record<string, { bg: string; text: string }> = {
   danger: { bg: 'bg-danger-50', text: 'text-danger-600' },
   info: { bg: 'bg-info-50', text: 'text-info-600' },
   neutral: { bg: 'bg-neutral-100', text: 'text-neutral-600' },
+  accent: { bg: 'bg-accent-50', text: 'text-accent-600' },
 }
 
-const colorClass = computed(() => colors[props.color].bg)
-const iconColorClass = computed(() => colors[props.color].text)
+const colorClass = computed(() => colors[props.color]?.bg || 'bg-neutral-100')
+const iconColorClass = computed(() => colors[props.color]?.text || 'text-neutral-600')
 
 function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('uz-UZ').format(Math.round(amount)) + " so'm"
