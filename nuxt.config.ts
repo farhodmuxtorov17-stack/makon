@@ -38,8 +38,5 @@ export default defineNuxtConfig({
       include: ['@vueuse/core'],
     },
   },
-  nitro: {
-    preset: process.env.NODE_ENV === 'production' ? 'static' : 'node-server',
-  },
-  ssr: true,
+  ssr: false,
 })
