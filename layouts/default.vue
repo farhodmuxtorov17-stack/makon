@@ -114,7 +114,7 @@
     <div class="flex-1 flex flex-col min-w-0">
       <!-- Topbar -->
       <header
-        class="h-16 bg-white border-b border-neutral-200 flex items-center justify-between px-6 sticky top-0 z-30"
+        class="h-16 bg-white border-b border-neutral-200 flex items-center justify-between px-3 md:px-6 sticky top-0 z-30"
       >
         <div class="flex items-center gap-3">
           <button class="btn-ghost btn-icon lg:hidden" @click="uiStore.toggleSidebar()">
@@ -177,7 +177,7 @@
       </header>
 
       <!-- Content -->
-      <main class="flex-1 p-6 animate-fade-in">
+      <main class="flex-1 p-3 md:p-6 animate-fade-in">
         <slot />
       </main>
     </div>
