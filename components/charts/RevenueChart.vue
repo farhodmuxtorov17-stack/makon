@@ -1,8 +1,5 @@
 <template>
   <div class="p-6">
-    <div class="text-xs text-neutral-400 font-mono mb-4">
-      {{ `data: ${JSON.stringify(props.data).slice(0, 50)}` }}
-    </div>
     <svg :viewBox="`0 0 ${width} ${height}`" class="w-full">
       <defs>
         <linearGradient :id="`${gradId}`" x1="0" y1="0" x2="0" y2="1">
@@ -64,7 +61,7 @@
         fill="#6366f1"
         class="transition-all hover:r-5"
       />
-      <!-- Values on hover -->
+      <!-- Values -->
       <text
         v-for="(d, i) in data"
         :key="'val-' + i"
