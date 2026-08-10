@@ -1,7 +1,6 @@
-// middleware/guest.ts
 export default defineNuxtRouteMiddleware(() => {
   const authStore = useAuthStore()
   if (authStore.isAuthenticated) {
-    return navigateTo('/dashboard/executive')
+    return navigateTo('/dashboard')
   }
 })

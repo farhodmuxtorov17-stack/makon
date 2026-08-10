@@ -1,109 +1,117 @@
-// stores/auth.ts
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 import type { User, UserRole } from '~/types'
 
-const mockUser: User = {
-  id: 'u1',
-  login: 'admin',
-  fullName: 'Farhod Muxtorov',
-  email: 'farhod@makon.uz',
-  phone: '+998 90 123 45 67',
-  role: 'SUPER_HEAD',
-  organizationId: 'org-1',
-  buildingScopes: ['b1', 'b2', 'b3'],
-  isActive: true,
-  createdAt: '2024-01-01T00:00:00',
-}
-
-const mockTenant: User = {
-  id: 't1',
-  login: 'tenant',
-  fullName: 'Aziz Karimov',
-  email: 'tenant@makon.uz',
-  phone: '+998 90 123 45 67',
-  role: 'TENANT_OWNER',
-  organizationId: 'org-2',
-  buildingScopes: [],
-  isActive: true,
-  createdAt: '2026-01-01T00:00:00',
-}
-
-const STORAGE_KEY = 'makon-auth-user'
-
-function loadUser(): User | null {
-  if (typeof window === 'undefined') return null
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return null
-    return JSON.parse(raw) as User
-  } catch {
-    return null
-  }
-}
-
-function saveUser(u: User | null) {
-  if (typeof window === 'undefined') return
-  if (u) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(u))
-  } else {
-    localStorage.removeItem(STORAGE_KEY)
-  }
-}
-
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>(loadUser())
+  const user = ref<User | null>(null)
+  const isAuthenticated = ref(false)
 
-  const role = computed(() => user.value?.role || null)
-  const isAuthenticated = computed(() => !!user.value)
-  const initials = computed(() => {
-    const name = user.value?.fullName || ''
-    return name
-      .split(' ')
-      .map((w) => w[0])
-      .join('')
-      .slice(0, 2)
-      .toUpperCase()
-  })
-
-  const roleLabel = computed(() => {
-    const labels: Record<UserRole, string> = {
-      SUPER_HEAD: 'Super rahbar',
-      BUILDING_MANAGER: 'Bino rahbari',
-      ACCOUNTANT: 'Buxgalter',
-      FACILITY: 'Pudratchi',
-      TENANT_OWNER: 'Ijarachi',
-    }
-    return labels[user.value?.role as UserRole] || ''
-  })
-
-  function login(loginVal: string, password: string) {
-    if (loginVal === 'admin' && password === 'admin123') {
-      user.value = mockUser
-      saveUser(mockUser)
-      return true
-    }
-    if (loginVal === 'tenant' && password === 'tenant123') {
-      user.value = mockTenant
-      saveUser(mockTenant)
-      return true
-    }
-    return false
+  // Mock users for all 5 roles
+  const mockUsers: Record<string, User> = {
+    admin: {
+      id: 'u1',
+      login: 'admin',
+      fullName: 'Dilshod Rahimov',
+      email: 'd.rahimov@makon.uz',
+      phone: '+998 71 200 30 40',
+      role: 'SUPER_HEAD',
+      organizationId: 'org1',
+      buildingScopes: [],
+      isActive: true,
+      lastLoginAt: new Date().toISOString(),
+      createdAt: '2025-01-01T00:00:00Z',
+    },
+    manager: {
+      id: 'u2',
+      login: 'manager',
+      fullName: 'Sardor Karimov',
+      email: 's.karimov@makon.uz',
+      phone: '+998 90 123 45 67',
+      role: 'BUILDING_MANAGER',
+      organizationId: 'org1',
+      buildingScopes: ['b1', 'b2'],
+      isActive: true,
+      lastLoginAt: new Date().toISOString(),
+      createdAt: '2025-01-15T00:00:00Z',
+    },
+    accountant: {
+      id: 'u3',
+      login: 'accountant',
+      fullName: 'Nodira Yusupova',
+      email: 'n.yusupova@makon.uz',
+      phone: '+998 90 234 56 78',
+      role: 'ACCOUNTANT',
+      organizationId: 'org1',
+      buildingScopes: [],
+      isActive: true,
+      lastLoginAt: new Date().toISOString(),
+      createdAt: '2025-02-01T00:00:00Z',
+    },
+    facility: {
+      id: 'u4',
+      login: 'facility',
+      fullName: 'Bekzod Aliyev',
+      email: 'b.aliyev@makon.uz',
+      phone: '+998 90 345 67 89',
+      role: 'FACILITY',
+      organizationId: 'org1',
+      buildingScopes: ['b1'],
+      isActive: true,
+      lastLoginAt: new Date().toISOString(),
+      createdAt: '2025-02-15T00:00:00Z',
+    },
+    tenant: {
+      id: 'u5',
+      login: 'tenant',
+      fullName: 'Aziz Toshmatov',
+      email: 'a.toshmatov@toshkent-invest.uz',
+      phone: '+998 90 456 78 90',
+      role: 'TENANT_OWNER',
+      organizationId: 'org2',
+      buildingScopes: [],
+      isActive: true,
+      lastLoginAt: new Date().toISOString(),
+      createdAt: '2025-03-01T00:00:00Z',
+    },
   }
 
-  function loginErI(pin: string) {
-    if (pin.length === 14) {
-      user.value = mockUser
-      saveUser(mockUser)
-      return true
+  function login(login: string, _password: string) {
+    const u = mockUsers[login] || mockUsers['admin']
+    user.value = u
+    isAuthenticated.value = true
+    if (import.meta.client) {
+      localStorage.setItem('makon_user', JSON.stringify(u))
     }
-    return false
   }
 
   function logout() {
     user.value = null
-    saveUser(null)
+    isAuthenticated.value = false
+    if (import.meta.client) {
+      localStorage.removeItem('makon_user')
+    }
   }
 
-  return { user, role, isAuthenticated, initials, roleLabel, login, loginErI, logout }
+  function restore() {
+    if (import.meta.client) {
+      const saved = localStorage.getItem('makon_user')
+      if (saved) {
+        try {
+          user.value = JSON.parse(saved)
+          isAuthenticated.value = true
+        } catch {}
+      }
+    }
+  }
+
+  function switchRole(role: UserRole) {
+    const entries = Object.entries(mockUsers)
+    for (const [login, u] of entries) {
+      if (u.role === role) {
+        login(login, '')
+        break
+      }
+    }
+  }
+
+  return { user, isAuthenticated, login, logout, restore, switchRole }
 })

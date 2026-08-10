@@ -1,44 +1,149 @@
-// types/index.ts
+// types/index.ts — MAKON Functional Technical Specification v2
 
+// === ROLES ===
 export type UserRole =
-  'SUPER_HEAD' | 'BUILDING_MANAGER' | 'ACCOUNTANT' | 'FACILITY' | 'TENANT_OWNER'
+  | 'SUPER_HEAD'
+  | 'BUILDING_MANAGER'
+  | 'ACCOUNTANT'
+  | 'FACILITY'
+  | 'TENANT_OWNER'
 
+// === BUILDING / PROPERTY ===
 export type BuildingType =
-  'BUSINESS_CENTER' | 'OFFICE' | 'SHOPPING' | 'WAREHOUSE' | 'RESIDENTIAL' | 'MIXED'
-export type UnitStatus = 'DRAFT' | 'VACANT' | 'RENTED' | 'SOLD' | 'MAINTENANCE' | 'RESERVED'
+  | 'BUSINESS_CENTER'
+  | 'OFFICE'
+  | 'SHOPPING'
+  | 'WAREHOUSE'
+  | 'RESIDENTIAL'
+  | 'MIXED'
+
+export type UsageType =
+  | 'OFFICE'
+  | 'RETAIL'
+  | 'WAREHOUSE'
+  | 'RESIDENTIAL'
+  | 'PARKING'
+  | 'MIXED'
+
 export type OfferType = 'RENT' | 'SALE' | 'BOTH'
-export type UsageType = 'OFFICE' | 'RETAIL' | 'WAREHOUSE' | 'RESIDENTIAL' | 'PARKING' | 'MIXED'
-export type ListingStatus = 'DRAFT' | 'PUBLISHED' | 'PAUSED' | 'ARCHIVED'
+
+// === UNIT STATUS (Spec Table 5) ===
+export type UnitStatus =
+  | 'DRAFT'
+  | 'VACANT'
+  | 'APPLICATION_IN_REVIEW'
+  | 'RESERVED'
+  | 'RENTED'
+  | 'SOLD'
+  | 'MAINTENANCE'
+  | 'HIDDEN'
+  | 'ARCHIVED'
+
+// === LISTING STATUS (Spec Table 5) ===
+export type ListingStatus =
+  | 'DRAFT'
+  | 'PUBLISHED'
+  | 'PAUSED'
+  | 'ARCHIVED'
+
+// === APPLICATION STATUS (Spec Table 5) ===
 export type ApplicationStatus =
   | 'DRAFT'
   | 'SUBMITTED'
+  | 'BUILDING_REVIEW'
   | 'FINANCE_REVIEW'
   | 'OFFER_SENT'
-  | 'CONTRACT_SIGNING'
-  | 'ERI_SIGNING'
+  | 'OFFER_ACCEPTED'
+  | 'DOCUMENTS'
+  | 'ERI_PENDING'
   | 'APPROVED'
   | 'REJECTED'
   | 'CANCELLED'
+  | 'COMPLETED'
+
 export type ApplicationType = 'RENT' | 'SALE'
+
+// === CONTRACT STATUS (Spec Table 5) ===
 export type ContractStatus =
-  'DRAFT' | 'PENDING_SIGN' | 'SIGNED' | 'ACTIVE' | 'EXPIRED' | 'TERMINATED'
-export type InvoiceStatus = 'PENDING' | 'PARTIAL' | 'PAID' | 'OVERDUE' | 'CANCELLED'
+  | 'DRAFT'
+  | 'REVIEW'
+  | 'ERI_PENDING'
+  | 'SIGNED'
+  | 'ACTIVE'
+  | 'EXPIRED'
+  | 'TERMINATED'
+  | 'COMPLETED'
+
+// === INVOICE STATUS (Spec Table 5) ===
+export type InvoiceStatus =
+  | 'DRAFT'
+  | 'ISSUED'
+  | 'PARTIALLY_PAID'
+  | 'PAID'
+  | 'OVERDUE'
+  | 'CANCELLED'
+
+// === SERVICE REQUEST STATUS (Spec Table 5) ===
+export type ServiceRequestStatus =
+  | 'NEW'
+  | 'TRIAGE'
+  | 'ASSIGNED'
+  | 'INSPECTION'
+  | 'MATERIAL_PENDING'
+  | 'IN_PROGRESS'
+  | 'COMPLETED'
+  | 'TENANT_CONFIRMATION'
+  | 'CLOSED'
+  | 'RETURNED'
+  | 'REJECTED'
+
+export type ServiceRequestPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT'
+
+// === MATERIAL REQUEST STATUS (Spec Table 5) ===
+export type MaterialRequestStatus =
+  | 'DRAFT'
+  | 'SUBMITTED'
+  | 'APPROVED'
+  | 'REJECTED'
+  | 'ISSUED'
+  | 'CANCELLED'
+
+// === ERI STATUS (Spec Table 5) ===
+export type EriStatus =
+  | 'CREATED'
+  | 'SENT'
+  | 'PENDING'
+  | 'SIGNED'
+  | 'REJECTED'
+  | 'ERROR'
+
+// === WORK ORDER STATUS ===
+export type WorkOrderStatus =
+  | 'CREATED'
+  | 'ASSIGNED'
+  | 'IN_PROGRESS'
+  | 'INSPECTION'
+  | 'COMPLETED'
+  | 'CANCELLED'
+
+// === MISC ===
 export type PaymentStatus = 'PENDING' | 'COMPLETED' | 'FAILED' | 'REFUNDED'
 export type BillingPeriodStatus = 'OPEN' | 'CLOSED'
-export type WorkOrderStatus =
-  'CREATED' | 'ASSIGNED' | 'IN_PROGRESS' | 'INSPECTION' | 'COMPLETED' | 'CANCELLED'
-export type ServiceRequestStatus =
-  'CREATED' | 'APPROVED' | 'ASSIGNED' | 'IN_PROGRESS' | 'DONE' | 'CLOSED'
-export type ServiceRequestPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT'
-export type MaterialApprovalStatus = 'PENDING' | 'APPROVED' | 'REJECTED'
-export type WarehouseTxType = 'IN' | 'OUT' | 'ADJUSTMENT'
 export type MeterType = 'ELECTRICITY' | 'WATER' | 'GAS' | 'HEAT'
 export type MeterReadingStatus = 'SUBMITTED' | 'VERIFIED' | 'REJECTED'
+export type WarehouseTxType = 'IN' | 'OUT' | 'ADJUSTMENT'
 export type NotificationType =
-  'APPLICATION' | 'ERI' | 'CONTRACT' | 'INVOICE' | 'SERVICE' | 'MATERIAL' | 'SYSTEM'
+  | 'APPLICATION'
+  | 'ERI'
+  | 'CONTRACT'
+  | 'INVOICE'
+  | 'SERVICE'
+  | 'MATERIAL'
+  | 'SYSTEM'
 export type ExportFormat = 'PDF' | 'XLSX' | 'CSV'
 export type BackupStatus = 'READY' | 'VERIFIED' | 'FAILED'
 
+// === INTERFACES ===
 export interface User {
   id: string
   login: string
@@ -49,6 +154,18 @@ export interface User {
   organizationId: string
   buildingScopes: string[]
   isActive: boolean
+  lastLoginAt: string | null
+  createdAt: string
+}
+
+export interface Organization {
+  id: string
+  name: string
+  tin: string  // STIR
+  legalAddress: string
+  phone: string
+  email: string
+  eriCertificateId: string | null
   createdAt: string
 }
 
@@ -62,8 +179,12 @@ export interface Building {
   city: string
   totalArea: number
   floorsCount: number
+  totalUnits: number
+  vacantUnits: number
+  occupiedUnits: number
   publicDescription: string
   gallery: string[]
+  model3dUrl: string | null
   isPublished: boolean
   isArchived: boolean
   managedBy: string[]
@@ -76,32 +197,39 @@ export interface Floor {
   buildingId: string
   number: number
   area: number
+  planVersion: string | null
   planFileUrl: string | null
+  planSvgUrl: string | null
   createdAt: string
+}
+
+export interface Room {
+  id: string
+  floorId: string
+  number: string
+  area: number
+  type: string
+  unitId: string | null
+  polygon: number[][] | null  // normalized 0..1
 }
 
 export interface Unit {
   id: string
   buildingId: string
   floorId: string
-  number: string
   roomIds: string[]
+  number: string
   area: number
   usageType: UsageType
   offerType: OfferType
   basePrice: number
+  monthlyRent: number
   currency: string
   status: UnitStatus
+  amenities: string[]
+  photos: string[]
   createdAt: string
   updatedAt: string
-}
-
-export interface Room {
-  id: string
-  unitId: string
-  number: string
-  area: number
-  type: string
 }
 
 export interface Listing {
@@ -127,6 +255,8 @@ export interface Application {
   id: string
   number: string
   listingId: string
+  unitId: string
+  organizationId: string
   applicantName: string
   applicantPinfl: string
   applicantPhone: string
@@ -134,9 +264,12 @@ export interface Application {
   type: ApplicationType
   offeredPrice: number
   currency: string
+  desiredStartDate: string
+  durationMonths: number | null
   notes: string
   status: ApplicationStatus
-  submittedAt: string
+  rejectionReason: string | null
+  submittedAt: string | null
   createdAt: string
   updatedAt: string
 }
@@ -147,17 +280,34 @@ export interface Contract {
   applicationId: string
   type: ApplicationType
   unitId: string
+  organizationId: string
   tenantName: string
-  tenantPinfl: string
+  tenantTin: string
   startDate: string
-  endDate: string
+  endDate: string | null
   monthlyRent: number
   currency: string
   deposit: number
   status: ContractStatus
-  signedByErI: boolean
+  documentHash: string | null
   eriDocumentId: string | null
   pdfUrl: string | null
+  version: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface EriSignature {
+  id: string
+  contractId: string
+  documentId: string
+  signerRole: string
+  signerName: string
+  status: EriStatus
+  certificateInfo: string | null
+  signedAt: string | null
+  error: string | null
+  retryCount: number
   createdAt: string
 }
 
@@ -165,14 +315,23 @@ export interface Invoice {
   id: string
   number: string
   contractId: string
+  organizationId: string
   period: string
   amount: number
   paidAmount: number
+  balance: number
   currency: string
   dueDate: string
   status: InvoiceStatus
+  lines: InvoiceLine[]
   pdfUrl: string | null
   createdAt: string
+}
+
+export interface InvoiceLine {
+  id: string
+  description: string
+  amount: number
 }
 
 export interface Payment {
@@ -181,9 +340,10 @@ export interface Payment {
   amount: number
   currency: string
   method: string
+  documentUrl: string | null
   status: PaymentStatus
-  transactionId: string
   paidAt: string
+  createdBy: string
 }
 
 export interface BillingPeriod {
@@ -198,6 +358,17 @@ export interface BillingPeriod {
   closedAt: string | null
 }
 
+export interface Debt {
+  id: string
+  invoiceId: string
+  organizationName: string
+  unitNumber: string
+  buildingName: string
+  amount: number
+  daysOverdue: number
+  bucket: '0-30' | '31-60' | '61-90' | '90+'
+}
+
 export interface ServiceRequest {
   id: string
   number: string
@@ -210,6 +381,9 @@ export interface ServiceRequest {
   createdBy: string
   assignedTo: string | null
   workOrderId: string | null
+  slaDueAt: string
+  photos: string[]
+  rating: number | null
   createdAt: string
   updatedAt: string
 }
@@ -228,20 +402,23 @@ export interface WorkOrder {
   scheduledDate: string
   completedAt: string | null
   inspectionNotes: string
-  photos: string[]
+  beforePhotos: string[]
+  afterPhotos: string[]
   createdAt: string
   updatedAt: string
 }
 
 export interface MaterialRequest {
   id: string
+  number: string
   workOrderId: string
   items: MaterialRequestItem[]
-  status: MaterialApprovalStatus
+  status: MaterialRequestStatus
   requestedBy: string
   approvedBy: string | null
   approvedAt: string | null
   rejectedReason: string | null
+  totalValue: number
   createdAt: string
 }
 
@@ -263,18 +440,20 @@ export interface WarehouseItem {
   stock: number
   minStock: number
   unitPrice: number
-  supplierId: string
+  buildingId: string
+  supplierId: string | null
   createdAt: string
 }
 
-export interface WarehouseTransaction {
+export interface StockIssue {
   id: string
-  itemId: string
-  type: WarehouseTxType
+  number: string
+  materialRequestId: string
+  warehouseItemId: string
   quantity: number
-  unitPrice: number
-  reason: string
-  createdBy: string
+  issuedTo: string
+  issuedBy: string
+  actUrl: string | null
   createdAt: string
 }
 
@@ -294,9 +473,12 @@ export interface Meter {
   type: MeterType
   serialNumber: string
   buildingId: string
+  floorId: string | null
   unitId: string | null
+  location: string
   isActive: boolean
   installedAt: string
+  nextVerificationAt: string | null
 }
 
 export interface MeterReading {
@@ -304,10 +486,12 @@ export interface MeterReading {
   meterId: string
   readingAt: string
   value: number
+  previousValue: number
+  consumption: number
   status: MeterReadingStatus
   photoUrl: string | null
-  submittedBy: string
   note: string
+  submittedBy: string
   createdAt: string
 }
 
@@ -318,6 +502,19 @@ export interface AppNotification {
   body: string
   isRead: boolean
   linkUrl: string | null
+  createdAt: string
+}
+
+export interface AuditLog {
+  id: string
+  action: string
+  entity: string
+  entityId: string
+  userId: string
+  userName: string
+  details: string
+  traceId: string
+  ip: string
   createdAt: string
 }
 
@@ -343,4 +540,24 @@ export interface ServiceHealth {
   status: 'healthy' | 'degraded' | 'down'
   responseTime: number
   uptime: number
+}
+
+// === API RESPONSE ===
+export interface ApiResponse<T> {
+  data: T
+  meta?: {
+    page?: number
+    pageSize?: number
+    total?: number
+    traceId?: string
+  }
+}
+
+export interface ApiError {
+  error: {
+    code: string
+    message: string
+    details?: Record<string, unknown>
+    traceId?: string
+  }
 }
