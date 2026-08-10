@@ -21,23 +21,17 @@
           <div>
             <label class="label">ERI key</label><input class="input font-mono" value="eri-prod-key-xxxxx" disabled />
           </div>
-          <div class="flex items-center justify-between p-3 rounded-xl bg-neutral-50">
-            <span class="text-sm text-neutral-500">ERI integratsiya</span><span class="badge-success">Faol</span>
+          <div class="flex items-center justify-between p-3 rounded-xl bg-ink-50">
+            <span class="text-sm text-ink-500">ERI integratsiya</span><span class="badge badge-success">Faol</span>
           </div>
         </div>
       </div>
       <div class="card p-6">
         <h3 class="font-semibold mb-4">Bildirishnomalar</h3>
         <div class="space-y-3">
-          <label
-            class="flex items-center justify-between p-3 rounded-xl bg-neutral-50 cursor-pointer"
-          ><span class="text-sm">Email bildirishnomalar</span><input type="checkbox" checked class="rounded text-primary-600" /></label>
-          <label
-            class="flex items-center justify-between p-3 rounded-xl bg-neutral-50 cursor-pointer"
-          ><span class="text-sm">Telegram bot</span><input type="checkbox" checked class="rounded text-primary-600" /></label>
-          <label
-            class="flex items-center justify-between p-3 rounded-xl bg-neutral-50 cursor-pointer"
-          ><span class="text-sm">SMS bildirishnomalar</span><input type="checkbox" class="rounded text-primary-600" /></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-ink-50 cursor-pointer"><span class="text-sm">Email bildirishnomalar</span><input type="checkbox" checked class="rounded text-brand-600" /></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-ink-50 cursor-pointer"><span class="text-sm">Telegram bot</span><input type="checkbox" checked class="rounded text-brand-600" /></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-ink-50 cursor-pointer"><span class="text-sm">SMS bildirishnomalar</span><input type="checkbox" class="rounded text-brand-600" /></label>
         </div>
       </div>
       <div class="card p-6">

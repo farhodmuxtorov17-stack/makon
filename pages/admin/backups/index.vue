@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <div>
         <h1 class="text-2xl font-bold font-display">Backup</h1>
-        <p class="text-sm text-neutral-500 mt-1">{{ backups.length }} backup</p>
+        <p class="text-sm text-ink-500 mt-1">{{ backups.length }} backup</p>
       </div>
       <button class="btn btn-primary btn-sm">+ Yangi backup</button>
     </div>
@@ -22,15 +22,17 @@
           <tbody>
             <tr v-for="b in backups" :key="b.id">
               <td>
-                <span :class="b.type === 'Full' ? 'badge-info' : 'badge-neutral'">{{
+                <span :class="b.type === 'Full' ? 'badge badge-info' : 'badge badge-neutral'">{{
                   b.type
                 }}</span>
               </td>
               <td class="font-mono">{{ b.size }}</td>
               <td><StatusBadge :status="b.status" :dot="true" /></td>
-              <td class="text-neutral-500 text-xs">{{ formatDate(b.createdAt) }}</td>
+              <td class="text-ink-500 text-xs">{{ formatDate(b.createdAt) }}</td>
               <td>
-                <button v-if="b.status === 'READY'" class="btn-ghost btn-sm">Yuklab olish</button>
+                <button v-if="b.status === 'READY'" class="btn btn-ghost btn-sm">
+                  Yuklab olish
+                </button>
               </td>
             </tr>
           </tbody>

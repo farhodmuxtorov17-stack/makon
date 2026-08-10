@@ -3,9 +3,9 @@
     <div class="flex items-center justify-between">
       <div>
         <h1 class="text-2xl font-bold font-display">Bildirishnomalar</h1>
-        <p class="text-sm text-neutral-500 mt-1">{{ unread.length }} o'qilmagan</p>
+        <p class="text-sm text-ink-500 mt-1">{{ unread.length }} o'qilmagan</p>
       </div>
-      <button class="btn-secondary btn-sm" @click="markAll">Hammasini o'qilgan qilish</button>
+      <button class="btn btn-secondary btn-sm" @click="markAll">Hammasini o'qilgan qilish</button>
     </div>
     <div class="space-y-2">
       <div
@@ -13,7 +13,7 @@
         :key="n.id"
         :class="[
           'card p-4 flex items-start gap-3 cursor-pointer transition-colors',
-          !n.isRead ? 'border-primary-200 bg-primary-50/30' : '',
+          !n.isRead ? 'border-primary-200 bg-brand-50/30' : '',
         ]"
         @click="markRead(n.id)"
       >
@@ -40,11 +40,11 @@
         </div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2">
-            <p class="text-sm font-semibold text-neutral-900">{{ n.title }}</p>
-            <span v-if="!n.isRead" class="w-2 h-2 rounded-full bg-primary-500" />
+            <p class="text-sm font-semibold text-ink-900">{{ n.title }}</p>
+            <span v-if="!n.isRead" class="w-2 h-2 rounded-full bg-brand-500" />
           </div>
-          <p class="text-sm text-neutral-500">{{ n.body }}</p>
-          <p class="text-xs text-neutral-400 mt-1">{{ timeAgo(n.createdAt) }}</p>
+          <p class="text-sm text-ink-500">{{ n.body }}</p>
+          <p class="text-xs text-ink-400 mt-1">{{ timeAgo(n.createdAt) }}</p>
         </div>
       </div>
     </div>
@@ -70,25 +70,25 @@ function markAll() {
 function typeColor(t: string) {
   return (
     {
-      APPLICATION: 'bg-primary-50',
+      APPLICATION: 'bg-brand-50',
       INVOICE: 'bg-success-50',
       ERI: 'bg-accent-50',
       SERVICE: 'bg-warning-50',
       MATERIAL: 'bg-purple-50',
-      SYSTEM: 'bg-neutral-100',
-    }[t] || 'bg-neutral-100'
+      SYSTEM: 'bg-ink-100',
+    }[t] || 'bg-ink-100'
   )
 }
 function typeIconColor(t: string) {
   return (
     {
-      APPLICATION: 'text-primary-600',
+      APPLICATION: 'text-brand-600',
       INVOICE: 'text-success-600',
       ERI: 'text-accent-600',
       SERVICE: 'text-warning-600',
       MATERIAL: 'text-purple-600',
-      SYSTEM: 'text-neutral-500',
-    }[t] || 'text-neutral-500'
+      SYSTEM: 'text-ink-500',
+    }[t] || 'text-ink-500'
   )
 }
 function typeIcon(t: string) {
