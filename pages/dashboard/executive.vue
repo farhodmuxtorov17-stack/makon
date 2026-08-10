@@ -45,10 +45,12 @@
             <button v-for="p in periods" :key="p" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" :class="activePeriod === p ? 'bg-brand-50 text-brand-700' : 'text-ink-400 hover:bg-ink-100'" @click="activePeriod = p">{{ p }}</button>
           </div>
         </div>
-        <div class="flex items-end gap-2 h-48">
-          <div v-for="(d, i) in revenueData" :key="i" class="flex-1 h-full flex flex-col justify-end items-center gap-2 group cursor-pointer">
-            <div class="w-full rounded-t-lg transition-all duration-300 group-hover:brightness-110" :class="i === revenueData.length - 1 ? 'bg-brand-600' : 'bg-brand-300 group-hover:bg-brand-400'" :style="{ height: d.value + '%' }"></div>
-            <span class="text-[10px] text-ink-400">{{ d.label }}</span>
+        <div>
+          <div class="flex items-end gap-2" style="height: 160px;">
+            <div v-for="(d, i) in revenueData" :key="i" class="flex-1 rounded-t-md transition-all duration-300 hover:opacity-100" :class="i === revenueData.length - 1 ? 'bg-brand-600 opacity-100' : 'bg-brand-300 hover:bg-brand-400 opacity-70'" :style="{ height: d.value + '%' }"></div>
+          </div>
+          <div class="flex gap-2 mt-2">
+            <span v-for="(d, i) in revenueData" :key="i" class="flex-1 text-center text-[10px] text-ink-400">{{ d.label }}</span>
           </div>
         </div>
       </div>
