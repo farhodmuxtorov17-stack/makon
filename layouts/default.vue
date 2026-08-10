@@ -121,8 +121,9 @@ function isActive(path: string) { return route.path === path || (path !== '/' &&
 
 const currentPageTitle = computed(() => {
   const map: Record<string, string> = {
-    '/dashboard/executive': 'Ishchi panel', '/management/buildings': 'Binolar',
-    '/management/listings': 'Listinglar', '/applications': 'Arizalar', '/catalog': 'Katalog',
+    '/dashboard/executive': 'Ishchi panel', '/dashboard/tenant': 'Mening kabinetim',
+    '/management/buildings': 'Binolar', '/management/listings': 'Listinglar',
+    '/applications': 'Arizalar', '/catalog': 'Katalog',
     '/finance/contracts': 'Shartnomalar', '/finance/invoices': 'Invoyslar',
     '/finance/payments': 'Toʻlovlar', '/finance/approvals': 'Tasdiqlar',
     '/finance/periods': 'Hisob davrlari', '/service': 'Servis',
@@ -135,31 +136,49 @@ const currentPageTitle = computed(() => {
   return 'MAKON'
 })
 
-const navSections = [
-  { title: 'Asosiy', items: [
-    { label: 'Ishchi panel', path: '/dashboard/executive', icon: LayoutGrid },
-    { label: 'Binolar', path: '/management/buildings', icon: Building },
-    { label: 'Listinglar', path: '/management/listings', icon: SearchIcon },
-    { label: 'Arizalar', path: '/applications', icon: ClipboardList, badge: 3 },
-    { label: 'Katalog', path: '/catalog', icon: Building2 },
-  ]},
-  { title: 'Moliya', items: [
-    { label: 'Shartnomalar', path: '/finance/contracts', icon: FileText },
-    { label: 'Invoyslar', path: '/finance/invoices', icon: CreditCard },
-    { label: 'Toʻlovlar', path: '/finance/payments', icon: Wallet },
-    { label: 'Tasdiqlar', path: '/finance/approvals', icon: ShieldCheck, badge: 2 },
-    { label: 'Hisob davrlari', path: '/finance/periods', icon: Calendar },
-  ]},
-  { title: 'Operatsion', items: [
-    { label: 'Servis', path: '/service', icon: Wrench },
-    { label: 'Sklad', path: '/warehouse', icon: Package },
-    { label: 'Taʼminotchilar', path: '/warehouse/suppliers', icon: Users },
-    { label: 'Hisobotlar', path: '/reports', icon: BarChart3 },
-  ]},
-  { title: 'Admin', items: [
-    { label: 'Foydalanuvchilar', path: '/admin/users', icon: Users },
-    { label: 'Sozlamalar', path: '/admin/settings', icon: Settings },
-    { label: 'Monitoring', path: '/admin/monitoring', icon: Activity },
-  ]},
-]
+const navSections = computed(() => {
+  if (authStore.role === 'TENANT_OWNER') {
+    return [
+      { title: 'Asosiy', items: [
+        { label: 'Mening kabinetim', path: '/dashboard/tenant', icon: LayoutGrid },
+        { label: 'Katalog', path: '/catalog', icon: Building2 },
+      ]},
+      { title: 'Mening maʼlumotlar', items: [
+        { label: 'Arizalarim', path: '/applications', icon: ClipboardList, badge: 1 },
+        { label: 'Toʻlovlar', path: '/finance/payments', icon: Wallet },
+        { label: 'Servis soʻrovi', path: '/service', icon: Wrench },
+      ]},
+      { title: 'Hisob', items: [
+        { label: 'Profil', path: '/profile', icon: Settings },
+      ]},
+    ]
+  }
+  return [
+    { title: 'Asosiy', items: [
+      { label: 'Ishchi panel', path: '/dashboard/executive', icon: LayoutGrid },
+      { label: 'Binolar', path: '/management/buildings', icon: Building },
+      { label: 'Listinglar', path: '/management/listings', icon: SearchIcon },
+      { label: 'Arizalar', path: '/applications', icon: ClipboardList, badge: 3 },
+      { label: 'Katalog', path: '/catalog', icon: Building2 },
+    ]},
+    { title: 'Moliya', items: [
+      { label: 'Shartnomalar', path: '/finance/contracts', icon: FileText },
+      { label: 'Invoyslar', path: '/finance/invoices', icon: CreditCard },
+      { label: 'Toʻlovlar', path: '/finance/payments', icon: Wallet },
+      { label: 'Tasdiqlar', path: '/finance/approvals', icon: ShieldCheck, badge: 2 },
+      { label: 'Hisob davrlari', path: '/finance/periods', icon: Calendar },
+    ]},
+    { title: 'Operatsion', items: [
+      { label: 'Servis', path: '/service', icon: Wrench },
+      { label: 'Sklad', path: '/warehouse', icon: Package },
+      { label: 'Taʼminotchilar', path: '/warehouse/suppliers', icon: Users },
+      { label: 'Hisobotlar', path: '/reports', icon: BarChart3 },
+    ]},
+    { title: 'Admin', items: [
+      { label: 'Foydalanuvchilar', path: '/admin/users', icon: Users },
+      { label: 'Sozlamalar', path: '/admin/settings', icon: Settings },
+      { label: 'Monitoring', path: '/admin/monitoring', icon: Activity },
+    ]},
+  ]
+})
 </script>

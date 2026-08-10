@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="flex justify-end"><button class="btn-primary">Saqlash</button></div>
+    <div class="flex justify-end"><button class="btn btn-primary">Saqlash</button></div>
   </div>
 </template>
 

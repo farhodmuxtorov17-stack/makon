@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold font-display">Listinglar</h1>
         <p class="text-sm text-neutral-500 mt-1">{{ listings.length }} listing</p>
       </div>
-      <button class="btn-primary btn-sm">+ Yangi listing</button>
+      <button class="btn btn-primary btn-sm">+ Yangi listing</button>
     </div>
     <div class="card">
       <div class="card-body flex gap-3">

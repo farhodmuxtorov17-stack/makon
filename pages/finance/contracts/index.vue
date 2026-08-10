@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
       <div><h1 class="text-2xl font-bold font-display">Shartnomalar</h1><p class="text-sm text-neutral-500 mt-1">{{ filtered.length }} shartnoma</p></div>
-      <button class="btn-primary btn-sm">+ Yangi shartnoma</button>
+      <button class="btn btn-primary btn-sm">+ Yangi shartnoma</button>
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
@@ -36,7 +36,7 @@
               <td class="text-neutral-500 text-xs">{{ formatDate(c.startDate) }}</td>
               <td class="text-neutral-500 text-xs">{{ formatDate(c.endDate) }}</td>
               <td class="font-mono">{{ formatNumber(c.monthlyAmount) }}</td>
-              <td><span v-if="c.eriSigned" class="badge-success">✓ Imzolangan</span><span v-else class="badge-neutral">—</span></td>
+              <td><span v-if="c.eriSigned" class="badge badge-success"><CheckCircle2 :size="12" :stroke-width="2.5" /> Imzolangan</span><span v-else class="badge-neutral">—</span></td>
               <td><StatusBadge :status="c.status" :dot="true" /></td>
             </tr>
           </tbody>
@@ -57,7 +57,7 @@
         </div>
         <div class="flex items-center justify-between mt-2 text-xs text-neutral-400">
           <span>{{ formatDate(c.startDate) }} — {{ formatDate(c.endDate) }}</span>
-          <span v-if="c.eriSigned" class="text-success-600">✓ ERI</span>
+          <span v-if="c.eriSigned" class="text-success-600 font-medium">ERI ✓</span>
         </div>
       </div>
       <EmptyState v-if="!filtered.length" title="Shartnomalar topilmadi" icon="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586" />
@@ -67,6 +67,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { CheckCircle2 } from 'lucide-vue-next'
 import { useFinanceStore } from '~/stores/finance'
 import { formatNumber, formatDate } from '~/utils'
 import StatusBadge from '~/components/ui/StatusBadge.vue'

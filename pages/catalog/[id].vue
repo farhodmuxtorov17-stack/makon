@@ -73,7 +73,7 @@
             <span class="text-xs text-emerald-600 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Bo'sh</span>
           </div>
           <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-2">Green Business Center — A blok, 3-qavat</h1>
-          <p class="text-slate-400 text-sm flex items-center gap-1.5">📍 Mirobad tumani, Amir Temur kochasi 88, Toshkent</p>
+          <p class="text-slate-400 text-sm flex items-center gap-1.5"><MapPin :size="12" :stroke-width="2" class="inline" /> Mirobad tumani, Amir Temur kochasi 88, Toshkent</p>
         </div>
 
         <!-- Quick specs -->
@@ -117,9 +117,11 @@
         <div>
           <h2 class="text-lg font-bold mb-4">Qulayliklar</h2>
           <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-            <div v-for="a in propertyAmenities" :key="a" class="flex items-center gap-2.5 text-sm text-slate-600">
-              <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-500 flex-shrink-0">✓</div>
-              {{ a }}
+            <div v-for="a in amenityList" :key="a.name" class="flex items-center gap-2.5 text-sm text-slate-600">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                <component :is="a.icon" :size="16" :stroke-width="2" class="text-emerald-500" />
+              </div>
+              {{ a.name }}
             </div>
           </div>
         </div>
@@ -131,7 +133,7 @@
             <img :src="asset('/tashkent/aerial.jpg')" alt="Aerial view" class="absolute inset-0 w-full h-full object-cover opacity-80" />
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 border-4 border-white">
-                <span class="text-white text-lg">📍</span>
+                <MapPin :size="20" :stroke-width="2" class="text-white" />
               </div>
             </div>
             <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
@@ -273,6 +275,7 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: 'public' })
+import { Building2, Wifi, Car, ShieldCheck, Wind, Square, ArrowUpDown, ConciergeBell, Utensils, Train, Snowflake, Camera, KeyRound, Zap, Droplets, Sofa, Building, Coffee, MapPin } from 'lucide-vue-next'
 const asset = useAssetPath()
 
 const showContact = ref(false)

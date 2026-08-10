@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
       <div><h1 class="text-2xl font-bold font-display">Servis so'rovlari</h1><p class="text-sm text-neutral-500 mt-1">{{ filtered.length }} so'rov</p></div>
-      <button class="btn-primary btn-sm" @click="showNewModal = true">+ Yangi so'rov</button>
+      <button class="btn btn-primary btn-sm" @click="showNewModal = true">+ Yangi so'rov</button>
     </div>
 
     <!-- Stats -->
@@ -66,7 +66,7 @@
         <div><label class="label">Tavsif</label><textarea class="input" rows="3" placeholder="Muammo tavsifi..."></textarea></div>
         <div><label class="label">Ustuvorlik</label><select class="input cursor-pointer"><option>Past</option><option>O'rta</option><option>Yuqori</option><option>Kritik</option></select></div>
       </div>
-      <template #actions><button class="btn-secondary" @click="showNewModal = false">Bekor</button><button class="btn-primary" @click="showNewModal = false">Yaratish</button></template>
+      <template #actions><button class="btn btn-secondary" @click="showNewModal = false">Bekor</button><button class="btn btn-primary" @click="showNewModal = false">Yaratish</button></template>
     </Modal>
   </div>
 </template>

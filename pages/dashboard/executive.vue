@@ -142,7 +142,7 @@ const periods = ['6 oy', '12 oy', 'Yil']
 const activePeriod = ref('12 oy')
 
 const statCards = [
-  { label: 'Daromad', value: '₸8.2M', trend: 12.5, bg: 'bg-emerald-50', color: 'text-emerald-600', icon: TrendingUp },
+  { label: 'Daromad', value: '8.2 mlr', trend: 12.5, bg: 'bg-emerald-50', color: 'text-emerald-600', icon: TrendingUp },
   { label: 'Bandlik', value: '94%', trend: 3.2, bg: 'bg-brand-50', color: 'text-brand-600', icon: Building2 },
   { label: 'Shartnomalar', value: '12', trend: -5.0, bg: 'bg-amber-50', color: 'text-amber-600', icon: FileText },
   { label: 'Ijarachilar', value: '48', trend: 8.1, bg: 'bg-sky-50', color: 'text-sky-600', icon: Users },
@@ -156,13 +156,13 @@ const revenueData = [
 ]
 
 const buildings = [
-  { name: 'Urban Office Tower', location: 'Toshkent', units: 60, revenue: '₸4.2M', occupancy: 94, bg: 'bg-brand-50', color: 'text-brand-600', icon: Building },
-  { name: 'Business Plaza', location: 'Samarqand', units: 42, revenue: '₸2.8M', occupancy: 88, bg: 'bg-emerald-50', color: 'text-emerald-600', icon: Building2 },
-  { name: 'Residential Complex', location: 'Buxoro', units: 38, revenue: '₸1.2M', occupancy: 91, bg: 'bg-amber-50', color: 'text-amber-600', icon: Building },
+  { name: 'Urban Office Tower', location: 'Toshkent', units: 60, revenue: '4.2 mlr soʻm', occupancy: 94, bg: 'bg-brand-50', color: 'text-brand-600', icon: Building },
+  { name: 'Business Plaza', location: 'Samarqand', units: 42, revenue: '2.8 mlr soʻm', occupancy: 88, bg: 'bg-emerald-50', color: 'text-emerald-600', icon: Building2 },
+  { name: 'Residential Complex', location: 'Buxoro', units: 38, revenue: '1.2 mlr soʻm', occupancy: 91, bg: 'bg-amber-50', color: 'text-amber-600', icon: Building },
 ]
 
 const activity = [
-  { text: 'Yangi toʻlov qabul qilindi — ₸2.4M', time: '5 daqiqa oldin', bg: 'bg-emerald-50', color: 'text-emerald-600', icon: CreditCard },
+  { text: 'Yangi toʻlov qabul qilindi — 2.4 mlr soʻm', time: '5 daqiqa oldin', bg: 'bg-emerald-50', color: 'text-emerald-600', icon: CreditCard },
   { text: 'Shartnoma uzaytirildi — Urban Office', time: '1 soat oldin', bg: 'bg-brand-50', color: 'text-brand-600', icon: FileText },
   { text: 'Yangi servis soʻrovi — konditsioner', time: '3 soat oldin', bg: 'bg-amber-50', color: 'text-amber-600', icon: Wrench },
   { text: 'Shartnoma tasdiqlandi', time: '5 soat oldin', bg: 'bg-emerald-50', color: 'text-emerald-600', icon: CheckCircle2 },

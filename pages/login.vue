@@ -57,11 +57,14 @@
               <ShieldCheck :size="18" :stroke-width="2" />
               ERI orqali tasdiqlash
             </button>
+            <p class="text-xs text-ink-400 text-center mt-3">
+              Demo: admin@makon.uz (boshqaruv) · tenant@makon.uz (ijarachi)
+            </p>
           </div>
 
           <!-- Password form -->
           <div v-else class="space-y-4">
-            <div><label class="label">Email yoki login</label><input v-model="form.email" class="input" placeholder="admin@makon.uz" /></div>
+            <div><label class="label">Email yoki login</label><input v-model="form.email" class="input" placeholder="admin@makon.uz yoki tenant@makon.uz" /></div>
             <div>
               <label class="label">Parol</label>
               <div class="relative">
@@ -158,17 +161,20 @@ const platformBadges = [
 const form = reactive({ org: 'Urban Office MCHJ', stir: '305 123 456', phone: '+998 90 123 45 67', user: 'Azizbek Karimov', email: '', pass: '', remember: true })
 
 function login() {
-  // Check if this is a tenant login (phone-based or specific email)
-  const isTenant = form.email === 'tenant@makon.uz' || form.phone === '+998 90 123 45 67'
-
-  if (isTenant) {
-    // Tenant role: login and redirect to tenant dashboard
-    auth.login('tenant', 'tenant123')
-    router.push('/dashboard/tenant')
-  } else {
-    // Admin/manager role
+  if (activeTab.value === 'eri') {
+    // ERI login → always admin
     auth.login('admin', 'admin123')
     router.push('/dashboard/executive')
+  } else {
+    // Password login — check if tenant
+    const isTenant = form.email === 'tenant@makon.uz' || form.email === 'tenant'
+    if (isTenant) {
+      auth.login('tenant', 'tenant123')
+      router.push('/dashboard/tenant')
+    } else {
+      auth.login('admin', 'admin123')
+      router.push('/dashboard/executive')
+    }
   }
 }
 </script>

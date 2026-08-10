@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold font-display">Ta'minotchilar</h1>
         <p class="text-sm text-neutral-500 mt-1">{{ suppliers.length }} ta'minotchi</p>
       </div>
-      <button class="btn-primary btn-sm">+ Yangi</button>
+      <button class="btn btn-primary btn-sm">+ Yangi</button>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div v-for="s in suppliers" :key="s.id" class="card p-5">

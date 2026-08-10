@@ -104,11 +104,11 @@
             <button v-if="app.status === 'SUBMITTED'" class="btn-warning">
               Finance reviewga yuborish
             </button>
-            <button v-if="app.status === 'FINANCE_REVIEW'" class="btn-primary">
+            <button v-if="app.status === 'FINANCE_REVIEW'" class="btn btn-primary">
               Taklif yuborish
             </button>
             <button v-if="app.status === 'OFFER_SENT'" class="btn-success">Tasdiqlash</button>
-            <button v-if="app.status === 'CONTRACT_SIGNING'" class="btn-primary">
+            <button v-if="app.status === 'CONTRACT_SIGNING'" class="btn btn-primary">
               ERI imzolash
             </button>
             <button class="btn-ghost text-danger-600 hover:bg-danger-50">Rad etish</button>

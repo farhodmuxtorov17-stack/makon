@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold font-display">Backup</h1>
         <p class="text-sm text-neutral-500 mt-1">{{ backups.length }} backup</p>
       </div>
-      <button class="btn-primary btn-sm">+ Yangi backup</button>
+      <button class="btn btn-primary btn-sm">+ Yangi backup</button>
     </div>
     <div class="card">
       <div class="table-wrapper">

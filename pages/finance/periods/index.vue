@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold font-display">Hisob davrlari</h1>
         <p class="text-sm text-neutral-500 mt-1">{{ periods.length }} davr</p>
       </div>
-      <button class="btn-primary btn-sm">+ Yangi davr</button>
+      <button class="btn btn-primary btn-sm">+ Yangi davr</button>
     </div>
     <div class="card">
       <div class="table-wrapper">

@@ -4,7 +4,7 @@
       <div><h1 class="text-2xl font-bold font-display">Invoyslar</h1><p class="text-sm text-neutral-500 mt-1">{{ filtered.length }} invoys</p></div>
       <div class="flex gap-2">
         <button class="btn-secondary btn-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M4 20h16" /></svg> Eksport</button>
-        <button class="btn-primary btn-sm" @click="showNewModal = true">+ Yangi invoys</button>
+        <button class="btn btn-primary btn-sm" @click="showNewModal = true">+ Yangi invoys</button>
       </div>
     </div>
 
@@ -75,8 +75,8 @@
         <div><label class="label">Muddat</label><input type="date" class="input" /></div>
       </div>
       <template #actions>
-        <button class="btn-secondary" @click="showNewModal = false">Bekor</button>
-        <button class="btn-primary" @click="showNewModal = false">Yaratish</button>
+        <button class="btn btn-secondary" @click="showNewModal = false">Bekor</button>
+        <button class="btn btn-primary" @click="showNewModal = false">Yaratish</button>
       </template>
     </Modal>
   </div>

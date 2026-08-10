@@ -70,7 +70,7 @@
         <div class="card p-5">
           <h3 class="font-semibold mb-3">Amallar</h3>
           <div class="flex flex-col gap-2">
-            <button v-if="order.status === 'ASSIGNED'" class="btn-primary">Boshlash</button>
+            <button v-if="order.status === 'ASSIGNED'" class="btn btn-primary">Boshlash</button>
             <button v-if="order.status === 'IN_PROGRESS'" class="btn-warning">
               Inspeksiyaga yuborish
             </button>

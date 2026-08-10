@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
       <div><h1 class="text-2xl font-bold font-display">Hisoblagichlar</h1><p class="text-sm text-neutral-500 mt-1">{{ filtered.length }} hisoblagich</p></div>
-      <button class="btn-primary btn-sm">+ Yangi</button>
+      <button class="btn btn-primary btn-sm">+ Yangi</button>
     </div>
 
     <!-- Stats -->

@@ -17,7 +17,7 @@
         <div class="mt-4 pt-4 border-t border-neutral-100">
           <div class="flex items-center justify-between text-sm">
             <span class="text-neutral-500">ERI holati</span>
-            <span class="badge-success">✓ Faol</span>
+            <span class="badge badge-success"><CheckCircle2 :size="12" :stroke-width="2.5" /> Faol</span>
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@
             <div><label class="label">Login</label><input class="input" :value="authStore.user?.login" disabled /></div>
           </div>
           <div class="mt-6 flex flex-col sm:flex-row gap-2">
-            <button class="btn-primary">Saqlash</button>
-            <button class="btn-secondary">Bekor</button>
+            <button class="btn btn-primary">Saqlash</button>
+            <button class="btn btn-secondary">Bekor</button>
           </div>
         </div>
 
@@ -45,8 +45,8 @@
             <div><label class="label">Yangi parol</label><input type="password" class="input" placeholder="••••••••" /></div>
           </div>
           <div class="mt-6 flex flex-col sm:flex-row gap-2">
-            <button class="btn-primary">Yangilash</button>
-            <button class="btn-secondary">Bekor</button>
+            <button class="btn btn-primary">Yangilash</button>
+            <button class="btn btn-secondary">Bekor</button>
           </div>
         </div>
 
