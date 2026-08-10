@@ -327,10 +327,7 @@
           </NuxtLink>
           <button
             class="mt-3 text-sm text-ink-400 hover:text-ink-600"
-            @click="
-              showAppModal = false
-              appSubmitted = false
-            "
+            @click="showAppModal = false; appSubmitted = false"
           >
             Yopish
           </button>
