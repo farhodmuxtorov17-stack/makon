@@ -20,6 +20,39 @@
 
 ---
 
+## 📱 Telegram Mini App
+
+MAKON полностью адаптирован для работы как **Telegram Mini App** — все 8 ролей могут комфортно работать через Telegram.
+
+### Возможности
+
+- ✅ **Telegram WebApp SDK** — интеграция с `telegram-web-app.js`
+- ✅ **Safe Area** — поддержка `env(safe-area-inset-*)` для всех устройств
+- ✅ **Status Bar** — реалистичный iOS-style status bar (время, Wi-Fi, батарея)
+- ✅ **Navigation Bar** — нижняя навигация с кнопкой "Назад" и tabs
+- ✅ **Haptic Feedback** — тактильная отдача при взаимодействии
+- ✅ **Theme Sync** — синхронизация темы с Telegram
+- ✅ **Viewport** — корректная высота `100dvh` для Mini App
+
+### Экран авторизации
+
+На странице входа отображаются **реалистичные мокапы устройств**:
+
+| Устройство | Ориентация | Контент |
+|-----------|-----------|---------|
+| iPhone 17 Pro Max | Вертикальная | Кабинет арендатора: KPI, договоры, инвойсы, навигация |
+| iPad Pro 11" | Горизонтальная | Executive dashboard: KPI, график, активность |
+
+### Компоненты
+
+- `StatusBar.vue` — реалистичный status bar (Dynamic Island, Wi-Fi, батарея)
+- `TgNavBar.vue` — нижняя навигация с кнопкой "Назад" и role-based tabs
+- `useTelegram.ts` — composable для Telegram WebApp API
+- `layouts/telegram.vue` — layout для Mini App режима
+
+
+---
+
 ## 📋 Содержание
 
 - [О проекте](#-о-проекте)

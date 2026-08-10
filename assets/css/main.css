@@ -107,3 +107,66 @@
 
 .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ============================================
+   Telegram Mini App Adaptations
+   ============================================ */
+
+/* Safe area insets for Telegram Mini App */
+@supports (padding: max(0px)) {
+  .tg-safe-top {
+    padding-top: max(0px, env(safe-area-inset-top, 0px));
+  }
+  .tg-safe-bottom {
+    padding-bottom: max(0px, env(safe-area-inset-bottom, 0px));
+  }
+  .tg-safe-left {
+    padding-left: max(0px, env(safe-area-inset-left, 0px));
+  }
+  .tg-safe-right {
+    padding-right: max(0px, env(safe-area-inset-right, 0px));
+  }
+}
+
+/* Telegram viewport height */
+.tg-viewport {
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Disable text selection in Telegram Mini App */
+.tg-no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Smooth scrolling for Telegram */
+.tg-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Telegram-style card tap feedback */
+.tg-tap {
+  transition: transform 0.1s ease, background 0.1s ease;
+  cursor: pointer;
+}
+.tg-tap:active {
+  transform: scale(0.98);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+/* Hide scrollbars in Telegram Mini App */
+.tg-hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.tg-hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Telegram bottom safe area */
+.tg-bottom-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

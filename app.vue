@@ -1,15 +1,25 @@
 <template>
-  <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
-<script setup>
-const authStore = useAuthStore()
+<script setup lang="ts">
+// Initialize Telegram Mini App if running inside Telegram
+const telegram = useTelegram()
 
 onMounted(() => {
-  authStore.init()
+  telegram.init()
+
+  if (telegram.isTelegram.value) {
+    // Apply Telegram theme colors
+    const themeParams = telegram.themeParams.value
+    if (themeParams.bg_color) {
+      telegram.setBgColor(themeParams.bg_color)
+    }
+    if (themeParams.header_bg_color) {
+      telegram.setHeaderColor(themeParams.header_bg_color)
+    }
+  }
 })
 </script>
