@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
   app: {
+    baseURL: '/makon/',
     head: {
       title: 'MAKON — Real Estate Platform',
       htmlAttrs: { lang: 'uz' },
