@@ -31,7 +31,7 @@
     </header>
 
     <!-- ============ MOBILE VIEW SWITCH ============ -->
-    <div class="catalog-mobile-switch lg:hidden">
+    <div class="catalog-mobile-switch">
       <button :class="{ active: mobileView === 'list' }" @click="mobileView = 'list'">
         <List :size="15" /> Ro'yxat
       </button>
@@ -47,7 +47,7 @@
     <div class="catalog-body">
 
       <!-- ---------- SIDEBAR FILTERS (desktop) ---------- -->
-      <aside class="catalog-sidebar hidden lg:flex">
+      <aside class="catalog-sidebar">
         <FilterPanel
           v-model:search="filters.search"
           v-model:sort="filters.sort"
@@ -475,7 +475,7 @@ function handleMarkerSelect(id: string) {
 
 /* ============ MOBILE SWITCH ============ */
 .catalog-mobile-switch {
-  display: flex;
+  display: none;
   gap: 6px;
   padding: 8px 12px;
   background: #ffffff;
@@ -512,6 +512,7 @@ function handleMarkerSelect(id: string) {
 
 /* ============ SIDEBAR ============ */
 .catalog-sidebar {
+  display: flex;
   width: 300px;
   flex-shrink: 0;
   border-right: 1px solid rgba(0,0,0,0.06);
@@ -729,6 +730,8 @@ function handleMarkerSelect(id: string) {
 
 /* ============ MOBILE ============ */
 @media (max-width: 1023px) {
+  .catalog-mobile-switch { display: flex; }
+  .catalog-sidebar { display: none; }
   .catalog-body { flex-direction: column; }
   .catalog-listings { max-width: none; border-right: none; flex: 1; }
   .catalog-listings--mobile-hidden { display: none; }
