@@ -347,7 +347,7 @@ import {
   BarChart3, Gauge, Package, Building,
 } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'public' })
+definePageMeta({ layout: 'blank' })
 
 const heroSearch = ref('')
 function goToCatalog() {
