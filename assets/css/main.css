@@ -63,6 +63,56 @@
   .dark .kpi-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); border-color: rgba(99,102,241,0.2); }
   .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 2px 2px 0 0; }
 
+  /* 3D KPI Icons */
+  .kpi-icon-3d {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(145deg, var(--icon-gradient-top, #60a5fa), var(--icon-gradient-bottom, #2563eb));
+    box-shadow:
+      0 4px 12px var(--icon-shadow, rgba(37,99,235,0.3)),
+      0 2px 4px rgba(0,0,0,0.08),
+      inset 0 1px 1px rgba(255,255,255,0.4),
+      inset 0 -2px 4px rgba(0,0,0,0.12);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .kpi-icon-3d::before {
+    content: '';
+    position: absolute;
+    top: 2px; left: 4px; right: 4px;
+    height: 40%;
+    border-radius: 12px 12px 40% 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.25), transparent);
+    pointer-events: none;
+  }
+  .kpi-icon-3d::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 8px; right: 8px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--icon-glow, rgba(59,130,246,0.3));
+    filter: blur(6px);
+    opacity: 0.5;
+    z-index: -1;
+  }
+  .kpi-card:hover .kpi-icon-3d {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow:
+      0 8px 20px var(--icon-shadow, rgba(37,99,235,0.3)),
+      0 4px 8px rgba(0,0,0,0.1),
+      inset 0 1px 1px rgba(255,255,255,0.5),
+      inset 0 -2px 4px rgba(0,0,0,0.12);
+  }
+  .dark .kpi-icon-3d {
+    box-shadow:
+      0 4px 12px var(--icon-shadow, rgba(37,99,235,0.3)),
+      0 2px 4px rgba(0,0,0,0.2),
+      inset 0 1px 1px rgba(255,255,255,0.25),
+      inset 0 -2px 4px rgba(0,0,0,0.2);
+  }
+
   /* === Inputs === */
   .input { @apply w-full rounded-xl px-3.5 py-2.5 text-sm transition-all duration-200 bg-black/5 border border-black/10 text-ink-900 placeholder-ink-400; }
   .dark .input { @apply bg-white/5 border-white/10 text-white placeholder-ink-500; }
