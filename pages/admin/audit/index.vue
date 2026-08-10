@@ -1,106 +1,110 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Audit jurnali</h1>
-        <p class="text-ink-500 text-sm mt-1">Tizimdagi barcha amallar tarixi</p>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Audit jurnali</h1>
+        <p class="text-ink-500 text-sm mt-1">{{ entries.length }} ta yozuv · So'nggi 24 soat</p>
       </div>
-      <div class="flex gap-2">
-        <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
-        <button class="btn btn-secondary btn-sm"><Filter :size="14" /> Filtr</button>
-      </div>
+      <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
     </div>
 
-    <!-- Filters -->
+    <!-- Filter -->
     <div class="flex flex-wrap items-center gap-3">
-      <select v-model="actionFilter" class="input w-auto">
-        <option value="">Barcha amallar</option>
-        <option value="CREATE">Yaratish</option>
-        <option value="UPDATE">Yangilash</option>
-        <option value="DELETE">O'chirish</option>
-        <option value="LOGIN">Kirish</option>
-        <option value="SIGN">Imzolash</option>
-      </select>
-      <select v-model="entityFilter" class="input w-auto">
-        <option value="">Barcha obyektlar</option>
-        <option value="BUILDING">Bino</option>
-        <option value="APPLICATION">Ariza</option>
-        <option value="CONTRACT">Shartnoma</option>
-        <option value="INVOICE">Invoys</option>
-        <option value="USER">Foydalanuvchi</option>
-      </select>
-      <input type="date" v-model="dateFilter" class="input w-auto" />
+      <div class="relative">
+        <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
+        <input v-model="search" type="text" placeholder="Amal yoki foydalanuvchi..." class="w-64 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+      </div>
+      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
+        <button v-for="t in typeTabs" :key="t.value" @click="typeFilter = t.value" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all" :class="typeFilter === t.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+          {{ t.label }}
+        </button>
+      </div>
     </div>
 
-    <!-- Audit log -->
-    <div class="card overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
-              <th class="px-4 py-3">Vaqt</th>
-              <th class="px-4 py-3">Foydalanuvchi</th>
-              <th class="px-4 py-3">Amal</th>
-              <th class="px-4 py-3">Obyekt</th>
-              <th class="px-4 py-3">Tafsilot</th>
-              <th class="px-4 py-3">IP</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="log in filteredLogs" :key="log.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3">
-              <td class="px-4 py-3 text-ink-500 text-xs">{{ formatDateTime(log.time) }}</td>
-              <td class="px-4 py-3">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-bold text-brand-500">{{ log.user.charAt(0) }}</div>
-                  <span class="text-ink-900 dark:text-white">{{ log.user }}</span>
+    <!-- Audit timeline -->
+    <div class="card p-5">
+      <div class="audit-timeline">
+        <div v-for="entry in filteredEntries" :key="entry.id" class="audit-timeline__item">
+          <div class="audit-timeline__marker" :style="{ background: actionColor(entry.type) + '15', color: actionColor(entry.type) }">
+            <component :is="actionIcon(entry.type)" :size="15" />
+          </div>
+          <div class="audit-timeline__body">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm text-ink-900 dark:text-white">
+                  <span class="font-medium">{{ entry.user }}</span>
+                  <span class="text-ink-500"> · </span>
+                  <span class="font-mono text-xs">{{ entry.action }}</span>
                 </div>
-              </td>
-              <td class="px-4 py-3">
-                <span class="badge text-xs" :class="actionBadge(log.action)">{{ actionLabel(log.action) }}</span>
-              </td>
-              <td class="px-4 py-3 text-ink-500">{{ log.entity }}</td>
-              <td class="px-4 py-3 text-ink-500 text-xs">{{ log.detail }}</td>
-              <td class="px-4 py-3 text-ink-500 text-xs font-mono">{{ log.ip }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="p-4 flex items-center justify-between text-xs text-ink-500">
-        <span>{{ filteredLogs.length }} yozuv</span>
-        <span>30 kunlik tarix</span>
+                <div class="text-xs text-ink-500 mt-0.5">{{ entry.description }}</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-xs text-ink-400 font-mono">{{ entry.time }}</div>
+                <div class="text-[10px] text-ink-400 mt-0.5">{{ entry.ip }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Download, Filter } from 'lucide-vue-next'
+import { Download, Search, FileText, Edit3, Trash2, CheckCircle, AlertCircle, LogIn, LogOut, FileSignature, Building2, UserPlus } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const actionFilter = ref('')
-const entityFilter = ref('')
-const dateFilter = ref('')
+const search = ref('')
+const typeFilter = ref('all')
 
-const logs = ref([
-  { id: 'log-1', time: new Date(Date.now() - 3600000), user: 'Bosh Admin', action: 'LOGIN', entity: 'Tizim', detail: 'Tizimga kirish', ip: '213.230.99.12' },
-  { id: 'log-2', time: new Date(Date.now() - 7200000), user: 'Dilnoza Karimova', action: 'CREATE', entity: 'INVOYS', detail: 'INV-2026-001 yaratildi', ip: '213.230.99.45' },
-  { id: 'log-3', time: new Date(Date.now() - 10800000), user: 'Aziz Toshmatov', action: 'UPDATE', entity: 'ARIZA', detail: 'APP-2026-002 status yangilandi: FINANCE_REVIEW', ip: '91.212.89.34' },
-  { id: 'log-4', time: new Date(Date.now() - 14400000), user: 'Bosh Admin', action: 'SIGN', entity: 'SHARTNOMA', detail: 'CTR-2026-001 ERI orqali imzolandi', ip: '213.230.99.12' },
-  { id: 'log-5', time: new Date(Date.now() - 18000000), user: 'Sardor Yusupov', action: 'CREATE', entity: 'SERVICE_REQUEST', detail: 'SR-2026-006 yaratildi', ip: '84.54.74.10' },
-  { id: 'log-6', time: new Date(Date.now() - 21600000), user: 'Dilnoza Karimova', action: 'UPDATE', entity: 'INVOYS', detail: 'INV-2025-098 tasdiqlandi', ip: '213.230.99.45' },
-  { id: 'log-7', time: new Date(Date.now() - 259200000), user: 'Aziz Toshmatov', action: 'DELETE', entity: 'LISTING', detail: 'Listing ochib qoldirildi', ip: '91.212.89.34' },
-  { id: 'log-8', time: new Date(Date.now() - 345600000), user: 'Bosh Admin', action: 'UPDATE', entity: 'FOYDALANUVCHI', detail: 'Foydalanuvchi roli ozgartirildi', ip: '213.230.99.12' },
-])
+const typeTabs = [
+  { value: 'all', label: 'Barchasi' },
+  { value: 'CREATE', label: 'Yaratish' },
+  { value: 'UPDATE', label: "Tahrir" },
+  { value: 'DELETE', label: "O'chirish" },
+  { value: 'AUTH', label: 'Kirish' },
+  { value: 'APPROVE', label: 'Tasdiqlash' },
+]
 
-const filteredLogs = computed(() => {
-  let result = logs.value
-  if (actionFilter.value) result = result.filter(l => l.action === actionFilter.value)
-  if (entityFilter.value) result = result.filter(l => l.entity.includes(entityFilter.value))
+const entries = [
+  { id: '1', user: 'Alisher Qodirov', action: 'CONTRACT.SIGN', type: 'APPROVE', description: 'CTR-2026-010 shartnomasini ERI orqali imzoladi', time: '14:32', ip: '85.17.12.34', },
+  { id: '2', user: 'Dilnoza Karimova', action: 'INVOICE.CREATE', type: 'CREATE', description: 'INV-2026-052 invoysini yaratdi (25.0M so\'m)', time: '14:28', ip: '85.17.12.35' },
+  { id: '3', user: 'Sardor Yusupov', action: 'BUILDING.UPDATE', type: 'UPDATE', description: 'Tashkent City binosi ma\'lumotlarini yangiladi', time: '14:15', ip: '94.158.21.10' },
+  { id: '4', user: 'Ravshan Keldiyev', action: 'WORK_ORDER.CREATE', type: 'CREATE', description: 'WO-2026-038 work order yaratdi (A-301 konditsioner)', time: '13:45', ip: '85.17.12.36' },
+  { id: '5', user: 'Alisher Qodirov', action: 'USER.LOGIN', type: 'AUTH', description: 'Tizimga kirdi', time: '13:30', ip: '85.17.12.34' },
+  { id: '6', user: 'Dilnoza Karimova', action: 'INVOICE.APPROVE', type: 'APPROVE', description: 'INV-2026-051 invoysini tasdiqladi (21.0M so\'m)', time: '12:50', ip: '85.17.12.35' },
+  { id: '7', user: 'Jasur Tursunov', action: 'WORK_ORDER.UPDATE', type: 'UPDATE', description: 'WO-2026-035 statusini IN_PROGRESS ga o\'zgartirdi', time: '12:15', ip: '85.17.12.37' },
+  { id: '8', user: 'Kamola Rashidova', action: 'USER.INVITE', type: 'CREATE', description: 'Nodira Azizovani BUILDING_MANAGER rolida taklif qildi', time: '11:30', ip: '85.17.12.38' },
+  { id: '9', user: 'Alisher Qodirov', action: 'BUILDING.CREATE', type: 'CREATE', description: 'Savdo Markaz binosini qo\'shdi', time: '10:45', ip: '85.17.12.34' },
+  { id: '10', user: 'Dilnoza Karimova', action: 'CONTRACT.VIEW', type: 'APPROVE', description: 'CTR-2026-002 shartnomasini ko\'rdi', time: '10:20', ip: '85.17.12.35' },
+  { id: '11', user: 'Otabek Yo\'ldoshev', action: 'USER.LOGIN', type: 'AUTH', description: 'Tizimga kirdi', time: '09:15', ip: '94.158.21.20' },
+  { id: '12', user: 'Ravshan Keldiyev', action: 'METER.READ', type: 'UPDATE', description: 'EL-001 hisoblagich ko\'rsatkichini kiritdi (15420 kWh)', time: '09:00', ip: '85.17.12.36' },
+]
+
+const filteredEntries = computed(() => {
+  let result = [...entries]
+  if (typeFilter.value !== 'all') result = result.filter(e => e.type === typeFilter.value)
+  if (search.value) {
+    const q = search.value.toLowerCase()
+    result = result.filter(e => e.user.toLowerCase().includes(q) || e.action.toLowerCase().includes(q) || e.description.toLowerCase().includes(q))
+  }
   return result
 })
 
-function actionBadge(a: string) { return { CREATE: 'badge-success', UPDATE: 'badge-brand', DELETE: 'badge-danger', LOGIN: 'badge-neutral', SIGN: 'badge-warning' }[a] || 'badge-neutral' }
-function actionLabel(a: string) { return { CREATE: 'Yaratish', UPDATE: 'Yangilash', DELETE: 'O\'chirish', LOGIN: 'Kirish', SIGN: 'Imzolash' }[a] || a }
-function formatDateTime(d: Date) { return new Date(d).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) }
+function actionColor(type: string) {
+  return { CREATE: '#10b981', UPDATE: '#6366f1', DELETE: '#ef4444', AUTH: '#3b82f6', APPROVE: '#8b5cf6' }[type] || '#71717a'
+}
+function actionIcon(type: string) {
+  return { CREATE: FileText, UPDATE: Edit3, DELETE: Trash2, AUTH: LogIn, APPROVE: CheckCircle }[type] || AlertCircle
+}
 </script>
+
+<style scoped>
+.audit-timeline { display: flex; flex-direction: column; gap: 0; }
+.audit-timeline__item { display: flex; gap: 12px; padding-bottom: 16px; position: relative; }
+.audit-timeline__item:not(:last-child)::before { content: ''; position: absolute; left: 16px; top: 32px; bottom: 0; width: 2px; background: rgba(0,0,0,0.05); }
+.dark .audit-timeline__item:not(:last-child)::before { background: rgba(255,255,255,0.05); }
+.audit-timeline__marker { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; }
+.audit-timeline__body { flex: 1; min-width: 0; }
+</style>

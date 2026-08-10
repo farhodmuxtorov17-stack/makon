@@ -1,132 +1,154 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Foydalanuvchilar</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ data?.stats.total || 0 }} foydalanuvchi · {{ data?.stats.active || 0 }} faol</p>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Foydalanuvchilar</h1>
+        <p class="text-ink-500 text-sm mt-1">{{ users.length }} foydalanuvchi · {{ activeCount }} faol</p>
       </div>
-      <button class="btn btn-primary btn-sm"><UserPlus :size="16" /> Yangi foydalanuvchi</button>
+      <button @click="showInvite = true" class="btn btn-primary btn-sm"><UserPlus :size="14" /> Taklif yuborish</button>
     </div>
 
-    <div v-if="pending" class="text-center py-20 text-ink-500">Yuklanmoqda...</div>
-
-    <template v-else-if="data">
-      <!-- Tabs -->
-      <div class="flex items-center gap-1 p-1 rounded-xl bg-white/5 w-fit">
-        <button @click="tab = 'users'" class="px-3 py-1.5 rounded-lg text-sm" :class="tab === 'users' ? 'bg-brand-500/10 text-brand-400' : 'text-ink-500'">Foydalanuvchilar</button>
-        <button @click="tab = 'roles'" class="px-3 py-1.5 rounded-lg text-sm" :class="tab === 'roles' ? 'bg-brand-500/10 text-brand-400' : 'text-ink-500'">Rollar va huquqlar</button>
-      </div>
-
-      <!-- Users tab -->
-      <div v-if="tab === 'users'">
-        <div class="relative mb-4">
-          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-500" />
-          <input v-model="search" type="text" placeholder="Ism, email yoki telefon..." class="input pl-9" />
+    <!-- KPI -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Users :size="16" class="text-blue-500" /></div>
+          <span class="text-xs text-ink-500">Jami</span>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div v-for="u in filteredUsers" :key="u.id" class="card p-4">
-            <div class="flex items-start gap-3 mb-3">
-              <div class="w-11 h-11 rounded-xl flex items-center justify-center font-bold flex-shrink-0" :class="roleBg(u.role)">
-                {{ u.name.charAt(0) }}
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="font-medium truncate">{{ u.name }}</div>
-                <div class="text-xs text-ink-500 truncate">{{ u.email }}</div>
-                <div class="text-xs text-ink-600 mt-0.5">{{ u.phone }}</div>
-              </div>
-              <span class="badge text-xs flex-shrink-0" :class="roleBadge(u.role)">{{ roleLabel(u.role) }}</span>
-            </div>
-            <div class="flex items-center justify-between pt-3 border-t border-white/5">
-              <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span class="text-xs text-ink-500">Faol</span>
-              </div>
-              <span class="text-xs text-ink-600">{{ timeAgo(u.lastLogin) }}</span>
-            </div>
-            <div v-if="u.managedBuildings" class="mt-2 flex flex-wrap gap-1">
-              <span v-for="b in u.managedBuildings" :key="b" class="text-xs px-2 py-0.5 rounded-md bg-white/5 text-ink-400">{{ b }}</span>
-            </div>
-          </div>
-        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ users.length }}</div>
       </div>
-
-      <!-- Roles tab -->
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div v-for="r in data.roles" :key="r.key" class="card p-5">
-          <div class="flex items-start justify-between mb-3">
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <component :is="roleIcon(r.key)" :size="18" :class="roleColor(r.key)" />
-                <h3 class="font-semibold">{{ r.label }}</h3>
-              </div>
-              <p class="text-xs text-ink-500">{{ r.description }}</p>
-            </div>
-            <span class="badge badge-brand text-xs">{{ r.users }} ta</span>
-          </div>
-          <div class="flex flex-wrap gap-1.5">
-            <span v-for="p in r.permissions" :key="p" class="text-xs px-2 py-1 rounded-md bg-white/5 text-ink-400">{{ permLabel(p) }}</span>
-          </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><UserCheck :size="16" class="text-emerald-500" /></div>
+          <span class="text-xs text-ink-500">Faol</span>
         </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ activeCount }}</div>
       </div>
-    </template>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Clock :size="16" class="text-amber-500" /></div>
+          <span class="text-xs text-ink-500">Taklif kutilmoqda</span>
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ pendingCount }}</div>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><ShieldCheck :size="16" class="text-purple-500" /></div>
+          <span class="text-xs text-ink-500">Adminlar</span>
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ adminCount }}</div>
+      </div>
+    </div>
+
+    <!-- Search + role filter -->
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div class="relative">
+        <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
+        <input v-model="search" type="text" placeholder="Ism, email yoki telefon..." class="w-64 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+      </div>
+      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
+        <button v-for="r in roleTabs" :key="r.value" @click="roleFilter = r.value" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all" :class="roleFilter === r.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+          {{ r.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Users table -->
+    <div class="card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+              <th class="text-left font-medium px-4 py-3">Foydalanuvchi</th>
+              <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Rol</th>
+              <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Tashkilot</th>
+              <th class="text-left font-medium px-4 py-3 hidden lg:table-cell">Kirish</th>
+              <th class="text-center font-medium px-4 py-3">Status</th>
+              <th class="text-center font-medium px-4 py-3">Amal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="u in filteredUsers" :key="u.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold text-white flex-shrink-0" :style="{ background: roleColor(u.role) }">
+                    {{ u.name.charAt(0) }}
+                  </div>
+                  <div>
+                    <div class="font-medium text-ink-900 dark:text-white text-sm">{{ u.name }}</div>
+                    <div class="text-xs text-ink-500">{{ u.email }}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3 hidden sm:table-cell">
+                <span class="badge text-[10px]" :style="{ background: roleColor(u.role) + '15', color: roleColor(u.role) }">{{ roleLabel(u.role) }}</span>
+              </td>
+              <td class="px-4 py-3 hidden md:table-cell text-ink-500 text-xs">{{ u.org }}</td>
+              <td class="px-4 py-3 hidden lg:table-cell text-ink-500 text-xs">{{ u.lastLogin }}</td>
+              <td class="px-4 py-3 text-center">
+                <span class="badge text-[10px]" :class="u.status === 'ACTIVE' ? 'badge-success' : u.status === 'PENDING' ? 'badge-warning' : 'badge-neutral'">
+                  {{ u.status === 'ACTIVE' ? 'Faol' : u.status === 'PENDING' ? 'Taklif' : 'Nofaol' }}
+                </span>
+              </td>
+              <td class="px-4 py-3 text-center">
+                <button class="btn btn-ghost btn-sm px-2"><MoreHorizontal :size="16" /></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { UserPlus, Search, ShieldCheck, Building2, Calculator, Wrench, User } from 'lucide-vue-next'
+import { UserPlus, Users, UserCheck, Clock, ShieldCheck, Search, MoreHorizontal } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const config = useRuntimeConfig()
-const data = ref({
-  users: [
-    { id: 'u1', name: 'Farhod Muxtorov', email: 'farhod@makon.uz', role: 'SUPER_HEAD', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-10T12:30:00', twoFactor: true },
-    { id: 'u2', name: 'Sardor Yusupov', email: 'sardor@makon.uz', role: 'BUILDING_MANAGER', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-09T18:45:00', twoFactor: false },
-    { id: 'u3', name: 'Dilnoza Karimova', email: 'dilnoza@makon.uz', role: 'ACCOUNTANT', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-10T09:00:00', twoFactor: true },
-    { id: 'u4', name: 'Aziz Toshmatov', email: 'aziz@makon.uz', role: 'FACILITY', status: 'ACTIVE', organization: 'TexServis MChJ', lastLogin: '2026-08-08T14:20:00', twoFactor: false },
-    { id: 'u5', name: 'Jasur Rahimov', email: 'jasur@makon.uz', role: 'WAREHOUSE_OPERATOR', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-07T11:15:00', twoFactor: false },
-    { id: 'u6', name: 'Malika Saidova', email: 'malika@makon.uz', role: 'CONTENT_OPERATOR', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-06T10:00:00', twoFactor: false },
-    { id: 'u7', name: 'Bobur Aliyev', email: 'bobur@abc-logistics.uz', role: 'TENANT_OWNER', status: 'ACTIVE', organization: 'ABC Logistics MChJ', lastLogin: '2026-08-09T15:30:00', twoFactor: true },
-    { id: 'u8', name: 'Kamola Nazarova', email: 'kamola@global-trade.uz', role: 'TENANT_OWNER', status: 'PENDING_ERI', organization: 'Global Trade MChJ', lastLogin: '2026-08-04T09:00:00', twoFactor: false },
-  ],
-})
-
-const tab = ref('users')
+const showInvite = ref(false)
 const search = ref('')
+const roleFilter = ref('all')
+
+const roleTabs = [
+  { value: 'all', label: 'Barchasi' },
+  { value: 'SUPER_HEAD', label: 'Rahbar' },
+  { value: 'BUILDING_MANAGER', label: 'Bino rahbari' },
+  { value: 'ACCOUNTANT', label: 'Buxgalter' },
+  { value: 'FACILITY', label: 'Pudratchi' },
+]
+
+const users = [
+  { id: '1', name: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', role: 'SUPER_HEAD', org: 'MAKON Management', lastLogin: '5 daq oldin', status: 'ACTIVE' },
+  { id: '2', name: 'Sardor Yusupov', email: 's.yusupov@abc.uz', role: 'BUILDING_MANAGER', org: 'ABC Logistics MChJ', lastLogin: '1 soat oldin', status: 'ACTIVE' },
+  { id: '3', name: 'Dilnoza Karimova', email: 'd.karimova@makon.uz', role: 'ACCOUNTANT', org: 'MAKON Management', lastLogin: '2 soat oldin', status: 'ACTIVE' },
+  { id: '4', name: 'Ravshan Keldiyev', email: 'r.keldiyev@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '30 daq oldin', status: 'ACTIVE' },
+  { id: '5', name: 'Jasur Tursunov', email: 'j.tursunov@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '3 soat oldin', status: 'ACTIVE' },
+  { id: '6', name: 'Bekzod Mahmudov', email: 'b.mahmudov@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '1 kun oldin', status: 'ACTIVE' },
+  { id: '7', name: 'Nodira Azizova', email: 'n.azizova@global.uz', role: 'BUILDING_MANAGER', org: 'Global Trade MChJ', lastLogin: 'Taklif yuborildi', status: 'PENDING' },
+  { id: '8', name: 'Otabek Yo\'ldoshev', email: 'o.yuldoshev@smart.uz', role: 'BUILDING_MANAGER', org: 'Smart Solutions MChJ', lastLogin: '2 kun oldin', status: 'ACTIVE' },
+  { id: '9', name: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', role: 'SUPER_HEAD', org: 'MAKON Management', lastLogin: '5 soat oldin', status: 'ACTIVE' },
+  { id: '10', name: 'Shoxrux Aliyev', email: 's.aliyev@logistics.uz', role: 'ACCOUNTANT', org: 'Logistics Plus', lastLogin: 'Nofaol', status: 'INACTIVE' },
+]
+
+const activeCount = computed(() => users.filter(u => u.status === 'ACTIVE').length)
+const pendingCount = computed(() => users.filter(u => u.status === 'PENDING').length)
+const adminCount = computed(() => users.filter(u => u.role === 'SUPER_HEAD').length)
 
 const filteredUsers = computed(() => {
-  if (!data.value?.users) return []
-  if (!search.value) return data.value.users
-  const q = search.value.toLowerCase()
-  return data.value.users.filter((u: any) => u.name?.toLowerCase().includes(q) || u.email?.toLowerCase().includes(q) || u.phone?.includes(q))
+  let result = [...users]
+  if (roleFilter.value !== 'all') result = result.filter(u => u.role === roleFilter.value)
+  if (search.value) {
+    const q = search.value.toLowerCase()
+    result = result.filter(u => u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q))
+  }
+  return result
 })
 
-function roleLabel(r: string) {
-  return { SUPER_HEAD: 'Bosh admin', BUILDING_MANAGER: 'Menejer', ACCOUNTANT: 'Buxgalter', FACILITY: 'Facility', TENANT_OWNER: 'Ijara oluvchi' }[r] || r
-}
-function roleBadge(r: string) {
-  return { SUPER_HEAD: 'badge-brand', BUILDING_MANAGER: 'badge-warning', ACCOUNTANT: 'badge-success', FACILITY: 'badge-neutral', TENANT_OWNER: 'badge-neutral' }[r] || 'badge-neutral'
-}
-function roleBg(r: string) {
-  return { SUPER_HEAD: 'bg-brand-500/10 text-brand-400', BUILDING_MANAGER: 'bg-amber-500/10 text-amber-400', ACCOUNTANT: 'bg-emerald-500/10 text-emerald-400', FACILITY: 'bg-orange-500/10 text-orange-400', TENANT_OWNER: 'bg-ink-500/10 text-ink-400' }[r] || 'bg-ink-500/10 text-ink-400'
-}
-function roleIcon(r: string) {
-  return { SUPER_HEAD: ShieldCheck, BUILDING_MANAGER: Building2, ACCOUNTANT: Calculator, FACILITY: Wrench, TENANT_OWNER: User }[r] || User
-}
 function roleColor(r: string) {
-  return { SUPER_HEAD: 'text-brand-400', BUILDING_MANAGER: 'text-amber-400', ACCOUNTANT: 'text-emerald-400', FACILITY: 'text-orange-400', TENANT_OWNER: 'text-ink-400' }[r] || 'text-ink-400'
+  return { SUPER_HEAD: '#8b5cf6', BUILDING_MANAGER: '#6366f1', ACCOUNTANT: '#10b981', FACILITY: '#f59e0b' }[r] || '#71717a'
 }
-function permLabel(p: string) {
-  return { buildings: 'Binolar', applications: 'Arizalar', contracts: 'Shartnomalar', finance: 'Moliya', invoices: 'Invoyslar', facility: 'Xizmatlar', inventory: 'Ombor', meters: 'Hisoblagichlar', reports: 'Hisobotlar', users: 'Foydalanuvchilar', settings: 'Sozlamalar', profile: 'Kabinet', 'service-requests': 'So\'rovlar', all: 'Hammasi' }[p] || p
-}
-function timeAgo(date: string) {
-  const diff = Date.now() - new Date(date).getTime()
-  const mins = Math.floor(diff / 60000)
-  if (mins < 60) return `${mins} daqiqa oldin`
-  const hours = Math.floor(mins / 60)
-  if (hours < 24) return `${hours} soat oldin`
-  const days = Math.floor(hours / 24)
-  return `${days} kun oldin`
+function roleLabel(r: string) {
+  return { SUPER_HEAD: 'Rahbar', BUILDING_MANAGER: 'Bino rahbari', ACCOUNTANT: 'Buxgalter', FACILITY: 'Pudratchi' }[r] || r
 }
 </script>

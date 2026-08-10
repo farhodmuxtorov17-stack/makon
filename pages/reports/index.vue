@@ -1,12 +1,12 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Hisobotlar</h1>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisobotlar</h1>
         <p class="text-ink-500 text-sm mt-1">Tizim analitikasi va ko'rsatkichlar</p>
       </div>
-      <div class="flex gap-2">
-        <select v-model="period" class="input w-auto">
+      <div class="flex items-center gap-2">
+        <select v-model="period" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
           <option value="month">Oylik</option>
           <option value="quarter">Choraklik</option>
           <option value="year">Yillik</option>
@@ -16,227 +16,192 @@
       </div>
     </div>
 
-    <!-- Summary cards -->
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">Konversiya</div>
-        <div class="text-2xl font-bold text-emerald-500">68%</div>
-        <div class="text-xs text-emerald-500 mt-1 flex items-center gap-1"><TrendingUp :size="12" /> +5%</div>
-      </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">O'rtacha ijara</div>
-        <div class="text-2xl font-bold">23.4M</div>
-        <div class="text-xs text-ink-500 mt-1">so'm/oy</div>
-      </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">O'rtacha hal qilish</div>
-        <div class="text-2xl font-bold">2.1 kun</div>
-        <div class="text-xs text-emerald-500 mt-1">SLA 3 kun</div>
-      </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">Mamnunlik</div>
-        <div class="text-2xl font-bold text-emerald-500">92%</div>
-        <div class="text-xs text-emerald-500 mt-1 flex items-center gap-1"><TrendingUp :size="12" /> +3%</div>
-      </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">Binolar</div>
-        <div class="text-2xl font-bold">12</div>
-        <div class="text-xs text-ink-500 mt-1">420 unit</div>
-      </div>
-    </div>
-
-    <!-- Revenue cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="card p-5 bg-gradient-to-br from-emerald-500/5 to-transparent">
-        <div class="flex items-center gap-2 mb-2"><TrendingUp :size="16" class="text-emerald-500" /><span class="text-xs text-ink-500">Jami daromad</span></div>
-        <div class="text-2xl font-bold text-emerald-500">1.24 mlrd so'm</div>
-        <div class="text-xs text-ink-500 mt-1">12 oy davomida</div>
-      </div>
-      <div class="card p-5 bg-gradient-to-br from-red-500/5 to-transparent">
-        <div class="flex items-center gap-2 mb-2"><AlertTriangle :size="16" class="text-red-500" /><span class="text-xs text-ink-500">Qarzdorlik</span></div>
-        <div class="text-2xl font-bold text-red-500">85.2M so'm</div>
-        <div class="text-xs text-red-500 mt-1">7 ta ijarachi</div>
-      </div>
-      <div class="card p-5 bg-gradient-to-br from-brand-500/5 to-transparent">
-        <div class="flex items-center gap-2 mb-2"><FileCheck2 :size="16" class="text-brand-500" /><span class="text-xs text-ink-500">Shartnoma qiymati</span></div>
-        <div class="text-2xl font-bold text-brand-500">4.8 mlrd so'm</div>
-        <div class="text-xs text-ink-500 mt-1">378 faol shartnoma</div>
-      </div>
-    </div>
-
-    <!-- Monthly trend chart -->
-    <div class="card p-6">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold">Oylik dinamika</h3>
-        <div class="flex items-center gap-4 text-xs">
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-brand-500/60"></span> Daromad</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500/40"></span> Yangi shartnomalar</span>
-        </div>
-      </div>
-      <div class="flex items-end justify-between h-48 gap-2">
-        <div v-for="t in trend" :key="t.month" class="flex-1 flex flex-col items-center gap-1 group">
-          <div class="w-full flex flex-col items-center gap-0.5">
-            <div class="w-full rounded-t bg-brand-500/60 group-hover:bg-brand-500 transition-all cursor-pointer relative" :style="{ height: barHeight(t.revenue, maxRevenue) + 'px' }">
-              <div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-medium whitespace-nowrap">{{ formatPrice(t.revenue) }}</div>
-            </div>
-            <div class="w-full rounded-t bg-emerald-500/40 group-hover:bg-emerald-500/60 transition-all" :style="{ height: barHeight(t.contracts, maxContracts) + 'px' }"></div>
-          </div>
-          <span class="text-xs text-ink-500">{{ t.month }}</span>
+    <!-- KPI row -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <div v-for="kpi in kpis" :key="kpi.label" class="card p-4">
+        <div class="text-xs text-ink-500 mb-1">{{ kpi.label }}</div>
+        <div class="text-xl font-bold" :class="kpi.color">{{ kpi.value }}</div>
+        <div class="text-xs mt-1 flex items-center gap-1" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
+          <component :is="kpi.trend > 0 ? TrendingUp : TrendingDown" :size="11" /> {{ Math.abs(kpi.trend) }}%
         </div>
       </div>
     </div>
 
-    <!-- Applications funnel -->
-    <div class="card p-6">
-      <h3 class="font-semibold mb-4">Arizalar voronkasi</h3>
-      <div class="space-y-3">
-        <div v-for="f in funnel" :key="f.stage" class="flex items-center gap-3">
-          <div class="w-32 text-sm text-ink-500 flex-shrink-0">{{ f.stage }}</div>
-          <div class="flex-1 h-8 rounded-lg bg-black/5 dark:bg-white/5 overflow-hidden">
-            <div class="h-full rounded-lg flex items-center px-3 transition-all duration-700"
-              :style="{ width: Math.max((f.count / maxFunnel) * 100, 6) + '%', backgroundColor: f.color }">
-              <span class="text-xs font-medium text-white" v-if="f.count > 0">{{ f.count }}</span>
-            </div>
-          </div>
-          <div class="w-12 text-right text-sm font-medium">{{ f.count }}</div>
-          <div class="w-12 text-right text-xs text-ink-500">{{ f.percent }}%</div>
+    <!-- Charts row 1 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <!-- Revenue by building -->
+      <div class="card p-5 lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-ink-900 dark:text-white">Binolar bo'yicha tushum (6 oy)</h3>
         </div>
+        <MakonChart type="bar" :series="revenueByBuilding" :categories="months" :height="280" :colors="['#6366f1', '#3b82f6', '#10b981', '#f59e0b']" :stacked="true" />
+      </div>
+
+      <!-- Conversion donut -->
+      <div class="card p-5">
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Ariza konversiyasi</h3>
+        <MakonChart type="donut" :series="[842, 156, 42, 28]" :donutLabels="['Ko\'rishlar', 'Arizalar', 'Shartnomalar', 'Imzolangan']" :height="280" :colors="['#3b82f6', '#6366f1', '#a855f7', '#10b981']" />
       </div>
     </div>
 
-    <!-- Occupancy by type + Request categories -->
+    <!-- Charts row 2 -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="card p-6">
-        <h3 class="font-semibold mb-4">Bandlik bo'yicha turlar</h3>
-        <div class="space-y-3">
-          <div v-for="o in occupancyByType" :key="o.type" class="flex items-center gap-3">
-            <div class="w-36 text-sm text-ink-500 flex-shrink-0">{{ typeLabel(o.type) }}</div>
-            <div class="flex-1 h-6 rounded-lg bg-black/5 dark:bg-white/5 overflow-hidden">
-              <div class="h-full rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 transition-all duration-700" :style="{ width: o.rate + '%' }"></div>
-            </div>
-            <div class="w-12 text-right text-sm font-medium">{{ o.rate }}%</div>
-          </div>
-        </div>
+      <!-- Occupancy trend -->
+      <div class="card p-5">
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bandlik dinamikasi</h3>
+        <MakonChart type="area" :series="occupancySeries" :categories="months" :height="240" :colors="['#10b981']" />
       </div>
 
-      <div class="card p-6">
-        <h3 class="font-semibold mb-4">Xizmat so'rovlari kategoriyalari</h3>
-        <div class="grid grid-cols-2 gap-3">
-          <div v-for="r in requestsByCategory" :key="r.category" class="p-3 rounded-xl bg-black/5 dark:bg-white/5">
-            <div class="text-xs text-ink-500 mb-1">{{ categoryLabel(r.category) }}</div>
-            <div class="flex items-center gap-2">
-              <span class="text-lg font-bold">{{ r.count }}</span>
-              <span v-if="r.open > 0" class="text-xs text-amber-500">{{ r.open }} ochiq</span>
-            </div>
-          </div>
-        </div>
+      <!-- Service SLA -->
+      <div class="card p-5">
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis SLA holati (kategoriya bo'yicha)</h3>
+        <MakonChart type="bar" :series="slaSeries" :categories="slaCategories" :height="240" :colors="['#10b981', '#f59e0b', '#ef4444']" :horizontal="true" :stacked="true" />
       </div>
     </div>
 
-    <!-- Building performance -->
-    <div class="card p-6">
-      <h3 class="font-semibold mb-4">Binolar bo'yicha samaradorlik</h3>
+    <!-- Building performance table -->
+    <div class="card overflow-hidden">
+      <div class="p-5 border-b border-black/5 dark:border-white/5">
+        <h3 class="font-semibold text-ink-900 dark:text-white">Binolar bo'yicha ko'rsatkichlar</h3>
+      </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
-              <th class="px-3 py-2">Bino</th>
-              <th class="px-3 py-2 text-right">Unit</th>
-              <th class="px-3 py-2 text-right">Bandlik</th>
-              <th class="px-3 py-2 text-right">Daromad</th>
-              <th class="px-3 py-2 text-right">Qarz</th>
-              <th class="px-3 py-2 text-right">So'rovlar</th>
-              <th class="px-3 py-2 text-center">SLA</th>
+            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+              <th class="text-left font-medium px-5 py-3">Bino</th>
+              <th class="text-center font-medium px-5 py-3 hidden md:table-cell">Unitlar</th>
+              <th class="text-center font-medium px-5 py-3">Bandlik</th>
+              <th class="text-right font-medium px-5 py-3 hidden sm:table-cell">Oylik tushum</th>
+              <th class="text-right font-medium px-5 py-3 hidden lg:table-cell">Metr² narxi</th>
+              <th class="text-center font-medium px-5 py-3 hidden md:table-cell">Arizalar</th>
+              <th class="text-center font-medium px-5 py-3">SLA</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="b in buildingPerf" :key="b.name" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3">
-              <td class="px-3 py-2 font-medium">{{ b.name }}</td>
-              <td class="px-3 py-2 text-right">{{ b.units }}</td>
-              <td class="px-3 py-2 text-right">
-                <div class="flex items-center justify-end gap-2">
-                  <div class="w-16 h-1.5 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
-                    <div class="h-full rounded-full" :class="b.occupancy > 90 ? 'bg-emerald-500' : b.occupancy > 75 ? 'bg-amber-500' : 'bg-red-500'" :style="{ width: b.occupancy + '%' }"></div>
+            <tr v-for="b in buildingsReport" :key="b.name" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <td class="px-5 py-3 font-medium text-ink-900 dark:text-white">{{ b.name }}</td>
+              <td class="px-5 py-3 text-center hidden md:table-cell text-ink-500">{{ b.units }}</td>
+              <td class="px-5 py-3 text-center">
+                <div class="inline-flex items-center gap-2">
+                  <div class="w-14 h-1.5 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
+                    <div class="h-full rounded-full" :style="{ width: b.occupancy + '%', background: b.occupancy > 80 ? '#10b981' : b.occupancy > 60 ? '#f59e0b' : '#ef4444' }"></div>
                   </div>
-                  <span class="text-xs">{{ b.occupancy }}%</span>
+                  <span class="text-xs font-medium text-ink-500">{{ b.occupancy }}%</span>
                 </div>
               </td>
-              <td class="px-3 py-2 text-right font-medium">{{ formatPrice(b.revenue) }}</td>
-              <td class="px-3 py-2 text-right" :class="b.debt > 0 ? 'text-red-500' : 'text-ink-500'">{{ b.debt > 0 ? formatPrice(b.debt) : '-' }}</td>
-              <td class="px-3 py-2 text-right">{{ b.requests }}</td>
-              <td class="px-3 py-2 text-center">
-                <span class="badge text-xs" :class="b.slaMet ? 'badge-success' : 'badge-danger'">{{ b.slaMet ? 'OK' : 'Past' }}</span>
+              <td class="px-5 py-3 text-right hidden sm:table-cell font-medium">{{ formatShort(b.revenue) }}</td>
+              <td class="px-5 py-3 text-right hidden lg:table-cell text-ink-500">{{ formatShort(b.pricePerM2) }}</td>
+              <td class="px-5 py-3 text-center hidden md:table-cell">
+                <span v-if="b.apps > 0" class="badge badge-brand text-xs">{{ b.apps }}</span>
+                <span v-else class="text-ink-400 text-xs">—</span>
+              </td>
+              <td class="px-5 py-3 text-center">
+                <span class="text-sm font-bold" :class="b.sla >= 90 ? 'text-emerald-500' : b.sla >= 75 ? 'text-amber-500' : 'text-red-500'">{{ b.sla }}%</span>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+    <!-- Recent activity feed -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div class="card p-5">
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">So'nggi faollik</h3>
+        <div class="space-y-2">
+          <div v-for="a in activities" :key="a.id" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" :class="a.iconBg">
+              <component :is="a.icon" :size="15" :class="a.iconColor" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-sm text-ink-900 dark:text-white truncate">{{ a.text }}</div>
+              <div class="text-xs text-ink-400">{{ a.time }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Top ijachi (daromad)</h3>
+        <div class="space-y-2">
+          <div v-for="(t, i) in topTenants" :key="t.name" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" :class="i === 0 ? 'bg-amber-500/15 text-amber-500' : 'bg-ink-500/10 text-ink-500'">{{ i + 1 }}</span>
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-medium text-ink-900 dark:text-white truncate">{{ t.name }}</div>
+              <div class="text-xs text-ink-500">{{ t.units }} unit · {{ t.building }}</div>
+            </div>
+            <span class="text-sm font-bold text-brand-500 flex-shrink-0">{{ formatShort(t.revenue) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { TrendingUp, AlertTriangle, FileCheck2, Download, FileSpreadsheet } from 'lucide-vue-next'
+import { Download, FileSpreadsheet, TrendingUp, TrendingDown, FileText, CheckCircle2, AlertCircle, Wrench, Building2, Users } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const period = ref('month')
 
-const trend = [
-  { month: 'Yan', revenue: 85000000, contracts: 3 },
-  { month: 'Fev', revenue: 92000000, contracts: 5 },
-  { month: 'Mar', revenue: 78000000, contracts: 2 },
-  { month: 'Apr', revenue: 110000000, contracts: 7 },
-  { month: 'May', revenue: 95000000, contracts: 4 },
-  { month: 'Iyn', revenue: 120000000, contracts: 8 },
-  { month: 'Iyl', revenue: 135000000, contracts: 6 },
-  { month: 'Avg', revenue: 128000000, contracts: 5 },
-  { month: 'Sen', revenue: 142000000, contracts: 9 },
-  { month: 'Okt', revenue: 115000000, contracts: 4 },
-  { month: 'Noy', revenue: 130000000, contracts: 7 },
-  { month: 'Dek', revenue: 155000000, contracts: 10 },
+const kpis = [
+  { label: 'Konversiya', value: '68%', color: 'text-emerald-500', trend: 5 },
+  { label: "O'rtacha ijara", value: '23.4M', color: 'text-ink-900 dark:text-white', trend: 3 },
+  { label: 'Hal qilish', value: '2.1 kun', color: 'text-ink-900 dark:text-white', trend: -8 },
+  { label: 'Mamnunlik', value: '92%', color: 'text-emerald-500', trend: 3 },
+  { label: 'KPI Score', value: '8.4/10', color: 'text-brand-500', trend: 2 },
 ]
 
-const maxRevenue = Math.max(...trend.map(t => t.revenue))
-const maxContracts = Math.max(...trend.map(t => t.contracts))
-
-const funnel = [
-  { stage: 'Ariza kelib tushdi', count: 156, percent: 100, color: '#6366f1' },
-  { stage: 'Operatsion tekshiruv', count: 142, percent: 91, color: '#818cf8' },
-  { stage: 'Moliyaviy tasdiq', count: 128, percent: 82, color: '#a5b4fc' },
-  { stage: 'Taklif yuborildi', count: 112, percent: 72, color: '#c7d2fe' },
-  { stage: 'ERI imzolash', count: 106, percent: 68, color: '#ddd6fe' },
-  { stage: 'Shartnoma tuzildi', count: 106, percent: 68, color: '#10b981' },
-]
-const maxFunnel = Math.max(...funnel.map(f => f.count))
-
-const occupancyByType = [
-  { type: 'BUSINESS_CENTER', rate: 94 },
-  { type: 'OFFICE', rate: 87 },
-  { type: 'SHOPPING', rate: 79 },
-  { type: 'WAREHOUSE', rate: 72 },
-  { type: 'MIXED', rate: 83 },
+const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']
+const revenueByBuilding = [
+  { name: 'Tashkent City', data: [380, 390, 400, 410, 415, 420] },
+  { name: 'Trillant Tower', data: [340, 350, 360, 365, 375, 380] },
+  { name: 'IT Park', data: [250, 255, 260, 270, 275, 280] },
+  { name: 'Piramit', data: [160, 165, 170, 172, 175, 180] },
 ]
 
-const requestsByCategory = [
-  { category: 'PLUMBING', count: 48, open: 3 },
-  { category: 'ELECTRICAL', count: 67, open: 5 },
-  { category: 'HVAC', count: 52, open: 2 },
-  { category: 'CLEANING', count: 34, open: 0 },
-  { category: 'STRUCTURAL', count: 12, open: 1 },
-  { category: 'SECURITY', count: 8, open: 0 },
+const occupancySeries = [
+  { name: 'Bandlik %', data: [82, 83, 84, 85, 86, 87.3] },
 ]
 
-const buildingPerf = [
-  { name: 'Tashkent City', units: 420, occupancy: 90, revenue: 380000000, debt: 12000000, requests: 28, slaMet: true },
-  { name: 'Trillent Tower', units: 180, occupancy: 95, revenue: 250000000, debt: 0, requests: 14, slaMet: true },
-  { name: 'IT Park', units: 150, occupancy: 82, revenue: 180000000, debt: 8500000, requests: 19, slaMet: true },
-  { name: 'Piramit', units: 90, occupancy: 78, revenue: 140000000, debt: 15000000, requests: 22, slaMet: false },
-  { name: 'Business Center 1', units: 60, occupancy: 88, revenue: 95000000, debt: 3200000, requests: 8, slaMet: true },
+const slaCategories = ['Elektr', 'Santexnika', 'Devor', 'Lift', 'Eshik', 'Konditsioner']
+const slaSeries = [
+  { name: 'SLA ichida', data: [45, 38, 22, 18, 15, 12] },
+  { name: 'SLA yaqin', data: [3, 2, 1, 1, 2, 1] },
+  { name: 'SLA buzilgan', data: [1, 1, 0, 0, 1, 0] },
 ]
 
-function barHeight(val: number, max: number) { return Math.max((val / max) * 160, 3) }
-function typeLabel(t: string) { return { BUSINESS_CENTER: 'Biznes markaz', OFFICE: 'Ofis', SHOPPING: 'Savdo', WAREHOUSE: 'Ombor', RESIDENTIAL: 'Turar joy', MIXED: 'Aralash' }[t] || t }
-function categoryLabel(c: string) { return { PLUMBING: 'Sanitariya', ELECTRICAL: 'Elektrika', HVAC: 'Konditsioner', CLEANING: 'Tozalash', STRUCTURAL: 'Konstruksiya', SECURITY: 'Xavfsizlik', OTHER: 'Boshqa' }[c] || c }
-function formatPrice(p: number) { if (!p) return '0'; if (p >= 1000000000) return (p / 1000000000).toFixed(1) + ' mlrd'; if (p >= 1000000) return (p / 1000000).toFixed(0) + 'M'; return p.toLocaleString('ru-RU') }
+const buildingsReport = [
+  { name: 'Tashkent City', units: 420, occupancy: 90, revenue: 420000000, pricePerM2: 294000, apps: 8, sla: 96 },
+  { name: 'Trillant Tower', units: 180, occupancy: 95, revenue: 380000000, pricePerM2: 316000, apps: 3, sla: 98 },
+  { name: 'IT Park', units: 150, occupancy: 82, revenue: 280000000, pricePerM2: 268000, apps: 5, sla: 92 },
+  { name: 'Piramit', units: 90, occupancy: 78, revenue: 180000000, pricePerM2: 200000, apps: 2, sla: 85 },
+  { name: 'Savdo Markaz', units: 120, occupancy: 79, revenue: 95000000, pricePerM2: 182000, apps: 0, sla: 90 },
+  { name: 'Bektemir Sanoat', units: 288, occupancy: 72, revenue: 65000000, pricePerM2: 95000, apps: 0, sla: 78 },
+]
+
+const activities = [
+  { id: '1', text: 'Yangi shartnoma CTR-2026-010 imzolandi', time: '5 daq oldin', icon: FileText, iconBg: 'bg-emerald-500/10', iconColor: 'text-emerald-500' },
+  { id: '2', text: 'ABC Logistics MChJ 22M so\'m to\'ladi', time: '20 daq oldin', icon: CheckCircle2, iconBg: 'bg-blue-500/10', iconColor: 'text-blue-500' },
+  { id: '3', text: 'Export Group MChJ invoys muddati o\'tdi', time: '1 soat oldin', icon: AlertCircle, iconBg: 'bg-red-500/10', iconColor: 'text-red-500' },
+  { id: '4', text: 'Work order WO-038 yaratildi (Tashkent City)', time: '2 soat oldin', icon: Wrench, iconBg: 'bg-amber-500/10', iconColor: 'text-amber-500' },
+  { id: '5', text: 'Yangi bino "Savdo Markaz" qo\'shildi', time: '5 soat oldin', icon: Building2, iconBg: 'bg-purple-500/10', iconColor: 'text-purple-500' },
+  { id: '6', text: '5 ta yangi ariza qabul qilindi', time: '1 kun oldin', icon: FileText, iconBg: 'bg-indigo-500/10', iconColor: 'text-indigo-500' },
+]
+
+const topTenants = [
+  { name: 'Smart Solutions MChJ', units: 3, building: 'IT Park + Trillant', revenue: 95000000 },
+  { name: 'ABC Logistics MChJ', units: 2, building: 'Tashkent City', revenue: 50000000 },
+  { name: 'Global Trade MChJ', units: 2, building: 'Tashkent City', revenue: 42000000 },
+  { name: 'Mega Group MChJ', units: 1, building: 'Trillant Tower', revenue: 32000000 },
+  { name: 'Tech Hub MChJ', units: 1, building: 'IT Park', revenue: 28000000 },
+]
+
+function formatShort(v: number) {
+  if (v >= 1_000_000_000) return (v / 1_000_000_000).toFixed(1) + 'B'
+  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + 'M'
+  if (v >= 1_000) return (v / 1_000).toFixed(0) + 'K'
+  return String(v)
+}
 </script>
