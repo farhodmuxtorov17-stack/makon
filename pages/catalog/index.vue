@@ -169,6 +169,7 @@
   </div>
 </template>
 
+definePageMeta({ layout: "public" })
 <script setup lang="ts">
 import { Search, MapPin, ArrowRight, Eye, LayoutGrid, List, SearchX } from 'lucide-vue-next'
 import { listings, buildings } from '~/utils/mockData'

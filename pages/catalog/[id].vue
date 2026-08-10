@@ -113,6 +113,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ layout: "public" })
 import { ChevronRight, MapPin, Building2, Eye, Phone, CheckCircle2 } from 'lucide-vue-next'
 import { listings, buildings } from '~/utils/mockData'
 

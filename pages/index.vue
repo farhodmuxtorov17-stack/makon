@@ -162,6 +162,7 @@
   </div>
 </template>
 
+definePageMeta({ layout: "public" })
 <script setup lang="ts">
 import { ArrowRight, ShieldCheck, ChevronDown, MapPin, Building2, Box, Wallet, FileText, Wrench, BarChart3, Gauge, Users } from 'lucide-vue-next'
 import { buildings } from '~/utils/mockData'

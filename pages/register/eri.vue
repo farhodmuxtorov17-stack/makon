@@ -67,7 +67,7 @@
 <script setup lang="ts">
 import { ShieldCheck, CheckCircle2, Upload, Info } from 'lucide-vue-next'
 
-definePageMeta({ middleware: 'guest' })
+definePageMeta({ layout: 'auth', middleware: 'guest' })
 
 const inn = ref('')
 const orgName = ref('')
