@@ -90,7 +90,7 @@
       </div>
       <template #footer>
         <button class="btn btn-ghost btn-lg" @click="showNew = false">Bekor</button>
-        <button class="btn btn-primary btn-lg" @click="showNew = false">Qo'shish</button>
+        <button class="btn btn-primary btn-lg" @click="createItem">Qo'shish</button>
       </template>
     </BaseModal>
   </div>
@@ -100,6 +100,7 @@
 import { Plus, Search, AlertTriangle } from 'lucide-vue-next'
 
 const serviceStore = useServiceStore()
+const toast = useToast()
 onMounted(() => serviceStore.initMockData())
 
 const search = ref('')
@@ -126,6 +127,10 @@ const filteredItems = computed(() => {
   return result
 })
 
+  function createItem() {
+    toast.success("Material qoshildi", "Sklad yangilandi")
+    showNew.value = false
+  }
 function formatPrice(v: number) {
   if (v >= 1000000) return (v / 1000000).toFixed(1) + ' mln'
   if (v >= 1000) return (v / 1000).toFixed(0) + 'K'

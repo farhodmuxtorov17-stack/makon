@@ -18,7 +18,6 @@
           <StatusBadge :status="bp.status" :variant="bp.status === 'OPEN' ? 'info' : 'neutral'"
             :label="bp.status === 'OPEN' ? 'Ochiq' : 'Yopilgan'" dot />
         </div>
-
         <div class="grid grid-cols-3 gap-3 text-sm">
           <div>
             <p class="text-ink-400 text-xs">Generatsiya</p>
@@ -33,7 +32,6 @@
             <p class="font-medium text-ink-700">{{ bp.closedAt ? formatDate(bp.closedAt) : '—' }}</p>
           </div>
         </div>
-
         <div class="mt-4 pt-4 border-t border-ink-100">
           <button v-if="bp.status === 'OPEN'" class="btn btn-outline btn-sm w-full" @click="showCloseConfirm = true; closePeriodId = bp.id">
             <Lock :size="16" /> Davrni yopish
@@ -57,7 +55,7 @@
       </div>
       <template #footer>
         <button class="btn btn-ghost btn-lg" @click="showGenerate = false">Bekor</button>
-        <button class="btn btn-primary btn-lg" @click="showGenerate = false">Generatsiya qilish</button>
+        <button class="btn btn-primary btn-lg" @click="doGenerate">Generatsiya qilish</button>
       </template>
     </BaseModal>
 
@@ -71,6 +69,7 @@
 import { Sparkles, Lock, Eye } from 'lucide-vue-next'
 
 const financeStore = useFinanceStore()
+const toast = useToast()
 onMounted(() => financeStore.initMockData())
 
 const showGenerate = ref(false)
@@ -78,19 +77,18 @@ const showCloseConfirm = ref(false)
 const closePeriodId = ref('')
 
 const hasOpenPeriod = computed(() => financeStore.billingPeriods.some(bp => bp.status === 'OPEN'))
-
 const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr']
 function monthName(m: number) { return months[m - 1] || '' }
-
 function formatDate(d: string) { return d ? d.split('T')[0] : '—' }
+function formatPrice(v: number) { return v >= 1000000 ? (v / 1000000).toFixed(1) + ' mln' : v.toLocaleString('ru') }
 
-function formatPrice(v: number) {
-  if (v >= 1000000) return (v / 1000000).toFixed(1) + ' mln'
-  return v.toLocaleString('ru')
+function doGenerate() {
+  showGenerate.value = false
+  toast.success('Generatsiya boshlandi', 'Invoyslar avtomatik yaratilmoqda')
 }
 
 function closePeriod() {
   showCloseConfirm.value = false
-  // In production this would call an API
+  toast.success('Davr yopildi', 'Barcha invoyslar yakuniy holatga o\'tdi')
 }
 </script>

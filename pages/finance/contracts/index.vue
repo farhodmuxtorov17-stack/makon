@@ -39,7 +39,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in filteredContracts" :key="c.id" class="cursor-pointer hover:bg-ink-50/50 transition-colors">
+            <tr v-for="c in filteredContracts" :key="c.id" class="table-row-hover" @click="$router.push(`/finance/contracts/${c.id}`)">
               <td class="font-mono font-semibold text-ink-900">{{ c.number }}</td>
               <td>
                 <div class="flex items-center gap-2.5">
@@ -85,36 +85,36 @@
       <div class="space-y-4">
         <div>
           <label class="label">Ijarachi</label>
-          <input class="input" placeholder="F.I.O" />
+          <input v-model="newContract.tenantName" class="input" placeholder="F.I.O" />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="label">Turi</label>
-            <select class="input"><option value="RENT">Ijara</option><option value="SALE">Sotuv</option></select>
+            <select v-model="newContract.type" class="input"><option value="RENT">Ijara</option><option value="SALE">Sotuv</option></select>
           </div>
           <div>
             <label class="label">Oylik to'lov (so'm)</label>
-            <input class="input" type="number" placeholder="0" />
+            <input v-model="newContract.monthlyRent" class="input" type="number" placeholder="0" />
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="label">Boshlanish</label>
-            <input class="input" type="date" />
+            <input v-model="newContract.startDate" class="input" type="date" />
           </div>
           <div>
             <label class="label">Tugash</label>
-            <input class="input" type="date" />
+            <input v-model="newContract.endDate" class="input" type="date" />
           </div>
         </div>
         <div>
           <label class="label">PINFL</label>
-          <input class="input font-mono" placeholder="14 raqam" maxlength="14" />
+          <input v-model="newContract.pinfl" class="input font-mono" placeholder="14 raqam" maxlength="14" />
         </div>
       </div>
       <template #footer>
         <button class="btn btn-ghost btn-lg" @click="showNew = false">Bekor</button>
-        <button class="btn btn-primary btn-lg" @click="showNew = false">Yaratish</button>
+        <button class="btn btn-primary btn-lg" @click="createContract">Yaratish</button>
       </template>
     </BaseModal>
   </div>
@@ -125,18 +125,28 @@ import { Plus, Search, CheckCircle2, Clock, MoreHorizontal } from 'lucide-vue-ne
 import type { ContractStatus } from '~/types'
 
 const financeStore = useFinanceStore()
+const toast = useToast()
 onMounted(() => financeStore.initMockData())
 
 const search = ref('')
 const activeTab = ref('all')
 const showNew = ref(false)
 
+const newContract = reactive({
+  tenantName: '',
+  type: 'RENT',
+  monthlyRent: 0,
+  startDate: '',
+  endDate: '',
+  pinfl: '',
+})
+
 const tabs = computed(() => [
   { id: 'all', label: 'Hammasi', count: financeStore.contracts.length },
   { id: 'ACTIVE', label: 'Aktiv', count: financeStore.contracts.filter(c => c.status === 'ACTIVE').length },
   { id: 'PENDING_SIGN', label: "Imzolanmagan", count: financeStore.contracts.filter(c => c.status === 'PENDING_SIGN').length },
   { id: 'SIGNED', label: 'Imzolangan', count: financeStore.contracts.filter(c => c.status === 'SIGNED').length },
-  { id: 'EXPIRED', label: 'Muddati o\'tgan', count: financeStore.contracts.filter(c => c.status === 'EXPIRED').length },
+  { id: 'EXPIRED', label: "Muddati o'tgan", count: financeStore.contracts.filter(c => c.status === 'EXPIRED').length },
 ])
 
 const filteredContracts = computed(() => {
@@ -149,25 +159,34 @@ const filteredContracts = computed(() => {
   return result
 })
 
+function createContract() {
+  if (!newContract.tenantName || !newContract.monthlyRent) {
+    toast.error("Ma'lumot to'liq emas", 'Ijarachi va oylik to\'lov kerak')
+    return
+  }
+  financeStore.addContract({
+    tenantName: newContract.tenantName,
+    type: newContract.type as any,
+    monthlyRent: Number(newContract.monthlyRent),
+    startDate: newContract.startDate,
+    endDate: newContract.endDate,
+  })
+  toast.success('Shartnoma yaratildi', `${newContract.tenantName} uchun`)
+  showNew.value = false
+  Object.assign(newContract, { tenantName: '', type: 'RENT', monthlyRent: 0, startDate: '', endDate: '', pinfl: '' })
+}
+
 function formatPrice(v: number) {
   if (v >= 1000000) return (v / 1000000).toFixed(1) + ' mln'
   return v.toLocaleString('ru')
 }
 
 function contractLabel(s: ContractStatus): string {
-  const m: Record<string, string> = {
-    ACTIVE: 'Aktiv', PENDING_SIGN: 'Imzolanmagan', SIGNED: 'Imzolangan',
-    EXPIRED: 'Muddati o\'tgan', DRAFT: 'Qoralama', TERMINATED: 'Bekor qilingan',
-  }
+  const m: Record<string, string> = { ACTIVE: 'Aktiv', PENDING_SIGN: 'Imzolanmagan', SIGNED: 'Imzolangan', EXPIRED: "Muddati o'tgan", DRAFT: 'Qoralama', TERMINATED: 'Bekor qilingan' }
   return m[s] || s
 }
-
 function contractVariant(s: ContractStatus): string {
-  const m: Record<string, string> = {
-    ACTIVE: 'success', PENDING_SIGN: 'warning',
-    SIGNED: 'info', EXPIRED: 'neutral',
-    DRAFT: 'neutral', TERMINATED: 'danger',
-  }
+  const m: Record<string, string> = { ACTIVE: 'success', PENDING_SIGN: 'warning', SIGNED: 'info', EXPIRED: 'neutral', DRAFT: 'neutral', TERMINATED: 'danger' }
   return m[s] || 'neutral'
 }
 </script>

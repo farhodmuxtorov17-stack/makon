@@ -15,9 +15,8 @@
 
       <div class="w-full max-w-sm mx-auto">
         <h1 class="font-display text-3xl font-bold tracking-tight mb-2">Tizimga kirish</h1>
-        <p class="text-ink-500 text-sm mb-8">Identifikatsiyadan o'ting va boshqaruv paneliga kiring</p>
+        <p class="text-ink-500 text-sm mb-8">Davlat xizmatlari portali orqali identifikatsiya qiling</p>
 
-        <!-- Auth tabs -->
         <div class="flex gap-1 p-1 bg-ink-100 rounded-xl mb-6">
           <button class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-all"
             :class="authMode === 'password' ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-400 hover:text-ink-600'"
@@ -34,7 +33,7 @@
         <form @submit.prevent="handleSubmit" class="space-y-5">
           <div v-if="authMode === 'password'">
             <label class="label">Login</label>
-            <input v-model="loginVal" type="text" class="input" placeholder="admin" autocomplete="username" />
+            <input v-model="loginVal" type="text" class="input" placeholder="Loginingizni kiriting" autocomplete="username" />
           </div>
           <div v-if="authMode === 'password'">
             <label class="label">Parol</label>
@@ -58,13 +57,6 @@
               Eslab qolish
             </label>
             <a href="#" class="text-sm text-brand-600 hover:text-brand-700 font-medium">Parolni unutdingizmi?</a>
-          </div>
-
-          <!-- Demo credentials hint -->
-          <div v-if="authMode === 'password' && !error" class="rounded-xl bg-ink-50 border border-ink-100 p-3 text-xs text-ink-500">
-            <p class="font-semibold text-ink-600 mb-1">Demo kirish:</p>
-            <p>Admin: <code class="font-mono">admin / admin123</code></p>
-            <p>Ijarachi: <code class="font-mono">tenant / tenant123</code></p>
           </div>
 
           <p v-if="error" class="text-sm text-rose-600 bg-rose-50 rounded-lg px-4 py-2.5 flex items-center gap-2">
@@ -93,7 +85,7 @@
       </div>
 
       <p class="absolute bottom-8 left-0 right-0 text-center text-xs text-ink-400">
-        © 2026 MAKON · Ko'chmas mulk boshqaruv platformasi
+        © 2026 MAKON · O'zbekiston Respublikasi Davlat xizmatlari portali
       </p>
     </div>
 
@@ -102,7 +94,6 @@
       <img :src="heroImage" class="absolute inset-0 w-full h-full object-cover opacity-50" @error="handleImgError" />
       <div class="absolute inset-0 bg-gradient-to-br from-ink-950/80 via-ink-950/40 to-brand-950/60"></div>
 
-      <!-- Location badge -->
       <div class="absolute top-12 left-12 z-10">
         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2">
           <MapPin :size="14" class="text-amber-400" />
@@ -113,10 +104,10 @@
       <div class="relative h-full flex flex-col justify-end p-12 z-10">
         <div class="mb-12">
           <p class="font-display text-4xl text-white font-bold leading-tight mb-3">
-            Ko'chmas mulk boshqaruvi<br />yangi darajada
+            Binolaringiz boshqaruvi<br />bir tizimda
           </p>
           <p class="text-white/60 text-lg leading-relaxed max-w-md">
-            Binolar, shartnomalar, to'lovlar va servis — yagona tizimda
+            Shartnomalar, to'lovlar va servis — bitta platformada
           </p>
         </div>
 
@@ -138,17 +129,17 @@ definePageMeta({ layout: 'auth' })
 
 const authStore = useAuthStore()
 const router = useRouter()
+const toast = useToast()
 
 const authMode = ref<'password' | 'eri'>('password')
-const loginVal = ref('admin')
-const password = ref('admin123')
+const loginVal = ref('')
+const password = ref('')
 const pinfl = ref('')
 const showPassword = ref(false)
 const remember = ref(true)
 const error = ref('')
 const loading = ref(false)
 
-// Tashkent city skyline at night
 const heroImage = ref('https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=1200&q=80')
 
 const stats = [
@@ -164,6 +155,7 @@ async function handleSubmit() {
 
   if (authMode.value === 'password') {
     if (authStore.login(loginVal.value, password.value)) {
+      toast.success('Xush kelibsiz', `${authStore.user?.fullName}`)
       router.push(authStore.role === 'TENANT_OWNER' ? '/dashboard/tenant' : '/dashboard/executive')
     } else {
       error.value = "Login yoki parol noto'g'ri"
@@ -171,6 +163,7 @@ async function handleSubmit() {
     }
   } else {
     if (authStore.loginErI(pinfl.value)) {
+      toast.success('ERI imzo muvaffaqiyatli')
       router.push('/dashboard/executive')
     } else {
       error.value = "PINFL noto'g'ri (14 raqam bo'lishi kerak)"
@@ -180,7 +173,7 @@ async function handleSubmit() {
 }
 
 function loginTelegram() {
-  error.value = 'Telegram auth hozircha mavjud emas — login/parol bilan kiring'
+  toast.info('Telegram auth', 'Ilova orqali avtorizatsiya tez orada')
 }
 
 function handleImgError() {

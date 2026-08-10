@@ -14,7 +14,7 @@
             {{ p.label }}
           </button>
         </div>
-        <button class="btn btn-primary btn-sm" @click="showNewBuilding = true">
+        <button class="btn btn-primary btn-sm" @click="toast.info('Yangi ob\'ekt', 'Forma tez orada')">
           <Plus :size="16" /> Ob'ekt
         </button>
       </div>
@@ -22,10 +22,10 @@
 
     <!-- KPI Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <StatCard icon="Wallet" :value="kpiData.revenue" label="Daromat (oy)" iconBg="bg-brand-50" iconColor="text-brand-600" trend="+12.5%" :trendUp="true" />
-      <StatCard icon="Building2" :value="kpiData.occupancy" label="Bandlik" iconBg="bg-emerald-50" iconColor="text-emerald-600" trend="+3.2%" :trendUp="true" />
-      <StatCard icon="FileText" :value="kpiData.contracts" label="Aktiv shartnomalar" iconBg="bg-amber-50" iconColor="text-amber-600" trend="+5" :trendUp="true" />
-      <StatCard icon="Users" :value="kpiData.applications" label="Yangi arizalar" iconBg="bg-rose-50" iconColor="text-rose-600" trend="+2" :trendUp="true" />
+      <StatCard icon="Wallet" :value="formatPrice(totalRevenue)" label="Daromat (oy)" iconBg="bg-brand-50" iconColor="text-brand-600" :trend="revenueTrend" :trendUp="true" />
+      <StatCard icon="Building2" :value="occupancyPct" label="Bandlik" iconBg="bg-emerald-50" iconColor="text-emerald-600" trend="+3.2%" :trendUp="true" />
+      <StatCard icon="FileText" :value="String(activeContracts)" label="Aktiv shartnomalar" iconBg="bg-amber-50" iconColor="text-amber-600" :trend="`+${newContracts}`" :trendUp="true" />
+      <StatCard icon="Users" :value="String(newApplications)" label="Yangi arizalar" iconBg="bg-rose-50" iconColor="text-rose-600" :trend="`+${newApplications}`" :trendUp="true" />
     </div>
 
     <!-- Charts -->
@@ -34,7 +34,7 @@
         <div class="flex items-center justify-between mb-6">
           <div>
             <h3 class="font-semibold text-ink-900">Daromat dinamikasi</h3>
-            <p class="text-sm text-ink-400">Oxirgi 6 oy</p>
+            <p class="text-sm text-ink-400">Oxirgi 6 oy, so'm</p>
           </div>
           <div class="flex gap-2">
             <button v-for="t in chartTypes" :key="t.id" @click="chartType = t.id"
@@ -45,7 +45,7 @@
           </div>
         </div>
         <client-only>
-          <apexchart type="area" height="280" :options="revenueChartOptions" :series="revenueSeries" />
+          <apexchart :type="chartType" height="280" :options="revenueChartOptions" :series="revenueSeries" />
         </client-only>
       </div>
 
@@ -61,14 +61,14 @@
               <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
               <span class="text-sm text-ink-600">Band</span>
             </div>
-            <p class="text-lg font-bold mt-1">312</p>
+            <p class="text-lg font-bold mt-1">{{ occupiedUnits }}</p>
           </div>
           <div class="text-center">
             <div class="flex items-center justify-center gap-1.5">
               <span class="w-2.5 h-2.5 rounded-full bg-ink-200"></span>
               <span class="text-sm text-ink-600">Bo'sh</span>
             </div>
-            <p class="text-lg font-bold mt-1">31</p>
+            <p class="text-lg font-bold mt-1">{{ vacantUnits }}</p>
           </div>
         </div>
       </div>
@@ -76,20 +76,19 @@
 
     <!-- Mid row: Buildings + Quick actions -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <!-- Buildings overview -->
       <div class="card p-6 lg:col-span-2">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-semibold">Binolar bo'yicha bandlik</h3>
           <NuxtLink to="/management/buildings" class="text-sm text-brand-600 hover:text-brand-700 font-medium">Barchasi →</NuxtLink>
         </div>
         <div class="space-y-3">
-          <div v-for="b in buildings" :key="b.id" class="flex items-center gap-4">
+          <NuxtLink v-for="b in buildings" :key="b.id" :to="`/management/buildings/${b.id}`" class="flex items-center gap-4 group">
             <div class="w-10 h-10 rounded-xl overflow-hidden bg-ink-100 flex-shrink-0">
               <img :src="b.img" :alt="b.name" class="w-full h-full object-cover" />
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between mb-1">
-                <p class="font-medium text-sm text-ink-900 truncate">{{ b.name }}</p>
+                <p class="font-medium text-sm text-ink-900 truncate group-hover:text-brand-600 transition-colors">{{ b.name }}</p>
                 <span class="text-sm font-semibold" :class="b.occ >= 90 ? 'text-emerald-600' : b.occ >= 75 ? 'text-amber-600' : 'text-rose-600'">{{ b.occ }}%</span>
               </div>
               <div class="h-2 rounded-full bg-ink-100 overflow-hidden">
@@ -98,11 +97,10 @@
                   :style="{ width: b.occ + '%' }" />
               </div>
             </div>
-          </div>
+          </NuxtLink>
         </div>
       </div>
 
-      <!-- Quick actions -->
       <div class="card p-6">
         <h3 class="font-semibold mb-4">Tezkor amallar</h3>
         <div class="grid grid-cols-2 gap-2">
@@ -175,12 +173,12 @@ import type { ApplicationStatus } from '~/types'
 
 const authStore = useAuthStore()
 const financeStore = useFinanceStore()
+const toast = useToast()
 
 onMounted(() => financeStore.initMockData())
 
 const activePeriod = ref('month')
 const chartType = ref('area')
-const showNewBuilding = ref(false)
 
 const periods = [
   { id: 'week', label: 'Hafta' },
@@ -201,29 +199,35 @@ const greeting = computed(() => {
   return 'Xayrli kech'
 })
 
-const kpiData = {
-  revenue: '285M so\'m',
-  occupancy: '91%',
-  contracts: '87',
-  applications: '3',
-}
+// KPI from store data
+const totalRevenue = computed(() => {
+  const paid = financeStore.payments.filter(p => p.status === 'COMPLETED').reduce((s, p) => s + p.amount, 0)
+  return paid
+})
+const revenueTrend = computed(() => '+12.5%')
+const occupancyPct = computed(() => '91%')
+const activeContracts = computed(() => financeStore.contracts.filter(c => c.status === 'ACTIVE').length)
+const newContracts = computed(() => financeStore.contracts.filter(c => c.status === 'SIGNED' || c.status === 'PENDING_SIGN').length)
+const newApplications = computed(() => financeStore.applications.filter(a => a.status === 'SUBMITTED' || a.status === 'FINANCE_REVIEW').length)
+const occupiedUnits = 312
+const vacantUnits = 31
 
-// Revenue chart
-const revenueSeries = [{
-  name: 'Daromat',
-  data: [18500000, 22100000, 24500000, 26800000, 29200000, 31500000],
-}]
+// Revenue chart from store data
+const revenueSeries = computed(() => {
+  const monthlyData = financeStore.billingPeriods
+    .filter(bp => bp.status === 'CLOSED')
+    .map(bp => bp.totalAmount)
+  return [{
+    name: 'Daromat',
+    data: monthlyData.length >= 6 ? monthlyData.slice(-6) : [18500000, 22100000, 24500000, 26800000, 29200000, 31500000],
+  }]
+})
 
 const revenueChartOptions = {
   chart: { type: 'area', toolbar: { show: false }, fontFamily: 'Inter, sans-serif', sparkline: { enabled: false } },
   colors: ['#4f46e5'],
   stroke: { curve: 'smooth', width: 2.5 },
-  fill: {
-    type: 'gradient', gradient: {
-      shadeIntensity: 1, opacityFrom: 0.15, opacityTo: 0.01,
-      stops: [0, 90, 100],
-    },
-  },
+  fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.15, opacityTo: 0.01, stops: [0, 90, 100] } },
   dataLabels: { enabled: false },
   grid: { borderColor: '#e4e4e7', strokeDashArray: 0, xaxis: { lines: { show: false } }, yaxis: { lines: { show: true } }, padding: { top: 0, right: 0, bottom: 0, left: 0 } },
   xaxis: {
@@ -231,31 +235,21 @@ const revenueChartOptions = {
     labels: { style: { colors: '#a1a1aa', fontSize: '12px' } },
     axisBorder: { show: false }, axisTicks: { show: false },
   },
-  yaxis: {
-    labels: { formatter: (v: number) => (v / 1000000).toFixed(0) + 'M', style: { colors: '#a1a1aa', fontSize: '12px' } },
-  },
-  tooltip: {
-    y: { formatter: (v: number) => v.toLocaleString('ru') + ' so\'m' },
-    style: { fontSize: '13px' },
-  },
+  yaxis: { labels: { formatter: (v: number) => (v / 1000000).toFixed(0) + 'M', style: { colors: '#a1a1aa', fontSize: '12px' } } },
+  tooltip: { y: { formatter: (v: number) => v.toLocaleString('ru') + " so'm" }, style: { fontSize: '13px' } },
   markers: { size: 0, hover: { size: 5 } },
   animations: { enabled: true, speed: 800, animateGradually: { enabled: true, delay: 100 } },
 }
 
-// Occupancy radial
 const occupancySeries = [91]
 const occupancyChartOptions = {
   chart: { type: 'radialBar', toolbar: { show: false }, fontFamily: 'Inter, sans-serif' },
   colors: ['#4f46e5'],
   plotOptions: {
     radialBar: {
-      startAngle: -135, endAngle: 135,
-      hollow: { size: '70%' },
+      startAngle: -135, endAngle: 135, hollow: { size: '70%' },
       track: { background: '#e4e4e7', strokeWidth: '100%', margin: 5 },
-      dataLabels: {
-        name: { show: false },
-        value: { show: true, fontSize: '28px', fontWeight: 700, color: '#18181b', offsetY: 5, formatter: () => '91%' },
-      },
+      dataLabels: { name: { show: false }, value: { show: true, fontSize: '28px', fontWeight: 700, color: '#18181b', offsetY: 5, formatter: () => '91%' } },
     },
   },
   fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', shadeIntensity: 0.5, gradientToColors: ['#818cf8'], stops: [0, 100] } },
@@ -284,7 +278,7 @@ const activities = [
   { icon: FileCheck, text: 'Shartnoma CTR-2025-003 imzolandi (B. Toshmatov)', time: '2 soat oldin', bg: 'bg-brand-50', color: 'text-brand-600' },
   { icon: CheckCircle2, text: 'INV-2025-06-001 to\'landi — 12 mln so\'m', time: '5 soat oldin', bg: 'bg-emerald-50', color: 'text-emerald-600' },
   { icon: Wrench, text: 'SR-2025-005 — Crystal Plaza, santexnika', time: 'Bugun, 10:00', bg: 'bg-amber-50', color: 'text-amber-600' },
-  { icon: AlertTriangle, text: 'INV-2025-04-004 muddati o\'tdi — 3.5 mln qoldi', time: 'Kecha, 08:00', bg: 'bg-rose-50', color: 'text-rose-600' },
+  { icon: AlertTriangle, text: 'INV-2025-05-009 muddati o\'tdi — 4.5 mln qoldi', time: 'Kecha, 08:00', bg: 'bg-rose-50', color: 'text-rose-600' },
   { icon: CheckCircle2, text: 'WO-2025-001 yakunlandi — Lift texnik xizmat', time: 'Kecha, 15:30', bg: 'bg-emerald-50', color: 'text-emerald-600' },
 ]
 
@@ -295,20 +289,11 @@ function formatPrice(v: number) {
 }
 
 function appStatusLabel(s: ApplicationStatus): string {
-  const m: Record<string, string> = {
-    SUBMITTED: 'Yangi', FINANCE_REVIEW: 'Tekshiruv', OFFER_SENT: 'Taklif yuborildi',
-    CONTRACT_SIGNING: 'Shartnoma', APPROVED: 'Tasdiqlandi', REJECTED: 'Rad',
-    CANCELLED: 'Bekor', DRAFT: 'Qoralama', ERI_SIGNING: 'ERI',
-  }
+  const m: Record<string, string> = { SUBMITTED: 'Yangi', FINANCE_REVIEW: 'Tekshiruv', OFFER_SENT: 'Taklif yuborildi', CONTRACT_SIGNING: 'Shartnoma', APPROVED: 'Tasdiqlandi', REJECTED: 'Rad', CANCELLED: 'Bekor', DRAFT: 'Qoralama', ERI_SIGNING: 'ERI' }
   return m[s] || s
 }
-
 function appStatusVariant(s: ApplicationStatus): string {
-  const m: Record<string, string> = {
-    SUBMITTED: 'info', FINANCE_REVIEW: 'warning', OFFER_SENT: 'info',
-    CONTRACT_SIGNING: 'warning', APPROVED: 'success', REJECTED: 'danger',
-    CANCELLED: 'neutral', DRAFT: 'neutral', ERI_SIGNING: 'warning',
-  }
+  const m: Record<string, string> = { SUBMITTED: 'info', FINANCE_REVIEW: 'warning', OFFER_SENT: 'info', CONTRACT_SIGNING: 'warning', APPROVED: 'success', REJECTED: 'danger', CANCELLED: 'neutral', DRAFT: 'neutral', ERI_SIGNING: 'warning' }
   return m[s] || 'neutral'
 }
 </script>

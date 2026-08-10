@@ -123,7 +123,7 @@
       </div>
       <template #footer>
         <button class="btn btn-ghost btn-lg" @click="showNew = false">Bekor</button>
-        <button class="btn btn-primary btn-lg" @click="showNew = false">Yaratish</button>
+        <button class="btn btn-primary btn-lg" @click="createRequest">Yaratish</button>
       </template>
     </BaseModal>
   </div>
@@ -134,6 +134,7 @@ import { Plus, LayoutGrid, List } from 'lucide-vue-next'
 import type { ServiceRequestStatus, ServiceRequestPriority } from '~/types'
 
 const serviceStore = useServiceStore()
+const toast = useToast()
 onMounted(() => serviceStore.initMockData())
 
 const viewMode = ref<'kanban' | 'list'>('kanban')
@@ -166,5 +167,9 @@ function priorityBadge(p: ServiceRequestPriority): string {
   const m: Record<string, string> = { LOW: 'badge-neutral', MEDIUM: 'badge-info', HIGH: 'badge-warning', URGENT: 'badge-danger' }
   return m[p] || 'badge-neutral'
 }
+function createRequest() {
+    toast.success("So047rov yaratildi", "Servis jamoasi ko047rib chiqadi")
+    showNew.value = false
+  }
 function formatDate(d: string) { return d.split('T')[0] }
 </script>
