@@ -12,8 +12,8 @@
         <div v-for="req in approvedRequests" :key="req.id" class="border border-black/5 dark:border-white/5 rounded-2xl p-4">
           <div class="flex items-center justify-between mb-3">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                <CheckCircle2 :size="18" class="text-emerald-500" />
+              <div class="icon-3d icon-3d-green">
+                <CheckCircle2 :size="20" />
               </div>
               <div>
                 <div class="text-sm font-medium">{{ req.number }} · {{ req.workOrder }}</div>

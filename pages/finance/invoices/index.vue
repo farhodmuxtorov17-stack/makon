@@ -15,28 +15,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Receipt :size="16" class="text-blue-500" /></div>
+          <div class="icon-3d icon-3d-blue"><Receipt :size="20" /></div>
           <span class="text-xs text-ink-500">Jami summa</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(totalAmount) }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><CheckCircle2 :size="16" class="text-emerald-500" /></div>
+          <div class="icon-3d icon-3d-green"><CheckCircle2 :size="20" /></div>
           <span class="text-xs text-ink-500">To'langan</span>
         </div>
         <div class="text-xl font-bold text-emerald-500">{{ formatShort(totalPaid) }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center"><AlertCircle :size="16" class="text-red-500" /></div>
+          <div class="icon-3d icon-3d-red"><AlertCircle :size="20" /></div>
           <span class="text-xs text-ink-500">Qoldiq</span>
         </div>
         <div class="text-xl font-bold text-red-500">{{ formatShort(totalBalance) }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Clock :size="16" class="text-amber-500" /></div>
+          <div class="icon-3d icon-3d-amber"><Clock :size="20" /></div>
           <span class="text-xs text-ink-500">To'lanmagan</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ unpaidCount }} <span class="text-sm text-ink-500 font-normal">ta</span></div>

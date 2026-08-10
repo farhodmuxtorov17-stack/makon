@@ -26,8 +26,8 @@
       <div v-for="kpi in kpis" :key="kpi.label" class="kpi-card">
         <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" :style="{ background: kpi.color }"></div>
         <div class="flex items-start justify-between mb-2">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center" :style="{ background: kpi.bg }">
-            <component :is="kpi.icon" :size="18" :style="{ color: kpi.color }" />
+          <div class="icon-3d" :class="kpi.iconClass">
+            <component :is="kpi.icon" :size="22" />
           </div>
           <span v-if="kpi.trend" class="text-xs font-bold flex items-center gap-0.5" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
             <ArrowUpRight v-if="kpi.trend > 0" :size="12" />{{ Math.abs(kpi.trend) }}%
@@ -189,11 +189,11 @@ const occupancyPercent = computed(() => {
 })
 
 const kpis = computed(() => [
-  { icon: CheckCircle2, label: 'Band unitlar', value: selectedBuilding.value.occupiedUnits, color: '#10b981', bg: 'rgba(16,185,129,0.1)', trend: 3 },
-  { icon: AlertCircle, label: 'Bo\'sh unitlar', value: selectedBuilding.value.vacantUnits, color: '#f59e0b', bg: 'rgba(245,158,11,0.1)', trend: -2 },
-  { icon: Tag, label: 'Aktiv listinglar', value: 28, color: '#6366f1', bg: 'rgba(99,102,241,0.1)', trend: 5 },
-  { icon: FileText, label: 'Ariza navbati', value: 12, color: '#8b5cf6', bg: 'rgba(139,92,246,0.1)', trend: 1 },
-  { icon: Wrench, label: 'Ochiq servis', value: 5, color: '#ef4444', bg: 'rgba(239,68,68,0.1)', trend: -1 },
+  { icon: CheckCircle2, label: 'Band unitlar', value: selectedBuilding.value.occupiedUnits, iconClass: 'icon-3d-green', trend: 3 },
+  { icon: AlertCircle, label: 'Bo\'sh unitlar', value: selectedBuilding.value.vacantUnits, iconClass: 'icon-3d-amber', trend: -2 },
+  { icon: Tag, label: 'Aktiv listinglar', value: 28, iconClass: 'icon-3d-indigo', trend: 5 },
+  { icon: FileText, label: 'Ariza navbati', value: 12, iconClass: 'icon-3d-purple', trend: 1 },
+  { icon: Wrench, label: 'Ochiq servis', value: 5, iconClass: 'icon-3d-red', trend: -1 },
 ])
 
 const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']

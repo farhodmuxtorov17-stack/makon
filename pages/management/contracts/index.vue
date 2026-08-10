@@ -14,7 +14,7 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><CheckCircle2 :size="16" class="text-emerald-500" /></div>
+          <div class="icon-3d icon-3d-green"><CheckCircle2 :size="20" /></div>
           <span class="text-xs text-ink-500">Aktiv</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ activeCount }}</div>

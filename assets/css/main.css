@@ -113,6 +113,53 @@
       inset 0 -2px 4px rgba(0,0,0,0.2);
   }
 
+  /* Mini 3D Icons (for KPI cards across modules) */
+  .icon-3d {
+    width: 44px; height: 44px;
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .icon-3d::before {
+    content: '';
+    position: absolute;
+    top: 1px; left: 3px; right: 3px;
+    height: 45%;
+    border-radius: 10px 10px 40% 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.25), transparent);
+    pointer-events: none;
+  }
+  .icon-3d::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 6px; right: 6px;
+    height: 5px;
+    border-radius: 50%;
+    filter: blur(5px);
+    opacity: 0.4;
+    z-index: -1;
+  }
+  .icon-3d-blue    { background: linear-gradient(145deg, #60a5fa, #2563eb); box-shadow: 0 4px 10px rgba(37,99,235,0.3), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.1); }
+  .icon-3d-blue::after    { background: rgba(37,99,235,0.3); }
+  .icon-3d-purple  { background: linear-gradient(145deg, #818cf8, #4f46e5); box-shadow: 0 4px 10px rgba(79,70,229,0.3), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.1); }
+  .icon-3d-purple::after  { background: rgba(79,70,229,0.3); }
+  .icon-3d-green   { background: linear-gradient(145deg, #34d399, #059669); box-shadow: 0 4px 10px rgba(5,150,105,0.3), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.1); }
+  .icon-3d-green::after   { background: rgba(5,150,105,0.3); }
+  .icon-3d-amber   { background: linear-gradient(145deg, #fbbf24, #d97706); box-shadow: 0 4px 10px rgba(217,119,6,0.3), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.1); }
+  .icon-3d-amber::after   { background: rgba(217,119,6,0.3); }
+  .icon-3d-red     { background: linear-gradient(145deg, #f87171, #dc2626); box-shadow: 0 4px 10px rgba(220,38,38,0.3), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.1); }
+  .icon-3d-red::after     { background: rgba(220,38,38,0.3); }
+  .icon-3d-indigo  { background: linear-gradient(145deg, #a5b4fc, #4f46e5); box-shadow: 0 4px 10px rgba(79,70,229,0.3), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.1); }
+  .icon-3d-indigo::after  { background: rgba(79,70,229,0.3); }
+  .icon-3d-cyan    { background: linear-gradient(145deg, #22d3ee, #0891b2); box-shadow: 0 4px 10px rgba(8,145,178,0.3), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.1); }
+  .icon-3d-cyan::after    { background: rgba(8,145,178,0.3); }
+  .icon-3d-pink    { background: linear-gradient(145deg, #f472b6, #db2777); box-shadow: 0 4px 10px rgba(219,39,119,0.3), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 3px rgba(0,0,0,0.1); }
+  .icon-3d-pink::after    { background: rgba(219,39,119,0.3); }
+  .icon-3d > svg { color: #fff; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15)); }
+  .card:hover .icon-3d, .kpi-card:hover .icon-3d { transform: scale(1.08) translateY(-1px); }
+  .dark .icon-3d { box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.25), inset 0 -2px 3px rgba(0,0,0,0.2); }
+
   /* === Inputs === */
   .input { @apply w-full rounded-xl px-3.5 py-2.5 text-sm transition-all duration-200 bg-black/5 border border-black/10 text-ink-900 placeholder-ink-400; }
   .dark .input { @apply bg-white/5 border-white/10 text-white placeholder-ink-500; }

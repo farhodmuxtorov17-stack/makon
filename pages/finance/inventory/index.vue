@@ -15,28 +15,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Package :size="16" class="text-blue-500" /></div>
+          <div class="icon-3d icon-3d-blue"><Package :size="20" /></div>
           <span class="text-xs text-ink-500">Jami pozitsiyalar</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ materials.length }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><Wallet :size="16" class="text-emerald-500" /></div>
+          <div class="icon-3d icon-3d-green"><Wallet :size="20" /></div>
           <span class="text-xs text-ink-500">Ombor qiymati</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(totalValue) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center"><AlertCircle :size="16" class="text-red-500" /></div>
+          <div class="icon-3d icon-3d-red"><AlertCircle :size="20" /></div>
           <span class="text-xs text-ink-500">Kam qoldi</span>
         </div>
         <div class="text-xl font-bold text-red-500">{{ lowStockCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><TrendingDown :size="16" class="text-amber-500" /></div>
+          <div class="icon-3d icon-3d-amber"><TrendingDown :size="20" /></div>
           <span class="text-xs text-ink-500">Oylik sarflash</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(monthlyUsage) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
