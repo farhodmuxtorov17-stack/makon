@@ -10,7 +10,7 @@
               <span class="text-white text-sm font-bold">M</span>
             </div>
             <span class="font-bold text-base tracking-tight" style="font-family: 'Clash Display', sans-serif;">MAKON</span>
-            <span class="text-slate-300 text-sm hidden sm:inline">| Koʻchmulk</span>
+            <span class="text-slate-300 text-sm hidden sm:inline">| Koʼchmulk</span>
           </NuxtLink>
         </div>
         <div class="flex items-center gap-2">
@@ -31,9 +31,9 @@
     <section class="py-10 px-4">
       <div class="max-w-[840px] mx-auto text-center">
         <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-2 px-4" style="font-family: 'Clash Display', sans-serif; letter-spacing: -0.03em;">
-          Koʻchmulk topish endi osonroq
+          Koʼchmulk topish endi osonroq
         </h1>
-        <p class="text-slate-400 text-sm mb-8">Toshkentdagi eng yirik koʻchmulk katalogi</p>
+        <p class="text-slate-400 text-sm mb-8">Toshkentdagi eng yirik koʼchmulk katalogi</p>
 
         <!-- Search bar — Yandex style: single row, white card -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-lg shadow-slate-100 p-2">
@@ -66,7 +66,7 @@
             </div>
 
             <!-- Price input -->
-            <input type="text" :placeholder="activeDeal === 'rent' ? 'Narxgacha, soʻm/oy' : 'Narxgacha, soʻm'"
+            <input type="text" :placeholder="activeDeal === 'rent' ? 'Narxgacha, soʼm/oy' : 'Narxgacha, soʼm'"
               class="text-sm bg-slate-50 rounded-xl px-4 py-3.5 outline-none w-full md:w-40 placeholder:text-slate-400 focus:bg-slate-100 transition-colors" />
 
             <!-- Metro / District -->
@@ -80,7 +80,7 @@
 
             <!-- Search CTA -->
             <button class="text-sm font-semibold text-white px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 transition-all whitespace-nowrap">
-              Koʻrsatish · {{ totalCount }}
+              Koʼrsatish · {{ totalCount }}
             </button>
           </div>
         </div>
@@ -104,12 +104,12 @@
     <section class="max-w-[1200px] mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-bold" style="font-family: 'Clash Display', sans-serif;">Yangi binolar</h2>
-        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʻrish →</NuxtLink>
+        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʼrish →</NuxtLink>
       </div>
       <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4" style="scrollbar-width: thin;">
         <div v-for="b in newBuildings" :key="b.name" class="flex-shrink-0 w-[280px] bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-slate-100 transition-all cursor-pointer group">
           <div class="relative h-40 overflow-hidden">
-            <img :src="b.img" :alt="b.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img :src="asset(b.img)" :alt="b.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             <span class="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-white/90 text-slate-700 backdrop-blur-sm">Yangi</span>
           </div>
           <div class="p-4">
@@ -132,13 +132,13 @@
     <section class="max-w-[1200px] mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-bold" style="font-family: 'Clash Display', sans-serif;">Sotib olish</h2>
-        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʻrish →</NuxtLink>
+        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʼrish →</NuxtLink>
       </div>
       <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4" style="scrollbar-width: thin;">
         <NuxtLink v-for="p in buyListings" :key="p.id" :to="`/catalog/${p.id}`"
           class="flex-shrink-0 w-[260px] bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-slate-100 transition-all cursor-pointer group">
           <div class="relative h-36 overflow-hidden">
-            <img :src="p.img" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img :src="asset(p.img)" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             <div class="absolute top-2 right-2 text-xs font-medium text-white bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">{{ p.photos }} foto</div>
           </div>
           <div class="p-3.5">
@@ -154,13 +154,13 @@
     <section class="max-w-[1200px] mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-bold" style="font-family: 'Clash Display', sans-serif;">Ijaraga olish</h2>
-        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʻrish →</NuxtLink>
+        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʼrish →</NuxtLink>
       </div>
       <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4" style="scrollbar-width: thin;">
         <NuxtLink v-for="p in rentListings" :key="p.id" :to="`/catalog/${p.id}`"
           class="flex-shrink-0 w-[260px] bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-slate-100 transition-all cursor-pointer group">
           <div class="relative h-36 overflow-hidden">
-            <img :src="p.img" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img :src="asset(p.img)" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             <div class="absolute top-2 right-2 text-xs font-medium text-white bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">{{ p.photos }} foto</div>
           </div>
           <div class="p-3.5">
@@ -178,7 +178,7 @@
         <div class="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4"></div>
         <div class="relative z-10 max-w-lg">
           <h3 class="text-white text-2xl md:text-3xl font-bold mb-3" style="font-family: 'Clash Display', sans-serif;">Mulkingizni boshqarish osonroq</h3>
-          <p class="text-blue-100 text-sm mb-6 leading-relaxed">MAKON platformasi orqali binolar, shartnomalar, toʻlovlar va servislarni avtomatlashtiring. 16+ modul, real-time dashboard.</p>
+          <p class="text-blue-100 text-sm mb-6 leading-relaxed">MAKON platformasi orqali binolar, shartnomalar, toʼlovlar va servislarni avtomatlashtiring. 16+ modul, real-time dashboard.</p>
           <button class="bg-white text-blue-700 px-6 py-3 rounded-xl text-sm font-semibold hover:bg-blue-50 transition-colors shadow-lg">Batafsil →</button>
         </div>
       </div>
@@ -190,7 +190,7 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <article v-for="a in articles" :key="a.title" class="group cursor-pointer">
           <div class="relative h-40 rounded-2xl overflow-hidden mb-3">
-            <img :src="a.img" :alt="a.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img :src="asset(a.img)" :alt="a.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             <span class="absolute top-3 left-3 text-xs font-medium px-2.5 py-1 rounded-full bg-white/90 text-slate-700 backdrop-blur-sm">{{ a.tag }}</span>
           </div>
           <h3 class="font-semibold text-sm leading-snug group-hover:text-blue-600 transition-colors">{{ a.title }}</h3>
@@ -291,7 +291,7 @@
           <div class="flex items-center gap-2">
             <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center"><span class="text-white text-xs font-bold">M</span></div>
             <span class="font-bold text-sm">MAKON</span>
-            <span class="text-slate-400 text-xs ml-2">© 2026 · Toshkent, Oʻzbekiston</span>
+            <span class="text-slate-400 text-xs ml-2">© 2026 · Toshkent, Oʼzbekiston</span>
           </div>
           <div class="flex items-center gap-6 text-xs text-slate-400">
             <span>info@makon.uz</span>
@@ -305,6 +305,7 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: 'public' })
+const asset = useAssetPath()
 const activeDeal = ref('buy')
 const propertyType = ref('Kvartira')
 const selectedRooms = ref<string[]>([])
@@ -315,7 +316,7 @@ const dealTabs = [
   { id: 'daily', label: 'Kunlik' },
   { id: 'new', label: 'Yangi binolar' },
 ]
-const propertyTypes = ['Kvartira', 'Ofis', 'Doʻkon', 'Ombor', 'Turar joy', 'Yer uchastkasi']
+const propertyTypes = ['Kvartira', 'Ofis', 'Doʼkon', 'Ombor', 'Turar joy', 'Yer uchastkasi']
 const roomOptions = ['studio', '1', '2', '3', '5+']
 const totalCount = computed(() => {
   if (activeDeal.value === 'buy') return '5 300+'
@@ -336,33 +337,33 @@ const quickCategories = [
   { title: 'Kommersiya', count: '890+', icon: '🏢', link: '/' },
 ]
 const newBuildings = [
-  { name: 'Nest One', location: 'Yashnobod, Tashkent City', commute: 'Metro 5 daq', price: '850 mln soʻm', developer: 'BI Group', img: '/tashkent/nest-one.jpg' },
-  { name: 'Finance Center', location: 'Mirobod, Amir Temur', commute: 'Metro 8 daq', price: '420 mln soʻm', developer: 'Murad Buildings', img: '/tashkent/finance-center.jpg' },
-  { name: 'Mall Towers', location: 'Chilonzor, Bunyodkor', commute: 'Metro 3 daq', price: '380 mln soʻm', developer: 'Akay', img: '/tashkent/mall-towers.jpg' },
-  { name: 'Business Park', location: 'Yakkasaroy, Bobur', commute: 'Metro 12 daq', price: '520 mln soʻm', developer: 'Universal', img: '/tashkent/new-business.jpg' },
-  { name: 'City Towers', location: 'Yashnobod, Tashkent City', commute: 'Metro 5 daq', price: '680 mln soʻm', developer: 'Tashkent City', img: '/tashkent/city-2025.jpg' },
-  { name: 'Skyline Plaza', location: 'Sergeli, Yangi Toshkent', commute: 'Metro 15 daq', price: '290 mln soʻm', developer: 'Gross', img: '/tashkent/aerial.jpg' },
+  { name: 'Nest One', location: 'Yashnobod, Tashkent City', commute: 'Metro 5 daq', price: '850 mln soʼm', developer: 'BI Group', img: '/tashkent/nest-one.jpg' },
+  { name: 'Finance Center', location: 'Mirobod, Amir Temur', commute: 'Metro 8 daq', price: '420 mln soʼm', developer: 'Murad Buildings', img: '/tashkent/finance-center.jpg' },
+  { name: 'Mall Towers', location: 'Chilonzor, Bunyodkor', commute: 'Metro 3 daq', price: '380 mln soʼm', developer: 'Akay', img: '/tashkent/mall-towers.jpg' },
+  { name: 'Business Park', location: 'Yakkasaroy, Bobur', commute: 'Metro 12 daq', price: '520 mln soʼm', developer: 'Universal', img: '/tashkent/new-business.jpg' },
+  { name: 'City Towers', location: 'Yashnobod, Tashkent City', commute: 'Metro 5 daq', price: '680 mln soʼm', developer: 'Tashkent City', img: '/tashkent/city-2025.jpg' },
+  { name: 'Skyline Plaza', location: 'Sergeli, Yangi Toshkent', commute: 'Metro 15 daq', price: '290 mln soʼm', developer: 'Gross', img: '/tashkent/aerial.jpg' },
 ]
 const buyListings = [
-  { id: 1, price: '1 250 mln soʻm', area: '120 m²', rooms: '4-xonali', metro: 'Amir Temur', commute: '5 daq', photos: 12, img: '/tashkent/finance-center.jpg' },
-  { id: 2, price: '980 mln soʻm', area: '89 m²', rooms: '3-xonali', metro: 'Bunyodkor', commute: '3 daq', photos: 8, img: '/tashkent/mall-towers.jpg' },
-  { id: 3, price: '1 450 mln soʻm', area: '139 m²', rooms: '4-xonali', metro: 'Tashkent City', commute: '5 daq', photos: 15, img: '/tashkent/nest-one.jpg' },
-  { id: 4, price: '670 mln soʻm', area: '65 m²', rooms: '2-xonali', metro: 'Bobur', commute: '12 daq', photos: 6, img: '/tashkent/new-business.jpg' },
-  { id: 5, price: '2 100 mln soʻm', area: '180 m²', rooms: '5-xonali', metro: 'Minor', commute: '7 daq', photos: 18, img: '/tashkent/city-night.jpg' },
-  { id: 6, price: '540 mln soʻm', area: '45 m²', rooms: 'Studiya', metro: 'Sergeli', commute: '15 daq', photos: 4, img: '/tashkent/city-2025.jpg' },
+  { id: 1, price: '1 250 mln soʼm', area: '120 m²', rooms: '4-xonali', metro: 'Amir Temur', commute: '5 daq', photos: 12, img: '/tashkent/finance-center.jpg' },
+  { id: 2, price: '980 mln soʼm', area: '89 m²', rooms: '3-xonali', metro: 'Bunyodkor', commute: '3 daq', photos: 8, img: '/tashkent/mall-towers.jpg' },
+  { id: 3, price: '1 450 mln soʼm', area: '139 m²', rooms: '4-xonali', metro: 'Tashkent City', commute: '5 daq', photos: 15, img: '/tashkent/nest-one.jpg' },
+  { id: 4, price: '670 mln soʼm', area: '65 m²', rooms: '2-xonali', metro: 'Bobur', commute: '12 daq', photos: 6, img: '/tashkent/new-business.jpg' },
+  { id: 5, price: '2 100 mln soʼm', area: '180 m²', rooms: '5-xonali', metro: 'Minor', commute: '7 daq', photos: 18, img: '/tashkent/city-night.jpg' },
+  { id: 6, price: '540 mln soʼm', area: '45 m²', rooms: 'Studiya', metro: 'Sergeli', commute: '15 daq', photos: 4, img: '/tashkent/city-2025.jpg' },
 ]
 const rentListings = [
-  { id: 1, price: '18 mln soʻm', area: '120 m²', rooms: 'Ofis 3-xona', metro: 'Amir Temur', commute: '5 daq', photos: 12, img: '/tashkent/finance-center.jpg' },
-  { id: 2, price: '12 mln soʻm', area: '85 m²', rooms: 'Savdo maydoni', metro: 'Bunyodkor', commute: '3 daq', photos: 8, img: '/tashkent/mall-towers.jpg' },
-  { id: 3, price: '25 mln soʻm', area: '139 m²', rooms: 'Ofis 4-xona', metro: 'Tashkent City', commute: '5 daq', photos: 15, img: '/tashkent/nest-one.jpg' },
-  { id: 4, price: '7 mln soʻm', area: '45 m²', rooms: '2-xonali', metro: 'Minor', commute: '7 daq', photos: 6, img: '/tashkent/city-2025.jpg' },
-  { id: 5, price: '24 mln soʻm', area: '450 m²', rooms: 'Ombor', metro: 'Sergeli', commute: '15 daq', photos: 4, img: '/tashkent/new-business.jpg' },
-  { id: 6, price: '9 mln soʻm', area: '60 m²', rooms: 'Studiya', metro: 'Oybek', commute: '8 daq', photos: 9, img: '/tashkent/city-night.jpg' },
+  { id: 1, price: '18 mln soʼm', area: '120 m²', rooms: 'Ofis 3-xona', metro: 'Amir Temur', commute: '5 daq', photos: 12, img: '/tashkent/finance-center.jpg' },
+  { id: 2, price: '12 mln soʼm', area: '85 m²', rooms: 'Savdo maydoni', metro: 'Bunyodkor', commute: '3 daq', photos: 8, img: '/tashkent/mall-towers.jpg' },
+  { id: 3, price: '25 mln soʼm', area: '139 m²', rooms: 'Ofis 4-xona', metro: 'Tashkent City', commute: '5 daq', photos: 15, img: '/tashkent/nest-one.jpg' },
+  { id: 4, price: '7 mln soʼm', area: '45 m²', rooms: '2-xonali', metro: 'Minor', commute: '7 daq', photos: 6, img: '/tashkent/city-2025.jpg' },
+  { id: 5, price: '24 mln soʼm', area: '450 m²', rooms: 'Ombor', metro: 'Sergeli', commute: '15 daq', photos: 4, img: '/tashkent/new-business.jpg' },
+  { id: 6, price: '9 mln soʼm', area: '60 m²', rooms: 'Studiya', metro: 'Oybek', commute: '8 daq', photos: 9, img: '/tashkent/city-night.jpg' },
 ]
 const articles = [
-  { title: 'Tashkent City: 2026-yilda narxlar qanday oʻzgardi', tag: 'Tahlil', date: '10 avg 2026', img: '/tashkent/city-2025.jpg' },
+  { title: 'Tashkent City: 2026-yilda narxlar qanday oʼzgardi', tag: 'Tahlil', date: '10 avg 2026', img: '/tashkent/city-2025.jpg' },
   { title: 'Ofis ijaraga olish: qanday shartnomalar foydali', tag: 'Ham maslahat', date: '8 avg 2026', img: '/tashkent/finance-center.jpg' },
   { title: 'Yangi biznes-markazlar ichidan eng yaxshilari', tag: 'Reyting', date: '5 avg 2026', img: '/tashkent/nest-one.jpg' },
-  { title: 'Kommersiya koʻchmulki: investitsiya qayerda foydali', tag: 'Investitsiya', date: '2 avg 2026', img: '/tashkent/aerial.jpg' },
+  { title: 'Kommersiya koʼchmulki: investitsiya qayerda foydali', tag: 'Investitsiya', date: '2 avg 2026', img: '/tashkent/aerial.jpg' },
 ]
 </script>

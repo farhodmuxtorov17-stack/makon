@@ -38,23 +38,23 @@
     <section class="max-w-7xl mx-auto px-6 mb-6">
       <div class="grid grid-cols-4 grid-rows-2 gap-2 rounded-2xl overflow-hidden h-[400px] md:h-[500px]">
         <div class="col-span-4 md:col-span-2 row-span-2 relative group cursor-pointer">
-          <img src="/tashkent/finance-center.jpg" alt="Main" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img :src="asset('/tashkent/finance-center.jpg')" alt="Main" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         </div>
         <div class="hidden md:block relative group cursor-pointer">
-          <img src="/tashkent/new-business.jpg" alt="Photo 2" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img :src="asset('/tashkent/new-business.jpg')" alt="Photo 2" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         </div>
         <div class="hidden md:block relative group cursor-pointer">
-          <img src="/tashkent/mall-towers.jpg" alt="Photo 3" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img :src="asset('/tashkent/mall-towers.jpg')" alt="Photo 3" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         </div>
         <div class="hidden md:block relative group cursor-pointer">
-          <img src="/tashkent/city-2025.jpg" alt="Photo 4" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img :src="asset('/tashkent/city-2025.jpg')" alt="Photo 4" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         </div>
         <div class="hidden md:block relative group cursor-pointer">
-          <img src="/tashkent/aerial.jpg" alt="Photo 5" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img :src="asset('/tashkent/aerial.jpg')" alt="Photo 5" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
             <div class="text-white text-center">
               <div class="text-2xl font-bold">+7</div>
-              <div class="text-xs">koʻproq</div>
+              <div class="text-xs">koʼproq</div>
             </div>
           </div>
         </div>
@@ -70,10 +70,10 @@
           <div class="flex items-center gap-3 mb-3">
             <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-blue-600 text-white">Ijaraga</span>
             <span class="text-xs font-medium px-3 py-1.5 rounded-full bg-slate-100 text-slate-600">Ofis</span>
-            <span class="text-xs text-emerald-600 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Boʻsh</span>
+            <span class="text-xs text-emerald-600 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Boʼsh</span>
           </div>
           <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-2">Green Business Center — A blok, 3-qavat</h1>
-          <p class="text-slate-400 text-sm flex items-center gap-1.5">📍 Mirobod tumani, Amir Temur koʻchasi 88, Toshkent</p>
+          <p class="text-slate-400 text-sm flex items-center gap-1.5">📍 Mirobod tumani, Amir Temur koʼchasi 88, Toshkent</p>
         </div>
 
         <!-- Quick specs -->
@@ -99,7 +99,7 @@
         <!-- Description -->
         <div>
           <h2 class="text-lg font-bold mb-4">Tavsif</h2>
-          <p class="text-slate-600 leading-relaxed text-sm">Zamonaviy biznes-markazning 3-qavatida joylashgan ofis maydoni. Soʻnggi taʼmirlash, panorama oynalar, erkak/ayollar uchun alohida sanuzellar, mebel bilan jihozlangan. Bino markaziy qismda joylashgan, metroga 5 daqiqalik piyoda masofa. Parkovka, 24/7 xavfsizlik, markaziy konditsioner tizimi mavjud.</p>
+          <p class="text-slate-600 leading-relaxed text-sm">Zamonaviy biznes-markazning 3-qavatida joylashgan ofis maydoni. Soʼnggi taʼmirlash, panorama oynalar, erkak/ayollar uchun alohida sanuzellar, mebel bilan jihozlangan. Bino markaziy qismda joylashgan, metroga 5 daqiqalik piyoda masofa. Parkovka, 24/7 xavfsizlik, markaziy konditsioner tizimi mavjud.</p>
         </div>
 
         <!-- Characteristics table -->
@@ -128,14 +128,14 @@
         <div>
           <h2 class="text-lg font-bold mb-4">Joylashuv</h2>
           <div class="rounded-2xl overflow-hidden border border-slate-200 h-72 relative bg-slate-100">
-            <img src="/tashkent/aerial.jpg" alt="Aerial view" class="absolute inset-0 w-full h-full object-cover opacity-80" />
+            <img :src="asset('/tashkent/aerial.jpg')" alt="Aerial view" class="absolute inset-0 w-full h-full object-cover opacity-80" />
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 border-4 border-white">
                 <span class="text-white text-lg">📍</span>
               </div>
             </div>
             <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
-              <p class="text-sm font-medium text-slate-700">Amir Temur koʻchasi 88</p>
+              <p class="text-sm font-medium text-slate-700">Amir Temur koʼchasi 88</p>
               <p class="text-xs text-slate-400">Mirobod tumani, Toshkent</p>
             </div>
           </div>
@@ -148,12 +148,12 @@
           <!-- Price card -->
           <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-100">
             <div class="mb-1">
-              <div class="text-3xl font-bold text-slate-900">18 000 000 <span class="text-lg font-normal text-slate-400">soʻm/oy</span></div>
-              <div class="text-sm text-slate-400 mt-1">≈ 150 000 soʻm/m² · Depozit: 1 oy</div>
+              <div class="text-3xl font-bold text-slate-900">18 000 000 <span class="text-lg font-normal text-slate-400">soʼm/oy</span></div>
+              <div class="text-sm text-slate-400 mt-1">≈ 150 000 soʼm/m² · Depozit: 1 oy</div>
             </div>
             <div class="flex gap-2 mt-5">
               <button @click="showContact = true" class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold py-3.5 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/25">
-                📞 Bogʻlanish
+                📞 Bogʼlanish
               </button>
               <button class="w-12 h-12 rounded-xl border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors text-lg">♡</button>
             </div>
@@ -201,7 +201,7 @@
             <div class="space-y-3">
               <NuxtLink v-for="s in similar" :key="s.id" :to="`/catalog/${s.id}`" class="flex gap-3 group cursor-pointer">
                 <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                  <img :src="s.img" :alt="s.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  <img :src="asset(s.img)" :alt="s.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                 </div>
                 <div class="flex-1 min-w-0">
                   <div class="font-semibold text-xs group-hover:text-blue-600 transition-colors truncate">{{ s.title }}</div>
@@ -217,11 +217,11 @@
 
     <!-- Similar listings -->
     <section class="max-w-7xl mx-auto px-6 pb-16">
-      <h2 class="text-xl font-bold tracking-tight mb-6">Oʻxshash obyektlar</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-6">Oʼxshash obyektlar</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
         <NuxtLink v-for="p in similarListings" :key="p.id" :to="`/catalog/${p.id}`" class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-slate-200 transition-all">
           <div class="relative h-40 overflow-hidden">
-            <img :src="p.img" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img :src="asset(p.img)" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             <span class="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-600 text-white">{{ p.deal }}</span>
           </div>
           <div class="p-4">
@@ -243,7 +243,7 @@
         <div class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center"><span class="text-white text-xs font-bold">M</span></div>
           <span class="font-bold text-sm">MAKON</span>
-          <span class="text-slate-400 text-xs ml-2">© 2026 · Toshkent, Oʻzbekiston</span>
+          <span class="text-slate-400 text-xs ml-2">© 2026 · Toshkent, Oʼzbekiston</span>
         </div>
         <div class="flex items-center gap-6 text-sm text-slate-400">
           <a class="hover:text-slate-700 transition-colors cursor-pointer">info@makon.uz</a>
@@ -256,6 +256,7 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: 'public' })
+const asset = useAssetPath()
 const showContact = ref(false)
 const characteristics = [
   { label: 'Maydon', value: '120 m²' },
