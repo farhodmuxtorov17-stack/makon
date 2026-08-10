@@ -380,7 +380,7 @@ function formatArea(m2: number) {
 function formatPrice(price: number, currency: string) {
   if (!price) return '—'
   const formatted = new Intl.NumberFormat('ru-RU').format(price)
-  return currency === 'USD' ? `$${formatted}` : `${(formatted / 1000000).toFixed(1)}M so'm`
+  return currency === 'USD' ? `$${formatted}` : `${(price / 1000000).toFixed(1)}M so'm`
 }
 </script>
 
