@@ -1,46 +1,30 @@
 <template>
   <div class="space-y-6">
-    <!-- Header -->
+    <!-- Greeting -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-white">Ishchi panel</h1>
-        <p class="text-ink-400 text-sm mt-1">Xayrli tong, {{ user?.fullName?.split(' ')[0] || 'Admin' }} 👋</p>
+        <h1 class="text-2xl font-bold text-white">Xush kelibsiz, {{ userFirstName }} 👋</h1>
+        <p class="text-ink-400 text-sm mt-1">{{ todayLabel }} · MAKON boshqaruv paneli</p>
       </div>
-      <div class="flex items-center gap-2">
-        <div class="flex gap-1 p-1 rounded-xl bg-white/5">
-          <button
-            v-for="period in periods"
-            :key="period.id"
-            @click="activePeriod = period.id"
-            class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
-            :class="activePeriod === period.id ? 'bg-white text-ink-900' : 'text-ink-400 hover:text-white'"
-          >
-            {{ period.label }}
-          </button>
-        </div>
+      <div class="flex gap-2">
+        <button class="btn btn-secondary btn-sm"><Download :size="14" /> Hisobot</button>
+        <button class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi</button>
       </div>
     </div>
 
-    <!-- KPI Cards -->
+    <!-- KPI cards -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <div
-        v-for="kpi in kpiCards"
-        :key="kpi.label"
-        class="card p-5 card-hover"
-      >
+      <div v-for="kpi in kpis" :key="kpi.label" class="card p-5 card-hover">
         <div class="flex items-start justify-between mb-3">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="kpi.iconBg">
-            <component :is="kpi.icon" :size="20" :class="kpi.iconColor" />
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="kpi.bg">
+            <component :is="kpi.icon" :size="18" :class="kpi.color" />
           </div>
-          <span
-            class="text-xs font-semibold px-2 py-1 rounded-lg"
-            :class="kpi.trend > 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'"
-          >
-            {{ kpi.trend > 0 ? '↑' : '↓' }} {{ Math.abs(kpi.trend) }}%
+          <span class="text-xs font-medium" :class="kpi.trendUp ? 'text-emerald-400' : 'text-red-400'">
+            {{ kpi.trend }}
           </span>
         </div>
         <div class="text-2xl font-bold text-white">{{ kpi.value }}</div>
-        <div class="text-sm text-ink-500 mt-1">{{ kpi.label }}</div>
+        <div class="text-xs text-ink-500 mt-1">{{ kpi.label }}</div>
       </div>
     </div>
 
@@ -50,166 +34,111 @@
       <div class="card p-6 lg:col-span-2">
         <div class="flex items-center justify-between mb-6">
           <div>
-            <h3 class="text-white font-semibold">Daromat dinamikasi</h3>
-            <p class="text-sm text-ink-500 mt-0.5">Oxirgi 6 oy, so'm</p>
+            <h3 class="text-white font-semibold">Tushum dinamikasi</h3>
+            <p class="text-xs text-ink-500 mt-0.5">So'nggi 6 oy</p>
           </div>
-          <div class="flex gap-1 p-1 rounded-lg bg-white/5">
-            <button class="px-2.5 py-1 rounded text-xs bg-white text-ink-900 font-medium">Maydon</button>
-            <button class="px-2.5 py-1 rounded text-xs text-ink-400 hover:text-white">Ustun</button>
+          <div class="flex gap-1 p-1 rounded-xl bg-white/5">
+            <button v-for="p in chartPeriods" :key="p.id" @click="chartPeriod = p.id"
+              class="px-3 py-1 rounded-lg text-xs font-medium transition-all"
+              :class="chartPeriod === p.id ? 'bg-white text-ink-900' : 'text-ink-400'">
+              {{ p.label }}
+            </button>
           </div>
         </div>
-        <!-- Area chart -->
-        <div class="relative h-56">
-          <svg class="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#6366f1" stop-opacity="0.4" />
-                <stop offset="100%" stop-color="#6366f1" stop-opacity="0" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M 0 140 L 67 110 L 133 125 L 200 80 L 267 95 L 333 55 L 400 40 L 400 200 L 0 200 Z"
-              fill="url(#revenueGrad)"
+        <div class="flex items-end gap-3 h-48">
+          <div v-for="(bar, i) in chartData" :key="i" class="flex-1 flex flex-col items-center gap-2 group">
+            <div class="text-xs text-ink-500 opacity-0 group-hover:opacity-100 transition-opacity">{{ formatPriceShort(bar.value) }}</div>
+            <div
+              class="w-full rounded-t-lg transition-all duration-500 hover:opacity-80"
+              :class="bar.current ? 'bg-gradient-to-t from-brand-600 to-brand-400' : 'bg-white/5'"
+              :style="{ height: (bar.value / maxChart * 100) + '%' }"
             />
-            <path
-              d="M 0 140 L 67 110 L 133 125 L 200 80 L 267 95 L 333 55 L 400 40"
-              stroke="#6366f1"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <!-- Points -->
-            <g v-for="(point, i) in chartPoints" :key="i">
-              <circle :cx="point.x" :cy="point.y" r="3" fill="#6366f1" />
-              <circle :cx="point.x" :cy="point.y" r="6" fill="#6366f1" fill-opacity="0.2" />
-            </g>
-          </svg>
-        </div>
-        <div class="flex justify-between mt-4 text-xs text-ink-500">
-          <span>Fev</span>
-          <span>Mar</span>
-          <span>Apr</span>
-          <span>May</span>
-          <span>Iyun</span>
-          <span>Iyul</span>
+            <div class="text-xs text-ink-500">{{ bar.label }}</div>
+          </div>
         </div>
       </div>
 
       <!-- Occupancy donut -->
       <div class="card p-6">
-        <h3 class="text-white font-semibold mb-1">Bandlik darajasi</h3>
-        <p class="text-sm text-ink-500 mb-6">Maydon bo'yicha</p>
-        <div class="flex items-center justify-center mb-6">
-          <div class="relative w-36 h-36">
-            <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="50" stroke="rgba(255,255,255,0.06)" stroke-width="10" fill="none" />
-              <circle
-                cx="60" cy="60" r="50"
-                stroke="#6366f1" stroke-width="10" fill="none"
-                stroke-dasharray="285.6 314"
-                stroke-linecap="round"
-              />
-            </svg>
-            <div class="absolute inset-0 flex flex-col items-center justify-center">
-              <span class="text-3xl font-bold text-white">91%</span>
-              <span class="text-xs text-ink-500">Band</span>
-            </div>
+        <h3 class="text-white font-semibold mb-4">Bandlik darajasi</h3>
+        <div class="relative w-40 h-40 mx-auto mb-4">
+          <svg viewBox="0 0 120 120" class="w-full h-full -rotate-90">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="12" />
+            <circle cx="60" cy="60" r="50" fill="none" stroke="url(#grad)" stroke-width="12" stroke-linecap="round"
+              :stroke-dasharray="314" :stroke-dashoffset="314 - (314 * occupancyPct / 100)" class="transition-all duration-1000" />
+            <defs>
+              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#818cf8" />
+                <stop offset="100%" stop-color="#4f46e5" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <div class="text-3xl font-bold text-white">{{ occupancyPct }}%</div>
+            <div class="text-xs text-ink-500">band</div>
           </div>
         </div>
-        <div class="space-y-2">
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-brand-500" />
-              <span class="text-ink-400">Band</span>
-            </div>
-            <span class="text-white font-medium">312</span>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-ink-500">Band</span><span class="text-white">{{ occupiedTotal }}</span></div>
+          <div class="flex justify-between"><span class="text-ink-500">Bo'sh</span><span class="text-brand-400">{{ vacantTotal }}</span></div>
+          <div class="flex justify-between"><span class="text-ink-500">Jami</span><span class="text-white">{{ unitsTotal }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Building occupancy -->
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-4">Binolar bo'yicha bandlik</h3>
+      <div class="space-y-3">
+        <div v-for="b in buildings" :key="b.id" class="flex items-center gap-4">
+          <div class="w-32 flex-shrink-0">
+            <div class="text-sm text-white font-medium truncate">{{ b.name }}</div>
+            <div class="text-xs text-ink-500">{{ b.district }}</div>
           </div>
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-ink-600" />
-              <span class="text-ink-400">Bo'sh</span>
+          <div class="flex-1 h-7 rounded-lg bg-white/5 overflow-hidden relative">
+            <div class="h-full rounded-lg bg-gradient-to-r from-brand-600 to-brand-400 transition-all duration-700 flex items-center justify-end px-2"
+              :style="{ width: occPct(b) + '%' }">
+              <span class="text-xs text-white font-medium">{{ occPct(b) }}%</span>
             </div>
-            <span class="text-white font-medium">31</span>
+          </div>
+          <div class="w-20 text-right text-sm text-ink-400 flex-shrink-0">
+            {{ b.occupiedUnits }}/{{ b.totalUnits }}
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Buildings occupancy + Quick actions -->
+    <!-- Quick actions + alerts -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Buildings -->
-      <div class="card p-6 lg:col-span-2">
-        <div class="flex items-center justify-between mb-5">
-          <h3 class="text-white font-semibold">Binolar bo'yicha bandlik</h3>
-          <NuxtLink to="/management/buildings" class="text-sm text-brand-400 hover:text-brand-300 flex items-center gap-1">
-            Barchasi <ChevronRight :size="14" />
-          </NuxtLink>
-        </div>
-        <div class="space-y-4">
-          <div v-for="b in buildingOccupancy" :key="b.name" class="flex items-center gap-4">
-            <div class="w-32 flex-shrink-0">
-              <div class="text-sm text-white font-medium truncate">{{ b.name }}</div>
-              <div class="text-xs text-ink-500">{{ b.area }} m²</div>
-            </div>
-            <div class="flex-1 h-7 rounded-lg bg-white/5 overflow-hidden relative">
-              <div
-                class="h-full rounded-lg transition-all duration-500"
-                :class="b.pct > 90 ? 'bg-gradient-to-r from-emerald-500 to-emerald-400' : b.pct > 70 ? 'bg-gradient-to-r from-brand-500 to-brand-400' : 'bg-gradient-to-r from-amber-500 to-amber-400'"
-                :style="{ width: b.pct + '%' }"
-              />
-              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-white">{{ b.occupied }}/{{ b.total }}</span>
-            </div>
-            <div class="w-12 text-right text-sm font-semibold text-white">{{ b.pct }}%</div>
-          </div>
-        </div>
-      </div>
-
       <!-- Quick actions -->
       <div class="card p-6">
         <h3 class="text-white font-semibold mb-4">Tezkor amallar</h3>
-        <div class="space-y-2">
-          <NuxtLink v-for="action in quickActions" :key="action.to" :to="action.to"
-            class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer">
-            <div class="w-9 h-9 rounded-xl flex items-center justify-center" :class="action.bg">
-              <component :is="action.icon" :size="18" :class="action.color" />
+        <div class="grid grid-cols-2 gap-3">
+          <NuxtLink v-for="a in quickActions" :key="a.label" :to="a.to" class="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all text-center group">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center mx-auto mb-2" :class="a.bg">
+              <component :is="a.icon" :size="16" :class="a.color" />
             </div>
-            <span class="flex-1 text-sm text-ink-200 group-hover:text-white transition-colors">{{ action.label }}</span>
-            <ChevronRight :size="14" class="text-ink-600 group-hover:text-ink-400 transition-colors" />
+            <div class="text-xs text-ink-300">{{ a.label }}</div>
           </NuxtLink>
-        </div>
-      </div>
-    </div>
-
-    <!-- Recent activity + alerts -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Recent activity -->
-      <div class="card p-6">
-        <h3 class="text-white font-semibold mb-4">So'nggi faollik</h3>
-        <div class="space-y-3">
-          <div v-for="activity in recentActivity" :key="activity.id" class="flex items-start gap-3 py-2">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" :class="activity.bg">
-              <component :is="activity.icon" :size="14" :class="activity.color" />
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm text-ink-200">{{ activity.text }}</p>
-              <p class="text-xs text-ink-500 mt-0.5">{{ activity.time }}</p>
-            </div>
-          </div>
         </div>
       </div>
 
       <!-- Alerts -->
-      <div class="card p-6">
-        <h3 class="text-white font-semibold mb-4">Ogohlantirishlar</h3>
-        <div class="space-y-3">
-          <div v-for="alert in alerts" :key="alert.id"
-            class="flex items-start gap-3 p-3 rounded-xl border" :class="alert.borderClass">
-            <component :is="alert.icon" :size="18" :class="alert.color" class="flex-shrink-0 mt-0.5" />
-            <div class="flex-1">
-              <p class="text-sm text-white font-medium">{{ alert.title }}</p>
-              <p class="text-xs text-ink-400 mt-0.5">{{ alert.desc }}</p>
+      <div class="card p-6 lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-white font-semibold">Bildirishnomalar</h3>
+          <NuxtLink to="/notifications" class="text-xs text-brand-400 hover:text-brand-300">Barchasi →</NuxtLink>
+        </div>
+        <div class="space-y-2">
+          <div v-for="alert in alerts" :key="alert.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" :class="alert.bg">
+              <component :is="alert.icon" :size="16" :class="alert.color" />
             </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-sm text-white truncate">{{ alert.title }}</div>
+              <div class="text-xs text-ink-500">{{ alert.time }}</div>
+            </div>
+            <span class="badge" :class="alert.badge">{{ alert.tag }}</span>
           </div>
         </div>
       </div>
@@ -218,63 +147,69 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ middleware: "auth" })
-import {
-  Building2, Wallet, FileText, Wrench, TrendingUp, ChevronRight,
-  AlertTriangle, Clock, Package, CheckCircle2, Plus, BarChart3, FileSearch,
-  Receipt, Users
-} from 'lucide-vue-next'
+import { Building2, Wallet, FileText, AlertTriangle, Plus, Download, TrendingUp, Wrench, Receipt, Calendar, Users, Box, CheckCircle2, Clock } from 'lucide-vue-next'
+import { buildings, invoices } from '~/utils/mockData'
+
+definePageMeta({ middleware: 'auth' })
 
 const authStore = useAuthStore()
+const { formatPriceShort } = useFormat()
+
 const user = computed(() => authStore.user)
+const userFirstName = computed(() => user.value?.fullName?.split(' ')[0] || 'Admin')
 
-const periods = [
-  { id: 'week', label: 'Hafta' },
-  { id: 'month', label: 'Oy' },
-  { id: 'quarter', label: 'Chorak' },
-  { id: 'year', label: 'Yil' },
-]
-const activePeriod = ref('month')
+const todayLabel = computed(() => {
+  const d = new Date()
+  const months = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr']
+  const days = ['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba']
+  return days[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()]
+})
 
-const chartPoints = [
-  { x: 0, y: 140 }, { x: 67, y: 110 }, { x: 133, y: 125 },
-  { x: 200, y: 80 }, { x: 267, y: 95 }, { x: 333, y: 55 }, { x: 400, y: 40 }
-]
-
-const kpiCards = [
-  { label: 'Jami tushum', value: '127.4M', trend: 12, icon: Wallet, iconBg: 'bg-brand-500/10', iconColor: 'text-brand-400' },
-  { label: 'Bandlik', value: '91%', trend: 3, icon: Building2, iconBg: 'bg-emerald-500/10', iconColor: 'text-emerald-400' },
-  { label: 'Faol arizalar', value: '24', trend: -8, icon: FileText, iconBg: 'bg-amber-500/10', iconColor: 'text-amber-400' },
-  { label: 'Ochiq servis', value: '7', trend: 2, icon: Wrench, iconBg: 'bg-red-500/10', iconColor: 'text-red-400' },
+const kpis = [
+  { label: 'Jami tushum', value: formatPriceShort(1485000000), trend: '+12%', trendUp: true, icon: Wallet, bg: 'bg-emerald-500/10', color: 'text-emerald-400' },
+  { label: 'Bo\'sh maydonlar', value: '67', trend: '-5%', trendUp: false, icon: Building2, bg: 'bg-brand-500/10', color: 'text-brand-400' },
+  { label: 'Faol shartnomalar', value: '42', trend: '+3', trendUp: true, icon: FileText, bg: 'bg-blue-500/10', color: 'text-blue-400' },
+  { label: 'Qarzdorlik', value: formatPriceShort(101500000), trend: '+8%', trendUp: false, icon: AlertTriangle, bg: 'bg-red-500/10', color: 'text-red-400' },
 ]
 
-const buildingOccupancy = [
-  { name: 'Tashkent City Tower', area: '45,000', occupied: 95, total: 100, pct: 95 },
-  { name: 'Trillant Tower', area: '32,000', occupied: 78, total: 85, pct: 92 },
-  { name: 'IT Park Tashkent', area: '28,000', occupied: 42, total: 60, pct: 70 },
-  { name: 'Piramit Complex', area: '20,000', occupied: 55, total: 80, pct: 69 },
-  { name: 'Business Center Aura', area: '15,000', occupied: 38, total: 50, pct: 76 },
+const chartPeriod = ref('6m')
+const chartPeriods = [
+  { id: '3m', label: '3 oy' },
+  { id: '6m', label: '6 oy' },
+  { id: '1y', label: '1 yil' },
 ]
+
+const chartData = [
+  { label: 'Mar', value: 1200000000 },
+  { label: 'Apr', value: 1280000000 },
+  { label: 'May', value: 1350000000 },
+  { label: 'Iyun', value: 1390000000 },
+  { label: 'Iyul', value: 1450000000 },
+  { label: 'Avg', value: 1485000000, current: true },
+]
+
+const maxChart = Math.max(...chartData.map(d => d.value))
+
+const occupiedTotal = computed(() => buildings.reduce((s, b) => s + b.occupiedUnits, 0))
+const vacantTotal = computed(() => buildings.reduce((s, b) => s + b.vacantUnits, 0))
+const unitsTotal = computed(() => buildings.reduce((s, b) => s + b.totalUnits, 0))
+const occupancyPct = computed(() => Math.round((occupiedTotal.value / unitsTotal.value) * 100))
+
+function occPct(b: typeof buildings[0]) { return Math.round((b.occupiedUnits / b.totalUnits) * 100) }
 
 const quickActions = [
-  { to: '/management/buildings', label: 'Bino qo\'shish', icon: Building2, bg: 'bg-brand-500/10', color: 'text-brand-400' },
-  { to: '/management/applications', label: 'Arizani ko\'rib chiqish', icon: FileText, bg: 'bg-amber-500/10', color: 'text-amber-400' },
-  { to: '/finance/invoices', label: 'Invoice yaratish', icon: Receipt, bg: 'bg-emerald-500/10', color: 'text-emerald-400' },
-  { to: '/reports', label: 'Hisobot generatsiya', icon: BarChart3, bg: 'bg-blue-500/10', color: 'text-blue-400' },
-  { to: '/admin/users', label: 'Foydalanuvchi boshqarish', icon: Users, bg: 'bg-purple-500/10', color: 'text-purple-400' },
-]
-
-const recentActivity = [
-  { id: 1, text: 'Aziz Karimov ijara shartnomasi imzolandi — Trillant Tower, 5-qavat', time: '10 daqiqa oldin', icon: CheckCircle2, bg: 'bg-emerald-500/10', color: 'text-emerald-400' },
-  { id: 2, text: 'Yangi servis so\'rovi — IT Park, ofis 301, konditsioner nosoz', time: '34 daqiqa oldin', icon: Wrench, bg: 'bg-amber-500/10', color: 'text-amber-400' },
-  { id: 3, text: 'Invoice #INV-2025-0342 to\'landi — 4.5M so\'m', time: '1 soat oldin', icon: Wallet, bg: 'bg-brand-500/10', color: 'text-brand-400' },
-  { id: 4, text: 'Material so\'rovi tasdiqlandi — rozetka x2, 70,000 so\'m', time: '2 soat oldin', icon: Package, bg: 'bg-blue-500/10', color: 'text-blue-400' },
-  { id: 5, text: 'Yangi ariza — Business Center Aura, ofis 210, ijara', time: '3 soat oldin', icon: FileText, bg: 'bg-purple-500/10', color: 'text-purple-400' },
+  { label: 'Yangi ariza', to: '/catalog', icon: FileText, bg: 'bg-brand-500/10', color: 'text-brand-400' },
+  { label: 'Invoice', to: '/finance/invoices', icon: Receipt, bg: 'bg-emerald-500/10', color: 'text-emerald-400' },
+  { label: 'Servis', to: '/cabinet/services', icon: Wrench, bg: 'bg-amber-500/10', color: 'text-amber-400' },
+  { label: 'Hisobot', to: '/reports', icon: Calendar, bg: 'bg-blue-500/10', color: 'text-blue-400' },
+  { label: 'Binolar', to: '/management/buildings', icon: Building2, bg: 'bg-purple-500/10', color: 'text-purple-400' },
+  { label: '3D ko\'rish', to: '/management/buildings', icon: Box, bg: 'bg-pink-500/10', color: 'text-pink-400' },
 ]
 
 const alerts = [
-  { id: 1, title: '3 ta invoice muddati o\'tdi', desc: 'Jami: 12.3M so\'m — Tashkent City Tower', icon: AlertTriangle, color: 'text-red-400', borderClass: 'bg-red-500/5 border-red-500/20' },
-  { id: 2, title: 'Kritik servis so\'rovi kechikdi', desc: 'IT Park, ofis 301 — SLA: 2 soatdan oshdi', icon: Clock, color: 'text-amber-400', borderClass: 'bg-amber-500/5 border-amber-500/20' },
-  { id: 3, title: 'Ombor: minimal qoldiqdan past', desc: 'Lampa LED 12W — qoldiq: 3 dona (min: 10)', icon: Package, color: 'text-blue-400', borderClass: 'bg-blue-500/5 border-blue-500/20' },
+  { id: 1, title: 'INV-2026-072 muddati o\'tdi — Tashkent Logistics LLC', time: '2 soat oldin', icon: AlertTriangle, bg: 'bg-red-500/10', color: 'text-red-400', tag: 'Kritik', badge: 'badge-danger' },
+  { id: 2, title: 'SRV-2026-043 SLA buzilish xavfi — Trillant Tower 18-qavat', time: '3 soat oldin', icon: Clock, bg: 'bg-amber-500/10', color: 'text-amber-400', tag: 'SLA', badge: 'badge-warning' },
+  { id: 3, title: 'APP-2026-002 moliyaviy ko\'rigi kutilmoqda', time: '5 soat oldin', icon: FileText, bg: 'bg-brand-500/10', color: 'text-brand-400', tag: 'Ariza', badge: 'badge-brand' },
+  { id: 4, title: 'Billing davri Avgust 2026 ochildi — 24 ta invoice', time: '1 kun oldin', icon: CheckCircle2, bg: 'bg-emerald-500/10', color: 'text-emerald-400', tag: 'Tugatildi', badge: 'badge-success' },
 ]
 </script>
