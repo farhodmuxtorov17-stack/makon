@@ -1,126 +1,67 @@
 <template>
   <div class="space-y-6">
-    <!-- Header -->
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold font-display text-ink-900">Tasdiqlar</h1>
-        <p class="text-sm text-ink-500 mt-1">
-          {{ pendingApps.length + pendingMaterials.length }} tasdiq kutilmoqda
-        </p>
+        <h1 class="font-display text-2xl font-bold tracking-tight">Tasdiqlar</h1>
+        <p class="text-ink-500 text-sm mt-0.5">Tasdiqlashni kutayotgan hujjatlar</p>
       </div>
     </div>
 
-    <!-- Applications -->
-    <div class="card overflow-hidden">
-      <div class="px-5 py-4 border-b border-ink-100 flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center">
-          <ClipboardList :size="16" :stroke-width="2" class="text-brand-600" />
-        </div>
-        <h3 class="font-semibold text-ink-900">Arizalar — Finance review</h3>
-      </div>
-      <div class="table-wrapper">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Raqam</th>
-              <th>Mijoz</th>
-              <th>Narx</th>
-              <th>Sana</th>
-              <th class="text-right">Amal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="a in pendingApps" :key="a.id">
-              <td class="font-mono text-xs font-medium text-ink-900">{{ a.number }}</td>
-              <td class="font-medium text-ink-900">{{ a.applicantName }}</td>
-              <td class="font-mono font-semibold text-ink-900">
-                {{ formatNumber(a.offeredPrice) }} so'm
-              </td>
-              <td class="text-ink-500 text-xs">{{ formatDate(a.createdAt) }}</td>
-              <td class="text-right">
-                <div class="flex justify-end gap-2">
-                  <button class="btn btn-primary btn-sm">
-                    <Check :size="14" :stroke-width="2.5" />
-                    Tasdiqlash
-                  </button>
-                  <button class="btn btn-secondary btn-sm text-danger-600">
-                    <X :size="14" :stroke-width="2.5" />
-                    Rad
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr v-if="!pendingApps.length">
-              <td colspan="5" class="text-center text-ink-400 py-8">
-                Finance review kutilayotgan arizalar yo'q
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div v-if="pendingItems.length === 0" class="card p-12 text-center">
+      <CheckCircle2 :size="48" class="text-emerald-500 mx-auto mb-4" />
+      <h3 class="font-semibold text-lg text-ink-900 mb-1">Tasdiqlashni kutayotgan hujjatlar yo'q</h3>
+      <p class="text-ink-400 text-sm">Barcha hujjatlar tasdiqlangan</p>
     </div>
 
-    <!-- Material requests -->
-    <div class="card overflow-hidden">
-      <div class="px-5 py-4 border-b border-ink-100 flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-lg bg-warning-50 flex items-center justify-center">
-          <Package :size="16" :stroke-width="2" class="text-warning-600" />
+    <div v-else class="space-y-4">
+      <div v-for="item in pendingItems" :key="item.id" class="card p-5">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+            :class="item.type === 'CONTRACT' ? 'bg-brand-50' : item.type === 'ERI' ? 'bg-amber-50' : 'bg-emerald-50'">
+            <component :is="item.icon" :size="24"
+              :class="item.type === 'CONTRACT' ? 'text-brand-600' : item.type === 'ERI' ? 'text-amber-600' : 'text-emerald-600'" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="badge badge-warning">{{ item.typeLabel }}</span>
+              <span class="font-mono text-sm text-ink-500">{{ item.number }}</span>
+            </div>
+            <h3 class="font-semibold text-ink-900">{{ item.title }}</h3>
+            <p class="text-sm text-ink-400 mt-1">{{ item.description }}</p>
+          </div>
+          <div class="flex gap-2 flex-shrink-0">
+            <button class="btn btn-ghost btn-sm text-rose-600 hover:bg-rose-50" @click="reject(item.id)">
+              <XCircle :size="16" />
+              Rad etish
+            </button>
+            <button class="btn btn-success btn-sm" @click="approve(item.id)">
+              <Check :size="16" />
+              Tasdiqlash
+            </button>
+          </div>
         </div>
-        <h3 class="font-semibold text-ink-900">Material so'rovlari</h3>
-      </div>
-      <div class="table-wrapper">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Ish buyruq</th>
-              <th>Itemlar</th>
-              <th>Sana</th>
-              <th class="text-right">Amal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="m in pendingMaterials" :key="m.id">
-              <td class="font-mono text-xs font-medium text-ink-900">{{ m.workOrderId }}</td>
-              <td class="text-ink-700">{{ m.items.length }} ta item</td>
-              <td class="text-ink-500 text-xs">{{ formatDate(m.createdAt) }}</td>
-              <td class="text-right">
-                <div class="flex justify-end gap-2">
-                  <button class="btn btn-primary btn-sm">
-                    <Check :size="14" :stroke-width="2.5" />
-                    Tasdiqlash
-                  </button>
-                  <button class="btn btn-secondary btn-sm text-danger-600">
-                    <X :size="14" :stroke-width="2.5" />
-                    Rad
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr v-if="!pendingMaterials.length">
-              <td colspan="4" class="text-center text-ink-400 py-8">Kutilayotgan so'rovlar yo'q</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import { Check, X, ClipboardList, Package } from 'lucide-vue-next'
-import { useFinanceStore } from '~/stores/finance'
-import { useServiceStore } from '~/stores/service'
-import { formatNumber, formatDate } from '~/utils'
+import { CheckCircle2, FileText, ShieldCheck, Wrench, Check, XCircle } from 'lucide-vue-next'
 
-definePageMeta({ middleware: 'auth' })
 const financeStore = useFinanceStore()
-const serviceStore = useServiceStore()
-onMounted(() => {
-  financeStore.initMockData()
-  serviceStore.initMockData()
-})
+onMounted(() => financeStore.initMockData())
 
-const pendingApps = computed(() => financeStore.pendingApplications)
-const pendingMaterials = computed(() => serviceStore.pendingMaterialApprovals)
+const pendingItems = ref([
+  { id: 'ap1', type: 'CONTRACT', typeLabel: 'Shartnoma', number: 'CTR-2025-002', title: 'Aziz Karimov — ijara shartnomasi', description: '8.5 mln so\'m/oy, 12 oylik. ERI imzolanmagan.', icon: FileText },
+  { id: 'ap2', type: 'ERI', typeLabel: 'ERI imzo', number: 'CTR-2025-003', title: 'Bekzod Toshmatov — ERI imzolash', description: '4.5 mln so\'m/oy, 24 oylik. Imzo kutilmoqda.', icon: ShieldCheck },
+  { id: 'ap3', type: 'MATERIAL', typeLabel: 'Material', number: 'MR-2025-002', title: 'Rozetka ta\'minoti — 2 dona', description: 'WO-2025-004 uchun material so\'rovi. 70,000 so\'m.', icon: Wrench },
+])
+
+function approve(id: string) {
+  pendingItems.value = pendingItems.value.filter(i => i.id !== id)
+}
+
+function reject(id: string) {
+  pendingItems.value = pendingItems.value.filter(i => i.id !== id)
+}
 </script>

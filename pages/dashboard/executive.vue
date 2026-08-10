@@ -1,127 +1,139 @@
 <template>
   <div class="space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between flex-wrap gap-4">
+    <div class="flex items-center justify-between">
       <div>
-        <h1 class="font-display text-2xl font-bold text-ink-900">Ishchi panel</h1>
-        <p class="text-ink-500 text-sm mt-1">Xush kelibsiz, {{ authStore.user?.fullName }}</p>
+        <h1 class="font-display text-2xl font-bold tracking-tight">Ishchi panel</h1>
+        <p class="text-ink-500 text-sm mt-0.5">Xush kelibsiz, {{ authStore.user?.fullName }}</p>
       </div>
       <div class="flex items-center gap-2">
         <button class="btn btn-outline btn-sm">
-          <Calendar :size="16" :stroke-width="2" /> Oy
+          <Calendar :size="16" />
+          Oy: Iyul 2026
         </button>
         <button class="btn btn-primary btn-sm">
-          <Download :size="16" :stroke-width="2" /> Hisobot
+          <Plus :size="16" />
+          Yangi ob'ekt
         </button>
       </div>
     </div>
 
-    <!-- Stat cards -->
+    <!-- KPI Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div v-for="s in statCards" :key="s.label" class="card p-5">
-        <div class="flex items-center justify-between mb-4">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="s.bg">
-            <component :is="s.icon" :size="20" :stroke-width="2" :class="s.color" />
+      <div v-for="kpi in kpis" :key="kpi.label" class="card p-5">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="kpi.bgClass">
+            <component :is="kpi.icon" :size="20" :class="kpi.iconClass" />
           </div>
-          <span class="text-xs font-semibold" :class="s.trend > 0 ? 'text-emerald-600' : 'text-rose-600'">
-            {{ s.trend > 0 ? '+' : '' }}{{ s.trend }}%
+          <span class="text-xs font-semibold px-2 py-1 rounded-lg" :class="kpi.trendClass">
+            {{ kpi.trend }}
           </span>
         </div>
-        <div class="font-display text-2xl font-bold text-ink-900">{{ s.value }}</div>
-        <div class="text-ink-400 text-sm mt-1">{{ s.label }}</div>
+        <p class="text-2xl font-bold font-display tracking-tight">{{ kpi.value }}</p>
+        <p class="text-sm text-ink-400 mt-0.5">{{ kpi.label }}</p>
       </div>
     </div>
 
     <!-- Charts row -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
       <!-- Revenue chart -->
-      <div class="card p-5 lg:col-span-2">
+      <div class="card p-6 lg:col-span-2">
         <div class="flex items-center justify-between mb-6">
           <div>
-            <h3 class="font-display font-semibold text-ink-900">Daromad dinamikasi</h3>
-            <p class="text-ink-400 text-xs mt-0.5">Oxirgi 12 oy</p>
+            <h3 class="font-semibold text-ink-900">Daromat dinamikasi</h3>
+            <p class="text-sm text-ink-400">Oxirgi 6 oy, so'm</p>
           </div>
-          <div class="flex items-center gap-2">
-            <button v-for="p in periods" :key="p" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" :class="activePeriod === p ? 'bg-brand-50 text-brand-700' : 'text-ink-400 hover:bg-ink-100'" @click="activePeriod = p">{{ p }}</button>
+          <div class="flex gap-2">
+            <button class="text-xs font-medium px-3 py-1.5 rounded-lg bg-brand-50 text-brand-700">Oylik</button>
+            <button class="text-xs font-medium px-3 py-1.5 rounded-lg text-ink-400 hover:bg-ink-100">Yillik</button>
           </div>
         </div>
-        <div>
-          <div class="flex items-end gap-2" style="height: 160px;">
-            <div v-for="(d, i) in revenueData" :key="i" class="flex-1 rounded-t-md transition-all duration-300 hover:opacity-100" :class="i === revenueData.length - 1 ? 'bg-brand-600 opacity-100' : 'bg-brand-300 hover:bg-brand-400 opacity-70'" :style="{ height: d.value + '%' }"></div>
-          </div>
-          <div class="flex gap-2 mt-2">
-            <span v-for="(d, i) in revenueData" :key="i" class="flex-1 text-center text-[10px] text-ink-400">{{ d.label }}</span>
+        <!-- Bar chart -->
+        <div class="flex items-end gap-3 h-48">
+          <div v-for="(bar, i) in chartData" :key="i" class="flex-1 flex flex-col items-center gap-2 group">
+            <div class="w-full flex-1 flex items-end">
+              <div
+                class="w-full rounded-t-lg transition-all duration-500 ease-premium group-hover:opacity-80"
+                :class="i === chartData.length - 1 ? 'bg-brand-600' : 'bg-brand-200'"
+                :style="{ height: bar.height + '%' }"
+              >
+                <div class="opacity-0 group-hover:opacity-100 transition-opacity text-center text-[10px] font-bold text-white pt-1">
+                  {{ bar.label }}
+                </div>
+              </div>
+            </div>
+            <span class="text-xs text-ink-400">{{ bar.month }}</span>
           </div>
         </div>
       </div>
 
       <!-- Occupancy donut -->
-      <div class="card p-5">
-        <h3 class="font-display font-semibold text-ink-900 mb-1">Bandlik</h3>
-        <p class="text-ink-400 text-xs mb-6">Umumiy maydon</p>
-        <div class="flex items-center justify-center mb-4">
-          <div class="relative w-32 h-32">
-            <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="42" fill="none" stroke="#f4f4f5" stroke-width="8" />
-              <circle cx="50" cy="50" r="42" fill="none" stroke="#4f46e5" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="16" />
-            </svg>
-            <div class="absolute inset-0 flex flex-col items-center justify-center">
-              <span class="font-display text-2xl font-bold text-ink-900">94%</span>
-              <span class="text-ink-400 text-[10px]">band</span>
-            </div>
+      <div class="card p-6">
+        <h3 class="font-semibold text-ink-900 mb-1">Bandlik darajasi</h3>
+        <p class="text-sm text-ink-400 mb-6">Umumiy maydon</p>
+        <div class="relative w-40 h-40 mx-auto mb-6">
+          <svg viewBox="0 0 120 120" class="w-full h-full -rotate-90">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#e4e4e7" stroke-width="14" />
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#4f46e5" stroke-width="14"
+              stroke-dasharray="314" stroke-dashoffset="28.3" stroke-linecap="round" class="transition-all duration-1000" />
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <p class="text-3xl font-bold font-display">91%</p>
+            <p class="text-xs text-ink-400">band</p>
           </div>
         </div>
         <div class="space-y-2">
           <div class="flex items-center justify-between text-sm">
-            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-brand-600"></div><span class="text-ink-600">Band</span></div>
-            <span class="font-semibold text-ink-900">56 unit</span>
+            <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-600"></span> Band</span>
+            <span class="font-semibold">312 maydon</span>
           </div>
           <div class="flex items-center justify-between text-sm">
-            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-ink-200"></div><span class="text-ink-600">Boʻsh</span></div>
-            <span class="font-semibold text-ink-900">4 unit</span>
+            <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-ink-200"></span> Bo'sh</span>
+            <span class="font-semibold">31 maydon</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Buildings + Activity -->
+    <!-- Bottom row -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <!-- Buildings -->
-      <div class="card p-5 lg:col-span-2">
-        <div class="flex items-center justify-between mb-5">
-          <h3 class="font-display font-semibold text-ink-900">Binolar</h3>
-          <NuxtLink to="/management/buildings" class="text-sm text-brand-600 hover:text-brand-700 font-medium flex items-center gap-1">
-            Barchasi <ChevronRight :size="14" :stroke-width="2" />
-          </NuxtLink>
+      <!-- Recent applications -->
+      <div class="card p-6 lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-ink-900">Oxirgi arizalar</h3>
+          <NuxtLink to="/applications" class="text-sm text-brand-600 hover:text-brand-700 font-medium">Hammasini ko'rish →</NuxtLink>
         </div>
-        <div class="space-y-3">
-          <div v-for="b in buildings" :key="b.name" class="flex items-center gap-4 p-3 rounded-xl hover:bg-ink-50 transition-colors">
-            <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" :class="b.bg">
-              <component :is="b.icon" :size="20" :stroke-width="2" :class="b.color" />
+        <div class="space-y-1">
+          <div v-for="app in recentApps" :key="app.id" class="flex items-center gap-4 py-3 px-2 rounded-xl hover:bg-ink-50 transition-colors">
+            <div class="w-10 h-10 rounded-xl bg-ink-100 flex items-center justify-center flex-shrink-0">
+              <ClipboardList :size="18" class="text-ink-500" />
             </div>
             <div class="flex-1 min-w-0">
-              <div class="font-semibold text-ink-900 text-sm">{{ b.name }}</div>
-              <div class="text-ink-400 text-xs">{{ b.location }} · {{ b.units }} unit</div>
+              <p class="font-medium text-ink-900 truncate">{{ app.applicantName }}</p>
+              <p class="text-sm text-ink-400">{{ app.number }} · {{ app.type === 'RENT' ? 'Ijara' : 'Sotuv' }}</p>
             </div>
             <div class="text-right">
-              <div class="font-display font-bold text-ink-900 text-sm">{{ b.revenue }}</div>
-              <div class="text-xs" :class="b.occupancy >= 90 ? 'text-emerald-600' : 'text-amber-600'">{{ b.occupancy }}% band</div>
+              <p class="font-semibold text-ink-900">{{ formatPrice(app.offeredPrice) }}</p>
+              <span class="badge" :class="statusBadgeClass(app.status)">{{ statusLabel(app.status) }}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Recent activity -->
-      <div class="card p-5">
-        <h3 class="font-display font-semibold text-ink-900 mb-5">Soʻnggi faollik</h3>
+      <!-- Activity feed -->
+      <div class="card p-6">
+        <h3 class="font-semibold text-ink-900 mb-4">Faollik</h3>
         <div class="space-y-4">
-          <div v-for="a in activity" :key="a.text" class="flex gap-3">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" :class="a.bg">
-              <component :is="a.icon" :size="14" :stroke-width="2" :class="a.color" />
+          <div v-for="(act, i) in activities" :key="i" class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" :class="act.bg">
+                <component :is="act.icon" :size="14" :class="act.color" />
+              </div>
+              <div v-if="i < activities.length - 1" class="w-px flex-1 bg-ink-100 my-1"></div>
             </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm text-ink-700 leading-snug">{{ a.text }}</p>
-              <p class="text-xs text-ink-400 mt-0.5">{{ a.time }}</p>
+            <div class="pb-3">
+              <p class="text-sm text-ink-700">{{ act.text }}</p>
+              <p class="text-xs text-ink-400 mt-0.5">{{ act.time }}</p>
             </div>
           </div>
         </div>
@@ -132,40 +144,64 @@
 
 <script setup lang="ts">
 import {
-  Building2, TrendingUp, Wallet, Users, Calendar, Download, ChevronRight,
-  CreditCard, FileText, Bell, Wrench, CheckCircle2, AlertCircle, Building,
+  Calendar, Plus, Building2, Wallet, TrendingUp, Users, ClipboardList,
+  FileText, Wrench, CheckCircle2, AlertTriangle,
 } from 'lucide-vue-next'
+import type { ApplicationStatus } from '~/types'
 
 const authStore = useAuthStore()
+const financeStore = useFinanceStore()
 
-const periods = ['6 oy', '12 oy', 'Yil']
-const activePeriod = ref('12 oy')
+onMounted(() => financeStore.initMockData())
 
-const statCards = [
-  { label: 'Daromad', value: '8.2 mlr', trend: 12.5, bg: 'bg-emerald-50', color: 'text-emerald-600', icon: TrendingUp },
-  { label: 'Bandlik', value: '94%', trend: 3.2, bg: 'bg-brand-50', color: 'text-brand-600', icon: Building2 },
-  { label: 'Shartnomalar', value: '12', trend: -5.0, bg: 'bg-amber-50', color: 'text-amber-600', icon: FileText },
-  { label: 'Ijarachilar', value: '48', trend: 8.1, bg: 'bg-sky-50', color: 'text-sky-600', icon: Users },
+const kpis = [
+  { label: "Jami daromat (oy)", value: "285M so'm", icon: Wallet, bgClass: "bg-brand-50", iconClass: "text-brand-600", trend: "+12%", trendClass: "bg-emerald-50 text-emerald-600" },
+  { label: "Bandlik darajasi", value: "91%", icon: Building2, bgClass: "bg-emerald-50", iconClass: "text-emerald-600", trend: "+3%", trendClass: "bg-emerald-50 text-emerald-600" },
+  { label: "Faol shartnomalar", value: "87", icon: FileText, bgClass: "bg-amber-50", iconClass: "text-amber-600", trend: "+5", trendClass: "bg-emerald-50 text-emerald-600" },
+  { label: "Yangi arizalar", value: "3", icon: Users, bgClass: "bg-rose-50", iconClass: "text-rose-600", trend: "+2", trendClass: "bg-emerald-50 text-emerald-600" },
 ]
 
-const revenueData = [
-  { label: 'Yan', value: 45 }, { label: 'Fev', value: 60 }, { label: 'Mar', value: 35 },
-  { label: 'Apr', value: 70 }, { label: 'May', value: 55 }, { label: 'Iyn', value: 80 },
-  { label: 'Iyl', value: 90 }, { label: 'Avg', value: 50 }, { label: 'Sen', value: 65 },
-  { label: 'Okt', value: 75 }, { label: 'Noy', value: 45 }, { label: 'Dek', value: 95 },
+const chartData = [
+  { month: 'Fev', height: 55, label: '18.5M' },
+  { month: 'Mar', height: 68, label: '22.1M' },
+  { month: 'Apr', height: 72, label: '24.5M' },
+  { month: 'May', height: 82, label: '26.8M' },
+  { month: 'Iyun', height: 90, label: '29.2M' },
+  { month: 'Iyul', height: 98, label: '31.5M' },
 ]
 
-const buildings = [
-  { name: 'Urban Office Tower', location: 'Toshkent', units: 60, revenue: '4.2 mlr soʻm', occupancy: 94, bg: 'bg-brand-50', color: 'text-brand-600', icon: Building },
-  { name: 'Business Plaza', location: 'Samarqand', units: 42, revenue: '2.8 mlr soʻm', occupancy: 88, bg: 'bg-emerald-50', color: 'text-emerald-600', icon: Building2 },
-  { name: 'Residential Complex', location: 'Buxoro', units: 38, revenue: '1.2 mlr soʻm', occupancy: 91, bg: 'bg-amber-50', color: 'text-amber-600', icon: Building },
+const recentApps = computed(() => financeStore.applications.slice(0, 4))
+
+const activities = [
+  { icon: FileText, text: "Yangi shartnoma CTR-2025-003 imzolandi", time: "2 soat oldin", bg: "bg-brand-50", color: "text-brand-600" },
+  { icon: Wallet, text: "INV-2025-06-001 to'landi (12M so'm)", time: "5 soat oldin", bg: "bg-emerald-50", color: "text-emerald-600" },
+  { icon: Wrench, text: "SR-2025-005 servis so'rovi yaratildi", time: "Bugun, 10:00", bg: "bg-amber-50", color: "text-amber-600" },
+  { icon: AlertTriangle, text: "INV-2025-04-004 muddati o'tdi", time: "Kecha, 08:00", bg: "bg-rose-50", color: "text-rose-600" },
+  { icon: CheckCircle2, text: "WO-2025-001 yakunlandi", time: "Kecha, 15:30", bg: "bg-emerald-50", color: "text-emerald-600" },
 ]
 
-const activity = [
-  { text: 'Yangi toʻlov qabul qilindi — 2.4 mlr soʻm', time: '5 daqiqa oldin', bg: 'bg-emerald-50', color: 'text-emerald-600', icon: CreditCard },
-  { text: 'Shartnoma uzaytirildi — Urban Office', time: '1 soat oldin', bg: 'bg-brand-50', color: 'text-brand-600', icon: FileText },
-  { text: 'Yangi servis soʻrovi — konditsioner', time: '3 soat oldin', bg: 'bg-amber-50', color: 'text-amber-600', icon: Wrench },
-  { text: 'Shartnoma tasdiqlandi', time: '5 soat oldin', bg: 'bg-emerald-50', color: 'text-emerald-600', icon: CheckCircle2 },
-  { text: 'Oʻzgarish: 2 unit boʻsh', time: 'Kecha', bg: 'bg-rose-50', color: 'text-rose-600', icon: AlertCircle },
-]
+function formatPrice(v: number) {
+  if (v >= 1000000000) return (v / 1000000000).toFixed(1) + ' mlrd'
+  if (v >= 1000000) return (v / 1000000).toFixed(1) + ' mln'
+  return v.toLocaleString('ru')
+}
+
+function statusLabel(s: ApplicationStatus): string {
+  const m: Record<string, string> = {
+    SUBMITTED: 'Yangi', FINANCE_REVIEW: 'Tekshiruvda', OFFER_SENT: 'Taklif yuborildi',
+    CONTRACT_SIGNING: 'Shartnoma', APPROVED: 'Tasdiqlandi', REJECTED: 'Rad etildi',
+    CANCELLED: 'Bekor qilindi', DRAFT: 'Qoralama', ERI_SIGNING: 'ERI imzo',
+  }
+  return m[s] || s
+}
+
+function statusBadgeClass(s: ApplicationStatus): string {
+  const m: Record<string, string> = {
+    SUBMITTED: 'badge-info', FINANCE_REVIEW: 'badge-warning',
+    OFFER_SENT: 'badge-info', CONTRACT_SIGNING: 'badge-warning',
+    APPROVED: 'badge-success', REJECTED: 'badge-danger',
+    CANCELLED: 'badge-neutral', DRAFT: 'badge-neutral', ERI_SIGNING: 'badge-warning',
+  }
+  return m[s] || 'badge-neutral'
+}
 </script>

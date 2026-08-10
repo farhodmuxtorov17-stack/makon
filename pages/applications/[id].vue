@@ -1,166 +1,111 @@
 <template>
   <div class="space-y-6">
-    <NuxtLink
-      to="/applications"
-      class="text-sm text-ink-500 hover:text-ink-700 flex items-center gap-1"
-    >
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-      Arizalar
+    <NuxtLink to="/applications" class="inline-flex items-center gap-2 text-sm text-ink-500 hover:text-ink-700">
+      <ArrowLeft :size="16" /> Arizalarga qaytish
     </NuxtLink>
+
     <div v-if="app" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="lg:col-span-2 space-y-6">
         <div class="card p-6">
           <div class="flex items-start justify-between mb-6">
             <div>
-              <p class="text-xs text-ink-400 font-mono">{{ app.number }}</p>
-              <h1 class="text-2xl font-bold font-display mt-1">{{ app.applicantName }}</h1>
+              <span class="font-mono text-sm text-ink-500">{{ app.number }}</span>
+              <h1 class="font-display text-2xl font-bold mt-1">{{ app.applicantName }}</h1>
             </div>
-            <StatusBadge :status="app.status" :dot="true" />
+            <span class="badge" :class="statusClass(app.status)">{{ statusLabel(app.status) }}</span>
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-ink-50">
-              <p class="text-xs text-ink-500">Telefon</p>
-              <p class="font-medium mt-1">{{ app.applicantPhone }}</p>
-            </div>
-            <div class="p-4 rounded-xl bg-ink-50">
-              <p class="text-xs text-ink-500">Email</p>
-              <p class="font-medium mt-1">{{ app.applicantEmail }}</p>
-            </div>
-            <div class="p-4 rounded-xl bg-ink-50">
-              <p class="text-xs text-ink-500">PINFL</p>
-              <p class="font-mono text-sm mt-1">{{ app.applicantPinfl }}</p>
-            </div>
-            <div class="p-4 rounded-xl bg-ink-50">
-              <p class="text-xs text-ink-500">Turi</p>
-              <p class="font-medium mt-1">{{ app.type === 'RENT' ? 'Ijara' : 'Sotuv' }}</p>
-            </div>
-            <div class="p-4 rounded-xl bg-ink-50">
-              <p class="text-xs text-ink-500">Taklif narx</p>
-              <p class="font-bold mt-1">{{ formatNumber(app.offeredPrice) }} so'm</p>
-            </div>
-            <div class="p-4 rounded-xl bg-ink-50">
-              <p class="text-xs text-ink-500">Sana</p>
-              <p class="font-medium mt-1">{{ formatDate(app.createdAt) }}</p>
-            </div>
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div><p class="text-ink-400 text-xs mb-1">Turi</p><p class="font-medium">{{ app.type === 'RENT' ? 'Ijara' : 'Sotuv' }}</p></div>
+            <div><p class="text-ink-400 text-xs mb-1">Taklif narx</p><p class="font-semibold">{{ formatPrice(app.offeredPrice) }} so'm</p></div>
+            <div><p class="text-ink-400 text-xs mb-1">Telefon</p><p class="font-medium">{{ app.applicantPhone }}</p></div>
+            <div><p class="text-ink-400 text-xs mb-1">Email</p><p class="font-medium">{{ app.applicantEmail }}</p></div>
+            <div><p class="text-ink-400 text-xs mb-1">PINFL</p><p class="font-mono">{{ app.applicantPinfl }}</p></div>
+            <div><p class="text-ink-400 text-xs mb-1">Sana</p><p class="font-medium">{{ app.createdAt.split('T')[0] }}</p></div>
           </div>
-          <div v-if="app.notes" class="mt-4 p-4 rounded-xl bg-warning-50">
-            <p class="text-xs text-warning-600 font-semibold">Izoh</p>
-            <p class="text-sm text-ink-700 mt-1">{{ app.notes }}</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="px-5 py-4 border-b border-ink-100">
-            <h3 class="font-semibold">Jarayon tarixi</h3>
-          </div>
-          <div class="p-5">
-            <div class="space-y-4">
-              <div v-for="(step, i) in workflowSteps" :key="i" class="flex gap-3">
-                <div
-                  :class="[
-                    'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0',
-                    step.done ? 'bg-success-100 text-success-600' : 'bg-ink-100 text-ink-400',
-                  ]"
-                >
-                  <svg
-                    v-if="step.done"
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2.5"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span v-else class="text-xs font-bold">{{ i + 1 }}</span>
-                </div>
-                <div class="pt-1">
-                  <p
-                    class="text-sm font-medium"
-                    :class="step.done ? 'text-ink-900' : 'text-ink-400'"
-                  >
-                    {{ step.label }}
-                  </p>
-                  <p v-if="step.date" class="text-xs text-ink-400">
-                    {{ formatDate(step.date) }}
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div v-if="app.notes" class="mt-4 p-3 rounded-xl bg-ink-50 text-sm text-ink-600">
+            <p class="text-ink-400 text-xs mb-1">Izoh</p>
+            {{ app.notes }}
           </div>
         </div>
       </div>
 
       <div class="space-y-4">
         <div class="card p-5">
-          <h3 class="font-semibold mb-3">Amallar</h3>
-          <div class="flex flex-col gap-2">
-            <button v-if="app.status === 'SUBMITTED'" class="btn btn-warning">
-              Finance reviewga yuborish
-            </button>
-            <button v-if="app.status === 'FINANCE_REVIEW'" class="btn btn-primary">
-              Taklif yuborish
-            </button>
-            <button v-if="app.status === 'OFFER_SENT'" class="btn btn-success">Tasdiqlash</button>
-            <button v-if="app.status === 'CONTRACT_SIGNING'" class="btn btn-primary">
-              ERI imzolash
-            </button>
-            <button class="btn btn-ghost text-danger-600 hover:bg-danger-50">Rad etish</button>
+          <h3 class="font-semibold mb-4">Amallar</h3>
+          <div class="space-y-2">
+            <button class="btn btn-primary btn-lg w-full">Taklif yuborish</button>
+            <button class="btn btn-outline btn-lg w-full">Shartnoma tuzish</button>
+            <button class="btn btn-ghost btn-lg w-full text-rose-600">Rad etish</button>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <h3 class="font-semibold mb-3">Jarayon bosqichlari</h3>
+          <div class="space-y-3">
+            <div v-for="(step, i) in steps" :key="i" class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                :class="step.done ? 'bg-emerald-100' : step.current ? 'bg-brand-100' : 'bg-ink-100'">
+                <Check v-if="step.done" :size="16" class="text-emerald-600" />
+                <div v-else-if="step.current" class="w-2 h-2 rounded-full bg-brand-600"></div>
+                <div v-else class="w-2 h-2 rounded-full bg-ink-300"></div>
+              </div>
+              <div>
+                <p class="text-sm font-medium" :class="step.done ? 'text-ink-500' : step.current ? 'text-ink-900' : 'text-ink-400'">{{ step.label }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div v-else class="card p-12 text-center">
+      <p class="text-ink-400">Ariza topilmadi</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft } from 'lucide-vue-next'
-import { computed, onMounted } from 'vue'
-import { useFinanceStore } from '~/stores/finance'
-import { formatNumber, formatDate } from '~/utils'
-import StatusBadge from '~/components/ui/StatusBadge.vue'
+import { ArrowLeft, Check } from 'lucide-vue-next'
+import type { ApplicationStatus } from '~/types'
 
-definePageMeta({ middleware: 'auth' })
 const route = useRoute()
 const financeStore = useFinanceStore()
 onMounted(() => financeStore.initMockData())
-const app = computed(() => financeStore.applications.find((a) => a.id === route.params.id))
 
-const workflowSteps = computed(() => {
+const app = computed(() => financeStore.applications.find(a => a.id === route.params.id))
+
+const steps = computed(() => {
   if (!app.value) return []
-  const s = app.value.status
-  const steps = [
-    { label: 'Ariza yuborildi', done: true, date: app.value.submittedAt },
-    {
-      label: 'Finance review',
-      done: [
-        'FINANCE_REVIEW',
-        'OFFER_SENT',
-        'CONTRACT_SIGNING',
-        'ERI_SIGNING',
-        'APPROVED',
-      ].includes(s),
-      date: null,
-    },
-    {
-      label: 'Taklif yuborildi',
-      done: ['OFFER_SENT', 'CONTRACT_SIGNING', 'ERI_SIGNING', 'APPROVED'].includes(s),
-      date: null,
-    },
-    {
-      label: 'Shartnoma imzolash',
-      done: ['CONTRACT_SIGNING', 'ERI_SIGNING', 'APPROVED'].includes(s),
-      date: null,
-    },
-    { label: 'ERI imzolash', done: ['ERI_SIGNING', 'APPROVED'].includes(s), date: null },
-    { label: 'Tasdiqlangan', done: s === 'APPROVED', date: null },
-  ]
-  return steps
+  const order: ApplicationStatus[] = ['SUBMITTED', 'FINANCE_REVIEW', 'OFFER_SENT', 'CONTRACT_SIGNING', 'APPROVED']
+  const currentIdx = order.indexOf(app.value.status)
+  return order.map((status, i) => ({
+    label: statusLabel(status),
+    done: i < currentIdx,
+    current: i === currentIdx,
+  }))
 })
+
+function formatPrice(v: number) {
+  return v.toLocaleString('ru')
+}
+
+function statusLabel(s: ApplicationStatus): string {
+  const m: Record<string, string> = {
+    SUBMITTED: 'Ariza yuborildi', FINANCE_REVIEW: 'Moliyaviy tekshiruv',
+    OFFER_SENT: 'Taklif yuborildi', CONTRACT_SIGNING: 'Shartnoma tuzish',
+    APPROVED: 'Tasdiqlandi', REJECTED: 'Rad etildi',
+    CANCELLED: 'Bekor qilindi', DRAFT: 'Qoralama', ERI_SIGNING: 'ERI imzo',
+  }
+  return m[s] || s
+}
+
+function statusClass(s: ApplicationStatus): string {
+  const m: Record<string, string> = {
+    SUBMITTED: 'badge-info', FINANCE_REVIEW: 'badge-warning',
+    OFFER_SENT: 'badge-info', CONTRACT_SIGNING: 'badge-warning',
+    APPROVED: 'badge-success', REJECTED: 'badge-danger',
+    CANCELLED: 'badge-neutral', DRAFT: 'badge-neutral', ERI_SIGNING: 'badge-warning',
+  }
+  return m[s] || 'badge-neutral'
+}
 </script>

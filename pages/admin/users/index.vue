@@ -1,195 +1,55 @@
 <template>
   <div class="space-y-6">
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+    <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold font-display">Foydalanuvchilar</h1>
-        <p class="text-sm text-ink-500 mt-1">{{ filtered.length }} foydalanuvchi</p>
+        <h1 class="font-display text-2xl font-bold tracking-tight">Foydalanuvchilar</h1>
+        <p class="text-ink-500 text-sm mt-0.5">Tizim foydalanuvchilari va rollari</p>
       </div>
-      <button class="btn btn-primary btn-sm">+ Yangi foydalanuvchi</button>
+      <button class="btn btn-primary btn-sm"><Plus :size="16" /> Foydalanuvchi qo'shish</button>
     </div>
 
-    <!-- Filters -->
-    <div class="flex flex-col md:flex-row gap-3">
-      <div class="flex-1">
-        <SearchInput v-model="search" placeholder="Ism yoki login bo'yicha..." />
-      </div>
-      <select v-model="roleFilter" class="input md:w-auto cursor-pointer">
-        <option value="ALL">Barcha rollar</option>
-        <option value="SUPER_HEAD">Super rahbar</option>
-        <option value="BUILDING_MANAGER">Bino rahbari</option>
-        <option value="ACCOUNTANT">Buxgalter</option>
-        <option value="FACILITY">Pudratchi</option>
-        <option value="TENANT_OWNER">Ijarachi</option>
-      </select>
-    </div>
-
-    <!-- Desktop -->
-    <div class="card hidden md:block">
+    <div class="card overflow-hidden">
       <div class="table-wrapper">
         <table class="table">
           <thead>
-            <tr>
-              <th>Foydalanuvchi</th>
-              <th>Login</th>
-              <th>Email</th>
-              <th>Rol</th>
-              <th>Holat</th>
-              <th>Yaratilgan</th>
-            </tr>
+            <tr><th>F.I.O</th><th>Login</th><th>Email</th><th>Rol</th><th>Status</th><th></th></tr>
           </thead>
           <tbody>
-            <tr v-for="u in filtered" :key="u.id" class="cursor-pointer">
-              <td>
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center"
-                  >
-                    <span class="text-xs font-bold text-white">{{ u.initials }}</span>
-                  </div>
-                  <span class="font-medium">{{ u.name }}</span>
-                </div>
+            <tr v-for="u in users" :key="u.id">
+              <td class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-xs font-bold text-white">{{ u.initials }}</div>
+                <span class="font-medium">{{ u.name }}</span>
               </td>
-              <td class="font-mono text-xs">{{ u.login }}</td>
+              <td class="font-mono text-sm text-ink-500">{{ u.login }}</td>
               <td class="text-ink-500">{{ u.email }}</td>
-              <td>
-                <span :class="roleClass(u.role)">{{ roleLabel(u.role) }}</span>
-              </td>
-              <td>
-                <span :class="u.active ? 'badge badge-success' : 'badge badge-neutral'">{{
-                  u.active ? 'Faol' : 'Nofaol'
-                }}</span>
-              </td>
-              <td class="text-ink-500 text-xs">{{ formatDate(u.createdAt) }}</td>
+              <td><span class="badge" :class="roleClass(u.role)">{{ roleLabel(u.role) }}</span></td>
+              <td><span class="badge" :class="u.active ? 'badge-success' : 'badge-neutral'">{{ u.active ? 'Aktiv' : 'Nofaol' }}</span></td>
+              <td><button class="btn-ghost btn-icon btn-sm"><MoreHorizontal :size="16" /></button></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <EmptyState
-        v-if="!filtered.length"
-        title="Foydalanuvchilar topilmadi"
-        icon="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1"
-      />
-    </div>
-
-    <!-- Mobile -->
-    <div class="md:hidden space-y-3">
-      <div v-for="u in filtered" :key="u.id" class="card p-4">
-        <div class="flex items-center gap-3 mb-2">
-          <div
-            class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center"
-          >
-            <span class="text-xs font-bold text-white">{{ u.initials }}</span>
-          </div>
-          <div class="flex-1">
-            <p class="font-medium">{{ u.name }}</p>
-            <p class="font-mono text-xs text-ink-400">{{ u.login }}</p>
-          </div>
-          <span :class="u.active ? 'badge badge-success' : 'badge badge-neutral'">{{
-            u.active ? 'Faol' : 'Nofaol'
-          }}</span>
-        </div>
-        <div class="flex items-center justify-between">
-          <span class="text-xs text-ink-400">{{ u.email }}</span><span :class="roleClass(u.role)">{{ roleLabel(u.role) }}</span>
-        </div>
-      </div>
-      <EmptyState
-        v-if="!filtered.length"
-        title="Foydalanuvchilar topilmadi"
-        icon="M12 4.354a4 4 0 110 5.292"
-      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { formatDate } from '~/utils'
-import SearchInput from '~/components/ui/SearchInput.vue'
-import EmptyState from '~/components/ui/EmptyState.vue'
+import { Plus, MoreHorizontal } from 'lucide-vue-next'
 
-definePageMeta({ middleware: 'auth' })
-const search = ref('')
-const roleFilter = ref('ALL')
+const users = [
+  { id: 'u1', name: 'Farhod Muxtorov', login: 'admin', email: 'farhod@makon.uz', role: 'SUPER_HEAD', initials: 'FM', active: true },
+  { id: 'u2', name: 'Aziz Karimov', login: 'tenant', email: 'aziz@makon.uz', role: 'TENANT_OWNER', initials: 'AK', active: true },
+  { id: 'u3', name: 'Dilnoza Yusupova', login: 'dilnoza', email: 'dilnoza@makon.uz', role: 'ACCOUNTANT', initials: 'DY', active: true },
+  { id: 'u4', name: 'Sardor Rahimov', login: 'sardor', email: 'sardor@makon.uz', role: 'BUILDING_MANAGER', initials: 'SR', active: true },
+  { id: 'u5', name: 'Bekzod Toshmatov', login: 'bekzod', email: 'bekzod@makon.uz', role: 'FACILITY', initials: 'BT', active: false },
+]
 
-const users = ref([
-  {
-    id: '1',
-    name: 'Farhod Muxtorov',
-    login: 'admin',
-    email: 'farhod@makon.uz',
-    role: 'SUPER_HEAD',
-    active: true,
-    createdAt: '2024-01-01',
-    initials: 'FM',
-  },
-  {
-    id: '2',
-    name: 'Aziz Karimov',
-    login: 'aziz',
-    email: 'aziz@makon.uz',
-    role: 'BUILDING_MANAGER',
-    active: true,
-    createdAt: '2024-03-15',
-    initials: 'AK',
-  },
-  {
-    id: '3',
-    name: 'Dilnoza Yusupova',
-    login: 'dilnoza',
-    email: 'dilnoza@makon.uz',
-    role: 'ACCOUNTANT',
-    active: true,
-    createdAt: '2024-05-10',
-    initials: 'DY',
-  },
-  {
-    id: '4',
-    name: 'Bekzod Toshmatov',
-    login: 'bekzod',
-    email: 'bekzod@makon.uz',
-    role: 'FACILITY',
-    active: false,
-    createdAt: '2024-07-20',
-    initials: 'BT',
-  },
-  {
-    id: '5',
-    name: 'Sardor Rahimov',
-    login: 'sardor',
-    email: 'sardor@makon.uz',
-    role: 'TENANT_OWNER',
-    active: true,
-    createdAt: '2025-01-15',
-    initials: 'SR',
-  },
-])
-
-const filtered = computed(() => {
-  let r = users.value
-  if (roleFilter.value !== 'ALL') r = r.filter((u) => u.role === roleFilter.value)
-  if (search.value)
-    r = r.filter(
-      (u) =>
-        u.name?.toLowerCase().includes(search.value.toLowerCase()) ||
-        u.login?.toLowerCase().includes(search.value.toLowerCase())
-    )
-  return r
-})
-
-const roleLabel = (r: string) =>
-  ({
-    SUPER_HEAD: 'Super rahbar',
-    BUILDING_MANAGER: 'Bino rahbari',
-    ACCOUNTANT: 'Buxgalter',
-    FACILITY: 'Pudratchi',
-    TENANT_OWNER: 'Ijarachi',
-  })[r] || r
-const roleClass = (r: string) =>
-  ({
-    SUPER_HEAD: 'badge badge-info',
-    BUILDING_MANAGER: 'badge badge-success',
-    ACCOUNTANT: 'badge badge-warning',
-    FACILITY: 'badge badge-neutral',
-    TENANT_OWNER: 'badge badge-neutral',
-  })[r] || 'badge badge-neutral'
+function roleLabel(r: string) {
+  const m: Record<string,string> = { SUPER_HEAD: 'Super rahbar', BUILDING_MANAGER: 'Bino rahbari', ACCOUNTANT: 'Buxgalter', FACILITY: 'Pudratchi', TENANT_OWNER: 'Ijarachi' }
+  return m[r] || r
+}
+function roleClass(r: string) {
+  const m: Record<string,string> = { SUPER_HEAD: 'badge-info', BUILDING_MANAGER: 'badge-warning', ACCOUNTANT: 'badge-success', FACILITY: 'badge-neutral', TENANT_OWNER: 'badge-neutral' }
+  return m[r] || 'badge-neutral'
+}
 </script>

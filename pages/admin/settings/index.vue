@@ -1,62 +1,43 @@
 <template>
-  <div class="space-y-6">
-    <h1 class="text-2xl font-bold font-display">Sozlamalar</h1>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="card p-6">
-        <h3 class="font-semibold mb-4">Tashkilot</h3>
-        <div class="space-y-4">
-          <div><label class="label">Nomi</label><input class="input" value="MAKON MChJ" /></div>
-          <div><label class="label">INN</label><input class="input" value="123456789" /></div>
-          <div>
-            <label class="label">Telefon</label><input class="input" value="+998 71 123 45 67" />
-          </div>
-        </div>
+  <div class="space-y-6 max-w-2xl">
+    <div>
+      <h1 class="font-display text-2xl font-bold tracking-tight">Sozlamalar</h1>
+      <p class="text-ink-500 text-sm mt-0.5">Tizim konfiguratsiyasi</p>
+    </div>
+
+    <div class="card p-6 space-y-4">
+      <h3 class="font-semibold">Umumiy</h3>
+      <div>
+        <label class="label">Tashkilot nomi</label>
+        <input class="input" value="MAKON Real Estate" />
       </div>
-      <div class="card p-6">
-        <h3 class="font-semibold mb-4">ERI sozlamalari</h3>
-        <div class="space-y-4">
-          <div>
-            <label class="label">ERI endpoint</label><input class="input" value="https://eri.gov.uz/api" />
-          </div>
-          <div>
-            <label class="label">ERI key</label><input class="input font-mono" value="eri-prod-key-xxxxx" disabled />
-          </div>
-          <div class="flex items-center justify-between p-3 rounded-xl bg-ink-50">
-            <span class="text-sm text-ink-500">ERI integratsiya</span><span class="badge badge-success">Faol</span>
-          </div>
-        </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="label">Valyuta</label><select class="input"><option>UZS — so'm</option><option>USD — dollar</option></select></div>
+        <div><label class="label">Til</label><select class="input"><option>O'zbekcha</option><option>Русский</option><option>English</option></select></div>
       </div>
-      <div class="card p-6">
-        <h3 class="font-semibold mb-4">Bildirishnomalar</h3>
-        <div class="space-y-3">
-          <label class="flex items-center justify-between p-3 rounded-xl bg-ink-50 cursor-pointer"><span class="text-sm">Email bildirishnomalar</span><input type="checkbox" checked class="rounded text-brand-600" /></label>
-          <label class="flex items-center justify-between p-3 rounded-xl bg-ink-50 cursor-pointer"><span class="text-sm">Telegram bot</span><input type="checkbox" checked class="rounded text-brand-600" /></label>
-          <label class="flex items-center justify-between p-3 rounded-xl bg-ink-50 cursor-pointer"><span class="text-sm">SMS bildirishnomalar</span><input type="checkbox" class="rounded text-brand-600" /></label>
-        </div>
-      </div>
-      <div class="card p-6">
-        <h3 class="font-semibold mb-4">Valyuta va til</h3>
-        <div class="space-y-4">
-          <div>
-            <label class="label">Standart valyuta</label><select class="input cursor-pointer">
-              <option>UZS</option>
-              <option>USD</option>
-              <option>EUR</option>
-            </select>
-          </div>
-          <div>
-            <label class="label">Til</label><select class="input cursor-pointer">
-              <option>O'zbekcha</option>
-              <option>Русский</option>
-            </select>
-          </div>
-        </div>
+      <div>
+        <label class="label">Vaqt zonasi</label>
+        <select class="input"><option>Asia/Tashkent (UTC+5)</option></select>
       </div>
     </div>
-    <div class="flex justify-end"><button class="btn btn-primary">Saqlash</button></div>
+
+    <div class="card p-6 space-y-4">
+      <h3 class="font-semibold">ERI imzo</h3>
+      <div>
+        <label class="label">ERI provider</label>
+        <select class="input"><option>UZ Digital</option><option>E-Imzo</option></select>
+      </div>
+      <div>
+        <label class="label">API kalit</label>
+        <input class="input font-mono" type="password" value="eri-api-key-xxxxx" />
+      </div>
+    </div>
+
+    <div class="flex justify-end">
+      <button class="btn btn-primary btn-lg">Saqlash</button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
 </script>
