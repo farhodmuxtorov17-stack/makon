@@ -7,7 +7,7 @@
           <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/30">M</div>
           <div>
             <div class="font-bold text-sm tracking-tight text-ink-900 dark:text-white">MAKON</div>
-            <div class="text-[10px] text-ink-500 uppercase tracking-widest">Admin Panel</div>
+            <div class="text-[10px] text-ink-500 uppercase tracking-widest">{{ currentRoleShort }}</div>
           </div>
         </div>
 
@@ -31,6 +31,7 @@
               <div class="text-sm font-medium">Admin</div>
               <div class="text-[11px] text-ink-500">Chiqish</div>
             </div>
+            <LogOut :size="16" class="text-ink-500" />
           </button>
         </div>
       </div>
@@ -44,6 +45,7 @@
           <Menu :size="20" />
         </button>
         <div class="flex-1" />
+        <RoleSwitcher />
         <ThemeToggle />
         <button class="relative p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">
           <Bell :size="18" />
@@ -59,36 +61,94 @@
 </template>
 
 <script setup lang="ts">
-import { LayoutDashboard, Building2, FileText, Receipt, Wallet, ClipboardList, Package, Gauge, BarChart3, Bell, Menu, Settings, ShieldCheck, ScrollText, UserCircle, Layers, Tag, Calendar, ClipboardCheck, History, Activity, Database } from 'lucide-vue-next'
+import {
+  LayoutDashboard, Building2, FileText, Receipt, Wallet, ClipboardList, Package, Gauge,
+  BarChart3, Bell, Menu, Settings, ShieldCheck, ScrollText, UserCircle, Layers, Tag,
+  Calendar, ClipboardCheck, History, Activity, Database, LogOut, Sun, Moon, KeyRound,
+  MapPin, Eye, FileSignature, Boxes, ClipboardCheck as CheckIcon, Home, Flag, Ruler, FileBarChart
+} from 'lucide-vue-next'
 
 const route = useRoute()
 const authStore = useAuthStore()
 const sidebarOpen = ref(false)
+const currentRole = useState('currentRole', () => 'SUPER_HEAD')
 
-const navItems = [
-  { to: '/dashboard', label: 'Ishchi panel', icon: LayoutDashboard },
-  { to: '/profile', label: 'Kabinet', icon: UserCircle },
-  { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
-  { to: '/management/buildings', label: 'Binolar', icon: Building2 },
-  { to: '/management/units', label: 'Birliklar', icon: Layers },
-  { to: '/management/listings', label: 'Listinglar', icon: Tag },
-  { to: '/management/applications', label: 'Arizalar', icon: FileText, badge: 3 },
-  { to: '/management/contracts', label: 'Shartnomalar', icon: ScrollText },
-  { to: '/finance/invoices', label: 'Invoyslar', icon: Receipt },
-  { to: '/finance/periods', label: 'Moliya davrlari', icon: Calendar },
-  { to: '/finance/debts', label: 'Qarzdorlik', icon: Wallet },
-  { to: '/finance/approvals', label: 'Tasdiqlar', icon: ClipboardCheck },
-  { to: '/facility/work-orders', label: 'Xizmat so\'rovlari', icon: ClipboardList },
-  { to: '/facility/material-requests', label: 'Material so\'rovlari', icon: Package },
-  { to: '/finance/inventory', label: 'Ombor', icon: Package },
-  { to: '/meters', label: 'Hisoblagichlar', icon: Gauge },
-  { to: '/reports', label: 'Hisobotlar', icon: BarChart3 },
-  { to: '/admin/users', label: 'Foydalanuvchilar', icon: ShieldCheck },
-  { to: '/admin/audit', label: 'Audit jurnali', icon: History },
-  { to: '/admin/monitoring', label: 'Monitoring', icon: Activity },
-  { to: '/admin/backups', label: 'Rezerv nusxalar', icon: Database },
-  { to: '/admin/settings', label: 'Sozlamalar', icon: Settings },
-]
+const roleLabels: Record<string, string> = {
+  ADMIN: 'Admin Panel', SUPER_HEAD: 'Super Rahbar', BUILDING_MANAGER: 'Bino Rahbari',
+  ACCOUNTANT: 'Buxgalter', FACILITY: 'Pudratchi', WAREHOUSE_OPERATOR: 'Omborchi',
+  CONTENT_OPERATOR: 'Kontent Operator', TENANT_OWNER: 'Ijarachi Kabineti'
+}
+const currentRoleShort = computed(() => roleLabels[currentRole.value] || 'Admin Panel')
+
+const allNavItems: Record<string, any[]> = {
+  ADMIN: [
+    { to: '/admin/settings', label: 'Sozlamalar', icon: Settings },
+    { to: '/admin/users', label: 'Foydalanuvchilar', icon: ShieldCheck },
+    { to: '/admin/roles', label: 'Rollar va huquqlar', icon: KeyRound },
+    { to: '/admin/login-history', label: 'Kirish tarixi', icon: History },
+    { to: '/admin/audit', label: 'Audit jurnali', icon: FileText },
+    { to: '/admin/monitoring', label: 'Monitoring', icon: Activity },
+    { to: '/admin/backups', label: 'Rezerv nusxalar', icon: Database },
+    { to: '/admin/notification-templates', label: 'Shablonlar', icon: FileBarChart },
+  ],
+  SUPER_HEAD: [
+    { to: '/dashboard/executive', label: 'Global Dashboard', icon: LayoutDashboard },
+    { to: '/management/buildings', label: 'Binolar (read)', icon: Building2 },
+    { to: '/management/applications', label: 'Arizalar (monitoring)', icon: FileText, badge: 3 },
+    { to: '/contracts', label: 'Shartnomalar (read)', icon: ScrollText },
+    { to: '/reports', label: 'Hisobotlar', icon: BarChart3 },
+    { to: '/admin/audit', label: 'Audit jurnali', icon: History },
+    { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
+  ],
+  BUILDING_MANAGER: [
+    { to: '/dashboard/building', label: 'Bino Dashboard', icon: LayoutDashboard },
+    { to: '/management/buildings', label: 'Binolar', icon: Building2 },
+    { to: '/management/units', label: 'Unitlar', icon: Layers },
+    { to: '/management/listings', label: 'Listinglar', icon: Tag },
+    { to: '/management/applications', label: 'Arizalar', icon: FileText, badge: 3 },
+    { to: '/management/service-requests', label: 'Servis so\'rovlari', icon: ClipboardList },
+    { to: '/contracts', label: 'Shartnomalar', icon: ScrollText },
+    { to: '/management/visual-settings', label: 'Vizual sozlamalar', icon: Eye },
+    { to: '/meters', label: 'Hisoblagichlar', icon: Gauge },
+    { to: '/reports', label: 'Hisobotlar', icon: BarChart3 },
+    { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
+  ],
+  ACCOUNTANT: [
+    { to: '/finance/periods', label: 'Moliya davrlari', icon: Calendar },
+    { to: '/finance/invoices', label: 'Invoyslar', icon: Receipt },
+    { to: '/finance/debts', label: 'Qarzdorlik', icon: Wallet },
+    { to: '/finance/approvals', label: 'Tasdiqlar', icon: ClipboardCheck },
+    { to: '/contracts', label: 'Shartnomalar', icon: ScrollText },
+    { to: '/finance/inventory', label: 'Ombor', icon: Package },
+    { to: '/finance/stock-issues', label: 'Material berish', icon: Boxes },
+    { to: '/reports', label: 'Hisobotlar', icon: BarChart3 },
+    { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
+  ],
+  FACILITY: [
+    { to: '/facility/work-orders', label: 'Work orderlar', icon: ClipboardList },
+    { to: '/facility/material-requests', label: 'Material so\'rovlari', icon: Package },
+    { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
+  ],
+  WAREHOUSE_OPERATOR: [
+    { to: '/finance/inventory', label: 'Ombor', icon: Package },
+    { to: '/finance/stock-issues', label: 'Material berish', icon: Boxes },
+    { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
+  ],
+  CONTENT_OPERATOR: [
+    { to: '/management/buildings', label: 'Binolar (read)', icon: Building2 },
+    { to: '/management/visual-settings', label: 'Vizual sozlamalar', icon: Eye },
+    { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
+  ],
+  TENANT_OWNER: [
+    { to: '/cabinet', label: 'Mening kabinetim', icon: Home },
+    { to: '/cabinet/units', label: 'Mening unitlarim', icon: Layers },
+    { to: '/cabinet/applications', label: 'Ariza va hujjatlar', icon: FileText },
+    { to: '/cabinet/services', label: 'Hisob va servis', icon: ClipboardList },
+    { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
+  ],
+}
+
+const navItems = computed(() => allNavItems[currentRole.value] || allNavItems.SUPER_HEAD)
 
 function isActive(path: string) {
   return route.path.includes(path)

@@ -1,115 +1,194 @@
 <template>
   <div class="space-y-6">
+    <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Arizalar</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ data?.applications.length || 0 }} ariza</p>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Arizalar oqimi (Kanban)</h1>
+        <p class="text-ink-500 text-sm mt-1">SUBMITTED → OPERATION → FINANCE → DRAFT_READY → SIGNED → ACTIVE</p>
+      </div>
+
+      <!-- Building Scope Filter -->
+      <div class="flex items-center gap-3">
+        <label class="text-xs text-ink-500 font-medium">Bino bo'yicha filter:</label>
+        <select v-model="buildingFilter" class="input w-auto text-xs font-semibold">
+          <option value="">Barcha binolar</option>
+          <option v-for="b in makonStore.buildings" :key="b.id" :value="b.id">{{ b.name }}</option>
+        </select>
       </div>
     </div>
 
-    <!-- Filter tabs -->
-    <div class="flex items-center gap-1 p-1 rounded-xl bg-white/5 w-fit">
-      <button
-        v-for="tab in tabs" :key="tab.value"
-        @click="activeTab = tab.value"
-        class="px-3 py-1.5 rounded-lg text-sm transition-all"
-        :class="activeTab === tab.value ? 'bg-brand-500/10 text-brand-400' : 'text-ink-500 hover:text-white'"
-      >
-        {{ tab.label }}
-        <span v-if="tab.count" class="ml-1 text-xs opacity-60">{{ tab.count }}</span>
-      </button>
-    </div>
+    <!-- Kanban Board Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 overflow-x-auto pb-4">
+      <div v-for="col in kanbanColumns" :key="col.status" class="bg-black/5 dark:bg-white/5 p-3 rounded-2xl border border-black/5 dark:border-white/5 space-y-3 min-w-[240px]">
+        <!-- Column Header -->
+        <div class="flex items-center justify-between px-1">
+          <span class="text-xs font-bold text-ink-900 dark:text-white flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full" :class="col.color"></span>
+            {{ col.label }}
+          </span>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/10 dark:bg-white/10 text-ink-500">
+            {{ getColumnApps(col.status).length }}
+          </span>
+        </div>
 
-    <div v-if="pending" class="text-center py-20 text-ink-500">Yuklanmoqda...</div>
-
-    <div v-else-if="data" class="space-y-3">
-      <div v-for="app in filteredApps" :key="app.id" class="card p-4 hover:border-white/10 transition-colors cursor-pointer" @click="selectedApp = app">
-        <div class="flex items-start justify-between gap-4">
-          <div class="flex items-center gap-3 flex-1 min-w-0">
-            <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-sm font-bold text-brand-400 flex-shrink-0">
-              {{ app.applicantName?.charAt(0) || '?' }}
+        <!-- Cards List -->
+        <div class="space-y-3">
+          <div
+            v-for="app in getColumnApps(col.status)" :key="app.id"
+            class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer group shadow-sm bg-white dark:bg-ink-900"
+            @click="selectedApp = app"
+          >
+            <!-- Card Header -->
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono font-bold text-brand-500">{{ app.number }}</span>
+              <span class="text-[10px] text-ink-500">{{ app.createdDate }}</span>
             </div>
-            <div class="min-w-0">
-              <div class="flex items-center gap-2 mb-0.5">
-                <span class="font-medium">{{ app.applicantName }}</span>
-                <span class="text-xs text-ink-600">{{ app.number }}</span>
+
+            <!-- Applicant Info -->
+            <div>
+              <div class="font-bold text-xs text-ink-900 dark:text-white group-hover:text-brand-500 transition-colors line-clamp-1">
+                {{ app.applicantName }}
               </div>
-              <div class="text-xs text-ink-500 flex items-center gap-3">
-                <span>{{ app.type === 'RENT' ? 'Ijaraga' : 'Sotib olish' }}</span>
-                <span>·</span>
-                <span>{{ app.applicantPhone || 'Telefonsiz' }}</span>
-                <span class="hidden md:inline">·</span>
-                <span class="hidden md:inline">{{ formatDate(app.createdDate) }}</span>
+              <div class="text-[11px] text-ink-500 flex items-center justify-between mt-0.5">
+                <span>{{ app.buildingName }}</span>
+                <span class="font-mono text-ink-900 dark:text-white font-medium">Unit {{ app.unitNumber }}</span>
+              </div>
+            </div>
+
+            <!-- Price & Duration -->
+            <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs">
+              <span class="font-bold text-brand-500">{{ formatPrice(app.offeredPrice, app.currency) }}</span>
+              <span class="text-ink-500 text-[10px]">{{ app.durationMonths }} oy</span>
+            </div>
+
+            <!-- Advance Simulation Actions -->
+            <div class="flex items-center justify-between pt-1 border-t border-black/5 dark:border-white/5 gap-1">
+              <NuxtLink :to="`/applications/${app.id}/history`" @click.stop class="text-[10px] text-purple-400 hover:underline flex items-center gap-0.5">
+                <History :size="10" /> Tarix
+              </NuxtLink>
+
+              <div class="flex items-center gap-1" @click.stop>
+                <button
+                  v-if="col.nextStatus"
+                  @click="advanceStatus(app.id, col.nextStatus)"
+                  class="btn btn-primary btn-sm py-0.5 px-2 text-[10px] flex items-center gap-1"
+                  title="Keyingi bosqichga o'tkazish"
+                >
+                  Oldinga <ArrowRight :size="10" />
+                </button>
               </div>
             </div>
           </div>
-          <div class="flex items-center gap-3 flex-shrink-0">
-            <div class="text-right hidden sm:block">
-              <div class="text-sm font-semibold">{{ formatPrice(app.offeredPrice, app.currency) }}</div>
-              <div v-if="app.durationMonths" class="text-xs text-ink-500">{{ app.durationMonths }} oy</div>
-            </div>
-            <span class="badge" :class="statusBadge(app.status)">{{ statusLabel(app.status) }}</span>
+
+          <div v-if="getColumnApps(col.status).length === 0" class="p-6 text-center text-ink-500 text-xs border border-dashed border-black/10 dark:border-white/10 rounded-xl">
+            Arizalar yo'q
           </div>
         </div>
       </div>
-
-      <div v-if="filteredApps.length === 0" class="text-center py-12 text-ink-500">
-        Bu tabda arizalar yo'q
-      </div>
     </div>
 
-    <!-- Detail drawer -->
+    <!-- Application Detail Drawer / Modal -->
     <Teleport to="body">
       <div v-if="selectedApp" class="fixed inset-0 z-50 flex justify-end" @click.self="selectedApp = null">
-        <div class="absolute inset-0 bg-black/60" />
-        <div class="relative w-full max-w-md bg-ink-900 border-l border-white/10 h-full overflow-y-auto p-6 animate-slide-in">
-          <div class="flex items-center justify-between mb-6">
-            <h3 class="font-semibold">{{ selectedApp.number }}</h3>
-            <button @click="selectedApp = null" class="p-2 rounded-lg hover:bg-white/5 text-ink-400"><X :size="18" /></button>
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="selectedApp = null" />
+        <div class="relative w-full max-w-lg bg-white dark:bg-ink-900 border-l border-black/10 dark:border-white/10 h-full overflow-y-auto p-6 space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-black/5 dark:border-white/5">
+            <div>
+              <span class="text-xs font-mono font-bold text-brand-500">{{ selectedApp.number }}</span>
+              <h3 class="text-xl font-bold text-ink-900 dark:text-white">{{ selectedApp.applicantName }}</h3>
+            </div>
+            <button @click="selectedApp = null" class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="18" /></button>
           </div>
 
-          <div class="space-y-4">
-            <div>
-              <div class="label">Arizachi</div>
-              <div class="text-lg font-medium">{{ selectedApp.applicantName }}</div>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
+          <!-- Application Details Grid -->
+          <div class="space-y-4 text-sm">
+            <div class="grid grid-cols-2 gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5">
               <div>
-                <div class="label">Telefon</div>
-                <div class="text-sm">{{ selectedApp.applicantPhone || '—' }}</div>
+                <span class="text-xs text-ink-500 block">Bino va Unit</span>
+                <span class="font-bold text-ink-900 dark:text-white">{{ selectedApp.buildingName }} (Unit {{ selectedApp.unitNumber }})</span>
               </div>
               <div>
-                <div class="label">Email</div>
-                <div class="text-sm">{{ selectedApp.applicantEmail || '—' }}</div>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <div class="label">Taklif narxi</div>
-                <div class="text-sm font-semibold">{{ formatPrice(selectedApp.offeredPrice, selectedApp.currency) }}</div>
+                <span class="text-xs text-ink-500 block">Arizachi STIR (TIN)</span>
+                <span class="font-mono font-medium text-ink-900 dark:text-white">{{ selectedApp.tin || '305987123' }}</span>
               </div>
               <div>
-                <div class="label">Davr</div>
-                <div class="text-sm">{{ selectedApp.durationMonths || '—' }} oy</div>
+                <span class="text-xs text-ink-500 block">Taklif qilingan ijara</span>
+                <span class="font-bold text-brand-500">${{ selectedApp.offeredPrice }}/oy</span>
+              </div>
+              <div>
+                <span class="text-xs text-ink-500 block">Depozit summasi</span>
+                <span class="font-medium text-ink-900 dark:text-white">${{ selectedApp.depositAmount }}</span>
+              </div>
+              <div>
+                <span class="text-xs text-ink-500 block">Telefon</span>
+                <span class="text-ink-900 dark:text-white">{{ selectedApp.applicantPhone }}</span>
+              </div>
+              <div>
+                <span class="text-xs text-ink-500 block">Boshlanish sanasi</span>
+                <span class="text-ink-900 dark:text-white">{{ selectedApp.startDate }}</span>
               </div>
             </div>
-            <div>
-              <div class="label">Status</div>
-              <span class="badge" :class="statusBadge(selectedApp.status)">{{ statusLabel(selectedApp.status) }}</span>
+
+            <div v-if="selectedApp.notes" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-1">
+              <span class="text-xs text-ink-500 block font-semibold">Izohlar:</span>
+              <p class="text-xs text-ink-700 dark:text-ink-300">{{ selectedApp.notes }}</p>
             </div>
-            <div v-if="selectedApp.notes">
-              <div class="label">Izoh</div>
-              <div class="text-sm text-ink-400">{{ selectedApp.notes }}</div>
+
+            <!-- Documents -->
+            <div class="space-y-2">
+              <span class="text-xs text-ink-500 font-semibold block">Biriktirilgan hujjatlar:</span>
+              <div v-for="(doc, idx) in selectedApp.documents" :key="idx" class="flex items-center justify-between p-2 rounded-lg bg-black/5 dark:bg-white/5 text-xs">
+                <span class="font-medium text-ink-900 dark:text-white flex items-center gap-1.5"><FileText :size="14" class="text-brand-500" /> {{ doc.title }}</span>
+                <span class="text-[10px] text-ink-500">{{ doc.uploadedAt }}</span>
+              </div>
             </div>
-            <div v-if="selectedApp.rejectionReason">
-              <div class="label">Rad etish sababi</div>
-              <div class="text-sm text-red-400">{{ selectedApp.rejectionReason }}</div>
+
+            <!-- Fast Link Navigation -->
+            <div class="grid grid-cols-2 gap-2 pt-2">
+              <NuxtLink :to="`/applications/${selectedApp.id}/offer`" class="btn btn-secondary text-xs text-center flex items-center justify-center gap-1">
+                <FileText :size="14" /> Kommercheskiy Taklif
+              </NuxtLink>
+              <NuxtLink :to="`/applications/${selectedApp.id}/history`" class="btn btn-secondary text-xs text-center flex items-center justify-center gap-1">
+                <History :size="14" /> Tarix & Audit
+              </NuxtLink>
             </div>
           </div>
 
-          <div class="mt-6 pt-6 border-t border-white/5 space-y-2">
-            <button class="btn btn-primary w-full" v-if="selectedApp.status !== 'APPROVED'">Tasdiqlash</button>
-            <button class="btn btn-secondary w-full" v-if="selectedApp.status !== 'REJECTED'">Rad etish</button>
+          <!-- Review Decision Actions -->
+          <div class="pt-4 border-t border-black/5 dark:border-white/5 space-y-2">
+            <div class="flex items-center gap-2">
+              <button @click="openReasonModal('APPROVE')" class="btn btn-primary flex-1 text-xs">
+                <Check :size="14" /> Tasdiqlash (Approve)
+              </button>
+              <button @click="openReasonModal('RETURN')" class="btn btn-secondary flex-1 text-xs text-amber-500 border-amber-500/30">
+                <RotateCcw :size="14" /> Qaytash (Need Info)
+              </button>
+            </div>
+            <button @click="openReasonModal('REJECT')" class="btn btn-ghost w-full text-xs text-red-500 hover:bg-red-500/10">
+              <XCircle :size="14" /> Rad etish (Reject)
+            </button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
+
+    <!-- Reason Modal for Decision -->
+    <Teleport to="body">
+      <div v-if="showReasonModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showReasonModal = false"></div>
+        <div class="relative w-full max-w-md bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
+          <h3 class="text-lg font-bold text-ink-900 dark:text-white">
+            {{ actionType === 'APPROVE' ? 'Arizani tasdiqlash' : actionType === 'RETURN' ? 'Qayta ko\'rib chiqishga qaytarish' : 'Arizani rad etish' }}
+          </h3>
+
+          <div>
+            <label class="label">Xulosa / Sabab (Izoh)</label>
+            <textarea v-model="decisionReason" rows="3" placeholder="Izoh yoki sababni yozing..." class="input w-full text-xs"></textarea>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3">
+            <button @click="showReasonModal = false" class="btn btn-secondary text-xs">Bekor qilish</button>
+            <button @click="confirmDecision" class="btn btn-primary text-xs">Tasdiqlash</button>
           </div>
         </div>
       </div>
@@ -118,64 +197,63 @@
 </template>
 
 <script setup lang="ts">
-import { X } from 'lucide-vue-next'
+import { ArrowRight, History, X, FileText, Check, RotateCcw, XCircle } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { fetchAdminData } = useApi()
-const { data, pending } = await useAsyncData('admin-applications', () => fetchAdminData('applications'))
+const makonStore = useMakonStore()
 
-const activeTab = ref('all')
+const buildingFilter = ref('')
 const selectedApp = ref<any>(null)
+const showReasonModal = ref(false)
+const actionType = ref<'APPROVE' | 'RETURN' | 'REJECT'>('APPROVE')
+const decisionReason = ref('')
 
-const tabs = computed(() => {
-  const apps = data.value?.applications || []
-  return [
-    { value: 'all', label: 'Hammasi', count: apps.length },
-    { value: 'pending', label: 'Kutilmoqda', count: apps.filter((a: any) => ['NEW', 'PENDING', 'BUILDING_REVIEW', 'FINANCE_REVIEW', 'ERI_PENDING'].includes(a.status)).length },
-    { value: 'offer', label: 'Taklif', count: apps.filter((a: any) => a.status === 'OFFER_SENT').length },
-    { value: 'approved', label: 'Tasdiqlangan', count: apps.filter((a: any) => a.status === 'APPROVED').length },
-    { value: 'rejected', label: 'Rad etilgan', count: apps.filter((a: any) => a.status === 'REJECTED').length },
-  ]
-})
+const kanbanColumns = [
+  { status: 'SUBMITTED', label: '1. YUBORILGAN', color: 'bg-blue-500', nextStatus: 'OPERATION_APPROVED' },
+  { status: 'OPERATION_APPROVED', label: '2. OPERATSIYA TASDIQLADI', color: 'bg-purple-500', nextStatus: 'FINANCE_APPROVED' },
+  { status: 'FINANCE_APPROVED', label: '3. MOLIYA TASDIQLADI', color: 'bg-amber-500', nextStatus: 'DRAFT_READY' },
+  { status: 'DRAFT_READY', label: '4. QORALAMA TAYYOR', color: 'bg-indigo-500', nextStatus: 'PARTIALLY_SIGNED' },
+  { status: 'PARTIALLY_SIGNED', label: '5. IMZOLANMOQDA (ERI)', color: 'bg-emerald-400', nextStatus: 'SIGNED' },
+  { status: 'ACTIVE', label: '6. AKTIV', color: 'bg-emerald-600', nextStatus: null }
+]
 
-const filteredApps = computed(() => {
-  const apps = data.value?.applications || []
-  if (activeTab.value === 'all') return apps
-  if (activeTab.value === 'pending') return apps.filter((a: any) => ['NEW', 'PENDING', 'BUILDING_REVIEW', 'FINANCE_REVIEW', 'ERI_PENDING'].includes(a.status))
-  if (activeTab.value === 'offer') return apps.filter((a: any) => a.status === 'OFFER_SENT')
-  if (activeTab.value === 'approved') return apps.filter((a: any) => a.status === 'APPROVED')
-  if (activeTab.value === 'rejected') return apps.filter((a: any) => a.status === 'REJECTED')
-  return apps
-})
-
-function formatPrice(price: number, currency: string) {
-  if (!price) return '—'
-  const formatted = new Intl.NumberFormat('ru-RU').format(price)
-  return currency === 'USD' ? `$${formatted}` : `${(formatted / 1000000).toFixed(1)}M`
+function getColumnApps(status: string) {
+  return makonStore.applications.filter(a => {
+    const matchesBuilding = !buildingFilter.value || a.buildingId === buildingFilter.value
+    if (status === 'PARTIALLY_SIGNED') {
+      return matchesBuilding && (a.status === 'PARTIALLY_SIGNED' || a.status === 'SIGNED')
+    }
+    return matchesBuilding && a.status === status
+  })
 }
 
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })
+function formatPrice(p: number, c: string) {
+  if (!p) return '—'
+  return c === 'USD' ? `$${p.toLocaleString('ru-RU')}` : `${(p / 1000000).toFixed(1)}M`
 }
 
-function statusBadge(status: string) {
-  const map: Record<string, string> = {
-    NEW: 'badge-neutral', PENDING: 'badge-warning', BUILDING_REVIEW: 'badge-warning',
-    FINANCE_REVIEW: 'badge-brand', OFFER_SENT: 'badge-brand',
-    ERI_PENDING: 'badge-warning', APPROVED: 'badge-success',
-    REJECTED: 'badge-danger', CANCELLED: 'badge-neutral',
+function advanceStatus(appId: string, nextStatus: any) {
+  makonStore.updateApplicationStatus(appId, nextStatus)
+}
+
+function openReasonModal(type: 'APPROVE' | 'RETURN' | 'REJECT') {
+  actionType.value = type
+  showReasonModal.value = true
+}
+
+function confirmDecision() {
+  if (selectedApp.value) {
+    if (actionType.value === 'APPROVE') {
+      makonStore.updateApplicationStatus(selectedApp.value.id, 'OPERATION_APPROVED', decisionReason.value)
+    } else if (actionType.value === 'RETURN') {
+      makonStore.updateApplicationStatus(selectedApp.value.id, 'NEED_INFO', decisionReason.value)
+    } else {
+      makonStore.updateApplicationStatus(selectedApp.value.id, 'REJECTED', decisionReason.value)
+    }
   }
-  return map[status] || 'badge-neutral'
-}
-
-function statusLabel(status: string) {
-  const map: Record<string, string> = {
-    NEW: 'Yangi', PENDING: 'Kutilmoqda', BUILDING_REVIEW: 'Bino ko\'rib chiqish',
-    FINANCE_REVIEW: 'Moliya', OFFER_SENT: 'Taklif yuborildi',
-    ERI_PENDING: 'ERI kutilmoqda', APPROVED: 'Tasdiqlandi',
-    REJECTED: 'Rad etildi', CANCELLED: 'Bekor qilindi',
-  }
-  return map[status] || status
+  showReasonModal.value = false
+  selectedApp.value = null
+  decisionReason.value = ''
 }
 </script>
