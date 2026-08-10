@@ -1,144 +1,107 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Rezerv nusxalar</h1>
-        <p class="text-ink-500 text-sm mt-1">Tizim ma'lumotlari zaxira nusxalari</p>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Rezerv nusxalar</h1>
+        <p class="text-ink-500 text-sm mt-1">{{ backups.length }} nusxa · Oxirgi: {{ backups[0]?.time }}</p>
       </div>
-      <button @click="createBackup" class="btn btn-primary btn-sm" :disabled="creating">
-        <Plus :size="16" /> {{ creating ? 'Yaratilmoqda...' : 'Yangi nusxa' }}
-      </button>
-    </div>
-
-    <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="card p-4 flex items-center gap-3">
-        <Database :size="18" class="text-brand-500" />
-        <div><div class="text-sm font-semibold">{{ backups.length }}</div><div class="text-xs text-ink-500">Jami nusxalar</div></div>
-      </div>
-      <div class="card p-4 flex items-center gap-3">
-        <HardDrive :size="18" class="text-brand-500" />
-        <div><div class="text-sm font-semibold">{{ totalSize }}</div><div class="text-xs text-ink-500">Hajm</div></div>
-      </div>
-      <div class="card p-4 flex items-center gap-3">
-        <CheckCircle2 :size="18" class="text-emerald-500" />
-        <div><div class="text-sm font-semibold text-emerald-500">{{ lastBackup }}</div><div class="text-xs text-ink-500">Oxirgi nusxa</div></div>
-      </div>
-      <div class="card p-4 flex items-center gap-3">
-        <RefreshCw :size="18" class="text-amber-500" />
-        <div><div class="text-sm font-semibold text-amber-500">Har kuni 03:00</div><div class="text-xs text-ink-500">Avtomatik</div></div>
+      <div class="flex items-center gap-2">
+        <button class="btn btn-secondary btn-sm"><RotateCcw :size="14" /> Avtomatik: Har 6 soat</button>
+        <button @click="createBackup" class="btn btn-primary btn-sm"><Plus :size="14" /> Nusxa olish</button>
       </div>
     </div>
 
-    <!-- Backups list -->
+    <!-- KPI -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Database :size="16" class="text-blue-500" /></div>
+          <span class="text-xs text-ink-500">Jami hajm</span>
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">1.2<span class="text-xs text-ink-500 font-normal"> GB</span></div>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><CheckCircle2 :size="16" class="text-emerald-500" /></div>
+          <span class="text-xs text-ink-500">Muvaffaqiyatli</span>
+        </div>
+        <div class="text-xl font-bold text-emerald-500">{{ successCount }}</div>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><Clock :size="16" class="text-purple-500" /></div>
+          <span class="text-xs text-ink-500">Keyingi</span>
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">18:00</div>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><HardDrive :size="16" class="text-amber-500" /></div>
+          <span class="text-xs text-ink-500">Disk</span>
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">12<span class="text-xs text-ink-500 font-normal">%</span></div>
+      </div>
+    </div>
+
+    <!-- Backups table -->
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
-              <th class="px-4 py-3">Nomi</th>
-              <th class="px-4 py-3">Vaqt</th>
-              <th class="px-4 py-3 text-right">Hajm</th>
-              <th class="px-4 py-3 text-center">Turi</th>
-              <th class="px-4 py-3 text-center">Status</th>
-              <th class="px-4 py-3 text-right">Amallar</th>
+            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+              <th class="text-left font-medium px-4 py-3">Nusxa</th>
+              <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Tur</th>
+              <th class="text-right font-medium px-4 py-3 hidden md:table-cell">Hajm</th>
+              <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Vaqt</th>
+              <th class="text-center font-medium px-4 py-3">Status</th>
+              <th class="text-right font-medium px-4 py-3">Amal</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="b in backups" :key="b.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3">
+            <tr v-for="b in backups" :key="b.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
               <td class="px-4 py-3 font-mono text-xs text-ink-900 dark:text-white">{{ b.name }}</td>
-              <td class="px-4 py-3 text-ink-500">{{ formatDateTime(b.time) }}</td>
-              <td class="px-4 py-3 text-right">{{ b.size }}</td>
-              <td class="px-4 py-3 text-center">
-                <span class="badge text-xs" :class="b.type === 'AUTO' ? 'badge-neutral' : 'badge-brand'">{{ b.type === 'AUTO' ? 'Avtomatik' : 'Qo\'lda' }}</span>
+              <td class="px-4 py-3 hidden sm:table-cell">
+                <span class="badge text-[10px]" :class="b.type === 'AUTO' ? 'badge-brand' : 'badge-neutral'">{{ b.type === 'AUTO' ? 'Avtomatik' : 'Qo\'lda' }}</span>
               </td>
+              <td class="px-4 py-3 text-right hidden md:table-cell text-ink-500">{{ b.size }}</td>
+              <td class="px-4 py-3 hidden md:table-cell text-xs text-ink-500 font-mono">{{ b.time }}</td>
               <td class="px-4 py-3 text-center">
-                <span class="badge badge-success text-xs">Tayyor</span>
+                <span class="badge text-[10px]" :class="b.status === 'SUCCESS' ? 'badge-success' : 'badge-danger'">
+                  {{ b.status === 'SUCCESS' ? 'Tayyor' : 'Xato' }}
+                </span>
               </td>
-              <td class="px-4 py-3 text-right">
-                <div class="flex items-center justify-end gap-1">
-                  <button class="btn btn-ghost btn-sm" title="Yuklab olish"><Download :size="14" /></button>
-                  <button class="btn btn-ghost btn-sm" title="Tiklash"><RotateCcw :size="14" /></button>
-                  <button class="btn btn-ghost btn-sm text-red-500" title="O'chirish"><Trash2 :size="14" /></button>
-                </div>
+              <td class="px-4 py-3 text-right space-x-1">
+                <button class="btn btn-ghost btn-sm px-2"><Download :size="14" /></button>
+                <button class="btn btn-ghost btn-sm px-2"><RotateCcw :size="14" /></button>
+                <button class="btn btn-ghost btn-sm px-2 text-red-500"><Trash2 :size="14" /></button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-
-    <!-- Auto backup settings -->
-    <div class="card p-6">
-      <h3 class="font-semibold mb-4 text-ink-900 dark:text-white">Avtomatik nusxa sozlamalari</h3>
-      <div class="space-y-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm font-medium text-ink-900 dark:text-white">Avtomatik nusxa olish</div>
-            <div class="text-xs text-ink-500">Har kuni 03:00 da avtomatik nusxa yaratiladi</div>
-          </div>
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" v-model="autoBackup" class="sr-only peer">
-            <div class="w-11 h-6 bg-black/10 dark:bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-500"></div>
-          </label>
-        </div>
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm font-medium text-ink-900 dark:text-white">Saqlash muddati</div>
-            <div class="text-xs text-ink-500">Eski nusxalar avtomatik o'chiriladi</div>
-          </div>
-          <select class="input w-auto">
-            <option>30 kun</option>
-            <option>90 kun</option>
-            <option>1 yil</option>
-          </select>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Plus, Download, RotateCcw, Trash2, Database, HardDrive, CheckCircle2, RefreshCw } from 'lucide-vue-next'
+import { Plus, Download, RotateCcw, Trash2, Database, CheckCircle2, Clock, HardDrive } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const creating = ref(false)
-const autoBackup = ref(true)
-
 const backups = ref([
-  { id: 'bk-1', name: 'backup_2026-08-10_03-00', time: new Date(Date.now() - 36000000), size: '248 MB', type: 'AUTO' },
-  { id: 'bk-2', name: 'backup_2026-08-09_03-00', time: new Date(Date.now() - 122400000), size: '246 MB', type: 'AUTO' },
-  { id: 'bk-3', name: 'backup_manual_2026-08-08', time: new Date(Date.now() - 208800000), size: '244 MB', type: 'MANUAL' },
-  { id: 'bk-4', name: 'backup_2026-08-08_03-00', time: new Date(Date.now() - 295200000), size: '242 MB', type: 'AUTO' },
-  { id: 'bk-5', name: 'backup_2026-08-07_03-00', time: new Date(Date.now() - 381600000), size: '240 MB', type: 'AUTO' },
+  { id: '1', name: 'backup_20260810_1600', type: 'MANUAL', size: '1.2 GB', time: '10 Avg 16:00', status: 'SUCCESS' },
+  { id: '2', name: 'backup_20260810_1200', type: 'AUTO', size: '1.2 GB', time: '10 Avg 12:00', status: 'SUCCESS' },
+  { id: '3', name: 'backup_20260810_0600', type: 'AUTO', size: '1.2 GB', time: '10 Avg 06:00', status: 'SUCCESS' },
+  { id: '4', name: 'backup_20260810_0000', type: 'AUTO', size: '1.1 GB', time: '10 Avg 00:00', status: 'SUCCESS' },
+  { id: '5', name: 'backup_20260809_1800', type: 'AUTO', size: '1.1 GB', time: '09 Avg 18:00', status: 'SUCCESS' },
+  { id: '6', name: 'backup_20260809_1200', type: 'AUTO', size: '1.1 GB', time: '09 Avg 12:00', status: 'SUCCESS' },
+  { id: '7', name: 'backup_20260809_0600', type: 'AUTO', size: '1.1 GB', time: '09 Avg 06:00', status: 'FAILED' },
+  { id: '8', name: 'backup_20260809_0000', type: 'AUTO', size: '1.0 GB', time: '09 Avg 00:00', status: 'SUCCESS' },
 ])
 
-const totalSize = computed(() => {
-  const sizes = backups.value.map(b => parseInt(b.size))
-  const total = sizes.reduce((a, b) => a + b, 0)
-  return (total / 1024).toFixed(1) + ' GB'
-})
-
-const lastBackup = computed(() => {
-  const diff = Date.now() - new Date(backups.value[0].time).getTime()
-  const hours = Math.floor(diff / 3600000)
-  return hours < 24 ? `${hours} soat oldin` : `${Math.floor(hours / 24)} kun oldin`
-})
+const successCount = computed(() => backups.value.filter(b => b.status === 'SUCCESS').length)
 
 function createBackup() {
-  creating.value = true
-  setTimeout(() => {
-    backups.value.unshift({
-      id: `bk-${Date.now()}`,
-      name: `backup_manual_${new Date().toISOString().slice(0, 10)}`,
-      time: new Date(),
-      size: '250 MB',
-      type: 'MANUAL',
-    })
-    creating.value = false
-  }, 1500)
+  backups.value.unshift({ id: Date.now().toString(), name: 'backup_20260810_1610', type: 'MANUAL', size: '1.2 GB', time: '10 Avg 16:10', status: 'SUCCESS' })
 }
-
-function formatDateTime(d: Date) { return new Date(d).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) }
 </script>

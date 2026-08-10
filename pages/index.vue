@@ -209,7 +209,7 @@
           </div>
           <div class="card p-6 text-center">
             <div class="text-4xl font-bold text-brand-500 mb-2">{{ data?.stats.totalUnits || '—' }}</div>
-            <div class="text-sm text-ink-500">Jami birliklar</div>
+            <div class="text-sm text-ink-500">Jami unitlar</div>
           </div>
           <div class="card p-6 text-center">
             <div class="text-4xl font-bold text-brand-500 mb-2">{{ data?.stats.publishedListings || '—' }}</div>
@@ -332,7 +332,7 @@ const premiumListings = computed(() => data.value?.listings.slice(0, 5) || [])
 const faqOpen = ref(-1)
 
 const features = [
-  { icon: Building2, title: 'Bino boshqaruvi', desc: 'Binolar, qavatlar, birliklar — to\'liq struktura boshqaruvi. 3D ko\'rinish va 2D planlar bilan.' },
+  { icon: Building2, title: 'Bino boshqaruvi', desc: 'Binolar, qavatlar, unitlar — to\'liq struktura boshqaruvi. 3D ko\'rinish va 2D planlar bilan.' },
   { icon: FileCheck2, title: 'ERI integratsiyasi', desc: 'Yuridik shaxslar uchun xavfsiz elektron imzo. Shartnomalarni onlayn imzolang.' },
   { icon: Receipt, title: 'Moliya boshqaruvi', desc: 'Invoyslar, to\'lovlar, qarzdorlik monitoringi. Avtomatik hisob-kitob va hisobotlar.' },
   { icon: Wrench, title: 'Xizmat ko\'rsatish', desc: 'Service request\'lar, work order\'lar, SLA monitoringi. Faol topshiriqlarni boshqaring.' },

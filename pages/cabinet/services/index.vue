@@ -74,7 +74,7 @@
         <table class="w-full text-sm">
           <thead>
             <tr class="text-ink-500 text-xs uppercase tracking-widest border-b border-black/5 dark:border-white/5">
-              <th class="text-left font-medium px-3 py-2">Nomer</th>
+              <th class="text-left font-medium px-3 py-2">Raqam</th>
               <th class="text-left font-medium px-3 py-2 hidden sm:table-cell">Unit</th>
               <th class="text-left font-medium px-3 py-2 hidden md:table-cell">Davr</th>
               <th class="text-right font-medium px-3 py-3">Summa</th>

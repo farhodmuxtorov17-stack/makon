@@ -68,7 +68,7 @@
       <div class="flex items-center gap-2">
         <div class="relative">
           <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-          <input v-model="search" type="text" placeholder="Invoys yoki ijachi..." class="w-56 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+          <input v-model="search" type="text" placeholder="Invoys yoki ijarachi..." class="w-56 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
         </div>
       </div>
     </div>
@@ -79,8 +79,8 @@
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
-              <th class="text-left font-medium px-4 py-3">Nomer</th>
-              <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Ijachi</th>
+              <th class="text-left font-medium px-4 py-3">Raqam</th>
+              <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Ijarachi</th>
               <th class="text-left font-medium px-4 py-3 hidden lg:table-cell">Shartnoma</th>
               <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Davr</th>
               <th class="text-right font-medium px-4 py-3">Summa</th>

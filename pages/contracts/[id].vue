@@ -91,7 +91,7 @@
             <span class="font-medium text-ink-900 dark:text-white">{{ contract.startDate }}</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-ink-500 text-xs">Tugash</span>
+            <span class="text-ink-500 text-xs">Tugashi</span>
             <span class="font-medium text-ink-900 dark:text-white">{{ contract.endDate }}</span>
           </div>
           <div class="flex items-center justify-between">

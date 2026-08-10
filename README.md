@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/MAKON-Platform-6366f1?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0zIDlsOS03IDkgN3YxMWEyIDIgMCAwIDEtMiAyaC0xNGEyIDIgMCAwIDEtMi0yeiIvPjwvc3ZnPg==" />
 
-# MAKON — Kommerchesya Ko'chmas Mulk Platformasi
+# MAKON — Tijoriy Ko'chmas mulk platformasi
 
 ### Toshkentdagi premium biznes markazlari, ofislar va ombor maydonlari uchun yagona boshqaruv tizimi
 
@@ -39,7 +39,7 @@
 
 ## 🏢 Loyiha haqida
 
-**MAKON** — bu Toshkent shahridagi kommersiya ko'chmas mulk obyektlarini boshqarish uchun mo'ljallangan to'liq funksional platforma. Tashkent City, Trillant Tower, IT Park, Piramit va boshqa premium binolardagi ofis, savdo va ombor maydonlarini yagona tizimda boshqaradi.
+**MAKON** — bu Toshkent shahridagi tijoriy ko.*chmas mulk obyektlarini boshqarish uchun mo'ljallangan to'liq funksional platforma. Tashkent City, Trillant Tower, IT Park, Piramit va boshqa premium binolardagi ofis, savdo va ombor maydonlarini yagona tizimda boshqaradi.
 
 Platforma quyidagi jarayonlarni avtomatlashtiradi:
 - 🏗️ Binolar va unitlarni boshqarish (pasport, qavatlar, galereya)
@@ -140,17 +140,17 @@ Platforma quyidagi jarayonlarni avtomatlashtiradi:
 
 ## 📦 Modullar
 
-### Public模块
+### Public moduli
 | Route | Tavsif |
 |-------|--------|
 | `/` | Landing page — hero, VIP karusel, ob'ekt turlari |
-| `/catalog` | Kommersiya katalogi — filtr, qidiruv, xarita, grid/list view |
+| `/catalog` | Tijoriy katalogi — filtr, qidiruv, xarita, grid/list view |
 | `/buildings/:slug` | Bino public sahifasi |
 | `/units/:slug` | Unit public sahifasi |
 | `/login` | Tizimga kirish |
 | `/register/eri` | ERI orqali ro'yxatdan o'tish (4 bosqich) |
 
-### Cabinet模块 (Ijarachi)
+### Cabinet moduli (Ijarachi)
 | Route | Tavsif |
 |-------|--------|
 | `/cabinet` | Dashboard — KPI, to'lov chart, unitlar, arizalar |
@@ -161,7 +161,7 @@ Platforma quyidagi jarayonlarni avtomatlashtiradi:
 | `/cabinet/meter-readings` | Hisoblagich ko'rsatkichlari |
 | `/cabinet/service-requests/new` | Yangi servis so'rov |
 
-### Management模块 (Bino Rahbari)
+### Management moduli (Bino Rahbari)
 | Route | Tavsif |
 |-------|--------|
 | `/management/buildings` | Binolar ro'yxati (card/table view) |
@@ -175,7 +175,7 @@ Platforma quyidagi jarayonlarni avtomatlashtiradi:
 | `/management/floor-plans` | Reja importi |
 | `/management/visual-settings` | Vizual sozlamalar |
 
-### Finance模块 (Buxgalter)
+### Finance moduli (Buxgalter)
 | Route | Tavsif |
 |-------|--------|
 | `/finance/periods` | Moliya davrlari |
@@ -185,20 +185,20 @@ Platforma quyidagi jarayonlarni avtomatlashtiradi:
 | `/finance/inventory` | Ombor — kategoriyalar, zaxira statusi |
 | `/finance/stock-issues` | Material berish |
 
-### Facility模块 (Pudratchi)
+### Facility moduli (Pudratchi)
 | Route | Tavsif |
 |-------|--------|
 | `/facility/work-orders` | Work orderlar — Kanban board |
 | `/facility/material-requests` | Material so'rovlari |
 
-### Dashboard & Reports
+### Dashboard va Hisobotlar
 | Route | Tavsif |
 |-------|--------|
 | `/dashboard/executive` | Global dashboard — 6 KPI, 4 chart, SLA, alerts |
 | `/dashboard/building` | Bino dashboardi |
 | `/reports` | Hisobotlar — 5 KPI, 4 chart, building table |
 
-### Admin模块
+### Admin moduli
 | Route | Tavsif |
 |-------|--------|
 | `/admin/users` | Foydalanuvchilar — KPI, filter, table |
@@ -479,7 +479,7 @@ Proprietary — © 2026 MAKON Management MChJ. All rights reserved.
 
 <div align="center">
 
-**MAKON** — Toshkentning premium kommersiya ko'chmas mulk platformasi
+**MAKON** — Toshkentning premium tijoriy ko.*chmas mulk platformasi
 
 Made with ❤️ in Tashkent, Uzbekistan 🇺🇿
 

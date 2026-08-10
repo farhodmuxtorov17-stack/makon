@@ -47,7 +47,7 @@
       <div class="flex flex-wrap items-center gap-2 flex-1">
         <div class="relative flex-1 min-w-[200px]">
           <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-          <input v-model="search" type="text" placeholder="Nomer, ijachi yoki STIR..." class="w-full text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+          <input v-model="search" type="text" placeholder="Raqam, ijarachi yoki STIR..." class="w-full text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
         </div>
         <select v-model="statusFilter" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
           <option value="">Barcha statuslar</option>
@@ -65,7 +65,7 @@
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
-              <th class="text-left font-medium px-4 py-3">Nomer</th>
+              <th class="text-left font-medium px-4 py-3">Raqam</th>
               <th class="text-left font-medium px-4 py-3">Ijarachi</th>
               <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Bino / Unit</th>
               <th class="text-right font-medium px-4 py-3">Oylik ijara</th>

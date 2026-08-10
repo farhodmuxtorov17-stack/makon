@@ -75,7 +75,7 @@
         <div class="flex items-center gap-2">
           <Clock :size="16" class="text-brand-500" />
           <span class="text-sm font-medium">SLA muddati: {{ slaHours }} soat</span>
-          <span class="text-xs text-ink-500 ml-auto">Taxminiy tugash: {{ slaDeadline }}</span>
+          <span class="text-xs text-ink-500 ml-auto">Taxminiy tugash vaqti: {{ slaDeadline }}</span>
         </div>
       </div>
 

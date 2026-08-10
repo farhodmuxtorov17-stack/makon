@@ -1,318 +1,190 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-5">
+    <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Kabinet</h1>
-        <p class="text-ink-500 text-sm mt-1">Shaxsiy ma'lumotlar va arizalar</p>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Profil</h1>
+        <p class="text-ink-500 text-sm mt-1">Shaxsiy ma'lumotlar va sozlamalar</p>
       </div>
     </div>
 
-    <div v-if="pending" class="text-center py-20 text-ink-500">Yuklanmoqda...</div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <!-- Left: Profile card -->
+      <div class="space-y-4">
+        <div class="card p-5 text-center">
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-2xl mx-auto mb-3 shadow-lg shadow-brand-500/30">A</div>
+          <div class="font-bold text-ink-900 dark:text-white">Alisher Qodirov</div>
+          <div class="text-xs text-ink-500 mt-1">Super Rahbar · MAKON Management MChJ</div>
+          <span class="badge badge-success text-xs mt-3">Faol</span>
 
-    <template v-else-if="data">
-      <!-- Stats -->
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <div class="card p-4 text-center">
-          <FileText :size="20" class="mx-auto text-brand-400 mb-2" />
-          <div class="text-2xl font-bold">{{ data.stats.totalApplications }}</div>
-          <div class="text-xs text-ink-500">Jami arizalar</div>
+          <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/5 space-y-2 text-left text-sm">
+            <div class="flex items-center gap-2 text-ink-500"><Mail :size="14" /> a.qodirov@makon.uz</div>
+            <div class="flex items-center gap-2 text-ink-500"><Phone :size="14" /> +998 90 123 45 67</div>
+            <div class="flex items-center gap-2 text-ink-500"><Building2 :size="14" /> STIR: 300112233</div>
+            <div class="flex items-center gap-2 text-ink-500"><ShieldCheck :size="14" /> ERI: 15.03.2027</div>
+          </div>
         </div>
-        <div class="card p-4 text-center">
-          <Clock :size="20" class="mx-auto text-amber-400 mb-2" />
-          <div class="text-2xl font-bold">{{ data.stats.activeApplications }}</div>
-          <div class="text-xs text-ink-500">Faol arizalar</div>
-        </div>
-        <div class="card p-4 text-center">
-          <FileCheck2 :size="20" class="mx-auto text-emerald-400 mb-2" />
-          <div class="text-2xl font-bold">{{ data.stats.activeContracts }}</div>
-          <div class="text-xs text-ink-500">Faol shartnomalar</div>
-        </div>
-        <div class="card p-4 text-center">
-          <Receipt :size="20" class="mx-auto text-red-400 mb-2" />
-          <div class="text-2xl font-bold">{{ data.stats.unpaidInvoices }}</div>
-          <div class="text-xs text-ink-500">To'lanmagan</div>
-        </div>
-        <div class="card p-4 text-center">
-          <Wrench :size="20" class="mx-auto text-orange-400 mb-2" />
-          <div class="text-2xl font-bold">{{ data.stats.openServiceRequests }}</div>
-          <div class="text-xs text-ink-500">Xizmat so'rovi</div>
+
+        <!-- Quick stats -->
+        <div class="card p-5">
+          <h3 class="font-semibold text-ink-900 dark:text-white mb-3">Statistika</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="text-center p-3 rounded-xl bg-black/5 dark:bg-white/5">
+              <div class="text-lg font-bold text-ink-900 dark:text-white">12</div>
+              <div class="text-[10px] text-ink-500">Arizalar</div>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-black/5 dark:bg-white/5">
+              <div class="text-lg font-bold text-ink-900 dark:text-white">8</div>
+              <div class="text-[10px] text-ink-500">Shartnomalar</div>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-black/5 dark:bg-white/5">
+              <div class="text-lg font-bold text-ink-900 dark:text-white">3</div>
+              <div class="text-[10px] text-ink-500">Binolar</div>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-black/5 dark:bg-white/5">
+              <div class="text-lg font-bold text-ink-900 dark:text-white">156</div>
+              <div class="text-[10px] text-ink-500">Kirishlar</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Tabs -->
-      <div class="flex items-center gap-1 p-1 rounded-xl bg-white/5 w-fit">
-        <button v-for="tab in tabs" :key="tab.value" @click="activeTab = tab.value"
-          class="px-3 py-1.5 rounded-lg text-sm transition-all"
-          :class="activeTab === tab.value ? 'bg-brand-500/10 text-brand-400' : 'text-ink-500 hover:text-white'">
-          {{ tab.label }}
-        </button>
-      </div>
+      <!-- Right: Settings forms -->
+      <div class="lg:col-span-2 space-y-4">
+        <!-- Personal info -->
+        <div class="card p-5">
+          <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Shaxsiy ma'lumotlar</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-medium text-ink-500 mb-1.5 block">To'liq ism</label>
+              <input type="text" value="Alisher Qodirov" class="profile-input" />
+            </div>
+            <div>
+              <label class="text-xs font-medium text-ink-500 mb-1.5 block">Email</label>
+              <input type="email" value="a.qodirov@makon.uz" class="profile-input" />
+            </div>
+            <div>
+              <label class="text-xs font-medium text-ink-500 mb-1.5 block">Telefon</label>
+              <input type="tel" value="+998 90 123 45 67" class="profile-input" />
+            </div>
+            <div>
+              <label class="text-xs font-medium text-ink-500 mb-1.5 block">Lavozim</label>
+              <input type="text" value="Super Rahbar" disabled class="profile-input profile-input--disabled" />
+            </div>
+          </div>
+          <div class="flex justify-end mt-4">
+            <button class="btn btn-primary btn-sm"><Save :size="14" /> Saqlash</button>
+          </div>
+        </div>
 
-      <!-- Applications tab -->
-      <div v-if="activeTab === 'applications'" class="space-y-3">
-        <div v-for="app in data.applications" :key="app.id" class="card p-4">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-sm font-bold text-brand-400">
-                {{ app.applicantName?.charAt(0) }}
-              </div>
+        <!-- Password change -->
+        <div class="card p-5">
+          <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Parolni o'zgartirish</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="text-xs font-medium text-ink-500 mb-1.5 block">Joriy parol</label>
+              <input type="password" placeholder="••••••••" class="profile-input" />
+            </div>
+            <div>
+              <label class="text-xs font-medium text-ink-500 mb-1.5 block">Yangi parol</label>
+              <input type="password" placeholder="••••••••" class="profile-input" />
+            </div>
+            <div>
+              <label class="text-xs font-medium text-ink-500 mb-1.5 block">Tasdiqlash</label>
+              <input type="password" placeholder="••••••••" class="profile-input" />
+            </div>
+          </div>
+          <div class="flex justify-end mt-4">
+            <button class="btn btn-secondary btn-sm"><Key :size="14" /> Yangilash</button>
+          </div>
+        </div>
+
+        <!-- Notifications settings -->
+        <div class="card p-5">
+          <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bildirishnoma sozlamalari</h3>
+          <div class="space-y-3">
+            <label v-for="s in notifSettings" :key="s.id" class="notif-setting">
               <div>
-                <div class="font-medium">{{ app.applicantName }}</div>
-                <div class="text-xs text-ink-500">{{ app.number }} · {{ formatDate(app.createdDate) }}</div>
+                <div class="text-sm font-medium text-ink-900 dark:text-white">{{ s.label }}</div>
+                <div class="text-xs text-ink-500">{{ s.desc }}</div>
               </div>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="text-right">
-                <div class="text-sm font-semibold">{{ formatPrice(app.offeredPrice, app.currency) }}</div>
-                <div v-if="app.durationMonths" class="text-xs text-ink-500">{{ app.durationMonths }} oy</div>
+              <label class="toggle">
+                <input type="checkbox" v-model="s.enabled" />
+                <span class="toggle__slider"></span>
+              </label>
+            </label>
+          </div>
+        </div>
+
+        <!-- Sessions -->
+        <div class="card p-5">
+          <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Faol seanslar</h3>
+          <div class="space-y-2">
+            <div v-for="s in sessions" :key="s.id" class="session-row">
+              <div class="session-row__icon"><component :is="s.icon" :size="16" class="text-brand-500" /></div>
+              <div class="flex-1 min-w-0">
+                <div class="text-sm font-medium text-ink-900 dark:text-white">{{ s.device }}</div>
+                <div class="text-xs text-ink-500">{{ s.location }} · {{ s.ip }}</div>
               </div>
-              <span class="badge" :class="statusBadge(app.status)">{{ statusLabel(app.status) }}</span>
+              <span v-if="s.current" class="badge badge-success text-[10px]">Joriy</span>
+              <button v-else class="btn btn-ghost btn-sm text-xs text-red-500">Chiqish</button>
             </div>
-          </div>
-          <div v-if="app.notes" class="mt-3 pt-3 border-t border-white/5 text-sm text-ink-500">{{ app.notes }}</div>
-          <div v-if="app.rejectionReason" class="mt-3 pt-3 border-t border-white/5 text-sm text-red-400">Rad etish sababi: {{ app.rejectionReason }}</div>
-        </div>
-        <div v-if="data.applications.length === 0" class="card p-12 text-center text-ink-500">Arizalar yo'q</div>
-      </div>
-
-      <!-- Contracts tab -->
-      <div v-if="activeTab === 'contracts'" class="space-y-3">
-        <div v-for="c in data.contracts" :key="c.id" class="card p-5">
-          <div class="flex items-start justify-between mb-4">
-            <div>
-              <div class="font-mono text-xs text-ink-500 mb-1">{{ c.number }}</div>
-              <div class="font-medium">{{ c.tenantName }}</div>
-              <div class="text-sm text-ink-500 mt-1">{{ formatDate(c.startDate) }} — {{ formatDate(c.endDate) }}</div>
-            </div>
-            <span class="badge" :class="contractBadge(c.status)">{{ contractLabel(c.status) }}</span>
-          </div>
-          <div class="grid grid-cols-3 gap-3 text-sm">
-            <div>
-              <div class="text-xs text-ink-600">Oylik to'lov</div>
-              <div class="font-semibold">{{ formatPrice(c.monthlyRent, c.currency) }}</div>
-            </div>
-            <div>
-              <div class="text-xs text-ink-600">Garov puli</div>
-              <div class="font-semibold">{{ formatPrice(c.deposit, c.currency) }}</div>
-            </div>
-            <div>
-              <div class="text-xs text-ink-600">Versiya</div>
-              <div class="font-semibold">v{{ c.version || 1 }}</div>
-            </div>
-          </div>
-          <div class="mt-4 pt-4 border-t border-white/5 flex items-center gap-2">
-            <button v-if="c.status === 'PENDING_SIGNATURE'" @click="signContract(c)" class="btn btn-primary btn-sm" :disabled="signing === c.id">
-              <ShieldCheck :size="14" /> {{ signing === c.id ? 'Imzolanmoqda...' : 'ERI orqali imzolash' }}
-            </button>
-            <a v-if="c.pdfUrl" :href="c.pdfUrl" target="_blank" class="btn btn-ghost btn-sm">
-              <FileText :size="14" /> PDF ko'rish
-            </a>
-            <div v-if="c.eriDocumentId" class="text-xs text-emerald-400 ml-auto font-mono">ERI: {{ c.eriDocumentId.slice(0, 20) }}...</div>
           </div>
         </div>
-        <div v-if="data.contracts.length === 0" class="card p-12 text-center text-ink-500">Faol shartnomalar yo'q</div>
       </div>
-
-      <!-- Invoices tab -->
-      <div v-if="activeTab === 'invoices'" class="space-y-3">
-        <div v-for="inv in data.invoices" :key="inv.id" class="card p-4 flex items-center justify-between">
-          <div>
-            <div class="font-mono text-xs text-ink-500">{{ inv.number }}</div>
-            <div class="text-sm text-ink-400">{{ inv.period }}</div>
-          </div>
-          <div class="text-right">
-            <div class="font-semibold">{{ formatPrice(inv.amount, inv.currency) }}</div>
-            <div v-if="inv.balance > 0" class="text-sm text-red-400">Qoldiq: {{ formatPrice(inv.balance, inv.currency) }}</div>
-          </div>
-          <span class="badge" :class="inv.balance > 0 ? 'badge-danger' : 'badge-success'">{{ inv.balance > 0 ? 'To\'lanmagan' : 'To\'langan' }}</span>
-        </div>
-        <div v-if="data.invoices.length === 0" class="card p-12 text-center text-ink-500">Invoyslar yo'q 🎉</div>
-      </div>
-
-      <!-- Service requests tab -->
-      <div v-if="activeTab === 'services'" class="space-y-3">
-        <div v-for="sr in data.serviceRequests" :key="sr.id" class="card p-4">
-          <div class="flex items-start justify-between mb-2">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-lg flex items-center justify-center" :class="priorityBg(sr.priority)">
-                <Wrench :size="16" :class="priorityColor(sr.priority)" />
-              </div>
-              <div>
-                <div class="font-mono text-xs text-ink-500">{{ sr.number }}</div>
-                <div class="text-sm font-medium">{{ categoryLabel(sr.category) }}</div>
-              </div>
-            </div>
-            <span class="badge" :class="srBadge(sr.status)">{{ srLabel(sr.status) }}</span>
-          </div>
-          <p class="text-sm text-ink-400 mt-2">{{ sr.description }}</p>
-          <div class="mt-2 flex items-center gap-3 text-xs text-ink-600">
-            <span>{{ formatDate(sr.createdDate) }}</span>
-            <span v-if="sr.slaDueAt">· SLA: {{ formatDate(sr.slaDueAt) }}</span>
-          </div>
-        </div>
-        <div v-if="data.serviceRequests.length === 0" class="card p-12 text-center text-ink-500">Faol so'rovlar yo'q</div>
-      </div>
-
-      <!-- New service request form -->
-      <div v-if="activeTab === 'new-request'" class="card p-6 max-w-2xl">
-        <h3 class="font-semibold mb-4">Yangi xizmat so'rovi</h3>
-        <div class="space-y-4">
-          <div>
-            <label class="label">Kategoriya</label>
-            <select v-model="newRequest.category" class="input">
-              <option value="PLUMBING">Sanitariya</option>
-              <option value="ELECTRICAL">Elektrika</option>
-              <option value="HVAC">Konditsioner</option>
-              <option value="CLEANING">Tozalash</option>
-              <option value="STRUCTURAL">Konstruksiya</option>
-              <option value="SECURITY">Xavfsizlik</option>
-              <option value="OTHER">Boshqa</option>
-            </select>
-          </div>
-          <div>
-            <label class="label">Prioritet</label>
-            <select v-model="newRequest.priority" class="input">
-              <option value="LOW">Past</option>
-              <option value="MEDIUM">O'rta</option>
-              <option value="HIGH">Yuqori</option>
-              <option value="URGENT">Shoshilinch</option>
-            </select>
-          </div>
-          <div>
-            <label class="label">Tavsif</label>
-            <textarea v-model="newRequest.description" class="input" rows="4" placeholder="Muammoni batafsil tavsiflang..."></textarea>
-          </div>
-          <button @click="submitServiceRequest" class="btn btn-primary" :disabled="submitting">
-            {{ submitting ? 'Yuborilmoqda...' : 'So\'rov yuborish' }}
-          </button>
-        </div>
-      </div>
-    </template>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { FileText, Clock, FileCheck2, Receipt, Wrench, ShieldCheck } from 'lucide-vue-next'
+import { Mail, Phone, Building2, ShieldCheck, Save, Key, Monitor, Smartphone, Tablet } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const config = useRuntimeConfig()
+const notifSettings = ref([
+  { id: '1', label: 'Email bildirishnomalar', desc: 'Arizalar, invoyslar va shartnomalar haqida', enabled: true },
+  { id: '2', label: 'Push xabarlar', desc: 'Brauzer va mobil bildirishnomalar', enabled: true },
+  { id: '3', label: 'ERI imzo eslatmalari', desc: 'Shartnoma imzolash kerak bo\'lganda', enabled: true },
+  { id: '4', label: 'Qarzdorlik ogohlantirishlari', desc: 'Muddati o\'tgan invoyslar haqida', enabled: false },
+  { id: '5', label: 'Servis yangilanishlari', desc: 'Work order statuslari o\'zgarsa', enabled: true },
+])
 
-const data = ref({
-  user: { id: 'u1', fullName: 'Farhod Muxtorov', email: 'farhod@makon.uz', phone: '+998 90 123 45 67', pinfl: '31234567890123', organization: 'Makon Real Estate MChJ', tin: '312345678' },
-  stats: { totalApplications: 5, activeApplications: 2, activeContracts: 2, totalUnits: 3, outstandingDebt: 12500000 },
-  applications: [
-    { id: 'a1', number: 'APP-2026-012', applicantName: 'Farhod Muxtorov', status: 'OFFER_SENT', offeredPrice: 25000000, currency: 'UZS', createdDate: '2026-08-05' },
-    { id: 'a2', number: 'APP-2026-008', applicantName: 'Farhod Muxtorov', status: 'APPROVED', offeredPrice: 18000000, currency: 'UZS', createdDate: '2026-07-20' },
-  ],
-  contracts: [
-    { id: 'c1', number: 'CTR-2026-001', status: 'ACTIVE', unitName: 'A-301', monthlyRent: 25000000, startDate: '2026-03-15', endDate: '2027-03-15' },
-    { id: 'c2', number: 'CTR-2025-098', status: 'PENDING_SIGNATURE', unitName: 'B-303', monthlyRent: 22000000, startDate: '2026-01-01', endDate: '2027-01-01' },
-  ],
-  invoices: [
-    { id: 'i1', number: 'INV-2026-045', amount: 25000000, balance: 12500000, status: 'PARTIALLY_PAID', period: 'Iyul 2026', dueDate: '2026-08-15' },
-    { id: 'i2', number: 'INV-2026-041', amount: 25000000, balance: 0, status: 'PAID', period: 'Iyun 2026', dueDate: '2026-07-15' },
-  ],
-  serviceRequests: [
-    { id: 'sr1', number: 'SR-2026-012', status: 'IN_PROGRESS', description: 'Elektr simi almashtirish', createdDate: '2026-08-08' },
-  ],
-  units: [
-    { id: 'u1', name: 'A-301', buildingName: 'Tashkent City', area: 85, floor: 3 },
-    { id: 'u2', name: 'B-303', buildingName: 'Tashkent City', area: 92, floor: 3 },
-    { id: 'u3', name: 'C-201', buildingName: 'IT Park', area: 65, floor: 2 },
-  ],
-})
-
-const activeTab = ref('applications')
-const signing = ref<string | null>(null)
-const submitting = ref(false)
-
-const tabs = [
-  { value: 'applications', label: 'Arizalar' },
-  { value: 'contracts', label: 'Shartnomalar' },
-  { value: 'invoices', label: 'Invoyslar' },
-  { value: 'services', label: 'Xizmatlar' },
-  { value: 'new-request', label: '+ Yangi so\'rov' },
+const sessions = [
+  { id: '1', device: 'Desktop · Chrome 126', location: 'Tashkent', ip: '85.17.12.34', current: true, icon: Monitor },
+  { id: '2', device: 'iPhone 15 Pro · Safari', location: 'Tashkent', ip: '85.17.12.35', current: false, icon: Smartphone },
+  { id: '3', device: 'iPad Air · Safari', location: 'Tashkent', ip: '85.17.12.36', current: false, icon: Tablet },
 ]
-
-const newRequest = reactive({
-  category: 'PLUMBING',
-  priority: 'MEDIUM',
-  description: '',
-})
-
-async function signContract(c: any) {
-  signing.value = c.id
-  try {
-    const res = await $fetch<any>(`${baseUrl}/cabinetApi?action=sign-contract`, {
-      method: 'POST',
-      body: { contractId: c.id },
-    })
-    if (res.success) {
-      c.status = 'ACTIVE'
-      c.eriDocumentId = res.contract.eriDocumentId
-    }
-  } catch (e) {
-    console.error(e)
-  }
-  signing.value = null
-}
-
-async function submitServiceRequest() {
-  if (!newRequest.description) return
-  submitting.value = true
-  try {
-    const res = await $fetch<any>(`${baseUrl}/cabinetApi?action=create-service-request`, {
-      method: 'POST',
-      body: newRequest,
-    })
-    if (res.success) {
-      newRequest.description = ''
-      activeTab.value = 'services'
-      await refreshNuxtData('cabinet')
-    }
-  } catch (e) {
-    console.error(e)
-  }
-  submitting.value = false
-}
-
-function formatPrice(price: number, currency: string) {
-  if (!price) return '—'
-  const formatted = new Intl.NumberFormat('ru-RU').format(price)
-  return currency === 'USD' ? `$${formatted}` : `${(formatted / 1000000).toFixed(1)}M`
-}
-
-function formatDate(date: string) {
-  if (!date) return '—'
-  return new Date(date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' })
-}
-
-function statusBadge(s: string) {
-  return { NEW: 'badge-neutral', PENDING: 'badge-warning', BUILDING_REVIEW: 'badge-warning', FINANCE_REVIEW: 'badge-brand', OFFER_SENT: 'badge-brand', ERI_PENDING: 'badge-warning', APPROVED: 'badge-success', REJECTED: 'badge-danger' }[s] || 'badge-neutral'
-}
-function statusLabel(s: string) {
-  return { NEW: 'Yangi', PENDING: 'Kutilmoqda', BUILDING_REVIEW: 'Bino ko\'rib chiqish', FINANCE_REVIEW: 'Moliya', OFFER_SENT: 'Taklif yuborildi', ERI_PENDING: 'ERI kutilmoqda', APPROVED: 'Tasdiqlandi', REJECTED: 'Rad etildi' }[s] || s
-}
-function contractBadge(s: string) {
-  return { ACTIVE: 'badge-success', PENDING_SIGNATURE: 'badge-brand', DRAFT: 'badge-warning' }[s] || 'badge-neutral'
-}
-function contractLabel(s: string) {
-  return { ACTIVE: 'Faol', PENDING_SIGNATURE: 'Imzo kutilmoqda', DRAFT: 'Qoralama' }[s] || s
-}
-function srBadge(s: string) {
-  return { OPEN: 'badge-warning', IN_PROGRESS: 'badge-brand', COMPLETED: 'badge-success', RESOLVED: 'badge-success' }[s] || 'badge-neutral'
-}
-function srLabel(s: string) {
-  return { OPEN: 'Ochiq', IN_PROGRESS: 'Jarayonda', COMPLETED: 'Yakunlandi', RESOLVED: 'Hal qilindi' }[s] || s
-}
-function priorityBg(p: string) {
-  return { LOW: 'bg-ink-500/10', MEDIUM: 'bg-amber-500/10', HIGH: 'bg-orange-500/10', URGENT: 'bg-red-500/10' }[p] || 'bg-ink-500/10'
-}
-function priorityColor(p: string) {
-  return { LOW: 'text-ink-400', MEDIUM: 'text-amber-400', HIGH: 'text-orange-400', URGENT: 'text-red-400' }[p] || 'text-ink-400'
-}
-function categoryLabel(c: string) {
-  return { PLUMBING: 'Sanitariya', ELECTRICAL: 'Elektrika', HVAC: 'Konditsioner', CLEANING: 'Tozalash', STRUCTURAL: 'Konstruksiya', SECURITY: 'Xavfsizlik', OTHER: 'Boshqa' }[c] || c
-}
 </script>
+
+<style scoped>
+.profile-input {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #18181b;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.dark .profile-input { background: #09090b; color: #fafafa; border-color: rgba(255,255,255,0.1); }
+.profile-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+.profile-input--disabled { opacity: 0.5; cursor: not-allowed; }
+.notif-setting {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px; border-radius: 12px;
+  background: rgba(0,0,0,0.02); cursor: pointer;
+}
+.dark .notif-setting { background: rgba(255,255,255,0.02); }
+.toggle { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle__slider { position: absolute; cursor: pointer; inset: 0; background: rgba(0,0,0,0.1); border-radius: 22px; transition: 0.2s; }
+.dark .toggle__slider { background: rgba(255,255,255,0.1); }
+.toggle__slider::before { position: absolute; content: ''; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
+.toggle input:checked + .toggle__slider { background: #6366f1; }
+.toggle input:checked + .toggle__slider::before { transform: translateX(18px); }
+.session-row { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: rgba(0,0,0,0.02); }
+.dark .session-row { background: rgba(255,255,255,0.02); }
+.session-row__icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(99,102,241,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+</style>

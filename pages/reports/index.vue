@@ -122,7 +122,7 @@
       </div>
 
       <div class="card p-5">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Top ijachi (daromad)</h3>
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Top ijarachi (daromad)</h3>
         <div class="space-y-2">
           <div v-for="(t, i) in topTenants" :key="t.name" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
             <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" :class="i === 0 ? 'bg-amber-500/15 text-amber-500' : 'bg-ink-500/10 text-ink-500'">{{ i + 1 }}</span>

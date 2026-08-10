@@ -34,7 +34,7 @@
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-white/5 text-ink-500 text-xs uppercase tracking-widest">
-              <th class="text-left font-medium px-4 py-3">Ijachi</th>
+              <th class="text-left font-medium px-4 py-3">Ijarachi</th>
               <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Invoys</th>
               <th class="text-right font-medium px-4 py-3">Summa</th>
               <th class="text-right font-medium px-4 py-3">Qoldiq</th>
