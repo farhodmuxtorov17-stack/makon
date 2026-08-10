@@ -4,160 +4,179 @@
       <ArrowLeft :size="16" /> Binolarga qaytish
     </NuxtLink>
 
-    <div class="card overflow-hidden">
-      <div class="aspect-[21/9] overflow-hidden bg-ink-100 relative">
-        <img :src="building.image" :alt="building.name" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-t from-ink-950/60 to-transparent"></div>
-        <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="badge badge-success">Nashr qilingan</span>
-              <span class="badge badge-neutral">{{ building.type }}</span>
+    <div v-if="building" class="space-y-6">
+      <!-- Building header -->
+      <div class="card overflow-hidden">
+        <div class="h-48 bg-ink-950 relative overflow-hidden">
+          <img :src="building.img" class="w-full h-full object-cover opacity-60" @error="handleImgError" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="badge badge-info">{{ building.type }}</span>
+                <h1 class="font-display text-3xl font-bold text-white mt-2">{{ building.name }}</h1>
+                <p class="text-white/60 text-sm mt-1 flex items-center gap-1.5">
+                  <MapPin :size="14" /> {{ building.location }}, Toshkent
+                </p>
+              </div>
+              <div class="flex gap-2">
+                <button class="btn btn-ghost btn-lg text-white hover:bg-white/10" @click="toast.info('Eksport', 'PDF tayyorlanmoqda')">
+                  <Download :size="18" /> PDF
+                </button>
+                <button class="btn btn-primary btn-lg" @click="toast.info('Tahrir', 'Forma tez orada')">
+                  <Pencil :size="18" /> Tahrirlash
+                </button>
+              </div>
             </div>
-            <h1 class="font-display text-3xl font-bold text-white">{{ building.name }}</h1>
-            <p class="text-white/70 flex items-center gap-1.5 mt-1"><MapPin :size="14" /> {{ building.district }}, {{ building.city }}</p>
           </div>
         </div>
       </div>
-      <div class="p-6">
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <div class="text-center py-4 rounded-xl bg-ink-50">
-            <p class="text-2xl font-bold font-display">{{ building.floorsCount }}</p>
-            <p class="text-xs text-ink-400 mt-0.5">Qavatlar</p>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        <StatCard icon="Layers" :value="String(building.floors)" label="Qavatlar" iconBg="bg-brand-50" iconColor="text-brand-600" />
+        <StatCard icon="Maximize" :value="building.area + ' m²'" label="Maydon" iconBg="bg-sky-50" iconColor="text-sky-600" />
+        <StatCard icon="Building2" :value="String(building.units)" label="Jami maydon" iconBg="bg-amber-50" iconColor="text-amber-600" />
+        <StatCard icon="Users" :value="String(building.tenants)" label="Ijarachilar" iconBg="bg-emerald-50" iconColor="text-emerald-600" />
+        <StatCard icon="TrendingUp" :value="building.occupancy + '%'" label="Bandlik" iconBg="bg-rose-50" iconColor="text-rose-600" />
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-1 p-1 bg-ink-100 rounded-xl w-fit">
+        <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
+          class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+          :class="activeTab === tab.id ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-400 hover:text-ink-600'">
+          {{ tab.label }}
+        </button>
+      </div>
+
+      <!-- Units tab -->
+      <div v-if="activeTab === 'units'" class="card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Maydon №</th>
+                <th>Qavat</th>
+                <th>Turi</th>
+                <th>Maydon</th>
+                <th>Status</th>
+                <th>Ijarachi</th>
+                <th>Oylik</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="u in units" :key="u.id" class="table-row-hover">
+                <td class="font-mono font-semibold text-ink-900">{{ u.number }}</td>
+                <td>{{ u.floor }}</td>
+                <td><span class="badge badge-neutral">{{ u.type }}</span></td>
+                <td>{{ u.area }} m²</td>
+                <td><StatusBadge :status="u.status" :variant="unitVariant(u.status)" :label="unitLabel(u.status)" dot /></td>
+                <td>{{ u.tenant || '—' }}</td>
+                <td class="font-semibold" :class="u.rent ? 'text-ink-900' : 'text-ink-300'">{{ u.rent ? formatPriceShort(u.rent) : '—' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Amenities tab -->
+      <div v-if="activeTab === 'amenities'" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div v-for="a in amenities" :key="a.label" class="card p-4 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-ink-50 flex items-center justify-center">
+            <component :is="a.icon" :size="20" class="text-ink-600" />
           </div>
-          <div class="text-center py-4 rounded-xl bg-ink-50">
-            <p class="text-2xl font-bold font-display">{{ building.totalArea }}</p>
-            <p class="text-xs text-ink-400 mt-0.5">m² maydon</p>
+          <div>
+            <p class="font-medium text-sm">{{ a.label }}</p>
+            <p class="text-xs text-ink-400">{{ a.desc }}</p>
           </div>
-          <div class="text-center py-4 rounded-xl bg-ink-50">
-            <p class="text-2xl font-bold font-display text-emerald-600">{{ building.occupancy }}%</p>
-            <p class="text-xs text-ink-400 mt-0.5">Bandlik</p>
-          </div>
-          <div class="text-center py-4 rounded-xl bg-ink-50">
-            <p class="text-2xl font-bold font-display">{{ building.units }}</p>
-            <p class="text-xs text-ink-400 mt-0.5">Maydonlar</p>
-          </div>
-          <div class="text-center py-4 rounded-xl bg-ink-50">
-            <p class="text-2xl font-bold font-display">{{ building.parking }}</p>
-            <p class="text-xs text-ink-400 mt-0.5">Parkovka</p>
+        </div>
+      </div>
+
+      <!-- Specs tab -->
+      <div v-if="activeTab === 'specs'" class="card p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+          <div v-for="s in specs" :key="s.label" class="flex items-center justify-between py-2 border-b border-ink-100">
+            <span class="text-ink-500 text-sm">{{ s.label }}</span>
+            <span class="font-medium text-sm">{{ s.value }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Units -->
-    <div class="card p-6">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold">Maydonlar</h3>
-        <div class="flex gap-2">
-          <button v-for="f in floorFilter" :key="f.id" @click="activeFloor = f.id"
-            class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
-            :class="activeFloor === f.id ? 'bg-ink-900 text-white' : 'text-ink-500 hover:bg-ink-100'">
-            {{ f.label }}
-          </button>
-        </div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-        <div v-for="unit in filteredUnits" :key="unit.id" class="border border-ink-100 rounded-xl p-4 hover:border-brand-200 hover:shadow-card-hover transition-all cursor-pointer">
-          <div class="flex items-center justify-between mb-2">
-            <span class="font-mono text-sm font-semibold text-ink-900">{{ unit.number }}</span>
-            <StatusBadge :status="unit.status" :variant="unit.status === 'RENTED' ? 'success' : unit.status === 'VACANT' ? 'info' : 'neutral'"
-              :label="unitStatusLabel(unit.status)" dot />
-          </div>
-          <p class="text-sm text-ink-500">{{ unit.area }} m² · {{ unit.type }}</p>
-          <p class="font-semibold text-sm mt-2">{{ formatPrice(unit.price) }} <span class="text-ink-400 text-xs font-normal">so'm/oy</span></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Building specs -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="card p-6">
-        <h3 class="font-semibold mb-4">Texnik xususiyatlar</h3>
-        <div class="grid grid-cols-2 gap-3 text-sm">
-          <div v-for="spec in specs" :key="spec.label" class="flex items-center justify-between p-3 rounded-lg bg-ink-50">
-            <span class="text-ink-500">{{ spec.label }}</span>
-            <span class="font-semibold">{{ spec.value }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="card p-6">
-        <h3 class="font-semibold mb-4">Qulayliklar</h3>
-        <div class="grid grid-cols-2 gap-2">
-          <div v-for="a in amenities" :key="a" class="flex items-center gap-2 text-sm text-ink-600">
-            <Check :size="16" class="text-emerald-500" /> {{ a }}
-          </div>
-        </div>
-      </div>
+    <div v-else class="card p-12">
+      <BaseEmptyState title="Bino topilmadi" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, MapPin, Check } from 'lucide-vue-next'
-import type { UnitStatus } from '~/types'
+import { ArrowLeft, MapPin, Download, Pencil, Layers, Maximize, Building2, Users, TrendingUp, Wifi, Car, Zap, Wind, Shield, Droplet, Phone, Snowflake } from 'lucide-vue-next'
 
 const route = useRoute()
+const toast = useToast()
+const { formatPriceShort } = useFormat()
 
-const building = {
-  id: route.params.id,
-  name: 'Trilliant Tower',
-  type: 'A+ Biznes markaz',
-  district: 'Yunusobod',
-  city: 'Toshkent',
-  floorsCount: 14,
-  totalArea: '15.8K',
-  occupancy: 94,
-  units: 141,
-  parking: 750,
-  image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80',
-}
-
-const activeFloor = ref('all')
-const floorFilter = [
-  { id: 'all', label: 'Hammasi' },
-  { id: 'A', label: 'A blok' },
-  { id: 'B', label: 'B blok' },
+const activeTab = ref('units')
+const tabs = [
+  { id: 'units', label: 'Maydonlar' },
+  { id: 'amenities', label: 'Qulayliklar' },
+  { id: 'specs', label: 'Texnik xususiyatlar' },
 ]
 
-const units = [
-  { id: 'u1', number: 'A-101', area: 85, type: 'Ofis', price: 9500000, status: 'RENTED' as UnitStatus, floor: 'A' },
-  { id: 'u2', number: 'A-102', area: 120, type: 'Ofis', price: 12500000, status: 'VACANT' as UnitStatus, floor: 'A' },
-  { id: 'u3', number: 'A-201', area: 65, type: 'Ofis', price: 7200000, status: 'RENTED' as UnitStatus, floor: 'A' },
-  { id: 'u4', number: 'A-202', area: 95, type: 'Ofis', price: 9800000, status: 'VACANT' as UnitStatus, floor: 'A' },
-  { id: 'u5', number: 'B-101', area: 200, type: 'Savdo', price: 18000000, status: 'RENTED' as UnitStatus, floor: 'B' },
-  { id: 'u6', number: 'B-102', area: 150, type: 'Savdo', price: 13500000, status: 'MAINTENANCE' as UnitStatus, floor: 'B' },
-  { id: 'u7', number: 'B-201', area: 110, type: 'Ofis', price: 11200000, status: 'VACANT' as UnitStatus, floor: 'B' },
-  { id: 'u8', number: 'B-202', area: 88, type: 'Ofis', price: 9200000, status: 'RENTED' as UnitStatus, floor: 'B' },
+const buildings = [
+  { id: 'b1', name: 'Trilliant Tower', type: 'A+ Biznes markaz', location: 'Yunusobod', floors: 14, area: '15,800', units: 141, tenants: 133, occupancy: 94, img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80' },
+  { id: 'b2', name: 'Tashkent City IBC', type: 'A klass', location: 'Yashnobod', floors: 22, area: '28,400', units: 186, tenants: 162, occupancy: 87, img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80' },
+  { id: 'b3', name: 'IT Park Tashkent', type: 'IT markaz', location: 'Mirzo Ulug\'bek', floors: 8, area: '9,200', units: 64, tenants: 59, occupancy: 92, img: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=80' },
+  { id: 'b4', name: 'Piramit Tower', type: 'Biznes markaz', location: 'Mirobod', floors: 18, area: '19,600', units: 98, tenants: 76, occupancy: 78, img: 'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=1200&q=80' },
+  { id: 'b5', name: 'Crystal Plaza', type: 'A klass', location: 'Sergeli', floors: 12, area: '12,400', units: 84, tenants: 71, occupancy: 84, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80' },
 ]
 
-const filteredUnits = computed(() => {
-  if (activeFloor.value === 'all') return units
-  return units.filter(u => u.floor === activeFloor.value)
+const building = computed(() => buildings.find(b => b.id === route.params.id))
+
+const units = computed(() => {
+  if (!building.value) return []
+  const types = ['Office', 'Retail', 'Parking', 'Warehouse']
+  const statuses = ['RENTED', 'RENTED', 'RENTED', 'VACANT', 'RENTED', 'RESERVED', 'RENTED', 'RENTED']
+  const tenants = ['D. Yusupova', 'A. Karimov', 'B. Toshmatov', '', 'M. Saidova', '', 'R. Nazarov', 'F. Karimova']
+  const rents = [12000000, 8500000, 4500000, 0, 6800000, 0, 9500000, 5200000]
+  return Array.from({ length: Math.min(building.value.units, 12) }, (_, i) => ({
+    id: `u${i + 1}`,
+    number: `${building.value!.name.slice(0, 3).toUpperCase()}-${String(i + 1).padStart(3, '0')}`,
+    floor: (i % building.value!.floors) + 1,
+    type: types[i % types.length],
+    area: 40 + (i * 15) % 120,
+    status: statuses[i % statuses.length],
+    tenant: tenants[i % tenants.length],
+    rent: rents[i % rents.length],
+  }))
 })
 
-const specs = [
-  { label: 'Sinf', value: 'A+' },
-  { label: 'Shahar', value: 'Toshkent' },
-  { label: 'Liftlar', value: '5+2' },
-  { label: 'Shift balandligi', value: '4.38 m' },
-  { label: 'LEED sertifikat', value: 'Gold' },
-  { label: 'Parkovka', value: '750 o\'rin' },
-]
-
 const amenities = [
-  '24/7 xavfsizlik', 'CCTV monitoring', 'Resepsiya xizmati', 'Markaziy konditsioner',
-  'Fiber internet', 'Yuk lifti', 'Konferensiya zali', 'Kafe va restoran',
-  'Bank, ATM', 'Changyutish xizmati', 'Elektromobil zaryad', 'Sustainable design',
+  { icon: Wifi, label: 'Fiber internet', desc: '1 Gbps' },
+  { icon: Car, label: 'Podval avtoturargoh', desc: '120 joy' },
+  { icon: Zap, label: 'Rezerv o\'zag', desc: '100 kW' },
+  { icon: Wind, label: 'Markaziy konditsioner', desc: 'VRV sistema' },
+  { icon: Shield, label: '24/7 xavfsizlik', desc: 'CCTV + qo\'riq' },
+  { icon: Droplet, label: 'Santexnika', desc: 'Markaziy' },
+  { icon: Phone, label: 'Intercom', desc: 'IP telefon' },
+  { icon: Snowflake, label: 'Sovutish tizimi', desc: 'Central cooling' },
 ]
 
-function unitStatusLabel(s: UnitStatus): string {
-  const m: Record<string, string> = { RENTED: 'Band', VACANT: 'Bo\'sh', MAINTENANCE: 'Ta\'mirda', DRAFT: 'Qoralama', SOLD: 'Sotildi', RESERVED: 'Zaxira' }
-  return m[s] || s
-}
+const specs = [
+  { label: 'Umumiy maydon', value: building.value?.area + ' m²' },
+  { label: 'Qavatlar soni', value: String(building.value?.floors) },
+  { label: 'Maydonlar soni', value: String(building.value?.units) },
+  { label: 'Liftlar', value: '4 dona (Shindler)' },
+  { label: 'Ochilgan yil', value: '2021' },
+  { label: 'Sertifikat', value: 'LEED Gold' },
+  { label: 'O\'tish panjara', value: 'Turniket + kartalar' },
+  { label: 'Ishlash tartibi', value: '24/7' },
+  { label: 'Ruxsat etilgan hayvonlar', value: 'Yo\'q' },
+  { label: 'Chekish maydoni', value: 'Maxsus zona' },
+]
 
-function formatPrice(v: number) {
-  if (v >= 1000000) return (v / 1000000).toFixed(1) + ' mln'
-  return v.toLocaleString('ru')
-}
+function handleImgError() {}
+function unitLabel(s: string) { return { RENTED: 'Band', VACANT: "Bo'sh", RESERVED: 'Bron', MAINTENANCE: 'Ta\'mir', DRAFT: 'Qoralama' }[s] || s }
+function unitVariant(s: string) { return { RENTED: 'success', VACANT: 'neutral', RESERVED: 'warning', MAINTENANCE: 'danger', DRAFT: 'neutral' }[s] || 'neutral' }
 </script>

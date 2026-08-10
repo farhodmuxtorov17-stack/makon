@@ -304,3 +304,74 @@
 
 /* Smooth scroll for kanban */
 .kanban-scroll { scroll-behavior: smooth; }
+
+/* Toggle switch */
+.toggle {
+  appearance: none;
+  width: 42px;
+  height: 24px;
+  background: #e4e4e7;
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  outline: none;
+}
+.toggle:checked { background: #4f46e5; }
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+.toggle:checked::after { transform: translateX(18px); }
+
+/* Page transition */
+.page-enter-active { transition: all 0.3s cubic-bezier(0.16,1,0.3,1); }
+.page-enter-from { opacity: 0; transform: translateY(8px); }
+
+/* Fade transition */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.2s; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+/* Nav item styles */
+.nav-item-active {
+  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-white bg-white/[0.08] relative transition-colors;
+}
+.nav-item-inactive {
+  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink-400 hover:text-white hover:bg-white/[0.04] relative transition-colors;
+}
+
+/* Button variants */
+.btn-primary { @apply bg-brand-600 text-white hover:bg-brand-700; }
+.btn-success { @apply bg-emerald-600 text-white hover:bg-emerald-700; }
+.btn-outline { @apply border border-ink-200 text-ink-700 hover:bg-ink-50 hover:border-ink-300; }
+.btn-ghost { @apply text-ink-600 hover:bg-ink-100; }
+.btn-lg { @apply px-5 py-3 text-sm; }
+.btn-sm { @apply px-3 py-1.5 text-xs; }
+.btn-icon { @apply p-2 rounded-lg; }
+
+/* Input */
+.input { @apply w-full rounded-xl border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder-ink-400 outline-none transition-all focus:border-brand-400 focus:ring-2 focus:ring-brand-100; }
+.label { @apply block text-xs font-medium text-ink-600 mb-1.5; }
+.hint { @apply text-xs text-ink-400 mt-1; }
+
+/* Badge */
+.badge { @apply inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium; }
+.badge-success { @apply bg-emerald-50 text-emerald-700; }
+.badge-warning { @apply bg-amber-50 text-amber-700; }
+.badge-danger { @apply bg-rose-50 text-rose-700; }
+.badge-info { @apply bg-brand-50 text-brand-700; }
+.badge-neutral { @apply bg-ink-100 text-ink-600; }
+
+/* Table */
+.table { @apply w-full text-sm; }
+.table thead th { @apply text-left text-xs font-semibold text-ink-400 uppercase tracking-wider px-4 py-3 border-b border-ink-100; }
+.table tbody td { @apply px-4 py-3 border-b border-ink-50 text-ink-700; }
+.table tbody tr:last-child td { @apply border-0; }

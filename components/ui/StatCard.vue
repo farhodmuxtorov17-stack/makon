@@ -16,7 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import { TrendingUp, TrendingDown, Wallet, Building2, FileText, Users } from 'lucide-vue-next'
+import {
+  TrendingUp, TrendingDown, Wallet, Building2, FileText, Users, CreditCard,
+  Shield, CheckCircle2, Clock, AlertTriangle, Cpu, MemoryStick, HardDrive,
+  Server, Zap, Droplet, Flame, Thermometer, Package, Wrench, Layers, Maximize,
+} from 'lucide-vue-next'
 import type { Component } from 'vue'
 
 const props = defineProps<{
@@ -29,8 +33,12 @@ const props = defineProps<{
   trendUp?: boolean
 }>()
 
-const iconMap: Record<string, Component> = { Wallet, Building2, FileText, Users }
-const resolvedIcon = computed(() => typeof props.icon === 'string' ? iconMap[props.icon] : props.icon)
+const iconMap: Record<string, Component> = {
+  Wallet, Building2, FileText, Users, CreditCard, Shield, CheckCircle2, Clock,
+  AlertTriangle, Cpu, MemoryStick, HardDrive, Server, Zap, Droplet, Flame,
+  Thermometer, Package, Wrench, Layers, Maximize,
+}
+const resolvedIcon = computed(() => typeof props.icon === 'string' ? (iconMap[props.icon] || Building2) : props.icon)
 
 const iconBg = computed(() => props.iconBg || 'bg-brand-50')
 const iconColor = computed(() => props.iconColor || 'text-brand-600')
