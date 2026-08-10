@@ -43,6 +43,17 @@ import { ChevronDown, Check } from 'lucide-vue-next'
 const currentRoleValue = useState('currentRole', () => 'SUPER_HEAD')
 const open = ref(false)
 
+const roleHomePages: Record<string, string> = {
+  ADMIN: '/admin/settings',
+  SUPER_HEAD: '/dashboard/executive',
+  BUILDING_MANAGER: '/dashboard/building',
+  ACCOUNTANT: '/finance/periods',
+  FACILITY: '/facility/work-orders',
+  WAREHOUSE_OPERATOR: '/finance/inventory',
+  CONTENT_OPERATOR: '/management/buildings',
+  TENANT_OWNER: '/cabinet',
+}
+
 const roles = [
   { value: 'ADMIN', short: 'AD', label: 'Administrator', desc: 'Texnik boshqaruv, sozlamalar', color: 'bg-zinc-500/10 text-zinc-500' },
   { value: 'SUPER_HEAD', short: 'SR', label: 'Super rahbar', desc: 'Strategik nazorat, KPI', color: 'bg-purple-500/10 text-purple-500' },
@@ -59,6 +70,10 @@ const currentRole = computed(() => roles.find(r => r.value === currentRoleValue.
 function selectRole(role: any) {
   currentRoleValue.value = role.value
   open.value = false
+  const target = roleHomePages[role.value]
+  if (target) {
+    navigateTo(target)
+  }
 }
 </script>
 
