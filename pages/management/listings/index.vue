@@ -49,12 +49,12 @@ import type { ListingStatus } from '~/types'
 const activeTab = ref('all')
 
 const listings = [
-  { id: 'l1', title: 'Trilliant Tower — Ofis 301', location: 'Yunusobod, Toshkent', price: 1500000, area: 120, floor: '3/14', status: 'PUBLISHED' as ListingStatus, offerType: 'RENT', views: 342, image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80' },
-  { id: 'l2', title: 'Tashkent City — Ofis 801', location: 'Yashnobod, Toshkent', price: 1850000, area: 85, floor: '8/18', status: 'PUBLISHED' as ListingStatus, offerType: 'RENT', views: 521, image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80' },
-  { id: 'l3', title: 'IT Park — Coworking maydon', location: 'Mirzo Ulug\'bek, Toshkent', price: 650000, area: 45, floor: '2/6', status: 'PUBLISHED' as ListingStatus, offerType: 'RENT', views: 293, image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80' },
-  { id: 'l4', title: 'Piramit — Penthouse ofis', location: 'Yakkasaroy, Toshkent', price: 3500000, area: 250, floor: '30/37', status: 'PAUSED' as ListingStatus, offerType: 'SALE', views: 445, image: 'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=800&q=80' },
-  { id: 'l5', title: 'Crystal Plaza — Savdo maydoni', location: 'Chilonzor, Toshkent', price: 2200000, area: 150, floor: '1/8', status: 'ARCHIVED' as ListingStatus, offerType: 'SALE', views: 89, image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80' },
-  { id: 'l6', title: 'Nest One — Loft ofis 204', location: 'Sergeli, Toshkent', price: 980000, area: 78, floor: '2/9', status: 'PUBLISHED' as ListingStatus, offerType: 'RENT', views: 187, image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80' },
+  { id: 'l1', title: 'Trilliant Tower — Ofis 301', location: 'Yunusobod, Toshkent', price: 1500000, area: 120, floor: '3/14', status: 'PUBLISHED' as ListingStatus, offerType: 'RENT', views: 342, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/65eba1a8b_generated_image.png' },
+  { id: 'l2', title: 'Tashkent City — Ofis 801', location: 'Yashnobod, Toshkent', price: 1850000, area: 85, floor: '8/18', status: 'PUBLISHED' as ListingStatus, offerType: 'RENT', views: 521, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/af7261266_generated_image.png' },
+  { id: 'l3', title: 'IT Park — Coworking maydon', location: 'Mirzo Ulug\'bek, Toshkent', price: 650000, area: 45, floor: '2/6', status: 'PUBLISHED' as ListingStatus, offerType: 'RENT', views: 293, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/768655312_generated_image.png' },
+  { id: 'l4', title: 'Piramit — Penthouse ofis', location: 'Yakkasaroy, Toshkent', price: 3500000, area: 250, floor: '30/37', status: 'PAUSED' as ListingStatus, offerType: 'SALE', views: 445, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/d889d0296_generated_image.png' },
+  { id: 'l5', title: 'Crystal Plaza — Savdo maydoni', location: 'Chilonzor, Toshkent', price: 2200000, area: 150, floor: '1/8', status: 'ARCHIVED' as ListingStatus, offerType: 'SALE', views: 89, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/1908acd10_generated_image.png' },
+  { id: 'l6', title: 'Nest One — Loft ofis 204', location: 'Sergeli, Toshkent', price: 980000, area: 78, floor: '2/9', status: 'PUBLISHED' as ListingStatus, offerType: 'RENT', views: 187, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/af7261266_generated_image.png-37526070297c?w=800&q=80' },
 ]
 
 const tabs = computed(() => [

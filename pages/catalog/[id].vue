@@ -160,12 +160,12 @@ const property = computed(() => ({
   views: 342,
   description: 'Trillant Tower biznes markazida 120 m² ofis maydoni ijaraga beriladi. Zamonaviy taˆmirlash, panoramic oynalar, markaziy konditsioner tizimi mavjud. Tashkent City biznes markazida joylashgan boˆlib, metro va asosiy yoˆllarga yaqin.',
   amenities: ['Markaziy konditsioner', '24/7 xavfsizlik', 'Parkovka (50 o\'rin)', 'Panoramic oynalar', 'Yuk lifti', 'Fiber internet', 'Konferensiya zali', 'Kafe'],
-  mainImage: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80',
+  mainImage: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/65eba1a8b_generated_image.png',
   gallery: [
-    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',
-    'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80',
-    'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=600&q=80',
-    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80',
+    'https://media.base44.com/images/public/6a78058ed735adc07d68319d/af7261266_generated_image.png',
+    'https://media.base44.com/images/public/6a78058ed735adc07d68319d/768655312_generated_image.png',
+    'https://media.base44.com/images/public/6a78058ed735adc07d68319d/d889d0296_generated_image.png',
+    'https://media.base44.com/images/public/6a78058ed735adc07d68319d/1908acd10_generated_image.png',
   ],
 }))
 

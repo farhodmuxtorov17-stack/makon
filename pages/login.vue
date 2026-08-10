@@ -90,7 +90,7 @@
 
     <!-- Right: Visual showcase -->
     <div class="hidden lg:flex flex-1 relative overflow-hidden bg-ink-950">
-      <img src="https://images.unsplash.com/photo-1518455056718-3b9be6f5a7cc?w=1600&q=80"
+      <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/5403b92ba_generated_image.png"
         class="absolute inset-0 w-full h-full object-cover opacity-50" @error="handleImgError" />
       <div class="absolute inset-0 bg-gradient-to-br from-ink-950/90 via-ink-950/70 to-brand-950/80" />
 

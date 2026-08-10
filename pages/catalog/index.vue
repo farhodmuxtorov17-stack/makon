@@ -1,117 +1,126 @@
 <template>
-  <div class="min-h-screen bg-ink-50">
-    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-ink-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <div class="flex items-center gap-3">
-            <NuxtLink to="/" class="flex items-center gap-2">
-              <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center">
-                <Building2 :size="20" class="text-white" />
-              </div>
-              <span class="text-lg font-bold tracking-tight">MAKON</span>
-            </NuxtLink>
-            <span class="text-ink-300">/</span>
-            <span class="text-ink-500 text-sm font-medium">Katalog</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <NuxtLink to="/login" class="text-sm font-medium text-ink-600 hover:text-ink-900">Kirish</NuxtLink>
-            <NuxtLink to="/login" class="btn-primary text-sm px-4 py-2 rounded-lg">Boshqaruv paneli</NuxtLink>
-          </div>
-        </div>
-      </div>
-    </header>
+  <div class="space-y-6">
+    <PageHeader title="Katalog" subtitle="Mavjud maydonlar va binolar">
+      <template #actions>
+        <button class="btn btn-outline btn-sm" @click="toast.info('Filtri', 'Qidiruv saqlandi')"><Filter :size="16" /> Filtrlar</button>
+      </template>
+    </PageHeader>
 
-    <div class="bg-white border-b border-ink-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex flex-wrap items-center gap-3">
-          <div class="flex items-center gap-2 text-sm font-medium text-ink-700"><SlidersHorizontal :size="16" /> Filtr:</div>
-          <button v-for="f in filterTabs" :key="f.id" @click="activeFilter = f.id"
-            class="px-3.5 py-1.5 rounded-full text-sm font-medium transition-all"
-            :class="activeFilter === f.id ? 'bg-brand-600 text-white' : 'bg-ink-50 text-ink-600 hover:bg-ink-100'">
-            {{ f.label }} <span class="ml-1 opacity-60">{{ f.count }}</span>
+    <div class="card p-4">
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="relative flex-1 min-w-[200px]">
+          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
+          <input v-model="search" class="input pl-10" placeholder="Bino, tuman..." />
+        </div>
+        <div class="flex gap-1 p-1 bg-ink-100 rounded-xl">
+          <button v-for="t in types" :key="t.id" @click="filterType = t.id"
+            class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
+            :class="filterType === t.id ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-400'">
+            {{ t.label }}
           </button>
+        </div>
+        <select v-model="filterDistrict" class="input w-auto">
+          <option value="">Tuman: Hammasi</option>
+          <option v-for="d in districts" :key="d" :value="d">{{ d }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div v-for="i in 6" :key="i" class="card overflow-hidden">
+        <div class="skeleton h-56 w-full rounded-none" />
+        <div class="p-5 space-y-3">
+          <div class="skeleton h-5 w-3/4" />
+          <div class="skeleton h-4 w-1/2" />
+          <div class="skeleton h-10 w-full rounded-xl" />
         </div>
       </div>
     </div>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-bold tracking-tight">Kommersiya ob'ektlari</h1>
-        <div class="flex items-center gap-2 text-sm text-ink-500"><LayoutGrid :size="16" /> {{ filteredItems.length }} ta ob'ekt</div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <NuxtLink v-for="item in filteredItems" :key="item.id" :to="`/catalog/${item.id}`"
-          class="group bg-white rounded-2xl border border-ink-100 overflow-hidden hover:shadow-lg hover:border-brand-200 transition-all duration-300">
-          <div class="relative aspect-[4/3] overflow-hidden bg-ink-100">
-            <img :src="item.image" :alt="item.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            <div class="absolute top-3 left-3 flex gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur text-xs font-semibold text-brand-700">{{ item.type }}</span>
-              <span v-if="item.isNew" class="px-2.5 py-1 rounded-lg bg-emerald-500 text-white text-xs font-semibold">Yangi</span>
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 stagger">
+      <NuxtLink v-for="c in filtered" :key="c.id" :to="`/management/buildings/${c.id}`"
+        class="card card-hover hover-lift overflow-hidden group">
+        <div class="h-56 relative overflow-hidden">
+          <img :src="c.image" :alt="c.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-ink-950/10 to-transparent" />
+          <div class="absolute top-3 left-3 flex gap-2">
+            <span v-if="c.isNew" class="badge badge-success">Yangi</span>
+            <span class="badge glass-dark text-white border border-white/10">{{ c.type }}</span>
+          </div>
+          <div class="absolute bottom-3 left-3 right-3">
+            <h3 class="font-display font-bold text-lg text-white leading-tight">{{ c.name }}</h3>
+            <p class="text-white/60 text-xs flex items-center gap-1 mt-1"><MapPin :size="12" /> {{ c.district }}, Toshkent</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <p class="text-2xl font-bold font-display text-brand-600">{{ c.price }}</p>
+              <p class="text-xs text-ink-400">{{ c.pricePerM2 }} so'm/m²</p>
             </div>
-            <div class="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white/90 backdrop-blur flex items-center justify-center">
-              <Heart :size="16" class="text-ink-400" />
+            <div class="text-right text-sm text-ink-500">
+              <p class="font-semibold">{{ c.area }} m²</p>
+              <p class="text-xs">{{ c.floor }} qavat</p>
             </div>
           </div>
-          <div class="p-5">
-            <h3 class="font-semibold text-ink-900 group-hover:text-brand-700 transition-colors mb-1">{{ item.name }}</h3>
-            <div class="flex items-center gap-1.5 text-sm text-ink-400 mb-3"><MapPin :size="14" /> {{ item.district }}</div>
-            <div class="flex items-center gap-4 text-sm text-ink-500 mb-4">
-              <span class="flex items-center gap-1"><Square :size="14" /> {{ item.area }} m²</span>
-              <span class="flex items-center gap-1"><Building2 :size="14" /> {{ item.floor }}</span>
-            </div>
-            <div class="flex items-end justify-between pt-3 border-t border-ink-50">
-              <div><div class="text-xs text-ink-400">Narxi</div><div class="text-lg font-bold text-ink-900">{{ item.price }}</div></div>
-              <div class="text-sm text-ink-400">{{ item.pricePerM2 }}/m²</div>
-            </div>
+          <div class="flex gap-2">
+            <button class="btn btn-primary btn-sm flex-1" @click.prevent="toast.info('Ariza', 'Ariza forma tez orada')">
+              Ariza berish
+            </button>
+            <button class="btn btn-outline btn-sm" @click.prevent="toast.info('Saqlandi', 'Sevimlilarga qo\'shildi')">
+              <Heart :size="16" />
+            </button>
           </div>
-        </NuxtLink>
-      </div>
+        </div>
+      </NuxtLink>
+    </div>
 
-      <div class="mt-12 text-center py-12 bg-white rounded-2xl border border-ink-100">
-        <h2 class="text-xl font-bold mb-2">O'z ob'ektingizni joylashtirmoqchimisiz?</h2>
-        <p class="text-ink-500 mb-6">MAKON platformasida minglab potensial mijozlarga yeting</p>
-        <NuxtLink to="/login" class="btn-primary inline-block px-6 py-3 rounded-xl font-medium">E'lon joylash</NuxtLink>
-      </div>
-    </main>
-
-    <footer class="border-t border-ink-100 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-ink-400">
-        © 2026 MAKON · Ko'chmas mulk boshqaruv platformasi
-      </div>
-    </footer>
+    <div v-if="!loading && filtered.length === 0" class="card p-12 text-center">
+      <p class="text-ink-400">Filtr bo'yicha natija topilmadi</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Building2, Heart, MapPin, Square, SlidersHorizontal, LayoutGrid } from 'lucide-vue-next'
+import { Search, MapPin, Heart, Filter } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'public' })
+const toast = useToast()
+const loading = ref(true)
+const search = ref('')
+const filterType = ref('all')
+const filterDistrict = ref('')
 
-const activeFilter = ref('all')
+onMounted(() => setTimeout(() => loading.value = false, 500))
 
-const filterTabs = [
-  { id: 'all', label: 'Hammasi', count: 9 },
-  { id: 'office', label: 'Ofislar', count: 5 },
-  { id: 'retail', label: 'Savdo maydoni', count: 2 },
-  { id: 'warehouse', label: 'Ombor', count: 2 },
+const types = [
+  { id: 'all', label: 'Hammasi' },
+  { id: 'Ofis', label: 'Ofis' },
+  { id: 'Savdo', label: 'Savdo' },
+  { id: 'Loft', label: 'Loft' },
 ]
 
-const items = [
-  { id: 'trillant-3', name: 'Trillant Tower · Ofis 301', district: 'Tashkent City', area: 120, floor: '3/12', price: '1,500,000 so\'m/oy', pricePerM2: '12,500', type: 'Ofis', isNew: true, image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80' },
-  { id: 'tashkent-city-5', name: 'Tashkent City · Savdo', district: 'Yashnobod', area: 85, floor: '1/8', price: '980,000 so\'m/oy', pricePerM2: '11,500', type: 'Savdo', isNew: false, image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80' },
-  { id: 'it-park-2', name: 'IT Park · Coworking', district: 'Mirzo Ulug\'bek', area: 45, floor: '4/6', price: '650,000 so\'m/oy', pricePerM2: '14,400', type: 'Ofis', isNew: true, image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80' },
-  { id: 'nest-one-7', name: 'Nest One · Ombor', district: 'Sergeli', area: 300, floor: '1/1', price: '2,200,000 so\'m/oy', pricePerM2: '7,300', type: 'Ombor', isNew: false, image: 'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=800&q=80' },
-  { id: 'piramit-4', name: 'Piramit · Ofis 405', district: 'Yakkasaroy', area: 65, floor: '4/16', price: '720,000 so\'m/oy', pricePerM2: '11,000', type: 'Ofis', isNew: false, image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80' },
-  { id: 'city-night-2', name: 'Tashkent City · Loft', district: 'Yashnobod', area: 110, floor: '7/18', price: '1,300,000 so\'m/oy', pricePerM2: '11,800', type: 'Ofis', isNew: true, image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80' },
-  { id: 'aerial-1', name: 'Business Center · Savdo', district: 'Chilonzor', area: 50, floor: '2/5', price: '550,000 so\'m/oy', pricePerM2: '11,000', type: 'Savdo', isNew: false, image: 'https://images.unsplash.com/photo-1505739679850-780fc6c9cb1c?w=800&q=80' },
-  { id: 'nest-one-3', name: 'Nest One · Ofis 204', district: 'Sergeli', area: 78, floor: '2/9', price: '890,000 so\'m/oy', pricePerM2: '11,400', type: 'Ofis', isNew: false, image: 'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=800&q=80' },
-  { id: 'business-5', name: 'Business Center · Ombor', district: 'Yunusobod', area: 250, floor: '1/1', price: '1,850,000 so\'m/oy', pricePerM2: '7,400', type: 'Ombor', isNew: true, image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80' },
+const districts = ['Yunusobod', 'Yashnobod', "Mirzo Ulug'bek", 'Mirobod', 'Sergeli', 'Chilonzor']
+
+const catalog = [
+  { id: 'b1', name: 'Trilliant Tower · Ofis 1201', district: 'Yunusobod', area: 85, floor: '12/14', price: '1,200,000 so\'m/oy', pricePerM2: '14,100', type: 'Ofis', isNew: true, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/65eba1a8b_generated_image.png' },
+  { id: 'b2', name: 'Tashkent City · Loft 802', district: 'Yashnobod', area: 120, floor: '8/22', price: '1,800,000 so\'m/oy', pricePerM2: '15,000', type: 'Loft', isNew: false, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/af7261266_generated_image.png' },
+  { id: 'b3', name: 'IT Park · Ofis 305', district: "Mirzo Ulug'bek", area: 65, floor: '3/8', price: '850,000 so\'m/oy', pricePerM2: '13,000', type: 'Ofis', isNew: true, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/768655312_generated_image.png' },
+  { id: 'b4', name: 'Piramit · Savdo 101', district: 'Mirobod', area: 45, floor: '1/18', price: '950,000 so\'m/oy', pricePerM2: '21,100', type: 'Savdo', isNew: false, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/d889d0296_generated_image.png' },
+  { id: 'b5', name: 'Crystal Plaza · Ofis 402', district: 'Sergeli', area: 78, floor: '4/12', price: '980,000 so\'m/oy', pricePerM2: '12,500', type: 'Ofis', isNew: false, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/1908acd10_generated_image.png' },
+  { id: 'city-night-2', name: 'Tashkent City · Loft 1503', district: 'Yashnobod', area: 110, floor: '15/22', price: '1,300,000 so\'m/oy', pricePerM2: '11,800', type: 'Loft', isNew: true, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/af7261266_generated_image.png' },
+  { id: 'chil-1', name: 'Business Center · Savdo 204', district: 'Chilonzor', area: 50, floor: '2/5', price: '550,000 so\'m/oy', pricePerM2: '11,000', type: 'Savdo', isNew: false, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/1908acd10_generated_image.png' },
+  { id: 'serg-1', name: 'Nest One · Loft 601', district: 'Sergeli', area: 92, floor: '6/9', price: '1,100,000 so\'m/oy', pricePerM2: '12,000', type: 'Loft', isNew: false, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/af7261266_generated_image.png' },
+  { id: 'yun-2', name: 'Trilliant · Savdo G03', district: 'Yunusobod', area: 35, floor: 'G/14', price: '780,000 so\'m/oy', pricePerM2: '22,200', type: 'Savdo', isNew: false, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/65eba1a8b_generated_image.png' },
 ]
 
-const filteredItems = computed(() => {
-  if (activeFilter.value === 'all') return items
-  const map: Record<string, string> = { office: 'Ofis', retail: 'Savdo', warehouse: 'Ombor' }
-  return items.filter(i => i.type === map[activeFilter.value])
+const filtered = computed(() => {
+  let list = catalog
+  if (search.value) {
+    const q = search.value.toLowerCase()
+    list = list.filter(c => c.name.toLowerCase().includes(q) || c.district.toLowerCase().includes(q))
+  }
+  if (filterType.value !== 'all') list = list.filter(c => c.type === filterType.value)
+  if (filterDistrict.value) list = list.filter(c => c.district === filterDistrict.value)
+  return list
 })
 </script>

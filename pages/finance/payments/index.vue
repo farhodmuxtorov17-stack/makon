@@ -9,7 +9,7 @@
     </PageHeader>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <StatCard icon="CheckCircle2" :value="formatPrice(totalPaid)" label="Jami to'langan" iconBg="bg-emerald-50" iconColor="text-emerald-600" trend="+8.3%" :trendUp="true" />
+      <StatCard icon="CheckCircle2" :value="formatPrice(totalPaid)" label="Jami to'langan" iconBg="bg-emerald-50" iconColor="text-emerald-600" :trend="`+8.3%`" :trendUp="true" />
       <StatCard icon="Clock" :value="formatPrice(totalPending)" label="Kutilmoqda" iconBg="bg-amber-50" iconColor="text-amber-600" />
       <StatCard icon="CreditCard" :value="String(financeStore.payments.length)" label="Tranzaksiyalar" iconBg="bg-brand-50" iconColor="text-brand-600" />
     </div>

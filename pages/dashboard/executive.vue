@@ -238,11 +238,11 @@ const occupancyChartOptions = {
 }
 
 const buildings = [
-  { id: 'b1', name: 'Trilliant Tower', occ: 94, img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=200&q=80' },
-  { id: 'b2', name: 'Tashkent City IBC', occ: 87, img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=200&q=80' },
-  { id: 'b3', name: 'IT Park Tashkent', occ: 92, img: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=200&q=80' },
-  { id: 'b4', name: 'Piramit Tower', occ: 78, img: 'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=200&q=80' },
-  { id: 'b5', name: 'Crystal Plaza', occ: 84, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&q=80' },
+  { id: 'b1', name: 'Trilliant Tower', occ: 94, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/65eba1a8b_generated_image.png' },
+  { id: 'b2', name: 'Tashkent City IBC', occ: 87, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/af7261266_generated_image.png' },
+  { id: 'b3', name: 'IT Park Tashkent', occ: 92, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/768655312_generated_image.png' },
+  { id: 'b4', name: 'Piramit Tower', occ: 78, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/d889d0296_generated_image.png' },
+  { id: 'b5', name: 'Crystal Plaza', occ: 84, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/1908acd10_generated_image.png' },
 ]
 
 const quickActions = [

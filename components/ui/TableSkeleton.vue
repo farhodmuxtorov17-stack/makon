@@ -1,14 +1,15 @@
 <template>
-  <div class="space-y-3">
-    <div v-for="i in rows" :key="i" class="flex items-center gap-4 px-5 py-3.5">
-      <div class="shimmer-bg h-4 rounded flex-1" :style="{ maxWidth: `${60 + Math.random() * 30}%` }" />
-      <div class="shimmer-bg h-6 w-20 rounded-lg" />
-      <div class="shimmer-bg h-4 w-24 rounded hidden md:block" />
-      <div class="shimmer-bg h-6 w-16 rounded-lg" />
+  <div class="card overflow-hidden">
+    <div class="space-y-0">
+      <div class="flex border-b border-ink-100 px-4 py-3 gap-4">
+        <div v-for="i in cols" :key="i" class="skeleton h-4 flex-1" :style="{ maxWidth: `${100/cols}%` }" />
+      </div>
+      <div v-for="r in rows" :key="r" class="flex border-b border-ink-50 px-4 py-3.5 gap-4">
+        <div v-for="i in cols" :key="i" class="skeleton h-4 flex-1" :style="{ maxWidth: `${100/cols}%` }" />
+      </div>
     </div>
   </div>
 </template>
-
 <script setup lang="ts">
-withDefaults(defineProps<{ rows?: number }>(), { rows: 5 })
+withDefaults(defineProps<{ rows?: number; cols?: number }>(), { rows: 8, cols: 6 })
 </script>
