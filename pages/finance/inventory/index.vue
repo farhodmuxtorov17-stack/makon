@@ -1,166 +1,187 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Ombor</h1>
-        <p class="text-ink-500 text-sm mt-1">Materiallar va zaxiralar</p>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Ombor boshqaruvi</h1>
+        <p class="text-ink-500 text-sm mt-1">{{ materials.length }} ta material · {{ lowStockCount }} ta kam qoldi</p>
       </div>
-      <div class="flex gap-2">
+      <div class="flex items-center gap-2">
         <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
-        <button class="btn btn-primary btn-sm"><Plus :size="16" /> Yangi material</button>
+        <button class="btn btn-primary btn-sm"><Plus :size="14" /> Material qo'shish</button>
       </div>
     </div>
 
-    <div v-if="pending" class="text-center py-20 text-ink-500">Yuklanmoqda...</div>
-
-    <template v-else-if="data">
-      <!-- Stats -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="card p-4 flex items-center gap-3">
-          <Package :size="18" class="text-brand-400" />
-          <div><div class="text-sm font-semibold">{{ data.stats.totalItems }}</div><div class="text-xs text-ink-500">Materiallar</div></div>
+    <!-- KPI -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Package :size="16" class="text-blue-500" /></div>
+          <span class="text-xs text-ink-500">Jami pozitsiyalar</span>
         </div>
-        <div class="card p-4 flex items-center gap-3">
-          <Wallet :size="18" class="text-emerald-400" />
-          <div><div class="text-sm font-semibold">{{ formatPrice(data.stats.totalValue) }}</div><div class="text-xs text-ink-500">Umumiy qiymat</div></div>
-        </div>
-        <div class="card p-4 flex items-center gap-3">
-          <AlertTriangle :size="18" class="text-red-400" />
-          <div><div class="text-sm font-semibold text-red-400">{{ data.stats.lowStock }}</div><div class="text-xs text-ink-500">Kam qoldi</div></div>
-        </div>
-        <div class="card p-4 flex items-center gap-3">
-          <TrendingDown :size="18" class="text-amber-400" />
-          <div><div class="text-sm font-semibold">{{ data.stats.usedThisMonth }}</div><div class="text-xs text-ink-500">Oyda sarflandi</div></div>
-        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ materials.length }}</div>
       </div>
-
-      <!-- Tabs -->
-      <div class="flex items-center gap-1 p-1 rounded-xl bg-white/5 w-fit">
-        <button @click="tab = 'stock'" class="px-3 py-1.5 rounded-lg text-sm" :class="tab === 'stock' ? 'bg-brand-500/10 text-brand-400' : 'text-ink-500'">Zaxira</button>
-        <button @click="tab === 'movements'" class="px-3 py-1.5 rounded-lg text-sm" :class="tab === 'movements' ? 'bg-brand-500/10 text-brand-400' : 'text-ink-500'">Harakatlar</button>
-      </div>
-
-      <!-- Stock tab -->
-      <div v-if="tab === 'stock'">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="relative flex-1">
-            <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-500" />
-            <input v-model="search" type="text" placeholder="Material qidirish..." class="input pl-9" />
-          </div>
-          <select v-model="categoryFilter" class="input w-auto">
-            <option value="">Barcha kategoriyalar</option>
-            <option value="ELECTRICAL">Elektrika</option>
-            <option value="PLUMBING">Sanitariya</option>
-            <option value="FINISHING">Finishing</option>
-            <option value="STRUCTURAL">Konstruksiya</option>
-            <option value="HVAC">Konditsioner</option>
-            <option value="DOORS">Eshiklar</option>
-            <option value="SECURITY">Xavfsizlik</option>
-          </select>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><Wallet :size="16" class="text-emerald-500" /></div>
+          <span class="text-xs text-ink-500">Ombor qiymati</span>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div v-for="item in filteredItems" :key="item.id" class="card p-4">
-            <div class="flex items-start justify-between mb-3">
-              <div>
-                <h3 class="font-medium text-sm">{{ item.name }}</h3>
-                <p class="text-xs text-ink-500 mt-0.5">{{ categoryLabel(item.category) }}</p>
-              </div>
-              <span class="badge text-xs" :class="stockBadge(item.status)">{{ stockLabel(item.status) }}</span>
-            </div>
-            <div class="grid grid-cols-3 gap-2 text-xs">
-              <div>
-                <div class="text-ink-600">Qoldiq</div>
-                <div class="font-semibold text-lg" :class="item.stock < item.minStock ? 'text-red-400' : ''">{{ item.stock }}</div>
-                <div class="text-ink-600">{{ item.unit }}</div>
-              </div>
-              <div>
-                <div class="text-ink-600">Min</div>
-                <div class="font-medium">{{ item.minStock }}</div>
-              </div>
-              <div>
-                <div class="text-ink-600">Qiymat</div>
-                <div class="font-medium">{{ formatPrice(item.totalValue) }}</div>
-              </div>
-            </div>
-            <!-- Stock bar -->
-            <div class="mt-3 h-1.5 rounded-full bg-white/5 overflow-hidden">
-              <div class="h-full rounded-full transition-all" :class="item.status === 'LOW' ? 'bg-red-500' : item.status === 'WARNING' ? 'bg-amber-500' : 'bg-emerald-500'" :style="{ width: Math.min((item.stock / (item.minStock * 3)) * 100, 100) + '%' }"></div>
-            </div>
-            <div class="mt-2 text-xs text-ink-600">Narxi: {{ formatPrice(item.unitPrice) }} / {{ item.unit }}</div>
-          </div>
-        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(totalValue) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
       </div>
-
-      <!-- Movements tab -->
-      <div v-else class="card overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="text-left text-xs text-ink-500 border-b border-white/5">
-                <th class="px-4 py-3">Sana</th>
-                <th class="px-4 py-3">Tur</th>
-                <th class="px-4 py-3">Material</th>
-                <th class="px-4 py-3 text-right">Miqdor</th>
-                <th class="px-4 py-3">Sabab</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="mv in data.movements" :key="mv.id" class="border-b border-white/5 hover:bg-white/5">
-                <td class="px-4 py-3 text-ink-400">{{ formatDate(mv.date) }}</td>
-                <td class="px-4 py-3"><span class="badge badge-danger text-xs">Sarflandi</span></td>
-                <td class="px-4 py-3 font-medium">{{ mv.materialName }}</td>
-                <td class="px-4 py-3 text-right">{{ mv.quantity }}</td>
-                <td class="px-4 py-3 text-ink-400 font-mono text-xs">{{ mv.reason }}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center"><AlertCircle :size="16" class="text-red-500" /></div>
+          <span class="text-xs text-ink-500">Kam qoldi</span>
         </div>
+        <div class="text-xl font-bold text-red-500">{{ lowStockCount }}</div>
       </div>
-    </template>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><TrendingDown :size="16" class="text-amber-500" /></div>
+          <span class="text-xs text-ink-500">Oylik sarflash</span>
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(monthlyUsage) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
+      </div>
+    </div>
+
+    <!-- Category filter + search -->
+    <div class="flex items-center justify-between flex-wrap gap-3">
+      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
+        <button
+          v-for="cat in categories"
+          :key="cat.value"
+          @click="activeCategory = cat.value"
+          class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
+          :class="activeCategory === cat.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500 hover:text-ink-800'"
+        >
+          {{ cat.label }}
+        </button>
+      </div>
+      <div class="relative">
+        <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
+        <input v-model="search" type="text" placeholder="Material qidirish..." class="w-56 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+      </div>
+    </div>
+
+    <!-- Materials table -->
+    <div class="card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+              <th class="text-left font-medium px-4 py-3">Material</th>
+              <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Kategoriya</th>
+              <th class="text-right font-medium px-4 py-3">Miqdor</th>
+              <th class="text-right font-medium px-4 py-3 hidden md:table-cell">Min. zaxira</th>
+              <th class="text-right font-medium px-4 py-3 hidden sm:table-cell">Birlik narxi</th>
+              <th class="text-right font-medium px-4 py-3 hidden lg:table-cell">Qiymat</th>
+              <th class="text-center font-medium px-4 py-3">Holat</th>
+              <th class="text-center font-medium px-4 py-3">Amal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="mat in filteredMaterials" :key="mat.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <td class="px-4 py-3 font-medium text-ink-900 dark:text-white">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg flex items-center justify-center" :style="{ background: categoryColor(mat.category) + '15' }">
+                    <component :is="categoryIcon(mat.category)" :size="14" :style="{ color: categoryColor(mat.category) }" />
+                  </div>
+                  {{ mat.name }}
+                </div>
+              </td>
+              <td class="px-4 py-3 hidden sm:table-cell">
+                <span class="text-xs text-ink-500">{{ categoryLabel(mat.category) }}</span>
+              </td>
+              <td class="px-4 py-3 text-right font-mono text-sm text-ink-900 dark:text-white">{{ mat.quantity }} <span class="text-xs text-ink-400">{{ mat.unit }}</span></td>
+              <td class="px-4 py-3 text-right hidden md:table-cell font-mono text-xs text-ink-500">{{ mat.minStock }} {{ mat.unit }}</td>
+              <td class="px-4 py-3 text-right hidden sm:table-cell font-medium">{{ formatShort(mat.unitPrice) }}</td>
+              <td class="px-4 py-3 text-right hidden lg:table-cell font-semibold">{{ formatShort(mat.quantity * mat.unitPrice) }}</td>
+              <td class="px-4 py-3 text-center">
+                <span v-if="mat.quantity <= mat.minStock" class="badge badge-danger text-xs">Kam</span>
+                <span v-else-if="mat.quantity <= mat.minStock * 1.5" class="badge badge-warning text-xs">Past</span>
+                <span v-else class="badge badge-success text-xs">Yetarli</span>
+              </td>
+              <td class="px-4 py-3 text-center">
+                <button class="btn btn-ghost btn-sm px-2"><MoreHorizontal :size="16" /></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Package, Wallet, AlertTriangle, TrendingDown, Search, Plus, Download } from 'lucide-vue-next'
+import {
+  Plus, Download, Package, Wallet, AlertCircle, TrendingDown,
+  Search, MoreHorizontal, Wrench, Lightbulb, PaintRoller, Boxes, Droplet,
+} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const config = useRuntimeConfig()
-const data = ref({
-  stats: { totalItems: 247, totalValue: 125000000, lowStock: 14, outOfStock: 3 },
-  items: [
-    { id: 'i1', sku: 'MAT-001', name: 'Lampa LED 12W', category: 'Elektrika', unit: 'dona', stock: 45, minStock: 20, price: 35000, totalValue: 1575000 },
-    { id: 'i2', sku: 'MAT-002', name: 'Kabel 2.5mm (1m)', category: 'Elektrika', unit: 'metr', stock: 800, minStock: 200, price: 8000, totalValue: 6400000 },
-    { id: 'i3', sku: 'MAT-003', name: 'Radiator panel', category: 'Sanitariya', unit: 'dona', stock: 8, minStock: 15, price: 450000, totalValue: 3600000 },
-    { id: 'i4', sku: 'MAT-004', name: 'Truba PPR 25mm', category: 'Sanitariya', unit: 'metr', stock: 0, minStock: 50, price: 25000, totalValue: 0 },
-    { id: 'i5', sku: 'MAT-005', name: 'Bo\'yoq akril (10L)', category: 'Boshqa', unit: 'banka', stock: 25, minStock: 10, price: 180000, totalValue: 4500000 },
-    { id: 'i6', sku: 'MAT-006', name: 'Sement M400', category: 'Konstruksiya', unit: 'qop', stock: 120, minStock: 30, price: 75000, totalValue: 9000000 },
-    { id: 'i7', sku: 'MAT-007', name: 'Filter HVAC HEPA', category: 'Konditsioner', unit: 'dona', stock: 3, minStock: 8, price: 250000, totalValue: 750000 },
-    { id: 'i8', sku: 'MAT-008', name: 'Devor bo\'yog\'i (25kg)', category: 'Boshqa', unit: 'qop', stock: 50, minStock: 20, price: 320000, totalValue: 16000000 },
-  ],
-})
-
-const tab = ref('stock')
 const search = ref('')
-const categoryFilter = ref('')
+const activeCategory = ref('all')
 
-const filteredItems = computed(() => {
-  if (!data.value?.items) return []
-  let result = [...data.value.items]
+interface Material {
+  id: string; name: string; category: string; quantity: number;
+  unit: string; minStock: number; unitPrice: number;
+}
+
+const materials: Material[] = [
+  { id: '1', name: 'Lampa LED 12W', category: 'ELECTRICAL', quantity: 45, unit: 'dona', minStock: 20, unitPrice: 35000 },
+  { id: '2', name: 'Kabel VG 3x2.5', category: 'ELECTRICAL', quantity: 120, unit: 'm', minStock: 50, unitPrice: 12000 },
+  { id: '3', name: 'Avtomat 16A', category: 'ELECTRICAL', quantity: 8, unit: 'dona', minStock: 10, unitPrice: 45000 },
+  { id: '4', name: 'Truba PP 50mm', category: 'PLUMBING', quantity: 85, unit: 'm', minStock: 30, unitPrice: 22000 },
+  { id: '5', name: 'Kraska oq 20L', category: 'PAINT', quantity: 3, unit: 'banka', minStock: 5, unitPrice: 280000 },
+  { id: '6', name: 'Gips HP 25kg', category: 'PAINT', quantity: 42, unit: 'qop', minStock: 15, unitPrice: 95000 },
+  { id: '7', name: 'Sement M400 50kg', category: 'CONSTRUCTION', quantity: 28, unit: 'qop', minStock: 20, unitPrice: 75000 },
+  { id: '8', name: 'Eshik qulfi', category: 'HARDWARE', quantity: 15, unit: 'dona', minStock: 8, unitPrice: 65000 },
+  { id: '9', name: 'Pomidor pol (linoleum) 3m', category: 'PAINT', quantity: 4, unit: 'rulon', minStock: 3, unitPrice: 450000 },
+  { id: '10', name: 'Shlang AR 15mm 20m', category: 'PLUMBING', quantity: 2, unit: 'dona', minStock: 5, unitPrice: 120000 },
+  { id: '11', name: 'Radiator batareyasi', category: 'PLUMBING', quantity: 12, unit: 'dona', minStock: 5, unitPrice: 380000 },
+  { id: '12', name: 'Beton blok 200x400', category: 'CONSTRUCTION', quantity: 6, unit: 'dona', minStock: 10, unitPrice: 18000 },
+]
+
+const categories = [
+  { value: 'all', label: 'Barchasi' },
+  { value: 'ELECTRICAL', label: 'Elektr' },
+  { value: 'PLUMBING', label: 'Santexnika' },
+  { value: 'PAINT', label: 'Bo\'yash' },
+  { value: 'CONSTRUCTION', label: 'Qurilish' },
+  { value: 'HARDWARE', label: 'Metall buyum' },
+]
+
+const filteredMaterials = computed(() => {
+  let result = [...materials]
+  if (activeCategory.value !== 'all') result = result.filter(m => m.category === activeCategory.value)
   if (search.value) {
     const q = search.value.toLowerCase()
-    result = result.filter(i => i.name?.toLowerCase().includes(q))
+    result = result.filter(m => m.name.toLowerCase().includes(q))
   }
-  if (categoryFilter.value) result = result.filter(i => i.category === categoryFilter.value)
-  return result.sort((a, b) => (a.status === 'LOW' ? -1 : b.status === 'LOW' ? 1 : 0))
+  return result
 })
 
-function categoryLabel(c: string) {
-  return { ELECTRICAL: 'Elektrika', PLUMBING: 'Sanitariya', FINISHING: 'Finishing', STRUCTURAL: 'Konstruksiya', HVAC: 'Konditsioner', DOORS: 'Eshiklar', SECURITY: 'Xavfsizlik' }[c] || c
+const totalValue = computed(() => materials.reduce((s, m) => s + m.quantity * m.unitPrice, 0))
+const lowStockCount = computed(() => materials.filter(m => m.quantity <= m.minStock).length)
+const monthlyUsage = computed(() => 8450000)
+
+function formatShort(price: number) {
+  if (!price) return '0'
+  if (price >= 1_000_000_000) return (price / 1_000_000_000).toFixed(1) + 'B'
+  if (price >= 1_000_000) return (price / 1_000_000).toFixed(1) + 'M'
+  if (price >= 1_000) return (price / 1_000).toFixed(0) + 'K'
+  return String(price)
 }
-function stockBadge(s: string) { return { LOW: 'badge-danger', WARNING: 'badge-warning', OK: 'badge-success' }[s] || 'badge-neutral' }
-function stockLabel(s: string) { return { LOW: 'Kam', WARNING: 'Ogohlantirish', OK: 'Yetarli' }[s] || s }
-function formatPrice(p: number) { return (p || 0).toLocaleString('ru-RU') + ' so\'m' }
-function formatDate(d: string) { return new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }) }
+
+function categoryColor(cat: string) {
+  return { ELECTRICAL: '#f59e0b', PLUMBING: '#3b82f6', PAINT: '#ec4899', CONSTRUCTION: '#6b7280', HARDWARE: '#8b5cf6' }[cat] || '#71717a'
+}
+
+function categoryLabel(cat: string) {
+  return { ELECTRICAL: 'Elektr', PLUMBING: 'Santexnika', PAINT: "Bo'yash", CONSTRUCTION: 'Qurilish', HARDWARE: 'Metall' }[cat] || cat
+}
+
+function categoryIcon(cat: string) {
+  return { ELECTRICAL: Lightbulb, PLUMBING: Droplet, PAINT: PaintRoller, CONSTRUCTION: Boxes, HARDWARE: Wrench }[cat] || Package
+}
 </script>
