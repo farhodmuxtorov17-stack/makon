@@ -1,94 +1,119 @@
 <template>
-  <div class="space-y-6">
-    <div>
-      <h1 class="text-2xl font-bold">Hisob, servis va ko\'rsatkichlar</h1>
-      <p class="text-ink-500 text-sm mt-1">Invoyslar, to\'lovlar, servis so\'rovlari va hisoblagich ko\'rsatkichlari</p>
+  <div class="space-y-5">
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisob va servis</h1>
+        <p class="text-ink-500 text-sm mt-1">To'lovlar, invoyslar va servis so'rovlari</p>
+      </div>
+      <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm">
+        <Plus :size="14" /> Servis so'rov
+      </NuxtLink>
     </div>
 
-    <!-- Tabs -->
-    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5 w-fit">
-      <button v-for="tab in tabs" :key="tab.value" @click="activeTab = tab.value"
-        class="px-3 py-1.5 rounded-lg text-sm transition-all"
-        :class="activeTab === tab.value ? 'bg-brand-500/10 text-brand-500' : 'text-ink-500'">
-        {{ tab.label }}
-      </button>
-    </div>
-
-    <!-- Invoices tab -->
-    <div v-if="activeTab === 'invoices'" class="space-y-3">
-      <div v-for="inv in invoices" :key="inv.id" class="card p-4 flex items-center gap-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="inv.status === 'PAID' ? 'bg-emerald-500/10' : inv.status === 'OVERDUE' ? 'bg-red-500/10' : 'bg-amber-500/10'">
-          <Receipt :size="18" :class="inv.status === 'PAID' ? 'text-emerald-500' : inv.status === 'OVERDUE' ? 'text-red-500' : 'text-amber-500'" />
+    <!-- Balance summary -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card p-5 bg-gradient-to-br from-emerald-500/5 to-transparent border-emerald-500/20">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center"><Wallet :size="20" class="text-emerald-500" /></div>
+          <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Joriy balans</span>
         </div>
-        <div class="flex-1">
-          <div class="text-sm font-medium">{{ inv.number }}</div>
-          <div class="text-xs text-ink-500">{{ inv.period }} · {{ inv.unit }}</div>
+        <div class="text-2xl font-bold text-emerald-500">{{ formatMoney(0) }}</div>
+        <div class="text-xs text-ink-500 mt-1">Qarzdorlik yo'q (unit A-301)</div>
+      </div>
+      <div class="card p-5 bg-gradient-to-br from-red-500/5 to-transparent border-red-500/20">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center"><AlertCircle :size="20" class="text-red-500" /></div>
+          <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Qarzdorlik</span>
         </div>
-        <div class="text-right">
-          <div class="text-sm font-medium">{{ formatMoney(inv.amount) }}</div>
-          <div class="text-xs text-ink-500">Qoldiq: {{ formatMoney(inv.balance) }}</div>
+        <div class="text-2xl font-bold text-red-500">{{ formatMoney(4200000) }}</div>
+        <div class="text-xs text-ink-500 mt-1">Unit B-205 · 5 kun kechikish</div>
+      </div>
+      <div class="card p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center"><Receipt :size="20" class="text-blue-500" /></div>
+          <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Keyingi to'lov</span>
         </div>
-        <span class="badge text-xs" :class="inv.status === 'PAID' ? 'badge-success' : inv.status === 'OVERDUE' ? 'badge-danger' : 'badge-warning'">
-          {{ invStatusLabel(inv.status) }}
-        </span>
-        <button v-if="inv.status !== 'PAID'" class="btn btn-secondary btn-sm">
-          <Upload :size="14" /> To\'lov cheki
-        </button>
+        <div class="text-2xl font-bold text-ink-900 dark:text-white">15 Avg</div>
+        <div class="text-xs text-ink-500 mt-1">25.0M so'm · INV-2026-052</div>
       </div>
     </div>
 
-    <!-- Service requests tab -->
-    <div v-if="activeTab === 'service'" class="space-y-3">
-      <div class="flex justify-end">
-        <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm">
-          <Plus :size="14" /> Yangi so\'rov
-        </NuxtLink>
-      </div>
-      <div v-for="sr in serviceReqs" :key="sr.id" class="card p-4 flex items-center gap-4">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-          <Wrench :size="18" class="text-amber-500" />
-        </div>
-        <div class="flex-1">
-          <div class="text-sm font-medium">{{ sr.number }} · {{ sr.category }}</div>
-          <div class="text-xs text-ink-500">{{ sr.unit }} · {{ sr.date }} · SLA: {{ sr.sla }}</div>
-        </div>
-        <span class="badge text-xs" :class="srBadgeClass(sr.status)">{{ srStatusLabel(sr.status) }}</span>
-        <button v-if="sr.status === 'COMPLETED'" class="btn btn-secondary btn-sm">
-          <Check :size="14" /> Qabul qilish
-        </button>
-      </div>
-    </div>
-
-    <!-- Meter readings tab -->
-    <div v-if="activeTab === 'meters'" class="space-y-4">
-      <div v-for="meter in meters" :key="meter.id" class="card p-5">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="meterTypeClass(meter.type)">
-              <component :is="meterIcon(meter.type)" :size="18" :class="meterTypeColor(meter.type)" />
+    <!-- Service charges breakdown -->
+    <div class="card p-5">
+      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis to'lovlari tarkibi</h3>
+      <div class="space-y-3">
+        <div v-for="charge in serviceCharges" :key="charge.name" class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" :style="{ background: charge.color + '15' }">
+            <component :is="charge.icon" :size="16" :style="{ color: charge.color }" />
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-sm font-medium text-ink-900 dark:text-white">{{ charge.name }}</span>
+              <span class="text-sm font-bold text-ink-900 dark:text-white">{{ formatMoney(charge.amount) }}</span>
             </div>
-            <div>
-              <div class="text-sm font-medium">{{ meter.typeLabel }} · {{ meter.serial }}</div>
-              <div class="text-xs text-ink-500">{{ meter.unit }} · {{ meter.location }}</div>
+            <div class="flex items-center gap-3 text-xs text-ink-500">
+              <span>{{ charge.details }}</span>
+              <span>·</span>
+              <span>{{ charge.unit }}</span>
+            </div>
+            <div class="h-1.5 rounded-full bg-black/5 dark:bg-white/5 mt-2 overflow-hidden">
+              <div class="h-full rounded-full" :style="{ width: charge.percent + '%', background: charge.color }"></div>
             </div>
           </div>
-          <NuxtLink :to="`/meters/${meter.id}/readings/new`" class="btn btn-secondary btn-sm">
-            <Plus :size="14" /> Ko\'rsatkich kiritish
-          </NuxtLink>
         </div>
-        <div class="grid grid-cols-3 gap-3 text-sm">
-          <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5">
-            <div class="text-xs text-ink-500">Oldingi qiymat</div>
-            <div class="font-medium mt-1">{{ meter.lastValue }} {{ meter.unit_measure }}</div>
+      </div>
+    </div>
+
+    <!-- Recent invoices -->
+    <div class="card p-5">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-ink-900 dark:text-white">So'nggi invoyslar</h3>
+        <NuxtLink to="/finance/invoices" class="text-xs text-brand-500">Barchasi →</NuxtLink>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-ink-500 text-xs uppercase tracking-widest border-b border-black/5 dark:border-white/5">
+              <th class="text-left font-medium px-3 py-2">Nomer</th>
+              <th class="text-left font-medium px-3 py-2 hidden sm:table-cell">Unit</th>
+              <th class="text-left font-medium px-3 py-2 hidden md:table-cell">Davr</th>
+              <th class="text-right font-medium px-3 py-3">Summa</th>
+              <th class="text-center font-medium px-3 py-3">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="inv in invoices" :key="inv.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <td class="px-3 py-3 font-mono text-xs text-ink-700 dark:text-ink-300">{{ inv.number }}</td>
+              <td class="px-3 py-3 hidden sm:table-cell text-ink-500">{{ inv.unit }}</td>
+              <td class="px-3 py-3 hidden md:table-cell text-ink-500">{{ inv.period }}</td>
+              <td class="px-3 py-3 text-right font-semibold text-ink-900 dark:text-white">{{ formatMoney(inv.amount) }}</td>
+              <td class="px-3 py-3 text-center">
+                <span class="badge text-[10px]" :class="inv.status === 'PAID' ? 'badge-success' : inv.status === 'OVERDUE' ? 'badge-danger' : 'badge-warning'">
+                  {{ inv.status === 'PAID' ? 'To\'langan' : inv.status === 'OVERDUE' ? 'Muddati o\'tgan' : 'Kutilmoqda' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Service requests -->
+    <div class="card p-5">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-ink-900 dark:text-white">Servis so'rovlari</h3>
+        <NuxtLink to="/cabinet/service-requests/new" class="btn btn-secondary btn-sm text-xs"><Plus :size="12" /> Yangi</NuxtLink>
+      </div>
+      <div class="space-y-2">
+        <div v-for="sr in serviceRequests" :key="sr.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" :class="sr.iconBg">
+            <component :is="sr.icon" :size="16" :class="sr.iconColor" />
           </div>
-          <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5">
-            <div class="text-xs text-ink-500">Sarf (oy)</div>
-            <div class="font-medium mt-1">{{ meter.consumption }} {{ meter.unit_measure }}</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-ink-900 dark:text-white">{{ sr.category }}</div>
+            <div class="text-xs text-ink-500">{{ sr.unit }} · {{ sr.date }}</div>
           </div>
-          <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5">
-            <div class="text-xs text-ink-500">Oxirgi o\'qish</div>
-            <div class="font-medium mt-1">{{ meter.lastReading }}</div>
-          </div>
+          <span class="badge text-[10px] flex-shrink-0" :class="srBadgeClass(sr.status)">{{ srStatusLabel(sr.status) }}</span>
         </div>
       </div>
     </div>
@@ -96,40 +121,43 @@
 </template>
 
 <script setup lang="ts">
-import { Receipt, Upload, Plus, Wrench, Check, Zap, Droplet, Flame, Thermometer } from 'lucide-vue-next'
+import {
+  Plus, Wallet, AlertCircle, Receipt, Zap, Droplet, Flame, Wrench, Trash2, Bell,
+} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const activeTab = ref('invoices')
-const tabs = [
-  { value: 'invoices', label: 'Invoyslar' },
-  { value: 'service', label: 'Servis' },
-  { value: 'meters', label: 'Hisoblagichlar' },
+const serviceCharges = [
+  { name: 'Ijara to\'lovi', icon: Receipt, color: '#6366f1', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
+  { name: 'Elektr energiyasi', icon: Zap, color: '#f59e0b', amount: 1320000, details: '440 kWh × 3000 so\'m', unit: 'oylik', percent: 4 },
+  { name: 'Suv ta\'minoti', icon: Droplet, color: '#3b82f6', amount: 182000, details: '130 m³ × 1400 so\'m', unit: 'oylik', percent: 1 },
+  { name: 'Gaz', icon: Flame, color: '#ef4444', amount: 225000, details: '150 m³ × 1500 so\'m', unit: 'oylik', percent: 1 },
+  { name: 'Faqat texnik xizmat', icon: Wrench, color: '#8b5cf6', amount: 500000, details: 'A-301 · oylik', unit: 'oylik', percent: 2 },
+  { name: 'Axlat olib ketish', icon: Trash2, color: '#10b981', amount: 120000, details: 'A-301 · oylik', unit: 'oylik', percent: 1 },
 ]
 
-const invoices = ref([
-  { id: 'inv1', number: 'INV-2026-001', period: 'Iyul 2026', unit: 'A-301', amount: 25000000, balance: 25000000, status: 'OVERDUE' },
-  { id: 'inv2', number: 'INV-2026-002', period: 'Iyul 2026', unit: 'B-205', amount: 32000000, balance: 0, status: 'PAID' },
-  { id: 'inv3', number: 'INV-2026-003', period: 'Avgust 2026', unit: 'A-301', amount: 25000000, balance: 25000000, status: 'ISSUED' },
-])
+const invoices = [
+  { id: '1', number: 'INV-2026-052', unit: 'A-301', period: 'Avg 2026', amount: 27247000, status: 'PENDING' },
+  { id: '2', number: 'INV-2026-046', unit: 'B-205', period: 'Iyl 2026', amount: 35000000, status: 'OVERDUE' },
+  { id: '3', number: 'INV-2026-045', unit: 'A-301', period: 'Iyl 2026', amount: 27185000, status: 'PAID' },
+  { id: '4', number: 'INV-2026-040', unit: 'A-301', period: 'Iyn 2026', amount: 26920000, status: 'PAID' },
+]
 
-const serviceReqs = ref([
-  { id: 'sr1', number: 'SR-2026-004', category: 'Elektr', unit: 'A-301', date: '2 kun oldin', sla: '4 soat qoldi', status: 'IN_PROGRESS' },
-  { id: 'sr2', number: 'SR-2026-005', category: 'Sanitariya', unit: 'B-205', date: '5 kun oldin', sla: '12 soat qoldi', status: 'ASSIGNED' },
-])
+const serviceRequests = [
+  { id: 'sr1', category: 'Elektr ta\'miri', unit: 'A-301', date: '2 kun oldin', status: 'IN_PROGRESS', icon: Zap, iconBg: 'bg-amber-500/10', iconColor: 'text-amber-500' },
+  { id: 'sr2', category: 'Sanitariya', unit: 'B-205', date: '5 kun oldin', status: 'ASSIGNED', icon: Wrench, iconBg: 'bg-purple-500/10', iconColor: 'text-purple-500' },
+]
 
-const meters = ref([
-  { id: 'm1', type: 'ELECTRICITY', typeLabel: 'Elektr', serial: 'EL-7842', unit: 'A-301', location: '1-zal', lastValue: 15420, consumption: 850, lastReading: '10.08.2026', unit_measure: 'kWh' },
-  { id: 'm2', type: 'WATER', typeLabel: 'Suv', serial: 'W-3421', unit: 'A-301', location: '1-zal', lastValue: 342, consumption: 28, lastReading: '10.08.2026', unit_measure: 'm³' },
-  { id: 'm3', type: 'GAS', typeLabel: 'Gaz', serial: 'G-1203', unit: 'B-205', location: 'Oshxona', lastValue: 156, consumption: 12, lastReading: '08.08.2026', unit_measure: 'm³' },
-  { id: 'm4', type: 'HEAT', typeLabel: 'Issiqlik', serial: 'H-9087', unit: 'A-301', location: 'Umumiy', lastValue: 42.5, consumption: 3.2, lastReading: '05.08.2026', unit_measure: 'Gcal' },
-])
+function formatMoney(v: number) {
+  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + 'M'
+  if (v >= 1_000) return (v / 1_000).toFixed(0) + 'K'
+  return String(v)
+}
 
-function meterIcon(t: string) { return { ELECTRICITY: Zap, WATER: Droplet, GAS: Flame, HEAT: Thermometer }[t] }
-function meterTypeClass(t: string) { return { ELECTRICITY: 'bg-yellow-500/10', WATER: 'bg-blue-500/10', GAS: 'bg-orange-500/10', HEAT: 'bg-red-500/10' }[t] }
-function meterTypeColor(t: string) { return { ELECTRICITY: 'text-yellow-500', WATER: 'text-blue-500', GAS: 'text-orange-500', HEAT: 'text-red-500' }[t] }
-function formatMoney(v: number) { return new Intl.NumberFormat('ru-RU').format(v) + ' so\'m' }
-function invStatusLabel(s: string) { return { DRAFT: 'Loyiha', ISSUED: 'Berilgan', PARTIALLY_PAID: 'Qisman to\'lov', PAID: 'To\'langan', OVERDUE: 'Muddati o\'tgan' }[s] || s }
-function srStatusLabel(s: string) { return { NEW: 'Yangi', ASSIGNED: 'Taqsimlangan', IN_PROGRESS: 'Bajarilmoqda', COMPLETED: 'Tugatilgan', VERIFIED: 'Tasdiqlangan', CLOSED: 'Yopilgan' }[s] || s }
-function srBadgeClass(s: string) { return { NEW: 'badge-neutral', ASSIGNED: 'badge-brand', IN_PROGRESS: 'badge-warning', COMPLETED: 'badge-success', VERIFIED: 'badge-success', CLOSED: 'badge-neutral' }[s] || 'badge-neutral' }
+function srBadgeClass(s: string) {
+  return { ASSIGNED: 'badge-brand', IN_PROGRESS: 'badge-warning', DONE: 'badge-success' }[s] || 'badge-neutral'
+}
+function srStatusLabel(s: string) {
+  return { ASSIGNED: 'Tayinlandi', IN_PROGRESS: 'Ishda', DONE: 'Yakunlandi' }[s] || s
+}
 </script>

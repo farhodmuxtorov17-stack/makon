@@ -1,60 +1,72 @@
 <template>
-  <div class="space-y-6">
-    <div>
-      <h1 class="text-2xl font-bold">Mening unitlarim</h1>
-      <p class="text-ink-500 text-sm mt-1">Ijaraga olingan va mulk qilib olingan unitlar</p>
+  <div class="space-y-5">
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Mening unitlarim</h1>
+        <p class="text-ink-500 text-sm mt-1">{{ units.length }} ta unit · {{ totalArea }} m² jami maydon</p>
+      </div>
+      <NuxtLink to="/catalog" class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi ariza</NuxtLink>
     </div>
 
-    <!-- Type filter -->
-    <div class="flex items-center gap-2">
-      <button @click="typeFilter = ''" class="btn btn-sm" :class="typeFilter === '' ? 'btn-primary' : 'btn-secondary'">Hammasi</button>
-      <button @click="typeFilter = 'RENT'" class="btn btn-sm" :class="typeFilter === 'RENT' ? 'btn-primary' : 'btn-secondary'">Ijara</button>
-      <button @click="typeFilter = 'OWNED'" class="btn btn-sm" :class="typeFilter === 'OWNED' ? 'btn-primary' : 'btn-secondary'">Mulk</button>
-    </div>
-
-    <!-- Unit cards -->
+    <!-- Unit cards grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="unit in filteredUnits" :key="unit.id" class="card overflow-hidden hover:border-brand-500/20 transition-all">
-        <!-- Plan fragment -->
-        <div class="h-32 bg-gradient-to-br from-brand-500/5 to-brand-700/10 relative flex items-center justify-center">
-          <svg viewBox="0 0 200 100" class="w-full h-full p-4">
-            <polygon :points="unit.planPoints" fill="rgba(99,102,241,0.1)" stroke="#6366f1" stroke-width="1.5" />
-            <text x="100" y="55" text-anchor="middle" class="text-xs fill-current text-brand-500 font-medium">{{ unit.name }}</text>
-          </svg>
-          <span class="absolute top-3 right-3 badge text-xs" :class="unit.type === 'RENT' ? 'badge-brand' : 'badge-success'">
+      <div v-for="unit in units" :key="unit.id" class="unit-detail-card">
+        <!-- Photo -->
+        <div class="unit-detail-card__photo">
+          <img :src="unit.photo" :alt="unit.name" loading="lazy" />
+          <span class="unit-detail-card__badge" :class="unit.type === 'RENT' ? 'unit-detail-card__badge--rent' : 'unit-detail-card__badge--owned'">
             {{ unit.type === 'RENT' ? 'Ijara' : 'Mulk' }}
           </span>
         </div>
 
-        <div class="p-5 space-y-3">
-          <div>
-            <div class="font-medium">{{ unit.name }}</div>
-            <div class="text-xs text-ink-500">{{ unit.buildingName }} · {{ unit.floor }}-qavat · {{ unit.area }} m²</div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3 text-xs">
-            <div class="p-2 rounded-lg bg-black/5 dark:bg-white/5">
-              <div class="text-ink-500">Shartnoma</div>
-              <div class="font-medium">{{ unit.contractNumber }}</div>
+        <!-- Body -->
+        <div class="unit-detail-card__body">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <div class="font-semibold text-ink-900 dark:text-white">{{ unit.name }}</div>
+              <div class="text-xs text-ink-500">{{ unit.building }} · {{ unit.floor }}-qavat</div>
             </div>
-            <div class="p-2 rounded-lg bg-black/5 dark:bg-white/5">
-              <div class="text-ink-500">Tugash</div>
-              <div class="font-medium">{{ unit.contractEnd }}</div>
+            <span class="badge text-[10px]" :class="unit.statusBadge">{{ unit.statusLabel }}</span>
+          </div>
+
+          <!-- Specs -->
+          <div class="grid grid-cols-3 gap-2 my-4">
+            <div class="text-center p-2 rounded-lg bg-black/5 dark:bg-white/5">
+              <div class="text-sm font-bold text-ink-900 dark:text-white">{{ unit.area }}</div>
+              <div class="text-[10px] text-ink-500">m²</div>
+            </div>
+            <div class="text-center p-2 rounded-lg bg-black/5 dark:bg-white/5">
+              <div class="text-sm font-bold text-ink-900 dark:text-white">{{ unit.rooms }}</div>
+              <div class="text-[10px] text-ink-500">xona</div>
+            </div>
+            <div class="text-center p-2 rounded-lg bg-black/5 dark:bg-white/5">
+              <div class="text-sm font-bold text-ink-900 dark:text-white">{{ unit.rent || '—' }}</div>
+              <div class="text-[10px] text-ink-500">so'm/oy</div>
             </div>
           </div>
 
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-ink-500">Oylik to\'lov:</span>
-            <span class="font-medium">{{ formatMoney(unit.monthlyRent) }}</span>
+          <!-- Contract info -->
+          <div class="space-y-1.5 text-xs mb-4">
+            <div class="flex items-center justify-between">
+              <span class="text-ink-500">Shartnoma:</span>
+              <span class="font-mono font-medium text-ink-900 dark:text-white">{{ unit.contractNumber || '—' }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-ink-500">Muddat:</span>
+              <span class="font-medium text-ink-900 dark:text-white">{{ unit.contractEnd || '—' }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-ink-500">Qarzdorlik:</span>
+              <span :class="unit.debt > 0 ? 'text-red-500 font-bold' : 'text-emerald-500 font-medium'">
+                {{ unit.debt > 0 ? formatShort(unit.debt) + ' so\'m' : 'Yo\'q' }}
+              </span>
+            </div>
           </div>
 
-          <div class="flex gap-2 pt-2">
-            <NuxtLink to="/cabinet/services" class="btn btn-secondary btn-sm flex-1">
-              <Receipt :size="14" /> Hisob
-            </NuxtLink>
-            <NuxtLink to="/cabinet/service-requests/new" class="btn btn-secondary btn-sm flex-1">
-              <Wrench :size="14" /> Servis
-            </NuxtLink>
+          <!-- Actions -->
+          <div class="flex gap-2">
+            <NuxtLink to="/cabinet/services" class="btn btn-secondary btn-sm flex-1 text-xs">Hisob</NuxtLink>
+            <NuxtLink to="/cabinet/contracts" class="btn btn-ghost btn-sm flex-1 text-xs">Shartnoma</NuxtLink>
           </div>
         </div>
       </div>
@@ -63,19 +75,70 @@
 </template>
 
 <script setup lang="ts">
-import { Receipt, Wrench } from 'lucide-vue-next'
+import { Plus } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const typeFilter = ref('')
+const units = [
+  {
+    id: 'u1', name: 'A-301', building: 'Tashkent City', floor: 3, area: 85, rooms: 3,
+    type: 'RENT', rent: '25.0M', photo: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80',
+    contractNumber: 'CTR-2026-001', contractEnd: '15 Mar 2027', debt: 0,
+    statusBadge: 'badge-success', statusLabel: 'Faol',
+  },
+  {
+    id: 'u2', name: 'B-205', building: 'Trillant Tower', floor: 2, area: 120, rooms: 4,
+    type: 'RENT', rent: '35.0M', photo: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80',
+    contractNumber: 'CTR-2026-002', contractEnd: '01 Dek 2026', debt: 4200000,
+    statusBadge: 'badge-warning', statusLabel: 'Qarz bor',
+  },
+  {
+    id: 'u3', name: 'C-101', building: 'IT Park', floor: 1, area: 45, rooms: 2,
+    type: 'OWNED', rent: null, photo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80',
+    contractNumber: null, contractEnd: '—', debt: 0,
+    statusBadge: 'badge-success', statusLabel: 'Mulk',
+  },
+]
 
-const units = ref([
-  { id: 'u1', name: 'A-301', buildingName: 'Tashkent City', floor: 3, area: 85, type: 'RENT', contractNumber: 'CTR-2026-001', contractEnd: '2027-03-15', monthlyRent: 25000000, planPoints: '20,20 180,20 180,80 60,80 60,60 20,60' },
-  { id: 'u2', name: 'B-205', buildingName: 'Trillent Tower', floor: 2, area: 120, type: 'RENT', contractNumber: 'CTR-2026-002', contractEnd: '2026-12-01', monthlyRent: 32000000, planPoints: '30,15 170,15 170,85 30,85' },
-  { id: 'u3', name: 'C-101', buildingName: 'IT Park', floor: 1, area: 45, type: 'OWNED', contractNumber: 'CTR-2026-003', contractEnd: '-', monthlyRent: 0, planPoints: '40,30 160,30 160,70 40,70' },
-])
+const totalArea = computed(() => units.reduce((s, u) => s + u.area, 0))
 
-const filteredUnits = computed(() => typeFilter.value ? units.value.filter(u => u.type === typeFilter.value) : units.value)
-
-function formatMoney(v: number) { return v > 0 ? new Intl.NumberFormat('ru-RU').format(v) + ' so\'m' : '-' }
+function formatShort(v: number) {
+  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + 'M'
+  return String(v)
+}
 </script>
+
+<style scoped>
+.unit-detail-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: #ffffff;
+  transition: all 0.2s;
+}
+.dark .unit-detail-card {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.06);
+}
+.unit-detail-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+.dark .unit-detail-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.unit-detail-card__photo {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+}
+.unit-detail-card__photo img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.unit-detail-card__badge {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 6px; color: white;
+}
+.unit-detail-card__badge--rent { background: #6366f1; }
+.unit-detail-card__badge--owned { background: #10b981; }
+.unit-detail-card__body { padding: 16px; }
+</style>

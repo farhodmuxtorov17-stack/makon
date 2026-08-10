@@ -1,269 +1,266 @@
 <template>
-  <div v-if="contract" class="max-w-5xl mx-auto space-y-6 py-4">
+  <div v-if="contract" class="max-w-5xl mx-auto space-y-5 py-4">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div class="flex items-center gap-3">
-        <NuxtLink to="/contracts" class="btn btn-ghost btn-sm p-2">
-          <ArrowLeft :size="18" />
-        </NuxtLink>
+        <button @click="navigateTo('/contracts')" class="btn btn-ghost btn-sm p-2"><ArrowLeft :size="18" /></button>
         <div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
             <h1 class="text-2xl font-bold font-mono text-ink-900 dark:text-white">{{ contract.number }}</h1>
-            <span class="badge text-xs" :class="contractBadge(contract.status)">{{ contractLabel(contract.status) }}</span>
+            <span class="badge text-xs" :class="statusBadge(contract.status)">{{ statusLabel(contract.status) }}</span>
             <span class="badge badge-neutral text-xs font-mono">v{{ contract.version }}</span>
           </div>
-          <p class="text-xs text-ink-500 mt-0.5">Ijarachi: <b>{{ contract.tenantName }}</b> | Bino: {{ contract.buildingName }} (Unit {{ contract.unitNumber }})</p>
+          <p class="text-xs text-ink-500 mt-0.5">{{ contract.tenantName }} · {{ contract.buildingName }} · Unit {{ contract.unitNumber }}</p>
         </div>
       </div>
-
       <div class="flex items-center gap-2">
-        <button @click="showCompareModal = true" class="btn btn-secondary btn-sm flex items-center gap-1.5">
-          <GitCompare :size="16" /> Versiya taqqoslash
-        </button>
-
-        <NuxtLink v-if="contract.status !== 'ACTIVE'" :to="`/contracts/${contract.id}/activate`" class="btn btn-primary btn-sm flex items-center gap-1.5">
-          <CheckCircle :size="16" /> Aktivlashtirish Bosqichi →
+        <button class="btn btn-secondary btn-sm"><Download :size="14" /> PDF</button>
+        <NuxtLink v-if="contract.status !== 'ACTIVE'" :to="`/contracts/${contract.id}/activate`" class="btn btn-primary btn-sm">
+          <CheckCircle :size="14" /> Aktivlashtirish
         </NuxtLink>
       </div>
     </div>
 
-    <!-- Cryptographic SHA-256 Stamp Banner -->
-    <div class="card p-4 bg-black/5 dark:bg-white/5 border-l-4 border-l-purple-500 flex items-center justify-between flex-wrap gap-3">
+    <!-- ERI Timeline -->
+    <div class="card p-5">
+      <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2">
+        <ShieldCheck :size="18" class="text-purple-500" /> ERI imzo jarayoni
+      </h3>
+      <div class="eri-timeline">
+        <div v-for="(step, i) in eriSteps" :key="i" class="eri-timeline__step" :class="{ 'eri-timeline__step--done': step.done, 'eri-timeline__step--current': step.current }">
+          <div class="eri-timeline__marker">
+            <CheckCircle v-if="step.done" :size="16" class="text-emerald-500" />
+            <Clock v-else-if="step.current" :size="16" class="text-amber-500" />
+            <span v-else class="text-ink-400 text-sm">{{ i + 1 }}</span>
+          </div>
+          <div class="eri-timeline__content">
+            <div class="text-sm font-medium" :class="step.done ? 'text-ink-900 dark:text-white' : step.current ? 'text-amber-500' : 'text-ink-400'">{{ step.title }}</div>
+            <div class="text-xs text-ink-500 mt-0.5">{{ step.desc }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parties + Terms grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Parties (2 cols) -->
+      <div class="card p-5 md:col-span-2">
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2">
+          <Users :size="18" class="text-brand-500" /> Tomonlar
+        </h3>
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Landlord -->
+          <div class="party-card">
+            <span class="badge badge-brand text-[10px] mb-2">Ijaraga beruvchi</span>
+            <div class="font-bold text-sm text-ink-900 dark:text-white">MAKON Management MChJ</div>
+            <div class="text-xs text-ink-500 font-mono mt-1">STIR: 300112233</div>
+            <div class="text-xs text-ink-500">Direktor: Alisher Qodirov</div>
+            <div class="party-card__sign" :class="contract.eriLandlordSigned ? 'text-emerald-500' : 'text-amber-500'">
+              <CheckCircle :size="14" /> {{ contract.eriLandlordSigned ? 'ERI imzolangan' : 'ERI kutilmoqda' }}
+            </div>
+          </div>
+          <!-- Tenant -->
+          <div class="party-card">
+            <span class="badge badge-success text-[10px] mb-2">Ijarachi</span>
+            <div class="font-bold text-sm text-ink-900 dark:text-white">{{ contract.tenantName }}</div>
+            <div class="text-xs text-ink-500 font-mono mt-1">STIR: {{ contract.tenantTin }}</div>
+            <div class="text-xs text-ink-500">Direktor: {{ contract.tenantDirector }}</div>
+            <div class="party-card__sign" :class="contract.eriTenantSigned ? 'text-emerald-500' : 'text-amber-500'">
+              <CheckCircle :size="14" /> {{ contract.eriTenantSigned ? 'ERI imzolangan' : 'ERI kutilmoqda' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terms (1 col) -->
+      <div class="card p-5">
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2">
+          <FileText :size="18" class="text-brand-500" /> Shartlar
+        </h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-ink-500 text-xs">Oylik ijara</span>
+            <span class="font-bold text-brand-500">{{ formatMoney(contract.monthlyRent) }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-ink-500 text-xs">Depozit</span>
+            <span class="font-medium text-ink-900 dark:text-white">{{ formatMoney(contract.deposit) }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-ink-500 text-xs">Boshlanish</span>
+            <span class="font-medium text-ink-900 dark:text-white">{{ contract.startDate }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-ink-500 text-xs">Tugash</span>
+            <span class="font-medium text-ink-900 dark:text-white">{{ contract.endDate }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-ink-500 text-xs">Muddat</span>
+            <span class="font-medium text-ink-900 dark:text-white">{{ contract.durationMonths }} oy</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-ink-500 text-xs">Valyuta</span>
+            <span class="font-medium text-ink-900 dark:text-white">{{ contract.currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHA-256 hash -->
+    <div class="card p-4 bg-purple-500/5 border-l-4 border-l-purple-500 flex items-center justify-between flex-wrap gap-3">
       <div class="flex items-center gap-3">
-        <ShieldCheck :size="24" class="text-purple-400 flex-shrink-0" />
+        <ShieldCheck :size="24" class="text-purple-500 flex-shrink-0" />
         <div>
           <div class="text-xs font-bold text-ink-900 dark:text-white flex items-center gap-2">
-            SHA-256 Raqamli Xesh & Tamg'a
+            SHA-256 Raqamli xesh
             <span class="badge badge-success text-[10px]">Verifikatsiya qilindi</span>
           </div>
           <div class="text-[11px] font-mono text-ink-500 truncate max-w-xl">{{ contract.sha256Hash }}</div>
         </div>
       </div>
-
-      <button @click="showEriModal = true" v-if="!contract.eriLandlordSigned" class="btn btn-primary btn-sm text-xs flex items-center gap-1">
-        <Key :size="14" /> ERI bilan Imzolash
+      <button v-if="!contract.eriLandlordSigned" class="btn btn-primary btn-sm text-xs">
+        <Key :size="14" /> ERI imzolash
       </button>
     </div>
 
-    <!-- Terms Breakdown Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- Left 2 Cols: Parties & Terms -->
-      <div class="md:col-span-2 space-y-6">
-        
-        <!-- Parties Card -->
-        <div class="card p-5 space-y-4">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white pb-2 border-b border-black/5 dark:border-white/5 flex items-center gap-2">
-            <Users :size="18" class="text-brand-500" /> Shartnoma Tomonlari (Parties)
-          </h3>
-
-          <div class="grid grid-cols-2 gap-4 text-xs">
-            <!-- Landlord -->
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-1">
-              <span class="badge badge-brand text-[10px]">Ijaraga Beruvchi (Landlord)</span>
-              <div class="font-bold text-ink-900 dark:text-white text-sm">MAKON Management MChJ</div>
-              <div class="text-ink-500 font-mono">STIR: 300112233</div>
-              <div class="text-ink-500">Direktor: Alisher Qodirov</div>
-              <div class="pt-2 flex items-center gap-1.5" :class="contract.eriLandlordSigned ? 'text-emerald-500' : 'text-amber-500'">
-                <CheckCircle :size="14" /> {{ contract.eriLandlordSigned ? 'ERI Imzolangan' : 'ERI kutilmoqda' }}
-              </div>
-            </div>
-
-            <!-- Tenant -->
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-1">
-              <span class="badge badge-success text-[10px]">Ijarachi (Tenant)</span>
-              <div class="font-bold text-ink-900 dark:text-white text-sm">{{ contract.tenantName }}</div>
-              <div class="text-ink-500 font-mono">STIR: {{ contract.tenantTin }}</div>
-              <div class="text-ink-500">Direktor: {{ contract.tenantDirector }}</div>
-              <div class="pt-2 flex items-center gap-1.5" :class="contract.eriTenantSigned ? 'text-emerald-500' : 'text-amber-500'">
-                <CheckCircle :size="14" /> {{ contract.eriTenantSigned ? 'ERI Imzolangan' : 'ERI kutilmoqda' }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Commercial Terms breakdown -->
-        <div class="card p-5 space-y-4">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white pb-2 border-b border-black/5 dark:border-white/5 flex items-center gap-2">
-            <DollarSign :size="18" class="text-brand-500" /> Tijorat Shartlari va To'lov
-          </h3>
-
-          <div class="grid grid-cols-3 gap-3 text-xs">
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-0.5">
-              <span class="text-ink-500">Oylik ijara</span>
-              <div class="text-lg font-bold text-brand-500">${{ contract.monthlyRent.toLocaleString() }}</div>
-            </div>
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-0.5">
-              <span class="text-ink-500">Kafolat depoziti</span>
-              <div class="text-lg font-bold text-ink-900 dark:text-white">${{ contract.depositAmount.toLocaleString() }}</div>
-            </div>
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-0.5">
-              <span class="text-ink-500">Amal qilish muddati</span>
-              <div class="text-sm font-semibold text-ink-900 dark:text-white">{{ contract.startDate }} — {{ contract.endDate }}</div>
-            </div>
-          </div>
-        </div>
-
+    <!-- Contract text preview -->
+    <div class="card p-6">
+      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Shartnoma matni</h3>
+      <div class="prose prose-sm max-w-none dark:prose-invert space-y-3 text-sm text-ink-700 dark:text-ink-300 leading-relaxed">
+        <p><b>1. Predmet.</b> Ijaraga beruvchi ijarachiga {{ contract.buildingName }} binosidagi {{ contract.unitNumber }} unitni ijaraga beradi. Maydon: {{ contract.unitArea }} m².</p>
+        <p><b>2. Ijara to'lovi.</b> Oylik ijara to'lovi {{ formatMoney(contract.monthlyRent) }} {{ contract.currency }} ni tashkil etadi. To'lov har oyning 15-sanasigacha amalga oshiriladi.</p>
+        <p><b>3. Depozit.</b> Ijarachi {{ formatMoney(contract.deposit) }} {{ contract.currency }} miqdorida garanta pulini to'laydi. Shartnoma tugagach qaytariladi.</p>
+        <p><b>4. Muddat.</b> Shartnoma {{ contract.startDate }} dan {{ contract.endDate }} gacha, ya'ni {{ contract.durationMonths }} oygacha amal qiladi.</p>
+        <p><b>5. Taraflar huquq va majburiyatlari.</b> Ijarachi unitdan faqat biznes maqsadlarida foydalanish huquqiga ega. Ijaraga beruvchi texnik xizmat ko'rsatishni ta'minlaydi.</p>
+        <p><b>6. Tugatish.</b> Shartnoma muddati tugaganda yoki taraflar kelishuvi bilan tugatiladi. Erta tugatish uchun 30 kun oldin xabar berilishi kerak.</p>
       </div>
-
-      <!-- Right Col: ERI Status & Version History -->
-      <div class="space-y-6">
-        <!-- ERI Signing Queue Card -->
-        <div class="card p-5 space-y-4">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white flex items-center gap-2">
-            <Key :size="18" class="text-purple-400" /> ERI Imzolash Ketma-ketligi
-          </h3>
-
-          <div class="space-y-3 text-xs">
-            <!-- Step 1 Tenant -->
-            <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
-              <div>
-                <div class="font-bold text-ink-900 dark:text-white">1. Ijarachi Vakili</div>
-                <div class="text-[10px] text-ink-500">{{ contract.tenantName }}</div>
-              </div>
-              <span class="badge" :class="contract.eriTenantSigned ? 'badge-success' : 'badge-warning'">
-                {{ contract.eriTenantSigned ? 'Imzolandi' : 'Kutilmoqda' }}
-              </span>
-            </div>
-
-            <!-- Step 2 Landlord -->
-            <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
-              <div>
-                <div class="font-bold text-ink-900 dark:text-white">2. Bino Egasi / Boshqaruv</div>
-                <div class="text-[10px] text-ink-500">MAKON Management</div>
-              </div>
-              <span class="badge" :class="contract.eriLandlordSigned ? 'badge-success' : 'badge-warning'">
-                {{ contract.eriLandlordSigned ? 'Imzolandi' : 'Kutilmoqda' }}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Document Version History -->
-        <div class="card p-5 space-y-3">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white flex items-center gap-2">
-            <History :size="18" class="text-brand-500" /> Hujjat Versiyalari
-          </h3>
-
-          <div class="space-y-2 text-xs">
-            <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/5 dark:bg-white/5">
-              <div>
-                <span class="font-bold text-ink-900 dark:text-white">v1.1 (Tasdiqlangan)</span>
-                <div class="text-[10px] text-ink-500">2026-08-08 · Final PDF</div>
-              </div>
-              <button class="btn btn-ghost btn-sm p-1 text-brand-500"><Download :size="14" /></button>
-            </div>
-            <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/5 dark:bg-white/5 opacity-60">
-              <div>
-                <span class="font-medium text-ink-900 dark:text-white">v1.0 (Qoralama)</span>
-                <div class="text-[10px] text-ink-500">2026-08-02 · Initial Draft</div>
-              </div>
-              <button class="btn btn-ghost btn-sm p-1 text-ink-500"><Download :size="14" /></button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <!-- ERI Modal Simulation -->
-    <Teleport to="body">
-      <div v-if="showEriModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-md" @click="showEriModal = false"></div>
-        <div class="relative w-full max-w-md bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <h3 class="text-lg font-bold text-ink-900 dark:text-white flex items-center gap-2">
-            <Key :size="18" class="text-brand-500" /> Shartnomani ERI bilan tasdiqlash
-          </h3>
-
-          <div class="space-y-3 text-xs">
-            <div>
-              <label class="label">E-IMZO Kalit</label>
-              <select v-model="eriKey" class="input w-full font-mono text-xs">
-                <option value="k1">MAKON MANAGEMENT MChJ (STIR: 300112233)</option>
-              </select>
-            </div>
-            <div>
-              <label class="label">PIN Kod</label>
-              <input v-model="eriPin" type="password" placeholder="••••" class="input w-full font-mono text-center text-base" />
-            </div>
+    <!-- Invoices linked to this contract -->
+    <div class="card p-5">
+      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Shartnomaga bog'langan invoyslar</h3>
+      <div class="space-y-2">
+        <div v-for="inv in contractInvoices" :key="inv.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+          <div class="w-9 h-9 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+            <Receipt :size="16" class="text-blue-500" />
           </div>
-
-          <div class="flex items-center justify-end gap-3 pt-3">
-            <button @click="showEriModal = false" class="btn btn-secondary text-xs">Bekor qilish</button>
-            <button @click="confirmSign" class="btn btn-primary text-xs">Imzolash</button>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-ink-900 dark:text-white font-mono">{{ inv.number }}</div>
+            <div class="text-xs text-ink-500">{{ inv.period }} · {{ formatMoney(inv.amount) }}</div>
           </div>
+          <span class="badge text-[10px]" :class="inv.status === 'PAID' ? 'badge-success' : inv.status === 'OVERDUE' ? 'badge-danger' : 'badge-warning'">
+            {{ inv.status === 'PAID' ? 'To\'langan' : inv.status === 'OVERDUE' ? 'Muddati o\'tgan' : 'Kutilmoqda' }}
+          </span>
         </div>
       </div>
-    </Teleport>
-
-    <!-- Version Compare Modal -->
-    <Teleport to="body">
-      <div v-if="showCompareModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-md" @click="showCompareModal = false"></div>
-        <div class="relative w-full max-w-3xl bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white flex items-center gap-2">
-              <GitCompare :size="18" class="text-purple-400" /> Versiya Taqqoslash (v1.0 vs v1.1 Diff)
-            </h3>
-            <button @click="showCompareModal = false" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="20" /></button>
-          </div>
-
-          <div class="grid grid-cols-2 gap-4 text-xs font-mono">
-            <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 space-y-2">
-              <div class="font-bold text-red-400">v1.0 (Boshlang'ich)</div>
-              <div>- Oylik ijara: $5,000</div>
-              <div>- Depozit: $5,000</div>
-              <div>- Penya stavkasi: 0.1%</div>
-            </div>
-            <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
-              <div class="font-bold text-emerald-400">v1.1 (Yangilangan)</div>
-              <div>+ Oylik ijara: ${{ contract.monthlyRent.toLocaleString() }}</div>
-              <div>+ Depozit: ${{ contract.depositAmount.toLocaleString() }}</div>
-              <div>+ Penya stavkasi: 0.05% (Kengaytirilgan)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Teleport>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, GitCompare, CheckCircle, ShieldCheck, Key, Users, DollarSign, History, Download, X } from 'lucide-vue-next'
+import {
+  ArrowLeft, Download, CheckCircle, ShieldCheck, Users, FileText,
+  Key, Clock, Receipt,
+} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const route = useRoute()
-const makonStore = useMakonStore()
 
-const contractId = computed(() => route.params.id as string)
-const contract = computed(() => makonStore.contracts.find(c => c.id === contractId.value) || makonStore.contracts[0])
+const contract = ref({
+  id: 'c1', number: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', tenantTin: '308745612',
+  tenantDirector: 'Sardor Yusupov', buildingName: 'Tashkent City', unitNumber: 'A-301',
+  unitArea: 85, monthlyRent: 25000000, deposit: 50000000, startDate: '01 Apr 2026',
+  endDate: '15 Mar 2027', durationMonths: 12, currency: 'UZS', status: 'ACTIVE',
+  version: 3, eriTenantSigned: true, eriLandlordSigned: true,
+  sha256Hash: 'a3f5e8b2c9d1f4a7e6b3c8d2f5a1e9b4c7d3f6a2e8b1c5d9f3a7e4b6c2d8f1a5',
+})
 
-const showEriModal = ref(false)
-const showCompareModal = ref(false)
-const eriKey = ref('k1')
-const eriPin = ref('1234')
+const eriSteps = computed(() => [
+  { title: 'Shartnoma loyihasi', desc: 'Qoralama tayyorlandi', done: true, current: false },
+  { title: 'Ijarachi imzosi', desc: 'ABC Logistics MChJ ERI orqali imzoladi', done: contract.value.eriTenantSigned, current: !contract.value.eriTenantSigned },
+  { title: 'Bino egasi imzosi', desc: 'MAKON Management ERI orqali imzoladi', done: contract.value.eriLandlordSigned, current: contract.value.eriLandlordSigned && !contract.value.eriTenantSigned ? false : !contract.value.eriLandlordSigned },
+  { title: 'Aktivlashtirish', desc: 'Shartnoma faol holatga o\'tdi', done: contract.value.status === 'ACTIVE', current: contract.value.status !== 'ACTIVE' && contract.value.eriTenantSigned && contract.value.eriLandlordSigned },
+])
 
-function contractBadge(status: string) {
-  if (status === 'ACTIVE') return 'badge-success'
-  if (status === 'PARTIALLY_SIGNED') return 'badge-warning'
-  return 'badge-brand'
+const contractInvoices = [
+  { id: '1', number: 'INV-2026-052', period: 'Avg 2026', amount: 25000000, status: 'PENDING' },
+  { id: '2', number: 'INV-2026-046', period: 'Iyl 2026', amount: 25000000, status: 'PARTIALLY_PAID' },
+  { id: '3', number: 'INV-2026-040', period: 'Iyn 2026', amount: 25000000, status: 'PAID' },
+  { id: '4', number: 'INV-2026-035', period: 'May 2026', amount: 25000000, status: 'PAID' },
+]
+
+function formatMoney(v: number) {
+  return new Intl.NumberFormat('ru-RU').format(v) + ' so\'m'
 }
 
-function contractLabel(status: string) {
-  if (status === 'ACTIVE') return 'Aktiv'
-  if (status === 'PARTIALLY_SIGNED') return 'Qisman imzolangan'
-  return 'Qoralama tayyor'
+function statusBadge(s: string) {
+  return { ACTIVE: 'badge-success', PARTIALLY_SIGNED: 'badge-warning', DRAFT_READY: 'badge-brand', EXPIRED: 'badge-neutral' }[s] || 'badge-neutral'
 }
 
-function confirmSign() {
-  if (contract.value) {
-    contract.value.eriLandlordSigned = true
-    if (contract.value.eriTenantSigned) {
-      contract.value.status = 'SIGNED'
-    }
-  }
-  showEriModal.value = false
-  alert('ERI imzo muvaffaqiyatli qo\'yildi!')
+function statusLabel(s: string) {
+  return { ACTIVE: 'Aktiv', PARTIALLY_SIGNED: 'Qisman imzo', DRAFT_READY: 'Qoralama', EXPIRED: 'Muddati o\'tgan' }[s] || s
 }
 </script>
+
+<style scoped>
+.eri-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.eri-timeline__step {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 20px;
+  position: relative;
+}
+.eri-timeline__step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 32px;
+  bottom: 0;
+  width: 2px;
+  background: rgba(0,0,0,0.06);
+}
+.dark .eri-timeline__step:not(:last-child)::before {
+  background: rgba(255,255,255,0.06);
+}
+.eri-timeline__step--done:not(:last-child)::before {
+  background: rgba(16,185,129,0.3);
+}
+.eri-timeline__marker {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: #ffffff; border: 2px solid rgba(0,0,0,0.08);
+  flex-shrink: 0; z-index: 1;
+}
+.dark .eri-timeline__marker { background: #18181b; border-color: rgba(255,255,255,0.08); }
+.eri-timeline__step--done .eri-timeline__marker {
+  background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3);
+}
+.eri-timeline__step--current .eri-timeline__marker {
+  background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3);
+}
+.eri-timeline__content {
+  padding-top: 4px;
+}
+.party-card {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.dark .party-card {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.05);
+}
+.party-card__sign {
+  display: flex; align-items: center; gap: 5px;
+  padding-top: 10px; margin-top: 8px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  font-size: 12px; font-weight: 600;
+}
+.dark .party-card__sign { border-top-color: rgba(255,255,255,0.05); }
+</style>
