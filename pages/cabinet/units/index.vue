@@ -82,19 +82,19 @@ definePageMeta({ layout: 'admin', middleware: 'auth' })
 const units = [
   {
     id: 'u1', name: 'A-301', building: 'Tashkent City', floor: 3, area: 85, rooms: 3,
-    type: 'RENT', rent: '25.0M', photo: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80',
+    type: 'RENT', rent: '25.0M', photo: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
     contractNumber: 'CTR-2026-001', contractEnd: '15 Mar 2027', debt: 0,
     statusBadge: 'badge-success', statusLabel: 'Faol',
   },
   {
     id: 'u2', name: 'B-205', building: 'Trillant Tower', floor: 2, area: 120, rooms: 4,
-    type: 'RENT', rent: '35.0M', photo: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80',
+    type: 'RENT', rent: '35.0M', photo: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png',
     contractNumber: 'CTR-2026-002', contractEnd: '01 Dek 2026', debt: 4200000,
     statusBadge: 'badge-warning', statusLabel: 'Qarz bor',
   },
   {
     id: 'u3', name: 'C-101', building: 'IT Park', floor: 1, area: 45, rooms: 2,
-    type: 'OWNED', rent: null, photo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80',
+    type: 'OWNED', rent: null, photo: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png',
     contractNumber: null, contractEnd: '—', debt: 0,
     statusBadge: 'badge-success', statusLabel: 'Mulk',
   },

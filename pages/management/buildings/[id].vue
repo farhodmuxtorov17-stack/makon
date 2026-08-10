@@ -257,14 +257,14 @@ const floors = [
 ]
 
 const gallery = [
-  { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80', alt: 'Facade', label: 'Fasod' },
-  { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80', alt: 'Office', label: 'Ofis' },
-  { url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&q=80', alt: 'Lobby', label: 'Lobbi' },
-  { url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80', alt: 'Retail', label: 'Savdo' },
-  { url: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&q=80', alt: 'Corridor', label: 'Koridor' },
-  { url: 'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=400&q=80', alt: 'Aerial', label: 'Havodan' },
-  { url: 'https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=400&q=80', alt: 'Night', label: 'Kechasi' },
-  { url: 'https://images.unsplash.com/photo-1524758631624-e2822e304ca6?w=400&q=80', alt: 'Meeting', label: 'Konferensiya' },
+  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png', alt: 'Facade', label: 'Fasod' },
+  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png', alt: 'Office', label: 'Ofis' },
+  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png', alt: 'Lobby', label: 'Lobbi' },
+  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png', alt: 'Retail', label: 'Savdo' },
+  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png', alt: 'Corridor', label: 'Koridor' },
+  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png', alt: 'Aerial', label: 'Havodan' },
+  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3075330ac_generated_image.png', alt: 'Night', label: 'Kechasi' },
+  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png', alt: 'Meeting', label: 'Konferensiya' },
 ]
 
 const docs = [

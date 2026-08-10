@@ -285,7 +285,7 @@ const newBuilding = ref({
   floorsCount: 10,
   totalUnits: 40,
   totalArea: 12000,
-  gallery: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800'],
+  gallery: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png'],
   publicDescription: '',
   publicDescriptionRu: '',
   isPublished: true,

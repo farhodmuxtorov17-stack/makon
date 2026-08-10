@@ -173,7 +173,7 @@
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="label">Rasm URL</label>
-                <input v-model="newListing.photoUrl" type="text" placeholder="https://images.unsplash.com/..." class="input w-full text-xs" />
+                <input v-model="newListing.photoUrl" type="text" placeholder="https://..." class="input w-full text-xs" />
               </div>
               <div>
                 <label class="label">Virtual Tour URL (Matterport / 3D)</label>
@@ -246,7 +246,7 @@ const newListing = ref({
   offerType: 'RENT' as 'RENT' | 'SALE',
   price: 3000,
   currency: 'USD' as 'USD' | 'UZS',
-  photoUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800',
+  photoUrl: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
   virtualTourUrl: '',
   status: 'PUBLISHED' as 'DRAFT' | 'PUBLISHED' | 'HIDDEN' | 'ARCHIVED'
 })
