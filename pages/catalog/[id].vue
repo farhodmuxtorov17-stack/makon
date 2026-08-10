@@ -1,175 +1,130 @@
 <template>
-  <div class="min-h-screen bg-ink-50">
-    <!-- Header -->
-    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-ink-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <NuxtLink to="/" class="flex items-center gap-2">
-            <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center"><Building2 :size="20" class="text-white" /></div>
-            <span class="text-lg font-bold tracking-tight">MAKON</span>
-          </NuxtLink>
-          <div class="flex items-center gap-4">
-            <NuxtLink to="/catalog" class="text-sm text-ink-500 hover:text-ink-900">Katalog</NuxtLink>
-            <NuxtLink to="/login" class="btn-primary text-sm px-4 py-2 rounded-lg">Kirish</NuxtLink>
-          </div>
+  <div class="space-y-6">
+    <div class="flex items-center gap-2 text-sm text-ink-500">
+      <NuxtLink to="/catalog" class="hover:text-white">Katalog</NuxtLink>
+      <ChevronRight :size="14" class="text-ink-700" />
+      <span class="text-white truncate">{{ listing?.titleUz }}</span>
+    </div>
+
+    <!-- Gallery -->
+    <div class="card overflow-hidden">
+      <div class="relative h-80 lg:h-96">
+        <img :src="listing?.photos[0]" class="w-full h-full object-cover" />
+        <div class="absolute top-4 left-4 flex gap-2">
+          <span class="badge" :class="listing?.offerType === 'RENT' ? 'badge-brand' : 'badge-success'">
+            {{ listing?.offerType === 'RENT' ? 'Ijara' : 'Sotuv' }}
+          </span>
+          <span class="badge badge-neutral glass">
+            <Eye :size="12" /> {{ listing?.viewsCount }}
+          </span>
         </div>
       </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <!-- Breadcrumb -->
-      <div class="flex items-center gap-2 text-sm text-ink-400 mb-6">
-        <NuxtLink to="/catalog" class="hover:text-ink-600">Katalog</NuxtLink>
-        <ChevronRight :size="14" />
-        <span>Ijaraga</span>
-        <ChevronRight :size="14" />
-        <span class="text-ink-700 font-medium">{{ property.name }}</span>
+      <div v-if="listing && listing.photos.length > 1" class="flex gap-2 p-4">
+        <img v-for="(img, i) in listing.photos" :key="i" :src="img" class="w-20 h-20 rounded-lg object-cover cursor-pointer" />
       </div>
+    </div>
 
-      <!-- Gallery -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
-        <div class="lg:col-span-2 aspect-[16/10] rounded-2xl overflow-hidden bg-ink-100">
-          <img :src="property.mainImage" :alt="property.name" class="w-full h-full object-cover" />
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div v-for="(img, i) in property.gallery" :key="i" class="aspect-square rounded-xl overflow-hidden bg-ink-100">
-            <img :src="img" class="w-full h-full object-cover" />
+    <!-- Info -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 space-y-6">
+        <div class="card p-6">
+          <div class="text-sm text-ink-500 mb-1">{{ building?.name }}</div>
+          <h1 class="text-2xl font-bold text-white mb-3">{{ listing?.titleUz }}</h1>
+          <div class="flex items-center gap-4 text-sm text-ink-400 mb-4">
+            <span class="flex items-center gap-1"><MapPin :size="14" /> {{ building?.district }}</span>
+            <span class="flex items-center gap-1"><Building2 :size="14" /> {{ building?.floorsCount }} qavat</span>
           </div>
-        </div>
-      </div>
-
-      <!-- Info + CTA -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2 space-y-6">
-          <div class="card p-6">
-            <div class="flex items-start justify-between mb-4">
-              <div>
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="badge badge-info">Ijaraga</span>
-                  <span class="badge badge-neutral">{{ property.type }}</span>
-                  <span class="badge badge-success"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Bo'sh</span>
-                </div>
-                <h1 class="font-display text-2xl font-bold">{{ property.name }}</h1>
-                <p class="text-ink-400 flex items-center gap-1.5 mt-1"><MapPin :size="14" /> {{ property.district }}, {{ property.city }}</p>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-t border-ink-100">
-              <div><p class="text-ink-400 text-xs">Maydon</p><p class="font-semibold">{{ property.area }} m²</p></div>
-              <div><p class="text-ink-400 text-xs">Qavat</p><p class="font-semibold">{{ property.floor }}</p></div>
-              <div><p class="text-ink-400 text-xs">Sinflar</p><p class="font-semibold">{{ property.class }}</p></div>
-              <div><p class="text-ink-400 text-xs">Depozit</p><p class="font-semibold">1 oy</p></div>
-            </div>
-          </div>
-
-          <div class="card p-6">
-            <h3 class="font-semibold mb-3">Tavsif</h3>
-            <p class="text-ink-600 text-sm leading-relaxed">{{ property.description }}</p>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4 pt-4 border-t border-ink-100">
-              <div v-for="a in property.amenities" :key="a" class="flex items-center gap-2 text-sm text-ink-600">
-                <Check :size="16" class="text-emerald-500" /> {{ a }}
-              </div>
-            </div>
-          </div>
+          <p class="text-ink-300 leading-relaxed">{{ listing?.descriptionUz }}</p>
         </div>
 
-        <!-- CTA card -->
-        <div class="space-y-4">
-          <div class="card p-6 sticky top-20">
-            <div class="text-center mb-4">
-              <p class="text-3xl font-bold font-display">{{ formatPrice(property.price) }}</p>
-              <p class="text-sm text-ink-400">so'm / oy</p>
+        <div class="card p-6">
+          <h3 class="text-white font-semibold mb-4">Bino haqida</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-3 rounded-xl bg-white/5">
+              <div class="text-xs text-ink-500">Turi</div>
+              <div class="text-white text-sm mt-1">{{ typeLabel }}</div>
             </div>
-            <p class="text-sm text-ink-400 text-center mb-4">≈ {{ formatPrice(property.pricePerM2) }} so'm / m²</p>
-            <button class="btn btn-primary btn-lg w-full mb-2" @click="showAppModal = true">
-              Ariza yuborish
-            </button>
-            <button class="btn btn-outline btn-lg w-full">
-              <Phone :size="18" /> Bog'lanish
-            </button>
-            <div class="mt-4 pt-4 border-t border-ink-100 space-y-2 text-sm text-ink-500">
-              <div class="flex items-center justify-between"><span>ID</span><span class="font-mono">{{ property.id }}</span></div>
-              <div class="flex items-center justify-between"><span>Ko'rishlar</span><span>{{ property.views }}</span></div>
+            <div class="p-3 rounded-xl bg-white/5">
+              <div class="text-xs text-ink-500">Maydon</div>
+              <div class="text-white text-sm mt-1">{{ building?.totalArea.toLocaleString() }} m²</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5">
+              <div class="text-xs text-ink-500">Bandlik</div>
+              <div class="text-white text-sm mt-1">{{ building?.occupiedUnits }}/{{ building?.totalUnits }}</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5">
+              <div class="text-xs text-ink-500">Tuman</div>
+              <div class="text-white text-sm mt-1">{{ building?.district }}</div>
             </div>
           </div>
         </div>
       </div>
-    </main>
 
-    <!-- Application modal -->
-    <div v-if="showAppModal" class="fixed inset-0 bg-ink-950/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" @click.self="showAppModal = false">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-lg">Ariza yuborish</h3>
-          <button @click="showAppModal = false" class="text-ink-400 hover:text-ink-600 text-2xl leading-none">×</button>
-        </div>
-        <div v-if="!appSubmitted" class="space-y-4">
-          <div><label class="label">Ism familiya</label><input class="input" v-model="appName" placeholder="Ism familiyangiz" /></div>
-          <div><label class="label">Telefon</label><input class="input" v-model="appPhone" placeholder="+998 90 123 45 67" /></div>
-          <div><label class="label">Taklif narx (so'm/oy)</label><input class="input" v-model="appPrice" type="number" :placeholder="String(property.price)" /></div>
-          <div><label class="label">Izoh</label><textarea class="input" rows="2" v-model="appNotes" placeholder="Qo'shimcha ma'lumot..."></textarea></div>
-          <button class="btn btn-primary btn-lg w-full" @click="submitApp">Yuborish</button>
-        </div>
-        <div v-else class="text-center py-6">
-          <div class="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
-            <Check :size="32" class="text-emerald-600" />
+      <!-- Sidebar -->
+      <div class="space-y-4">
+        <div class="card p-6">
+          <div class="text-3xl font-bold text-white mb-1">{{ formatPriceShort(listing?.price || 0) }}</div>
+          <div class="text-sm text-ink-500 mb-4">{{ listing?.offerType === 'RENT' ? 'oyiga' : 'bir martalik' }}</div>
+
+          <button class="btn btn-primary w-full mb-2" @click="showAppModal = true">
+            Ariza topshirish
+          </button>
+          <button class="btn btn-secondary w-full">
+            <Phone :size="14" /> Bog'lanish
+          </button>
+
+          <div class="mt-4 pt-4 border-t border-white/5 space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-ink-500">Taklif turi</span><span class="text-white">{{ listing?.offerType === 'RENT' ? 'Ijara' : 'Sotuv' }}</span></div>
+            <div class="flex justify-between"><span class="text-ink-500">Valyuta</span><span class="text-white">{{ listing?.currency }}</span></div>
+            <div class="flex justify-between"><span class="text-ink-500">Ko'rishlar</span><span class="text-white">{{ listing?.viewsCount }}</span></div>
           </div>
-          <h3 class="font-semibold text-lg mb-1">Ariza yuborildi!</h3>
-          <p class="text-ink-400 text-sm mb-6">Tez orada siz bilan bog'lanamiz</p>
-          <button class="btn btn-outline btn-lg w-full" @click="showAppModal = false; appSubmitted = false">Yopish</button>
+        </div>
+
+        <div class="card p-5">
+          <h3 class="text-white font-semibold mb-3 text-sm">Xulosa</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center gap-2 text-ink-400"><CheckCircle2 :size="14" class="text-emerald-400" /> A+ sinf</div>
+            <div class="flex items-center gap-2 text-ink-400"><CheckCircle2 :size="14" class="text-emerald-400" /> Parking</div>
+            <div class="flex items-center gap-2 text-ink-400"><CheckCircle2 :size="14" class="text-emerald-400" /> 24/7 xavfsizlik</div>
+            <div class="flex items-center gap-2 text-ink-400"><CheckCircle2 :size="14" class="text-emerald-400" /> Konditsioner</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <footer class="border-t border-ink-100 bg-white mt-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-ink-400">
-        © 2026 MAKON · Ko'chmas mulk boshqaruv platformasi
+    <!-- Application modal -->
+    <div v-if="showAppModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showAppModal = false" />
+      <div class="relative card p-6 w-full max-w-md animate-fade-in">
+        <h3 class="text-white font-semibold mb-4">Ariza topshirish</h3>
+        <div class="space-y-4">
+          <div><label class="label">Taklif narxi (so'm)</label><input class="input" type="number" :value="listing?.price" /></div>
+          <div><label class="label">Boshlanish sanasi</label><input class="input" type="date" /></div>
+          <div v-if="listing?.offerType === 'RENT'"><label class="label">Muddat (oy)</label><input class="input" type="number" value="12" /></div>
+          <div><label class="label">Izoh</label><textarea class="input min-h-[60px]" placeholder="Qo'shimcha ma'lumot..."></textarea></div>
+        </div>
+        <div class="flex gap-2 mt-6">
+          <button class="btn btn-secondary flex-1" @click="showAppModal = false">Bekor</button>
+          <button class="btn btn-primary flex-1" @click="showAppModal = false">Yuborish</button>
+        </div>
       </div>
-    </footer>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Building2, ChevronRight, MapPin, Check, Phone } from 'lucide-vue-next'
-
-definePageMeta({ layout: 'public' })
+import { ChevronRight, MapPin, Building2, Eye, Phone, CheckCircle2 } from 'lucide-vue-next'
+import { listings, buildings } from '~/utils/mockData'
 
 const route = useRoute()
+const { formatPriceShort } = useFormat()
 
+const listing = computed(() => listings.find(l => l.id === route.params.id))
+const building = computed(() => buildings.find(b => b.id === listing.value?.buildingId))
 const showAppModal = ref(false)
-const appSubmitted = ref(false)
-const appName = ref('')
-const appPhone = ref('')
-const appPrice = ref<number | null>(null)
-const appNotes = ref('')
 
-function submitApp() {
-  appSubmitted.value = true
-}
-
-const property = computed(() => ({
-  id: route.params.id as string,
-  name: 'Trillant Tower — Ofis 301',
-  district: 'Tashkent City',
-  city: 'Toshkent',
-  type: 'Ofis',
-  area: 120,
-  floor: '3/12',
-  class: 'A',
-  price: 1500000,
-  pricePerM2: 12500,
-  views: 342,
-  description: 'Trillant Tower biznes markazida 120 m² ofis maydoni ijaraga beriladi. Zamonaviy taˆmirlash, panoramic oynalar, markaziy konditsioner tizimi mavjud. Tashkent City biznes markazida joylashgan boˆlib, metro va asosiy yoˆllarga yaqin.',
-  amenities: ['Markaziy konditsioner', '24/7 xavfsizlik', 'Parkovka (50 o\'rin)', 'Panoramic oynalar', 'Yuk lifti', 'Fiber internet', 'Konferensiya zali', 'Kafe'],
-  mainImage: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg',
-  gallery: [
-    'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/d62df0e1f_ibc_tashkent.jpg',
-    'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/93bd7fd52_nest_one.jpg',
-    'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/a63dc668a_piramit.jpg',
-    'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg',
-  ],
-}))
-
-function formatPrice(v: number) {
-  return v.toLocaleString('ru')
-}
+const typeLabel = computed(() => {
+  const map: Record<string, string> = { BUSINESS_CENTER: 'Biznes markaz', OFFICE: 'Ofis', SHOPPING: 'Savdo', WAREHOUSE: 'Ombor', RESIDENTIAL: 'Turar joy', MIXED: 'Aralash' }
+  return map[building.value?.type || ''] || ''
+})
 </script>

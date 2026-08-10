@@ -88,6 +88,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Plus, ClipboardList, Clock, CheckCircle2, XCircle, ChevronRight } from 'lucide-vue-next'
 import Pagination from '~/components/ui/Pagination.vue'
 import TableSkeleton from '~/components/ui/TableSkeleton.vue'

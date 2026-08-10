@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Package } from 'lucide-vue-next'
 import type { WorkOrderStatus } from '~/types'
 

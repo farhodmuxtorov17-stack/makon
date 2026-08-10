@@ -47,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Plus, Truck, Phone, Mail, FileCheck, FileX } from 'lucide-vue-next'
 
 const serviceStore = useServiceStore()

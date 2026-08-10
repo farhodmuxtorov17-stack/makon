@@ -86,6 +86,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { ArrowLeft, Check } from 'lucide-vue-next'
 import type { ApplicationStatus } from '~/types'
 

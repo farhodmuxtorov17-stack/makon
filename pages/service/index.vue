@@ -130,6 +130,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Plus, LayoutGrid, List } from 'lucide-vue-next'
 import type { ServiceRequestStatus, ServiceRequestPriority } from '~/types'
 

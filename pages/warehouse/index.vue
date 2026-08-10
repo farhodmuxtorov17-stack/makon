@@ -97,6 +97,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Plus, Search, AlertTriangle } from 'lucide-vue-next'
 
 const serviceStore = useServiceStore()

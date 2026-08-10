@@ -1,35 +1,29 @@
-
 <template>
   <div class="space-y-6">
-    <PageHeader title="Tasdiqlash" subtitle="Tasdiqni kutayotgan hujjatlar va so'rovlar" />
-
-    <div v-if="pendingItems.length === 0" class="card">
-      <BaseEmptyState title="Tasdiqlashni kutayotgan hujjatlar yo'q" description="Barcha hujjatlar ko'rib chiqilgan">
-        <template #icon><CheckCircle2 :size="28" class="text-emerald-500" /></template>
-      </BaseEmptyState>
+    <div>
+      <h1 class="text-2xl font-bold text-white">Tasdiqlash navbati</h1>
+      <p class="text-ink-400 text-sm mt-1">Tasdiqlash kutilayotgan hujjatlar</p>
     </div>
 
-    <div v-else class="space-y-4">
-      <div v-for="item in pendingItems" :key="item.id" class="card p-5 hover:shadow-card-hover transition-shadow">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" :class="item.bg">
-            <component :is="item.icon" :size="24" :class="item.color" />
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="badge" :class="item.badgeClass">{{ item.typeLabel }}</span>
-              <span class="font-mono text-sm text-ink-500">{{ item.number }}</span>
+    <div class="space-y-3">
+      <div v-for="item in approvals" :key="item.id" class="card p-5">
+        <div class="flex items-start justify-between mb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="item.bg">
+              <component :is="item.icon" :size="18" :class="item.color" />
             </div>
-            <h3 class="font-semibold text-ink-900">{{ item.title }}</h3>
-            <p class="text-sm text-ink-400 mt-1">{{ item.description }}</p>
+            <div>
+              <h3 class="text-white font-medium">{{ item.title }}</h3>
+              <p class="text-sm text-ink-500">{{ item.subtitle }}</p>
+            </div>
           </div>
-          <div class="flex flex-col sm:flex-row gap-2 flex-shrink-0">
-            <button class="btn btn-ghost btn-sm text-rose-600 hover:bg-rose-50" @click="reject(item.id)">
-              <XCircle :size="16" /> Rad
-            </button>
-            <button class="btn btn-success btn-sm" @click="approve(item.id)">
-              <Check :size="16" /> Tasdiqlash
-            </button>
+          <span class="badge" :class="item.urgent ? 'badge-danger' : 'badge-warning'">{{ item.urgent ? 'Shoshilinch' : 'Navbatda' }}</span>
+        </div>
+        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+          <span class="text-xs text-ink-500">{{ formatDate(item.createdAt) }}</span>
+          <div class="flex gap-2">
+            <button class="btn btn-secondary btn-sm">Rad etish</button>
+            <button class="btn btn-primary btn-sm">Tasdiqlash</button>
           </div>
         </div>
       </div>
@@ -38,24 +32,16 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ middleware: "auth" })
-import { CheckCircle2, FileText, ShieldCheck, Wrench, Check, XCircle } from 'lucide-vue-next'
+import { FileText, Wallet, ShieldCheck, Package } from 'lucide-vue-next'
+import { billingPeriods } from '~/utils/mockData'
 
-const toast = useToast()
+definePageMeta({ middleware: 'auth' })
+const { formatDate } = useFormat()
 
-const pendingItems = ref([
-  { id: 'ap1', type: 'CONTRACT', typeLabel: 'Shartnoma', number: 'CTR-2025-002', title: 'Aziz Karimov — ijara shartnomasi', description: '8.5 mln so\'m/oy · 12 oylik muddat · ERI imzolanmagan', icon: FileText, bg: 'bg-brand-50', color: 'text-brand-600', badgeClass: 'badge-info' },
-  { id: 'ap2', type: 'ERI', typeLabel: 'ERI imzo', number: 'CTR-2025-003', title: 'Bekzod Toshmatov — elektron imzo', description: '4.5 mln so\'m/oy · 24 oylik muddat · Imzo kutilmoqda', icon: ShieldCheck, bg: 'bg-amber-50', color: 'text-amber-600', badgeClass: 'badge-warning' },
-  { id: 'ap3', type: 'MATERIAL', typeLabel: 'Material so\'rovi', number: 'MR-2025-002', title: 'Rozetka ta\'minoti — 2 dona', description: 'WO-2025-004 uchun · Jami: 70,000 so\'m', icon: Wrench, bg: 'bg-emerald-50', color: 'text-emerald-600', badgeClass: 'badge-success' },
-  { id: 'ap4', type: 'ERI', typeLabel: 'ERI imzo', number: 'CTR-2025-008', title: 'Lola Ahmadova — imzolanmagan', description: '4.5 mln so\'m/oy · 6 oylik muddat · 3 kun qoldi', icon: ShieldCheck, bg: 'bg-rose-50', color: 'text-rose-600', badgeClass: 'badge-danger' },
-])
-
-function approve(id: string) {
-  pendingItems.value = pendingItems.value.filter(i => i.id !== id)
-  toast.success('Tasdiqlandi', 'Hujjat muvaffaqiyatli tasdiqlandi')
-}
-function reject(id: string) {
-  pendingItems.value = pendingItems.value.filter(i => i.id !== id)
-  toast.warning('Rad etildi', 'Hujjat rad etildi')
-}
+const approvals = [
+  { id: 'ap1', title: 'Invoice generatsiyasi — Avgust 2026', subtitle: '24 ta invoice, 412 mln so\'m', icon: FileText, bg: 'bg-brand-500/10', color: 'text-brand-400', urgent: false, createdAt: '2026-08-01T00:00:00Z' },
+  { id: 'ap2', title: 'Ariza APP-2026-002 — Trillant Tower', subtitle: 'Dilnoza Karimova · 35 mln/oy', icon: Wallet, bg: 'bg-amber-500/10', color: 'text-amber-400', urgent: true, createdAt: '2026-08-03T00:00:00Z' },
+  { id: 'ap3', title: 'Shartnoma CTR-2026-002 — ERI imzolash', subtitle: 'Aziz Toshmatov · 12 oy ijara', icon: ShieldCheck, bg: 'bg-emerald-500/10', color: 'text-emerald-400', urgent: false, createdAt: '2026-08-06T00:00:00Z' },
+  { id: 'ap4', title: 'Material so\'rovi MAT-2026-012', subtitle: 'Konditsioner filtri + Freon', icon: Package, bg: 'bg-blue-500/10', color: 'text-blue-400', urgent: false, createdAt: '2026-08-09T13:00:00Z' },
+]
 </script>

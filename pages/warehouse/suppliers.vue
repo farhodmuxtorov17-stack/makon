@@ -41,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Plus, Truck, Phone, Mail, MapPin } from 'lucide-vue-next'
 const { formatPriceShort } = useFormat()
 const showNew = ref(false)

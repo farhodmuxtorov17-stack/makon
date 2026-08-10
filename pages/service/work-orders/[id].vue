@@ -117,6 +117,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { ArrowLeft, Package, Check, Eye, Plus } from 'lucide-vue-next'
 import type { WorkOrderStatus } from '~/types'
 

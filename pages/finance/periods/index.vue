@@ -1,96 +1,53 @@
-
 <template>
   <div class="space-y-6">
-    <PageHeader title="Hisob davrlari" subtitle="Oylik invoys generatsiyasi va davrni yopish">
-      <template #actions>
-        <button class="btn btn-primary btn-sm" :disabled="!hasOpenPeriod" @click="showGenerate = true">
-          <Sparkles :size="16" /> Generatsiya
-        </button>
-      </template>
-    </PageHeader>
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-white">Billing davrlar</h1>
+        <p class="text-ink-400 text-sm mt-1">Oylik invoice generatsiyasi</p>
+      </div>
+      <button class="btn btn-primary btn-sm" @click="generatePeriod"><Sparkles :size="14" /> Yangi davr generatsiyasi</button>
+    </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div v-for="bp in financeStore.billingPeriods" :key="bp.id" class="card p-6">
-        <div class="flex items-start justify-between mb-4">
-          <div>
-            <h3 class="font-semibold text-lg text-ink-900">{{ monthName(bp.month) }} {{ bp.year }}</h3>
-            <p class="text-sm text-ink-400 mt-0.5">{{ bp.invoiceCount }} invoys · {{ formatPrice(bp.totalAmount) }} so'm</p>
-          </div>
-          <StatusBadge :status="bp.status" :variant="bp.status === 'OPEN' ? 'info' : 'neutral'"
-            :label="bp.status === 'OPEN' ? 'Ochiq' : 'Yopilgan'" dot />
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div class="card p-5">
+        <div class="text-sm text-ink-500 mb-1">Joriy davr</div>
+        <div class="text-2xl font-bold text-white">Avgust 2026</div>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="badge badge-warning">Ochiq</span>
+          <span class="text-sm text-ink-500">24 ta invoice</span>
         </div>
-        <div class="grid grid-cols-3 gap-3 text-sm">
-          <div>
-            <p class="text-ink-400 text-xs">Generatsiya</p>
-            <p class="font-medium text-ink-700">{{ formatDate(bp.generatedAt) }}</p>
-          </div>
-          <div>
-            <p class="text-ink-400 text-xs">Yaratildi</p>
-            <p class="font-medium text-ink-700">{{ formatDate(bp.createdAt) }}</p>
-          </div>
-          <div>
-            <p class="text-ink-400 text-xs">Yopildi</p>
-            <p class="font-medium text-ink-700">{{ bp.closedAt ? formatDate(bp.closedAt) : '—' }}</p>
-          </div>
+        <div class="mt-4 p-3 rounded-xl bg-white/5">
+          <div class="text-sm text-ink-400">Jami summa</div>
+          <div class="text-xl font-bold text-white">{{ formatPriceShort(412000000) }}</div>
         </div>
-        <div class="mt-4 pt-4 border-t border-ink-100">
-          <button v-if="bp.status === 'OPEN'" class="btn btn-outline btn-sm w-full" @click="showCloseConfirm = true; closePeriodId = bp.id">
-            <Lock :size="16" /> Davrni yopish
-          </button>
-          <button v-else class="btn btn-ghost btn-sm w-full">
-            <Eye :size="16" /> Invoyslarni ko'rish
-          </button>
+        <button class="btn btn-secondary w-full mt-3">Davrni yopish</button>
+      </div>
+
+      <div class="lg:col-span-2 space-y-3">
+        <div v-for="p in periods" :key="p.id" class="card p-4 flex items-center justify-between">
+          <div>
+            <div class="text-white font-medium">{{ monthLabel(p.month) }} {{ p.year }}</div>
+            <div class="text-xs text-ink-500 mt-0.5">{{ p.invoiceCount }} ta invoice · {{ formatPriceShort(p.totalAmount) }}</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="badge" :class="p.status === 'OPEN' ? 'badge-warning' : 'badge-success'">{{ p.status === 'OPEN' ? 'Ochiq' : 'Yopilgan' }}</span>
+            <span class="text-xs text-ink-500">{{ p.status === 'CLOSED' ? formatDate(p.closedAt) : formatDate(p.generatedAt) }}</span>
+          </div>
         </div>
       </div>
     </div>
-
-    <BaseModal v-model="showGenerate" title="Invoys generatsiyasi">
-      <div class="space-y-4">
-        <div class="rounded-xl bg-brand-50 border border-brand-100 p-4 text-sm">
-          <p class="text-brand-700 font-medium">Joriy ochiq davr uchun barcha aktiv shartnomalar bo'yicha invoyslar avtomatik yaratiladi.</p>
-        </div>
-        <div>
-          <label class="label">Davr</label>
-          <select class="input"><option>Iyul 2026</option></select>
-        </div>
-      </div>
-      <template #footer>
-        <button class="btn btn-ghost btn-lg" @click="showGenerate = false">Bekor</button>
-        <button class="btn btn-primary btn-lg" @click="doGenerate">Generatsiya qilish</button>
-      </template>
-    </BaseModal>
-
-    <BaseConfirm v-model="showCloseConfirm" title="Davrni yopishni tasdiqlang"
-      message="Yopilgan davrni qayta ochish mumkin emas. Barcha invoyslar yakuniy holatga o'tadi."
-      confirmText="Yopish" :danger="true" @confirm="closePeriod" />
   </div>
 </template>
 
 <script setup lang="ts">
-definePageMeta({ middleware: "auth" })
-import { Sparkles, Lock, Eye } from 'lucide-vue-next'
+import { Sparkles } from 'lucide-vue-next'
+import { billingPeriods } from '~/utils/mockData'
 
-const financeStore = useFinanceStore()
-const toast = useToast()
-onMounted(() => financeStore.initMockData())
+definePageMeta({ middleware: 'auth' })
+const { formatPriceShort, formatDate } = useFormat()
 
-const showGenerate = ref(false)
-const showCloseConfirm = ref(false)
-const closePeriodId = ref('')
+const periods = billingPeriods
 
-const hasOpenPeriod = computed(() => financeStore.billingPeriods.some(bp => bp.status === 'OPEN'))
-const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr']
-function monthName(m: number) { return months[m - 1] || '' }
-function formatDate(d: string) { return d ? d.split('T')[0] : '—' }
-function formatPrice(v: number) { return v >= 1000000 ? (v / 1000000).toFixed(1) + ' mln' : v.toLocaleString('ru') }
-
-function doGenerate() {
-  showGenerate.value = false
-  toast.success('Generatsiya boshlandi', 'Invoyslar avtomatik yaratilmoqda')
-}
-
-function closePeriod() {
-  showCloseConfirm.value = false
-  toast.success('Davr yopildi', 'Barcha invoyslar yakuniy holatga o\'tdi')
-}
+function monthLabel(m: number) { return ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'][m - 1] }
+function generatePeriod() {}
 </script>
