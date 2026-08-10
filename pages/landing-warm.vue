@@ -15,10 +15,9 @@
       </div>
     </nav>
 
-    <!-- Hero: Bento grid with different sized tiles -->
+    <!-- Hero: Bento grid -->
     <section class="pt-20 px-6 pb-12">
       <div class="max-w-7xl mx-auto">
-        <!-- Top text row -->
         <div class="mb-8 mt-8">
           <p class="text-[#9A7B3A] text-xs font-medium mb-4 tracking-[0.2em] uppercase">Toshkent koʻchmulk boshqaruvi</p>
           <h1 class="font-serif-display text-5xl md:text-7xl text-[#2A2520] leading-[0.95] font-light max-w-3xl">
@@ -26,27 +25,25 @@
           </h1>
         </div>
 
-        <!-- Bento grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[180px] md:auto-rows-[200px]">
-          <!-- Big photo tile -->
+          <!-- Big photo: Tashkent City -->
           <div class="col-span-2 row-span-2 rounded-3xl overflow-hidden relative group">
-            <img src="/tashkent/nest-one.jpg" alt="Nest One Tashkent" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute bottom-0 left-0 p-6">
-              <p class="text-white/70 text-xs font-mono mb-1">NEST ONE</p>
-              <p class="text-white text-sm font-medium">Tashkent City</p>
+            <img src="/tashkent/tashkent-city.jpg" alt="Tashkent City" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black/60 to-transparent w-full">
+              <p class="text-white/70 text-xs font-mono mb-1">TASHKENT CITY</p>
+              <p class="text-white text-sm font-medium">International Business Center</p>
             </div>
           </div>
-          <!-- Stats tile -->
+          <!-- Stats -->
           <div class="rounded-3xl bg-[#2A2520] p-6 flex flex-col justify-center">
             <div class="font-serif-display text-5xl text-[#D4A85A] font-light">16+</div>
             <div class="text-[#8B7F70] text-sm mt-1">Modullar</div>
           </div>
-          <!-- Stats tile -->
           <div class="rounded-3xl bg-white p-6 flex flex-col justify-center border border-[#E5D5BE]">
             <div class="font-serif-display text-5xl text-[#9A7B3A] font-light">99.9%</div>
             <div class="text-[#8B7F70] text-sm mt-1">Uptime</div>
           </div>
-          <!-- CTA tile -->
+          <!-- CTA -->
           <div class="col-span-2 rounded-3xl bg-[#9A7B3A] p-6 flex items-center justify-between">
             <div>
               <p class="text-white text-lg font-medium">Boshlash</p>
@@ -54,13 +51,15 @@
             </div>
             <NuxtLink to="/login" class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"><span class="text-white text-xl">→</span></NuxtLink>
           </div>
-          <!-- Photo tile -->
+          <!-- Photo: Piramit -->
           <div class="rounded-3xl overflow-hidden relative">
-            <img src="/tashkent/city-night.jpg" alt="Tashkent at night" class="absolute inset-0 w-full h-full object-cover" />
+            <img src="/tashkent/piramit.jpg" alt="Piramit Tower Tashkent" class="absolute inset-0 w-full h-full object-cover" />
+            <div class="absolute bottom-3 left-3"><span class="text-white/80 text-xs font-mono bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">Piramit</span></div>
           </div>
-          <!-- Photo tile -->
+          <!-- Photo: IT Park -->
           <div class="rounded-3xl overflow-hidden relative">
-            <img src="/tashkent/mall-towers.jpg" alt="Tashkent Mall Towers" class="absolute inset-0 w-full h-full object-cover" />
+            <img src="/tashkent/it-park.jpg" alt="IT Park Tashkent" class="absolute inset-0 w-full h-full object-cover" />
+            <div class="absolute bottom-3 left-3"><span class="text-white/80 text-xs font-mono bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">IT Park</span></div>
           </div>
         </div>
       </div>
@@ -70,7 +69,7 @@
     <section class="py-24 px-6">
       <div class="max-w-5xl mx-auto text-center">
         <p class="font-serif-display text-3xl md:text-5xl text-[#2A2520] leading-[1.25] font-light">
-          16+ modul, real-time dashboard va avtomatlashtirilgan jarayonlar. <span class="text-[#9A7B3A] italic">Bitta tizim</span> — butun koʻchmulk ekotizimi uchun.
+          16+ modul, real-time dashboard va avtomatlashtirilgan jarayonlar. <span class="text-[#9A7B3A] italic">Batta tizim</span> — butun koʻchmulk ekotizimi uchun.
         </p>
       </div>
     </section>
@@ -83,12 +82,12 @@
           <h2 class="font-serif-display text-4xl md:text-5xl text-[#2A2520] font-light">Nima qila oladi</h2>
         </div>
         <div class="grid md:grid-cols-3 gap-4">
-          <!-- Feature 1: large -->
+          <!-- Feature 1: large photo card -->
           <div class="md:col-span-2 rounded-3xl overflow-hidden relative group h-[420px]">
-            <img src="/tashkent/new-business.jpg" alt="Bino va maydon" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img src="/tashkent/trillant.jpg" alt="Trillant Tower Tashkent" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-[#2A2520]/90 via-transparent to-transparent"></div>
             <div class="absolute bottom-0 left-0 p-8">
-              <span class="text-[#D4A85A] text-xs font-medium tracking-widest uppercase mb-3 block">01 — Boshqaruv</span>
+              <span class="text-[#D4A85A] text-xs font-medium tracking-widest uppercase mb-3 block">01 — Boshqaruv · Trillant Tower</span>
               <h3 class="font-serif-display text-3xl text-white mb-3 font-light">Bino va maydon</h3>
               <p class="text-white/70 text-sm max-w-md mb-4">Binolar va turar joylarni boshqaring. Maydon, zonalar va bandlikni real-time kuzating.</p>
               <div class="flex flex-wrap gap-2">
@@ -96,7 +95,7 @@
               </div>
             </div>
           </div>
-          <!-- Feature 2: tall card -->
+          <!-- Feature 2: text card -->
           <div class="rounded-3xl bg-white border border-[#E5D5BE] p-8 h-[420px] flex flex-col justify-between">
             <div>
               <span class="text-[#9A7B3A] text-xs font-medium tracking-widest uppercase mb-3 block">02 — Moliya</span>
@@ -110,7 +109,7 @@
         </div>
         <!-- Second row -->
         <div class="grid md:grid-cols-3 gap-4 mt-4">
-          <!-- Feature 3: card -->
+          <!-- Feature 3: text card -->
           <div class="rounded-3xl bg-white border border-[#E5D5BE] p-8 h-[360px] flex flex-col justify-between">
             <div>
               <span class="text-[#9A7B3A] text-xs font-medium tracking-widest uppercase mb-3 block">03 — Servis</span>
@@ -121,7 +120,7 @@
               <li v-for="b in f3" :key="b" class="flex items-center gap-2 text-[#6B6052] text-sm"><span class="text-[#9A7B3A]">▸</span> {{ b }}</li>
             </ul>
           </div>
-          <!-- Stats tiles -->
+          <!-- Stats -->
           <div class="rounded-3xl bg-[#2A2520] p-8 h-[360px] flex flex-col justify-center text-center">
             <span class="text-[#D4A85A] text-xs font-medium tracking-widest uppercase mb-6 block">Raqamlar</span>
             <div class="space-y-8">
@@ -129,12 +128,12 @@
               <div><div class="font-serif-display text-5xl text-white font-light">94%</div><div class="text-[#8B7F70] text-sm mt-1">Oʻrtacha bandlik</div></div>
             </div>
           </div>
-          <!-- Photo tile -->
+          <!-- Photo: Skyline -->
           <div class="rounded-3xl overflow-hidden relative h-[360px]">
-            <img src="/tashkent/aerial.jpg" alt="Aerial view of Tashkent" class="absolute inset-0 w-full h-full object-cover" />
-            <div class="absolute bottom-0 left-0 p-6">
+            <img src="/tashkent/skyline-dusk.jpg" alt="Tashkent skyline at dusk" class="absolute inset-0 w-full h-full object-cover" />
+            <div class="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black/60 to-transparent w-full">
               <p class="text-white/70 text-xs font-mono mb-1">TOSHKENT</p>
-              <p class="text-white text-sm font-medium">Shahar panoramasi</p>
+              <p class="text-white text-sm font-medium">Shahar silueti</p>
             </div>
           </div>
         </div>
@@ -146,7 +145,7 @@
       <div class="max-w-7xl mx-auto">
         <div class="mb-12">
           <span class="text-[#9A7B3A] text-xs font-medium tracking-[0.2em] uppercase mb-4 block">Modullar</span>
-          <h2 class="font-serif-display text-4xl md:text-5xl text-[#2A2520] font-light">16+ modul — <span class="italic text-[#9A7B3A]">bitta tizim</span></h2>
+          <h2 class="font-serif-display text-4xl md:text-5xl text-[#2A2520] font-light">16+ modul — <span class="italic text-[#9A7B3A]">batta tizim</span></h2>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div v-for="(m, i) in modules" :key="m.title" class="group bg-white rounded-2xl p-5 hover:bg-[#9A7B3A] hover:text-white transition-all cursor-pointer border border-[#E5D5BE]">
@@ -160,7 +159,7 @@
 
     <!-- CTA -->
     <section class="py-28 px-6 relative overflow-hidden" style="background: #2A2520;">
-      <img src="/tashkent/finance-center.jpg" alt="Tashkent Finance Center" class="absolute inset-0 w-full h-full object-cover opacity-20" />
+      <img src="/tashkent/lobby.jpg" alt="Tashkent business center lobby" class="absolute inset-0 w-full h-full object-cover opacity-15" />
       <div class="relative z-10 max-w-3xl mx-auto text-center">
         <h2 class="font-serif-display text-4xl md:text-6xl text-[#F5F0E8] mb-8 font-light">Bugundan <span class="italic text-[#D4A85A]">boshlang</span></h2>
         <p class="text-[#8B7F70] text-lg mb-10 font-light max-w-lg mx-auto">MAKON platformasida roʻyxatdan oʻting.</p>

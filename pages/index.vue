@@ -15,13 +15,13 @@
       </div>
     </nav>
 
-    <!-- Hero: full-bleed Nest One -->
+    <!-- Hero: full-bleed Tashkent City -->
     <section class="relative h-screen min-h-[700px] flex items-end overflow-hidden">
-      <img src="/tashkent/nest-one.jpg" alt="Nest One, Tashkent City" class="absolute inset-0 w-full h-full object-cover" />
+      <img src="/tashkent/tashkent-city.jpg" alt="Tashkent City International Business Center" class="absolute inset-0 w-full h-full object-cover" />
       <div class="absolute inset-0 bg-gradient-to-t from-[#0F0D0A] via-[#0F0D0A]/50 to-transparent"></div>
       <div class="relative z-10 max-w-7xl mx-auto px-6 pb-24 w-full">
         <div class="max-w-2xl">
-          <p class="text-[#C9A961] text-xs font-medium mb-6 tracking-[0.2em] uppercase">Nest One · Tashkent City</p>
+          <p class="text-[#C9A961] text-xs font-medium mb-6 tracking-[0.2em] uppercase">Tashkent City · Toshkent</p>
           <h1 class="font-serif-display text-5xl md:text-8xl text-[#F0EBE0] leading-[0.95] mb-8 font-light">
             Mulkingizni<br><span class="italic text-[#C9A961]">qadrini</span> biling
           </h1>
@@ -38,7 +38,7 @@
     <section class="py-24 md:py-32 px-6">
       <div class="max-w-5xl mx-auto">
         <p class="font-serif-display text-3xl md:text-5xl text-[#F0EBE0] leading-[1.25] font-light mb-20">
-          16+ modul, real-time dashboard va avtomatlashtirilgan jarayonlar. <span class="text-[#C9A961] italic">Bitta tizim</span> — butun koʻchmulk ekotizimi uchun.
+          16+ modul, real-time dashboard va avtomatlashtirilgan jarayonlar. <span class="text-[#C9A961] italic">Batta tizim</span> — butun koʻchmulk ekotizimi uchun.
         </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-[#2A2520]">
           <div v-for="s in stats" :key="s.label">
@@ -53,7 +53,10 @@
     <section id="features">
       <div class="grid lg:grid-cols-2 min-h-[600px]" v-for="(f, i) in features" :key="f.num" :class="i % 2 === 0 ? '' : 'lg:[direction:rtl]'">
         <div class="relative h-[400px] lg:h-auto [direction:ltr]">
-          <img :src="f.img" :alt="f.title" class="absolute inset-0 w-full h-full object-cover" />
+          <img :src="f.img" :alt="f.building" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="absolute bottom-4 left-4 z-10">
+            <span class="text-white/80 text-xs font-mono bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">{{ f.building }}</span>
+          </div>
         </div>
         <div class="px-8 md:px-16 py-20 flex flex-col justify-center [direction:ltr]">
           <span class="text-[#C9A961] text-xs font-medium tracking-[0.2em] uppercase mb-5">{{ f.num }} — {{ f.tag }}</span>
@@ -66,9 +69,9 @@
       </div>
     </section>
 
-    <!-- Stats band with aerial photo -->
+    <!-- Stats band with skyline -->
     <section class="relative py-28 overflow-hidden">
-      <img src="/tashkent/aerial.jpg" alt="Aerial view of Tashkent" class="absolute inset-0 w-full h-full object-cover opacity-25" />
+      <img src="/tashkent/skyline-dusk.jpg" alt="Tashkent skyline at dusk" class="absolute inset-0 w-full h-full object-cover opacity-30" />
       <div class="absolute inset-0 bg-[#0F0D0A]/80"></div>
       <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <h2 class="font-serif-display text-4xl md:text-5xl text-[#F0EBE0] mb-16 font-light leading-tight">Oʻzbekistondagi yetakchi <span class="italic text-[#C9A961]">koʻchmulk boshqaruvchilari</span> MAKON tanlaydi</h2>
@@ -84,7 +87,7 @@
     <!-- Modules: elegant table -->
     <section id="modules" class="py-24 md:py-32 px-6">
       <div class="max-w-5xl mx-auto">
-        <div class="mb-16"><span class="text-[#C9A961] text-xs font-medium tracking-[0.2em] uppercase mb-5 block">Modullar</span><h2 class="font-serif-display text-4xl md:text-5xl text-[#F0EBE0] font-light">Bitta tizim — <span class="italic text-[#C9A961]">16+ modul</span></h2></div>
+        <div class="mb-16"><span class="text-[#C9A961] text-xs font-medium tracking-[0.2em] uppercase mb-5 block">Modullar</span><h2 class="font-serif-display text-4xl md:text-5xl text-[#F0EBE0] font-light">Batta tizim — <span class="italic text-[#C9A961]">16+ modul</span></h2></div>
         <div class="border-t border-[#2A2520]">
           <div v-for="(m, i) in modules" :key="m.title" class="group flex items-center justify-between py-5 border-b border-[#2A2520] hover:border-[#C9A961]/30 transition-colors cursor-pointer">
             <div class="flex items-center gap-6"><span class="text-[#C9A961]/40 text-xs font-mono w-8">{{ String(i+1).padStart(2,'0') }}</span><span class="text-[#F0EBE0] group-hover:text-[#C9A961] transition-colors text-lg font-light">{{ m.title }}</span></div>
@@ -126,9 +129,9 @@ onMounted(() => window.addEventListener('scroll', () => scrolled.value = window.
 const stats = [{ value: '16+', label: 'Modullar' }, { value: '60+', label: 'Unit' }, { value: '48', label: 'Ijarachilar' }, { value: '99.9%', label: 'Uptime' }]
 const bigStats = [{ value: '₸8.2M', label: 'Oylik daromad' }, { value: '94%', label: 'Oʻrtacha bandlik' }, { value: '48', label: 'Faol ijarachilar' }, { value: '12', label: 'Faol shartnomalar' }]
 const features = [
-  { num: '01', tag: 'Boshqaruv', title: 'Bino va maydon', desc: 'Binolar, ofislar va turar joylarni boshqaring. Maydon, zonalar, ijara narxlari va bandlikni real-time kuzating.', img: '/tashkent/new-business.jpg', bullets: ['Maydon va zonalar boʻyicha ijara narxlari', 'Real-time bandlik monitoringi', 'Bino turlari: ofis, turar joy, savdo', 'Bino boʻyicha toʻliq hisobotlar'] },
-  { num: '02', tag: 'Moliya', title: 'Shartnoma va toʻlov', desc: 'Shartnomalarni avtomatlashtiring — yaratishdan to bekor qilishgacha.', img: '/tashkent/finance-center.jpg', bullets: ['Avtomatik shartnoma yaratish', 'Invoys va toʻlov tracking', 'ERI orqali elektron imzo', 'Hisob davrlari va tasdiqlash'] },
-  { num: '03', tag: 'Servis', title: 'Taʼmirlash va servis', desc: 'Texnik xizmat soʻrovlarini tracking qiling. Brigade tayinlang, sifatni nazorat qiling.', img: '/tashkent/city-8.jpg', bullets: ['Soʻrov yaratish va tracking', 'Brigade tayinlash va SLA', 'Statuslar va monitoring', 'Sklad bilan integratsiya'] },
+  { num: '01', tag: 'Boshqaruv', title: 'Bino va maydon', building: 'Trillant Tower', desc: 'Binolar, ofislar va turar joylarni boshqaring. Maydon, zonalar, ijara narxlari va bandlikni real-time kuzating.', img: '/tashkent/trillant.jpg', bullets: ['Maydon va zonalar boʻyicha ijara narxlari', 'Real-time bandlik monitoringi', 'Bino turlari: ofis, turar joy, savdo', 'Bino boʻyicha toʻliq hisobotlar'] },
+  { num: '02', tag: 'Moliya', title: 'Shartnoma va toʻlov', building: 'Piramit Tower', desc: 'Shartnomalarni avtomatlashtiring — yaratishdan to bekor qilishgacha.', img: '/tashkent/piramit.jpg', bullets: ['Avtomatik shartnoma yaratish', 'Invoys va toʻlov tracking', 'ERI orqali elektron imzo', 'Hisob davrlari va tasdiqlash'] },
+  { num: '03', tag: 'Servis', title: 'Taʼmirlash va servis', building: 'IT Park · Ministry of Digital Technologies', desc: 'Texnik xizmat soʻrovlarini tracking qiling. Brigade tayinlang, sifatni nazorat qiling.', img: '/tashkent/it-park.jpg', bullets: ['Soʻrov yaratish va tracking', 'Brigade tayinlash va SLA', 'Statuslar va monitoring', 'Sklad bilan integratsiya'] },
 ]
 const modules = [
   { title: 'Ishchi panel', desc: 'Dashboard' }, { title: 'Binolar', desc: 'Boshqaruv' }, { title: 'Listinglar', desc: 'Katalog' }, { title: 'Arizalar', desc: 'Soʻrovlar' }, { title: 'Shartnomalar', desc: 'Moliya' }, { title: 'Invoyslar', desc: 'Hisob-faktura' }, { title: 'Toʻlovlar', desc: 'Tranzaksiya' }, { title: 'Tasdiqlar', desc: 'Workflow' }, { title: 'Hisob davrlari', desc: 'Periodlar' }, { title: 'Servis', desc: 'Texnik xizmat' }, { title: 'Sklad', desc: 'Ombor' }, { title: 'Taʼminotchilar', desc: 'Suppliers' }, { title: 'Hisobotlar', desc: 'Statistika' }, { title: 'Foydalanuvchilar', desc: 'Admin' }, { title: 'Sozlamalar', desc: 'Tizim' }, { title: 'Monitoring', desc: 'Tizim' },

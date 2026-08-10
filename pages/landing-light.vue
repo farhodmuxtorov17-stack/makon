@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen bg-white text-[#111111]">
-    <!-- Nav: minimal, thin -->
     <nav class="fixed top-0 inset-x-0 z-50 transition-all duration-300" :class="scrolled ? 'bg-white/95 backdrop-blur-lg border-b border-stone-100' : 'bg-transparent'">
       <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
         <div class="flex items-center gap-2.5">
@@ -18,7 +17,7 @@
       </div>
     </nav>
 
-    <!-- Hero: NO photo. Bold typography statement + grid pattern -->
+    <!-- Hero: NO photo. Bold typography statement -->
     <section class="min-h-screen flex items-center pt-14 border-b border-stone-100">
       <div class="max-w-6xl mx-auto px-6 w-full">
         <div class="grid lg:grid-cols-12 gap-8 items-end pb-20">
@@ -33,7 +32,6 @@
             <NuxtLink to="/login" class="bg-[#111111] hover:bg-[#333] text-white px-7 py-3 rounded-md text-sm font-medium transition-colors">Boshlash →</NuxtLink>
           </div>
         </div>
-        <!-- Stats row -->
         <div class="grid grid-cols-2 md:grid-cols-4 border-t border-stone-100">
           <div v-for="(s, i) in stats" :key="s.label" class="py-8" :class="i < 3 ? 'border-r border-stone-100' : ''">
             <div class="text-4xl font-bold text-[#111111]">{{ s.value }}</div>
@@ -43,7 +41,7 @@
       </div>
     </section>
 
-    <!-- Features: 3-column grid of cards (NOT alternating full-width) -->
+    <!-- Features: 3-column grid of cards -->
     <section id="features" class="py-24 md:py-32 px-6 bg-stone-50">
       <div class="max-w-6xl mx-auto">
         <div class="mb-16">
@@ -52,8 +50,9 @@
         </div>
         <div class="grid md:grid-cols-3 gap-6">
           <div v-for="f in features" :key="f.num" class="bg-white border border-stone-200 rounded-2xl p-8 hover:border-[#C9A961]/40 transition-colors group">
-            <div class="h-48 -mx-8 -mt-8 mb-6 overflow-hidden rounded-t-2xl">
-              <img :src="f.img" :alt="f.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="h-48 -mx-8 -mt-8 mb-6 overflow-hidden rounded-t-2xl relative">
+              <img :src="f.img" :alt="f.building" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <span class="absolute bottom-3 left-3 text-white/80 text-xs font-mono bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">{{ f.building }}</span>
             </div>
             <div class="text-xs text-[#C9A961] font-mono mb-3">{{ f.num }} — {{ f.tag }}</div>
             <h3 class="text-2xl font-bold mb-4 tracking-tight">{{ f.title }}</h3>
@@ -66,7 +65,7 @@
       </div>
     </section>
 
-    <!-- Bento-style stats with Tashkent photos -->
+    <!-- Stats -->
     <section class="py-24 md:py-32 px-6">
       <div class="max-w-6xl mx-auto">
         <div class="mb-16">
@@ -74,7 +73,7 @@
           <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Raqamlarda <span class="text-[#C9A961] italic font-light font-serif-display">MAKON</span></h2>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div v-for="(s, i) in bigStats" :key="s.label" class="bg-stone-50 border border-stone-200 rounded-2xl p-8 text-center">
+          <div v-for="s in bigStats" :key="s.label" class="bg-stone-50 border border-stone-200 rounded-2xl p-8 text-center">
             <div class="text-5xl font-bold text-[#111111] mb-2">{{ s.value }}</div>
             <div class="text-stone-400 text-sm">{{ s.label }}</div>
           </div>
@@ -86,7 +85,7 @@
     <section class="px-6 pb-24">
       <div class="max-w-6xl mx-auto">
         <div class="rounded-3xl overflow-hidden h-[400px] md:h-[500px] relative">
-          <img src="/tashkent/city-night.jpg" alt="Tashkent City at Night" class="w-full h-full object-cover" />
+          <img src="/tashkent/skyline-dusk.jpg" alt="Tashkent skyline at dusk" class="w-full h-full object-cover" />
           <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-10 md:p-16">
             <p class="text-white/60 text-xs font-mono tracking-wider mb-3">[ TOSHKENT CITY · OʻZBEKISTON ]</p>
@@ -96,12 +95,12 @@
       </div>
     </section>
 
-    <!-- Modules: clean grid (NOT table) -->
+    <!-- Modules: clean grid -->
     <section id="modules" class="py-24 md:py-32 px-6 bg-stone-50 border-y border-stone-100">
       <div class="max-w-6xl mx-auto">
         <div class="mb-16">
           <div class="text-xs text-[#C9A961] font-mono tracking-wider mb-4">[ 05 MODULLAR ]</div>
-          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">16+ modul — <span class="text-[#C9A961] italic font-light font-serif-display">bitta tizim</span></h2>
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">16+ modul — <span class="text-[#C9A961] italic font-light font-serif-display">batta tizim</span></h2>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div v-for="(m, i) in modules" :key="m.title" class="bg-white border border-stone-200 rounded-xl p-5 hover:border-[#C9A961]/40 hover:bg-white transition-all group cursor-pointer">
@@ -113,7 +112,7 @@
       </div>
     </section>
 
-    <!-- CTA: minimal, grid-aligned -->
+    <!-- CTA -->
     <section class="py-28 px-6 bg-[#111111]">
       <div class="max-w-6xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -151,9 +150,9 @@ onMounted(() => window.addEventListener('scroll', () => scrolled.value = window.
 const stats = [{ value: '16+', label: 'Modullar' }, { value: '60+', label: 'Unit' }, { value: '48', label: 'Ijarachilar' }, { value: '99.9%', label: 'Uptime' }]
 const bigStats = [{ value: '₸8.2M', label: 'Oylik daromad' }, { value: '94%', label: 'Oʻrtacha bandlik' }, { value: '48', label: 'Faol ijarachilar' }, { value: '12', label: 'Faol shartnomalar' }]
 const features = [
-  { num: '01', tag: 'Boshqaruv', title: 'Bino va maydon', desc: 'Binolar va turar joylarni boshqaring. Real-time bandlikni kuzating.', img: '/tashkent/new-business.jpg', bullets: ['Ijara narxlari', 'Bandlik monitoringi', 'Bino turlari', 'Hisobotlar'] },
-  { num: '02', tag: 'Moliya', title: 'Shartnoma va toʻlov', desc: 'Shartnomalarni avtomatlashtiring. Invoys va toʻlovlarni boshqaring.', img: '/tashkent/finance-center.jpg', bullets: ['Avtomatik shartnoma', 'Invoys tracking', 'Elektron imzo', 'Hisob davrlari'] },
-  { num: '03', tag: 'Servis', title: 'Taʼmirlash va servis', desc: 'Texnik xizmat soʻrovlarini tracking qiling. Brigade tayinlang.', img: '/tashkent/city-8.jpg', bullets: ['Soʻrov tracking', 'Brigade tayinlash', 'SLA monitoring', 'Sklad integratsiya'] },
+  { num: '01', tag: 'Boshqaruv', title: 'Bino va maydon', building: 'Trillant Tower', desc: 'Binolar va turar joylarni boshqaring. Real-time bandlikni kuzating.', img: '/tashkent/trillant.jpg', bullets: ['Ijara narxlari', 'Bandlik monitoringi', 'Bino turlari', 'Hisobotlar'] },
+  { num: '02', tag: 'Moliya', title: 'Shartnoma va toʻlov', building: 'Piramit Tower', desc: 'Shartnomalarni avtomatlashtiring. Invoys va toʻlovlarni boshqaring.', img: '/tashkent/piramit.jpg', bullets: ['Avtomatik shartnoma', 'Invoys tracking', 'Elektron imzo', 'Hisob davrlari'] },
+  { num: '03', tag: 'Servis', title: 'Taʼmirlash va servis', building: 'IT Park · Ministry of Digital Technologies', desc: 'Texnik xizmat soʻrovlarini tracking qiling. Brigade tayinlang.', img: '/tashkent/it-park.jpg', bullets: ['Soʻrov tracking', 'Brigade tayinlash', 'SLA monitoring', 'Sklad integratsiya'] },
 ]
 const modules = [
   { title: 'Ishchi panel', desc: 'Dashboard' }, { title: 'Binolar', desc: 'Boshqaruv' }, { title: 'Listinglar', desc: 'Katalog' }, { title: 'Arizalar', desc: 'Soʻrovlar' }, { title: 'Shartnomalar', desc: 'Moliya' }, { title: 'Invoyslar', desc: 'Hisob-faktura' }, { title: 'Toʻlovlar', desc: 'Tranzaksiya' }, { title: 'Tasdiqlar', desc: 'Workflow' }, { title: 'Hisob davrlari', desc: 'Periodlar' }, { title: 'Servis', desc: 'Texnik xizmat' }, { title: 'Sklad', desc: 'Ombor' }, { title: 'Taʼminotchilar', desc: 'Suppliers' }, { title: 'Hisobotlar', desc: 'Statistika' }, { title: 'Foydalanuvchilar', desc: 'Admin' }, { title: 'Sozlamalar', desc: 'Tizim' }, { title: 'Monitoring', desc: 'Tizim' },
