@@ -63,6 +63,14 @@
       Hisobingiz yo'qmi?
       <NuxtLink to="/register/eri" class="text-brand-500 hover:text-brand-600 font-medium">Ro'yxatdan o'ting</NuxtLink>
     </p>
+
+    <!-- Demo credentials hint -->
+    <div class="mt-5 p-3 rounded-xl bg-brand-500/5 border border-brand-500/10">
+      <p class="text-xs text-ink-500 text-center">
+        <span class="font-medium text-ink-700 dark:text-ink-300">Demo kirish:</span>
+        admin@makon.uz · admin123
+      </p>
+    </div>
   </div>
 </template>
 
@@ -71,7 +79,7 @@ import { ShieldCheck, Eye, EyeOff } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'auth' })
 
-const makonStore = useMakonStore()
+const authStore = useAuthStore()
 const router = useRouter()
 
 const form = ref({
@@ -86,7 +94,15 @@ const showPassword = ref(false)
 async function handleLogin() {
   loading.value = true
   await new Promise(r => setTimeout(r, 600))
-  makonStore.login()
+
+  // Set authenticated user
+  authStore.setUser({
+    id: 'u1',
+    email: form.value.login,
+    fullName: 'Admin User',
+    role: 'SUPER_HEAD'
+  } as any)
+
   router.push('/dashboard/executive')
   loading.value = false
 }
