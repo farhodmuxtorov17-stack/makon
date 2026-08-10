@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { LayoutDashboard, Building2, FileText, Receipt, Wallet, ClipboardList, Package, Gauge, BarChart3, Bell, Menu, Settings, ShieldCheck, ScrollText } from 'lucide-vue-next'
+import { LayoutDashboard, Building2, FileText, Receipt, Wallet, ClipboardList, Package, Gauge, BarChart3, Bell, Menu, Settings, ShieldCheck, ScrollText, UserCircle } from 'lucide-vue-next'
 
 const route = useRoute()
 const authStore = useAuthStore()
@@ -66,6 +66,8 @@ const sidebarOpen = ref(false)
 
 const navItems = [
   { to: '/dashboard', label: 'Ishchi panel', icon: LayoutDashboard },
+  { to: '/profile', label: 'Kabinet', icon: UserCircle },
+  { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
   { to: '/management/buildings', label: 'Binolar', icon: Building2 },
   { to: '/management/applications', label: 'Arizalar', icon: FileText, badge: 3 },
   { to: '/management/contracts', label: 'Shartnomalar', icon: ScrollText },
