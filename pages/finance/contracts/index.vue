@@ -1,17 +1,18 @@
 <template>
   <div class="space-y-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="font-display text-2xl font-bold tracking-tight">Shartnomalar</h1>
-        <p class="text-ink-500 text-sm mt-0.5">Barcha ijara va sotuv shartnomalari</p>
-      </div>
-      <button class="btn btn-primary btn-sm">
-        <Plus :size="16" />
-        Yangi shartnoma
-      </button>
-    </div>
+    <PageHeader title="Shartnomalar" subtitle="Barcha ijara va sotuv shartnomalari">
+      <template #actions>
+        <div class="relative">
+          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
+          <input v-model="search" type="text" placeholder="Qidirish..." class="input pl-9 w-64" />
+        </div>
+        <button class="btn btn-primary btn-sm" @click="showNew = true">
+          <Plus :size="16" /> Yangi
+        </button>
+      </template>
+    </PageHeader>
 
-    <!-- Filter tabs -->
+    <!-- Tabs -->
     <div class="flex gap-2 flex-wrap">
       <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
         class="px-3.5 py-2 rounded-xl text-sm font-medium transition-all"
@@ -23,55 +24,112 @@
 
     <!-- Table -->
     <div class="card overflow-hidden">
-      <div class="table-wrapper">
+      <div class="overflow-x-auto">
         <table class="table">
           <thead>
             <tr>
-              <th>Nomer</th>
+              <th>Shartnoma №</th>
               <th>Ijarachi</th>
               <th>Turi</th>
               <th>Oylik to'lov</th>
               <th>Muddat</th>
-              <th>ERI</th>
+              <th>ERI imzo</th>
               <th>Status</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in filteredContracts" :key="c.id">
+            <tr v-for="c in filteredContracts" :key="c.id" class="cursor-pointer hover:bg-ink-50/50 transition-colors">
               <td class="font-mono font-semibold text-ink-900">{{ c.number }}</td>
-              <td>{{ c.tenantName }}</td>
               <td>
-                <span class="badge badge-neutral">{{ c.type === 'RENT' ? 'Ijara' : 'Sotuv' }}</span>
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-xs font-bold text-white">
+                    {{ c.tenantName.split(' ').map((w: string) => w[0]).join('').slice(0, 2) }}
+                  </div>
+                  <span class="font-medium">{{ c.tenantName }}</span>
+                </div>
               </td>
-              <td class="font-semibold">{{ formatPrice(c.monthlyRent) }}</td>
-              <td class="text-ink-500 text-sm">{{ c.startDate }} → {{ c.endDate }}</td>
+              <td><span class="badge badge-neutral">{{ c.type === 'RENT' ? 'Ijara' : 'Sotuv' }}</span></td>
+              <td class="font-semibold">{{ formatPrice(c.monthlyRent) }} <span class="text-ink-400 text-xs font-normal">so'm</span></td>
               <td>
-                <CheckCircle2 v-if="c.signedByErI" :size="18" class="text-emerald-500" />
-                <Clock v-else :size="18" class="text-ink-300" />
+                <div class="text-sm">
+                  <p class="text-ink-700">{{ c.startDate }}</p>
+                  <p class="text-ink-400">{{ c.endDate }}</p>
+                </div>
               </td>
               <td>
-                <span class="badge" :class="contractStatusClass(c.status)">{{ contractStatusLabel(c.status) }}</span>
+                <div v-if="c.signedByErI" class="flex items-center gap-1.5 text-emerald-600">
+                  <CheckCircle2 :size="16" /> Imzolangan
+                </div>
+                <div v-else class="flex items-center gap-1.5 text-ink-300">
+                  <Clock :size="16" /> Kutilmoqda
+                </div>
               </td>
+              <td><StatusBadge :status="c.status" :variant="contractVariant(c.status)" :label="contractLabel(c.status)" dot /></td>
               <td>
-                <button class="btn-ghost btn-icon btn-sm"><MoreHorizontal :size="16" /></button>
+                <button class="btn-ghost btn-icon btn-sm" @click.stop>
+                  <MoreHorizontal :size="16" />
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div v-if="filteredContracts.length === 0" class="p-12">
+        <BaseEmptyState title="Shartnomalar topilmadi" description="Filtrni o'zgartiring yoki yangi shartnoma tuzing" />
+      </div>
     </div>
+
+    <!-- New contract modal -->
+    <BaseModal v-model="showNew" title="Yangi shartnoma">
+      <div class="space-y-4">
+        <div>
+          <label class="label">Ijarachi</label>
+          <input class="input" placeholder="F.I.O" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="label">Turi</label>
+            <select class="input"><option value="RENT">Ijara</option><option value="SALE">Sotuv</option></select>
+          </div>
+          <div>
+            <label class="label">Oylik to'lov (so'm)</label>
+            <input class="input" type="number" placeholder="0" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="label">Boshlanish</label>
+            <input class="input" type="date" />
+          </div>
+          <div>
+            <label class="label">Tugash</label>
+            <input class="input" type="date" />
+          </div>
+        </div>
+        <div>
+          <label class="label">PINFL</label>
+          <input class="input font-mono" placeholder="14 raqam" maxlength="14" />
+        </div>
+      </div>
+      <template #footer>
+        <button class="btn btn-ghost btn-lg" @click="showNew = false">Bekor</button>
+        <button class="btn btn-primary btn-lg" @click="showNew = false">Yaratish</button>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Plus, CheckCircle2, Clock, MoreHorizontal } from 'lucide-vue-next'
+import { Plus, Search, CheckCircle2, Clock, MoreHorizontal } from 'lucide-vue-next'
 import type { ContractStatus } from '~/types'
 
 const financeStore = useFinanceStore()
 onMounted(() => financeStore.initMockData())
 
+const search = ref('')
 const activeTab = ref('all')
+const showNew = ref(false)
 
 const tabs = computed(() => [
   { id: 'all', label: 'Hammasi', count: financeStore.contracts.length },
@@ -82,8 +140,13 @@ const tabs = computed(() => [
 ])
 
 const filteredContracts = computed(() => {
-  if (activeTab.value === 'all') return financeStore.contracts
-  return financeStore.contracts.filter(c => c.status === activeTab.value)
+  let result = financeStore.contracts
+  if (activeTab.value !== 'all') result = result.filter(c => c.status === activeTab.value)
+  if (search.value) {
+    const q = search.value.toLowerCase()
+    result = result.filter(c => c.number.toLowerCase().includes(q) || c.tenantName.toLowerCase().includes(q))
+  }
+  return result
 })
 
 function formatPrice(v: number) {
@@ -91,7 +154,7 @@ function formatPrice(v: number) {
   return v.toLocaleString('ru')
 }
 
-function contractStatusLabel(s: ContractStatus): string {
+function contractLabel(s: ContractStatus): string {
   const m: Record<string, string> = {
     ACTIVE: 'Aktiv', PENDING_SIGN: 'Imzolanmagan', SIGNED: 'Imzolangan',
     EXPIRED: 'Muddati o\'tgan', DRAFT: 'Qoralama', TERMINATED: 'Bekor qilingan',
@@ -99,12 +162,12 @@ function contractStatusLabel(s: ContractStatus): string {
   return m[s] || s
 }
 
-function contractStatusClass(s: ContractStatus): string {
+function contractVariant(s: ContractStatus): string {
   const m: Record<string, string> = {
-    ACTIVE: 'badge-success', PENDING_SIGN: 'badge-warning',
-    SIGNED: 'badge-info', EXPIRED: 'badge-neutral',
-    DRAFT: 'badge-neutral', TERMINATED: 'badge-danger',
+    ACTIVE: 'success', PENDING_SIGN: 'warning',
+    SIGNED: 'info', EXPIRED: 'neutral',
+    DRAFT: 'neutral', TERMINATED: 'danger',
   }
-  return m[s] || 'badge-neutral'
+  return m[s] || 'neutral'
 }
 </script>

@@ -3,47 +3,18 @@
     <div class="flex items-center justify-between">
       <div>
         <h1 class="font-display text-2xl font-bold tracking-tight">Mening kabinetim</h1>
-        <p class="text-ink-500 text-sm mt-0.5">Xush kelibsiz, {{ authStore.user?.fullName }}</p>
+        <p class="text-ink-500 text-sm mt-0.5">{{ greeting }}, {{ authStore.user?.fullName?.split(' ')[0] }}</p>
       </div>
-      <button class="btn btn-primary btn-sm" @click="$router.push('/service')">
-        <Wrench :size="16" />
-        Servis so'rovi
-      </button>
+      <NuxtLink to="/service" class="btn btn-primary btn-sm"><Wrench :size="16" /> Servis so'rovi</NuxtLink>
     </div>
 
-    <!-- Quick stats -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="card p-5">
-        <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-3">
-          <FileText :size="20" class="text-brand-600" />
-        </div>
-        <p class="text-2xl font-bold font-display">3</p>
-        <p class="text-sm text-ink-400">Aktiv shartnomalar</p>
-      </div>
-      <div class="card p-5">
-        <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center mb-3">
-          <Receipt :size="20" class="text-amber-600" />
-        </div>
-        <p class="text-2xl font-bold font-display">1</p>
-        <p class="text-sm text-ink-400">To'lanmagan invoys</p>
-      </div>
-      <div class="card p-5">
-        <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-3">
-          <Wrench :size="20" class="text-emerald-600" />
-        </div>
-        <p class="text-2xl font-bold font-display">0</p>
-        <p class="text-sm text-ink-400">Aktiv servis so'rov</p>
-      </div>
-      <div class="card p-5">
-        <div class="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center mb-3">
-          <Wallet :size="20" class="text-sky-600" />
-        </div>
-        <p class="text-2xl font-bold font-display">12M</p>
-        <p class="text-sm text-ink-400">Keyingi to'lov</p>
-      </div>
+      <StatCard icon="FileText" :value="String(tenantContracts.length)" label="Aktiv shartnomalar" iconBg="bg-brand-50" iconColor="text-brand-600" />
+      <StatCard icon="Receipt" :value="String(unpaidInvoices.length)" label="To'lanmagan invoys" iconBg="bg-amber-50" iconColor="text-amber-600" />
+      <StatCard icon="Wrench" :value="'0'" label="Aktiv servis" iconBg="bg-emerald-50" iconColor="text-emerald-600" />
+      <StatCard icon="Wallet" :value="nextPayment" label="Keyingi to'lov" iconBg="bg-sky-50" iconColor="text-sky-600" />
     </div>
 
-    <!-- Contracts + Invoices -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div class="card p-6">
         <div class="flex items-center justify-between mb-4">
@@ -59,16 +30,15 @@
               <p class="font-medium text-ink-900 truncate">{{ c.number }}</p>
               <p class="text-sm text-ink-400">{{ c.startDate }} — {{ c.endDate }}</p>
             </div>
-            <span class="badge" :class="c.status === 'ACTIVE' ? 'badge-success' : 'badge-neutral'">
-              {{ c.status === 'ACTIVE' ? 'Aktiv' : c.status === 'PENDING_SIGN' ? "Imzolanmagan" : c.status }}
-            </span>
+            <StatusBadge :status="c.status" :variant="c.status === 'ACTIVE' ? 'success' : 'warning'"
+              :label="c.status === 'ACTIVE' ? 'Aktiv' : 'Imzolanmagan'" dot />
           </div>
         </div>
       </div>
 
       <div class="card p-6">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold">To'lovlar tarixi</h3>
+          <h3 class="font-semibold">To'lovlar</h3>
           <NuxtLink to="/finance/payments" class="text-sm text-brand-600 font-medium">Barchasi →</NuxtLink>
         </div>
         <div class="space-y-3">
@@ -82,10 +52,9 @@
               <p class="text-sm text-ink-400">Muddat: {{ inv.dueDate }}</p>
             </div>
             <div class="text-right">
-              <p class="font-semibold text-ink-900">{{ formatPrice(inv.amount) }}</p>
-              <span class="badge" :class="inv.status === 'PAID' ? 'badge-success' : inv.status === 'OVERDUE' ? 'badge-danger' : 'badge-warning'">
-                {{ inv.status === 'PAID' ? 'To\'landi' : inv.status === 'OVERDUE' ? 'Muddati o\'tdi' : 'Kutilmoqda' }}
-              </span>
+              <p class="font-semibold">{{ formatPrice(inv.amount) }} so'm</p>
+              <StatusBadge :status="inv.status" :variant="inv.status === 'PAID' ? 'success' : inv.status === 'OVERDUE' ? 'danger' : 'warning'"
+                :label="inv.status === 'PAID' ? 'To\'landi' : inv.status === 'OVERDUE' ? 'Muddati o\'tdi' : 'Kutilmoqda'" dot />
             </div>
           </div>
         </div>
@@ -102,11 +71,23 @@ const financeStore = useFinanceStore()
 
 onMounted(() => financeStore.initMockData())
 
+const greeting = computed(() => {
+  const h = new Date().getHours()
+  if (h < 12) return 'Xayrli tong'
+  if (h < 18) return 'Xayrli kun'
+  return 'Xayrli kech'
+})
+
 const tenantContracts = computed(() => financeStore.contracts.filter(c => c.status === 'ACTIVE' || c.status === 'PENDING_SIGN').slice(0, 3))
 const tenantInvoices = computed(() => financeStore.invoices.slice(0, 4))
+const unpaidInvoices = computed(() => financeStore.invoices.filter(i => i.status === 'PENDING' || i.status === 'OVERDUE' || i.status === 'PARTIAL'))
+const nextPayment = computed(() => {
+  const pending = financeStore.invoices.find(i => i.status === 'PENDING')
+  return pending ? formatPrice(pending.amount) + ' so\'m' : '—'
+})
 
 function formatPrice(v: number) {
-  if (v >= 1000000) return (v / 1000000).toFixed(0) + ' mln so\'m'
-  return v.toLocaleString('ru') + ' so\'m'
+  if (v >= 1000000) return (v / 1000000).toFixed(0) + ' mln'
+  return v.toLocaleString('ru')
 }
 </script>

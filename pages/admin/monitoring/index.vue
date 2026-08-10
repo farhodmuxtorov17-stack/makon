@@ -1,9 +1,6 @@
 <template>
   <div class="space-y-6">
-    <div>
-      <h1 class="font-display text-2xl font-bold tracking-tight">Monitoring</h1>
-      <p class="text-ink-500 text-sm mt-0.5">Tizim holati va ishlash ko'rsatkichlari</p>
-    </div>
+    <PageHeader title="Monitoring" subtitle="Tizim holati va ishlash ko'rsatkichlari" />
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <div v-for="s in services" :key="s.name" class="card p-5">
@@ -13,17 +10,17 @@
         </div>
         <p class="text-2xl font-bold font-display">{{ s.responseTime }}ms</p>
         <p class="text-sm text-ink-400 mt-0.5">{{ s.uptime }}% uptime</p>
-        <span class="badge mt-3" :class="statusBadge(s.status)">{{ statusLabel(s.status) }}</span>
+        <StatusBadge :status="s.status" :variant="statusVariant(s.status)" :label="statusLabel(s.status)" dot />
       </div>
     </div>
 
     <div class="card p-6">
       <h3 class="font-semibold mb-4">So'nggi hodisalar</h3>
-      <div class="space-y-3 text-sm">
-        <div v-for="(log, i) in logs" :key="i" class="flex items-center gap-3 py-2">
-          <div class="w-2 h-2 rounded-full" :class="log.color"></div>
-          <span class="text-ink-500 font-mono text-xs w-20">{{ log.time }}</span>
-          <span class="text-ink-700">{{ log.message }}</span>
+      <div class="space-y-2">
+        <div v-for="(log, i) in logs" :key="i" class="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-ink-50 transition-colors">
+          <div class="w-2 h-2 rounded-full flex-shrink-0" :class="log.color"></div>
+          <span class="text-ink-400 font-mono text-xs w-20">{{ log.time }}</span>
+          <span class="text-ink-700 text-sm">{{ log.message }}</span>
         </div>
       </div>
     </div>
@@ -46,13 +43,7 @@ const logs = [
   { time: '06:10', message: 'API Server: 3 new requests processed', color: 'bg-ink-300' },
 ]
 
-function statusDot(s: string) {
-  return { healthy: 'bg-emerald-500', degraded: 'bg-amber-500', down: 'bg-rose-500' }[s] || 'bg-ink-300'
-}
-function statusBadge(s: string) {
-  return { healthy: 'badge-success', degraded: 'badge-warning', down: 'badge-danger' }[s] || 'badge-neutral'
-}
-function statusLabel(s: string) {
-  return { healthy: 'Normal', degraded: 'Sekinlashgan', down: 'Ishlamayapti' }[s] || s
-}
+function statusDot(s: string) { return { healthy: 'bg-emerald-500', degraded: 'bg-amber-500', down: 'bg-rose-500' }[s] || 'bg-ink-300' }
+function statusVariant(s: string) { return { healthy: 'success', degraded: 'warning', down: 'danger' }[s] || 'neutral' }
+function statusLabel(s: string) { return { healthy: 'Normal', degraded: 'Sekin', down: 'Down' }[s] || s }
 </script>

@@ -1,44 +1,37 @@
 <template>
   <div class="space-y-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="font-display text-2xl font-bold tracking-tight">Ish buyruqlari</h1>
-        <p class="text-ink-500 text-sm mt-0.5">Bajarilayotgan ishlar va statuslari</p>
-      </div>
-    </div>
+    <PageHeader title="Ish buyruqlari" subtitle="Bajarilayotgan ishlar va tahlil" />
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div v-for="wo in serviceStore.workOrders" :key="wo.id" class="card p-5 hover:shadow-card-hover transition-shadow">
-        <NuxtLink :to="`/service/work-orders/${wo.id}`">
-          <div class="flex items-start justify-between mb-3">
-            <div>
-              <span class="font-mono font-semibold text-ink-900">{{ wo.number }}</span>
-              <p class="text-sm text-ink-500 mt-1">{{ wo.description }}</p>
-            </div>
-            <span class="badge" :class="woStatusClass(wo.status)">{{ woStatusLabel(wo.status) }}</span>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <NuxtLink v-for="wo in serviceStore.workOrders" :key="wo.id" :to="`/service/work-orders/${wo.id}`"
+        class="card p-5 hover:shadow-card-hover transition-all group">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="font-mono font-semibold text-ink-900 group-hover:text-brand-600 transition-colors">{{ wo.number }}</span>
+            <p class="text-sm text-ink-500 mt-1">{{ wo.description }}</p>
           </div>
-          <div class="grid grid-cols-2 gap-3 text-sm">
-            <div>
-              <p class="text-ink-400 text-xs">Rejalashtirilgan</p>
-              <p class="font-medium text-ink-700">{{ formatDate(wo.scheduledDate) }}</p>
-            </div>
-            <div>
-              <p class="text-ink-400 text-xs">Taxminiy narx</p>
-              <p class="font-medium text-ink-700">{{ formatPrice(wo.estimatedCost) }}</p>
-            </div>
+          <StatusBadge :status="wo.status" :variant="woVariant(wo.status)" :label="woLabel(wo.status)" dot />
+        </div>
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <p class="text-ink-400 text-xs">Rejalashtirilgan</p>
+            <p class="font-medium text-ink-700">{{ formatDate(wo.scheduledDate) }}</p>
           </div>
-          <div class="flex items-center gap-2 mt-4 pt-3 border-t border-ink-50">
-            <div class="flex items-center gap-1.5 text-sm text-ink-500">
-              <Package :size="14" />
-              {{ materialCount(wo.id) }} material
-            </div>
-            <div v-if="wo.actualCost > 0" class="ml-auto text-sm">
-              <span class="text-ink-400">Haqiqiy:</span>
-              <span class="font-semibold text-ink-900">{{ formatPrice(wo.actualCost) }}</span>
-            </div>
+          <div>
+            <p class="text-ink-400 text-xs">Taxminiy narx</p>
+            <p class="font-medium text-ink-700">{{ formatPrice(wo.estimatedCost) }} so'm</p>
           </div>
-        </NuxtLink>
-      </div>
+        </div>
+        <div class="flex items-center gap-3 mt-4 pt-3 border-t border-ink-50">
+          <div class="flex items-center gap-1.5 text-sm text-ink-500">
+            <Package :size="14" /> {{ materialCount(wo.id) }} material
+          </div>
+          <div v-if="wo.actualCost > 0" class="ml-auto text-sm">
+            <span class="text-ink-400">Haqiqiy:</span>
+            <span class="font-semibold text-ink-900 ml-1">{{ formatPrice(wo.actualCost) }} so'm</span>
+          </div>
+        </div>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -53,29 +46,18 @@ onMounted(() => serviceStore.initMockData())
 function materialCount(woId: string) {
   return serviceStore.materialRequests.filter(mr => mr.workOrderId === woId).length
 }
-
-function woStatusLabel(s: WorkOrderStatus): string {
-  const m: Record<string, string> = {
-    CREATED: 'Yaratilgan', ASSIGNED: 'Tayinlangan',
-    IN_PROGRESS: 'Jarayonda', INSPECTION: 'Tekshiruv',
-    COMPLETED: 'Yakunlangan', CANCELLED: 'Bekor qilingan',
-  }
+function woLabel(s: WorkOrderStatus): string {
+  const m: Record<string, string> = { CREATED: 'Yaratilgan', ASSIGNED: 'Tayinlangan', IN_PROGRESS: 'Jarayonda', INSPECTION: 'Tekshiruv', COMPLETED: 'Yakunlangan', CANCELLED: 'Bekor' }
   return m[s] || s
 }
-
-function woStatusClass(s: WorkOrderStatus): string {
-  const m: Record<string, string> = {
-    CREATED: 'badge-neutral', ASSIGNED: 'badge-info',
-    IN_PROGRESS: 'badge-warning', INSPECTION: 'badge-info',
-    COMPLETED: 'badge-success', CANCELLED: 'badge-danger',
-  }
-  return m[s] || 'badge-neutral'
+function woVariant(s: WorkOrderStatus): string {
+  const m: Record<string, string> = { CREATED: 'neutral', ASSIGNED: 'info', IN_PROGRESS: 'warning', INSPECTION: 'info', COMPLETED: 'success', CANCELLED: 'danger' }
+  return m[s] || 'neutral'
 }
-
 function formatDate(d: string) { return d.split('T')[0] }
-
 function formatPrice(v: number) {
   if (v >= 1000000) return (v / 1000000).toFixed(1) + ' mln'
+  if (v >= 1000) return (v / 1000).toFixed(0) + 'K'
   return v.toLocaleString('ru')
 }
 </script>

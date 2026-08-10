@@ -1,102 +1,152 @@
 <template>
   <div class="space-y-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="font-display text-2xl font-bold tracking-tight">Invoyslar</h1>
-        <p class="text-ink-500 text-sm mt-0.5">To'lov hujjatlari va statuslari</p>
-      </div>
-      <button class="btn btn-primary btn-sm">
-        <Plus :size="16" />
-        Invoys yaratish
-      </button>
-    </div>
+    <PageHeader title="Invoyslar" subtitle="To'lov hujjatlari va ularning statuslari">
+      <template #actions>
+        <div class="relative">
+          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
+          <input v-model="search" type="text" placeholder="Qidirish..." class="input pl-9 w-64" />
+        </div>
+        <button class="btn btn-primary btn-sm" @click="showNew = true"><Plus :size="16" /> Yaratish</button>
+      </template>
+    </PageHeader>
 
     <!-- Stats -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="card p-4">
-        <p class="text-sm text-ink-400 mb-1">Jami invoyslar</p>
-        <p class="text-xl font-bold font-display">{{ financeStore.invoices.length }}</p>
-      </div>
-      <div class="card p-4">
-        <p class="text-sm text-ink-400 mb-1">To'langan</p>
-        <p class="text-xl font-bold font-display text-emerald-600">{{ paidCount }}</p>
-      </div>
-      <div class="card p-4">
-        <p class="text-sm text-ink-400 mb-1">Kutilmoqda</p>
-        <p class="text-xl font-bold font-display text-amber-600">{{ pendingCount }}</p>
-      </div>
-      <div class="card p-4">
-        <p class="text-sm text-ink-400 mb-1">Muddati o'tdi</p>
-        <p class="text-xl font-bold font-display text-rose-600">{{ overdueCount }}</p>
-      </div>
+      <StatCard icon="FileText" :value="String(financeStore.invoices.length)" label="Jami invoyslar" iconBg="bg-brand-50" iconColor="text-brand-600" />
+      <StatCard icon="CheckCircle2" :value="String(paidCount)" label="To'langan" iconBg="bg-emerald-50" iconColor="text-emerald-600" />
+      <StatCard icon="Clock" :value="String(pendingCount)" label="Kutilmoqda" iconBg="bg-amber-50" iconColor="text-amber-600" />
+      <StatCard icon="AlertTriangle" :value="String(overdueCount)" label="Muddati o'tdi" iconBg="bg-rose-50" iconColor="text-rose-600" />
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-2 flex-wrap">
+      <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
+        class="px-3.5 py-2 rounded-xl text-sm font-medium transition-all"
+        :class="activeTab === tab.id ? 'bg-ink-900 text-white' : 'bg-white text-ink-600 border border-ink-200 hover:bg-ink-50'">
+        {{ tab.label }} <span class="ml-1.5 text-xs opacity-60">{{ tab.count }}</span>
+      </button>
     </div>
 
     <!-- Table -->
     <div class="card overflow-hidden">
-      <div class="table-wrapper">
+      <div class="overflow-x-auto">
         <table class="table">
           <thead>
             <tr>
-              <th>Nomer</th>
+              <th>Invoys №</th>
               <th>Shartnoma</th>
               <th>Davr</th>
               <th>Summa</th>
               <th>To'langan</th>
+              <th>Qoldi</th>
               <th>Muddat</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="inv in financeStore.invoices" :key="inv.id">
+            <tr v-for="inv in filteredInvoices" :key="inv.id" class="hover:bg-ink-50/50 transition-colors">
               <td class="font-mono font-semibold text-ink-900">{{ inv.number }}</td>
-              <td>{{ contractNumber(inv.contractId) }}</td>
-              <td class="text-ink-500">{{ inv.period }}</td>
+              <td class="font-mono text-sm">{{ contractNumber(inv.contractId) }}</td>
+              <td>
+                <span class="badge badge-neutral">{{ inv.period }}</span>
+              </td>
               <td class="font-semibold">{{ formatPrice(inv.amount) }}</td>
               <td class="text-emerald-600 font-medium">{{ formatPrice(inv.paidAmount) }}</td>
+              <td class="font-medium" :class="inv.amount - inv.paidAmount > 0 ? 'text-rose-600' : 'text-ink-400'">
+                {{ formatPrice(inv.amount - inv.paidAmount) }}
+              </td>
               <td class="text-ink-500 text-sm">{{ inv.dueDate }}</td>
-              <td><span class="badge" :class="invoiceStatusClass(inv.status)">{{ invoiceStatusLabel(inv.status) }}</span></td>
+              <td><StatusBadge :status="inv.status" :variant="invoiceVariant(inv.status)" :label="invoiceLabel(inv.status)" dot /></td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div v-if="filteredInvoices.length === 0" class="p-12">
+        <BaseEmptyState title="Invoyslar topilmadi" />
+      </div>
     </div>
+
+    <BaseModal v-model="showNew" title="Invoys yaratish">
+      <div class="space-y-4">
+        <div>
+          <label class="label">Shartnoma</label>
+          <select class="input">
+            <option v-for="c in financeStore.contracts" :key="c.id" :value="c.id">{{ c.number }} — {{ c.tenantName }}</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="label">Davr</label>
+            <input class="input" type="month" />
+          </div>
+          <div>
+            <label class="label">Summa (so'm)</label>
+            <input class="input" type="number" placeholder="0" />
+          </div>
+        </div>
+        <div>
+          <label class="label">To'lov muddati</label>
+          <input class="input" type="date" />
+        </div>
+      </div>
+      <template #footer>
+        <button class="btn btn-ghost btn-lg" @click="showNew = false">Bekor</button>
+        <button class="btn btn-primary btn-lg" @click="showNew = false">Yaratish</button>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Plus } from 'lucide-vue-next'
+import { Plus, Search, FileText, CheckCircle2, Clock, AlertTriangle } from 'lucide-vue-next'
 import type { InvoiceStatus } from '~/types'
 
 const financeStore = useFinanceStore()
 onMounted(() => financeStore.initMockData())
 
+const search = ref('')
+const activeTab = ref('all')
+const showNew = ref(false)
+
 const paidCount = computed(() => financeStore.invoices.filter(i => i.status === 'PAID').length)
 const pendingCount = computed(() => financeStore.invoices.filter(i => i.status === 'PENDING').length)
 const overdueCount = computed(() => financeStore.invoices.filter(i => i.status === 'OVERDUE').length)
 
+const tabs = computed(() => [
+  { id: 'all', label: 'Hammasi', count: financeStore.invoices.length },
+  { id: 'PAID', label: 'To\'langan', count: paidCount.value },
+  { id: 'PENDING', label: 'Kutilmoqda', count: pendingCount.value },
+  { id: 'OVERDUE', label: 'Muddati o\'tdi', count: overdueCount.value },
+  { id: 'PARTIAL', label: 'Qisman', count: financeStore.invoices.filter(i => i.status === 'PARTIAL').length },
+])
+
+const filteredInvoices = computed(() => {
+  let result = financeStore.invoices
+  if (activeTab.value !== 'all') result = result.filter(i => i.status === activeTab.value)
+  if (search.value) {
+    const q = search.value.toLowerCase()
+    result = result.filter(i => i.number.toLowerCase().includes(q))
+  }
+  return result
+})
+
 function contractNumber(id: string) {
-  const c = financeStore.contracts.find(c => c.id === id)
-  return c?.number || '—'
+  return financeStore.contracts.find(c => c.id === id)?.number || '—'
 }
 
 function formatPrice(v: number) {
   if (v >= 1000000) return (v / 1000000).toFixed(1) + ' mln'
+  if (v === 0) return '—'
   return v.toLocaleString('ru')
 }
 
-function invoiceStatusLabel(s: InvoiceStatus): string {
-  const m: Record<string, string> = {
-    PENDING: 'Kutilmoqda', PARTIAL: 'Qisman', PAID: 'To\'langan',
-    OVERDUE: 'Muddati o\'tdi', CANCELLED: 'Bekor qilingan',
-  }
+function invoiceLabel(s: InvoiceStatus): string {
+  const m: Record<string, string> = { PENDING: 'Kutilmoqda', PARTIAL: 'Qisman', PAID: 'To\'langan', OVERDUE: 'Muddati o\'tdi', CANCELLED: 'Bekor' }
   return m[s] || s
 }
 
-function invoiceStatusClass(s: InvoiceStatus): string {
-  const m: Record<string, string> = {
-    PENDING: 'badge-warning', PARTIAL: 'badge-info',
-    PAID: 'badge-success', OVERDUE: 'badge-danger', CANCELLED: 'badge-neutral',
-  }
-  return m[s] || 'badge-neutral'
+function invoiceVariant(s: InvoiceStatus): string {
+  const m: Record<string, string> = { PENDING: 'warning', PARTIAL: 'info', PAID: 'success', OVERDUE: 'danger', CANCELLED: 'neutral' }
+  return m[s] || 'neutral'
 }
 </script>

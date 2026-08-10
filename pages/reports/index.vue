@@ -1,15 +1,9 @@
 <template>
   <div class="space-y-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="font-display text-2xl font-bold tracking-tight">Hisobotlar</h1>
-        <p class="text-ink-500 text-sm mt-0.5">Tizim hisobotlari va eksport</p>
-      </div>
-      <button class="btn btn-primary btn-sm"><Download :size="16" /> Eksport</button>
-    </div>
+    <PageHeader title="Hisobotlar" subtitle="Tizim hisobotlari va eksport" />
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="r in reports" :key="r.id" class="card-hover p-5 cursor-pointer">
+      <div v-for="r in reports" :key="r.id" class="card-hover p-5 cursor-pointer" @click="downloadReport(r)">
         <div class="flex items-start justify-between mb-3">
           <div class="w-12 h-12 rounded-xl flex items-center justify-center" :class="r.bg">
             <component :is="r.icon" :size="24" :class="r.color" />
@@ -17,10 +11,9 @@
           <span class="badge badge-neutral">{{ r.format }}</span>
         </div>
         <h3 class="font-semibold text-ink-900 mb-1">{{ r.title }}</h3>
-        <p class="text-sm text-ink-400 mb-3">{{ r.description }}</p>
+        <p class="text-sm text-ink-400 mb-4">{{ r.description }}</p>
         <button class="btn btn-outline btn-sm w-full">
-          <Download :size="14" />
-          {{ r.format }} formatida yuklash
+          <Download :size="14" /> {{ r.format }} yuklash
         </button>
       </div>
     </div>
@@ -38,4 +31,8 @@ const reports = [
   { id: 'r5', title: 'To\'lovlar statistikasi', description: 'To\'lanmagan va kechikkan to\'lovlar', format: 'XLSX', icon: TrendingUp, bg: 'bg-rose-50', color: 'text-rose-600' },
   { id: 'r6', title: 'Umumiy analitika', description: 'KPI va ko\'rsatkichlar paneli', format: 'PDF', icon: BarChart3, bg: 'bg-ink-100', color: 'text-ink-600' },
 ]
+
+function downloadReport(r: any) {
+  alert(`${r.title} eksport qilinmoqda... (${r.format})`)
+}
 </script>
