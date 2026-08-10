@@ -42,7 +42,7 @@
               <td>
                 <div class="flex items-center gap-3">
                   <div
-                    class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center"
+                    class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center"
                   >
                     <span class="text-xs font-bold text-white">{{ u.initials }}</span>
                   </div>
@@ -76,7 +76,7 @@
       <div v-for="u in filtered" :key="u.id" class="card p-4">
         <div class="flex items-center gap-3 mb-2">
           <div
-            class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center"
+            class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center"
           >
             <span class="text-xs font-bold text-white">{{ u.initials }}</span>
           </div>

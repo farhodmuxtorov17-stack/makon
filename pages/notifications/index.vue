@@ -13,7 +13,7 @@
         :key="n.id"
         :class="[
           'card p-4 flex items-start gap-3 cursor-pointer transition-colors',
-          !n.isRead ? 'border-primary-200 bg-brand-50/30' : '',
+          !n.isRead ? 'border-brand-200 bg-brand-50/30' : '',
         ]"
         @click="markRead(n.id)"
       >
