@@ -181,7 +181,7 @@ const buildings = computed(() => makonStore.buildings.filter(b => !b.id.startsWi
 const selectedId = ref(buildings.value[0]?.id || 'b1')
 const selectedBuilding = computed(() => buildings.value.find(b => b.id === selectedId.value) || buildings.value[0])
 
-function typeLabel(t: string) { return BUILDING_TYPE_LABELS[t] || t }
+function typeLabel(t: string) { return BUILDING_TYPE_LABELS[t]?.uz || t }
 
 const occupancyPercent = computed(() => {
   const b = selectedBuilding.value
