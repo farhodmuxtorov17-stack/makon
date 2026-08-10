@@ -217,10 +217,12 @@
       </div>
     </Teleport>
 
-  </div>
+    <CreateListingModal :show="showCreateListing" :buildings="data?.buildings || []" @close="showCreateListing = false" @created="onListingCreated" />
+</div>
 </template>
 
 <script setup lang="ts">
+import CreateListingModal from '~/components/CreateListingModal.vue'
 import { Plus, Search, Tag, Power, Eye, X } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })

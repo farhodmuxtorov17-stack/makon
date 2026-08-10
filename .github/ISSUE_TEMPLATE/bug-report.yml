@@ -1,0 +1,114 @@
+name: 🐛 Bug Report
+description: Report a bug to help us improve MAKON
+title: "[BUG] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the form below.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I have searched existing issues to avoid duplicates
+          required: true
+        - label: I am using the latest version of MAKON
+          required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - 🔴 Critical (blocks usage)
+        - 🟠 Major (significant impact)
+        - 🟡 Minor (cosmetic/UX)
+        - 🟢 Low (nitpick)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      options:
+        - Public (Landing/Catalog/Building)
+        - Auth (Login/ERI)
+        - Dashboard
+        - Management (Buildings/Units/Listings)
+        - Finance (Invoices/Debts/Inventory)
+        - Facility (Work Orders)
+        - Cabinet (Tenant)
+        - Admin (Users/Roles/Settings)
+        - Reports
+        - Notifications
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: A clear description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Steps to reproduce the behavior.
+      value: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options:
+        - Light
+        - Dark
+        - Both
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: Chrome 127, Safari 17, Firefox 129...
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag and drop screenshots if applicable.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console errors
+      description: Paste any relevant console errors.
+      render: shell

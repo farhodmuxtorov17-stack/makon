@@ -256,10 +256,12 @@
         </div>
       </div>
     </Teleport>
-  </div>
+    <CreateBuildingModal :show="showCreateBuilding" @close="showCreateBuilding = false" @created="onBuildingCreated" />
+</div>
 </template>
 
 <script setup lang="ts">
+import CreateBuildingModal from '~/components/CreateBuildingModal.vue'
 import { Plus, Search, Building2, MapPin, ArrowRight, LayoutGrid, List, Globe, Box, Layers, X } from 'lucide-vue-next'
 import { BUILDING_TYPE_LABELS } from '~/types'
 
