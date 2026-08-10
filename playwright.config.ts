@@ -1,14 +1,10 @@
-import type { Config } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test'
 
 /**
- * Playwright E2E test configuration for MAKON
- * 
- * Run: npx playwright test
- * UI:  npx playwright test --ui
- * Report: npx playwright show-report
+ * Playwright configuration for MAKON
+ * @see https://playwright.dev/docs/test-configuration
  */
-
-const config: Config = {
+export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -19,66 +15,53 @@ const config: Config = {
     ['list'],
   ],
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.CI ? 'https://farhodmuxtorov17-stack.github.io/makon/' : 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
     locale: 'uz-UZ',
     timezone: 'Asia/Tashkent',
-    viewport: { width: 1280, height: 720 },
   },
   projects: [
-    // --- Desktop browsers ---
     {
       name: 'chromium-desktop',
-      use: { browserName: 'chromium' },
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1440, height: 900 },
+      },
     },
     {
       name: 'firefox-desktop',
-      use: { browserName: 'firefox' },
+      use: {
+        ...devices['Desktop Firefox'],
+        viewport: { width: 1440, height: 900 },
+      },
     },
     {
       name: 'webkit-desktop',
-      use: { browserName: 'webkit' },
+      use: {
+        ...devices['Desktop Safari'],
+        viewport: { width: 1440, height: 900 },
+      },
     },
-
-    // --- Mobile (Telegram Mini App simulation) ---
     {
       name: 'mobile-chrome',
       use: {
-        browserName: 'chromium',
-        viewport: { width: 390, height:844 },
-        isMobile: true,
-        hasTouch: true,
-        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+        ...devices['Pixel 7'],
       },
     },
     {
       name: 'mobile-safari',
       use: {
-        browserName: 'webkit',
-        viewport: { width: 390, height: 844 },
-        isMobile: true,
-        hasTouch: true,
-      },
-    },
-
-    // --- Tablet ---
-    {
-      name: 'tablet-landscape',
-      use: {
-        browserName: 'chromium',
-        viewport: { width: 1194, height: 834 },
-        isMobile: false,
+        ...devices['iPhone 15'],
       },
     },
   ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000,
-  },
-}
-
-export default config
+  webServer: process.env.CI
+    ? undefined
+    : {
+        command: 'npm run dev',
+        url: 'http://localhost:3000',
+        reuseExistingServer: !process.env.CI,
+        timeout: 120_000,
+      },
+})

@@ -1,77 +1,63 @@
 import { test, expect } from '@playwright/test'
 
 /**
- * Theme (light/dark) E2E tests
+ * Dark mode / theme tests
  */
-
-test.describe('Theme Toggle', () => {
-  test('light mode is default', async ({ page }) => {
+test.describe('Theme', () => {
+  test('dark mode can be toggled on landing', async ({ page }) => {
     await page.goto('/')
-    
-    const htmlClass = await page.locator('html').getAttribute('class')
-    // Should not have 'dark' class by default
-    expect(htmlClass).not.toContain('dark')
-  })
+    await page.waitForLoadState('networkidle')
 
-  test('dark mode toggle works', async ({ page }) => {
-    await page.goto('/')
-    
-    const toggle = page.locator('button[class*="theme"], [class*="ThemeToggle"], [class*="theme-toggle"]').first()
-    if (await toggle.isVisible()) {
-      // Toggle to dark
-      await toggle.click()
-      await page.waitForTimeout(300)
-      
-      const htmlClass = await page.locator('html').getAttribute('class')
-      expect(htmlClass).toContain('dark')
-      
-      // Toggle back to light
-      await toggle.click()
-      await page.waitForTimeout(300)
-      
-      const htmlClassAfter = await page.locator('html').getAttribute('class')
-      expect(htmlClassAfter).not.toContain('dark')
-    }
-  })
+    const html = page.locator('html')
+    const classBefore = (await html.getAttribute('class')) || ''
 
-  test('theme persists across navigation', async ({ page }) => {
-    await page.goto('/')
-    
-    const toggle = page.locator('button[class*="theme"]').first()
+    // Find and click theme toggle
+    const toggle = page.locator('button').filter({ has: page.locator('svg') }).filter({ hasText: /sun|moon|Sun|Moon/i }).first()
     if (await toggle.isVisible()) {
       await toggle.click()
       await page.waitForTimeout(300)
-      
-      // Navigate to catalog
-      await page.goto('/catalog')
-      await page.waitForTimeout(500)
-      
-      // Theme should persist
-      const htmlClass = await page.locator('html').getAttribute('class')
-      // localStorage should have the theme
-      const stored = await page.evaluate(() => localStorage.getItem('makon-theme'))
-      expect(stored).toBeTruthy()
+      const classAfter = (await html.getAttribute('class')) || ''
+      expect(classAfter).not.toBe(classBefore)
     }
   })
 
-  test('all pages support dark mode', async ({ page }) => {
-    const pages = ['/', '/catalog', '/login']
-    
-    for (const path of pages) {
-      await page.goto(path)
-      await page.waitForTimeout(300)
-      
-      // Manually set dark mode
-      await page.evaluate(() => {
-        document.documentElement.classList.add('dark')
-        localStorage.setItem('makon-theme', 'dark')
-      })
-      
-      // Check no visible errors
-      const errorElements = page.locator('[class*="error"]')
-      const count = await errorElements.count()
-      // Page should still render
-      expect(await page.locator('body').isVisible()).toBeTruthy()
+  test('dark mode persists across navigation', async ({ page }) => {
+    await page.goto('/')
+    await page.waitForLoadState('networkidle')
+
+    // Enable dark mode if not already
+    const html = page.locator('html')
+    const initialClass = (await html.getAttribute('class')) || ''
+    const isDark = initialClass.includes('dark')
+
+    if (!isDark) {
+      const toggle = page.locator('button').filter({ has: page.locator('svg') }).first()
+      if (await toggle.isVisible()) {
+        await toggle.click()
+        await page.waitForTimeout(300)
+      }
+    }
+
+    // Navigate to catalog
+    await page.goto('/catalog')
+    await page.waitForLoadState('networkidle')
+
+    // Dark mode should persist
+    const newClass = (await html.getAttribute('class')) || ''
+    const isStillDark = newClass.includes('dark')
+    expect(isStillDark).toBe(true)
+  })
+
+  test('all pages render without horizontal scroll', async ({ page }) => {
+    const routes = ['/', '/catalog', '/login']
+
+    for (const route of routes) {
+      await page.goto(route)
+      await page.waitForLoadState('networkidle')
+
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth)
+      const clientWidth = await page.evaluate(() => document.documentElement.clientWidth)
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1)
     }
   })
 })

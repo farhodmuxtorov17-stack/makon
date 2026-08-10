@@ -33,6 +33,7 @@
 - [Build & Deploy](#-build--deploy)
 - [Codestyle](#-codestyle)
 - [Hissa qo'shish](#-hissa-qoshish)
+- [Testlash](#-testlash)
 - [Litsenziya](#-litsenziya)
 
 ---
@@ -449,6 +450,34 @@ npm run build
 - No inline styles (except dynamic values)
 
 ---
+
+
+## 🧪 Testlash
+
+### Playwright E2E testlari
+
+```bash
+# Browserlarni o'rnatish (birinchi marta)
+npx playwright install
+
+# Barcha testlarni ishga tushirish
+npm run test:e2e
+
+# Interaktiv rejimda
+npm run test:e2e:ui
+
+# Test hisobotini ko'rish
+npm run test:report
+```
+
+### Test lar soni
+- Landing page: 6 test (hero, nav, features, theme, footer, responsive)
+- Auth: 3 test (login render, invalid creds, ERI link)
+- Catalog: 5 test (render, filter, search, view toggle, card info)
+- Navigation: 3 test (routes, protected redirect, 404)
+- Theme: 3 test (toggle, persistence, no horizontal scroll)
+
+CI: GitHub Actions `.github/workflows/e2e-tests.yml` avtomatik ishlaydi.
 
 ## 🤝 Hissa qo'shish
 

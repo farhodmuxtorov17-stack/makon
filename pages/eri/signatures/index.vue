@@ -1,89 +1,145 @@
 <template>
-  <div class="space-y-6">
-    <div>
-      <h1 class="text-2xl font-bold">ERI imzo navbati</h1>
-      <p class="text-ink-500 text-sm mt-1">Elektron raqamli imzo so\'rovlari va statuslari</p>
+  <div class="space-y-5">
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">ERI imzo navbati</h1>
+        <p class="text-ink-500 text-sm mt-1">{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
+      </div>
+      <button class="btn btn-secondary btn-sm"><RefreshCw :size="14" /> Yangilash</button>
     </div>
 
-    <!-- Status summary -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="card p-4"><div class="text-2xl font-bold text-amber-500">{{ pendingCount }}</div><div class="text-xs text-ink-500">Kutilmoqda</div></div>
-      <div class="card p-4"><div class="text-2xl font-bold text-emerald-500">{{ signedCount }}</div><div class="text-xs text-ink-500">Imzolangan</div></div>
-      <div class="card p-4"><div class="text-2xl font-bold text-red-500">{{ failedCount }}</div><div class="text-xs text-ink-500">Xatolik</div></div>
-      <div class="card p-4"><div class="text-2xl font-bold text-brand-500">{{ total }}</div><div class="text-xs text-ink-500">Jami</div></div>
+    <!-- KPI -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Clock :size="16" class="text-amber-500" /></div>
+          <span class="text-xs text-ink-500">Kutilmoqda</span>
+        </div>
+        <div class="text-xl font-bold text-amber-500">{{ pendingCount }}</div>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><CheckCircle2 :size="16" class="text-emerald-500" /></div>
+          <span class="text-xs text-ink-500">Imzolangan</span>
+        </div>
+        <div class="text-xl font-bold text-emerald-500">{{ signedCount }}</div>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center"><XCircle :size="16" class="text-red-500" /></div>
+          <span class="text-xs text-ink-500">Xatolik</span>
+        </div>
+        <div class="text-xl font-bold text-red-500">{{ failedCount }}</div>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><ShieldCheck :size="16" class="text-purple-500" /></div>
+          <span class="text-xs text-ink-500">Jami</span>
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ signatures.length }}</div>
+      </div>
     </div>
 
-    <!-- Queue -->
-    <div class="card overflow-hidden">
-      <div class="p-4 border-b border-black/5 dark:border-white/5 flex items-center justify-between">
-        <h3 class="font-semibold">Imzo so\'rovlari</h3>
-        <select class="input w-auto">
-          <option>Barcha statuslar</option>
-          <option value="PENDING">Kutilmoqda</option>
-          <option value="SIGNED">Imzolangan</option>
-          <option value="FAILED">Xatolik</option>
-        </select>
+    <!-- Filter -->
+    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5 w-fit">
+      <button v-for="tab in tabs" :key="tab.value" @click="statusFilter = tab.value"
+        class="px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-all font-medium"
+        :class="statusFilter === tab.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+        {{ tab.label }}
+      </button>
+    </div>
+
+    <!-- Signatures -->
+    <div class="space-y-3">
+      <div v-for="sig in filteredSignatures" :key="sig.id" class="card p-5 hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between flex-wrap gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" :class="statusIcon(sig.status)">
+              <ShieldCheck :size="18" />
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-semibold text-ink-900 dark:text-white text-sm font-mono">{{ sig.documentNumber }}</span>
+                <span class="badge text-[10px]" :class="statusBadge(sig.status)">{{ statusLabel(sig.status) }}</span>
+              </div>
+              <div class="text-xs text-ink-500 mt-0.5">{{ sig.contractTitle }} · {{ sig.signerRole }}</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs text-ink-500">Yuborildi</div>
+            <div class="text-sm font-medium text-ink-900 dark:text-white">{{ sig.sentDate }}</div>
+          </div>
+        </div>
+
+        <!-- Signer info -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4 pt-4 border-t border-black/5 dark:border-white/5 text-xs">
+          <div>
+            <div class="text-ink-500 mb-0.5">Imzolovchi</div>
+            <div class="font-medium text-ink-900 dark:text-white">{{ sig.signerName }}</div>
+          </div>
+          <div>
+            <div class="text-ink-500 mb-0.5">STIR / PINFL</div>
+            <div class="font-medium text-ink-900 dark:text-white font-mono">{{ sig.signerTin }}</div>
+          </div>
+          <div>
+            <div class="text-ink-500 mb-0.5">ERI provayder</div>
+            <div class="font-medium text-ink-900 dark:text-white">{{ sig.provider }}</div>
+          </div>
+          <div>
+            <div class="text-ink-500 mb-0.5">Muddat</div>
+            <div class="font-medium" :class="sig.expiresIn < 24 ? 'text-red-500' : sig.expiresIn < 72 ? 'text-amber-500' : 'text-ink-900 dark:text-white'">{{ sig.expiresIn }} soat</div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-2 mt-4 pt-3 border-t border-black/5 dark:border-white/5">
+          <button v-if="sig.status === 'PENDING'" class="btn btn-primary btn-sm"><Send :size="14" /> Imzo so'rov yuborish</button>
+          <button v-if="sig.status === 'FAILED'" class="btn btn-secondary btn-sm"><RotateCw :size="14" /> Qayta urinish</button>
+          <span v-if="sig.status === 'SIGNED'" class="text-xs text-emerald-500 flex items-center gap-1"><CheckCircle2 :size="14" /> {{ sig.signedDate }} da imzolangan</span>
+          <span v-if="sig.status === 'FAILED'" class="text-xs text-red-500 ml-2">Sabab: {{ sig.failReason }}</span>
+          <button class="btn btn-ghost btn-sm ml-auto"><ExternalLink :size="14" /> ERI sayti</button>
+        </div>
       </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
-              <th class="px-4 py-3">Hujjat</th>
-              <th class="px-4 py-3">Tomon</th>
-              <th class="px-4 py-3 text-center">Navbat</th>
-              <th class="px-4 py-3 text-center">Status</th>
-              <th class="px-4 py-3">Sertifikat</th>
-              <th class="px-4 py-3">Vaqt</th>
-              <th class="px-4 py-3 text-right">Amal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="sig in signatures" :key="sig.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3">
-              <td class="px-4 py-3 font-medium">{{ sig.document }}</td>
-              <td class="px-4 py-3">{{ sig.party }}</td>
-              <td class="px-4 py-3 text-center text-xs">{{ sig.order }}/2</td>
-              <td class="px-4 py-3 text-center">
-                <span class="badge text-xs" :class="statusBadge(sig.status)">{{ statusLabel(sig.status) }}</span>
-              </td>
-              <td class="px-4 py-3 text-xs font-mono text-ink-500">{{ sig.cert || '-' }}</td>
-              <td class="px-4 py-3 text-xs text-ink-500">{{ sig.time }}</td>
-              <td class="px-4 py-3 text-right">
-                <button v-if="sig.status === 'FAILED'" class="btn btn-ghost btn-sm text-amber-500" @click="retry(sig)">
-                  <RotateCw :size="14" /> Qayta
-                </button>
-                <button v-if="sig.status === 'PENDING'" class="btn btn-primary btn-sm">
-                  <FileSignature :size="14" /> Imzolash
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    </div>
+
+    <div v-if="filteredSignatures.length === 0" class="card p-12 text-center">
+      <ShieldCheck :size="32" class="text-ink-300 mx-auto mb-2" />
+      <p class="text-ink-500 text-sm">Bu statusda so'rovlar yo'q</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { FileSignature, RotateCw } from 'lucide-vue-next'
+import { Clock, CheckCircle2, XCircle, ShieldCheck, RefreshCw, Send, RotateCw, ExternalLink } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const signatures = ref([
-  { id: 's1', document: 'CTR-2026-003', party: 'Techno Hub MChJ', order: 1, status: 'PENDING', cert: '', time: '2 soat oldin' },
-  { id: 's2', document: 'CTR-2026-003', party: 'MAKON Real Estate', order: 2, status: 'WAITING', cert: '', time: '-' },
-  { id: 's3', document: 'CTR-2026-005', party: 'ABC Logistics MChJ', order: 1, status: 'SIGNED', cert: 'CN=ABC_LOG', time: '5 soat oldin' },
-  { id: 's4', document: 'CTR-2026-005', party: 'MAKON Real Estate', order: 2, status: 'PENDING', cert: '', time: '3 soat oldin' },
-  { id: 's5', document: 'CTR-2026-006', party: 'Global Trade MChJ', order: 1, status: 'FAILED', cert: '', time: '1 kun oldin' },
-  { id: 's6', document: 'CTR-2026-001', party: 'ABC Logistics MChJ', order: 1, status: 'SIGNED', cert: 'CN=ABC_LOG', time: '2 kun oldin' },
-  { id: 's7', document: 'CTR-2026-001', party: 'MAKON Real Estate', order: 2, status: 'SIGNED', cert: 'CN=MAKON_RE', time: '2 kun oldin' },
-])
+const statusFilter = ref('')
 
-const pendingCount = computed(() => signatures.value.filter(s => s.status === 'PENDING' || s.status === 'WAITING').length)
-const signedCount = computed(() => signatures.value.filter(s => s.status === 'SIGNED').length)
-const failedCount = computed(() => signatures.value.filter(s => s.status === 'FAILED').length)
-const total = computed(() => signatures.value.length)
+const tabs = [
+  { value: '', label: 'Hammasi' },
+  { value: 'PENDING', label: 'Kutilmoqda' },
+  { value: 'SIGNED', label: 'Imzolangan' },
+  { value: 'FAILED', label: 'Xatolik' },
+]
 
-function statusLabel(s: string) { return { PENDING: 'Kutilmoqda', WAITING: 'Navbatda', SIGNED: 'Imzolangan', FAILED: 'Xatolik' }[s] || s }
-function statusBadge(s: string) { return { PENDING: 'badge-warning', WAITING: 'badge-neutral', SIGNED: 'badge-success', FAILED: 'badge-danger' }[s] || 'badge-neutral' }
-function retry(sig: any) { sig.status = 'PENDING'; sig.time = 'yangidan yuborildi' }
+const signatures = [
+  { id: '1', documentNumber: 'CTR-2026-008', contractTitle: 'Export Group MChJ · D-102 Piramit', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'PENDING', sentDate: '10 Avg 14:30', expiresIn: 48, signedDate: '', failReason: '' },
+  { id: '2', documentNumber: 'CTR-2026-010', contractTitle: 'Tech Hub MChJ · C-205 IT Park', signerRole: 'Ijarachi', signerName: 'Bekzod Aliyev', signerTin: '306782345', provider: 'UZDPI', status: 'PENDING', sentDate: '10 Avg 12:15', expiresIn: 18, signedDate: '', failReason: '' },
+  { id: '3', documentNumber: 'CTR-2026-005', contractTitle: 'Smart Solutions MChJ · C-201 IT Park', signerRole: 'Ijarachi', signerName: 'Dilnoza Karimova', signerTin: '309215648', provider: 'UZDPI', status: 'SIGNED', sentDate: '01 Iyn 09:00', expiresIn: 0, signedDate: '01 Iyn 14:22', failReason: '' },
+  { id: '4', documentNumber: 'CTR-2026-005', contractTitle: 'Smart Solutions MChJ · C-201 IT Park', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'SIGNED', sentDate: '01 Iyn 14:25', expiresIn: 0, signedDate: '01 Iyn 16:10', failReason: '' },
+  { id: '5', documentNumber: 'CTR-2026-009', contractTitle: 'Mega Group MChJ · B-302 Trillant Tower', signerRole: 'Ijarachi', signerName: 'Otabek Yo\'ldoshev', signerTin: '307819234', provider: 'UZDPI', status: 'FAILED', sentDate: '08 Avg 10:00', expiresIn: 0, signedDate: '', failReason: 'Sertifikat muddati o\'tgan' },
+  { id: '6', documentNumber: 'CTR-2026-001', contractTitle: 'ABC Logistics MChJ · A-301 Tashkent City', signerRole: 'Ijarachi', signerName: 'Sardor Yusupov', signerTin: '304561287', provider: 'UZDPI', status: 'SIGNED', sentDate: '28 Mar 11:00', expiresIn: 0, signedDate: '28 Mar 15:45', failReason: '' },
+  { id: '7', documentNumber: 'CTR-2026-001', contractTitle: 'ABC Logistics MChJ · A-301 Tashkent City', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'SIGNED', sentDate: '28 Mar 15:50', expiresIn: 0, signedDate: '28 Mar 16:20', failReason: '' },
+]
+
+const pendingCount = computed(() => signatures.filter(s => s.status === 'PENDING').length)
+const signedCount = computed(() => signatures.filter(s => s.status === 'SIGNED').length)
+const failedCount = computed(() => signatures.filter(s => s.status === 'FAILED').length)
+
+const filteredSignatures = computed(() => statusFilter.value ? signatures.filter(s => s.status === statusFilter.value) : signatures)
+
+function statusLabel(s: string) { return { PENDING: 'Kutilmoqda', SIGNED: 'Imzolangan', FAILED: 'Xatolik' }[s] || s }
+function statusBadge(s: string) { return { PENDING: 'badge-warning', SIGNED: 'badge-success', FAILED: 'badge-danger' }[s] || 'badge-neutral' }
+function statusIcon(s: string) { return { PENDING: 'bg-amber-500/10 text-amber-500', SIGNED: 'bg-emerald-500/10 text-emerald-500', FAILED: 'bg-red-500/10 text-red-500' }[s] || 'bg-ink-500/10 text-ink-500' }
 </script>

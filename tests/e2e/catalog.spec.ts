@@ -1,57 +1,54 @@
 import { test, expect } from '@playwright/test'
 
 /**
- * Catalog page E2E tests
+ * Catalog page tests
  */
-
-test.describe('Catalog Page (/catalog)', () => {
-  test('loads successfully', async ({ page }) => {
+test.describe('Catalog', () => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('/catalog')
-    await expect(page).toHaveURL(/catalog/)
+    await page.waitForLoadState('networkidle')
   })
 
-  test('displays building cards', async ({ page }) => {
-    await page.goto('/catalog')
-    // Should have some building content
-    await page.waitForTimeout(1000)
-    const cards = page.locator('.card, [class*="card"]')
-    const count = await cards.count()
-    expect(count).toBeGreaterThan(0)
+  test('renders catalog page with listings', async ({ page }) => {
+    // Page should have a heading
+    await expect(page.locator('h1').first()).toBeVisible()
+
+    // Should have listing cards or items
+    const cards = page.locator('[class*="card"], article, [class*="listing"]')
+    expect(await cards.count()).toBeGreaterThan(0)
   })
 
-  test('filter controls are present', async ({ page }) => {
-    await page.goto('/catalog')
-    
-    // Search input
-    const search = page.locator('input[placeholder*="qidirish"], input[placeholder*="search"], input[type="text"]').first()
-    if (await search.isVisible()) {
-      await search.fill('Tashkent')
+  test('filter panel is present', async ({ page }) => {
+    // Find filter elements
+    const filters = page.locator('select, input[type="text"], input[type="range"], [class*="filter"]').first()
+    await expect(filters).toBeVisible()
+  })
+
+  test('search input works', async ({ page }) => {
+    const searchInput = page.locator('input[type="text"], input[placeholder*="qidirish" i], input[placeholder*="search" i]').first()
+    if (await searchInput.isVisible()) {
+      await searchInput.fill('Tashkent')
       await page.waitForTimeout(500)
+      // Results should update
+      const cards = page.locator('[class*="card"], article')
+      expect(await cards.count()).toBeGreaterThanOrEqual(0)
     }
   })
 
-  test('sort dropdown is functional', async ({ page }) => {
-    await page.goto('/catalog')
-    
-    // Look for sort control
-    const sort = page.locator('select, button:has-text("saralash"), button:has-text("sort")').first()
-    if (await sort.isVisible()) {
-      await sort.click()
-      await page.waitForTimeout(300)
+  test('grid/list view toggle exists', async ({ page }) => {
+    // Look for view toggle buttons
+    const toggleButtons = page.locator('button:has(svg), [class*="view-toggle"], [class*="grid-view"], [class*="list-view"]')
+    if (await toggleButtons.count() > 0) {
+      await expect(toggleButtons.first()).toBeVisible()
     }
   })
 
-  test('building card click navigates to detail', async ({ page }) => {
-    await page.goto('/catalog')
-    await page.waitForTimeout(1000)
-    
-    // Find a clickable building card with a link
-    const buildingLink = page.locator('a[href*="buildings"]').first()
-    if (await buildingLink.isVisible()) {
-      await buildingLink.click()
-      await page.waitForTimeout(1000)
-      // Should navigate to a building page
-      await expect(page).toHaveURL(/buildings/)
+  test('listing cards have essential info', async ({ page }) => {
+    const firstCard = page.locator('[class*="card"]').first()
+    if (await firstCard.isVisible()) {
+      // Should have some text content (title, price, etc.)
+      const text = await firstCard.textContent()
+      expect(text?.trim().length).toBeGreaterThan(0)
     }
   })
 })

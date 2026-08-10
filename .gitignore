@@ -29,3 +29,10 @@ Thumbs.db
 # Cache
 .cache
 .temp
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/blob-report/
+/playwright.xml
