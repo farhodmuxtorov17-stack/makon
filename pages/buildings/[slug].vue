@@ -147,7 +147,7 @@ const buildings: Record<string, any> = {
     address: 'Mirzo Ulug\'bek tumani, Tashkent', district: 'Mirzo Ulug\'bek', city: 'Toshkent',
     floorsCount: 12, totalUnits: 420, occupiedUnits: 378, vacantUnits: 42, totalArea: 45000,
     gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
+      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/99fff4d6f_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png',
@@ -159,7 +159,7 @@ const buildings: Record<string, any> = {
     address: 'Yashnabad tumani, Toshkent', district: 'Yashnabad', city: 'Toshkent',
     floorsCount: 18, totalUnits: 180, occupiedUnits: 171, vacantUnits: 9, totalArea: 28000,
     gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png',
+      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/b0db07788_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png',
@@ -171,7 +171,7 @@ const buildings: Record<string, any> = {
     address: 'Yakkasaray tumani, Toshkent', district: 'Yakkasaray', city: 'Toshkent',
     floorsCount: 8, totalUnits: 150, occupiedUnits: 123, vacantUnits: 27, totalArea: 18000,
     gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png',
+      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/e6d4fe6e6_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png',
@@ -183,7 +183,7 @@ const buildings: Record<string, any> = {
     address: 'Amir Temur shoh ko\'chasi, Toshkent', district: 'Amir Temur', city: 'Toshkent',
     floorsCount: 10, totalUnits: 90, occupiedUnits: 70, vacantUnits: 20, totalArea: 15000,
     gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3075330ac_generated_image.png',
+      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/8fa70df4e_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
@@ -195,7 +195,7 @@ const buildings: Record<string, any> = {
     address: 'Sergeli tumani, Toshkent', district: 'Sergeli', city: 'Toshkent',
     floorsCount: 4, totalUnits: 120, occupiedUnits: 95, vacantUnits: 25, totalArea: 12000,
     gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png',
+      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/9adbd3468_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
       'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3075330ac_generated_image.png',
