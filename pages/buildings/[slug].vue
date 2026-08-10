@@ -106,7 +106,7 @@
                   </div>
                   <div class="text-right flex-shrink-0">
                     <div class="text-lg font-bold text-brand-400">{{ formatPrice(l.price, l.currency) }}</div>
-                    <button class="btn btn-primary btn-sm mt-1">Taklif berish</button>
+                    <NuxtLink :to="'/listings/' + l.id" class="btn btn-primary btn-sm mt-1">Batafsil</NuxtLink>
                   </div>
                 </div>
               </div>
