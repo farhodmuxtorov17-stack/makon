@@ -2,7 +2,13 @@ export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
   css: ['~/assets/css/main.css'],
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/color-mode'],
+  colorMode: {
+    preference: 'light',
+    fallback: 'light',
+    classSuffix: '',
+    storageKey: 'makon-theme',
+  },
   app: {
     baseURL: '/makon/',
     head: {
