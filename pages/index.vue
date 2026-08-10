@@ -1,45 +1,61 @@
 <template>
   <div class="min-h-screen">
-    <!-- Hero -->
-    <section class="relative min-h-[680px] overflow-hidden">
+    <!-- Hero with search -->
+    <section class="relative min-h-[640px] overflow-hidden">
       <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80');" />
-      <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white dark:from-ink-950/80 dark:via-ink-950/60 dark:to-ink-950"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-white/85 via-white/75 to-white dark:from-ink-950/85 dark:via-ink-950/65 dark:to-ink-950"></div>
 
-      <div class="relative max-w-7xl mx-auto px-4 lg:px-6 min-h-[680px] flex flex-col justify-center">
-        <div class="max-w-2xl">
-          <div class="badge badge-brand mb-4">Toshkent #1 ko'chmas mulk platformasi</div>
-          <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight mb-4 text-ink-900 dark:text-white">
-            Premium biznes maydonlari<br>
-            <span class="text-gradient">bitta platformada</span>
-          </h1>
-          <p class="text-lg text-ink-600 dark:text-ink-400 mb-8 max-w-xl">
-            Tashkent City, Trillant Tower, IT Park va boshqa premium binolarda ofis, savdo va ombor maydonlari. ERI orqali xavfsiz ro'yxatdan o'tish, onlayn shartnoma tuzish va to'liq boshqaruv — bitta tizimda.
-          </p>
+      <div class="relative max-w-5xl mx-auto px-4 lg:px-6 min-h-[640px] flex flex-col justify-center items-center text-center">
+        <div class="badge badge-brand mb-6">Toshkent #1 kommersiya mulk platformasi</div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-5 text-ink-900 dark:text-white max-w-3xl">
+          Biznes maydonlari <span class="text-gradient">bitta platformada</span>
+        </h1>
+        <p class="text-lg text-ink-600 dark:text-ink-400 mb-8 max-w-2xl">
+          Tashkent City, Trillant Tower, IT Park va boshqa premium binolarda ofis, savdo va ombor maydonlari. ERI orqali xavfsiz shartnoma tuzish va to'liq boshqaruv.
+        </p>
 
-          <div class="flex flex-col sm:flex-row gap-3">
-            <NuxtLink to="/catalog" class="btn btn-primary btn-lg">
-              Katalogga kirish
+        <!-- Search bar (joymee-inspired) -->
+        <div class="w-full max-w-2xl mb-6">
+          <div class="hero-search">
+            <Search :size="20" class="text-ink-400 flex-shrink-0" />
+            <input v-model="heroSearch" type="text" placeholder="Qidirish: ofis, ombor, savdo maydoni, bino nomi..." @keyup.enter="goToCatalog" />
+            <button class="hero-search__btn" @click="goToCatalog">Qidirish</button>
+          </div>
+          <!-- Quick category pills -->
+          <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+            <NuxtLink to="/catalog?offerType=RENT" class="hero-chip">
+              <Building2 :size="14" /> Ijaraga ofis
             </NuxtLink>
-            <NuxtLink to="/register/eri" class="btn btn-secondary btn-lg">
-              Ro'yxatdan o'tish
+            <NuxtLink to="/catalog?offerType=SALE" class="hero-chip">
+              <ShoppingBag :size="14" /> Sotuvda maydon
+            </NuxtLink>
+            <NuxtLink to="/catalog?type=WAREHOUSE" class="hero-chip">
+              <Warehouse :size="14" /> Ombor
+            </NuxtLink>
+            <NuxtLink to="/catalog?type=SHOPPING" class="hero-chip">
+              <ShoppingBag :size="14" /> Savdo maydoni
+            </NuxtLink>
+            <NuxtLink to="/catalog" class="hero-chip hero-chip--all">
+              Barchasi <ArrowRight :size="14" />
             </NuxtLink>
           </div>
+        </div>
 
-          <div class="flex items-center gap-8 mt-12">
-            <div v-if="data">
-              <div class="text-3xl font-bold text-ink-900 dark:text-white">{{ data.stats.totalBuildings }}</div>
-              <div class="text-sm text-ink-500">Binolar</div>
-            </div>
-            <div class="w-px h-10 bg-black/10 dark:bg-white/10"></div>
-            <div v-if="data">
-              <div class="text-3xl font-bold text-ink-900 dark:text-white">{{ data.stats.vacantUnits }}</div>
-              <div class="text-sm text-ink-500">Bo'sh maydonlar</div>
-            </div>
-            <div class="w-px h-10 bg-black/10 dark:bg-white/10"></div>
-            <div v-if="data">
-              <div class="text-3xl font-bold text-ink-900 dark:text-white">{{ data.stats.publishedListings }}</div>
-              <div class="text-sm text-ink-500">Faol listinglar</div>
-            </div>
+        <!-- Stats -->
+        <div class="flex items-center gap-6 md:gap-12 mt-8">
+          <div v-if="data">
+            <div class="text-3xl font-bold text-ink-900 dark:text-white">{{ data.stats.totalBuildings }}</div>
+            <div class="text-sm text-ink-500">Binolar</div>
+          </div>
+          <div class="w-px h-10 bg-black/10 dark:bg-white/10"></div>
+          <div v-if="data">
+            <div class="text-3xl font-bold text-ink-900 dark:text-white">{{ data.stats.vacantUnits }}</div>
+            <div class="text-sm text-ink-500">Bo'sh maydonlar</div>
+          </div>
+          <div class="w-px h-10 bg-black/10 dark:bg-white/10"></div>
+          <div v-if="data">
+            <div class="text-3xl font-bold text-ink-900 dark:text-white">{{ data.stats.publishedListings }}</div>
+            <div class="text-sm text-ink-500">Faol listinglar</div>
           </div>
         </div>
       </div>
@@ -58,19 +74,72 @@
       </div>
     </section>
 
+    <!-- Premium Listings Carousel (joymee VIP-inspired) -->
+    <section v-if="data && data.listings.length" class="py-12 px-4 lg:px-6 max-w-7xl mx-auto">
+      <div class="flex items-end justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-bold mb-1 text-ink-900 dark:text-white flex items-center gap-2">
+            <Crown :size="22" class="text-amber-500" />
+            Premium ob'ektlar
+          </h2>
+          <p class="text-ink-500 text-sm">Bo'sh premium ofislar va savdo maydonlari</p>
+        </div>
+        <NuxtLink to="/catalog" class="btn btn-ghost btn-sm">Barchasi <ArrowRight :size="14" /></NuxtLink>
+      </div>
+
+      <div class="vip-carousel">
+        <div
+          v-for="(item, i) in premiumListings"
+          :key="i"
+          class="vip-item"
+          @click="navigateTo(`/listings/${item.id}`)"
+        >
+          <div class="vip-item__image">
+            <img :src="item.photos[0]" :alt="item.titleUz" loading="lazy" />
+            <span class="vip-item__badge">PREMIUM</span>
+            <div class="vip-item__overlay">
+              <div class="vip-item__price">{{ formatPrice(item.price, item.currency) }}</div>
+              <div class="vip-item__title">{{ item.titleUz }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Building Types -->
     <section class="py-16 px-4 lg:px-6 max-w-7xl mx-auto">
       <div class="mb-8">
         <h2 class="text-2xl md:text-3xl font-bold mb-2 text-ink-900 dark:text-white">Obyekt turlari</h2>
-        <p class="text-ink-500">Biznes markazlardan turar joyni boshqaring</p>
+        <p class="text-ink-500">Biznes markazlar, ofislar, savdo va ombor maydonlari</p>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <NuxtLink v-for="t in buildingTypes" :key="t.type" :to="`/catalog?type=${t.type}`" class="card card-hover p-5 text-center">
-          <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-3 mx-auto">
-            <component :is="t.icon" :size="24" class="text-brand-500" />
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <NuxtLink to="/catalog?type=OFFICE" class="card card-hover p-6 text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-brand-500/10 flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform">
+            <Briefcase :size="28" class="text-brand-500" />
           </div>
-          <div class="text-sm font-medium text-ink-900 dark:text-white">{{ t.label }}</div>
-          <div class="text-xs text-ink-500 mt-1">{{ t.count }} bino</div>
+          <div class="text-sm font-semibold text-ink-900 dark:text-white">Ofislar</div>
+          <div class="text-xs text-ink-500 mt-1">Biznes markazlarda</div>
+        </NuxtLink>
+        <NuxtLink to="/catalog?type=SHOPPING" class="card card-hover p-6 text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform">
+            <ShoppingBag :size="28" class="text-amber-500" />
+          </div>
+          <div class="text-sm font-semibold text-ink-900 dark:text-white">Savdo maydonlari</div>
+          <div class="text-xs text-ink-500 mt-1">Do'konlar va butiklar</div>
+        </NuxtLink>
+        <NuxtLink to="/catalog?type=WAREHOUSE" class="card card-hover p-6 text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform">
+            <Warehouse :size="28" class="text-orange-500" />
+          </div>
+          <div class="text-sm font-semibold text-ink-900 dark:text-white">Ombor maydonlari</div>
+          <div class="text-xs text-ink-500 mt-1">Logistika uchun</div>
+        </NuxtLink>
+        <NuxtLink to="/catalog" class="card card-hover p-6 text-center group">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform">
+            <Building2 :size="28" class="text-emerald-500" />
+          </div>
+          <div class="text-sm font-semibold text-ink-900 dark:text-white">Barcha ob'ektlar</div>
+          <div class="text-xs text-ink-500 mt-1">To'liq katalog</div>
         </NuxtLink>
       </div>
     </section>
@@ -82,7 +151,7 @@
           <h2 class="text-2xl md:text-3xl font-bold mb-2 text-ink-900 dark:text-white">Tavsiya etilgan binolar</h2>
           <p class="text-ink-500">Bo'sh maydonlar mavjud premium obyektlar</p>
         </div>
-        <NuxtLink to="/catalog" class="btn btn-ghost btn-sm">Barchasini ko'rish →</NuxtLink>
+        <NuxtLink to="/catalog" class="btn btn-ghost btn-sm">Barchasini ko'rish <ArrowRight :size="14" /></NuxtLink>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -104,32 +173,6 @@
             </div>
           </div>
         </NuxtLink>
-      </div>
-    </section>
-
-    <!-- Featured Listings -->
-    <section v-if="data && data.listings.length" class="py-16 px-4 lg:px-6 max-w-7xl mx-auto">
-      <div class="flex items-end justify-between mb-8">
-        <div>
-          <h2 class="text-2xl md:text-3xl font-bold mb-2 text-ink-900 dark:text-white">Bo'sh takliflar</h2>
-          <p class="text-ink-500">Ijaraga va sotuvga maydonlar</p>
-        </div>
-        <NuxtLink to="/catalog" class="btn btn-ghost btn-sm">Barchasi →</NuxtLink>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div v-for="l in data.listings.slice(0, 4)" :key="l.id" class="card card-hover overflow-hidden">
-          <div class="h-32 overflow-hidden bg-ink-100 dark:bg-ink-900">
-            <img :src="l.photos[0] || 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80'" :alt="l.titleUz" class="w-full h-full object-cover" loading="lazy" />
-          </div>
-          <div class="p-4">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="badge" :class="l.offerType === 'RENT' ? 'badge-brand' : 'badge-success'">{{ l.offerType === 'RENT' ? 'Ijaraga' : 'Sotuvga' }}</span>
-            </div>
-            <h4 class="font-medium text-sm mb-1 line-clamp-1 text-ink-900 dark:text-white">{{ l.titleUz }}</h4>
-            <div class="text-lg font-bold text-brand-500">{{ formatPrice(l.price, l.currency) }}</div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -180,32 +223,6 @@
       </div>
     </section>
 
-    <!-- Pricing -->
-    <section id="pricing" class="py-20 px-4 lg:px-6 max-w-7xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-ink-900 dark:text-white">Narxlar</h2>
-        <p class="text-ink-500">Biznesingiz hajmiga qarab moslashuvchan tariflar</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div v-for="p in pricing" :key="p.name" class="card p-6 relative" :class="p.featured ? 'border-brand-500/30 shadow-lg' : ''">
-          <div v-if="p.featured" class="absolute -top-3 left-1/2 -translate-x-1/2 badge badge-brand">Tavsiya etiladi</div>
-          <h3 class="font-semibold text-lg mb-2 text-ink-900 dark:text-white">{{ p.name }}</h3>
-          <div class="mb-4">
-            <span class="text-3xl font-bold text-ink-900 dark:text-white">{{ p.price }}</span>
-            <span class="text-sm text-ink-500">/oy</span>
-          </div>
-          <p class="text-sm text-ink-500 mb-4">{{ p.desc }}</p>
-          <ul class="space-y-2 mb-6">
-            <li v-for="feat in p.features" :key="feat" class="flex items-start gap-2 text-sm text-ink-600 dark:text-ink-400">
-              <CheckCircle2 :size="16" class="text-emerald-500 flex-shrink-0 mt-0.5" /> {{ feat }}
-            </li>
-          </ul>
-          <button class="btn w-full" :class="p.featured ? 'btn-primary' : 'btn-secondary'">Tanlash</button>
-        </div>
-      </div>
-    </section>
-
     <!-- How It Works -->
     <section id="about" class="py-20 px-4 lg:px-6 bg-gradient-to-b from-transparent to-brand-500/5">
       <div class="max-w-4xl mx-auto text-center mb-12">
@@ -221,25 +238,24 @@
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="py-20 px-4 lg:px-6 max-w-7xl mx-auto">
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 px-4 lg:px-6 max-w-7xl mx-auto">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-ink-900 dark:text-white">Mijozlar fikrlari</h2>
-        <p class="text-ink-500">Bizning hamkorlarimiz nima deydi</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-ink-900 dark:text-white">Tarif rejalar</h2>
+        <p class="text-ink-500">Biznesingiz hajmiga qarab tanlang</p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div v-for="t in testimonials" :key="t.name" class="card p-6">
-          <div class="flex items-center gap-1 mb-3">
-            <Star v-for="s in 5" :key="s" :size="16" class="text-amber-400 fill-amber-400" />
-          </div>
-          <p class="text-sm text-ink-600 dark:text-ink-400 mb-4 leading-relaxed">"{{ t.text }}"</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-500/10 flex items-center justify-center text-sm font-bold text-brand-500">{{ t.name.charAt(0) }}</div>
-            <div>
-              <div class="text-sm font-medium text-ink-900 dark:text-white">{{ t.name }}</div>
-              <div class="text-xs text-ink-500">{{ t.role }}</div>
-            </div>
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div v-for="p in pricing" :key="p.name" class="card p-8" :class="p.featured ? 'border-2 border-brand-500 shadow-xl' : ''">
+          <div v-if="p.featured" class="badge badge-brand mb-3">Tavsiya etiladi</div>
+          <h3 class="font-bold text-xl mb-1 text-ink-900 dark:text-white">{{ p.name }}</h3>
+          <p class="text-sm text-ink-500 mb-4">{{ p.desc }}</p>
+          <div class="text-3xl font-bold mb-6 text-ink-900 dark:text-white">{{ p.price }}</div>
+          <ul class="space-y-2 mb-8">
+            <li v-for="feat in p.features" :key="feat" class="flex items-start gap-2 text-sm text-ink-600 dark:text-ink-400">
+              <CheckCircle2 :size="16" class="text-emerald-500 flex-shrink-0 mt-0.5" /> {{ feat }}
+            </li>
+          </ul>
+          <button class="btn w-full" :class="p.featured ? 'btn-primary' : 'btn-secondary'">Tanlash</button>
         </div>
       </div>
     </section>
@@ -277,10 +293,20 @@
 </template>
 
 <script setup lang="ts">
-import { Building2, ShoppingBag, Warehouse, Home, Briefcase, Building, ShieldCheck, FileCheck2, Users, Zap, Star, ChevronDown, CheckCircle2, Receipt, Wrench, BarChart3, Gauge, ScrollText, Package, Settings } from 'lucide-vue-next'
+import {
+  Building2, ShoppingBag, Warehouse, Home, Briefcase, Building, ShieldCheck,
+  FileCheck2, Users, Zap, Star, ChevronDown, CheckCircle2, Receipt, Wrench,
+  BarChart3, Gauge, ScrollText, Package, Settings, Search, ArrowRight, Crown,
+} from 'lucide-vue-next'
 import { BUILDING_TYPE_LABELS } from '~/types'
 
 definePageMeta({ layout: 'public' })
+
+const heroSearch = ref('')
+function goToCatalog() {
+  const q = heroSearch.value ? `?search=${encodeURIComponent(heroSearch.value)}` : ''
+  navigateTo(`/catalog${q}`)
+}
 
 const data = ref({
   stats: { totalBuildings: 12, totalUnits: 420, vacantUnits: 47, occupiedUnits: 373, publishedListings: 34, occupancyRate: 89 },
@@ -289,28 +315,21 @@ const data = ref({
     { id: 'b2', name: 'Trillant Tower', slug: 'trillant-tower', type: 'BUSINESS_CENTER', address: 'Yashnabad, Tashkent', floorsCount: 18, totalUnits: 180, occupiedUnits: 171, vacantUnits: 9, totalArea: 28000, gallery: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80'] },
     { id: 'b3', name: 'IT Park', slug: 'it-park', type: 'OFFICE', address: 'Yakkasaray, Tashkent', floorsCount: 8, totalUnits: 150, occupiedUnits: 123, vacantUnits: 27, totalArea: 18000, gallery: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'] },
     { id: 'b4', name: 'Piramit', slug: 'piramit', type: 'MIXED', address: 'Amir Temur, Tashkent', floorsCount: 10, totalUnits: 90, occupiedUnits: 70, vacantUnits: 20, totalArea: 15000, gallery: ['https://images.unsplash.com/photo-1517089596392-fb9a9033e05b?w=800&q=80'] },
+    { id: 'b5', name: 'Business Center 1', slug: 'business-center-1', type: 'BUSINESS_CENTER', address: 'Chilonzor, Tashkent', floorsCount: 6, totalUnits: 60, occupiedUnits: 53, vacantUnits: 7, totalArea: 8000, gallery: ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80'] },
+    { id: 'b6', name: 'Savdo Markaz', slug: 'savdo-markaz', type: 'SHOPPING', address: 'Sergeli, Tashkent', floorsCount: 4, totalUnits: 120, occupiedUnits: 95, vacantUnits: 25, totalArea: 12000, gallery: ['https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80'] },
   ],
   listings: [
-    { id: 'l1', titleUz: 'A-301 · 85 m² ofis', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80'] },
-    { id: 'l2', titleUz: 'B-501 · 120 m² ofis', offerType: 'RENT', price: 35000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80'] },
-    { id: 'l3', titleUz: 'C-201 · 65 m² savdo', offerType: 'RENT', price: 18000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80'] },
-    { id: 'l4', titleUz: 'D-102 · 200 m² ombor', offerType: 'RENT', price: 12000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&q=80'] },
+    { id: 'l1', titleUz: 'A-301 · 85 m² ofis (Tashkent City)', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80'] },
+    { id: 'l2', titleUz: 'B-501 · 120 m² premium ofis (Trillant Tower)', offerType: 'RENT', price: 35000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80'] },
+    { id: 'l3', titleUz: 'C-201 · 65 m² savdo maydoni (IT Park)', offerType: 'RENT', price: 18000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80'] },
+    { id: 'l4', titleUz: 'D-102 · 200 m² ombor (Piramit)', offerType: 'RENT', price: 12000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80'] },
+    { id: 'l5', titleUz: 'E-301 · 42 m² do\'kon (Savdo Markaz)', offerType: 'SALE', price: 450000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1555529771-7888783a18d3?w=600&q=80'] },
   ],
 })
 
-const faqOpen = ref(-1)
+const premiumListings = computed(() => data.value?.listings.slice(0, 5) || [])
 
-const buildingTypes = computed(() => {
-  if (!data.value) return []
-  const types = [...new Set(data.value.buildings.map(b => b.type))]
-  const icons: Record<string, any> = { BUSINESS_CENTER: Building2, OFFICE: Briefcase, SHOPPING: ShoppingBag, WAREHOUSE: Warehouse, RESIDENTIAL: Home, MIXED: Building }
-  return types.map(t => ({
-    type: t,
-    label: BUILDING_TYPE_LABELS[t]?.uz || t,
-    icon: icons[t] || Building,
-    count: data.value.buildings.filter(b => b.type === t).length,
-  }))
-})
+const faqOpen = ref(-1)
 
 const features = [
   { icon: Building2, title: 'Bino boshqaruvi', desc: 'Binolar, qavatlar, birliklar — to\'liq struktura boshqaruvi. 3D ko\'rinish va 2D planlar bilan.' },
@@ -340,15 +359,14 @@ const pricing = [
 const testimonials = [
   { name: 'Sardor Yusupov', role: 'Tashkent City Tower menejeri', text: 'MAKON tizimi bizga binoni boshqarishda 3 baravar tezlik berdi. ERI orqali shartnoma imzolash — aldamchi masala emas.' },
   { name: 'Dilnoza Karimova', role: 'Trillant Tower buxgalteri', text: 'Invoyslar va qarzdorlik monitoringi avtomatik. Endi har oy hisobot tayyorlashga vaqt sarflamaymiz.' },
-  { name: 'Aziz Toshmatov', role: 'IT Park bino menejeri', text: 'Service request\'lar endi tizimda. SLA monitoringi bilan har bir so\'rov vaqtida hal qilinadi.' },
+  { name: 'Aziz Toshmatov', role: 'IT Park bino menejeri', text: 'Bo\'sh ofislar katalogda avtomatik chiqadi. Ijara jarayoni 2-3 kundan bir necha soatga qisqardi.' },
 ]
 
 const faqs = [
-  { q: 'ERI nima va u qanday ishlaydi?', a: 'ERI — Elektron Raqamli Imzo. Yuridik shaxslar uchun xavfsiz identifikatsiya tizimi. MAKON orqali shartnomalarni ERI orqali rasmiy imzolashingiz mumkin.' },
-  { q: 'Qanday ro\'yxatdan o\'tish mumkin?', a: 'Ro\'yxatdan o\'tish sahifasiga o\'ting, ERI orqali identifikatsiyadan o\'ting va shaxsiy kabinetga kiring. Bino menejeri sizning ma\'lumotlaringizni tekshiradi.' },
-  { q: 'Nechta bino boshqarish mumkin?', a: 'Tarif rejasiga qarab: Start — 3 bino, Business — 10 bino, Enterprise — cheksiz. Istalgan vaqtda tarifni o\'zgartirishingiz mumkin.' },
-  { q: 'To\'lovlar qanday amalga oshiriladi?', a: 'Hozirda to\'lovlar tizimda hisoblanadi, lekin avtomatik bank integratsiyasi yo\'q. Invoyslarni qo\'lda to\'laysiz va tizimda belgilaysiz.' },
-  { q: 'Mobil ilova bormi?', a: 'Hozirda web-versiya mavjud — mobil brauzerdan to\'liq ishlaydi. IOS va Android ilovalari keyingi bosqichda rejalashtirilgan.' },
+  { q: 'MAKON faqat Toshkent uchun mo\'ljallanganmi?', a: 'Hozir faqat Toshkent shahridagi biznes markazlari uchun. 2026-yildan boshlab viloyatlarga kengayish rejalashtirilgan.' },
+  { q: 'ERI orqali shartnoma qonuniy kuchga egami?', a: 'Ha, ERI (Elektron Raqamli Imzo) O\'zbekiston qonunchiligiga muvofiq qonuniy kuchga ega. Shartnoma PDF formatida saqlanadi.' },
+  { q: 'Qaysi mulk turlari qo\'llab-quvvatlanadi?', a: 'Biznes markazlar, ofis binolari, savdo majlari va ombor-sanoat zonasi obyektlari. Turar-joy mulklari bilan ishlamaymiz.' },
+  { q: 'Telegram orqali ishlaydimi?', a: 'Ha, MAKON Telegram Mini App sifatida ishlaydi. Bot orqali bildirishnomalar, arizalar va shartnomalarni boshqarishingiz mumkin.' },
 ]
 
 function typeLabel(type: string) {
@@ -362,6 +380,125 @@ function formatArea(m2: number) {
 function formatPrice(price: number, currency: string) {
   if (!price) return '—'
   const formatted = new Intl.NumberFormat('ru-RU').format(price)
-  return currency === 'USD' ? `$${formatted}` : `${formatted} so'm`
+  return currency === 'USD' ? `$${formatted}` : `${(formatted / 1000000).toFixed(1)}M so'm`
 }
 </script>
+
+<style scoped>
+/* Hero search bar (joymee-inspired) */
+.hero-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 16px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+}
+.dark .hero-search {
+  background: #18181b;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06);
+}
+.hero-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  color: #18181b;
+  outline: none;
+}
+.dark .hero-search input { color: #fff; }
+.hero-search__btn {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  background: #4f46e5;
+  padding: 12px 24px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+.hero-search__btn:hover { background: #4338ca; }
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #52525b;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(8px);
+}
+.dark .hero-chip {
+  background: rgba(24,24,27,0.7);
+  border-color: rgba(255,255,255,0.06);
+  color: #d4d4d8;
+}
+.hero-chip:hover { background: white; color: #4f46e5; border-color: rgba(99,102,241,0.3); }
+.dark .hero-chip:hover { background: #27272a; color: #818cf8; }
+.hero-chip--all { background: #4f46e5; color: white; border-color: transparent; }
+.hero-chip--all:hover { background: #4338ca; color: white; }
+
+/* VIP carousel */
+.vip-carousel {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.vip-carousel::-webkit-scrollbar { display: none; }
+.vip-item {
+  flex-shrink: 0;
+  width: 280px;
+  cursor: pointer;
+}
+.vip-item__image {
+  position: relative;
+  width: 280px;
+  height: 200px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.vip-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.vip-item:hover .vip-item__image img { transform: scale(1.05); }
+.vip-item__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.vip-item__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  padding: 20px 14px 12px;
+}
+.vip-item__price {
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 4px;
+}
+.vip-item__title {
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.3;
+}
+</style>
