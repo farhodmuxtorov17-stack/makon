@@ -109,7 +109,7 @@ import {
   Activity, ClipboardList, Search as SearchIcon, Calendar, BarChart3, Building,
 } from 'lucide-vue-next'
 
-const uiStore = useUIStore()
+const uiStore = useUiStore()
 const authStore = useAuthStore()
 const financeStore = useFinanceStore()
 const route = useRoute()
