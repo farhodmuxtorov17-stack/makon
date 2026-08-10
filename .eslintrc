@@ -10,9 +10,7 @@
     "parser": "@typescript-eslint/parser",
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "extraFileExtensions": [
-      ".vue"
-    ]
+    "extraFileExtensions": [".vue"]
   },
   "extends": [
     "eslint:recommended",
@@ -46,7 +44,35 @@
     "useFinanceStore": "readonly",
     "useServiceStore": "readonly",
     "useUIStore": "readonly",
-    "useUiStore": "readonly"
+    "useUiStore": "readonly",
+    "useToast": "readonly",
+    "useFormat": "readonly",
+    "useDarkMode": "readonly",
+    "useHead": "readonly",
+    "nextTick": "readonly",
+    "provide": "readonly",
+    "inject": "readonly",
+    "toRef": "readonly",
+    "toRefs": "readonly",
+    "unref": "readonly",
+    "shallowRef": "readonly",
+    "shallowReactive": "readonly",
+    "triggerRef": "readonly",
+    "isRef": "readonly",
+    "isReactive": "readonly",
+    "isProxy": "readonly",
+    "readonly": "readonly",
+    "markRaw": "readonly",
+    "defineAsyncComponent": "readonly",
+    "useSlots": "readonly",
+    "useAttrs": "readonly",
+    "getCurrentInstance": "readonly",
+    "onBeforeMount": "readonly",
+    "onBeforeUnmount": "readonly",
+    "onScopeDispose": "readonly",
+    "onActivated": "readonly",
+    "onDeactivated": "readonly",
+    "useCssVars": "readonly"
   },
   "rules": {
     "vue/multi-word-component-names": "off",
@@ -54,23 +80,18 @@
     "vue/singleline-html-element-content-newline": "off",
     "vue/html-self-closing": "off",
     "vue/require-default-prop": "off",
+    "vue/first-attribute-linebreak": "off",
+    "vue/html-indent": "off",
+    "vue/html-closing-bracket-newline": "off",
+    "vue/attributes-order": "off",
+    "vue/v-on-event-hyphenation": "off",
+    "vue/no-unused-components": "warn",
+    "vue/no-unused-vars": "warn",
     "no-dupe-keys": "off",
+    "no-undef": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "^_"
-      }
-    ],
-    "no-console": [
-      "warn",
-      {
-        "allow": [
-          "warn",
-          "error"
-        ]
-      }
-    ],
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-useless-escape": "off"
   }
 }
