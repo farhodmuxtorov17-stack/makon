@@ -1,493 +1,486 @@
 <div align="center">
 
-<img src="public/makon/favicon.svg" width="120" height="120" alt="MAKON Logo" />
+<img src="https://img.shields.io/badge/MAKON-Platform-6366f1?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0zIDlsOS03IDkgN3YxMWEyIDIgMCAwIDEtMiAyaC0xNGEyIDIgMCAwIDEtMi0yeiIvPjwvc3ZnPg==" />
 
-# MAKON
+# MAKON — Kommerchesya Ko'chmas Mulk Platformasi
 
-### Premium Real Estate Management Platform
+### Toshkentdagi premium biznes markazlari, ofislar va ombor maydonlari uchun yagona boshqaruv tizimi
 
-**Узбекистанча · 18 модуль · 57 страница · 8 ролей · 322 логических таблица**
-
-[![CI](https://github.com/farhodmuxtorov17-stack/makon/actions/workflows/ci.yml/badge.svg)](https://github.com/farhodmuxtorov17-stack/makon/actions/workflows/ci.yml)
-[![Deploy](https://github.com/farhodmuxtorov17-stack/makon/actions/workflows/deploy.yml/badge.svg)](https://github.com/farhodmuxtorov17-stack/makon/actions/workflows/deploy.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-indigo.svg)](LICENSE)
-[![Made with Nuxt 3](https://img.shields.io/badge/Made_with-Nuxt_3-00DC82.svg)](https://nuxt.com)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](https://www.typescriptlang.org/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Stars](https://img.shields.io/github/stars/farhodmuxtorov17-stack/makon?style=social)](https://github.com/farhodmuxtorov17-stack/makon)
+[![Nuxt 3](https://img.shields.io/badge/Nuxt_3-00DC82?style=flat-square&logo=nuxtdotjs&logoColor=white)](https://nuxt.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Pinia](https://img.shields.io/badge/Pinia-FFD859?style=flat-square&logo=pinia&logoColor=black)](https://pinia.vuejs.org/)
+[![Vue 3](https://img.shields.io/badge/Vue_3-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
+[![License](https://img.shields.io/badge/License-Proprietary-6366f1?style=flat-square)](./LICENSE)
 
 </div>
 
 ---
 
-## 📱 Telegram Mini App
+## 📋 Mundarija
 
-MAKON полностью адаптирован для работы как **Telegram Mini App** — все 8 ролей могут комфортно работать через Telegram.
-
-### Возможности
-
-- ✅ **Telegram WebApp SDK** — интеграция с `telegram-web-app.js`
-- ✅ **Safe Area** — поддержка `env(safe-area-inset-*)` для всех устройств
-- ✅ **Status Bar** — реалистичный iOS-style status bar (время, Wi-Fi, батарея)
-- ✅ **Navigation Bar** — нижняя навигация с кнопкой "Назад" и tabs
-- ✅ **Haptic Feedback** — тактильная отдача при взаимодействии
-- ✅ **Theme Sync** — синхронизация темы с Telegram
-- ✅ **Viewport** — корректная высота `100dvh` для Mini App
-
-### Экран авторизации
-
-На странице входа отображаются **реалистичные мокапы устройств**:
-
-| Устройство | Ориентация | Контент |
-|-----------|-----------|---------|
-| iPhone 17 Pro Max | Вертикальная | Кабинет арендатора: KPI, договоры, инвойсы, навигация |
-| iPad Pro 11" | Горизонтальная | Executive dashboard: KPI, график, активность |
-
-### Компоненты
-
-- `StatusBar.vue` — реалистичный status bar (Dynamic Island, Wi-Fi, батарея)
-- `TgNavBar.vue` — нижняя навигация с кнопкой "Назад" и role-based tabs
-- `useTelegram.ts` — composable для Telegram WebApp API
-- `layouts/telegram.vue` — layout для Mini App режима
-
+- [Loyiha haqida](#-loyiha-haqida)
+- [Xususiyatlari](#-xususiyatlari)
+- [Texnik stek](#-texnik-stek)
+- [Arxitektura](#-arxitektura)
+- [Modullar](#-modullar)
+- [Rollar va huquqlar](#-rollar-va-huquqlar)
+- [ERI integratsiyasi](#-eri-integratsiyasi)
+- [O'rnatish](#-ornatish)
+- [Lokal ishga tushirish](#-lokal-ishga-tushirish)
+- [Loyiha tuzilmasi](#-loyiha-tuzilmasi)
+- [Konfiguratsiya](#-konfiguratsiya)
+- [Build & Deploy](#-build--deploy)
+- [Codestyle](#-codestyle)
+- [Hissa qo'shish](#-hissa-qoshish)
+- [Litsenziya](#-litsenziya)
 
 ---
 
-## 📋 Содержание
+## 🏢 Loyiha haqida
 
-- [О проекте](#-о-проекте)
-- [Возможности](#-возможности)
-- [Технологии](#️-технологии)
-- [Архитектура](#-архитектура)
-- [Структура проекта](#-структура-проекта)
-- [Быстрый старт](#-быстрый-старт)
-- [Скрипты](#-скрипты)
-- [Дизайн-система](#-дизайн-система)
-- [Роли и доступ](#-роли-и-доступ)
-- [Модули](#-модули)
-- [Документация](#-документация)
-- [Roadmap](#-roadmap)
-- [Вклад в проект](#-вклад-в-проект)
-- [Лицензия](#-лицензия)
+**MAKON** — bu Toshkent shahridagi kommersiya ko'chmas mulk obyektlarini boshqarish uchun mo'ljallangan to'liq funksional platforma. Tashkent City, Trillant Tower, IT Park, Piramit va boshqa premium binolardagi ofis, savdo va ombor maydonlarini yagona tizimda boshqaradi.
 
----
-
-## 🏢 О проекте
-
-**MAKON** — это комплексная платформа для управления коммерческой недвижимостью премиум-класса в Ташкенте. Платформа объединяет весь жизненный цикл управления недвижимостью: от публичного каталога и подачи заявок до подписания договоров через ERI (Электронную Рамочную Подпись), финансового учёта, управления объектами и аналитики.
-
-### Ключевые объекты
-
-- **Tashkent City** — 12 этажей, 420 юнитов, 45 000 м²
-- **Trillant Tower** — 18 этажей, 180 юнитов, 28 000 м²
-- **IT Park** — 8 этажей, 150 юнитов, 18 000 м²
-- **Piramit** — 10 этажей, 90 юнитов, 15 000 м²
+Platforma quyidagi jarayonlarni avtomatlashtiradi:
+- 🏗️ Binolar va unitlarni boshqarish (pasport, qavatlar, galereya)
+- 📋 Listinglar va public katalog
+- 📝 Arizalar (ijara/sotib olish) va ko'p bosqichli tasdiqlash
+- 📄 Shartnomalar va ERI elektron imzo
+- 💰 Moliya (invoyslar, qarzdorlik, davrlar, tasdiqlar)
+- 🔧 Facility (work orderlar, material so'rovlari)
+- 📦 Ombor boshqaruvi (materiallar, zaxiralar)
+- ⚡ Hisoblagichlar (elektr, suv, gaz)
+- 📊 Hisobotlar va dashboardlar
+- 👥 Foydalanuvchilar va rollar (RBAC)
+- 🔒 Audit jurnali va monitoring
 
 ---
 
-## ✨ Возможности
+## ✨ Xususiyatlari
 
-### 🏗 Управление объектами
-- Иерархия: Здание → Этаж → Юнит → Листинг
-- 3D визуализация зданий и 2D планы этажей
-- Импорт планов этажей с автоматическим распознаванием
-- Галереи изображений и виртуальные туры
+### Premium UI/UX
+- **Inter font** — professional tipografiya
+- **Light/Dark mode** — to'liq qo'llab-quvvatlash
+- **ApexCharts** — interaktiv grafiklar (area, bar, donut, radialBar)
+- **Lucide Icons** — izchil ikonkalar
+- **Responsive** — mobile-first dizayn
+- **Kanban board** — work orderlar uchun
+- **Timeline** — ERI imzo va audit jarayonlari
 
-### 📋 Заявки и договоры
-- Полный конвейер: Заявка → Оффер → ERI-подпись → Договор
-- Многоязычные описания (UZ / RU)
-- Версионирование договоров и история изменений
-- PDF-экспорт и архивирование
+### Real Tashkent landmark integration
+- Tashkent City Business Center
+- Trillant Tower
+- IT Park Tashkent
+- Piramit
+- Savdo Markaz
+- Bektemir Sanoat
 
-### 💰 Финансы
-- Периоды начисления и автоматическая генерация инвойсов
-- Контроль задолженностей и просрочек
-- Многоуровневое утверждение (approvals)
-- Складской учёт (inventory) с минимумами и алертами
-
-### 🔧 Эксплуатация
-- Service requests с SLA-мониторингом
-- Work orders и назначение исполнителей
-- Material requests со склада
-- Рейтинги и обратная связь
-
-### 📊 Аналитика
-- Executive dashboard с KPI
-- Building dashboard с метриками здания
-- Воронка заявок и конверсия
-- Производительность по зданиям с SLA-бейджами
-
-### ⚙️ Администрирование
-- 8 ролей с гранулярными правами
-- Audit journal всех действий
-- Мониторинг системы в реальном времени
-- Резервное копирование и восстановление
-- Шаблоны уведомлений
+### ERI (Elektron Ro'yxatdan o'tish Identifikatori)
+- 4 bosqichli ro'yxatdan o'tish wizard
+- Sertifikatdan avtomatik ma'lumot olish
+- SHA-256 raqamli xesh va tamg'a
+- Ko'p tomonlama elektron imzo (tenant + landlord)
 
 ---
 
-## 🛠️ Технологии
+## 🛠 Texnik stek
 
-| Категория | Технология | Версия |
-|-----------|-----------|--------|
-| **Фреймворк** | [Nuxt 3](https://nuxt.com) | 3.21+ |
-| **Язык** | [TypeScript](https://www.typescriptlang.org/) | 5.4+ |
-| **Стили** | [TailwindCSS](https://tailwindcss.com) | 3.4+ |
-| **State** | [Pinia](https://pinia.vuejs.org/) | 2.1+ |
-| **Иконки** | [Lucide](https://lucide.dev/) | 0.400+ |
-| **Тёмная тема** | [@nuxtjs/color-mode](https://color-mode.nuxtjs.org/) | 4.0+ |
-| **Шрифты** | Inter, JetBrains Mono | — |
-| **CI/CD** | GitHub Actions | — |
-| **Хостинг** | GitHub Pages | — |
+| Texnologiya | Versiya | Maqsad |
+|-------------|---------|--------|
+| **Nuxt 3** | 3.12+ | SSG framework, routing, SSR/SSG |
+| **Vue 3** | 3.4+ | UI framework (Composition API) |
+| **TypeScript** | 5.4+ | Type safety |
+| **Tailwind CSS** | 3.4+ | Utility-first styling |
+| **Pinia** | 2.1+ | State management |
+| **Lucide Vue** | 0.400+ | Icon system |
+| **ApexCharts** | 3.x | Data visualization |
+| **Nuxt Color Mode** | 4.0+ | Dark/light theme |
 
 ---
 
-## 🏗 Архитектура
+## 🏗 Arxitektura
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        Публичная часть                        │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────────┐ │
-│  │  Лендинг │  │ Каталог  │  │ Bино стр.│  │  Unit/Liting │ │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────────┘ │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-              ┌────────▼────────┐
-              │   Авторизация    │
-              │   + ERI регист.  │
-              └────────┬────────┘
-                       │
-┌──────────────────────▼──────────────────────────────────────┐
-│                     Админ-панель (8 ролей)                    │
+│                     Nuxt 3 (SSG Mode)                        │
 │                                                              │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌────────┐ │
-│  │Dashboard│ │Управление│ │ Финансы │ │Эксплуат.│ │Отчёты  │ │
-│  │         │ │ здания   │ │         │ │         │ │        │ │
-│  └─────────┘ └─────────┘ └─────────┘ └─────────┘ └────────┘ │
-│                                                              │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐            │
-│  │  ERI    │ │Админ    │ │Монитор. │ │Кабинет  │            │
-│  │ подписи │ │ панель  │ │система  │ │иждарача │            │
-│  └─────────┘ └─────────┘ └─────────┘ └─────────┘            │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │  Public  │  │  Admin   │  │  Auth    │  │ Telegram│     │
+│  │  Layout  │  │  Layout  │  │  Layout  │  │  Layout  │     │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘     │
+│       │              │              │              │          │
+│  ┌────▼──────────────▼──────────────▼──────────────▼──┐     │
+│  │                   Pages (58)                        │     │
+│  │  Landing │ Catalog │ Buildings │ Units │ Login      │     │
+│  │  Cabinet │ Contracts │ Finance │ Facility │ Reports │     │
+│  │  Admin │ Meters │ ERI Registration │ Dashboard       │     │
+│  └──────────────────────┬──────────────────────────────┘     │
+│                         │                                    │
+│  ┌──────────────────────▼──────────────────────────────┐     │
+│  │              Components & Composables                │     │
+│  │  MakonChart │ CatalogMap │ FilterPanel │ RoleSwitcher│     │
+│  │  CreateBuildingModal │ CreateListingModal           │     │
+│  │  StatusBar │ ThemeToggle │ TgNavBar                  │     │
+│  └──────────────────────┬──────────────────────────────┘     │
+│                         │                                    │
+│  ┌──────────────────────▼──────────────────────────────┐     │
+│  │                 Pinia Stores                         │     │
+│  │  auth │ makon (buildings, units, contracts, listings)│     │
+│  └──────────────────────┬──────────────────────────────┘     │
+│                         │                                    │
+│  ┌──────────────────────▼──────────────────────────────┐     │
+│  │              Base44 Backend (API)                    │     │
+│  │  Entities: Building, Listing, Application,           │     │
+│  │  Contract, Invoice, ServiceRequest                    │     │
+│  └─────────────────────────────────────────────────────┘     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Принципы проектирования
+---
 
-1. **Тёмный/Светлый режим** — полная поддержка через `@nuxtjs/color-mode`
-2. **Адаптивность** — mobile-first, breakpoint-aware на всех страницах
-3. **Роль-based UI** — навигация и доступ меняются по роли пользователя
-4. **Статический-first** — SSR + prerendering, моковые данные на фронтенде
-5. **Двуязычность** — все контентные поля дублированы (UZ/RU)
+## 📦 Modullar
+
+### Public模块
+| Route | Tavsif |
+|-------|--------|
+| `/` | Landing page — hero, VIP karusel, ob'ekt turlari |
+| `/catalog` | Kommersiya katalogi — filtr, qidiruv, xarita, grid/list view |
+| `/buildings/:slug` | Bino public sahifasi |
+| `/units/:slug` | Unit public sahifasi |
+| `/login` | Tizimga kirish |
+| `/register/eri` | ERI orqali ro'yxatdan o'tish (4 bosqich) |
+
+### Cabinet模块 (Ijarachi)
+| Route | Tavsif |
+|-------|--------|
+| `/cabinet` | Dashboard — KPI, to'lov chart, unitlar, arizalar |
+| `/cabinet/units` | Mening unitlarim — foto kartalar |
+| `/cabinet/applications` | Ariza va hujjatlar — timeline, ERI status |
+| `/cabinet/contracts` | Shartnomalarim |
+| `/cabinet/services` | Hisob va servis — tariflar, invoyslar |
+| `/cabinet/meter-readings` | Hisoblagich ko'rsatkichlari |
+| `/cabinet/service-requests/new` | Yangi servis so'rov |
+
+### Management模块 (Bino Rahbari)
+| Route | Tavsif |
+|-------|--------|
+| `/management/buildings` | Binolar ro'yxati (card/table view) |
+| `/management/buildings/:id` | Bino pasporti, qavatlar, galereya, hujjatlar |
+| `/management/buildings/:id/units` | Unitlar boshqaruvi |
+| `/management/units` | Barcha unitlar |
+| `/management/listings` | Listinglar boshqaruvi |
+| `/management/applications` | Arizalar monitoring |
+| `/management/contracts` | Shartnomalar boshqaruvi |
+| `/management/service-requests` | Servis so'rovlari |
+| `/management/floor-plans` | Reja importi |
+| `/management/visual-settings` | Vizual sozlamalar |
+
+### Finance模块 (Buxgalter)
+| Route | Tavsif |
+|-------|--------|
+| `/finance/periods` | Moliya davrlari |
+| `/finance/invoices` | Invoyslar — KPI, chart, tablar, qidiruv |
+| `/finance/debts` | Qarzdorlik |
+| `/finance/approvals` | Tasdiqlash jarayoni |
+| `/finance/inventory` | Ombor — kategoriyalar, zaxira statusi |
+| `/finance/stock-issues` | Material berish |
+
+### Facility模块 (Pudratchi)
+| Route | Tavsif |
+|-------|--------|
+| `/facility/work-orders` | Work orderlar — Kanban board |
+| `/facility/material-requests` | Material so'rovlari |
+
+### Dashboard & Reports
+| Route | Tavsif |
+|-------|--------|
+| `/dashboard/executive` | Global dashboard — 6 KPI, 4 chart, SLA, alerts |
+| `/dashboard/building` | Bino dashboardi |
+| `/reports` | Hisobotlar — 5 KPI, 4 chart, building table |
+
+### Admin模块
+| Route | Tavsif |
+|-------|--------|
+| `/admin/users` | Foydalanuvchilar — KPI, filter, table |
+| `/admin/roles` | Rollar — 5 rol, huquqlar matritsasi |
+| `/admin/audit` | Audit jurnali — timeline, filter |
+| `/admin/monitoring` | Monitoring — health, API chart, online users |
+| `/admin/settings` | Tizim sozlamalari |
+| `/admin/backups` | Rezerv nusxalar |
+| `/admin/notification-templates` | Shablonlar |
+| `/admin/login-history` | Kirish tarixi |
 
 ---
 
-## 📁 Структура проекта
+## 🔐 Rollar va huquqlar
+
+| Rol | O'zbekcha | Foydalanuvchilar | Asosiy huquqlar |
+|-----|-----------|------------------|-----------------|
+| `SUPER_HEAD` | Super Rahbar | 2 | To'liq CRUD, tasdiqlash, admin |
+| `BUILDING_MANAGER` | Bino Rahbari | 3 | Bino/unit/listing CRUD, arizalar |
+| `ACCOUNTANT` | Buxgalter | 2 | Invoys, moliya, tasdiqlash |
+| `FACILITY` | Pudratchi | 3 | Work orderlar, materiallar |
+| `TENANT_OWNER` | Ijarachi | 12 | Cabinet, arizalar, shartnomalar |
+
+### Huquqlar matritsasi (12 modul × 5 amal)
+- **Ko'rish** — barcha rollar
+- **Yaratish** — Rahbar, Bino Rahbari, Buxgalter, Pudratchi
+- **Tahrir** — Rahbar, Bino Rahbari, Pudratchi
+- **O'chirish** — faqat Super Rahbar
+- **Tasdiqlash** — Rahbar, Bino Rahbari, Buxgalter
+
+---
+
+## 🔑 ERI integratsiyasi
+
+MAKON O'zbekiston Respublikasining ERI (Elektron Ro'yxatdan o'tish Identifikatori) tizimi bilan integratsiyalangan.
+
+### Jarayon:
+1. **Sertifikat tanlash** — foydalanuvchi ERI sertifikatini yuklaydi
+2. **Ma'lumot olish** — tizim provayderdan STIR, tashkilot nomi, vakil F.I.O, JShShIR olish
+3. **Hisob yaratish** — email, telefon, parol o'rnatish
+4. **Shartnoma imzolash** — ERI orqali elektron imzo (tenant + landlord)
+
+### Xavfsizlik:
+- SHA-256 raqamli xesh har bir shartnoma uchun
+- Sertifikat muddati tekshiruvi
+- Bir STIR — bitta profil
+- Parollar shifrlangan holda saqlanadi
+
+---
+
+## 🚀 O'rnatish
+
+### Talablar
+- Node.js 18+
+- npm / pnpm / yarn
+
+### O'rnatish
+
+```bash
+# Reponi klonlash
+git clone https://github.com/farhodmuxtorov17-stack/makon.git
+cd makon
+
+# Bog'liqliklarni o'rnatish
+npm install
+```
+
+---
+
+## 💻 Lokal ishga tushirish
+
+```bash
+# Dev server (http://localhost:3000/makon/)
+npm run dev
+
+# Production build (SSG)
+npm run build
+
+# Preview production build
+npm run preview
+
+# Lint
+npm run lint
+```
+
+---
+
+## 📁 Loyiha tuzilmasi
 
 ```
 makon/
 ├── .github/
-│   ├── workflows/
-│   │   ├── ci.yml              # Линтинг + сборка
-│   │   └── deploy.yml          # Деплой на GitHub Pages
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug-report.yml
-│   │   ├── feature-request.yml
-│   │   └── config.yml
-│   └── PULL_REQUEST_TEMPLATE.md
+│   └── workflows/
+│       ├── ci.yml              # CI pipeline (lint + build)
+│       └── deploy.yml           # Deploy to GitHub Pages
 ├── assets/
 │   └── css/
-│       └── main.css            # Глобальные стили, компонентные классы
+│       └── main.css            # Global styles, Tailwind layers, components
 ├── components/
-│   ├── CreateBuildingModal.vue # Модалка создания здания
-│   ├── CreateListingModal.vue  # Модалка создания листинга
-│   ├── RoleSwitcher.vue        # Переключатель ролей (демо)
-│   └── ThemeToggle.vue         # Кнопка тёмного/светлого режима
+│   ├── MakonChart.vue          # ApexCharts wrapper (area/bar/donut/radialBar)
+│   ├── CatalogMap.vue          # Leaflet map with price bubbles
+│   ├── CreateBuildingModal.vue # Create building modal
+│   ├── CreateListingModal.vue  # Create listing modal
+│   ├── FilterPanel.vue         # Catalog filter panel
+│   ├── RoleSwitcher.vue        # Role switcher (demo)
+│   ├── StatusBar.vue           # Status bar component
+│   ├── TgNavBar.vue            # Telegram navigation bar
+│   └── ThemeToggle.vue         # Dark/light toggle
 ├── composables/
-│   └── useApi.ts               # API-композбл (заготовка)
+│   ├── useFormat.ts            # Formatting utilities
+│   └── useMakonApi.ts          # API composable
+├── functions/                  # Backend functions (Base44)
+│   ├── getDashboardData.ts
+│   ├── getFinanceReport.ts
+│   ├── getBuildingAnalytics.ts
+│   └── sendNotification.ts
 ├── layouts/
-│   ├── admin.vue               # Layout с сайдбаром (8 ролей)
-│   ├── auth.vue                # Layout для логина/регистрации
-│   └── public.vue             # Layout для публичных страниц
+│   ├── admin.vue               # Admin layout (sidebar + header)
+│   ├── auth.vue                # Auth layout (centered)
+│   ├── public.vue              # Public layout (header + footer)
+│   └── telegram.vue            # Telegram WebApp layout
 ├── middleware/
-│   └── auth.ts                 # Middleware авторизации
-├── pages/
-│   ├── index.vue               # 🏠 Лендинг
-│   ├── catalog/                # 📂 Публичный каталог
-│   ├── buildings/              # 🏢 Страница здания + 3D
-│   ├── units/                  # 📐 Страница юнита
-│   ├── listings/               # 🏷 Страница листинга
-│   ├── login.vue               # 🔐 Вход
-│   ├── register/               # 📝 ERI-регистрация
-│   ├── profile/                # 👤 Профиль
-│   ├── dashboard/              # 📊 Дашборды (executive + building)
-│   ├── management/             # ⚙️ Управление (buildings, units,
-│   │                           #    listings, applications, etc.)
-│   ├── contracts/              # 📜 Договоры
-│   ├── applications/           # 📋 Заявки
-│   ├── finance/                # 💰 Финансы (periods, invoices,
-│   │                           #    debts, approvals, inventory)
-│   ├── facility/               # 🔧 Эксплуатация (work-orders, materials)
-│   ├── meters/                 # ⚡ Счётчики
-│   ├── eri/                    # ✍️ ERI-подписи
-│   ├── cabinet/                # 🏠 Кабинет иждарача
-│   ├── admin/                  # 🔑 Админ (users, roles, audit,
-│   │                           #    monitoring, backups, settings)
-│   ├── reports/                # 📈 Отчёты и аналитика
-│   └── notifications/          # 🔔 Уведомления
+│   └── auth.ts                 # Authentication guard
+├── pages/                       # 58 pages across 12 modules
+│   ├── index.vue               # Landing page
+│   ├── catalog/index.vue       # Commercial catalog
+│   ├── login.vue               # Login page
+│   ├── register/eri.vue         # ERI registration wizard
+│   ├── cabinet/                # Tenant portal (7 pages)
+│   ├── contracts/              # Contracts module (3 pages)
+│   ├── dashboard/              # Dashboards (3 pages)
+│   ├── finance/                # Finance module (6 pages)
+│   ├── facility/               # Facility module (2 pages)
+│   ├── management/             # Management module (10 pages)
+│   ├── admin/                  # Admin module (8 pages)
+│   ├── meters/                 # Meters module
+│   ├── reports/                # Reports module
+│   ├── notifications/          # Notifications
+│   ├── profile/                # User profile
+│   └── buildings/              # Public building pages
+├── plugins/
+│   └── apexcharts.client.ts    # ApexCharts registration
 ├── stores/
-│   ├── auth.ts                 # Auth store (Pinia)
-│   └── makon.ts                # Global app store
+│   ├── auth.ts                 # Auth store (login, logout, user)
+│   └── makon.ts                # Makon store (buildings, units, contracts)
 ├── types/
-│   └── index.ts                # TypeScript типы и константы
-├── app.vue                     # Root component
-├── nuxt.config.ts              # Nuxt конфигурация
-├── tailwind.config.ts          # Tailwind + цвета brand/ink
+│   └── index.ts                # TypeScript type definitions
+├── nuxt.config.ts              # Nuxt configuration
+├── tailwind.config.ts          # Tailwind configuration
+├── tsconfig.json               # TypeScript configuration
 └── package.json
 ```
 
 ---
 
-## 🚀 Быстрый старт
+## ⚙️ Konfiguratsiya
 
-### Требования
+### Nuxt Config (`nuxt.config.ts`)
 
-- **Node.js** 18+ (рекомендуется 20)
-- **npm** 10+
-
-### Установка
-
-```bash
-# Клонировать репозиторий
-git clone https://github.com/farhodmuxtorov17-stack/makon.git
-cd makon
-
-# Установить зависимости
-npm install
-
-# Запустить dev-сервер
-npm run dev
+```typescript
+export default defineNuxtConfig({
+  ssr: true,
+  devtools: { enabled: false },
+  css: ['~/assets/css/main.css'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/color-mode'],
+  colorMode: {
+    preference: 'light',
+    fallback: 'light',
+    classSuffix: '',
+    storageKey: 'makon-theme',
+  },
+  app: {
+    baseURL: '/makon/',
+    head: {
+      title: 'MAKON — Ko\'chmas mulk platformasi',
+      htmlAttrs: { lang: 'uz' },
+      // ... SEO meta tags
+    },
+  },
+})
 ```
 
-Откройте [http://localhost:3000/makon](http://localhost:3000/makon) в браузере.
+### Tailwind Config
 
-### Сборка
+Custom color palette:
+- **brand**: Indigo (#6366f1 — #4f46e5)
+- **ink**: Zinc scale (50-950)
+- Custom component classes: `.btn`, `.card`, `.badge`, `.glass`
+
+---
+
+## 📦 Build & Deploy
+
+### CI/CD Pipeline
+
+```yaml
+# .github/workflows/ci.yml
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+```
+
+### GitHub Pages Deploy
+
+The project auto-deploys to GitHub Pages on push to `main`:
+- Build: `nuxt generate` (SSG)
+- Output: `.output/public/`
+- URL: `https://farhodmuxtorov17-stack.github.io/makon/`
+
+### Manual Deploy
 
 ```bash
-# Статическая генерация (GitHub Pages)
 npm run build
-
-# Предпросмотр production-сборки
-npm run preview
+# Deploy .output/public/ to any static host
 ```
 
-### Деплой
+---
 
-Проект автоматически деплоится на GitHub Pages при пуше в `main`.
+## 📐 Codestyle
 
-**Live:** [https://farhodmuxtorov17-stack.github.io/makon/](https://farhodmuxtorov17-stack.github.io/makon/)
+### Naming
+- **Pages**: kebab-case (`floor-plans/index.vue`)
+- **Components**: PascalCase (`MakonChart.vue`)
+- **Composables**: camelCase with `use` prefix (`useFormat.ts`)
+- **Stores**: camelCase (`auth.ts`, `makon.ts`)
+- **Types**: PascalCase interfaces
+
+### Structure
+- `<script setup lang="ts">` — always TypeScript
+- Composition API — no Options API
+- `definePageMeta` for layout and middleware
+- `defineProps` with TypeScript interfaces
+
+### CSS
+- Tailwind utility classes in templates
+- Custom component classes in `main.css` `@layer components`
+- Scoped `<style>` for component-specific styles
+- No inline styles (except dynamic values)
 
 ---
 
-## 📜 Скрипты
+## 🤝 Hissa qo'shish
 
-| Команда | Описание |
-|---------|----------|
-| `npm run dev` | Запуск dev-сервера (HMR) |
-| `npm run build` | Статическая генерация в `.output/public` |
-| `npm run preview` | Локальный предпросмотр production-сборки |
-| `npm run lint` | ESLint проверка |
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
----
-
-## 🎨 Дизайн-система
-
-### Цвета
-
-| Токен | HEX | Использование |
-|-------|-----|--------------|
-| `brand-500` | `#6366f1` | Основной акцент (индико) |
-| `brand-600` | `#4f46e5` | Hover-состояния |
-| `ink-950` | `#09090b` | Фон тёмного режима |
-| `ink-900` | `#18181b` | Карты в тёмном режиме |
-| `ink-500` | `#71717a` | Вторичный текст |
-| `emerald-500` | `#10b981` | Успех, активный статус |
-| `amber-500` | `#f59e0b` | Предупреждение, ожидание |
-| `red-500` | `#ef4444` | Ошибка, просрочка |
-
-### Компонентные классы
-
-```css
-.card        /* Базовая карточка: rounded-2xl, border, padding */
-.btn        /* Кнопка: px-4 py-2, rounded-xl, font-medium */
-.btn-primary /* brand-500 bg, white text */
-.btn-secondary /* secondary bg */
-.input      /* Форма ввода: w-full, rounded-xl, border */
-.badge      /* Метка: inline-flex, rounded-full, px-2 */
-.toggle     /* Чекбокс-переключатель */
+### Commit Convention
+```
+feat:     new feature
+fix:      bug fix
+docs:     documentation
+style:    formatting
+refactor: code refactoring
+test:     tests
+chore:    build/tooling
 ```
 
-### Типографика
-
-- **Заголовки:** Inter, font-weight 700
-- **Основной текст:** Inter, font-weight 400-500
-- **Код:** JetBrains Mono
-
 ---
 
-## 🔐 Роли и доступ
+## 📄 Litsenziya
 
-| Роль | Назначение | Доступ |
-|------|-----------|--------|
-| `SUPER_HEAD` | Супер-руководитель | Все модули (read), отчёты, аудит |
-| `ADMIN` | Администратор | Пользователи, роли, настройки, бэкапы |
-| `BUILDING_MANAGER` | Менеджер здания | Здания, юниты, листинги, заявки, счётчики |
-| `ACCOUNTANT` | Бухгалтер | Финансы, инвойсы, долги, склад |
-| `FACILITY` | Подрядчик | Work orders, material requests |
-| `WAREHOUSE_OPERATOR` | Кладовщик | Склад, выдача материалов |
-| `CONTENT_OPERATOR` | Контент-менеджер | Здания (read), визуальные настройки |
-| `TENANT_OWNER` | Арендатор | Кабинет, юниты, заявки, договоры, счётчики |
-
----
-
-## 📦 Модули
-
-### Публичные
-
-| Модуль | Страницы | Описание |
-|--------|---------|----------|
-| Лендинг | `/` | Hero, фичи, тарифы, отзывы, FAQ |
-| Каталог | `/catalog` | Фильтры, сортировка, карточки зданий |
-| Здание | `/buildings/:slug` | Галерея, листинги, описание, 3D |
-| Юнит | `/units/:slug` | Детальная страница единицы |
-| Листинг | `/listings/:id` | Фотогалерея, заявка, виртуальный тур |
-
-### Авторизация
-
-| Модуль | Страницы | Описание |
-|--------|---------|----------|
-| Вход | `/login` | Авторизация + переключатель ролей |
-| ERI | `/register/eri` | Регистрация юр. лица через ERI |
-
-### Управление
-
-| Модуль | Страницы | Описание |
-|--------|---------|----------|
-| Дашборд | `/dashboard/executive`, `/dashboard/building` | KPI, графики, воронки |
-| Здания | `/management/buildings` | CRUD, детальная страница, юниты |
-| Юниты | `/management/units` | Таблица всех юнитов со статусами |
-| Листинги | `/management/listings` | CRUD листингов, статусы |
-| Заявки | `/management/applications` | Конвейер обработки заявок |
-| Сервис | `/management/service-requests` | Заявки на обслуживание |
-| Договоры | `/contracts` | Список, детальная страница, активация |
-| ERI-подписи | `/eri/signatures` | Очередь подписания |
-| Планы этажей | `/management/floor-plans` | Импорт 2D-планов |
-| Визуальные настройки | `/management/visual-settings` | 4 вкладки: каталог, здание, листинг, тема |
-
-### Финансы
-
-| Модуль | Страницы | Описание |
-|--------|---------|----------|
-| Периоды | `/finance/periods` | Месячные периоды начисления |
-| Инвойсы | `/finance/invoices` | Все инвойсы, статусы оплаты |
-| Задолженности | `/finance/debts` | Просроченные и рисковые долги |
-| Утверждения | `/finance/approvals` | Многоуровневые approvals |
-| Склад | `/finance/inventory` | Материалы, минимумы, алерты |
-| Выдача | `/finance/stock-issues` | Выдача материалов со склада |
-
-### Эксплуатация
-
-| Модуль | Страницы | Описание |
-|--------|---------|----------|
-| Work orders | `/facility/work-orders` | Заявки с SLA-мониторингом |
-| Material requests | `/facility/material-requests` | Запрос материалов со склада |
-
-### Кабинет арендатора
-
-| Модуль | Страницы | Описание |
-|--------|---------|----------|
-| Кабинет | `/cabinet` | KPI, заявки, договоры, инвойсы |
-| Мои юниты | `/cabinet/units` | Список арендованных единиц |
-| Заявки | `/cabinet/applications` | История заявок и документов |
-| Договоры | `/cabinet/contracts` | Договоры с прогресс-баром |
-| Сервис | `/cabinet/services` | Сервис-заявки |
-| Счётчики | `/cabinet/meter-readings` | Ввод показаний |
-
-### Администрирование
-
-| Модуль | Страницы | Описание |
-|--------|---------|----------|
-| Пользователи | `/admin/users` | CRUD + детальная страница |
-| Роли | `/admin/roles` | 8 ролей, матрица прав |
-| Аудит | `/admin/audit` | Журнал всех действий |
-| Мониторинг | `/admin/monitoring` | Системные метрики |
-| Бэкапы | `/admin/backups` | Резервные копии |
-| История входов | `/admin/login-history` | Логи авторизации |
-| Шаблоны | `/admin/notification-templates` | Шаблоны уведомлений |
-| Настройки | `/admin/settings` | Конфигурация системы |
-
-### Аналитика и уведомления
-
-| Модуль | Страницы | Описание |
-|--------|---------|----------|
-| Отчёты | `/reports` | KPI, тренды, воронка, производительность |
-| Уведомления | `/notifications` | Фильтры, read/unread, deep links |
-
----
-
-## 📚 Документация
-
-| Документ | Описание |
-|----------|----------|
-| [Архитектура](docs/ARCHITECTURE.md) | Системная архитектура, паттерны, решения |
-| [Дизайн-система](docs/DESIGN-SYSTEM.md) | Цвета, типографика, компоненты |
-| [Страницы](docs/PAGES.md) | Полный реестр всех 57 страниц |
-| [Вклад в проект](CONTRIBUTING.md) | Гайд по контрибуции |
-| [Changelog](CHANGELOG.md) | История изменений |
-| [Code of Conduct](CODE_OF_CONDUCT.md) | Правила сообщества |
-| [Безопасность](SECURITY.md) | Политика безопасности |
-
----
-
-## 🗺 Roadmap
-
-- [x] **v1.0** — Полный фронтенд (57 страниц, 18 модулей)
-- [x] **v1.0** — Тёмный/светлый режим
-- [x] **v1.0** — Интерактивные модалки (создание здания/листинга)
-- [x] **v1.0** — 8 ролей с ролевой навигацией
-- [x] **v1.0** — ERI-флоу (регистрация → подпись → активация)
-- [ ] **v1.1** — Backend API (Base44 backend functions)
-- [ ] **v1.2** — Реальная ERI интеграция
-- [ ] **v1.3** — Мобильное приложение (PWA)
-- [ ] **v2.0** — Банковая интеграция и автоплатежи
-- [ ] **v2.0** — IoT-интеграция (умные счётчики)
-
----
-
-## 🤝 Вклад в проект
-
-Мы приветствуем вклад! Пожалуйста, прочитайте [CONTRIBUTING.md](CONTRIBUTING.md) перед началом работы.
-
-### Способы помочь
-
-- 🐛 [Сообщить о баге](https://github.com/farhodmuxtorov17-stack/makon/issues/new?template=bug-report.yml)
-- ✨ [Предложить фичу](https://github.com/farhodmuxtorov17-stack/makon/issues/new?template=feature-request.yml)
-- 📝 Улучшить документацию
-- 🎨 Улучшить дизайн
-- 🔧 Отправить Pull Request
-
----
-
-## 📄 Лицензия
-
-Этот проект распространяется под лицензией **MIT**. См. [LICENSE](LICENSE).
+Proprietary — © 2026 MAKON Management MChJ. All rights reserved.
 
 ---
 
 <div align="center">
 
-**Сделано с ❤️ в Ташкенте, Узбекистан**
+**MAKON** — Toshkentning premium kommersiya ko'chmas mulk platformasi
 
-[⭐ Поставьте звезду](https://github.com/farhodmuxtorov17-stack/makon) · [🍴 Форк](https://github.com/farhodmuxtorov17-stack/makon/fork) · [📖 Документация](docs/ARCHITECTURE.md)
+Made with ❤️ in Tashkent, Uzbekistan 🇺🇿
 
 </div>

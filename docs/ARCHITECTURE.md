@@ -1,172 +1,197 @@
-# Архитектура MAKON
+# MAKON Architecture
 
-## Обзор
+## Overview
 
-MAKON построен на **Nuxt 3** с статической генерацией (SSG), что обеспечивает максимальную производительность и SEO-оптимизацию для публичных страниц, сохраняя при этом полную интерактивность в админ-панели.
+MAKON is a **Static Site Generation (SSG)** application built with Nuxt 3. It generates pre-rendered HTML pages at build time, with client-side hydration for interactivity.
 
-## Слои
+## System Architecture
 
 ```
-┌─────────────────────────────────────────────────┐
-│                  Presentation                    │
-│  Vue 3 SFC · TailwindCSS · Lucide Icons          │
-│  Layouts: public · auth · admin                  │
-├─────────────────────────────────────────────────┤
-│                   State                         │
-│  Pinia Stores: auth · makon                      │
-│  useState: currentRole · sidebar                 │
-├─────────────────────────────────────────────────┤
-│                   Routing                       │
-│  Nuxt Pages (file-based) · Middleware: auth      │
-│  57 pages · 8 role-based navigations             │
-├─────────────────────────────────────────────────┤
-│                   Data                          │
-│  Static mock data (no API in v1.0)              │
-│  Composables: useApi (prepared for backend)     │
-├─────────────────────────────────────────────────┤
-│                   Build                         │
-│  Nitro prerender · GitHub Pages · SPA fallback  │
-└─────────────────────────────────────────────────┘
+                    ┌─────────────────────────┐
+                    │    GitHub Pages (CDN)     │
+                    │   .output/public/ (SSG)   │
+                    └────────────┬────────────┘
+                                 │
+                    ┌────────────▼────────────┐
+                    │     Nuxt 3 Application    │
+                    │   (SSG + Client Hydration)│
+                    └────────────┬────────────┘
+                                 │
+          ┌──────────────────────┼──────────────────────┐
+          │                      │                      │
+  ┌───────▼───────┐    ┌────────▼────────┐   ┌────────▼────────┐
+  │   Public Routes│    │  Admin Routes    │   │  Auth Routes    │
+  │  / /catalog   │    │  /admin/*        │   │  /login         │
+  │  /buildings/* │    │  /dashboard/*    │   │  /register/eri  │
+  │  /units/*     │    │  /finance/*      │   └─────────────────┘
+  └───────────────┘    │  /facility/*     │
+                       │  /management/*   │
+                       │  /cabinet/*      │
+                       │  /contracts/*    │
+                       │  /reports        │
+                       └─────────────────┘
 ```
 
-## Layout-система
+## Layer Breakdown
 
-### `layouts/public.vue`
-- Полноэкранный layout без сайдбара
-- Используется для: лендинг, каталог, здание, юнит, листинг
-- Прозрачный хедер с логотипом и навигацией
+### 1. Layouts Layer
+```
+layouts/
+├── public.vue     → Header + Footer (landing, catalog, building pages)
+├── admin.vue       → Sidebar + Topbar (all authenticated modules)
+├── auth.vue        → Centered card (login, ERI registration)
+└── telegram.vue    → Telegram WebApp container
+```
 
-### `layouts/auth.vue`
-- Центрированный контент на градиентном фоне
-- Используется для: логин, ERI-регистрация
-- Тёмный/светлый режим
+The `admin.vue` layout contains:
+- **Role-based sidebar** — navigation items change per role
+- **Topbar** — role switcher, theme toggle, notifications bell
+- **Mobile responsive** — collapsible sidebar with overlay
 
-### `layouts/admin.vue`
-- Sticky-сайдбар (260px) с навигацией по роли
-- Glassmorphism-хедер с RoleSwitcher + ThemeToggle
-- Mobile: drawer-сайдбар с overlay
-- 8 наборов навигации (по ролям)
+### 2. Pages Layer (58 pages)
 
-## Ролевая модель
+Pages follow Nuxt's file-based routing:
+
+| Pattern | Route | Example |
+|---------|-------|---------|
+| `pages/index.vue` | `/` | Landing page |
+| `pages/catalog/index.vue` | `/catalog` | Commercial catalog |
+| `pages/buildings/[slug].vue` | `/buildings/:slug` | Dynamic building page |
+| `pages/contracts/[id].vue` | `/contracts/:id` | Contract detail |
+| `pages/finance/invoices/index.vue` | `/finance/invoices` | Invoices list |
+
+### 3. Components Layer
+
+| Component | Purpose |
+|-----------|---------|
+| `MakonChart.vue` | ApexCharts wrapper — area/bar/donut/radialBar/pie |
+| `CatalogMap.vue` | Leaflet map with price markers |
+| `CreateBuildingModal.vue` | Modal form for creating buildings |
+| `CreateListingModal.vue` | Modal form for creating listings |
+| `FilterPanel.vue` | Reusable filter panel |
+| `RoleSwitcher.vue` | Demo role switcher for admin layout |
+| `StatusBar.vue` | Status indicator bar |
+| `TgNavBar.vue` | Telegram WebApp navigation |
+| `ThemeToggle.vue` | Dark/light mode toggle |
+
+### 4. State Layer (Pinia)
+
+```
+stores/
+├── auth.ts    → login(), logout(), user, isAuthenticated
+└── makon.ts   → buildings[], units[], contracts[], listings[]
+```
+
+### 5. Middleware
+
+```
+middleware/
+└── auth.ts    → Redirects to /login if not authenticated
+```
+
+### 6. Backend Functions (Base44)
+
+```
+functions/
+├── getDashboardData.ts       → Aggregated KPI data
+├── getFinanceReport.ts        → Finance reporting data
+├── getBuildingAnalytics.ts    → Per-building analytics
+└── sendNotification.ts        → Push notifications
+```
+
+## Data Flow
+
+```
+User Action → Page (Vue) → Composable → Store (Pinia)
+                                      ↓
+                              Base44 Entity API
+                                      ↓
+                              Base44 Database
+```
+
+### Example: Creating an Invoice
+1. User clicks "Yangi invoys" on `/finance/invoices`
+2. Modal opens with form
+3. On submit → `createEntityRecords('Invoice', data)`
+4. Invoice record created in Base44 database
+5. Store updates with new invoice
+6. UI re-renders with updated list
+
+## Theme System
+
+MAKON uses `@nuxtjs/color-mode` for dark/light theme:
 
 ```typescript
-type UserRole =
-  | 'SUPER_HEAD'        // Глобальный дашборд, все read
-  | 'ADMIN'             // Пользователи, роли, настройки
-  | 'BUILDING_MANAGER'  // Здания, юниты, листинги
-  | 'ACCOUNTANT'        // Финансы, инвойсы, склад
-  | 'FACILITY'          // Work orders, материалы
-  | 'WAREHOUSE_OPERATOR'// Склад, выдача
-  | 'CONTENT_OPERATOR'  // Контент, визуальные настройки
-  | 'TENANT_OWNER'      // Кабинет, договоры, счётчики
-```
-
-Навигация динамически меняется через `allNavItems[currentRole]` в `layouts/admin.vue`.
-
-## Тёмный/светлый режим
-
-- Реализован через `@nuxtjs/color-mode`
-- Конфигурация: `preference: 'light'`, `classSuffix: ''`
-- Storage key: `makon-theme`
-- CSS: все компоненты используют `dark:` variants TailwindCSS
-- Компонент `ThemeToggle.vue` — переключатель в хедере
-
-## Цветовая система
-
-```javascript
-brand: {
-  50: '#eef2ff',  // Lightest
-  500: '#6366f1', // Primary (indigo)
-  950: '#1e1b4b', // Darkest
-}
-ink: {
-  50: '#fafafa',  // Lightest background
-  500: '#71717a', // Secondary text
-  950: '#09090b', // Darkest background
+// nuxt.config.ts
+colorMode: {
+  preference: 'light',
+  fallback: 'light',
+  classSuffix: '',  // Uses .dark class on <html>
+  storageKey: 'makon-theme',
 }
 ```
 
-## Данные (v1.0)
+CSS is structured with Tailwind layers:
+- `@layer base` — global resets, typography, scrollbar
+- `@layer components` — .btn, .card, .badge, .glass
+- `@layer utilities` — custom utilities
 
-В версии 1.0 все данные — статичные моки внутри `<script setup>` каждого page-компонента. Это позволяет:
-- Полностью функциональный UI без бэкенда
-- Быстрый рендеринг (SSG)
-- Лёгкий переход к реальному API (заменить `const data = ref({...})` на `const { data } = await useAsyncData(...)`)
+Dark mode uses `.dark` prefix on `<html>` element.
 
-### Подготовка к API
+## Chart System
 
-```typescript
-// composables/useApi.ts — заготовка для будущего бэкенда
-export function useApi() {
-  const baseUrl = useRuntimeConfig().public.apiBase
+`MakonChart.vue` wraps `vue3-apexcharts`:
 
-  async function fetchCatalog() { /* ... */ }
-  async function fetchBuilding(slug: string) { /* ... */ }
-  async function fetchAdminData(action: string) { /* ... */ }
-
-  return { fetchCatalog, fetchBuilding, fetchAdminData }
-}
-```
-
-## CI/CD
-
-```
-Push to main
-    │
-    ├──→ CI Workflow
-    │    ├── Lint (ESLint)
-    │    └── Build (nuxt generate)
-    │
-    └──→ Deploy Workflow
-         ├── Build static site
-         ├── Add SPA fallback + .nojekyll
-         ├── Upload artifact
-         └── Deploy to GitHub Pages
-```
-
-## Паттерны кода
-
-### Страница (page)
 ```vue
-<template>
-  <div class="space-y-6">
-    <!-- Header with title + actions -->
-    <!-- Stats cards -->
-    <!-- Filters -->
-    <!-- Data table / grid -->
-    <!-- Modals -->
-  </div>
-</template>
-
-<script setup lang="ts">
-import { Icon } from 'lucide-vue-next'
-definePageMeta({ layout: 'admin', middleware: 'auth' })
-// Static mock data
-const data = ref({ ... })
-// Computed filters
-// Functions
-</script>
+<MakonChart
+  type="area"           <!-- area | bar | line | donut | radialBar | pie -->
+  :series="series"     <!-- Array of { name, data } -->
+  :categories="months"  <!-- X-axis labels -->
+  :height="280"
+  :colors="['#6366f1']"
+  :stacked="false"
+/>
 ```
 
-### Компонент
-```vue
-<script setup lang="ts">
-const props = defineProps<{ show: boolean }>()
-const emit = defineEmits<{ close: []; created: [item: any] }>()
-</script>
+Charts auto-detect dark mode and adjust grid/label colors.
+
+## ERI Integration Flow
+
+```
+┌─────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────┐
+│ Step 1  │────▶│    Step 2    │────▶│    Step 3    │────▶│  Step 4  │
+│ ERI     │     │ Confirm      │     │ Account      │     │ Success  │
+│ Upload  │     │ Data         │     │ Setup        │     │          │
+└─────────┘     └──────────────┘     └──────────────┘     └──────────┘
+   │                  │                    │
+   ▼                  ▼                    ▼
+ Loading          Display TIN,        Password strength
+ animation        org name, PINFL     meter, validation
 ```
 
-## Производительность
+## Security Considerations
 
-- **SSG**: prerender `/` и `/catalog` при сборке
-- **Lazy images**: `loading="lazy"` на всех изображениях
-- **Code splitting**: автоматически через Nuxt
-- **Font preconnect**: Google Fonts с preconnect
-- **CSS**: Tailwind purged, минимальный размер
+- **RBAC**: 5 roles with 12-module × 5-action permission matrix
+- **Auth middleware**: All admin routes protected
+- **ERI**: SHA-256 hashing for contracts
+- **No secrets in client**: Backend functions handle API keys
+- **Row-level security**: Entity access scoped per user
 
-## Безопасность
+## Performance
 
-- **Auth middleware**: проверка на всех админ-страницах
-- **Role-based navigation**: доступ только к разрешённым модулям
-- **localStorage**: только user-объект (без токенов в v1.0)
-- **Внешние действия**: в v1.0 нет (всё статичное)
+- **SSG**: Pre-rendered HTML, zero server cost
+- **Code splitting**: Nuxt automatic per-route splitting
+- **Lazy loading**: `client-only` for charts
+- **Font preconnect**: Google Fonts with `preconnect`
+- **Image optimization**: Unsplash with `w=` and `q=` params
+
+## Build Pipeline
+
+```
+npm run build
+  → nuxt generate
+    → Pre-render all routes
+    → Generate static HTML
+    → Output to .output/public/
+  → Deploy to GitHub Pages
+```

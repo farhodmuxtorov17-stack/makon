@@ -1,165 +1,165 @@
-# Вклад в проект MAKON
+# Contributing to MAKON
 
-🎉 Спасибо за интерес к вкладу в MAKON! Этот документ поможет вам начать.
+Thank you for your interest in contributing to MAKON! This document outlines the process and guidelines for contributing.
 
----
+## 🚀 Getting Started
 
-## 🚀 Быстрый старт для контрибьюторов
+### Prerequisites
+- Node.js 18+
+- npm or pnpm
+- Git
 
+### Setup
 ```bash
-# Форкните репозиторий
-git clone https://github.com/ВАШ_НИК/makon.git
+git clone https://github.com/farhodmuxtorov17-stack/makon.git
 cd makon
-
-# Установите зависимости
 npm install
-
-# Создайте ветку для фичи
-git checkout -b feature/amazing-feature
-
-# Запустите dev-сервер
 npm run dev
-
-# После изменений — lint
-npm run lint
-
-# Запушьте
-git push origin feature/amazing-feature
-
-# Откройте Pull Request
 ```
 
----
+The dev server starts at `http://localhost:3000/makon/`
 
-## 📏 Стандарты кода (ESLint)
+## 📋 Development Workflow
 
-### Vue / TypeScript
-
-- Используйте `<script setup lang="ts">` для всех новых компонентов
-- `definePageMeta` должен быть первым вызовом в page-компоненте
-- Используйте TypeScript-типы из `types/index.ts`
-- Имена компонентов: PascalCase (`CreateBuildingModal.vue`)
-- Имена страниц: kebab-case в путях (`meter-readings`, `visual-settings`)
-
-### TailwindCSS
-
-- Используйте компонентные классы: `.card`, `.btn`, `.input`, `.badge`
-- Тёмный режим: всегда добавляйте `dark:` варианты
-- Цвета: только `brand-*`, `ink-*` и семантические (`emerald`, `amber`, `red`)
-- Responsive: mobile-first (`sm:`, `md:`, `lg:`)
-
-### Иконки
-
-- Только `lucide-vue-next`
-- Размеры: 14 (inline), 16 (button), 18 (header), 20 (stats), 24 (features)
-- Импортируйте только нужные иконки: `import { Bell, X } from 'lucide-vue-next'`
-
----
-
-## 🎨 Дизайн-гайдлайны
-
-### Принципы
-
-1. **Премиальная простота** — Linear / Stripe эстетика, не SaaS-шаблон
-2. **Контент важнее хрома** — больше пространства, меньше границ
-3. **Тёмный режим обязателен** — все компоненты должны работать в обоих режимах
-4. **Двуязычность** — контентные поля: `titleUz` + `titleRu`
-5. **Mobile-first** — сначала мобайл, потом desktop
-
-### Компоненты
-
-| Компонент | Когда использовать |
-|-----------|-------------------|
-| `.card` | Базовый контейнер |
-| `.btn-primary` | Главное действие на странице (1 per page) |
-| `.btn-secondary` | Вторичные действия |
-| `.btn-ghost` | Третичные, hover-действия |
-| `.badge-*` | Статусы, метки, категории |
-| `.input` | Все текстовые поля, селекты |
-
-### Запрещено
-
-- ❌ Inline-стили (`style="..."`) кроме динамических значений
-- ❌ CSS-модули (только Tailwind)
-- ❌ Ручные SVG-иконки (только Lucide)
-- ❌ Градиенты-фоны для обычных карточек
-- ❌ `!important`
-- ❌ `@apply` в template (только в CSS-файлах)
-
----
-
-## 📝 Коммиты
-
-Мы используем [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-<тип>(<область>): <описание>
-
-<опциональное тело>
+### 1. Create a Branch
+```bash
+git checkout -b feat/your-feature-name
+# or
+git checkout -b fix/issue-description
 ```
 
-### Типы
+### 2. Make Changes
+- Follow the existing code style
+- Use TypeScript throughout
+- Use `<script setup lang="ts">` in all Vue components
+- Use Tailwind utility classes for styling
+- Use Lucide icons (`lucide-vue-next`)
 
-| Тип | Описание |
-|-----|----------|
-| `feat` | Новая функция |
-| `fix` | Исправление бага |
-| `docs` | Документация |
-| `style` | Форматирование, пробелы (без логики) |
-| `refactor` | Рефакторинг без изменения поведения |
-| `perf` | Улучшение производительности |
-| `test` | Тесты |
-| `chore` | Сборка, зависимости, конфиг |
-
-### Примеры
-
-```
-feat(finance): add invoice PDF export modal
-fix(meters): fix consumption calculation when reading is lower than previous
-docs: update architecture diagram for v1.0
-style(catalog): adjust card padding for mobile
+### 3. Test Your Changes
+```bash
+npm run lint    # ESLint check
+npm run build   # Production build (SSG)
 ```
 
----
+Both must pass before committing.
 
-## 🧪 Перед Pull Request
+### 4. Commit
+Follow the conventional commits format:
 
-- [ ] `npm run lint` — без ошибок
-- [ ] `npm run build` — сборка проходит
-- [ ] Тёмный режим работает
-- [ ] Мобильная вёрстка корректна
-- [ ] Нет console.error в dev-режиме
-- [ ] Добавлены/обновлены типы в `types/index.ts` если нужно
+| Type | Usage |
+|------|-------|
+| `feat:` | New feature |
+| `fix:` | Bug fix |
+| `docs:` | Documentation only |
+| `style:` | Formatting, no code change |
+| `refactor:` | Code restructuring |
+| `test:` | Adding tests |
+| `chore:` | Build, tooling, dependencies |
 
----
-
-## 🐛 Сообщение о баге
-
-Используйте [шаблон баг-репорта](https://github.com/farhodmuxtorov17-stack/makon/issues/new?template=bug-report.yml).
-
-## ✨ Запрос функции
-
-Используйте [шаблон feature request](https://github.com/farhodmuxtorov17-stack/makon/issues/new?template=feature-request.yml).
-
----
-
-## 🌿 Ветвление
-
+Examples:
 ```
-main          → Production (авто-деплой на GitHub Pages)
-feature/*     → Новые функции
-fix/*         → Исправления багов
-hotfix/*      → Срочные фиксы
-docs/*        → Документация
+feat: add invoice export to Excel
+fix: correct dark mode toggle on catalog page
+docs: update README with ERI flow
+refactor: extract chart options to composable
 ```
 
+### 5. Push and PR
+```bash
+git push origin feat/your-feature-name
+```
+
+Open a Pull Request with:
+- Clear title following commit convention
+- Description of changes
+- Screenshots for UI changes
+- Related issue number (if applicable)
+
+## 🎨 Design Guidelines
+
+### Color Palette
+- **Primary (brand)**: Indigo `#6366f1` → `#4f46e5`
+- **Neutral (ink)**: Zinc scale (50-950)
+- **Status**: emerald (success), amber (warning), red (danger), blue (info)
+
+### Typography
+- Font: **Inter** (Google Fonts)
+- Headings: bold, tight letter-spacing (-0.03em)
+- Body: normal weight, slight letter-spacing (-0.01em)
+
+### Component Classes
+Use predefined Tailwind component classes from `main.css`:
+```html
+<!-- Buttons -->
+<button class="btn btn-primary btn-sm">Action</button>
+<button class="btn btn-secondary btn-md">Action</button>
+<button class="btn btn-ghost btn-lg">Action</button>
+
+<!-- Cards -->
+<div class="card p-5">Content</div>
+
+<!-- Badges -->
+<span class="badge badge-success">Faol</span>
+<span class="badge badge-warning">Kutilmoqda</span>
+<span class="badge badge-danger">Xato</span>
+```
+
+### Charts
+Use the `MakonChart` component:
+```vue
+<MakonChart type="area" :series="series" :categories="months" :height="280" :colors="['#6366f1']" />
+```
+
+Supported types: `area`, `bar`, `line`, `donut`, `radialBar`, `pie`
+
+## 🌍 Internationalization
+
+The UI is in **Uzbek** (Latin script). Key conventions:
+- Labels: short, clear Uzbek
+- Status: consistent mapping functions (`statusLabel()`, `statusBadge()`)
+- Currency: `so'm` (UZS)
+- Date format: `dd MMM yyyy` (Russian locale for number formatting)
+
+## 📦 Project Structure
+
+See [README.md](./README.md) for the full directory structure.
+
+Key rules:
+- Pages in `pages/` follow Nuxt file-based routing
+- Shared components in `components/`
+- State in `stores/` (Pinia)
+- Logic in `composables/`
+- Backend functions in `functions/`
+- Types in `types/`
+
+## ✅ PR Checklist
+
+- [ ] Code follows the style guidelines
+- [ ] `npm run lint` passes
+- [ ] `npm run build` passes
+- [ ] Commit messages follow conventional commits
+- [ ] UI changes include screenshots
+- [ ] Dark mode is supported
+- [ ] Mobile responsive
+- [ ] No console errors
+
+## 🐛 Reporting Bugs
+
+Open a GitHub Issue with:
+1. **Title**: Clear, descriptive
+2. **Environment**: Browser, OS, device
+3. **Steps to reproduce**: Numbered list
+4. **Expected vs actual behavior**
+5. **Screenshots** (if applicable)
+
+## 💡 Suggesting Features
+
+Open a GitHub Issue with the `enhancement` label:
+1. **Problem**: What problem does this solve?
+2. **Solution**: Your proposed approach
+3. **Alternatives**: Other options considered
+4. **Mockups**: If UI-related
+
 ---
 
-## ❓ Вопросы
-
-- Откройте [Discussion](https://github.com/farhodmuxtorov17-stack/makon/discussions)
-- Или [Telegram-группу](https://t.me/makon_platform)
-
----
-
-Спасибо за вклад в MAKON! 🚀
+Thank you for contributing! 🙏

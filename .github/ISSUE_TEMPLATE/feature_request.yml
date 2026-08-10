@@ -1,0 +1,34 @@
+---
+name: Feature Request
+about: Suggest an idea for this project
+title: '[FEATURE] '
+labels: enhancement
+assignees: ''
+---
+
+## Problem
+What problem does this feature solve? What is the current limitation?
+
+## Proposed Solution
+Describe what you'd like to happen. Be as specific as possible.
+
+## Alternatives Considered
+What alternatives have you considered?
+
+## Mockups / Screenshots
+If this is a UI-related feature, include mockups or screenshots.
+
+## Module
+Which module is this related to?
+- [ ] Public (landing, catalog)
+- [ ] Cabinet (tenant portal)
+- [ ] Management (buildings, units, listings)
+- [ ] Finance (invoices, debts, inventory)
+- [ ] Facility (work orders, materials)
+- [ ] Admin (users, roles, audit)
+- [ ] Contracts & ERI
+- [ ] Dashboard & Reports
+- [ ] Other
+
+## Additional Context
+Any other context or information.

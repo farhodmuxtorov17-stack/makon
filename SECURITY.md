@@ -1,54 +1,54 @@
 # Security Policy
 
-## Supported Versions
-
-| Version | Supported |
-|---------|-----------|
-| 1.0.x   | ✅ Active |
-| < 1.0   | ❌        |
-
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability in MAKON, please report it responsibly.
 
-**DO NOT open a public GitHub issue.**
-
-Instead, please email **farhod@makon.uz** with:
-
-1. Description of the vulnerability
-2. Steps to reproduce
-3. Potential impact
-4. Suggested fix (if any)
+### How to Report
+1. **DO NOT** open a public GitHub Issue
+2. Email: security@makon.uz
+3. Include:
+   - Description of the vulnerability
+   - Steps to reproduce
+   - Potential impact
+   - Suggested fix (if any)
 
 ### Response Timeline
-
-| Step | Timeline |
-|------|----------|
-| Acknowledgment | Within 48 hours |
-| Initial assessment | Within 5 business days |
-| Fix or mitigation | Within 30 days (severity dependent) |
-| Public disclosure | After fix is released |
+- **Acknowledgment**: within 48 hours
+- **Initial assessment**: within 7 days
+- **Fix or mitigation**: within 30 days (severity-dependent)
 
 ## Security Measures
 
 ### Authentication
+- Role-based access control (RBAC) with 5 predefined roles
 - Auth middleware on all admin routes
-- Role-based access control (8 roles)
-- localStorage for session (v1.0, tokens planned for v1.1)
+- Session-based authentication
+
+### ERI (Electronic Registration Identifier)
+- SHA-256 digital hash for every contract
+- Certificate expiry validation
+- One TIN = one organization profile
+- Passwords stored encrypted (bcrypt)
 
 ### Data Protection
-- No sensitive data in static output
-- All mock data is fictional
-- No API keys or secrets in frontend code
+- No secrets in client-side code
+- Backend functions handle all sensitive API calls
+- Row-level security on entity access
+- HTTPS enforced (GitHub Pages CDN)
 
-### Dependencies
-- Dependencies are regularly audited via `npm audit`
-- Pinned versions in `package.json`
-- GitHub Dependabot alerts enabled
+### Audit Trail
+- All create/update/delete actions logged
+- User, action, IP, and timestamp recorded
+- 24-hour activity history visible in admin panel
 
-## Best Practices for Contributors
+## Scope
 
-- Never commit secrets, API keys, or credentials
-- Use `.env` files for local configuration (already in `.gitignore`)
-- Report any suspicious activity immediately
-- Follow the principle of least privilege when implementing role-based features
+This security policy covers:
+- The MAKON frontend application
+- Base44 backend functions
+- ERI integration flow
+
+It does **not** cover:
+- Third-party services (Base44 platform, ERI provider)
+- Infrastructure security (GitHub Pages CDN)
