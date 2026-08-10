@@ -158,7 +158,17 @@ const platformBadges = [
 const form = reactive({ org: 'Urban Office MCHJ', stir: '305 123 456', phone: '+998 90 123 45 67', user: 'Azizbek Karimov', email: '', pass: '', remember: true })
 
 function login() {
-  auth.login('admin', 'admin123')
-  router.push('/dashboard/executive')
+  // Check if this is a tenant login (phone-based or specific email)
+  const isTenant = form.email === 'tenant@makon.uz' || form.phone === '+998 90 123 45 67'
+
+  if (isTenant) {
+    // Tenant role: login and redirect to tenant dashboard
+    auth.login('tenant', 'tenant123')
+    router.push('/dashboard/tenant')
+  } else {
+    // Admin/manager role
+    auth.login('admin', 'admin123')
+    router.push('/dashboard/executive')
+  }
 }
 </script>

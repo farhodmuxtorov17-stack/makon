@@ -16,6 +16,19 @@ const mockUser: User = {
   createdAt: '2024-01-01T00:00:00',
 }
 
+const mockTenant: User = {
+  id: 't1',
+  login: 'tenant',
+  fullName: 'Aziz Karimov',
+  email: 'tenant@makon.uz',
+  phone: '+998 90 123 45 67',
+  role: 'TENANT_OWNER',
+  organizationId: 'org-2',
+  buildingScopes: [],
+  isActive: true,
+  createdAt: '2026-01-01T00:00:00',
+}
+
 const STORAGE_KEY = 'makon-auth-user'
 
 function loadUser(): User | null {
@@ -68,6 +81,11 @@ export const useAuthStore = defineStore('auth', () => {
     if (loginVal === 'admin' && password === 'admin123') {
       user.value = mockUser
       saveUser(mockUser)
+      return true
+    }
+    if (loginVal === 'tenant' && password === 'tenant123') {
+      user.value = mockTenant
+      saveUser(mockTenant)
       return true
     }
     return false
