@@ -1,28 +1,47 @@
+
 <template>
-  <div class="space-y-6 max-w-2xl">
-    <PageHeader title="Sozlamalar" subtitle="Tizim konfiguratsiyasi" />
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-2xl font-bold text-white">Sozlamalar</h1>
+      <p class="text-ink-400 text-sm mt-1">Ma'lumotnomalar va tizim sozlamalari</p>
+    </div>
 
-    <div class="card p-6 space-y-4">
-      <h3 class="font-semibold">Umumiy</h3>
-      <div><label class="label">Tashkilot nomi</label><input class="input" value="MAKON Real Estate" /></div>
-      <div class="grid grid-cols-2 gap-4">
-        <div><label class="label">Valyuta</label><select class="input"><option>UZS — so'm</option><option>USD — dollar</option></select></div>
-        <div><label class="label">Til</label><select class="input"><option>O'zbekcha</option><option>Русский</option><option>English</option></select></div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="card p-6">
+        <h3 class="text-white font-semibold mb-4">ERI sozlamalari</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="label">ERI endpoint URL</label>
+            <input class="input font-mono text-xs" value="https://eri.gov.uz/api/v2" readonly />
+          </div>
+          <div>
+            <label class="label">Timeout (soniya)</label>
+            <input class="input" type="number" value="30" />
+          </div>
+          <div>
+            <label class="label">Retry count</label>
+            <input class="input" type="number" value="3" />
+          </div>
+        </div>
       </div>
-      <div><label class="label">Vaqt zonasi</label><select class="input"><option>Asia/Tashkent (UTC+5)</option></select></div>
-    </div>
 
-    <div class="card p-6 space-y-4">
-      <h3 class="font-semibold">ERI imzo</h3>
-      <div><label class="label">ERI provider</label><select class="input"><option>UZ Digital</option><option>E-Imzo</option></select></div>
-      <div><label class="label">API kalit</label><input class="input font-mono" type="password" value="eri-api-key-xxxxx" /></div>
-    </div>
-
-    <div class="flex justify-end">
-      <button class="btn btn-primary btn-lg">Saqlash</button>
+      <div class="card p-6">
+        <h3 class="text-white font-semibold mb-4">Fayl limitlari</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="label">Maksimal fayl hajmi (MB)</label>
+            <input class="input" type="number" value="50" />
+          </div>
+          <div>
+            <label class="label">3D model formatlari</label>
+            <input class="input" value=".glb, .gltf" />
+          </div>
+          <div>
+            <label class="label">Plan formatlari</label>
+            <input class="input" value=".svg, .pdf" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-</script>

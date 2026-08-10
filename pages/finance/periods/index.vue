@@ -1,3 +1,4 @@
+
 <template>
   <div class="space-y-6">
     <PageHeader title="Hisob davrlari" subtitle="Oylik invoys generatsiyasi va davrni yopish">
@@ -66,6 +67,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Sparkles, Lock, Eye } from 'lucide-vue-next'
 
 const financeStore = useFinanceStore()

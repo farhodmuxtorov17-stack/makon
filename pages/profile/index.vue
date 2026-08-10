@@ -1,3 +1,4 @@
+
 <template>
   <div class="space-y-6 max-w-3xl">
     <PageHeader title="Profil" subtitle="Shaxsiy ma'lumotlar va sozlamalar" />
@@ -56,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Lock, ShieldCheck, ChevronRight, LogOut } from 'lucide-vue-next'
 
 const authStore = useAuthStore()

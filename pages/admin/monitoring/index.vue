@@ -1,26 +1,37 @@
+
 <template>
   <div class="space-y-6">
-    <PageHeader title="Monitoring" subtitle="Tizim holati va ishlash ko'rsatkichlari" />
+    <div>
+      <h1 class="text-2xl font-bold text-white">Texnik monitoring</h1>
+      <p class="text-ink-400 text-sm mt-1">Servis holati va metrikalar</p>
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div v-for="s in services" :key="s.name" class="card p-5">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="font-medium text-sm text-ink-600">{{ s.name }}</h3>
-          <div class="w-2.5 h-2.5 rounded-full" :class="statusDot(s.status)"></div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div v-for="svc in services" :key="svc.name" class="card p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-white font-medium">{{ svc.name }}</span>
+          <span class="status-dot" :class="svc.status === 'healthy' ? 'status-dot-vacant' : svc.status === 'degraded' ? 'status-dot-reserved' : 'status-dot-maintenance'" />
         </div>
-        <p class="text-2xl font-bold font-display">{{ s.responseTime }}ms</p>
-        <p class="text-sm text-ink-400 mt-0.5">{{ s.uptime }}% uptime</p>
-        <StatusBadge :status="s.status" :variant="statusVariant(s.status)" :label="statusLabel(s.status)" dot />
+        <div class="flex items-center justify-between text-xs">
+          <span :class="svc.status === 'healthy' ? 'text-emerald-400' : svc.status === 'degraded' ? 'text-amber-400' : 'text-red-400'">
+            {{ svc.status }}
+          </span>
+          <span class="text-ink-500">{{ svc.responseTime }}ms · {{ svc.uptime }}%</span>
+        </div>
       </div>
     </div>
 
     <div class="card p-6">
-      <h3 class="font-semibold mb-4">So'nggi hodisalar</h3>
-      <div class="space-y-2">
-        <div v-for="(log, i) in logs" :key="i" class="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-ink-50 transition-colors">
-          <div class="w-2 h-2 rounded-full flex-shrink-0" :class="log.color"></div>
-          <span class="text-ink-400 font-mono text-xs w-20">{{ log.time }}</span>
-          <span class="text-ink-700 text-sm">{{ log.message }}</span>
+      <h3 class="text-white font-semibold mb-4">ERI navbat holati</h3>
+      <div class="space-y-3">
+        <div v-for="item in eriQueue" :key="item.id" class="flex items-center justify-between p-3 rounded-xl bg-white/5">
+          <div>
+            <span class="text-sm text-white">{{ item.document }}</span>
+            <span class="text-xs text-ink-500 ml-2">{{ item.signer }}</span>
+          </div>
+          <span class="badge" :class="item.status === 'PENDING' ? 'badge-warning' : item.status === 'SIGNED' ? 'badge-success' : 'badge-danger'">
+            {{ item.status }}
+          </span>
         </div>
       </div>
     </div>
@@ -28,22 +39,17 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 const services = [
-  { name: 'API Server', status: 'healthy', responseTime: 45, uptime: 99.98 },
-  { name: 'Database', status: 'healthy', responseTime: 12, uptime: 99.99 },
-  { name: 'Storage', status: 'healthy', responseTime: 28, uptime: 99.95 },
-  { name: 'ERI Service', status: 'degraded', responseTime: 320, uptime: 98.21 },
+  { name: 'API Server', status: 'healthy', responseTime: 45, uptime: 99.9 },
+  { name: 'PostgreSQL', status: 'healthy', responseTime: 12, uptime: 99.99 },
+  { name: 'Redis', status: 'healthy', responseTime: 3, uptime: 100 },
+  { name: 'ERI Adapter', status: 'degraded', responseTime: 850, uptime: 98.5 },
 ]
 
-const logs = [
-  { time: '06:27', message: 'API Server: Health check passed', color: 'bg-emerald-500' },
-  { time: '06:25', message: 'Database: Backup completed (2.4 GB)', color: 'bg-emerald-500' },
-  { time: '06:20', message: 'ERI Service: Response time degraded (320ms)', color: 'bg-amber-500' },
-  { time: '06:15', message: 'Storage: New file uploaded', color: 'bg-sky-500' },
-  { time: '06:10', message: 'API Server: 3 new requests processed', color: 'bg-ink-300' },
+const eriQueue = [
+  { id: '1', document: 'CTR-2026-002', signer: 'Aziz Toshmatov', status: 'PENDING' },
+  { id: '2', document: 'CTR-2026-001', signer: 'Sardor Yusupov', status: 'SIGNED' },
+  { id: '3', document: 'CTR-2025-042', signer: 'Tashkent Logistics', status: 'ERROR' },
 ]
-
-function statusDot(s: string) { return { healthy: 'bg-emerald-500', degraded: 'bg-amber-500', down: 'bg-rose-500' }[s] || 'bg-ink-300' }
-function statusVariant(s: string) { return { healthy: 'success', degraded: 'warning', down: 'danger' }[s] || 'neutral' }
-function statusLabel(s: string) { return { healthy: 'Normal', degraded: 'Sekin', down: 'Down' }[s] || s }
 </script>

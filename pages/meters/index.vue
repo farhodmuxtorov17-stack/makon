@@ -1,81 +1,57 @@
+
 <template>
   <div class="space-y-6">
-    <PageHeader title="Hisoblagichlar" subtitle="Elektr, suv, gaz va issiqlik hisoblagichlari">
-      <template #actions>
-        <button class="btn btn-primary btn-sm"><Plus :size="16" /> Qo'shish</button>
-      </template>
-    </PageHeader>
-
-    <div class="flex gap-2 flex-wrap">
-      <button v-for="cat in categories" :key="cat.id" @click="activeCat = cat.id"
-        class="px-3.5 py-2 rounded-xl text-sm font-medium transition-all"
-        :class="activeCat === cat.id ? 'bg-ink-900 text-white' : 'bg-white text-ink-600 border border-ink-200 hover:bg-ink-50'">
-        {{ cat.label }} <span class="ml-1.5 text-xs opacity-60">{{ cat.count }}</span>
-      </button>
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-white">Hisoblagichlar</h1>
+        <p class="text-ink-400 text-sm mt-1">{{ meters.length }} ta hisoblagich</p>
+      </div>
+      <button class="btn btn-primary btn-sm"><Plus :size="14" /> Hisoblagich qo'shish</button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="m in filteredMeters" :key="m.id" class="card p-5 hover:shadow-card-hover transition-all">
-        <div class="flex items-start justify-between mb-4">
+      <div v-for="m in meters" :key="m.id" class="card p-5 card-hover">
+        <div class="flex items-start justify-between mb-3">
           <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl flex items-center justify-center" :class="meterColor(m.type)">
-              <component :is="meterIcon(m.type)" :size="22" />
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="typeBg(m.type)">
+              <component :is="typeIcon(m.type)" :size="18" :class="typeColor(m.type)" />
             </div>
             <div>
-              <p class="font-mono text-sm font-semibold text-ink-900">{{ m.code }}</p>
-              <p class="text-xs text-ink-400">{{ meterLabel(m.type) }}</p>
+              <div class="text-sm font-medium text-white">{{ m.code }}</div>
+              <div class="text-xs text-ink-500">{{ m.serialNumber }}</div>
             </div>
           </div>
-          <StatusBadge :status="m.isActive ? 'active' : 'inactive'" :variant="m.isActive ? 'success' : 'neutral'"
-            :label="m.isActive ? 'Aktiv' : 'O\'chiq'" dot />
+          <span class="badge" :class="m.isActive ? 'badge-success' : 'badge-neutral'">
+            {{ m.isActive ? 'Faol' : 'Faol emas' }}
+          </span>
         </div>
-        <div class="space-y-2 text-sm border-t border-ink-50 pt-3">
-          <div class="flex justify-between"><span class="text-ink-400">Seriya №</span><span class="font-mono font-medium">{{ m.serialNumber }}</span></div>
-          <div class="flex justify-between"><span class="text-ink-400">O'rnatilgan</span><span class="font-medium">{{ m.installedAt }}</span></div>
-          <div class="flex justify-between"><span class="text-ink-400">So'nggi o'qish</span><span class="font-medium">{{ m.lastReading }}</span></div>
+        <div class="space-y-1.5 text-sm">
+          <div class="flex justify-between"><span class="text-ink-500">Joylashuv</span><span class="text-white">{{ m.location }}</span></div>
+          <div class="flex justify-between"><span class="text-ink-500">Qiyoslash</span><span class="text-ink-400">{{ formatDate(m.nextVerificationAt) }}</span></div>
         </div>
+        <NuxtLink :to="`/meters/${m.id}/readings`" class="btn btn-secondary btn-sm w-full mt-4">
+          <BarChart3 :size="14" /> Ko'rsatkichlar
+        </NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Plus, Zap, Droplets, Flame, Thermometer } from 'lucide-vue-next'
+definePageMeta({ middleware: "auth" })
+import { Plus, Zap, Droplet, Flame, Thermometer, BarChart3 } from 'lucide-vue-next'
+import { meters } from '~/utils/mockData'
+import type { MeterType } from '~/types'
 
-const activeCat = ref('all')
+const { formatDate } = useFormat()
 
-const meters = [
-  { id: 'm1', code: 'EL-B1-001', type: 'ELECTRICITY', serialNumber: 'SN-2024-001', isActive: true, installedAt: '2024-01-15', lastReading: '14,532 kWh' },
-  { id: 'm2', code: 'WT-B1-002', type: 'WATER', serialNumber: 'SN-2024-002', isActive: true, installedAt: '2024-01-15', lastReading: '892 m³' },
-  { id: 'm3', code: 'GS-B2-003', type: 'GAS', serialNumber: 'SN-2024-003', isActive: true, installedAt: '2024-02-10', lastReading: '1,245 m³' },
-  { id: 'm4', code: 'EL-B2-004', type: 'ELECTRICITY', serialNumber: 'SN-2024-004', isActive: true, installedAt: '2024-02-10', lastReading: '21,890 kWh' },
-  { id: 'm5', code: 'HT-B3-005', type: 'HEAT', serialNumber: 'SN-2024-005', isActive: false, installedAt: '2024-03-01', lastReading: '—' },
-  { id: 'm6', code: 'WT-B3-006', type: 'WATER', serialNumber: 'SN-2024-006', isActive: true, installedAt: '2024-03-01', lastReading: '654 m³' },
-]
-
-const categories = computed(() => [
-  { id: 'all', label: 'Hammasi', count: meters.length },
-  { id: 'ELECTRICITY', label: 'Elektr', count: meters.filter(m => m.type === 'ELECTRICITY').length },
-  { id: 'WATER', label: 'Suv', count: meters.filter(m => m.type === 'WATER').length },
-  { id: 'GAS', label: 'Gaz', count: meters.filter(m => m.type === 'GAS').length },
-  { id: 'HEAT', label: 'Issiqlik', count: meters.filter(m => m.type === 'HEAT').length },
-])
-
-const filteredMeters = computed(() => {
-  if (activeCat.value === 'all') return meters
-  return meters.filter(m => m.type === activeCat.value)
-})
-
-function meterIcon(t: string) {
-  const m: Record<string, any> = { ELECTRICITY: Zap, WATER: Droplets, GAS: Flame, HEAT: Thermometer }
-  return m[t] || Zap
+function typeIcon(t: MeterType) {
+  return { ELECTRICITY: Zap, WATER: Droplet, GAS: Flame, HEAT: Thermometer }[t]
 }
-function meterLabel(t: string) {
-  const m: Record<string, string> = { ELECTRICITY: 'Elektr', WATER: 'Suv', GAS: 'Gaz', HEAT: 'Issiqlik' }
-  return m[t] || t
+function typeBg(t: MeterType) {
+  return { ELECTRICITY: 'bg-amber-500/10', WATER: 'bg-blue-500/10', GAS: 'bg-orange-500/10', HEAT: 'bg-red-500/10' }[t]
 }
-function meterColor(t: string) {
-  const m: Record<string, string> = { ELECTRICITY: 'bg-amber-50 text-amber-600', WATER: 'bg-sky-50 text-sky-600', GAS: 'bg-rose-50 text-rose-600', HEAT: 'bg-orange-50 text-orange-600' }
-  return m[t] || 'bg-ink-100 text-ink-500'
+function typeColor(t: MeterType) {
+  return { ELECTRICITY: 'text-amber-400', WATER: 'text-blue-400', GAS: 'text-orange-400', HEAT: 'text-red-400' }[t]
 }
 </script>

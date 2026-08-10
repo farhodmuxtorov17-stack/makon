@@ -1,25 +1,51 @@
+
 <template>
   <div class="space-y-6">
-    <PageHeader title="Shartnomalar" subtitle="Barcha ijara va sotuv shartnomalari">
-      <template #actions>
-        <div class="relative">
-          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-          <input v-model="search" type="text" placeholder="Qidirish..." class="input pl-9 w-64" />
-        </div>
-        <button class="btn btn-primary btn-sm" @click="showNew = true">
-          <Plus :size="16" /> Yangi
-        </button>
-      </template>
-    </PageHeader>
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-white">Shartnomalar</h1>
+        <p class="text-ink-400 text-sm mt-1">{{ contracts.length }} ta shartnoma</p>
+      </div>
+      <button class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi shartnoma</button>
+    </div>
 
-    <!-- Tabs -->
-    <div class="flex gap-2 flex-wrap">
-      <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
-        class="px-3.5 py-2 rounded-xl text-sm font-medium transition-all"
-        :class="activeTab === tab.id ? 'bg-ink-900 text-white' : 'bg-white text-ink-600 border border-ink-200 hover:bg-ink-50'">
-        {{ tab.label }}
-        <span class="ml-1.5 text-xs opacity-60">{{ tab.count }}</span>
-      </button>
+    <!-- Stats -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div v-for="stat in stats" :key="stat.label" class="card p-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="stat.bg">
+            <component :is="stat.icon" :size="18" :class="stat.color" />
+          </div>
+          <div>
+            <div class="text-lg font-bold text-white">{{ stat.value }}</div>
+            <div class="text-xs text-ink-500">{{ stat.label }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card p-4">
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="relative flex-1 min-w-[200px]">
+          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-500" />
+          <input v-model="search" class="input pl-10" placeholder="Shartnoma nomeri..." />
+        </div>
+        <select v-model="filterStatus" class="input w-auto">
+          <option value="">Barcha holatlar</option>
+          <option value="DRAFT">Qoralama</option>
+          <option value="REVIEW">Ko'rib chiqilmoqda</option>
+          <option value="ERI_PENDING">ERI kutilmoqda</option>
+          <option value="SIGNED">Imzolangan</option>
+          <option value="ACTIVE">Faol</option>
+          <option value="EXPIRED">Muddati tugagan</option>
+        </select>
+        <select v-model="filterType" class="input w-auto">
+          <option value="">Hammasi</option>
+          <option value="RENT">Ijara</option>
+          <option value="SALE">Sotuv</option>
+        </select>
+      </div>
     </div>
 
     <!-- Table -->
@@ -28,165 +54,93 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Shartnoma №</th>
-              <th>Ijarachi</th>
+              <th>Nomer</th>
+              <th>Tashkilot</th>
               <th>Turi</th>
-              <th>Oylik to'lov</th>
-              <th>Muddat</th>
-              <th>ERI imzo</th>
-              <th>Status</th>
+              <th>Boshlanish</th>
+              <th>Tugash</th>
+              <th>Oylik</th>
+              <th>ERI</th>
+              <th>Holat</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in filteredContracts" :key="c.id" class="table-row-hover" @click="$router.push(`/finance/contracts/${c.id}`)">
-              <td class="font-mono font-semibold text-ink-900">{{ c.number }}</td>
+            <tr v-for="c in filtered" :key="c.id" class="table-row-hover">
+              <td class="text-white font-medium font-mono text-xs">{{ c.number }}</td>
+              <td class="text-white">{{ c.tenantName }}</td>
               <td>
-                <div class="flex items-center gap-2.5">
-                  <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-xs font-bold text-white">
-                    {{ c.tenantName.split(' ').map((w: string) => w[0]).join('').slice(0, 2) }}
-                  </div>
-                  <span class="font-medium">{{ c.tenantName }}</span>
+                <span class="badge" :class="c.type === 'RENT' ? 'badge-brand' : 'badge-success'">
+                  {{ c.type === 'RENT' ? 'Ijara' : 'Sotuv' }}
+                </span>
+              </td>
+              <td class="text-ink-400">{{ formatDate(c.startDate) }}</td>
+              <td class="text-ink-400">{{ c.endDate ? formatDate(c.endDate) : '—' }}</td>
+              <td class="text-white">{{ formatPriceShort(c.monthlyRent) }}</td>
+              <td>
+                <div class="flex items-center gap-1.5">
+                  <ShieldCheck :size="14" :class="c.eriDocumentId ? 'text-emerald-400' : 'text-ink-600'" />
+                  <span class="text-xs" :class="c.eriDocumentId ? 'text-emerald-400' : 'text-ink-500'">
+                    {{ c.eriDocumentId ? 'Imzolangan' : 'Kutilmoqda' }}
+                  </span>
                 </div>
               </td>
-              <td><span class="badge badge-neutral">{{ c.type === 'RENT' ? 'Ijara' : 'Sotuv' }}</span></td>
-              <td class="font-semibold">{{ formatPrice(c.monthlyRent) }} <span class="text-ink-400 text-xs font-normal">so'm</span></td>
+              <td><span class="badge" :class="statusClass(c.status)">{{ statusLabel(c.status) }}</span></td>
               <td>
-                <div class="text-sm">
-                  <p class="text-ink-700">{{ c.startDate }}</p>
-                  <p class="text-ink-400">{{ c.endDate }}</p>
-                </div>
-              </td>
-              <td>
-                <div v-if="c.signedByErI" class="flex items-center gap-1.5 text-emerald-600">
-                  <CheckCircle2 :size="16" /> Imzolangan
-                </div>
-                <div v-else class="flex items-center gap-1.5 text-ink-300">
-                  <Clock :size="16" /> Kutilmoqda
-                </div>
-              </td>
-              <td><StatusBadge :status="c.status" :variant="contractVariant(c.status)" :label="contractLabel(c.status)" dot /></td>
-              <td>
-                <button class="btn-ghost btn-icon btn-sm" @click.stop>
-                  <MoreHorizontal :size="16" />
-                </button>
+                <NuxtLink :to="`/finance/contracts/${c.id}`" class="text-brand-400 hover:text-brand-300 text-sm">
+                  Ko'rish →
+                </NuxtLink>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div v-if="filteredContracts.length === 0" class="p-12">
-        <BaseEmptyState title="Shartnomalar topilmadi" description="Filtrni o'zgartiring yoki yangi shartnoma tuzing" />
-      </div>
     </div>
-
-    <!-- New contract modal -->
-    <BaseModal v-model="showNew" title="Yangi shartnoma">
-      <div class="space-y-4">
-        <div>
-          <label class="label">Ijarachi</label>
-          <input v-model="newContract.tenantName" class="input" placeholder="F.I.O" />
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="label">Turi</label>
-            <select v-model="newContract.type" class="input"><option value="RENT">Ijara</option><option value="SALE">Sotuv</option></select>
-          </div>
-          <div>
-            <label class="label">Oylik to'lov (so'm)</label>
-            <input v-model="newContract.monthlyRent" class="input" type="number" placeholder="0" />
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="label">Boshlanish</label>
-            <input v-model="newContract.startDate" class="input" type="date" />
-          </div>
-          <div>
-            <label class="label">Tugash</label>
-            <input v-model="newContract.endDate" class="input" type="date" />
-          </div>
-        </div>
-        <div>
-          <label class="label">PINFL</label>
-          <input v-model="newContract.pinfl" class="input font-mono" placeholder="14 raqam" maxlength="14" />
-        </div>
-      </div>
-      <template #footer>
-        <button class="btn btn-ghost btn-lg" @click="showNew = false">Bekor</button>
-        <button class="btn btn-primary btn-lg" @click="createContract">Yaratish</button>
-      </template>
-    </BaseModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Plus, Search, CheckCircle2, Clock, MoreHorizontal } from 'lucide-vue-next'
+definePageMeta({ middleware: "auth" })
+import { Plus, Search, ShieldCheck, FileText, CheckCircle2, Clock, XCircle } from 'lucide-vue-next'
+import { contracts } from '~/utils/mockData'
 import type { ContractStatus } from '~/types'
 
-const financeStore = useFinanceStore()
-const toast = useToast()
-onMounted(() => financeStore.initMockData())
+const { formatPriceShort, formatDate } = useFormat()
 
 const search = ref('')
-const activeTab = ref('all')
-const showNew = ref(false)
+const filterStatus = ref('')
+const filterType = ref('')
 
-const newContract = reactive({
-  tenantName: '',
-  type: 'RENT',
-  monthlyRent: 0,
-  startDate: '',
-  endDate: '',
-  pinfl: '',
-})
+const stats = [
+  { label: 'Jami', value: contracts.length, icon: FileText, bg: 'bg-brand-500/10', color: 'text-brand-400' },
+  { label: 'Faol', value: contracts.filter(c => c.status === 'ACTIVE').length, icon: CheckCircle2, bg: 'bg-emerald-500/10', color: 'text-emerald-400' },
+  { label: 'ERI kutilmoqda', value: contracts.filter(c => c.status === 'ERI_PENDING').length, icon: Clock, bg: 'bg-amber-500/10', color: 'text-amber-400' },
+  { label: 'Muddati o\'tgan', value: contracts.filter(c => c.status === 'EXPIRED').length, icon: XCircle, bg: 'bg-red-500/10', color: 'text-red-400' },
+]
 
-const tabs = computed(() => [
-  { id: 'all', label: 'Hammasi', count: financeStore.contracts.length },
-  { id: 'ACTIVE', label: 'Aktiv', count: financeStore.contracts.filter(c => c.status === 'ACTIVE').length },
-  { id: 'PENDING_SIGN', label: "Imzolanmagan", count: financeStore.contracts.filter(c => c.status === 'PENDING_SIGN').length },
-  { id: 'SIGNED', label: 'Imzolangan', count: financeStore.contracts.filter(c => c.status === 'SIGNED').length },
-  { id: 'EXPIRED', label: "Muddati o'tgan", count: financeStore.contracts.filter(c => c.status === 'EXPIRED').length },
-])
-
-const filteredContracts = computed(() => {
-  let result = financeStore.contracts
-  if (activeTab.value !== 'all') result = result.filter(c => c.status === activeTab.value)
-  if (search.value) {
-    const q = search.value.toLowerCase()
-    result = result.filter(c => c.number.toLowerCase().includes(q) || c.tenantName.toLowerCase().includes(q))
+function statusLabel(s: ContractStatus) {
+  const m: Record<ContractStatus, string> = {
+    DRAFT: 'Qoralama', REVIEW: 'Ko\'rib chiqilmoqda', ERI_PENDING: 'ERI kutilmoqda',
+    SIGNED: 'Imzolangan', ACTIVE: 'Faol', EXPIRED: 'Muddati tugagan',
+    TERMINATED: 'Bekor qilingan', COMPLETED: 'Yakunlangan',
   }
-  return result
-})
+  return m[s]
+}
 
-function createContract() {
-  if (!newContract.tenantName || !newContract.monthlyRent) {
-    toast.error("Ma'lumot to'liq emas", 'Ijarachi va oylik to\'lov kerak')
-    return
+function statusClass(s: ContractStatus) {
+  const m: Record<ContractStatus, string> = {
+    DRAFT: 'badge-neutral', REVIEW: 'badge-info', ERI_PENDING: 'badge-warning',
+    SIGNED: 'badge-brand', ACTIVE: 'badge-success', EXPIRED: 'badge-danger',
+    TERMINATED: 'badge-neutral', COMPLETED: 'badge-neutral',
   }
-  financeStore.addContract({
-    tenantName: newContract.tenantName,
-    type: newContract.type as any,
-    monthlyRent: Number(newContract.monthlyRent),
-    startDate: newContract.startDate,
-    endDate: newContract.endDate,
-  })
-  toast.success('Shartnoma yaratildi', `${newContract.tenantName} uchun`)
-  showNew.value = false
-  Object.assign(newContract, { tenantName: '', type: 'RENT', monthlyRent: 0, startDate: '', endDate: '', pinfl: '' })
+  return m[s]
 }
 
-function formatPrice(v: number) {
-  if (v >= 1000000) return (v / 1000000).toFixed(1) + ' mln'
-  return v.toLocaleString('ru')
-}
-
-function contractLabel(s: ContractStatus): string {
-  const m: Record<string, string> = { ACTIVE: 'Aktiv', PENDING_SIGN: 'Imzolanmagan', SIGNED: 'Imzolangan', EXPIRED: "Muddati o'tgan", DRAFT: 'Qoralama', TERMINATED: 'Bekor qilingan' }
-  return m[s] || s
-}
-function contractVariant(s: ContractStatus): string {
-  const m: Record<string, string> = { ACTIVE: 'success', PENDING_SIGN: 'warning', SIGNED: 'info', EXPIRED: 'neutral', DRAFT: 'neutral', TERMINATED: 'danger' }
-  return m[s] || 'neutral'
-}
+const filtered = computed(() => {
+  let r = [...contracts]
+  if (search.value) r = r.filter(c => c.number.toLowerCase().includes(search.value.toLowerCase()))
+  if (filterStatus.value) r = r.filter(c => c.status === filterStatus.value)
+  if (filterType.value) r = r.filter(c => c.type === filterType.value)
+  return r
+})
 </script>

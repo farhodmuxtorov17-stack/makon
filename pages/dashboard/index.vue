@@ -218,6 +218,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import {
   Building2, Wallet, FileText, Wrench, TrendingUp, ChevronRight,
   AlertTriangle, Clock, Package, CheckCircle2, Plus, BarChart3, FileSearch,

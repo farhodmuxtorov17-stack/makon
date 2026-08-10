@@ -1,3 +1,4 @@
+
 <template>
   <div class="space-y-6">
     <PageHeader title="To'lovlar" subtitle="Tranzaksiya tarixi va to'lov oqimi">
@@ -59,6 +60,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Download, CheckCircle2, Clock, CreditCard, Banknote, Smartphone, Wallet } from 'lucide-vue-next'
 import type { Component } from 'vue'
 

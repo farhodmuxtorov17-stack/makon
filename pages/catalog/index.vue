@@ -1,126 +1,257 @@
 <template>
-  <div class="space-y-6">
-    <PageHeader title="Katalog" subtitle="Mavjud maydonlar va binolar">
-      <template #actions>
-        <button class="btn btn-outline btn-sm" @click="toast.info('Filtri', 'Qidiruv saqlandi')"><Filter :size="16" /> Filtrlar</button>
-      </template>
-    </PageHeader>
+  <div class="min-h-screen bg-ink-950">
+    <!-- Hero -->
+    <div class="relative h-[420px] overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80');" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/50 to-ink-950" />
+      <div class="absolute inset-0 bg-grid opacity-30" />
 
-    <div class="card p-4">
-      <div class="flex flex-wrap items-center gap-3">
-        <div class="relative flex-1 min-w-[200px]">
-          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-          <input v-model="search" class="input pl-10" placeholder="Bino, tuman..." />
+      <div class="relative h-full max-w-6xl mx-auto px-4 lg:px-6 flex flex-col justify-center">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full glass w-fit mb-6">
+          <MapPin :size="14" class="text-brand-400" />
+          <span class="text-xs text-ink-300">Toshkent shahri · O'zbekiston</span>
         </div>
-        <div class="flex gap-1 p-1 bg-ink-100 rounded-xl">
-          <button v-for="t in types" :key="t.id" @click="filterType = t.id"
-            class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
-            :class="filterType === t.id ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-400'">
-            {{ t.label }}
+        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight max-w-2xl">
+          Bo'sh maydonlarni
+          <span class="text-gradient">toping</span>
+        </h1>
+        <p class="text-ink-400 text-lg mb-8 max-w-xl">
+          Tashkent City, Trillant Tower, IT Park va boshqa premium binolarda ofis, savdo va ombor maydonlari
+        </p>
+
+        <!-- Search bar -->
+        <div class="flex flex-col sm:flex-row gap-3 max-w-2xl">
+          <div class="relative flex-1">
+            <Search :size="18" class="absolute left-4 top-1/2 -translate-y-1/2 text-ink-500" />
+            <input
+              v-model="searchQuery"
+              type="text"
+              class="input pl-12 py-3 text-base"
+              placeholder="Bino nomi, tuman, maydon..."
+              @keyup.enter="applySearch"
+            />
+          </div>
+          <button class="btn btn-primary btn-lg" @click="applySearch">
+            Qidirish
           </button>
         </div>
-        <select v-model="filterDistrict" class="input w-auto">
-          <option value="">Tuman: Hammasi</option>
-          <option v-for="d in districts" :key="d" :value="d">{{ d }}</option>
-        </select>
       </div>
     </div>
 
-    <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <div v-for="i in 6" :key="i" class="card overflow-hidden">
-        <div class="skeleton h-56 w-full rounded-none" />
-        <div class="p-5 space-y-3">
-          <div class="skeleton h-5 w-3/4" />
-          <div class="skeleton h-4 w-1/2" />
-          <div class="skeleton h-10 w-full rounded-xl" />
+    <!-- Content -->
+    <div class="max-w-6xl mx-auto px-4 lg:px-6 py-8">
+      <!-- Filters -->
+      <div class="card p-4 mb-6">
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex gap-1 p-1 rounded-xl bg-white/5">
+            <button
+              v-for="t in typeFilters"
+              :key="t.id"
+              @click="filterType = t.id; updateUrl()"
+              class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
+              :class="filterType === t.id ? 'bg-white text-ink-900' : 'text-ink-400 hover:text-white'"
+            >
+              {{ t.label }}
+            </button>
+          </div>
+
+          <select v-model="filterDistrict" class="input w-auto" @change="updateUrl">
+            <option value="">Barcha tumanlar</option>
+            <option v-for="d in districts" :key="d" :value="d">{{ d }}</option>
+          </select>
+
+          <select v-model="filterOffer" class="input w-auto" @change="updateUrl">
+            <option value="">Hammasi</option>
+            <option value="RENT">Ijara</option>
+            <option value="SALE">Sotuv</option>
+          </select>
+
+          <select v-model="sortBy" class="input w-auto" @change="updateUrl">
+            <option value="newest">Eng yangi</option>
+            <option value="price-asc">Narx: arzon</option>
+            <option value="price-desc">Narx: qimmat</option>
+            <option value="views">Eng ko'p ko'rilgan</option>
+          </select>
+
+          <div class="flex gap-1 p-1 rounded-xl bg-white/5 ml-auto">
+            <button @click="viewMode = 'grid'" class="p-1.5 rounded-lg transition-all" :class="viewMode === 'grid' ? 'bg-white text-ink-900' : 'text-ink-400'">
+              <LayoutGrid :size="16" />
+            </button>
+            <button @click="viewMode = 'list'" class="p-1.5 rounded-lg transition-all" :class="viewMode === 'list' ? 'bg-white text-ink-900' : 'text-ink-400'">
+              <List :size="16" />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 stagger">
-      <NuxtLink v-for="c in filtered" :key="c.id" :to="`/management/buildings/${c.id}`"
-        class="card card-hover hover-lift overflow-hidden group">
-        <div class="h-56 relative overflow-hidden">
-          <img :src="c.image" :alt="c.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-ink-950/10 to-transparent" />
-          <div class="absolute top-3 left-3 flex gap-2">
-            <span v-if="c.isNew" class="badge badge-success">Yangi</span>
-            <span class="badge glass-dark text-white border border-white/10">{{ c.type }}</span>
-          </div>
-          <div class="absolute bottom-3 left-3 right-3">
-            <h3 class="font-display font-bold text-lg text-white leading-tight">{{ c.name }}</h3>
-            <p class="text-white/60 text-xs flex items-center gap-1 mt-1"><MapPin :size="12" /> {{ c.district }}, Toshkent</p>
-          </div>
-        </div>
-        <div class="p-5">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <p class="text-2xl font-bold font-display text-brand-600">{{ c.price }}</p>
-              <p class="text-xs text-ink-400">{{ c.pricePerM2 }} so'm/m²</p>
-            </div>
-            <div class="text-right text-sm text-ink-500">
-              <p class="font-semibold">{{ c.area }} m²</p>
-              <p class="text-xs">{{ c.floor }} qavat</p>
-            </div>
-          </div>
-          <div class="flex gap-2">
-            <button class="btn btn-primary btn-sm flex-1" @click.prevent="toast.info('Ariza', 'Ariza forma tez orada')">
-              Ariza berish
-            </button>
-            <button class="btn btn-outline btn-sm" @click.prevent="toast.info('Saqlandi', 'Sevimlilarga qo\'shildi')">
-              <Heart :size="16" />
-            </button>
-          </div>
-        </div>
-      </NuxtLink>
-    </div>
+      <!-- Results count -->
+      <div class="flex items-center justify-between mb-5">
+        <p class="text-sm text-ink-400">
+          <span class="text-white font-semibold">{{ filteredListings.length }}</span> ta taklif topildi
+        </p>
+      </div>
 
-    <div v-if="!loading && filtered.length === 0" class="card p-12 text-center">
-      <p class="text-ink-400">Filtr bo'yicha natija topilmadi</p>
+      <!-- Grid view -->
+      <div v-if="viewMode === 'grid'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <NuxtLink
+          v-for="listing in filteredListings"
+          :key="listing.id"
+          :to="`/catalog/${listing.id}`"
+          class="card overflow-hidden card-hover group"
+        >
+          <div class="relative h-56 overflow-hidden">
+            <img :src="listing.photos[0]" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div class="absolute top-3 left-3">
+              <span class="badge" :class="listing.offerType === 'RENT' ? 'badge-brand' : 'badge-success'">
+                {{ listing.offerType === 'RENT' ? 'Ijara' : 'Sotuv' }}
+              </span>
+            </div>
+            <div class="absolute top-3 right-3 glass rounded-lg px-2.5 py-1 flex items-center gap-1.5">
+              <Eye :size="12" class="text-ink-300" />
+              <span class="text-xs text-white">{{ listing.viewsCount }}</span>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-ink-950 to-transparent" />
+          </div>
+          <div class="p-5">
+            <div class="text-xs text-ink-500 mb-1">{{ getBuildingName(listing.buildingId) }}</div>
+            <h3 class="text-white font-semibold mb-3 line-clamp-1">{{ listing.titleUz }}</h3>
+            <p class="text-sm text-ink-400 line-clamp-2 mb-4">{{ listing.descriptionUz }}</p>
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="text-2xl font-bold text-white">{{ formatPriceShort(listing.price) }}</div>
+                <div class="text-xs text-ink-500">{{ listing.offerType === 'RENT' ? 'oyiga' : '' }}</div>
+              </div>
+              <div class="flex items-center gap-1 text-brand-400 text-sm group-hover:gap-2 transition-all">
+                Ko'rish <ArrowRight :size="14" />
+              </div>
+            </div>
+          </div>
+        </NuxtLink>
+      </div>
+
+      <!-- List view -->
+      <div v-else class="space-y-3">
+        <NuxtLink
+          v-for="listing in filteredListings"
+          :key="listing.id"
+          :to="`/catalog/${listing.id}`"
+          class="card p-4 card-hover group flex gap-4"
+        >
+          <div class="w-32 h-24 rounded-xl overflow-hidden flex-shrink-0">
+            <img :src="listing.photos[0]" class="w-full h-full object-cover" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="badge" :class="listing.offerType === 'RENT' ? 'badge-brand' : 'badge-success'">
+                {{ listing.offerType === 'RENT' ? 'Ijara' : 'Sotuv' }}
+              </span>
+              <span class="text-xs text-ink-500">{{ getBuildingName(listing.buildingId) }}</span>
+            </div>
+            <h3 class="text-white font-medium mb-1 line-clamp-1">{{ listing.titleUz }}</h3>
+            <p class="text-sm text-ink-400 line-clamp-1">{{ listing.descriptionUz }}</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <div class="text-xl font-bold text-white">{{ formatPriceShort(listing.price) }}</div>
+            <div class="flex items-center gap-1 text-xs text-ink-500 justify-end mt-1">
+              <Eye :size="12" /> {{ listing.viewsCount }}
+            </div>
+          </div>
+        </NuxtLink>
+      </div>
+
+      <!-- Empty -->
+      <div v-if="filteredListings.length === 0" class="card p-12 text-center">
+        <SearchX :size="40" class="text-ink-600 mx-auto mb-4" />
+        <h3 class="text-white font-semibold mb-1">Hech narsa topilmadi</h3>
+        <p class="text-ink-500 text-sm">Filtrlarni o'zgartirib qaytadan urinib ko'ring</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Search, MapPin, Heart, Filter } from 'lucide-vue-next'
+import { Search, MapPin, ArrowRight, Eye, LayoutGrid, List, SearchX } from 'lucide-vue-next'
+import { listings, buildings } from '~/utils/mockData'
+import type { ListingStatus } from '~/types'
 
-const toast = useToast()
-const loading = ref(true)
-const search = ref('')
-const filterType = ref('all')
-const filterDistrict = ref('')
+const route = useRoute()
+const router = useRouter()
+const { formatPriceShort } = useFormat()
 
-onMounted(() => setTimeout(() => loading.value = false, 500))
+const searchQuery = ref((route.query.q as string) || '')
+const filterType = ref((route.query.type as string) || '')
+const filterDistrict = ref((route.query.district as string) || '')
+const filterOffer = ref((route.query.offer as string) || '')
+const sortBy = ref((route.query.sort as string) || 'newest')
+const viewMode = ref<'grid' | 'list'>('grid')
 
-const types = [
-  { id: 'all', label: 'Hammasi' },
-  { id: 'Ofis', label: 'Ofis' },
-  { id: 'Savdo', label: 'Savdo' },
-  { id: 'Loft', label: 'Loft' },
+const typeFilters = [
+  { id: '', label: 'Hammasi' },
+  { id: 'BUSINESS_CENTER', label: 'Biznes markaz' },
+  { id: 'OFFICE', label: 'Ofis' },
+  { id: 'SHOPPING', label: 'Savdo' },
+  { id: 'WAREHOUSE', label: 'Ombor' },
 ]
 
-const districts = ['Yunusobod', 'Yashnobod', "Mirzo Ulug'bek", 'Mirobod', 'Sergeli', 'Chilonzor']
+const districts = ['Mirzo Ulug\'bek', 'Shayxontohur', 'Yunusobod', 'Mirobod', 'Yakkasaroy']
 
-const catalog = [
-  { id: 'b1', name: 'Trilliant Tower · Ofis 1201', district: 'Yunusobod', area: 85, floor: '12/14', price: '1,200,000 so\'m/oy', pricePerM2: '14,100', type: 'Ofis', isNew: true, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg' },
-  { id: 'b2', name: 'Tashkent City · Loft 802', district: 'Yashnobod', area: 120, floor: '8/22', price: '1,800,000 so\'m/oy', pricePerM2: '15,000', type: 'Loft', isNew: false, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/d62df0e1f_ibc_tashkent.jpg' },
-  { id: 'b3', name: 'IT Park · Ofis 305', district: "Mirzo Ulug'bek", area: 65, floor: '3/8', price: '850,000 so\'m/oy', pricePerM2: '13,000', type: 'Ofis', isNew: true, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/93bd7fd52_nest_one.jpg' },
-  { id: 'b4', name: 'Piramit · Savdo 101', district: 'Mirobod', area: 45, floor: '1/18', price: '950,000 so\'m/oy', pricePerM2: '21,100', type: 'Savdo', isNew: false, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/a63dc668a_piramit.jpg' },
-  { id: 'b5', name: 'Crystal Plaza · Ofis 402', district: 'Sergeli', area: 78, floor: '4/12', price: '980,000 so\'m/oy', pricePerM2: '12,500', type: 'Ofis', isNew: false, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg' },
-  { id: 'city-night-2', name: 'Tashkent City · Loft 1503', district: 'Yashnobod', area: 110, floor: '15/22', price: '1,300,000 so\'m/oy', pricePerM2: '11,800', type: 'Loft', isNew: true, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/d62df0e1f_ibc_tashkent.jpg' },
-  { id: 'chil-1', name: 'Business Center · Savdo 204', district: 'Chilonzor', area: 50, floor: '2/5', price: '550,000 so\'m/oy', pricePerM2: '11,000', type: 'Savdo', isNew: false, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg' },
-  { id: 'serg-1', name: 'Nest One · Loft 601', district: 'Sergeli', area: 92, floor: '6/9', price: '1,100,000 so\'m/oy', pricePerM2: '12,000', type: 'Loft', isNew: false, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/d62df0e1f_ibc_tashkent.jpg' },
-  { id: 'yun-2', name: 'Trilliant · Savdo G03', district: 'Yunusobod', area: 35, floor: 'G/14', price: '780,000 so\'m/oy', pricePerM2: '22,200', type: 'Savdo', isNew: false, image: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg' },
-]
+function getBuildingName(id: string) {
+  return buildings.find(b => b.id === id)?.name || ''
+}
 
-const filtered = computed(() => {
-  let list = catalog
-  if (search.value) {
-    const q = search.value.toLowerCase()
-    list = list.filter(c => c.name.toLowerCase().includes(q) || c.district.toLowerCase().includes(q))
+const filteredListings = computed(() => {
+  let result = [...listings].filter(l => l.status === 'PUBLISHED')
+
+  if (searchQuery.value) {
+    const q = searchQuery.value.toLowerCase()
+    result = result.filter(l =>
+      l.titleUz.toLowerCase().includes(q) ||
+      l.descriptionUz.toLowerCase().includes(q) ||
+      getBuildingName(l.buildingId).toLowerCase().includes(q)
+    )
   }
-  if (filterType.value !== 'all') list = list.filter(c => c.type === filterType.value)
-  if (filterDistrict.value) list = list.filter(c => c.district === filterDistrict.value)
-  return list
+
+  if (filterType.value) {
+    result = result.filter(l => {
+      const b = buildings.find(b => b.id === l.buildingId)
+      return b?.type === filterType.value
+    })
+  }
+
+  if (filterDistrict.value) {
+    result = result.filter(l => {
+      const b = buildings.find(b => b.id === l.buildingId)
+      return b?.district === filterDistrict.value
+    })
+  }
+
+  if (filterOffer.value) {
+    result = result.filter(l => l.offerType === filterOffer.value)
+  }
+
+  switch (sortBy.value) {
+    case 'price-asc': result.sort((a, b) => a.price - b.price); break
+    case 'price-desc': result.sort((a, b) => b.price - a.price); break
+    case 'views': result.sort((a, b) => b.viewsCount - a.viewsCount); break
+    default: result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  return result
 })
+
+function applySearch() {
+  updateUrl()
+}
+
+function updateUrl() {
+  router.replace({
+    query: {
+      q: searchQuery.value || undefined,
+      type: filterType.value || undefined,
+      district: filterDistrict.value || undefined,
+      offer: filterOffer.value || undefined,
+      sort: sortBy.value || undefined,
+    }
+  })
+}
 </script>

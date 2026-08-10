@@ -1,3 +1,4 @@
+
 <template>
   <div class="space-y-6">
     <PageHeader title="Bildirishnomalar" subtitle="Tizim xabarlari va ogohlantirishlar">
@@ -42,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { FileText, ShieldCheck, Receipt, Wrench, Package, Settings, Bell } from 'lucide-vue-next'
 
 const financeStore = useFinanceStore()

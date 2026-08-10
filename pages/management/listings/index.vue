@@ -1,3 +1,4 @@
+
 <template>
   <div class="space-y-6">
     <PageHeader title="Listinglar" subtitle="E'lon qilingan ob'ektlar">
@@ -43,6 +44,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { Plus, MapPin, Eye, Square, Building2 } from 'lucide-vue-next'
 import type { ListingStatus } from '~/types'
 

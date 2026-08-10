@@ -1,3 +1,4 @@
+
 <template>
   <div class="space-y-6">
     <PageHeader title="Tasdiqlash" subtitle="Tasdiqni kutayotgan hujjatlar va so'rovlar" />
@@ -37,6 +38,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { CheckCircle2, FileText, ShieldCheck, Wrench, Check, XCircle } from 'lucide-vue-next'
 
 const toast = useToast()

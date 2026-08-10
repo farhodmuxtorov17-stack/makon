@@ -1,182 +1,231 @@
+
 <template>
   <div class="space-y-6">
-    <NuxtLink to="/management/buildings" class="inline-flex items-center gap-2 text-sm text-ink-500 hover:text-ink-700">
-      <ArrowLeft :size="16" /> Binolarga qaytish
-    </NuxtLink>
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-sm text-ink-500">
+      <NuxtLink to="/management/buildings" class="hover:text-white transition-colors">Binolar</NuxtLink>
+      <ChevronRight :size="14" class="text-ink-700" />
+      <span class="text-white">{{ building?.name }}</span>
+    </div>
 
-    <div v-if="building" class="space-y-6">
-      <!-- Building header -->
-      <div class="card overflow-hidden">
-        <div class="h-48 bg-ink-950 relative overflow-hidden">
-          <img :src="building.img" class="w-full h-full object-cover opacity-60" @error="handleImgError" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-6">
-            <div class="flex items-end justify-between">
-              <div>
-                <span class="badge badge-info">{{ building.type }}</span>
-                <h1 class="font-display text-3xl font-bold text-white mt-2">{{ building.name }}</h1>
-                <p class="text-white/60 text-sm mt-1 flex items-center gap-1.5">
-                  <MapPin :size="14" /> {{ building.location }}, Toshkent
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button class="btn btn-ghost btn-lg text-white hover:bg-white/10" @click="toast.info('Eksport', 'PDF tayyorlanmoqda')">
-                  <Download :size="18" /> PDF
-                </button>
-                <button class="btn btn-primary btn-lg" @click="toast.info('Tahrir', 'Forma tez orada')">
-                  <Pencil :size="18" /> Tahrirlash
-                </button>
-              </div>
-            </div>
+    <!-- Building header -->
+    <div class="card p-6">
+      <div class="flex items-start justify-between flex-wrap gap-4">
+        <div class="flex items-start gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-brand-500/10 flex items-center justify-center flex-shrink-0">
+            <Building2 :size="28" class="text-brand-400" />
           </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="badge badge-brand">{{ typeLabel }}</span>
+              <span class="badge" :class="building?.isPublished ? 'badge-success' : 'badge-neutral'">
+                {{ building?.isPublished ? 'Nashr etilgan' : 'Nashr etilmagan' }}
+              </span>
+            </div>
+            <h1 class="text-2xl font-bold text-white">{{ building?.name }}</h1>
+            <p class="text-ink-400 text-sm mt-1 flex items-center gap-1.5">
+              <MapPin :size="14" /> {{ building?.address }}
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button class="btn btn-secondary btn-sm">
+            <Edit :size="14" /> Tahrirlash
+          </button>
+          <NuxtLink :to="`/buildings/${building?.id}/3d`" class="btn btn-primary btn-sm">
+            <Box :size="14" /> 3D ko'rinish
+          </NuxtLink>
         </div>
       </div>
 
       <!-- Stats -->
-      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatCard icon="Layers" :value="String(building.floors)" label="Qavatlar" iconBg="bg-brand-50" iconColor="text-brand-600" />
-        <StatCard icon="Maximize" :value="building.area + ' m²'" label="Maydon" iconBg="bg-sky-50" iconColor="text-sky-600" />
-        <StatCard icon="Building2" :value="String(building.units)" label="Jami maydon" iconBg="bg-amber-50" iconColor="text-amber-600" />
-        <StatCard icon="Users" :value="String(building.tenants)" label="Ijarachilar" iconBg="bg-emerald-50" iconColor="text-emerald-600" />
-        <StatCard icon="TrendingUp" :value="building.occupancy + '%'" label="Bandlik" iconBg="bg-rose-50" iconColor="text-rose-600" />
-      </div>
-
-      <!-- Tabs -->
-      <div class="flex gap-1 p-1 bg-ink-100 rounded-xl w-fit">
-        <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
-          class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
-          :class="activeTab === tab.id ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-400 hover:text-ink-600'">
-          {{ tab.label }}
-        </button>
-      </div>
-
-      <!-- Units tab -->
-      <div v-if="activeTab === 'units'" class="card overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Maydon №</th>
-                <th>Qavat</th>
-                <th>Turi</th>
-                <th>Maydon</th>
-                <th>Status</th>
-                <th>Ijarachi</th>
-                <th>Oylik</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="u in units" :key="u.id" class="table-row-hover">
-                <td class="font-mono font-semibold text-ink-900">{{ u.number }}</td>
-                <td>{{ u.floor }}</td>
-                <td><span class="badge badge-neutral">{{ u.type }}</span></td>
-                <td>{{ u.area }} m²</td>
-                <td><StatusBadge :status="u.status" :variant="unitVariant(u.status)" :label="unitLabel(u.status)" dot /></td>
-                <td>{{ u.tenant || '—' }}</td>
-                <td class="font-semibold" :class="u.rent ? 'text-ink-900' : 'text-ink-300'">{{ u.rent ? formatPriceShort(u.rent) : '—' }}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        <div class="text-center p-3 rounded-xl bg-white/5">
+          <div class="text-2xl font-bold text-white">{{ building?.totalUnits }}</div>
+          <div class="text-xs text-ink-500 mt-0.5">Jami unitlar</div>
+        </div>
+        <div class="text-center p-3 rounded-xl bg-white/5">
+          <div class="text-2xl font-bold text-emerald-400">{{ building?.occupiedUnits }}</div>
+          <div class="text-xs text-ink-500 mt-0.5">Band</div>
+        </div>
+        <div class="text-center p-3 rounded-xl bg-white/5">
+          <div class="text-2xl font-bold text-brand-400">{{ building?.vacantUnits }}</div>
+          <div class="text-xs text-ink-500 mt-0.5">Bo'sh</div>
+        </div>
+        <div class="text-center p-3 rounded-xl bg-white/5">
+          <div class="text-2xl font-bold text-white">{{ building?.totalArea.toLocaleString() }}</div>
+          <div class="text-xs text-ink-500 mt-0.5">m² maydon</div>
         </div>
       </div>
+    </div>
 
-      <!-- Amenities tab -->
-      <div v-if="activeTab === 'amenities'" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div v-for="a in amenities" :key="a.label" class="card p-4 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-ink-50 flex items-center justify-center">
-            <component :is="a.icon" :size="20" class="text-ink-600" />
-          </div>
-          <div>
-            <p class="font-medium text-sm">{{ a.label }}</p>
-            <p class="text-xs text-ink-400">{{ a.desc }}</p>
+    <!-- Tabs -->
+    <div class="flex gap-1 p-1 rounded-xl bg-white/5 w-fit">
+      <button
+        v-for="tab in tabs"
+        :key="tab.id"
+        @click="activeTab = tab.id"
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+        :class="activeTab === tab.id ? 'bg-white text-ink-900' : 'text-ink-400 hover:text-white'"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+
+    <!-- Overview tab -->
+    <div v-if="activeTab === 'overview'" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="card p-6 lg:col-span-2">
+        <h3 class="text-white font-semibold mb-4">Galerеya</h3>
+        <div class="grid grid-cols-2 gap-3">
+          <div v-for="(img, i) in building?.gallery" :key="i" class="rounded-xl overflow-hidden h-48">
+            <img :src="img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer" />
           </div>
         </div>
+        <h3 class="text-white font-semibold mt-6 mb-3">Tavsif</h3>
+        <p class="text-ink-400 text-sm leading-relaxed">{{ building?.publicDescription }}</p>
       </div>
 
-      <!-- Specs tab -->
-      <div v-if="activeTab === 'specs'" class="card p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
-          <div v-for="s in specs" :key="s.label" class="flex items-center justify-between py-2 border-b border-ink-100">
-            <span class="text-ink-500 text-sm">{{ s.label }}</span>
-            <span class="font-medium text-sm">{{ s.value }}</span>
+      <div class="space-y-4">
+        <div class="card p-5">
+          <h3 class="text-white font-semibold mb-3">Binoning parametrlari</h3>
+          <div class="space-y-2.5 text-sm">
+            <div class="flex justify-between"><span class="text-ink-500">Turi</span><span class="text-white">{{ typeLabel }}</span></div>
+            <div class="flex justify-between"><span class="text-ink-500">Tuman</span><span class="text-white">{{ building?.district }}</span></div>
+            <div class="flex justify-between"><span class="text-ink-500">Qavatlar</span><span class="text-white">{{ building?.floorsCount }}</span></div>
+            <div class="flex justify-between"><span class="text-ink-500">Maydon</span><span class="text-white">{{ building?.totalArea.toLocaleString() }} m²</span></div>
+            <div class="flex justify-between"><span class="text-ink-500">Rahbar</span><span class="text-white">{{ managerName }}</span></div>
+          </div>
+        </div>
+        <div class="card p-5">
+          <h3 class="text-white font-semibold mb-3">Bandlik grafigi</h3>
+          <div class="relative h-3 rounded-full bg-white/5 overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full" :style="{ width: occupancyPct + '%' }" />
+          </div>
+          <div class="flex justify-between mt-2 text-sm">
+            <span class="text-ink-500">{{ occupancyPct }}% band</span>
+            <span class="text-white font-medium">{{ building?.occupiedUnits }}/{{ building?.totalUnits }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-else class="card p-12">
-      <BaseEmptyState title="Bino topilmadi" />
+    <!-- Floors tab -->
+    <div v-if="activeTab === 'floors'" class="card p-6">
+      <h3 class="text-white font-semibold mb-4">Qavatlar ro'yxati</h3>
+      <div class="space-y-2">
+        <div
+          v-for="floor in floorList"
+          :key="floor.id"
+          class="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
+        >
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-lg font-bold text-white">
+            {{ floor.number }}
+          </div>
+          <div class="flex-1">
+            <div class="text-sm text-white font-medium">{{ floor.number }}-qavat</div>
+            <div class="text-xs text-ink-500">{{ floor.area.toLocaleString() }} m² · {{ floor.units }} unit</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="badge" :class="floor.vacant > 0 ? 'badge-success' : 'badge-neutral'">
+              {{ floor.vacant > 0 ? floor.vacant + ' bo' + "'" + 'sh' : 'To' + "'" + 'liq band' }}
+            </span>
+            <NuxtLink :to="`/floors/${floor.id}/plan`" class="btn btn-secondary btn-sm">
+              <Map :size="14" /> Plan
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Units tab -->
+    <div v-if="activeTab === 'units'" class="card p-6">
+      <h3 class="text-white font-semibold mb-4">Bo'sh unitlar</h3>
+      <div class="overflow-x-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Unit</th>
+              <th>Qavat</th>
+              <th>Maydon</th>
+              <th>Turi</th>
+              <th>Narx</th>
+              <th>Holat</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="unit in vacantUnits" :key="unit.id" class="table-row-hover">
+              <td class="text-white font-medium">{{ unit.number }}</td>
+              <td>{{ unit.floor }}</td>
+              <td>{{ unit.area }} m²</td>
+              <td>{{ unit.usageType }}</td>
+              <td class="text-white">{{ formatPriceShort(unit.price) }}</td>
+              <td><span class="badge badge-success">Bo'sh</span></td>
+              <td>
+                <NuxtLink :to="`/units/${unit.id}`" class="text-brand-400 hover:text-brand-300 text-sm">
+                  Ko'rish →
+                </NuxtLink>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, MapPin, Download, Pencil, Layers, Maximize, Building2, Users, TrendingUp, Wifi, Car, Zap, Wind, Shield, Droplet, Phone, Snowflake } from 'lucide-vue-next'
+definePageMeta({ middleware: "auth" })
+import { Building2, MapPin, ChevronRight, Box, Edit, Map } from 'lucide-vue-next'
+import { buildings } from '~/utils/mockData'
 
 const route = useRoute()
-const toast = useToast()
 const { formatPriceShort } = useFormat()
 
-const activeTab = ref('units')
+const building = computed(() => buildings.find(b => b.id === route.params.id || b.slug === route.params.slug))
+
+const activeTab = ref('overview')
 const tabs = [
-  { id: 'units', label: 'Maydonlar' },
-  { id: 'amenities', label: 'Qulayliklar' },
-  { id: 'specs', label: 'Texnik xususiyatlar' },
+  { id: 'overview', label: 'Umumiy' },
+  { id: 'floors', label: 'Qavatlar' },
+  { id: 'units', label: 'Unitlar' },
 ]
 
-const buildings = [
-  { id: 'b1', name: 'Trilliant Tower', type: 'A+ Biznes markaz', location: 'Yunusobod', floors: 14, area: '15,800', units: 141, tenants: 133, occupancy: 94, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg' },
-  { id: 'b2', name: 'Tashkent City IBC', type: 'A klass', location: 'Yashnobod', floors: 22, area: '28,400', units: 186, tenants: 162, occupancy: 87, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/d62df0e1f_ibc_tashkent.jpg' },
-  { id: 'b3', name: 'IT Park Tashkent', type: 'IT markaz', location: 'Mirzo Ulug\'bek', floors: 8, area: '9,200', units: 64, tenants: 59, occupancy: 92, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/93bd7fd52_nest_one.jpg' },
-  { id: 'b4', name: 'Piramit Tower', type: 'Biznes markaz', location: 'Mirobod', floors: 18, area: '19,600', units: 98, tenants: 76, occupancy: 78, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/a63dc668a_piramit.jpg' },
-  { id: 'b5', name: 'Crystal Plaza', type: 'A klass', location: 'Sergeli', floors: 12, area: '12,400', units: 84, tenants: 71, occupancy: 84, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg' },
-]
-
-const building = computed(() => buildings.find(b => b.id === route.params.id))
-
-const units = computed(() => {
-  if (!building.value) return []
-  const types = ['Office', 'Retail', 'Parking', 'Warehouse']
-  const statuses = ['RENTED', 'RENTED', 'RENTED', 'VACANT', 'RENTED', 'RESERVED', 'RENTED', 'RENTED']
-  const tenants = ['D. Yusupova', 'A. Karimov', 'B. Toshmatov', '', 'M. Saidova', '', 'R. Nazarov', 'F. Karimova']
-  const rents = [12000000, 8500000, 4500000, 0, 6800000, 0, 9500000, 5200000]
-  return Array.from({ length: Math.min(building.value.units, 12) }, (_, i) => ({
-    id: `u${i + 1}`,
-    number: `${building.value!.name.slice(0, 3).toUpperCase()}-${String(i + 1).padStart(3, '0')}`,
-    floor: (i % building.value!.floors) + 1,
-    type: types[i % types.length],
-    area: 40 + (i * 15) % 120,
-    status: statuses[i % statuses.length],
-    tenant: tenants[i % tenants.length],
-    rent: rents[i % rents.length],
-  }))
+const typeLabel = computed(() => {
+  const map: Record<string, string> = {
+    BUSINESS_CENTER: 'Biznes markaz',
+    OFFICE: 'Ofis',
+    SHOPPING: 'Savdo',
+    WAREHOUSE: 'Ombor',
+    RESIDENTIAL: 'Turar joy',
+    MIXED: 'Aralash',
+  }
+  return map[building.value?.type || ''] || ''
 })
 
-const amenities = [
-  { icon: Wifi, label: 'Fiber internet', desc: '1 Gbps' },
-  { icon: Car, label: 'Podval avtoturargoh', desc: '120 joy' },
-  { icon: Zap, label: 'Rezerv o\'zag', desc: '100 kW' },
-  { icon: Wind, label: 'Markaziy konditsioner', desc: 'VRV sistema' },
-  { icon: Shield, label: '24/7 xavfsizlik', desc: 'CCTV + qo\'riq' },
-  { icon: Droplet, label: 'Santexnika', desc: 'Markaziy' },
-  { icon: Phone, label: 'Intercom', desc: 'IP telefon' },
-  { icon: Snowflake, label: 'Sovutish tizimi', desc: 'Central cooling' },
-]
+const managerName = 'Sardor Karimov'
 
-const specs = [
-  { label: 'Umumiy maydon', value: building.value?.area + ' m²' },
-  { label: 'Qavatlar soni', value: String(building.value?.floors) },
-  { label: 'Maydonlar soni', value: String(building.value?.units) },
-  { label: 'Liftlar', value: '4 dona (Shindler)' },
-  { label: 'Ochilgan yil', value: '2021' },
-  { label: 'Sertifikat', value: 'LEED Gold' },
-  { label: 'O\'tish panjara', value: 'Turniket + kartalar' },
-  { label: 'Ishlash tartibi', value: '24/7' },
-  { label: 'Ruxsat etilgan hayvonlar', value: 'Yo\'q' },
-  { label: 'Chekish maydoni', value: 'Maxsus zona' },
-]
+const occupancyPct = computed(() => {
+  if (!building.value) return 0
+  return Math.round((building.value.occupiedUnits / building.value.totalUnits) * 100)
+})
 
-function handleImgError() {}
-function unitLabel(s: string) { return { RENTED: 'Band', VACANT: "Bo'sh", RESERVED: 'Bron', MAINTENANCE: 'Ta\'mir', DRAFT: 'Qoralama' }[s] || s }
-function unitVariant(s: string) { return { RENTED: 'success', VACANT: 'neutral', RESERVED: 'warning', MAINTENANCE: 'danger', DRAFT: 'neutral' }[s] || 'neutral' }
+const floorList = computed(() => {
+  if (!building.value) return []
+  return Array.from({ length: building.value.floorsCount }, (_, i) => ({
+    id: `f${i + 1}`,
+    number: i + 1,
+    area: Math.round(building.value!.totalArea / building.value!.floorsCount),
+    units: Math.round(building.value!.totalUnits / building.value!.floorsCount),
+    vacant: Math.max(0, Math.round(building.value!.vacantUnits / building.value!.floorsCount * (i < 3 ? 2 : 0.5))),
+  })).reverse()
+})
+
+const vacantUnits = [
+  { id: 'u-101', number: 'A-5', floor: 25, area: 120, usageType: 'OFFICE', price: 18000000 },
+  { id: 'u-102', number: 'B-12', floor: 12, area: 85, usageType: 'OFFICE', price: 12750000 },
+  { id: 'u-103', number: 'C-8', floor: 8, area: 200, usageType: 'OFFICE', price: 30000000 },
+  { id: 'u-104', number: 'D-3', floor: 3, area: 65, usageType: 'OFFICE', price: 9750000 },
+  { id: 'u-105', number: 'E-1', floor: 1, area: 300, usageType: 'RETAIL', price: 45000000 },
+]
 </script>

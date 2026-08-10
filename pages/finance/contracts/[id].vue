@@ -1,3 +1,4 @@
+
 <template>
   <div class="space-y-6">
     <NuxtLink to="/finance/contracts" class="inline-flex items-center gap-2 text-sm text-ink-500 hover:text-ink-700">
@@ -108,6 +109,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: "auth" })
 import { ArrowLeft, Receipt, CheckCircle2, Clock, ExternalLink, FileText, Download, ChevronRight, XCircle } from 'lucide-vue-next'
 import type { ContractStatus } from '~/types'
 

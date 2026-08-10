@@ -1,38 +1,44 @@
+
 <template>
   <div class="space-y-6">
-    <PageHeader title="Hisobotlar" subtitle="Tizim hisobotlari va eksport" />
+    <div>
+      <h1 class="text-2xl font-bold text-white">Hisobotlar</h1>
+      <p class="text-ink-400 text-sm mt-1">Standart hisobotlar va eksport</p>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="r in reports" :key="r.id" class="card-hover p-5 cursor-pointer" @click="downloadReport(r)">
+      <div v-for="report in reports" :key="report.id" class="card p-5 card-hover cursor-pointer" @click="generateReport(report)">
         <div class="flex items-start justify-between mb-3">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center" :class="r.bg">
-            <component :is="r.icon" :size="24" :class="r.color" />
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="report.bg">
+            <component :is="report.icon" :size="18" :class="report.color" />
           </div>
-          <span class="badge badge-neutral">{{ r.format }}</span>
         </div>
-        <h3 class="font-semibold text-ink-900 mb-1">{{ r.title }}</h3>
-        <p class="text-sm text-ink-400 mb-4">{{ r.description }}</p>
-        <button class="btn btn-outline btn-sm w-full">
-          <Download :size="14" /> {{ r.format }} yuklash
-        </button>
+        <h3 class="text-white font-medium mb-1">{{ report.title }}</h3>
+        <p class="text-sm text-ink-500 mb-4">{{ report.desc }}</p>
+        <div class="flex gap-2">
+          <button class="badge badge-brand cursor-pointer">PDF</button>
+          <button class="badge badge-success cursor-pointer">XLSX</button>
+          <button class="badge badge-info cursor-pointer">CSV</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Download, FileText, Wallet, Building2, Users, TrendingUp, BarChart3 } from 'lucide-vue-next'
+definePageMeta({ middleware: "auth" })
+import { Building2, Wallet, FileText, Wrench, Package, Gauge, BarChart3 } from 'lucide-vue-next'
 
 const reports = [
-  { id: 'r1', title: 'Daromat hisoboti', description: 'Oylik va yillik daromat dinamikasi', format: 'XLSX', icon: Wallet, bg: 'bg-brand-50', color: 'text-brand-600' },
-  { id: 'r2', title: 'Shartnomalar ro\'yxati', description: 'Barcha aktiv va yopilgan shartnomalar', format: 'PDF', icon: FileText, bg: 'bg-emerald-50', color: 'text-emerald-600' },
-  { id: 'r3', title: 'Bino bandligi', description: 'Bandlik darajasi bo\'yicha hisobot', format: 'XLSX', icon: Building2, bg: 'bg-amber-50', color: 'text-amber-600' },
-  { id: 'r4', title: 'Foydalanuvchilar', description: 'Tizim foydalanuvchilari va rollari', format: 'CSV', icon: Users, bg: 'bg-sky-50', color: 'text-sky-600' },
-  { id: 'r5', title: 'To\'lovlar statistikasi', description: 'To\'lanmagan va kechikkan to\'lovlar', format: 'XLSX', icon: TrendingUp, bg: 'bg-rose-50', color: 'text-rose-600' },
-  { id: 'r6', title: 'Umumiy analitika', description: 'KPI va ko\'rsatkichlar paneli', format: 'PDF', icon: BarChart3, bg: 'bg-ink-100', color: 'text-ink-600' },
+  { id: 'r1', title: 'Bandlik hisoboti', desc: 'Bino va unit bandligi', icon: Building2, bg: 'bg-brand-500/10', color: 'text-brand-400' },
+  { id: 'r2', title: 'Moliyaviy hisobot', desc: 'Tushum, qarzdorlik, to\'lovlar', icon: Wallet, bg: 'bg-emerald-500/10', color: 'text-emerald-400' },
+  { id: 'r3', title: 'Ariza hisoboti', desc: 'Ariza dinamikasi va konversiya', icon: FileText, bg: 'bg-amber-500/10', color: 'text-amber-400' },
+  { id: 'r4', title: 'Servis hisoboti', desc: 'SLA, bajarilgan ishlar', icon: Wrench, bg: 'bg-red-500/10', color: 'text-red-400' },
+  { id: 'r5', title: 'Ombor hisoboti', desc: 'Qoldiq, kirim/chiqim', icon: Package, bg: 'bg-blue-500/10', color: 'text-blue-400' },
+  { id: 'r6', title: 'Kommunal hisobot', desc: 'Sarf, ko\'rsatkichlar', icon: Gauge, bg: 'bg-orange-500/10', color: 'text-orange-400' },
 ]
 
-function downloadReport(r: any) {
-  alert(`${r.title} eksport qilinmoqda... (${r.format})`)
+function generateReport(r: any) {
+  // placeholder
 }
 </script>

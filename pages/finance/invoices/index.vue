@@ -1,149 +1,142 @@
+
 <template>
   <div class="space-y-6">
-    <PageHeader title="Invoyslar" subtitle="To'lov hujjatlari va ularning statuslari">
-      <template #actions>
-        <div class="relative">
-          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-          <input v-model="search" type="text" placeholder="Qidirish..." class="input pl-9 w-64" />
-        </div>
-        <button class="btn btn-primary btn-sm" @click="showNew = true"><Plus :size="16" /> Yaratish</button>
-      </template>
-    </PageHeader>
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-white">Invoyslar</h1>
+        <p class="text-ink-400 text-sm mt-1">{{ invoices.length }} ta invoice · {{ formatPriceShort(totalAmount) }} so'm</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
+        <button class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi invoice</button>
+      </div>
+    </div>
 
+    <!-- Stats -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <StatCard icon="FileText" :value="String(financeStore.invoices.length)" label="Jami invoyslar" iconBg="bg-brand-50" iconColor="text-brand-600" />
-      <StatCard icon="CheckCircle2" :value="String(paidCount)" label="To'langan" iconBg="bg-emerald-50" iconColor="text-emerald-600" />
-      <StatCard icon="Clock" :value="String(pendingCount)" label="Kutilmoqda" iconBg="bg-amber-50" iconColor="text-amber-600" />
-      <StatCard icon="AlertTriangle" :value="String(overdueCount)" label="Muddati o'tdi" iconBg="bg-rose-50" iconColor="text-rose-600" />
+      <div v-for="stat in stats" :key="stat.label" class="card p-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="stat.bg">
+            <component :is="stat.icon" :size="18" :class="stat.color" />
+          </div>
+          <div>
+            <div class="text-lg font-bold text-white">{{ stat.value }}</div>
+            <div class="text-xs text-ink-500">{{ stat.label }}</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="flex gap-2 flex-wrap">
-      <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
-        class="px-3.5 py-2 rounded-xl text-sm font-medium transition-all"
-        :class="activeTab === tab.id ? 'bg-ink-900 text-white' : 'bg-white text-ink-600 border border-ink-200 hover:bg-ink-50'">
-        {{ tab.label }} <span class="ml-1.5 text-xs opacity-60">{{ tab.count }}</span>
-      </button>
+    <!-- Filters -->
+    <div class="card p-4">
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="relative flex-1 min-w-[200px]">
+          <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-500" />
+          <input v-model="search" class="input pl-10" placeholder="Invoice nomeri..." />
+        </div>
+        <select v-model="filterStatus" class="input w-auto">
+          <option value="">Barcha holatlar</option>
+          <option value="PAID">To'langan</option>
+          <option value="PARTIALLY_PAID">Qisman to'langan</option>
+          <option value="OVERDUE">Muddati o'tgan</option>
+          <option value="ISSUED">Berilgan</option>
+        </select>
+      </div>
     </div>
 
+    <!-- Table -->
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="table">
           <thead>
             <tr>
-              <th>Invoys №</th>
-              <th>Shartnoma</th>
+              <th>Nomer</th>
+              <th>Tashkilot</th>
               <th>Davr</th>
               <th>Summa</th>
-              <th>To'langan</th>
-              <th>Qoldi</th>
+              <th>Qoldiq</th>
               <th>Muddat</th>
-              <th>Status</th>
+              <th>Holat</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="inv in filteredInvoices" :key="inv.id" class="table-row-hover">
-              <td class="font-mono font-semibold text-ink-900">{{ inv.number }}</td>
-              <td class="font-mono text-sm">{{ contractNumber(inv.contractId) }}</td>
-              <td><span class="badge badge-neutral">{{ inv.period }}</span></td>
-              <td class="font-semibold">{{ formatPrice(inv.amount) }}</td>
-              <td class="text-emerald-600 font-medium">{{ formatPrice(inv.paidAmount) }}</td>
-              <td class="font-medium" :class="inv.amount - inv.paidAmount > 0 ? 'text-rose-600' : 'text-ink-400'">
-                {{ formatPrice(inv.amount - inv.paidAmount) }}
+            <tr v-for="inv in filtered" :key="inv.id" class="table-row-hover">
+              <td class="text-white font-medium font-mono text-xs">{{ inv.number }}</td>
+              <td>{{ getOrgName(inv.organizationId) }}</td>
+              <td class="text-ink-400">{{ inv.period }}</td>
+              <td class="text-white">{{ formatPriceShort(inv.amount) }}</td>
+              <td :class="inv.balance > 0 ? 'text-amber-400' : 'text-emerald-400'">
+                {{ formatPriceShort(inv.balance) }}
               </td>
-              <td class="text-ink-500 text-sm">{{ inv.dueDate }}</td>
-              <td><StatusBadge :status="inv.status" :variant="invoiceVariant(inv.status)" :label="invoiceLabel(inv.status)" dot /></td>
+              <td class="text-ink-400">{{ formatDate(inv.dueDate) }}</td>
+              <td><span class="badge" :class="statusClass(inv.status)">{{ statusLabel(inv.status) }}</span></td>
+              <td>
+                <button class="text-ink-400 hover:text-white p-1.5 rounded-lg hover:bg-white/5">
+                  <Eye :size="16" />
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div v-if="filteredInvoices.length === 0" class="p-12">
-        <BaseEmptyState title="Invoyslar topilmadi" />
-      </div>
     </div>
-
-    <BaseModal v-model="showNew" title="Invoys yaratish">
-      <div class="space-y-4">
-        <div>
-          <label class="label">Shartnoma</label>
-          <select v-model="newInvoice.contractId" class="input">
-            <option v-for="c in financeStore.contracts" :key="c.id" :value="c.id">{{ c.number }} — {{ c.tenantName }}</option>
-          </select>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="label">Davr</label>
-            <input v-model="newInvoice.period" class="input" type="month" />
-          </div>
-          <div>
-            <label class="label">Summa (so'm)</label>
-            <input v-model="newInvoice.amount" class="input" type="number" placeholder="0" />
-          </div>
-        </div>
-        <div>
-          <label class="label">To'lov muddati</label>
-          <input v-model="newInvoice.dueDate" class="input" type="date" />
-        </div>
-      </div>
-      <template #footer>
-        <button class="btn btn-ghost btn-lg" @click="showNew = false">Bekor</button>
-        <button class="btn btn-primary btn-lg" @click="createInvoice">Yaratish</button>
-      </template>
-    </BaseModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Plus, Search, FileText, CheckCircle2, Clock, AlertTriangle } from 'lucide-vue-next'
+definePageMeta({ middleware: "auth" })
+import { Plus, Download, Search, Eye, CheckCircle2, Clock, AlertTriangle, FileText } from 'lucide-vue-next'
+import { invoices, contracts } from '~/utils/mockData'
 import type { InvoiceStatus } from '~/types'
 
-const financeStore = useFinanceStore()
-const toast = useToast()
-onMounted(() => financeStore.initMockData())
+const { formatPriceShort, formatDate } = useFormat()
 
 const search = ref('')
-const activeTab = ref('all')
-const showNew = ref(false)
+const filterStatus = ref('')
 
-const newInvoice = reactive({ contractId: '', period: '', amount: 0, dueDate: '' })
+const totalAmount = computed(() => invoices.reduce((s, i) => s + i.amount, 0))
 
-const paidCount = computed(() => financeStore.invoices.filter(i => i.status === 'PAID').length)
-const pendingCount = computed(() => financeStore.invoices.filter(i => i.status === 'PENDING').length)
-const overdueCount = computed(() => financeStore.invoices.filter(i => i.status === 'OVERDUE').length)
+const stats = [
+  { label: 'Jami', value: formatPriceShort(totalAmount.value), icon: FileText, bg: 'bg-brand-500/10', color: 'text-brand-400' },
+  { label: 'To\'langan', value: '4', icon: CheckCircle2, bg: 'bg-emerald-500/10', color: 'text-emerald-400' },
+  { label: 'Qisman', value: '1', icon: Clock, bg: 'bg-amber-500/10', color: 'text-amber-400' },
+  { label: 'Muddati o\'tgan', value: '2', icon: AlertTriangle, bg: 'bg-red-500/10', color: 'text-red-400' },
+]
 
-const tabs = computed(() => [
-  { id: 'all', label: 'Hammasi', count: financeStore.invoices.length },
-  { id: 'PAID', label: 'To\'langan', count: paidCount.value },
-  { id: 'PENDING', label: 'Kutilmoqda', count: pendingCount.value },
-  { id: 'OVERDUE', label: 'Muddati o\'tdi', count: overdueCount.value },
-  { id: 'PARTIAL', label: 'Qisman', count: financeStore.invoices.filter(i => i.status === 'PARTIAL').length },
-])
+function getOrgName(id: string) {
+  const c = contracts.find(c => c.organizationId === id)
+  return c?.tenantName || '—'
+}
 
-const filteredInvoices = computed(() => {
-  let result = financeStore.invoices
-  if (activeTab.value !== 'all') result = result.filter(i => i.status === activeTab.value)
-  if (search.value) {
-    const q = search.value.toLowerCase()
-    result = result.filter(i => i.number.toLowerCase().includes(q))
+function statusLabel(s: InvoiceStatus) {
+  const m: Record<InvoiceStatus, string> = {
+    DRAFT: 'Qoralama',
+    ISSUED: 'Berilgan',
+    PARTIALLY_PAID: 'Qisman',
+    PAID: 'To\'langan',
+    OVERDUE: 'Muddati o\'tgan',
+    CANCELLED: 'Bekor qilingan',
   }
-  return result
+  return m[s]
+}
+
+function statusClass(s: InvoiceStatus) {
+  const m: Record<InvoiceStatus, string> = {
+    DRAFT: 'badge-neutral',
+    ISSUED: 'badge-info',
+    PARTIALLY_PAID: 'badge-warning',
+    PAID: 'badge-success',
+    OVERDUE: 'badge-danger',
+    CANCELLED: 'badge-neutral',
+  }
+  return m[s]
+}
+
+const filtered = computed(() => {
+  let r = [...invoices]
+  if (search.value) r = r.filter(i => i.number.toLowerCase().includes(search.value.toLowerCase()))
+  if (filterStatus.value) r = r.filter(i => i.status === filterStatus.value)
+  return r
 })
-
-function createInvoice() {
-  if (!newInvoice.contractId || !newInvoice.amount) {
-    toast.error("Ma'lumot to'liq emas", 'Shartnoma va summa kerak')
-    return
-  }
-  toast.success('Invoys yaratildi', formatPrice(Number(newInvoice.amount)) + ' so\'m')
-  showNew.value = false
-  Object.assign(newInvoice, { contractId: '', period: '', amount: 0, dueDate: '' })
-}
-
-function contractNumber(id: string) { return financeStore.contracts.find(c => c.id === id)?.number || '—' }
-function formatPrice(v: number) { return v >= 1000000 ? (v / 1000000).toFixed(1) + ' mln' : v === 0 ? '—' : v.toLocaleString('ru') }
-function invoiceLabel(s: InvoiceStatus): string {
-  return { PENDING: 'Kutilmoqda', PARTIAL: 'Qisman', PAID: 'To\'langan', OVERDUE: 'Muddati o\'tdi', CANCELLED: 'Bekor' }[s] || s
-}
-function invoiceVariant(s: InvoiceStatus): string {
-  return { PENDING: 'warning', PARTIAL: 'info', PAID: 'success', OVERDUE: 'danger', CANCELLED: 'neutral' }[s] || 'neutral'
-}
 </script>
