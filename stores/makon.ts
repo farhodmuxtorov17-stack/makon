@@ -24,6 +24,8 @@ export interface BuildingItem {
   model3dUrl?: string
   has2dPlan: boolean
   documents: { id: string; title: string; type: string; date: string; url: string; size: string }[]
+  lat: number
+  lng: number
   amenities: string[]
 }
 
@@ -190,6 +192,8 @@ export const useMakonStore = defineStore('makon', () => {
       has3dModel: true,
       model3dUrl: '/models/trillant.gltf',
       has2dPlan: true,
+      lat: 41.3168,
+      lng: 69.2800,
       documents: [
         { id: 'd1', title: 'Kadastr hujjati', type: 'PDF', date: '2023-05-10', url: '#', size: '4.2 MB' },
         { id: 'd2', title: 'Qurilish ruxsatnomasi', type: 'PDF', date: '2021-11-15', url: '#', size: '2.8 MB' },
@@ -223,6 +227,8 @@ export const useMakonStore = defineStore('makon', () => {
       has3dModel: true,
       model3dUrl: '/models/tashkent-city.gltf',
       has2dPlan: true,
+      lat: 41.3142,
+      lng: 69.2786,
       documents: [
         { id: 'd4', title: 'Davlat ekspertizasi xulosasi', type: 'PDF', date: '2023-08-12', url: '#', size: '5.1 MB' }
       ],
@@ -252,6 +258,8 @@ export const useMakonStore = defineStore('makon', () => {
       buildYear: 2022,
       has3dModel: false,
       has2dPlan: true,
+      lat: 41.2840,
+      lng: 69.2610,
       documents: [],
       amenities: ['IT Park Rezident Imtiyozlari', 'Data Center', '24/7 Access', 'Game Zone', 'Roof Garden']
     },
@@ -279,6 +287,8 @@ export const useMakonStore = defineStore('makon', () => {
       buildYear: 2021,
       has3dModel: false,
       has2dPlan: true,
+      lat: 41.3110,
+      lng: 69.2470,
       documents: [],
       amenities: ['Food Court', 'Poytaxt Markazi', 'Eskalatorlar', 'Yuk Lifti', 'Avtoturgoh']
     },
@@ -306,6 +316,8 @@ export const useMakonStore = defineStore('makon', () => {
       buildYear: 2023,
       has3dModel: false,
       has2dPlan: false,
+      lat: 41.2300,
+      lng: 69.2200,
       documents: [],
       amenities: ['Cross-Docking', 'Muzlatgich Kameralar', 'TIR Rampa', 'Xavfsizlik 24/7', 'Bojxona Zonasi']
     }

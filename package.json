@@ -41,6 +41,7 @@
     "@nuxtjs/color-mode": "^4.0.1",
     "@pinia/nuxt": "^0.5.1",
     "@types/leaflet": "^1.9.22",
+    "@vue-leaflet/vue-leaflet": "^0.10.1",
     "apexcharts": "^6.8.0",
     "leaflet": "^1.9.4",
     "lucide-vue-next": "^0.400.0",
