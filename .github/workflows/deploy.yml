@@ -34,8 +34,15 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Add SPA fallback
-        run: cp .output/public/200.html .output/public/index.html
+      - name: Add SPA fallback and nojekyll
+        run: |
+          touch .output/public/.nojekyll
+          if [ ! -f .output/public/200.html ]; then
+            echo "No 200.html, using index.html as fallback"
+          else
+            cp .output/public/200.html .output/public/index.html
+          fi
+          cp .output/public/index.html .output/public/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
