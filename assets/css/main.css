@@ -8,13 +8,18 @@
   html { scroll-behavior: smooth; }
   body {
     @apply bg-ink-50 text-ink-900 antialiased;
-    font-family: 'Satoshi', system-ui, sans-serif;
+    font-family: 'Inter', 'Satoshi', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6, .font-display {
-    font-family: 'Clash Display', 'Satoshi', system-ui, sans-serif;
+    font-family: 'Clash Display', 'Inter', system-ui, sans-serif;
     letter-spacing: -0.02em;
+  }
+  .font-serif-display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.025em;
   }
   ::selection { @apply bg-brand-100 text-brand-900; }
   ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -100,4 +105,12 @@
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   .perspective-1000 { perspective: 1000px; }
+  
+  /* Landing page — editorial */
+  .landing-section { @apply px-6 py-20 md:py-28; }
+  .landing-container { @apply max-w-7xl mx-auto; }
+  .text-warm { color: #C9A961; }
+  .bg-graphite { background-color: #0F0D0A; }
+  .border-graphite { border-color: #1A1612; }
+  .editorial-img { @apply w-full h-full object-cover; }
 }

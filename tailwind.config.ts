@@ -13,8 +13,9 @@ export default <Partial<Config>>{
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Satoshi', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'Satoshi', 'system-ui', 'sans-serif'],
         display: ['Clash Display', 'Satoshi', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
       },
       colors: {
         brand: {
@@ -40,6 +41,8 @@ export default <Partial<Config>>{
         danger: { 50:'#fff1f2',100:'#ffe4e6',200:'#fecdd3',300:'#fda4af',400:'#fb7185',500:'#f43f5e',600:'#e11d48',700:'#be123c',800:'#9f1239',900:'#881337' },
         info: { 50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e' },
         gold: { 50:'#fffbeb',100:'#fef3c7',200:'#fde68a',300:'#fcd34d',400:'#fbbf24',500:'#f59e0b',600:'#d97706',700:'#b45309',800:'#92400e',900:'#78350f' },
+        graphite: { 50:'#F5F2EE',100:'#E8E3DC',200:'#D4CCC0',300:'#B5A99A',400:'#8B7F70',500:'#6B6052',600:'#4A4238',700:'#2E2820',800:'#1A1612',900:'#0F0D0A',950:'#080604' },
+        champagne: { 50:'#FBF8F3',100:'#F5EDE0',200:'#E8D5B7',300:'#D4B886',400:'#C9A961',500:'#B8954A',600:'#9A7B3A',700:'#7A6230',800:'#5C4A24',900:'#3E3218' },
       },
       boxShadow: {
         'xs': '0 1px 2px 0 rgb(9 9 11 / 0.03)',

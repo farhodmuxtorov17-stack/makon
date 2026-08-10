@@ -1,253 +1,208 @@
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="min-h-screen bg-graphite text-graphite-50">
     <!-- Nav -->
-    <nav class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-xl border-b border-ink-100">
+    <nav class="fixed top-0 inset-x-0 z-50 transition-all duration-300" :class="scrolled ? 'bg-graphite-900/95 backdrop-blur-xl border-b border-graphite-700' : 'bg-transparent'">
       <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center">
-            <Building2 :size="18" :stroke-width="2" class="text-white" />
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg border border-champagne-400/40 flex items-center justify-center">
+            <span class="font-serif-display text-champagne-400 text-sm font-medium">M</span>
           </div>
-          <div>
-            <div class="font-display font-bold text-ink-900 text-base leading-none">MAKON</div>
-            <div class="text-[9px] text-ink-400 font-medium tracking-widest uppercase mt-0.5">Real Estate</div>
-          </div>
+          <span class="font-serif-display text-graphite-50 text-lg tracking-tight">MAKON</span>
         </div>
-        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-          <a href="#features" class="text-ink-500 hover:text-ink-900 transition-colors">Imkoniyatlar</a>
-          <a href="#modules" class="text-ink-500 hover:text-ink-900 transition-colors">Modullar</a>
-          <a href="#platform" class="text-ink-500 hover:text-ink-900 transition-colors">Platforma</a>
+        <div class="hidden md:flex items-center gap-10 text-sm">
+          <a href="#platform" class="text-graphite-300 hover:text-champagne-400 transition-colors">Platforma</a>
+          <a href="#modules" class="text-graphite-300 hover:text-champagne-400 transition-colors">Modullar</a>
+          <a href="#features" class="text-graphite-300 hover:text-champagne-400 transition-colors">Imkoniyatlar</a>
         </div>
-        <NuxtLink to="/login" class="btn btn-primary btn-sm">Tizimga kirish</NuxtLink>
+        <NuxtLink to="/login" class="text-sm text-graphite-900 bg-champagne-400 hover:bg-champagne-300 px-5 py-2 rounded-full transition-colors font-medium">Kirish</NuxtLink>
       </div>
     </nav>
 
-    <!-- Hero — Split with real photo -->
-    <section class="pt-24 pb-20 px-6">
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        <div class="animate-fade-in-up">
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-100 mb-6">
-            <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
-            <span class="text-brand-700 text-xs font-semibold">Enterprise · v2.0 · 2026</span>
-          </div>
-          <h1 class="font-display text-5xl lg:text-6xl font-bold text-ink-900 leading-[1.05] mb-6 tracking-tight">
-            Koʻchmulkingizni<br>bir tizimda<br><span class="text-brand-600">boshqaring</span>
+    <!-- Hero — Full screen image, text overlay -->
+    <section class="relative h-screen min-h-[700px] flex items-end overflow-hidden">
+      <img
+        src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/c16de875b_generated_image.png"
+        alt="Modern architecture"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-graphite-950 via-graphite-900/50 to-graphite-900/20"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-6 pb-20 w-full">
+        <div class="max-w-2xl">
+          <p class="text-champagne-400 text-sm font-medium mb-6 tracking-wider uppercase" style="letter-spacing: 0.15em;">Koʻchmulk boshqaruvi tizimi</p>
+          <h1 class="font-serif-display text-5xl md:text-7xl text-graphite-50 leading-[1.02] mb-8 font-light">
+            Mulkingizni<br>
+            <span class="italic text-champagne-400">qadrini</span> biling
           </h1>
-          <p class="text-ink-500 text-lg leading-relaxed mb-8 max-w-lg">
-            Binolar, ijara, shartnomalar, invoyslar va servis — bitta zamonaviy platformada. Real-time dashboard, avtomatlashtirilgan workflow va Telegram Mini-App.
+          <p class="text-graphite-200 text-lg md:text-xl leading-relaxed max-w-xl mb-10 font-light">
+            Binolar, ijara, shartnomalar va moliya — bitta platformada. Zamonaviy koʻchmulk boshqaruvi endi sizning qoʻlingizda.
           </p>
-          <div class="flex flex-wrap items-center gap-4 mb-12">
-            <NuxtLink to="/login" class="btn btn-primary btn-lg">
-              Boshlash <ArrowRight :size="18" :stroke-width="2" />
-            </NuxtLink>
-            <a href="#features" class="btn btn-outline btn-lg">Imkoniyatlar</a>
-          </div>
-          <div class="flex items-center gap-8 pt-8 border-t border-ink-100">
-            <div v-for="s in stats" :key="s.label">
-              <div class="font-display text-3xl font-bold text-ink-900">{{ s.value }}</div>
-              <div class="text-ink-400 text-sm">{{ s.label }}</div>
-            </div>
+          <div class="flex items-center gap-6">
+            <NuxtLink to="/login" class="bg-champagne-400 hover:bg-champagne-300 text-graphite-900 px-8 py-3.5 rounded-full text-sm font-medium transition-colors">Boshlash</NuxtLink>
+            <a href="#platform" class="text-graphite-200 hover:text-champagne-400 text-sm flex items-center gap-2 transition-colors">
+              Koʻrish <ArrowRight :size="16" :stroke-width="1.5" />
+            </a>
           </div>
         </div>
+      </div>
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:block">
+        <div class="w-px h-12 bg-gradient-to-b from-champagne-400/60 to-transparent"></div>
+      </div>
+    </section>
 
-        <!-- Real building photo -->
-        <div class="relative animate-fade-in-up delay-200">
-          <div class="relative rounded-3xl overflow-hidden shadow-2xl">
-            <img
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&auto=format&fit=crop"
-              alt="Modern office building"
-              class="w-full h-[560px] object-cover"
-              loading="eager"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-ink-950/40 via-transparent to-transparent"></div>
-          </div>
-
-          <!-- Floating stat card -->
-          <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl border border-ink-100 p-5 w-56 hidden sm:block">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-                <TrendingUp :size="20" :stroke-width="2" class="text-emerald-600" />
-              </div>
-              <div>
-                <div class="text-ink-900 font-display font-bold text-lg">₸8.2M</div>
-                <div class="text-ink-400 text-xs">Daromad · Oy</div>
-              </div>
-            </div>
-            <div class="flex items-end gap-1 h-10">
-              <div v-for="(h, i) in miniBars" :key="i" class="flex-1 bg-brand-100 rounded-t" :class="i === miniBars.length - 1 ? '!bg-brand-600' : ''" :style="{ height: h + '%' }"></div>
-            </div>
-          </div>
-
-          <!-- Floating occupancy card -->
-          <div class="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl border border-ink-100 p-4 hidden sm:block">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
-                <Building2 :size="20" :stroke-width="2" class="text-brand-600" />
-              </div>
-              <div>
-                <div class="text-ink-900 font-display font-bold text-lg">94%</div>
-                <div class="text-ink-400 text-xs">Bandlik</div>
-              </div>
-            </div>
+    <!-- Statement -->
+    <section class="py-24 md:py-32 px-6 bg-graphite-950">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-serif-display text-3xl md:text-5xl text-graphite-100 leading-[1.3] font-light">
+          MAKON — bu 16+ modul, real-time dashboard va avtomatlashtirilgan jarayonlar. <span class="text-champagne-400 italic">Bitta tizim</span> — butun koʻchmulk ekotizimi uchun.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-graphite-700">
+          <div v-for="s in stats" :key="s.label">
+            <div class="font-serif-display text-4xl md:text-5xl text-champagne-400 font-light">{{ s.value }}</div>
+            <div class="text-graphite-400 text-sm mt-2">{{ s.label }}</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Trusted by band -->
-    <section class="py-12 border-y border-ink-100 bg-ink-50/50">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-          <p class="text-ink-400 text-sm font-medium">Oʻzbekistondagi yetakchi koʻchmulk boshqaruvchilari MAKON tanlaydi</p>
-          <div class="flex flex-wrap items-center gap-x-10 gap-y-4">
-            <div v-for="b in brands" :key="b" class="font-display text-xl font-bold text-ink-300">{{ b }}</div>
+    <!-- Features — Editorial alternating layout -->
+    <section id="features" class="bg-graphite-900">
+      <!-- Feature 1 -->
+      <div class="grid lg:grid-cols-2 min-h-[600px]">
+        <div class="relative order-2 lg:order-1">
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&q=80&auto=format&fit=crop"
+            alt="Modern building"
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+        <div class="order-1 lg:order-2 px-8 md:px-16 py-20 flex flex-col justify-center">
+          <span class="text-champagne-400 text-xs font-medium tracking-widest uppercase mb-5">01 — Boshqaruv</span>
+          <h2 class="font-serif-display text-4xl md:text-5xl text-graphite-50 mb-6 font-light leading-tight">Bino va maydon</h2>
+          <p class="text-graphite-300 text-lg leading-relaxed mb-8 font-light max-w-md">
+            Binolar, ofislar va turar joylarni boshqaring. Maydon, zonalar, ijara narxlari va bandlikni real-time kuzating.
+          </p>
+          <ul class="space-y-4">
+            <li v-for="f in f1" :key="f" class="flex items-center gap-3 text-graphite-300">
+              <span class="w-1 h-1 rounded-full bg-champagne-400 flex-shrink-0"></span>
+              <span class="text-sm">{{ f }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 2 — Reversed -->
+      <div class="grid lg:grid-cols-2 min-h-[600px] border-t border-graphite-700">
+        <div class="px-8 md:px-16 py-20 flex flex-col justify-center">
+          <span class="text-champagne-400 text-xs font-medium tracking-widest uppercase mb-5">02 — Moliya</span>
+          <h2 class="font-serif-display text-4xl md:text-5xl text-graphite-50 mb-6 font-light leading-tight">Shartnoma va toʻlov</h2>
+          <p class="text-graphite-300 text-lg leading-relaxed mb-8 font-light max-w-md">
+            Shartnomalarni avtomatlashtiring — yaratishdan to bekor qilishgacha. Invoyslar, toʻlovlar va hisob davrlarini boshqaring.
+          </p>
+          <ul class="space-y-4">
+            <li v-for="f in f2" :key="f" class="flex items-center gap-3 text-graphite-300">
+              <span class="w-1 h-1 rounded-full bg-champagne-400 flex-shrink-0"></span>
+              <span class="text-sm">{{ f }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="relative">
+          <img
+            src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/8d824448b_generated_image.png"
+            alt="Office interior"
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="grid lg:grid-cols-2 min-h-[600px] border-t border-graphite-700">
+        <div class="relative order-2 lg:order-1">
+          <img
+            src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1000&q=80&auto=format&fit=crop"
+            alt="Service"
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+        <div class="order-1 lg:order-2 px-8 md:px-16 py-20 flex flex-col justify-center">
+          <span class="text-champagne-400 text-xs font-medium tracking-widest uppercase mb-5">03 — Servis</span>
+          <h2 class="font-serif-display text-4xl md:text-5xl text-graphite-50 mb-6 font-light leading-tight">Taʼmirlash va servis</h2>
+          <p class="text-graphite-300 text-lg leading-relaxed mb-8 font-light max-w-md">
+            Texnik xizmat soʻrovlarini tracking qiling. Brigade tayinlang, statuslarni kuzating, sifatni nazorat qiling.
+          </p>
+          <ul class="space-y-4">
+            <li v-for="f in f3" :key="f" class="flex items-center gap-3 text-graphite-300">
+              <span class="w-1 h-1 rounded-full bg-champagne-400 flex-shrink-0"></span>
+              <span class="text-sm">{{ f }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats band with city image -->
+    <section class="relative py-28 overflow-hidden">
+      <img
+        src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/f01d757df_generated_image.png"
+        alt="City at dusk"
+        class="absolute inset-0 w-full h-full object-cover opacity-30"
+      />
+      <div class="absolute inset-0 bg-graphite-950/70"></div>
+      <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <h2 class="font-serif-display text-4xl md:text-5xl text-graphite-50 mb-16 font-light leading-tight">
+          Oʻzbekistondagi yetakchi<br>
+          <span class="italic text-champagne-400">koʻchmulk boshqaruvchilari</span><br>
+          MAKON tanlaydi
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div v-for="s in bigStats" :key="s.label">
+            <div class="font-serif-display text-5xl md:text-6xl text-champagne-400 font-light">{{ s.value }}</div>
+            <div class="text-graphite-400 text-sm mt-2">{{ s.label }}</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Features with real photos -->
-    <section id="features" class="py-24 px-6">
-      <div class="max-w-7xl mx-auto">
-        <div class="max-w-2xl mb-16">
-          <span class="text-brand-600 text-sm font-semibold uppercase tracking-wider">Imkoniyatlar</span>
-          <h2 class="font-display text-4xl font-bold text-ink-900 mt-2 mb-4 tracking-tight">Barchasi bitta tizimda</h2>
-          <p class="text-ink-500 text-lg">MAKON — koʻchmulk boshqaruvining to'liq ekotizimi. 16+ modul, real-time hisobotlar va avtomatlashtirilgan jarayonlar.</p>
+    <!-- Modules — Clean list, not cards -->
+    <section id="modules" class="py-24 md:py-32 px-6 bg-graphite-950">
+      <div class="max-w-5xl mx-auto">
+        <div class="mb-16">
+          <span class="text-champagne-400 text-xs font-medium tracking-widest uppercase mb-5 block">Modullar</span>
+          <h2 class="font-serif-display text-4xl md:text-5xl text-graphite-50 font-light leading-tight">Bitta tizim — <span class="italic text-champagne-400">16+ modul</span></h2>
         </div>
-
-        <!-- Big feature card 1 -->
-        <div class="grid lg:grid-cols-2 gap-8 mb-8 items-center">
-          <div class="relative rounded-3xl overflow-hidden shadow-lg">
-            <img
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&q=80&auto=format&fit=crop"
-              alt="Office management"
-              class="w-full h-80 object-cover"
-            />
-          </div>
-          <div class="px-4">
-            <div class="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center mb-5">
-              <Building :size="24" :stroke-width="2" class="text-brand-600" />
+        <div class="border-t border-graphite-700">
+          <div v-for="(m, i) in modules" :key="m.title" class="group flex items-center justify-between py-5 border-b border-graphite-700 hover:border-champagne-400/30 transition-colors cursor-pointer">
+            <div class="flex items-center gap-6">
+              <span class="text-champagne-400/60 text-xs font-mono w-8">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span class="text-graphite-100 group-hover:text-champagne-400 transition-colors text-lg font-light">{{ m.title }}</span>
             </div>
-            <h3 class="font-display text-2xl font-bold text-ink-900 mb-3">Bino va maydon boshqaruvi</h3>
-            <p class="text-ink-500 text-lg leading-relaxed mb-6">Binolar, ofislar va turar joylarni boshqaring. Maydon, zonalar, ijara narxlari va bandlikni real-time kuzating.</p>
-            <ul class="space-y-3">
-              <li v-for="f in feature1Details" :key="f" class="flex items-center gap-3 text-ink-600">
-                <CheckCircle2 :size="18" :stroke-width="2" class="text-emerald-500 flex-shrink-0" />
-                {{ f }}
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Big feature card 2 (reversed) -->
-        <div class="grid lg:grid-cols-2 gap-8 mb-8 items-center">
-          <div class="lg:order-2 relative rounded-3xl overflow-hidden shadow-lg">
-            <img
-              src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80&auto=format&fit=crop"
-              alt="Finance and contracts"
-              class="w-full h-80 object-cover"
-            />
-          </div>
-          <div class="lg:order-1 px-4">
-            <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-5">
-              <Wallet :size="24" :stroke-width="2" class="text-emerald-600" />
-            </div>
-            <h3 class="font-display text-2xl font-bold text-ink-900 mb-3">Moliya va shartnomalar</h3>
-            <p class="text-ink-500 text-lg leading-relaxed mb-6">Shartnomalarni avtomatlashtiring — yaratish, uzaytirish, bekor qilish. Invoyslar va toʻlovlarni boshqaring.</p>
-            <ul class="space-y-3">
-              <li v-for="f in feature2Details" :key="f" class="flex items-center gap-3 text-ink-600">
-                <CheckCircle2 :size="18" :stroke-width="2" class="text-emerald-500 flex-shrink-0" />
-                {{ f }}
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Big feature card 3 -->
-        <div class="grid lg:grid-cols-2 gap-8 items-center">
-          <div class="relative rounded-3xl overflow-hidden shadow-lg">
-            <img
-              src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=900&q=80&auto=format&fit=crop"
-              alt="Service and maintenance"
-              class="w-full h-80 object-cover"
-            />
-          </div>
-          <div class="px-4">
-            <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
-              <Wrench :size="24" :stroke-width="2" class="text-amber-600" />
-            </div>
-            <h3 class="font-display text-2xl font-bold text-ink-900 mb-3">Servis va taʼmirlash</h3>
-            <p class="text-ink-500 text-lg leading-relaxed mb-6">Texnik xizmat soʻrovlarini tracking qiling. Brigade tayinlang, statuslarni kuzating, sifatni nazorat qiling.</p>
-            <ul class="space-y-3">
-              <li v-for="f in feature3Details" :key="f" class="flex items-center gap-3 text-ink-600">
-                <CheckCircle2 :size="18" :stroke-width="2" class="text-emerald-500 flex-shrink-0" />
-                {{ f }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Stats band -->
-    <section class="py-20 bg-ink-950 relative overflow-hidden">
-      <div class="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?w=1600&q=80&auto=format&fit=crop"
-          alt="City buildings"
-          class="w-full h-full object-cover opacity-10"
-        />
-      </div>
-      <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          <div v-for="s in bigStats" :key="s.label" class="text-center">
-            <div class="font-display text-5xl font-bold text-white mb-2">{{ s.value }}</div>
-            <div class="text-ink-400 text-sm">{{ s.label }}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Modules -->
-    <section id="modules" class="py-24 px-6 bg-ink-50">
-      <div class="max-w-7xl mx-auto">
-        <div class="max-w-2xl mb-16">
-          <span class="text-brand-600 text-sm font-semibold uppercase tracking-wider">Modullar</span>
-          <h2 class="font-display text-4xl font-bold text-ink-900 mt-2 mb-4 tracking-tight">16+ modul, bitta tizim</h2>
-          <p class="text-ink-500 text-lg">Har bir rol uchun maxsus imkoniyatlar — direktordan texnik xizmat xodimigacha.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <div v-for="m in modules" :key="m.title" class="bg-white rounded-2xl border border-ink-200/60 p-5 hover:shadow-card-hover hover:border-brand-200 transition-all duration-300 group">
-            <div class="w-10 h-10 rounded-xl bg-ink-50 group-hover:bg-brand-50 flex items-center justify-center mb-4 transition-colors">
-              <component :is="m.icon" :size="18" :stroke-width="2" class="text-ink-600 group-hover:text-brand-600 transition-colors" />
-            </div>
-            <div class="font-display font-semibold text-ink-900 text-sm mb-1">{{ m.title }}</div>
-            <div class="text-ink-400 text-xs">{{ m.desc }}</div>
+            <span class="text-graphite-500 text-sm hidden md:block group-hover:text-champagne-400/60 transition-colors">{{ m.desc }}</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Platform -->
-    <section id="platform" class="py-24 px-6">
+    <section id="platform" class="py-24 md:py-32 px-6 bg-graphite-900">
       <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <span class="text-brand-600 text-sm font-semibold uppercase tracking-wider">Platforma</span>
-          <h2 class="font-display text-4xl font-bold text-ink-900 mt-2 mb-4 tracking-tight">Har qurilmada — bir xil tajriba</h2>
-          <p class="text-ink-500 text-lg mb-8 max-w-lg">Telegram Mini-App, iPhone, Android va veb-panel. Doim qoʻlingizda.</p>
-          <div class="space-y-5">
-            <div v-for="p in platforms" :key="p.title" class="flex items-start gap-4 p-4 rounded-2xl border border-ink-200/60 hover:border-brand-200 hover:bg-brand-50/30 transition-all duration-300">
-              <div class="w-12 h-12 rounded-xl bg-ink-50 flex items-center justify-center flex-shrink-0">
-                <component :is="p.icon" :size="22" :stroke-width="2" :class="p.color" />
-              </div>
-              <div>
-                <div class="text-ink-900 font-display font-semibold">{{ p.title }}</div>
-                <div class="text-ink-500 text-sm">{{ p.desc }}</div>
-              </div>
+          <span class="text-champagne-400 text-xs font-medium tracking-widest uppercase mb-5 block">Platforma</span>
+          <h2 class="font-serif-display text-4xl md:text-5xl text-graphite-50 mb-6 font-light leading-tight">
+            Har qurilmada —<br>
+            <span class="italic text-champagne-400">bir xil tajriba</span>
+          </h2>
+          <p class="text-graphite-300 text-lg leading-relaxed mb-12 font-light max-w-md">
+            Telegram Mini-App, iPhone, Android va veb-panel. Doim qoʻlingizda, doim bir xil sifatda.
+          </p>
+          <div class="space-y-6">
+            <div v-for="p in platforms" :key="p.title" class="border-l border-graphite-700 pl-6 hover:border-champagne-400 transition-colors">
+              <div class="text-graphite-50 text-lg font-light mb-1">{{ p.title }}</div>
+              <div class="text-graphite-400 text-sm">{{ p.desc }}</div>
             </div>
           </div>
         </div>
         <div class="relative flex items-center justify-center">
-          <div style="transform: perspective(1000px) rotateY(-12deg) rotateX(4deg);">
+          <div style="transform: perspective(1200px) rotateY(-10deg) rotateX(5deg);">
             <PhoneMockup />
           </div>
         </div>
@@ -255,59 +210,68 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-24 px-6 bg-ink-950 relative overflow-hidden">
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-600/20 rounded-full blur-[120px]"></div>
-      <div class="max-w-3xl mx-auto text-center relative z-10">
-        <h2 class="font-display text-4xl font-bold text-white mb-4 tracking-tight">Bugundan boshlang</h2>
-        <p class="text-ink-400 text-lg mb-8 max-w-xl mx-auto">MAKON platformasida roʻyxatdan oʻting va koʻchmulingizni professional darajada boshqaring.</p>
-        <NuxtLink to="/login" class="btn btn-primary btn-lg">Tizimga kirish <ArrowRight :size="18" :stroke-width="2" /></NuxtLink>
+    <section class="py-28 md:py-36 px-6 bg-graphite-950 relative overflow-hidden">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-champagne-400/5 rounded-full blur-[100px]"></div>
+      <div class="relative z-10 max-w-3xl mx-auto text-center">
+        <h2 class="font-serif-display text-4xl md:text-6xl text-graphite-50 mb-8 font-light leading-tight">
+          Bugundan<br>
+          <span class="italic text-champagne-400">boshlang</span>
+        </h2>
+        <p class="text-graphite-400 text-lg mb-10 font-light max-w-lg mx-auto">
+          MAKON platformasida roʻyxatdan oʻting va koʻchmulingizni professional darajada boshqaring.
+        </p>
+        <NuxtLink to="/login" class="inline-flex items-center gap-3 bg-champagne-400 hover:bg-champagne-300 text-graphite-900 px-10 py-4 rounded-full text-sm font-medium transition-colors">
+          Tizimga kirish <ArrowRight :size="18" :stroke-width="1.5" />
+        </NuxtLink>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white py-12 border-t border-ink-100">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+    <footer class="bg-graphite-950 border-t border-graphite-700 py-16 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           <div class="col-span-2 md:col-span-1">
-            <div class="flex items-center gap-2.5 mb-4">
-              <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center">
-                <Building2 :size="18" :stroke-width="2" class="text-white" />
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 rounded-lg border border-champagne-400/40 flex items-center justify-center">
+                <span class="font-serif-display text-champagne-400 text-sm font-medium">M</span>
               </div>
-              <div class="font-display font-bold text-ink-900">MAKON</div>
+              <span class="font-serif-display text-graphite-50 text-lg">MAKON</span>
             </div>
-            <p class="text-ink-400 text-sm">Koʻchmulk Boshqaruvi Tizimi</p>
+            <p class="text-graphite-500 text-sm">Koʻchmulk Boshqaruvi Tizimi</p>
           </div>
           <div>
-            <div class="font-semibold text-ink-900 text-sm mb-4">Platforma</div>
-            <ul class="space-y-2 text-sm text-ink-500">
-              <li><a href="#features" class="hover:text-ink-900 transition-colors">Imkoniyatlar</a></li>
-              <li><a href="#modules" class="hover:text-ink-900 transition-colors">Modullar</a></li>
-              <li><a href="#platform" class="hover:text-ink-900 transition-colors">Platforma</a></li>
+            <div class="text-graphite-50 text-sm font-medium mb-4">Platforma</div>
+            <ul class="space-y-3 text-sm text-graphite-500">
+              <li><a href="#features" class="hover:text-champagne-400 transition-colors">Imkoniyatlar</a></li>
+              <li><a href="#modules" class="hover:text-champagne-400 transition-colors">Modullar</a></li>
+              <li><a href="#platform" class="hover:text-champagne-400 transition-colors">Platforma</a></li>
             </ul>
           </div>
           <div>
-            <div class="font-semibold text-ink-900 text-sm mb-4">Kompaniya</div>
-            <ul class="space-y-2 text-sm text-ink-500">
-              <li><a class="hover:text-ink-900 transition-colors cursor-pointer">Haqimizda</a></li>
-              <li><a class="hover:text-ink-900 transition-colors cursor-pointer">Aloqa</a></li>
-              <li><a class="hover:text-ink-900 transition-colors cursor-pointer">Maxfiylik</a></li>
+            <div class="text-graphite-50 text-sm font-medium mb-4">Kompaniya</div>
+            <ul class="space-y-3 text-sm text-graphite-500">
+              <li><a class="hover:text-champagne-400 transition-colors cursor-pointer">Haqimizda</a></li>
+              <li><a class="hover:text-champagne-400 transition-colors cursor-pointer">Aloqa</a></li>
             </ul>
           </div>
           <div>
-            <div class="font-semibold text-ink-900 text-sm mb-4">Aloqa</div>
-            <ul class="space-y-2 text-sm text-ink-500">
+            <div class="text-graphite-50 text-sm font-medium mb-4">Maxfiylik</div>
+            <ul class="space-y-3 text-sm text-graphite-500">
+              <li><a class="hover:text-champagne-400 transition-colors cursor-pointer">Shartlar</a></li>
+              <li><a class="hover:text-champagne-400 transition-colors cursor-pointer">Maxfiylik</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-graphite-50 text-sm font-medium mb-4">Aloqa</div>
+            <ul class="space-y-3 text-sm text-graphite-500">
               <li>info@makon.uz</li>
               <li>+998 71 123 45 67</li>
               <li>Toshkent, Oʻzbekiston</li>
             </ul>
           </div>
         </div>
-        <div class="pt-8 border-t border-ink-100 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p class="text-ink-400 text-sm">© 2026 MAKON · Koʻchmulk Boshqaruvi Tizimi</p>
-          <div class="flex items-center gap-6 text-sm text-ink-400">
-            <a class="hover:text-ink-900 transition-colors cursor-pointer">Maxfiylik</a>
-            <a class="hover:text-ink-900 transition-colors cursor-pointer">Shartlar</a>
-          </div>
+        <div class="pt-8 border-t border-graphite-700 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p class="text-graphite-500 text-sm">© 2026 MAKON · Koʻchmulk Boshqaruvi Tizimi</p>
         </div>
       </div>
     </footer>
@@ -315,20 +279,21 @@
 </template>
 
 <script setup lang="ts">
-import {
-  Building2, ArrowRight, TrendingUp, CheckCircle2, Building, Wallet, Wrench,
-  FileText, CreditCard, ShieldCheck, BarChart3, Package, Users, Settings,
-  Activity, ClipboardList, Search as SearchIcon, Calendar, LayoutGrid,
-  Send, Smartphone, Monitor, Truck,
-} from 'lucide-vue-next'
+import { ArrowRight } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'public' })
 
-const miniBars = [40, 55, 35, 70, 60, 85, 95]
+const scrolled = ref(false)
+onMounted(() => {
+  window.addEventListener('scroll', () => {
+    scrolled.value = window.scrollY > 40
+  })
+})
+
 const stats = [
   { value: '16+', label: 'Modullar' },
-  { value: '5', label: 'Binolar' },
   { value: '60+', label: 'Unit' },
+  { value: '48', label: 'Ijarachilar' },
   { value: '99.9%', label: 'Uptime' },
 ]
 const bigStats = [
@@ -337,31 +302,30 @@ const bigStats = [
   { value: '48', label: 'Faol ijarachilar' },
   { value: '12', label: 'Faol shartnomalar' },
 ]
-const brands = ['Urban Office', 'Business Plaza', 'Makon Group', 'Alfa Properties', 'Delta Real Estate']
-const feature1Details = ['Maydon va zonalar boʻyicha ijara narxlari', 'Real-time bandlik monitoringi', 'Bino turlari: ofis, turar joy, savdo', 'Bino boʻyicha toʻliq hisobotlar']
-const feature2Details = ['Avtomatik shartnoma yaratish', 'Invoys va toʻlov tracking', 'ERI orqali elektron imzo', 'Hisob davrlari va tasdiqlash workflow']
-const feature3Details = ['Soʻrov yaratish va tracking', 'Brigade tayinlash', 'Statuslar va SLA monitoring', 'Sklad va materiallar bilan integratsiya']
+const f1 = ['Maydon va zonalar boʻyicha ijara narxlari', 'Real-time bandlik monitoringi', 'Bino turlari: ofis, turar joy, savdo', 'Bino boʻyicha toʻliq hisobotlar']
+const f2 = ['Avtomatik shartnoma yaratish', 'Invoys va toʻlov tracking', 'ERI orqali elektron imzo', 'Hisob davrlari va tasdiqlash workflow']
+const f3 = ['Soʻrov yaratish va tracking', 'Brigade tayinlash va SLA', 'Statuslar va monitoring', 'Sklad bilan integratsiya']
 const modules = [
-  { title: 'Ishchi panel', desc: 'Dashboard', icon: LayoutGrid },
-  { title: 'Binolar', desc: 'Boshqaruv', icon: Building },
-  { title: 'Listinglar', desc: 'Katalog', icon: SearchIcon },
-  { title: 'Arizalar', desc: 'Soʻrovlar', icon: ClipboardList },
-  { title: 'Shartnomalar', desc: 'Moliya', icon: FileText },
-  { title: 'Invoyslar', desc: 'Hisob-faktura', icon: CreditCard },
-  { title: 'Toʻlovlar', desc: 'Tranzaksiya', icon: Wallet },
-  { title: 'Tasdiqlar', desc: 'Workflow', icon: ShieldCheck },
-  { title: 'Hisob davrlari', desc: 'Periodlar', icon: Calendar },
-  { title: 'Servis', desc: 'Texnik xizmat', icon: Wrench },
-  { title: 'Sklad', desc: 'Ombor', icon: Package },
-  { title: 'Taʼminotchilar', desc: 'Suppliers', icon: Truck },
-  { title: 'Hisobotlar', desc: 'Statistika', icon: BarChart3 },
-  { title: 'Foydalanuvchilar', desc: 'Admin', icon: Users },
-  { title: 'Sozlamalar', desc: 'Tizim', icon: Settings },
-  { title: 'Monitoring', desc: 'Tizim', icon: Activity },
+  { title: 'Ishchi panel', desc: 'Dashboard' },
+  { title: 'Binolar', desc: 'Boshqaruv' },
+  { title: 'Listinglar', desc: 'Katalog' },
+  { title: 'Arizalar', desc: 'Soʻrovlar' },
+  { title: 'Shartnomalar', desc: 'Moliya' },
+  { title: 'Invoyslar', desc: 'Hisob-faktura' },
+  { title: 'Toʻlovlar', desc: 'Tranzaksiya' },
+  { title: 'Tasdiqlar', desc: 'Workflow' },
+  { title: 'Hisob davrlari', desc: 'Periodlar' },
+  { title: 'Servis', desc: 'Texnik xizmat' },
+  { title: 'Sklad', desc: 'Ombor' },
+  { title: 'Taʼminotchilar', desc: 'Suppliers' },
+  { title: 'Hisobotlar', desc: 'Statistika' },
+  { title: 'Foydalanuvchilar', desc: 'Admin' },
+  { title: 'Sozlamalar', desc: 'Tizim' },
+  { title: 'Monitoring', desc: 'Tizim' },
 ]
 const platforms = [
-  { title: 'Telegram Mini-App', desc: '30 soniyada kirish, bot orqali bildirishnomalar', icon: Send, color: 'text-sky-500' },
-  { title: 'Veb-panel', desc: 'Toʻliq funksional boshqaruv paneli', icon: Monitor, color: 'text-ink-600' },
-  { title: 'Mobil ilova', desc: 'iOS va Android uchun mahalliy ilova', icon: Smartphone, color: 'text-ink-600' },
+  { title: 'Telegram Mini-App', desc: '30 soniyada kirish, bot orqali bildirishnomalar' },
+  { title: 'Veb-panel', desc: 'Toʻliq funksional boshqaruv paneli' },
+  { title: 'Mobil ilova', desc: 'iOS va Android uchun mahalliy ilova' },
 ]
 </script>
