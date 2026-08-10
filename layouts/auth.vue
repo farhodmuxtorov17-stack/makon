@@ -8,7 +8,7 @@
       <ThemeToggle />
     </div>
 
-    <div class="relative w-full max-w-sm">
+    <div class="relative w-full max-w-md">
       <!-- Logo -->
       <NuxtLink to="/" class="flex items-center justify-center gap-2.5 mb-8">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/25">M</div>
@@ -19,11 +19,11 @@
       </NuxtLink>
 
       <!-- Card -->
-      <div class="card p-7">
+      <div class="card p-8">
         <slot />
       </div>
 
-      <p class="text-center text-xs text-ink-400 mt-5">© 2026 MAKON — ERI orqali xavfsiz platforma</p>
+      <p class="text-center text-xs text-ink-500 mt-5">© 2026 MAKON — ERI orqali xavfsiz platforma</p>
     </div>
   </div>
 </template>

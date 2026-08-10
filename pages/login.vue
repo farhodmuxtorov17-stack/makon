@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="text-lg font-bold mb-1">Tizimga kirish</h1>
-    <p class="text-sm text-ink-500 mb-5">MAKON platformasiga kiring</p>
+    <h1 class="text-xl font-bold mb-1">Tizimga kirish</h1>
+    <p class="text-sm text-ink-500 mb-6">MAKON platformasiga kiring</p>
 
     <form @submit.prevent="handleLogin" class="space-y-4">
       <div>
@@ -11,7 +11,22 @@
 
       <div>
         <label class="label">Parol</label>
-        <input v-model="form.password" type="password" class="input" placeholder="••••••••" />
+        <div class="relative">
+          <input
+            v-model="form.password"
+            :type="showPassword ? 'text' : 'password'"
+            class="input pr-10"
+            placeholder="••••••••"
+          />
+          <button
+            type="button"
+            @click="showPassword = !showPassword"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600 dark:hover:text-ink-300"
+          >
+            <Eye v-if="showPassword" :size="18" />
+            <EyeOff v-else :size="18" />
+          </button>
+        </div>
       </div>
 
       <div class="flex items-center justify-between text-sm">
@@ -27,7 +42,7 @@
       </button>
     </form>
 
-    <div class="relative my-4">
+    <div class="relative my-5">
       <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-black/5 dark:border-white/5"></div></div>
       <div class="relative flex justify-center text-xs"><span class="px-3 bg-white dark:bg-ink-900 text-ink-500">yoki</span></div>
     </div>
@@ -52,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { ShieldCheck } from 'lucide-vue-next'
+import { ShieldCheck, Eye, EyeOff } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'auth' })
 
@@ -66,6 +81,7 @@ const form = ref({
 })
 
 const loading = ref(false)
+const showPassword = ref(false)
 
 async function handleLogin() {
   loading.value = true
