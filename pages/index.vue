@@ -1,318 +1,302 @@
 <template>
-  <div class="min-h-screen bg-white text-slate-900">
-    <!-- Top nav -->
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-lg border-b border-slate-100">
-      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <span class="text-white text-sm font-bold">M</span>
-          </div>
-          <span class="font-bold text-lg tracking-tight">MAKON</span>
-          <span class="text-slate-300 text-sm font-normal hidden sm:inline">| Koʻchmulk katalogi</span>
-        </div>
-        <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-500">
-          <a href="#" class="text-slate-900">Katalog</a>
-          <a href="#" class="hover:text-slate-900 transition-colors">Xizmatlar</a>
-          <a href="#" class="hover:text-slate-900 transition-colors">Tizim haqida</a>
-          <a href="#" class="hover:text-slate-900 transition-colors">Hamkorlar</a>
-          <a href="#" class="hover:text-slate-900 transition-colors">Blog</a>
-        </div>
-        <div class="flex items-center gap-3">
-          <button class="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 px-4 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors">
-            <span>♡</span> Sevimlilar
-          </button>
-          <NuxtLink to="/login" class="text-sm font-semibold text-white px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 transition-all">Kirish</NuxtLink>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Search hero -->
-    <section class="border-b border-slate-100 bg-gradient-to-b from-slate-50 to-white">
-      <div class="max-w-7xl mx-auto px-6 py-6">
-        <!-- Tabs -->
-        <div class="flex gap-1 mb-4">
-          <button v-for="t in dealTabs" :key="t.id" @click="activeDeal = t.id"
-            class="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
-            :class="activeDeal === t.id ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50'">
-            {{ t.label }}
-            <span class="ml-1.5 text-xs opacity-60">{{ t.count }}</span>
-          </button>
-        </div>
-
-        <!-- Search row -->
-        <div class="flex flex-col lg:flex-row gap-3">
-          <div class="flex-1 flex items-center gap-3 bg-white rounded-xl px-4 py-3.5 border border-slate-200 shadow-sm">
-            <span class="text-lg">📍</span>
-            <input type="text" placeholder="Manzil, metro, tuman yoki kalit soʻz" class="bg-transparent outline-none text-sm w-full placeholder:text-slate-400" v-model="searchQuery" />
-            <button v-if="searchQuery" @click="searchQuery = ''" class="text-slate-400 hover:text-slate-600 text-sm">✕</button>
-          </div>
-
-          <select class="text-sm text-slate-700 bg-white border border-slate-200 rounded-xl px-4 py-3.5 outline-none cursor-pointer shadow-sm hover:border-slate-300 transition-colors">
-            <option>Har qanday turdagi mulk</option>
-            <option>Kvartira</option>
-            <option>Ofis</option>
-            <option>Doʻkon</option>
-            <option>Ombor</option>
-            <option>Turar joy</option>
-          </select>
-
-          <select class="text-sm text-slate-700 bg-white border border-slate-200 rounded-xl px-4 py-3.5 outline-none cursor-pointer shadow-sm hover:border-slate-300 transition-colors">
-            <option>Har qanday narx</option>
-            <option>10 mln soʻmgacha</option>
-            <option>10-30 mln soʻm</option>
-            <option>30-50 mln soʻm</option>
-            <option>50+ mln soʻm</option>
-          </select>
-
-          <button @click="showFilters = !showFilters" class="flex items-center gap-2 text-sm font-medium text-slate-600 px-5 py-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors shadow-sm whitespace-nowrap">
-            <span>⚙</span> Filter
-            <span v-if="activeFiltersCount > 0" class="bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full">{{ activeFiltersCount }}</span>
-          </button>
-
-          <button class="flex items-center justify-center gap-2 text-sm font-semibold text-white px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 transition-all whitespace-nowrap">
-            Qidirish
-          </button>
-        </div>
-
-        <!-- Expanded filters -->
-        <div v-if="showFilters" class="mt-4 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-          <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Rooms -->
-            <div>
-              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 block">Xonalar</label>
-              <div class="flex gap-2">
-                <button v-for="r in roomOptions" :key="r" @click="toggleRoom(r)"
-                  class="w-10 h-10 rounded-xl text-sm font-medium transition-all"
-                  :class="selectedRooms.includes(r) ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'">
-                  {{ r === '5+' ? '5+' : r }}
-                </button>
-              </div>
+  <div class="min-h-screen bg-white text-slate-900" style="font-family: 'Satoshi', 'Inter', system-ui, sans-serif;">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-100">
+      <div class="max-w-[1200px] mx-auto px-4 h-14 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <button class="lg:hidden text-slate-500 text-xl">☰</button>
+          <NuxtLink to="/" class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
+              <span class="text-white text-sm font-bold">M</span>
             </div>
-            <!-- Price range -->
-            <div class="md:col-span-2">
-              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 block">Narx oraligʻi (soʻm/oy)</label>
-              <div class="flex items-center gap-3">
-                <input type="text" placeholder="5 000 000" v-model="priceMin" class="flex-1 bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none border border-slate-100" />
-                <span class="text-slate-300">—</span>
-                <input type="text" placeholder="50 000 000" v-model="priceMax" class="flex-1 bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none border border-slate-100" />
-              </div>
-            </div>
-            <!-- Area -->
-            <div>
-              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 block">Maydon (m²)</label>
-              <div class="flex items-center gap-3">
-                <input type="text" placeholder="30" class="flex-1 bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none border border-slate-100" />
-                <span class="text-slate-300">—</span>
- <input type="text" placeholder="200" class="flex-1 bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none border border-slate-100" />
-              </div>
-            </div>
-            <!-- Floor -->
-            <div>
-              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 block">Qavat</label>
-              <div class="flex items-center gap-3">
-                <input type="text" placeholder="1" class="flex-1 bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none border border-slate-100" />
-                <span class="text-slate-300">—</span>
-                <input type="text" placeholder="20" class="flex-1 bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none border border-slate-100" />
-              </div>
-            </div>
-            <!-- Building type -->
-            <div>
-              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 block">Bino turi</label>
-              <select class="w-full text-sm text-slate-700 bg-slate-50 border border-slate-100 rounded-xl px-4 py-2.5 outline-none cursor-pointer">
-                <option>Har qanday</option>
-                <option>Biznes-markaz</option>
-                <option>Savdo-markaz</option>
-                <option>Turar binolar</option>
-                <option>Industrial</option>
-              </select>
-            </div>
-            <!-- Renovation -->
-            <div>
-              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 block">Holati</label>
-              <select class="w-full text-sm text-slate-700 bg-slate-50 border border-slate-100 rounded-xl px-4 py-2.5 outline-none cursor-pointer">
-                <option>Har qanday</option>
-                <option>Taʼmirlangan</option>
-                <option>Taʼmirsiz</option>
-                <option>Yangi bino</option>
-              </select>
-            </div>
-            <!-- Amenities -->
-            <div class="md:col-span-2">
-              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 block">Qulayliklar</label>
-              <div class="flex flex-wrap gap-2">
-                <button v-for="a in amenities" :key="a" @click="toggleAmenity(a)"
-                  class="px-3 py-2 rounded-xl text-sm font-medium transition-all"
-                  :class="selectedAmenities.includes(a) ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-slate-50 text-slate-600 border border-slate-100 hover:bg-slate-100'">
-                  {{ a }}
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-6 pt-5 border-t border-slate-100">
-            <button @click="resetFilters" class="text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors">Filterni tozalash</button>
-            <button @click="showFilters = false" class="text-sm font-semibold text-white px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 transition-colors">Koʻrsatish ({{ filteredCount }})</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Category pills -->
-    <section class="border-b border-slate-100">
-      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3 overflow-x-auto">
-        <button v-for="c in categories" :key="c.title" @click="activeCategory = c.id"
-          class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all flex-shrink-0"
-          :class="activeCategory === c.id ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'">
-          <span class="text-base">{{ c.icon }}</span> {{ c.title }}
-        </button>
-      </div>
-    </section>
-
-    <!-- Listings + sidebar -->
-    <section class="max-w-7xl mx-auto px-6 py-6">
-      <!-- Header row -->
-      <div class="flex items-center justify-between mb-5">
-        <div>
-          <h1 class="text-xl font-bold tracking-tight">
-            {{ activeDealLabel }} — {{ activeCategoryLabel }}
-          </h1>
-          <p class="text-sm text-slate-400 mt-0.5">{{ filteredCount }} eʼlon topildi · Toshkent</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <select v-model="sortBy" class="text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-xl px-4 py-2.5 outline-none cursor-pointer hover:border-slate-300 transition-colors">
-            <option value="new">Eng yangilari</option>
-            <option value="price-asc">Narxi: arzon → qimmat</option>
-            <option value="price-desc">Narxi: qimmat → arzon</option>
-            <option value="area-desc">Maydon: katta → kichik</option>
-          </select>
-          <div class="flex bg-slate-100 rounded-xl p-1">
-            <button @click="viewMode = 'list'" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors" :class="viewMode === 'list' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'">☰ Roʻyxat</button>
-            <button @click="viewMode = 'map'" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors" :class="viewMode === 'map' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'">📍 Xarita</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Map view -->
-      <div v-if="viewMode === 'map'" class="rounded-2xl overflow-hidden border border-slate-200 h-[600px] relative bg-slate-50">
-        <div class="absolute inset-0 flex items-center justify-center">
-          <div class="text-center">
-            <div class="text-5xl mb-3">🗺️</div>
-            <p class="text-slate-400 text-sm">Xarita koʻrinishi tez orada</p>
-          </div>
-        </div>
-        <!-- Map pins -->
-        <div v-for="(p, i) in mapPins" :key="i" class="absolute group cursor-pointer" :style="{ top: p.y + '%', left: p.x + '%' }">
-          <div class="px-3 py-1.5 rounded-full bg-white shadow-lg border border-slate-200 text-xs font-bold text-slate-700 group-hover:bg-slate-900 group-hover:text-white transition-all whitespace-nowrap">
-            {{ p.price }}
-          </div>
-        </div>
-      </div>
-
-      <!-- List view -->
-      <div v-else>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <NuxtLink v-for="p in listings" :key="p.id" :to="`/catalog/${p.id}`" class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-slate-200 hover:border-slate-300 transition-all">
-            <!-- Photo -->
-            <div class="relative h-52 overflow-hidden">
-              <img :src="p.img" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute top-3 left-3 flex gap-2">
-                <span class="text-xs font-semibold px-2.5 py-1 rounded-full" :class="p.deal === 'Ijaraga' ? 'bg-blue-600 text-white' : 'bg-emerald-500 text-white'">{{ p.deal }}</span>
-                <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/90 text-slate-700 backdrop-blur-sm">{{ p.type }}</span>
-              </div>
-              <button @click.prevent class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-base hover:bg-white transition-colors shadow-sm">♡</button>
-              <div class="absolute bottom-3 right-3 text-xs font-medium text-white bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-full">{{ p.photos }} foto</div>
-            </div>
-            <!-- Content -->
-            <div class="p-4">
-              <div class="flex items-baseline justify-between mb-2">
-                <div class="font-bold text-lg text-slate-900">{{ p.priceText }}</div>
-                <div class="text-xs text-slate-400">{{ p.pricePerM2 }}</div>
-              </div>
-              <h3 class="font-semibold text-sm mb-1 group-hover:text-blue-600 transition-colors">{{ p.title }}</h3>
-              <p class="text-slate-400 text-xs mb-3 flex items-center gap-1">📍 {{ p.address }}</p>
-              <div class="flex items-center gap-4 text-xs text-slate-500 border-t border-slate-100 pt-3">
-                <span class="flex items-center gap-1">📐 {{ p.area }} m²</span>
-                <span class="flex items-center gap-1">🏢 {{ p.floor }}/{{ p.totalFloor }}</span>
-                <span class="flex items-center gap-1">{{ p.rooms }}</span>
-              </div>
-            </div>
+            <span class="font-bold text-base tracking-tight" style="font-family: 'Clash Display', sans-serif;">MAKON</span>
+            <span class="text-slate-300 text-sm hidden sm:inline">| Koʻchmulk</span>
           </NuxtLink>
         </div>
-
-        <!-- Load more -->
-        <div class="text-center mt-10">
-          <button class="px-8 py-3.5 rounded-xl text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
-            Yana koʻrsatish ({{ filteredCount - listings.length }} ta)
+        <div class="flex items-center gap-2">
+          <button class="hidden md:flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">
+            <span>📍</span> Toshkent
           </button>
+          <button class="hidden sm:flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">
+            <span>♡</span>
+          </button>
+          <button class="hidden sm:block text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Mening eʼlonlarim</button>
+          <button class="text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-lg border border-slate-200 hover:border-slate-300 transition-colors">Eʼlon joylash</button>
+          <NuxtLink to="/login" class="text-sm font-semibold text-white px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all">Kirish</NuxtLink>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- Stats -->
-    <section class="max-w-7xl mx-auto px-6 py-12 border-t border-slate-100">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div v-for="s in stats" :key="s.label" class="text-center bg-slate-50 rounded-2xl py-8">
-          <div class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">{{ s.value }}</div>
-          <div class="text-slate-400 text-sm mt-1">{{ s.label }}</div>
-        </div>
-      </div>
-    </section>
+    <!-- Hero search -->
+    <section class="py-10 px-4">
+      <div class="max-w-[840px] mx-auto text-center">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-2 px-4" style="font-family: 'Clash Display', sans-serif; letter-spacing: -0.03em;">
+          Koʻchmulk topish endi osonroq
+        </h1>
+        <p class="text-slate-400 text-sm mb-8">Toshkentdagi eng yirik koʻchmulk katalogi</p>
 
-    <!-- CTA -->
-    <section class="max-w-7xl mx-auto px-6 pb-16">
-      <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 p-12 text-center">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
-        <h2 class="relative text-2xl md:text-3xl font-bold text-white mb-3">Obyektingizni joylashtiring</h2>
-        <p class="relative text-blue-100 mb-8 max-w-md mx-auto">5 000+ foydalanuvchi koʻrishini xohlaysizmi?</p>
-        <button class="relative inline-flex items-center gap-2 bg-white text-blue-700 px-8 py-3.5 rounded-xl text-sm font-semibold hover:bg-blue-50 transition-colors shadow-lg">Eʼlon joylashtish →</button>
-      </div>
-    </section>
+        <!-- Search bar — Yandex style: single row, white card -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg shadow-slate-100 p-2">
+          <!-- Deal type tabs -->
+          <div class="flex gap-1 mb-2 px-1">
+            <button v-for="t in dealTabs" :key="t.id" @click="activeDeal = t.id"
+              class="px-4 py-2 rounded-xl text-sm font-semibold transition-all"
+              :class="activeDeal === t.id ? 'bg-slate-900 text-white' : 'text-slate-500 hover:bg-slate-100'">
+              {{ t.label }}
+            </button>
+          </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-100 py-12 px-6">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-          <div class="col-span-2 md:col-span-1">
-            <div class="flex items-center gap-2.5 mb-4">
-              <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center"><span class="text-white text-xs font-bold">M</span></div>
-              <span class="font-bold text-sm">MAKON</span>
+          <!-- Search row -->
+          <div class="flex flex-col md:flex-row gap-2">
+            <!-- Property type dropdown -->
+            <div class="flex-1 relative">
+              <select v-model="propertyType" class="w-full appearance-none text-sm font-medium text-slate-700 bg-slate-50 rounded-xl px-4 py-3.5 pr-10 outline-none cursor-pointer hover:bg-slate-100 transition-colors">
+                <option v-for="o in propertyTypes" :key="o" :value="o">{{ o }}</option>
+              </select>
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▼</span>
             </div>
-            <p class="text-slate-400 text-sm">Koʻchmulk katalogi va boshqaruvi</p>
-            <p class="text-slate-400 text-sm mt-1">Toshkent, Oʻzbekiston</p>
+
+            <!-- Room buttons -->
+            <div class="flex gap-1.5 bg-slate-50 rounded-xl p-1.5">
+              <button v-for="r in roomOptions" :key="r" @click="toggleRoom(r)"
+                class="px-3 py-2 rounded-lg text-sm font-medium transition-all min-w-[36px]"
+                :class="selectedRooms.includes(r) ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'">
+                {{ r === 'studio' ? 'St' : r === '5+' ? '5+' : r }}
+              </button>
+            </div>
+
+            <!-- Price input -->
+            <input type="text" :placeholder="activeDeal === 'rent' ? 'Narxgacha, soʻm/oy' : 'Narxgacha, soʻm'"
+              class="text-sm bg-slate-50 rounded-xl px-4 py-3.5 outline-none w-full md:w-40 placeholder:text-slate-400 focus:bg-slate-100 transition-colors" />
+
+            <!-- Metro / District -->
+            <input type="text" placeholder="Metro yoki tuman"
+              class="text-sm bg-slate-50 rounded-xl px-4 py-3.5 outline-none w-full md:w-44 placeholder:text-slate-400 focus:bg-slate-100 transition-colors" />
+
+            <!-- Map button -->
+            <button class="flex items-center justify-center gap-1.5 text-sm font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-xl px-4 py-3.5 transition-colors whitespace-nowrap">
+              📍 Xaritada
+            </button>
+
+            <!-- Search CTA -->
+            <button class="text-sm font-semibold text-white px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 transition-all whitespace-nowrap">
+              Koʻrsatish · {{ totalCount }}
+            </button>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- "Часто ищут" — category cards with counts -->
+    <section class="max-w-[1200px] mx-auto px-4 py-6">
+      <h2 class="text-lg font-bold mb-4" style="font-family: 'Clash Display', sans-serif;">Tez-tez qidiriladi</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        <NuxtLink v-for="c in quickCategories" :key="c.title" :to="c.link"
+          class="group bg-slate-50 hover:bg-slate-100 rounded-2xl p-4 transition-colors cursor-pointer">
+          <div class="text-2xl mb-2">{{ c.icon }}</div>
+          <div class="font-semibold text-sm group-hover:text-blue-600 transition-colors">{{ c.title }}</div>
+          <div class="text-slate-400 text-xs mt-0.5">{{ c.count }} eʼlon</div>
+        </NuxtLink>
+      </div>
+    </section>
+
+    <!-- Featured: Yangi binolar (Новостройки) — horizontal scroll -->
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold" style="font-family: 'Clash Display', sans-serif;">Yangi binolar</h2>
+        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʻrish →</NuxtLink>
+      </div>
+      <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4" style="scrollbar-width: thin;">
+        <div v-for="b in newBuildings" :key="b.name" class="flex-shrink-0 w-[280px] bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-slate-100 transition-all cursor-pointer group">
+          <div class="relative h-40 overflow-hidden">
+            <img :src="b.img" :alt="b.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <span class="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-white/90 text-slate-700 backdrop-blur-sm">Yangi</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-sm mb-1 group-hover:text-blue-600 transition-colors">{{ b.name }}</h3>
+            <p class="text-slate-400 text-xs mb-2">📍 {{ b.location }}</p>
+            <p class="text-slate-400 text-xs mb-3">{{ b.commute }}</p>
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-xs text-slate-400">dan</span>
+                <div class="font-bold text-base text-blue-600">{{ b.price }}</div>
+              </div>
+              <div class="text-xs text-slate-400">{{ b.developer }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sotib olish — Buy listings horizontal scroll -->
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold" style="font-family: 'Clash Display', sans-serif;">Sotib olish</h2>
+        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʻrish →</NuxtLink>
+      </div>
+      <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4" style="scrollbar-width: thin;">
+        <NuxtLink v-for="p in buyListings" :key="p.id" :to="`/catalog/${p.id}`"
+          class="flex-shrink-0 w-[260px] bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-slate-100 transition-all cursor-pointer group">
+          <div class="relative h-36 overflow-hidden">
+            <img :src="p.img" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute top-2 right-2 text-xs font-medium text-white bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">{{ p.photos }} foto</div>
+          </div>
+          <div class="p-3.5">
+            <div class="font-bold text-base mb-1">{{ p.price }}</div>
+            <p class="text-slate-500 text-xs mb-1.5">{{ p.area }} · {{ p.rooms }}</p>
+            <p class="text-slate-400 text-xs flex items-center gap-1">📍 {{ p.metro }} · {{ p.commute }}</p>
+          </div>
+        </NuxtLink>
+      </div>
+    </section>
+
+    <!-- Ijaraga — Rent listings horizontal scroll -->
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold" style="font-family: 'Clash Display', sans-serif;">Ijaraga olish</h2>
+        <NuxtLink to="/" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Hammasini koʻrish →</NuxtLink>
+      </div>
+      <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4" style="scrollbar-width: thin;">
+        <NuxtLink v-for="p in rentListings" :key="p.id" :to="`/catalog/${p.id}`"
+          class="flex-shrink-0 w-[260px] bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-slate-100 transition-all cursor-pointer group">
+          <div class="relative h-36 overflow-hidden">
+            <img :src="p.img" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute top-2 right-2 text-xs font-medium text-white bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">{{ p.photos }} foto</div>
+          </div>
+          <div class="p-3.5">
+            <div class="font-bold text-base mb-1">{{ p.price }}<span class="text-xs font-normal text-slate-400 ml-1">/oy</span></div>
+            <p class="text-slate-500 text-xs mb-1.5">{{ p.area }} · {{ p.rooms }}</p>
+            <p class="text-slate-400 text-xs flex items-center gap-1">📍 {{ p.metro }} · {{ p.commute }}</p>
+          </div>
+        </NuxtLink>
+      </div>
+    </section>
+
+    <!-- Promo banner -->
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-600 to-blue-700 p-10 md:p-14">
+        <div class="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4"></div>
+        <div class="relative z-10 max-w-lg">
+          <h3 class="text-white text-2xl md:text-3xl font-bold mb-3" style="font-family: 'Clash Display', sans-serif;">Mulkingizni boshqarish osonroq</h3>
+          <p class="text-blue-100 text-sm mb-6 leading-relaxed">MAKON platformasi orqali binolar, shartnomalar, toʻlovlar va servislarni avtomatlashtiring. 16+ modul, real-time dashboard.</p>
+          <button class="bg-white text-blue-700 px-6 py-3 rounded-xl text-sm font-semibold hover:bg-blue-50 transition-colors shadow-lg">Batafsil →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Journal articles -->
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <h2 class="text-xl font-bold mb-4" style="font-family: 'Clash Display', sans-serif;">Jurnal</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <article v-for="a in articles" :key="a.title" class="group cursor-pointer">
+          <div class="relative h-40 rounded-2xl overflow-hidden mb-3">
+            <img :src="a.img" :alt="a.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <span class="absolute top-3 left-3 text-xs font-medium px-2.5 py-1 rounded-full bg-white/90 text-slate-700 backdrop-blur-sm">{{ a.tag }}</span>
+          </div>
+          <h3 class="font-semibold text-sm leading-snug group-hover:text-blue-600 transition-colors">{{ a.title }}</h3>
+          <p class="text-slate-400 text-xs mt-1">{{ a.date }}</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- App download -->
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <div class="bg-slate-50 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 class="text-lg font-bold mb-1" style="font-family: 'Clash Display', sans-serif;">Ilovada qidirish qulayroq</h3>
+          <p class="text-slate-400 text-sm">MAKON mobil ilovasini yuklab oling</p>
+          <div class="flex items-center gap-3 mt-4">
+            <button class="flex items-center gap-2 bg-slate-900 text-white px-5 py-3 rounded-xl text-sm font-medium hover:bg-slate-800 transition-colors"> App Store</button>
+            <button class="flex items-center gap-2 bg-slate-900 text-white px-5 py-3 rounded-xl text-sm font-medium hover:bg-slate-800 transition-colors">▶ Google Play</button>
+          </div>
+          <div class="flex items-center gap-4 mt-4 text-xs text-slate-400">
+            <span>★ 4.8 App Store</span>
+            <span>★ 4.6 Google Play</span>
+          </div>
+        </div>
+        <div class="w-32 h-32 bg-white rounded-2xl border border-slate-200 flex items-center justify-center text-5xl">
+          📱
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO footer links — Yandex style categories -->
+    <footer class="border-t border-slate-100 mt-8">
+      <div class="max-w-[1200px] mx-auto px-4 py-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-10">
+          <!-- Sotib olish -->
           <div>
-            <p class="text-sm font-semibold mb-4">Katalog</p>
-            <ul class="space-y-2.5 text-sm text-slate-400">
-              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Ijaraga olish</a></li>
-              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Sotib olish</a></li>
-              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Xaritada koʻrish</a></li>
+            <h4 class="font-semibold text-sm mb-3">Sotib olish</h4>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Kvartira</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">1-xonali</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">2-xonali</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">3-xonali</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Studiya</a></li>
             </ul>
           </div>
+          <!-- Ijaraga -->
           <div>
-            <p class="text-sm font-semibold mb-4">Xizmatlar</p>
-            <ul class="space-y-2.5 text-sm text-slate-400">
-              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Bino boshqaruvi</a></li>
-              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Shartnomalar</a></li>
+            <h4 class="font-semibold text-sm mb-3">Ijaraga olish</h4>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Uzoq muddatga</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Kunlik</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">1-xonali</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">2-xonali</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Studiya</a></li>
+            </ul>
+          </div>
+          <!-- Yangi binolar -->
+          <div>
+            <h4 class="font-semibold text-sm mb-3">Yangi binolar</h4>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Tashkent City</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Business class</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Metro yaqinida</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Nasiya bilan</a></li>
+            </ul>
+          </div>
+          <!-- Kommercheskaya -->
+          <div>
+            <h4 class="font-semibold text-sm mb-3">Kommersiya</h4>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Ofis ijaraga</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Savdo maydoni</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Ombor</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Ofis sotib olish</a></li>
+            </ul>
+          </div>
+          <!-- Servis -->
+          <div>
+            <h4 class="font-semibold text-sm mb-3">Xizmatlar</h4>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Boshqaruv</a></li>
               <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Servis</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Shartnomalar</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Hisobotlar</a></li>
             </ul>
           </div>
+          <!-- Kompaniya -->
           <div>
-            <p class="text-sm font-semibold mb-4">Aloqa</p>
-            <ul class="space-y-2.5 text-sm text-slate-400">
-              <li>info@makon.uz</li>
-              <li>+998 71 123 45 67</li>
-            </ul>
-          </div>
-          <div>
-            <p class="text-sm font-semibold mb-4">Kompaniya</p>
-            <ul class="space-y-2.5 text-sm text-slate-400">
+            <h4 class="font-semibold text-sm mb-3">Kompaniya</h4>
+            <ul class="space-y-2 text-xs text-slate-400">
               <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Haqimizda</a></li>
               <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Maxfiylik</a></li>
               <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Shartlar</a></li>
+              <li><a class="hover:text-slate-700 transition-colors cursor-pointer">Aloqa</a></li>
             </ul>
           </div>
         </div>
-        <div class="pt-6 border-t border-slate-100">
-          <p class="text-slate-400 text-sm">© 2026 MAKON · Toshkent, Oʻzbekiston</p>
+        <div class="pt-6 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center"><span class="text-white text-xs font-bold">M</span></div>
+            <span class="font-bold text-sm">MAKON</span>
+            <span class="text-slate-400 text-xs ml-2">© 2026 · Toshkent, Oʻzbekiston</span>
+          </div>
+          <div class="flex items-center gap-6 text-xs text-slate-400">
+            <span>info@makon.uz</span>
+            <span>+998 71 123 45 67</span>
+          </div>
         </div>
       </div>
     </footer>
@@ -321,73 +305,64 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: 'public' })
-const searchQuery = ref('')
-const showFilters = ref(false)
-const viewMode = ref('list')
-const activeDeal = ref('rent')
-const activeCategory = ref('all')
-const sortBy = ref('new')
+const activeDeal = ref('buy')
+const propertyType = ref('Kvartira')
 const selectedRooms = ref<string[]>([])
-const selectedAmenities = ref<string[]>([])
-const priceMin = ref('')
-const priceMax = ref('')
 
 const dealTabs = [
-  { id: 'rent', label: 'Ijaraga', count: '3 200+' },
-  { id: 'buy', label: 'Sotib olish', count: '1 800+' },
-  { id: 'daily', label: 'Kunlik', count: '320+' },
+  { id: 'buy', label: 'Sotib olish' },
+  { id: 'rent', label: 'Ijaraga' },
+  { id: 'daily', label: 'Kunlik' },
+  { id: 'new', label: 'Yangi binolar' },
 ]
-const activeDealLabel = computed(() => dealTabs.find(t => t.id === activeDeal.value)?.label || '')
-const categories = [
-  { id: 'all', title: 'Barchasi', icon: '🏛️' },
-  { id: 'office', title: 'Ofis', icon: '🏢' },
-  { id: 'retail', title: 'Doʻkon', icon: '🛍️' },
-  { id: 'warehouse', title: 'Ombor', icon: '📦' },
-  { id: 'residential', title: 'Turar joy', icon: '🏠' },
-  { id: 'land', title: 'Yer', icon: '🌍' },
-]
-const activeCategoryLabel = computed(() => categories.find(c => c.id === activeCategory.value)?.title || '')
-const roomOptions = ['1', '2', '3', '4', '5+']
-const amenities = ['Parkovka', 'Lift', 'Konditsioner', 'Internet', 'Signalizatsiya', 'Oshxona', 'Mebel', 'Sanuzel']
-const stats = [
-  { value: '5 300+', label: 'Faol eʼlonlar' },
-  { value: '48', label: 'Tuman/shahar' },
-  { value: '1 200+', label: 'Biznes-markaz' },
-  { value: '4.9★', label: 'Foydalanuvchi bahosi' },
-]
+const propertyTypes = ['Kvartira', 'Ofis', 'Doʻkon', 'Ombor', 'Turar joy', 'Yer uchastkasi']
+const roomOptions = ['studio', '1', '2', '3', '5+']
+const totalCount = computed(() => {
+  if (activeDeal.value === 'buy') return '5 300+'
+  if (activeDeal.value === 'rent') return '3 200+'
+  if (activeDeal.value === 'daily') return '320+'
+  return '490'
+})
 const toggleRoom = (r: string) => {
-  const idx = selectedRooms.value.indexOf(r)
-  if (idx > -1) selectedRooms.value.splice(idx, 1)
+  const i = selectedRooms.value.indexOf(r)
+  if (i > -1) selectedRooms.value.splice(i, 1)
   else selectedRooms.value.push(r)
 }
-const toggleAmenity = (a: string) => {
-  const idx = selectedAmenities.value.indexOf(a)
-  if (idx > -1) selectedAmenities.value.splice(idx, 1)
-  else selectedAmenities.value.push(a)
-}
-const resetFilters = () => {
-  selectedRooms.value = []
-  selectedAmenities.value = []
-  priceMin.value = ''
-  priceMax.value = ''
-}
-const activeFiltersCount = computed(() => selectedRooms.value.length + selectedAmenities.value.length + (priceMin.value ? 1 : 0) + (priceMax.value ? 1 : 0))
-const filteredCount = computed(() => listings.length + 47)
-
-const listings = [
-  { id: 1, title: 'Green Business Center — A blok', address: 'Mirobod tumani, Amir Temur 88', priceText: '18 000 000 soʻm/oy', pricePerM2: '150 000/m²', deal: 'Ijaraga', type: 'Ofis', img: '/tashkent/finance-center.jpg', area: 120, floor: 3, totalFloor: 12, rooms: '3 xona', photos: 12 },
-  { id: 2, title: 'Nest One Tower — 142-xona', address: 'Yashnobod tumani, Tashkent City', priceText: '25 000 000 soʻm/oy', pricePerM2: '180 000/m²', deal: 'Ijaraga', type: 'Ofis', img: '/tashkent/nest-one.jpg', area: 139, floor: 14, totalFloor: 45, rooms: '4 xona', photos: 8 },
-  { id: 3, title: 'Mega Mall — savdo maydoni', address: 'Chilonzor tumani, Bunyodkor 12', priceText: '12 000 000 soʻm/oy', pricePerM2: '140 000/m²', deal: 'Ijaraga', type: 'Doʻkon', img: '/tashkent/mall-towers.jpg', area: 85, floor: 1, totalFloor: 5, rooms: '1 zal', photos: 6 },
-  { id: 4, title: 'Industrial Park 2 — ombor', address: 'Yuqori Chirchiq, Industrial zona', priceText: '24 000 000 soʻm/oy', pricePerM2: '55 000/m²', deal: 'Ijaraga', type: 'Ombor', img: '/tashkent/new-business.jpg', area: 450, floor: 1, totalFloor: 1, rooms: 'Ochiq maydon', photos: 4 },
-  { id: 5, title: 'Tashkent City Mall — pavilion', address: 'Yashnobod tumani, Tashkent City', priceText: '15 000 000 soʻm/oy', pricePerM2: '190 000/m²', deal: 'Ijaraga', type: 'Doʻkon', img: '/tashkent/city-2025.jpg', area: 78, floor: 2, totalFloor: 4, rooms: '1 zal', photos: 9 },
-  { id: 6, title: 'Harmony Residence — 4-xonali', address: 'Yakkasaroy tumani, Bobur 45', priceText: '1 250 000 soʻm/m²', pricePerM2: 'Sotuvda', deal: 'Sotuvda', type: 'Turar joy', img: '/tashkent/city-night.jpg', area: 120, floor: 6, totalFloor: 16, rooms: '4 xona', photos: 15 },
+const quickCategories = [
+  { title: 'Yangi binolar', count: '490', icon: '🏗️', link: '/' },
+  { title: 'Sotib olish', count: '5 300+', icon: '🔑', link: '/' },
+  { title: 'Ijaraga', count: '3 200+', icon: '🏠', link: '/' },
+  { title: 'Kunlik', count: '320+', icon: '⏱️', link: '/' },
+  { title: 'Kommersiya', count: '890+', icon: '🏢', link: '/' },
 ]
-const mapPins = [
-  { x: 35, y: 40, price: '18M' },
-  { x: 55, y: 25, price: '25M' },
-  { x: 48, y: 55, price: '12M' },
-  { x: 65, y: 35, price: '24M' },
-  { x: 30, y: 60, price: '15M' },
-  { x: 70, y: 50, price: '1.25M' },
+const newBuildings = [
+  { name: 'Nest One', location: 'Yashnobod, Tashkent City', commute: 'Metro 5 daq', price: '850 mln soʻm', developer: 'BI Group', img: '/tashkent/nest-one.jpg' },
+  { name: 'Finance Center', location: 'Mirobod, Amir Temur', commute: 'Metro 8 daq', price: '420 mln soʻm', developer: 'Murad Buildings', img: '/tashkent/finance-center.jpg' },
+  { name: 'Mall Towers', location: 'Chilonzor, Bunyodkor', commute: 'Metro 3 daq', price: '380 mln soʻm', developer: 'Akay', img: '/tashkent/mall-towers.jpg' },
+  { name: 'Business Park', location: 'Yakkasaroy, Bobur', commute: 'Metro 12 daq', price: '520 mln soʻm', developer: 'Universal', img: '/tashkent/new-business.jpg' },
+  { name: 'City Towers', location: 'Yashnobod, Tashkent City', commute: 'Metro 5 daq', price: '680 mln soʻm', developer: 'Tashkent City', img: '/tashkent/city-2025.jpg' },
+  { name: 'Skyline Plaza', location: 'Sergeli, Yangi Toshkent', commute: 'Metro 15 daq', price: '290 mln soʻm', developer: 'Gross', img: '/tashkent/aerial.jpg' },
+]
+const buyListings = [
+  { id: 1, price: '1 250 mln soʻm', area: '120 m²', rooms: '4-xonali', metro: 'Amir Temur', commute: '5 daq', photos: 12, img: '/tashkent/finance-center.jpg' },
+  { id: 2, price: '980 mln soʻm', area: '89 m²', rooms: '3-xonali', metro: 'Bunyodkor', commute: '3 daq', photos: 8, img: '/tashkent/mall-towers.jpg' },
+  { id: 3, price: '1 450 mln soʻm', area: '139 m²', rooms: '4-xonali', metro: 'Tashkent City', commute: '5 daq', photos: 15, img: '/tashkent/nest-one.jpg' },
+  { id: 4, price: '670 mln soʻm', area: '65 m²', rooms: '2-xonali', metro: 'Bobur', commute: '12 daq', photos: 6, img: '/tashkent/new-business.jpg' },
+  { id: 5, price: '2 100 mln soʻm', area: '180 m²', rooms: '5-xonali', metro: 'Minor', commute: '7 daq', photos: 18, img: '/tashkent/city-night.jpg' },
+  { id: 6, price: '540 mln soʻm', area: '45 m²', rooms: 'Studiya', metro: 'Sergeli', commute: '15 daq', photos: 4, img: '/tashkent/city-2025.jpg' },
+]
+const rentListings = [
+  { id: 1, price: '18 mln soʻm', area: '120 m²', rooms: 'Ofis 3-xona', metro: 'Amir Temur', commute: '5 daq', photos: 12, img: '/tashkent/finance-center.jpg' },
+  { id: 2, price: '12 mln soʻm', area: '85 m²', rooms: 'Savdo maydoni', metro: 'Bunyodkor', commute: '3 daq', photos: 8, img: '/tashkent/mall-towers.jpg' },
+  { id: 3, price: '25 mln soʻm', area: '139 m²', rooms: 'Ofis 4-xona', metro: 'Tashkent City', commute: '5 daq', photos: 15, img: '/tashkent/nest-one.jpg' },
+  { id: 4, price: '7 mln soʻm', area: '45 m²', rooms: '2-xonali', metro: 'Minor', commute: '7 daq', photos: 6, img: '/tashkent/city-2025.jpg' },
+  { id: 5, price: '24 mln soʻm', area: '450 m²', rooms: 'Ombor', metro: 'Sergeli', commute: '15 daq', photos: 4, img: '/tashkent/new-business.jpg' },
+  { id: 6, price: '9 mln soʻm', area: '60 m²', rooms: 'Studiya', metro: 'Oybek', commute: '8 daq', photos: 9, img: '/tashkent/city-night.jpg' },
+]
+const articles = [
+  { title: 'Tashkent City: 2026-yilda narxlar qanday oʻzgardi', tag: 'Tahlil', date: '10 avg 2026', img: '/tashkent/city-2025.jpg' },
+  { title: 'Ofis ijaraga olish: qanday shartnomalar foydali', tag: 'Ham maslahat', date: '8 avg 2026', img: '/tashkent/finance-center.jpg' },
+  { title: 'Yangi biznes-markazlar ichidan eng yaxshilari', tag: 'Reyting', date: '5 avg 2026', img: '/tashkent/nest-one.jpg' },
+  { title: 'Kommersiya koʻchmulki: investitsiya qayerda foydali', tag: 'Investitsiya', date: '2 avg 2026', img: '/tashkent/aerial.jpg' },
 ]
 </script>
