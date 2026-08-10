@@ -132,6 +132,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ layout: false })
 import { Building2, ArrowRight, Eye, EyeOff, ShieldCheck, Fingerprint, MapPin, Zap, BarChart3 } from 'lucide-vue-next'
 
 const authStore = useAuthStore()
