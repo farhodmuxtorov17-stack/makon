@@ -46,8 +46,8 @@
           </div>
         </div>
         <div class="flex items-end gap-2 h-48">
-          <div v-for="(d, i) in revenueData" :key="i" class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
-            <div class="w-full rounded-t-lg transition-all duration-300 group-hover:opacity-100 opacity-80" :class="i === revenueData.length - 1 ? 'bg-brand-600' : 'bg-brand-200 group-hover:bg-brand-300'" :style="{ height: d.value + '%' }"></div>
+          <div v-for="(d, i) in revenueData" :key="i" class="flex-1 h-full flex flex-col justify-end items-center gap-2 group cursor-pointer">
+            <div class="w-full rounded-t-lg transition-all duration-300 group-hover:brightness-110" :class="i === revenueData.length - 1 ? 'bg-brand-600' : 'bg-brand-300 group-hover:bg-brand-400'" :style="{ height: d.value + '%' }"></div>
             <span class="text-[10px] text-ink-400">{{ d.label }}</span>
           </div>
         </div>
