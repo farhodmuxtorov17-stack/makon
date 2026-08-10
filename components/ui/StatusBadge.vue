@@ -1,6 +1,8 @@
 <template>
-  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg" :class="colorClass">
-    <span v-if="dot" class="w-1.5 h-1.5 rounded-full" :class="dotClass" />
+  <span v-if="dot" class="status-dot" :class="variantClass">
+    {{ label }}
+  </span>
+  <span v-else class="badge" :class="badgeClass">
     {{ label }}
   </span>
 </template>
@@ -8,28 +10,30 @@
 <script setup lang="ts">
 const props = defineProps<{
   status: string
-  variant?: 'success' | 'warning' | 'danger' | 'info' | 'neutral'
-  label?: string
+  variant: string
+  label: string
   dot?: boolean
 }>()
 
-const variantMap: Record<string, string> = {
-  success: 'bg-emerald-50 text-emerald-700',
-  warning: 'bg-amber-50 text-amber-700',
-  danger: 'bg-rose-50 text-rose-700',
-  info: 'bg-brand-50 text-brand-700',
-  neutral: 'bg-ink-100 text-ink-600',
-}
+const variantClass = computed(() => {
+  const map: Record<string, string> = {
+    success: 'status-success',
+    warning: 'status-warning',
+    danger: 'status-danger',
+    info: 'status-info',
+    neutral: 'status-neutral',
+  }
+  return map[props.variant] || 'status-neutral'
+})
 
-const dotMap: Record<string, string> = {
-  success: 'bg-emerald-500',
-  warning: 'bg-amber-500',
-  danger: 'bg-rose-500',
-  info: 'bg-brand-500',
-  neutral: 'bg-ink-400',
-}
-
-const variant = computed(() => props.variant || 'neutral')
-const colorClass = computed(() => variantMap[variant.value])
-const dotClass = computed(() => dotMap[variant.value])
+const badgeClass = computed(() => {
+  const map: Record<string, string> = {
+    success: 'badge-success',
+    warning: 'badge-warning',
+    danger: 'badge-danger',
+    info: 'badge-info',
+    neutral: 'badge-neutral',
+  }
+  return map[props.variant] || 'badge-neutral'
+})
 </script>

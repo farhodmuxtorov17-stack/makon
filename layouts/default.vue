@@ -2,41 +2,47 @@
   <div class="min-h-screen bg-ink-50 flex">
     <aside :class="['fixed lg:sticky top-0 z-50 h-screen flex-shrink-0 transition-all duration-300 flex flex-col', uiStore.sidebarCollapsed ? 'w-[72px]' : 'w-[260px]', uiStore.sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0']">
       <div class="h-full bg-ink-950 flex flex-col relative overflow-hidden">
+        <!-- Ambient glow -->
         <div class="absolute top-0 left-0 w-64 h-64 bg-brand-600/8 rounded-full blur-3xl pointer-events-none" />
+        <div class="absolute bottom-20 right-0 w-48 h-48 bg-violet-600/5 rounded-full blur-3xl pointer-events-none" />
 
+        <!-- Logo -->
         <div class="h-16 flex items-center px-5 border-b border-white/[0.06] flex-shrink-0 relative z-10">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center flex-shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-600/20">
               <Building2 :size="20" :stroke-width="2" class="text-white" />
             </div>
             <transition name="fade">
               <div v-if="!uiStore.sidebarCollapsed" class="flex flex-col">
-                <span class="text-white font-bold text-base font-display leading-none">MAKON</span>
-                <span class="text-[10px] text-ink-400 font-medium tracking-widest uppercase mt-0.5">Real Estate</span>
+                <span class="text-white font-display font-extrabold text-base leading-none tracking-tight">MAKON</span>
+                <span class="text-[10px] text-ink-500 font-medium tracking-[0.15em] uppercase mt-0.5">Real Estate</span>
               </div>
             </transition>
           </div>
         </div>
 
+        <!-- Nav -->
         <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-0.5 dark-scroll relative z-10">
           <template v-for="(section, si) in navSections" :key="section.title">
             <div v-if="!uiStore.sidebarCollapsed" class="px-3 pt-4 pb-1.5">
-              <span class="text-[10px] font-bold text-ink-500 uppercase tracking-widest">{{ section.title }}</span>
+              <span class="text-[10px] font-bold text-ink-500 uppercase tracking-[0.15em]">{{ section.title }}</span>
             </div>
             <div v-if="!uiStore.sidebarCollapsed && si > 0" class="h-px mx-3 my-2 bg-white/5" />
             <NuxtLink v-for="item in section.items" :key="item.path" :to="item.path" :class="isActive(item.path) ? 'nav-item-active' : 'nav-item-inactive'">
               <component :is="item.icon" :size="20" :stroke-width="1.8" class="flex-shrink-0" />
               <span v-if="!uiStore.sidebarCollapsed" class="truncate">{{ item.label }}</span>
-              <span v-if="item.badge && !uiStore.sidebarCollapsed" class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-md" :class="isActive(item.path) ? 'bg-white/20 text-white' : 'bg-rose-500/20 text-rose-400'">{{ item.badge }}</span>
+              <span v-if="item.badge && !uiStore.sidebarCollapsed" class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-md"
+                :class="isActive(item.path) ? 'bg-white/20 text-white' : 'bg-rose-500/20 text-rose-400'">{{ item.badge }}</span>
               <span v-if="item.badge && uiStore.sidebarCollapsed" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-ink-950" />
             </NuxtLink>
           </template>
         </nav>
 
+        <!-- User -->
         <div class="p-3 border-t border-white/[0.06] flex-shrink-0 relative z-10">
           <NuxtLink to="/profile" class="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-white/5 transition-colors group">
             <div class="relative">
-              <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center flex-shrink-0">
+              <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center flex-shrink-0 shadow-md">
                 <span class="text-sm font-bold text-white">{{ authStore.initials }}</span>
               </div>
               <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 ring-2 ring-ink-950" />
@@ -56,10 +62,13 @@
     </transition>
 
     <div class="flex-1 flex flex-col min-w-0">
-      <header class="h-16 bg-white/80 backdrop-blur-xl border-b border-ink-200/60 flex items-center justify-between px-3 md:px-6 sticky top-0 z-30">
+      <!-- Header -->
+      <header class="h-16 glass border-b border-ink-200/60 flex items-center justify-between px-3 md:px-6 sticky top-0 z-30">
         <div class="flex items-center gap-3">
           <button class="btn-ghost btn-icon lg:hidden" @click="uiStore.toggleSidebar()"><Menu :size="20" :stroke-width="2" /></button>
-          <button class="btn-ghost btn-icon hidden lg:flex" @click="uiStore.toggleCollapse()"><PanelLeftClose :size="20" :stroke-width="2" :class="uiStore.sidebarCollapsed ? 'rotate-180' : ''" class="transition-transform duration-200" /></button>
+          <button class="btn-ghost btn-icon hidden lg:flex" @click="uiStore.toggleCollapse()">
+            <PanelLeftClose :size="20" :stroke-width="2" :class="uiStore.sidebarCollapsed ? 'rotate-180' : ''" class="transition-transform duration-200" />
+          </button>
           <div class="hidden md:flex items-center gap-2 text-sm">
             <NuxtLink to="/" class="text-ink-400 hover:text-ink-600 transition-colors">Bosh sahifa</NuxtLink>
             <ChevronRight :size="14" :stroke-width="2" class="text-ink-300" />
@@ -78,7 +87,7 @@
             <span v-if="unreadCount > 0" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white" />
           </NuxtLink>
           <div class="w-px h-6 bg-ink-200 mx-1" />
-          <NuxtLink to="/profile" class="flex items-center gap-2.5 pl-1">
+          <NuxtLink to="/profile" class="flex items-center gap-2.5 pl-1 hover:bg-ink-50 rounded-xl p-1 pr-3 transition-colors">
             <div class="relative">
               <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
                 <span class="text-xs font-bold text-white">{{ authStore.initials }}</span>
@@ -106,7 +115,7 @@ import {
   Building2, ChevronRight, Menu, PanelLeftClose, Search, Bell, LayoutGrid,
   FileText, CreditCard, Wallet, ShieldCheck, Wrench, Package, Users, Settings,
   Activity, ClipboardList, Search as SearchIcon, Calendar, BarChart3, Building,
-  Gauge, FileBarChart,
+  Gauge,
 } from 'lucide-vue-next'
 import CommandPalette from '~/components/ui/CommandPalette.vue'
 
