@@ -14,7 +14,7 @@
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/25">M</div>
         <div>
           <div class="font-bold text-lg tracking-tight">MAKON</div>
-          <div class="text-[10px] text-ink-500 uppercase tracking-widest">Real Estate Platform</div>
+          <div class="text-[10px] text-ink-500 uppercase tracking-widest">Ko'chmas mulk platformasi</div>
         </div>
       </NuxtLink>
 
