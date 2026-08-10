@@ -12,9 +12,7 @@
         <div v-for="req in approvedRequests" :key="req.id" class="border border-black/5 dark:border-white/5 rounded-2xl p-4">
           <div class="flex items-center justify-between mb-3">
             <div class="flex items-center gap-3">
-              <div class="icon-3d icon-3d-green">
-                <CheckCircle2 :size="20" />
-              </div>
+              <KpiScene3D type="paid" :size="48" />
               <div>
                 <div class="text-sm font-medium">{{ req.number }} · {{ req.workOrder }}</div>
                 <div class="text-xs text-ink-500">{{ req.building }} · Tasdiqlangan: {{ req.approvedDate }}</div>

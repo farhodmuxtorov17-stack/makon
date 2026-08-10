@@ -33,23 +33,13 @@
       </div>
     </div>
 
-    <!-- KPI Cards with 3D Icons -->
+    <!-- KPI Cards with 3D Scene Icons -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
       <div v-for="kpi in kpis" :key="kpi.label" class="kpi-card" :style="{ '--accent': kpi.color }">
         <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" :style="{ background: kpi.color }"></div>
         <div class="flex items-start justify-between mb-3">
-          <!-- 3D Icon -->
-          <div
-            class="kpi-icon-3d flex items-center justify-center"
-            :style="{
-              '--icon-gradient-top': kpi.gradientTop,
-              '--icon-gradient-bottom': kpi.gradientBottom,
-              '--icon-glow': kpi.glow,
-              '--icon-shadow': kpi.shadow,
-            }"
-          >
-            <component :is="kpi.icon" :size="26" :style="{ color: kpi.iconColor, filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.15))' }" />
-          </div>
+          <!-- 3D Scene Icon -->
+          <KpiScene3D :type="kpi.scene" :size="56" />
           <div v-if="kpi.trend" class="text-xs font-bold flex items-center gap-0.5" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
             <component :is="kpi.trend > 0 ? ArrowUpRight : ArrowDownRight" :size="14" />
             {{ Math.abs(kpi.trend) }}%
@@ -381,48 +371,12 @@ const quickStats = [
 ]
 
 const kpis = [
-  {
-    icon: Building2, label: 'Binolar', value: '24', trend: 8,
-    color: '#3b82f6',
-    iconColor: '#ffffff',
-    gradientTop: '#60a5fa', gradientBottom: '#2563eb',
-    glow: 'rgba(59,130,246,0.35)', shadow: 'rgba(37,99,235,0.4)',
-  },
-  {
-    icon: Layers, label: 'Jami unitlar', value: '1,248', trend: 3,
-    color: '#6366f1',
-    iconColor: '#ffffff',
-    gradientTop: '#818cf8', gradientBottom: '#4f46e5',
-    glow: 'rgba(99,102,241,0.35)', shadow: 'rgba(79,70,229,0.4)',
-  },
-  {
-    icon: CheckCircle2, label: 'Bandlik', value: '87.3%', trend: 2,
-    color: '#10b981',
-    iconColor: '#ffffff',
-    gradientTop: '#34d399', gradientBottom: '#059669',
-    glow: 'rgba(16,185,129,0.35)', shadow: 'rgba(5,150,105,0.4)',
-  },
-  {
-    icon: TrendingUp, label: 'Oylik tushum', value: '1.42 mlr', trend: 12,
-    color: '#f59e0b',
-    iconColor: '#ffffff',
-    gradientTop: '#fbbf24', gradientBottom: '#d97706',
-    glow: 'rgba(245,158,11,0.35)', shadow: 'rgba(217,119,6,0.4)',
-  },
-  {
-    icon: AlertCircle, label: 'Muddati o\'tgan', value: '42', trend: -5,
-    color: '#ef4444',
-    iconColor: '#ffffff',
-    gradientTop: '#f87171', gradientBottom: '#dc2626',
-    glow: 'rgba(239,68,68,0.35)', shadow: 'rgba(220,38,38,0.4)',
-  },
-  {
-    icon: FileText, label: 'Aktiv arizalar', value: '18', trend: 4,
-    color: '#8b5cf6',
-    iconColor: '#ffffff',
-    gradientTop: '#a78bfa', gradientBottom: '#7c3aed',
-    glow: 'rgba(139,92,246,0.35)', shadow: 'rgba(124,58,237,0.4)',
-  },
+  { scene: 'buildings', label: 'Binolar', value: '24', trend: 8, color: '#3b82f6' },
+  { scene: 'units', label: 'Jami unitlar', value: '1,248', trend: 3, color: '#6366f1' },
+  { scene: 'occupancy', label: 'Bandlik', value: '87.3%', trend: 2, color: '#10b981' },
+  { scene: 'revenue', label: 'Oylik tushum', value: '1.42 mlr', trend: 12, color: '#f59e0b' },
+  { scene: 'overdue', label: 'Muddati o\'tgan', value: '42', trend: -5, color: '#ef4444' },
+  { scene: 'applications', label: 'Aktiv arizalar', value: '18', trend: 4, color: '#8b5cf6' },
 ]
 
 const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']

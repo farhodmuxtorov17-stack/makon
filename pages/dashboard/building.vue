@@ -26,9 +26,7 @@
       <div v-for="kpi in kpis" :key="kpi.label" class="kpi-card">
         <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" :style="{ background: kpi.color }"></div>
         <div class="flex items-start justify-between mb-2">
-          <div class="icon-3d" :class="kpi.iconClass">
-            <component :is="kpi.icon" :size="22" />
-          </div>
+          <KpiScene3D :type="kpi.scene" :size="52" />
           <span v-if="kpi.trend" class="text-xs font-bold flex items-center gap-0.5" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
             <ArrowUpRight v-if="kpi.trend > 0" :size="12" />{{ Math.abs(kpi.trend) }}%
           </span>
@@ -189,11 +187,11 @@ const occupancyPercent = computed(() => {
 })
 
 const kpis = computed(() => [
-  { icon: CheckCircle2, label: 'Band unitlar', value: selectedBuilding.value.occupiedUnits, iconClass: 'icon-3d-green', trend: 3 },
-  { icon: AlertCircle, label: 'Bo\'sh unitlar', value: selectedBuilding.value.vacantUnits, iconClass: 'icon-3d-amber', trend: -2 },
-  { icon: Tag, label: 'Aktiv listinglar', value: 28, iconClass: 'icon-3d-indigo', trend: 5 },
-  { icon: FileText, label: 'Ariza navbati', value: 12, iconClass: 'icon-3d-purple', trend: 1 },
-  { icon: Wrench, label: 'Ochiq servis', value: 5, iconClass: 'icon-3d-red', trend: -1 },
+  { scene: 'occupancy', label: 'Band unitlar', value: selectedBuilding.value.occupiedUnits, trend: 3 },
+  { scene: 'units', label: 'Bo\'sh unitlar', value: selectedBuilding.value.vacantUnits, trend: -2 },
+  { scene: 'applications', label: 'Aktiv listinglar', value: 28, trend: 5 },
+  { scene: 'applications', label: 'Ariza navbati', value: 12, trend: 1 },
+  { scene: 'overdue', label: 'Ochiq servis', value: 5, trend: -1 },
 ])
 
 const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']

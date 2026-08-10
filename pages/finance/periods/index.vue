@@ -2,30 +2,54 @@
   <div class="space-y-6">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Moliya davrlari</h1>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Moliya davrlari</h1>
         <p class="text-ink-500 text-sm mt-1">Hisob-kitob davrlari va holati</p>
       </div>
       <button class="btn btn-primary btn-sm"><Plus :size="16" /> Yangi davr</button>
     </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="card p-4 flex items-center gap-3">
-        <Calendar :size="18" class="text-brand-500" />
-        <div><div class="text-sm font-semibold">{{ periods.length }}</div><div class="text-xs text-ink-500">Jami davrlar</div></div>
+    <!-- Stats with 3D icons -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="card p-4">
+        <div class="flex items-start justify-between mb-3">
+          <KpiScene3D type="units" :size="48" />
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ periods.length }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">Jami davrlar</div>
       </div>
-      <div class="card p-4 flex items-center gap-3">
-        <CheckCircle2 :size="18" class="text-emerald-500" />
-        <div><div class="text-sm font-semibold text-emerald-500">{{ periods.filter(p => p.status === 'CLOSED').length }}</div><div class="text-xs text-ink-500">Yopilgan</div></div>
+      <div class="card p-4">
+        <div class="flex items-start justify-between mb-3">
+          <KpiScene3D type="paid" :size="48" />
+        </div>
+        <div class="text-xl font-bold text-emerald-500">{{ closedCount }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">Yopilgan</div>
       </div>
-      <div class="card p-4 flex items-center gap-3">
-        <Clock :size="18" class="text-amber-500" />
-        <div><div class="text-sm font-semibold text-amber-500">{{ periods.filter(p => p.status === 'OPEN').length }}</div><div class="text-xs text-ink-500">Faol</div></div>
+      <div class="card p-4">
+        <div class="flex items-start justify-between mb-3">
+          <KpiScene3D type="overdue" :size="48" />
+        </div>
+        <div class="text-xl font-bold text-amber-500">{{ openCount }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">Faol davr</div>
       </div>
-      <div class="card p-4 flex items-center gap-3">
-        <Wallet :size="18" class="text-brand-500" />
-        <div><div class="text-sm font-semibold">{{ totalRevenue }}</div><div class="text-xs text-ink-500">Jami daromad</div></div>
+      <div class="card p-4">
+        <div class="flex items-start justify-between mb-3">
+          <KpiScene3D type="revenue" :size="48" />
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ totalRevenue }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">Jami daromad (oy)</div>
       </div>
+    </div>
+
+    <!-- Revenue chart -->
+    <div class="card p-5">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-ink-900 dark:text-white">Daromad dinamikasi (8 oy)</h3>
+        <div class="flex items-center gap-3 text-xs text-ink-500">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span> Daromad</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-400"></span> Qarz</span>
+        </div>
+      </div>
+      <MakonChart type="bar" :series="chartSeries" :categories="chartMonths" :height="220" :colors="['#6366f1', '#ef4444']" :stacked="true" />
     </div>
 
     <!-- Periods table -->
@@ -33,20 +57,22 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
+            <tr class="text-left text-xs text-ink-500 uppercase tracking-widest border-b border-black/5 dark:border-white/5">
               <th class="px-4 py-3">Davr</th>
               <th class="px-4 py-3">Yil</th>
               <th class="px-4 py-3 text-center">Invoyslar</th>
+              <th class="px-4 py-3 text-center hidden md:table-cell">To'langan</th>
               <th class="px-4 py-3 text-right">Daromad</th>
               <th class="px-4 py-3 text-right">Qarz</th>
               <th class="px-4 py-3 text-center">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="p in periods" :key="p.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3">
+            <tr v-for="p in periods" :key="p.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
               <td class="px-4 py-3 font-medium text-ink-900 dark:text-white">{{ p.label }}</td>
-              <td class="px-4 py-3">{{ p.year }}</td>
-              <td class="px-4 py-3 text-center">{{ p.invoiceCount }}</td>
+              <td class="px-4 py-3 text-ink-500">{{ p.year }}</td>
+              <td class="px-4 py-3 text-center text-ink-700 dark:text-ink-300">{{ p.invoiceCount }}</td>
+              <td class="px-4 py-3 text-center hidden md:table-cell text-emerald-500">{{ p.paidCount }}</td>
               <td class="px-4 py-3 text-right font-medium text-emerald-500">{{ p.revenue }}</td>
               <td class="px-4 py-3 text-right text-red-500">{{ p.debt }}</td>
               <td class="px-4 py-3 text-center">
@@ -65,45 +91,24 @@ import { Plus, Calendar, CheckCircle2, Clock, Wallet } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const config = useRuntimeConfig()
-const data = ref({
-  periods: [
-    { id: 'p1', name: 'Avgust 2026', status: 'OPEN', startDate: '2026-08-01', endDate: '2026-08-31', totalInvoiced: 380000000, totalCollected: 295000000, outstanding: 85000000, invoiceCount: 42, paidCount: 35, unpaidCount: 7 },
-    { id: 'p2', name: 'Iyul 2026', status: 'CLOSED', startDate: '2026-07-01', endDate: '2026-07-31', totalInvoiced: 375000000, totalCollected: 365000000, outstanding: 10000000, invoiceCount: 41, paidCount: 40, unpaidCount: 1 },
-    { id: 'p3', name: 'Iyun 2026', status: 'CLOSED', startDate: '2026-06-01', endDate: '2026-06-30', totalInvoiced: 370000000, totalCollected: 370000000, outstanding: 0, invoiceCount: 40, paidCount: 40, unpaidCount: 0 },
-    { id: 'p4', name: 'May 2026', status: 'CLOSED', startDate: '2026-05-01', endDate: '2026-05-31', totalInvoiced: 365000000, totalCollected: 360000000, outstanding: 5000000, invoiceCount: 39, paidCount: 38, unpaidCount: 1 },
-  ],
-  invoices: [
-    { id: 'inv1', number: 'INV-2026-052', contractId: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', period: 'Avgust 2026', amount: 25000000, paidAmount: 0, balance: 25000000, status: 'UNPAID', dueDate: '2026-08-15' },
-    { id: 'inv2', number: 'INV-2026-051', contractId: 'CTR-2026-002', tenantName: 'Global Trade MChJ', period: 'Avgust 2026', amount: 21000000, paidAmount: 21000000, balance: 0, status: 'PAID', dueDate: '2026-08-15' },
-    { id: 'inv3', number: 'INV-2026-050', contractId: 'CTR-2026-005', tenantName: 'Smart Solutions MChJ', period: 'Avgust 2026', amount: 35000000, paidAmount: 35000000, balance: 0, status: 'PAID', dueDate: '2026-08-15' },
-    { id: 'inv4', number: 'INV-2026-049', contractId: 'CTR-2025-098', tenantName: 'Export Group MChJ', period: 'Avgust 2026', amount: 22000000, paidAmount: 0, balance: 22000000, status: 'OVERDUE', dueDate: '2026-08-05' },
-  ],
-})
+const periods = [
+  { id: 'p1', label: 'Avgust', year: 2026, invoiceCount: 42, paidCount: 35, revenue: '295.0M', debt: '85.0M', status: 'OPEN' },
+  { id: 'p2', label: 'Iyul', year: 2026, invoiceCount: 41, paidCount: 40, revenue: '365.0M', debt: '10.0M', status: 'CLOSED' },
+  { id: 'p3', label: 'Iyun', year: 2026, invoiceCount: 40, paidCount: 40, revenue: '370.0M', debt: '0', status: 'CLOSED' },
+  { id: 'p4', label: 'May', year: 2026, invoiceCount: 39, paidCount: 38, revenue: '360.0M', debt: '5.0M', status: 'CLOSED' },
+  { id: 'p5', label: 'Aprel', year: 2026, invoiceCount: 38, paidCount: 37, revenue: '352.0M', debt: '8.0M', status: 'CLOSED' },
+  { id: 'p6', label: 'Mart', year: 2026, invoiceCount: 37, paidCount: 35, revenue: '345.0M', debt: '15.0M', status: 'CLOSED' },
+  { id: 'p7', label: 'Fevral', year: 2026, invoiceCount: 36, paidCount: 34, revenue: '338.0M', debt: '12.0M', status: 'CLOSED' },
+  { id: 'p8', label: 'Yanvar', year: 2026, invoiceCount: 35, paidCount: 33, revenue: '330.0M', debt: '18.0M', status: 'CLOSED' },
+]
 
-const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust']
+const closedCount = periods.filter(p => p.status === 'CLOSED').length
+const openCount = periods.filter(p => p.status === 'OPEN').length
+const totalRevenue = '295.0M'
 
-const periods = computed(() => {
-  if (!data.value?.invoices) return []
-  const totalRevenue = data.value.invoices.reduce((s: number, i: any) => s + (i.paidAmount || 0), 0)
-  const totalDebt = data.value.invoices.reduce((s: number, i: any) => s + (i.balance || 0), 0)
-
-  return months.map((m, i) => {
-    const invCount = Math.floor(Math.random() * 20) + 3
-    return {
-      id: `period-${i}`,
-      label: m,
-      year: 2026,
-      invoiceCount: invCount,
-      revenue: (totalRevenue / 8 * (0.6 + Math.random() * 0.8) / 1000000).toFixed(1) + 'M',
-      debt: (totalDebt / 8 * (0.3 + Math.random() * 0.7) / 1000000).toFixed(1) + 'M',
-      status: i < 7 ? 'CLOSED' : 'OPEN',
-    }
-  }).reverse()
-})
-
-const totalRevenue = computed(() => {
-  if (!data.value?.invoices) return '0'
-  return (data.value.invoices.reduce((s: number, i: any) => s + (i.paidAmount || 0), 0) / 1000000).toFixed(1) + 'M'
-})
+const chartMonths = ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']
+const chartSeries = [
+  { name: 'Daromad (mln so\'m)', data: [330, 338, 345, 352, 360, 370, 365, 295] },
+  { name: 'Qarz (mln so\'m)', data: [18, 12, 15, 8, 5, 0, 10, 85] },
+]
 </script>

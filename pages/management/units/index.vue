@@ -12,28 +12,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="icon-3d icon-3d-indigo"><Layers :size="20" /></div>
+          <KpiScene3D type="units" :size="48" />
           <span class="text-xs text-ink-500">Jami</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ units.length }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="icon-3d icon-3d-green"><CheckCircle2 :size="20" /></div>
+          <KpiScene3D type="occupancy" :size="48" />
           <span class="text-xs text-ink-500">Band</span>
         </div>
         <div class="text-xl font-bold text-emerald-500">{{ occupiedCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="icon-3d icon-3d-amber"><AlertCircle :size="20" /></div>
+          <KpiScene3D type="overdue" :size="48" />
           <span class="text-xs text-ink-500">Bo'sh</span>
         </div>
         <div class="text-xl font-bold text-amber-500">{{ vacantCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="icon-3d icon-3d-blue"><Ruler :size="20" /></div>
+          <KpiScene3D type="buildings" :size="48" />
           <span class="text-xs text-ink-500">Maydon</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ totalArea }}<span class="text-xs text-ink-500 font-normal"> m²</span></div>

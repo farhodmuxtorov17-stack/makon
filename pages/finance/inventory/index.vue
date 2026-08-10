@@ -15,28 +15,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="icon-3d icon-3d-blue"><Package :size="20" /></div>
+          <KpiScene3D type="inventory" :size="48" />
           <span class="text-xs text-ink-500">Jami pozitsiyalar</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ materials.length }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="icon-3d icon-3d-green"><Wallet :size="20" /></div>
+          <KpiScene3D type="paid" :size="48" />
           <span class="text-xs text-ink-500">Ombor qiymati</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(totalValue) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="icon-3d icon-3d-red"><AlertCircle :size="20" /></div>
+          <KpiScene3D type="overdue" :size="48" />
           <span class="text-xs text-ink-500">Kam qoldi</span>
         </div>
         <div class="text-xl font-bold text-red-500">{{ lowStockCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="icon-3d icon-3d-amber"><TrendingDown :size="20" /></div>
+          <KpiScene3D type="units" :size="48" />
           <span class="text-xs text-ink-500">Oylik sarflash</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(monthlyUsage) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
