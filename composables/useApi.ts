@@ -17,5 +17,11 @@ export function useApi() {
     })
   }
 
-  return { fetchCatalog, fetchBuilding }
+  async function fetchAdminData(action: string): Promise<any> {
+    return await $fetch<any>(`${baseUrl}/getAdminData?action=${action}`, {
+      method: 'GET',
+    })
+  }
+
+  return { fetchCatalog, fetchBuilding, fetchAdminData }
 }
