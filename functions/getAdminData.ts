@@ -57,6 +57,11 @@ Deno.serve(async (req) => {
             currency: a.currency,
             createdDate: a.created_date,
           })),
+        allApplications: applications.map((a: any) => ({
+          id: a.id,
+          status: a.status,
+          applicantName: a.applicantName,
+        })),
         buildings: buildings.map((b: any) => ({
           id: b.id,
           name: b.name,
@@ -66,6 +71,27 @@ Deno.serve(async (req) => {
           occupiedUnits: b.occupiedUnits,
           vacantUnits: b.vacantUnits,
           occupancyRate: b.totalUnits > 0 ? Math.round((b.occupiedUnits / b.totalUnits) * 100) : 0,
+        })),
+        invoices: invoices.map((inv: any) => ({
+          id: inv.id,
+          amount: inv.amount,
+          paidAmount: inv.paidAmount,
+          balance: inv.balance,
+          currency: inv.currency,
+          status: inv.status,
+        })),
+        contracts: contracts.map((c: any) => ({
+          id: c.id,
+          monthlyRent: c.monthlyRent,
+          currency: c.currency,
+          status: c.status,
+        })),
+        serviceRequests: serviceRequests.map((r: any) => ({
+          id: r.id,
+          priority: r.priority,
+          status: r.status,
+          slaDueAt: r.slaDueAt,
+          category: r.category,
         })),
       });
     }
@@ -90,6 +116,8 @@ Deno.serve(async (req) => {
           isPublished: b.isPublished,
           isArchived: b.isArchived,
           managedBy: b.managedBy,
+          gallery: b.gallery || [],
+          publicDescription: b.publicDescription,
           createdDate: b.created_date,
           updatedDate: b.updated_date,
         })),
