@@ -141,8 +141,25 @@ import { BUILDING_TYPE_LABELS } from '~/types'
 definePageMeta({ layout: 'public' })
 
 const route = useRoute()
-const { fetchBuilding } = useApi()
-const { data, pending, error } = await useAsyncData(`building-${route.params.slug}`, () => fetchBuilding(route.params.slug as string))
+const data = ref({
+  building: {
+    id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', type: 'BUSINESS_CENTER',
+    address: 'Mirzo Ulug\'bek tumani, Tashkent', floorsCount: 12, totalUnits: 420,
+    occupiedUnits: 378, vacantUnits: 42, totalArea: 45000,
+    gallery: [
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80',
+      'https://images.unsplash.com/photo-1517089596392-fb9a9033e05b?w=1200&q=80',
+    ],
+    publicDescription: 'Tashkent City — Toshkent shahrining markazidagi premium biznes markazi. 12 qavat, 420 unit, 45 000 m². Zamonaviy infratuzilma, 24/7 xavfsizlik, keng avtoturargoh.',
+  },
+  listings: [
+    { id: 'l1', titleUz: 'A-301 · 85 m² ofis', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80'], viewsCount: 234, status: 'PUBLISHED' },
+    { id: 'l2', titleUz: 'A-302 · 72 m² ofis', offerType: 'RENT', price: 21000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80'], viewsCount: 189, status: 'PUBLISHED' },
+    { id: 'l3', titleUz: 'A-303 · 95 m² ofis', offerType: 'RENT', price: 28000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80'], viewsCount: 312, status: 'PUBLISHED' },
+  ],
+})
 
 const occupancyPercent = computed(() => {
   if (!data.value || !data.value.building || !data.value.building.totalUnits) return 0

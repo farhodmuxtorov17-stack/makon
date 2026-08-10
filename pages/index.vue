@@ -282,8 +282,21 @@ import { BUILDING_TYPE_LABELS } from '~/types'
 
 definePageMeta({ layout: 'public' })
 
-const { fetchCatalog } = useApi()
-const { data, pending, error } = await useAsyncData('catalog', () => fetchCatalog())
+const data = ref({
+  stats: { totalBuildings: 12, totalUnits: 420, vacantUnits: 47, occupiedUnits: 373, publishedListings: 34, occupancyRate: 89 },
+  buildings: [
+    { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', type: 'BUSINESS_CENTER', address: 'Mirzo Ulug\'bek, Tashkent', floorsCount: 12, totalUnits: 420, occupiedUnits: 378, vacantUnits: 42, totalArea: 45000, gallery: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'] },
+    { id: 'b2', name: 'Trillant Tower', slug: 'trillant-tower', type: 'BUSINESS_CENTER', address: 'Yashnabad, Tashkent', floorsCount: 18, totalUnits: 180, occupiedUnits: 171, vacantUnits: 9, totalArea: 28000, gallery: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80'] },
+    { id: 'b3', name: 'IT Park', slug: 'it-park', type: 'OFFICE', address: 'Yakkasaray, Tashkent', floorsCount: 8, totalUnits: 150, occupiedUnits: 123, vacantUnits: 27, totalArea: 18000, gallery: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'] },
+    { id: 'b4', name: 'Piramit', slug: 'piramit', type: 'MIXED', address: 'Amir Temur, Tashkent', floorsCount: 10, totalUnits: 90, occupiedUnits: 70, vacantUnits: 20, totalArea: 15000, gallery: ['https://images.unsplash.com/photo-1517089596392-fb9a9033e05b?w=800&q=80'] },
+  ],
+  listings: [
+    { id: 'l1', titleUz: 'A-301 · 85 m² ofis', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80'] },
+    { id: 'l2', titleUz: 'B-501 · 120 m² ofis', offerType: 'RENT', price: 35000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80'] },
+    { id: 'l3', titleUz: 'C-201 · 65 m² savdo', offerType: 'RENT', price: 18000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80'] },
+    { id: 'l4', titleUz: 'D-102 · 200 m² ombor', offerType: 'RENT', price: 12000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&q=80'] },
+  ],
+})
 
 const faqOpen = ref(-1)
 

@@ -66,9 +66,20 @@ import { Plus, Calendar, CheckCircle2, Clock, Wallet } from 'lucide-vue-next'
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const config = useRuntimeConfig()
-const { data } = await useAsyncData('finance-periods', () =>
-  $fetch<any>(`${config.public.apiBase}/getAdminData?action=invoices`)
-)
+const data = ref({
+  periods: [
+    { id: 'p1', name: 'Avgust 2026', status: 'OPEN', startDate: '2026-08-01', endDate: '2026-08-31', totalInvoiced: 380000000, totalCollected: 295000000, outstanding: 85000000, invoiceCount: 42, paidCount: 35, unpaidCount: 7 },
+    { id: 'p2', name: 'Iyul 2026', status: 'CLOSED', startDate: '2026-07-01', endDate: '2026-07-31', totalInvoiced: 375000000, totalCollected: 365000000, outstanding: 10000000, invoiceCount: 41, paidCount: 40, unpaidCount: 1 },
+    { id: 'p3', name: 'Iyun 2026', status: 'CLOSED', startDate: '2026-06-01', endDate: '2026-06-30', totalInvoiced: 370000000, totalCollected: 370000000, outstanding: 0, invoiceCount: 40, paidCount: 40, unpaidCount: 0 },
+    { id: 'p4', name: 'May 2026', status: 'CLOSED', startDate: '2026-05-01', endDate: '2026-05-31', totalInvoiced: 365000000, totalCollected: 360000000, outstanding: 5000000, invoiceCount: 39, paidCount: 38, unpaidCount: 1 },
+  ],
+  invoices: [
+    { id: 'inv1', number: 'INV-2026-052', contractId: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', period: 'Avgust 2026', amount: 25000000, paidAmount: 0, balance: 25000000, status: 'UNPAID', dueDate: '2026-08-15' },
+    { id: 'inv2', number: 'INV-2026-051', contractId: 'CTR-2026-002', tenantName: 'Global Trade MChJ', period: 'Avgust 2026', amount: 21000000, paidAmount: 21000000, balance: 0, status: 'PAID', dueDate: '2026-08-15' },
+    { id: 'inv3', number: 'INV-2026-050', contractId: 'CTR-2026-005', tenantName: 'Smart Solutions MChJ', period: 'Avgust 2026', amount: 35000000, paidAmount: 35000000, balance: 0, status: 'PAID', dueDate: '2026-08-15' },
+    { id: 'inv4', number: 'INV-2026-049', contractId: 'CTR-2025-098', tenantName: 'Export Group MChJ', period: 'Avgust 2026', amount: 22000000, paidAmount: 0, balance: 22000000, status: 'OVERDUE', dueDate: '2026-08-05' },
+  ],
+})
 
 const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust']
 

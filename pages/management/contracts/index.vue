@@ -54,8 +54,15 @@ import { Plus, FileText } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { fetchAdminData } = useApi()
-const { data, pending } = await useAsyncData('admin-contracts', () => fetchAdminData('contracts'))
+const data = ref({
+  contracts: [
+    { id: 'c1', number: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', unitName: 'A-301', buildingName: 'Tashkent City', status: 'ACTIVE', type: 'RENT', monthlyRent: 25000000, deposit: 50000000, startDate: '2026-03-15', endDate: '2027-03-15', currency: 'UZS' },
+    { id: 'c2', number: 'CTR-2026-002', tenantName: 'Global Trade MChJ', unitName: 'A-302', buildingName: 'Tashkent City', status: 'ACTIVE', type: 'RENT', monthlyRent: 21000000, deposit: 42000000, startDate: '2026-02-01', endDate: '2027-02-01', currency: 'UZS' },
+    { id: 'c3', number: 'CTR-2026-005', tenantName: 'Smart Solutions MChJ', unitName: 'B-501', buildingName: 'Trillant Tower', status: 'PENDING_SIGNATURE', type: 'RENT', monthlyRent: 35000000, deposit: 70000000, startDate: '2026-08-15', endDate: '2027-08-15', currency: 'UZS' },
+    { id: 'c4', number: 'CTR-2025-098', tenantName: 'Export Group MChJ', unitName: 'B-303', buildingName: 'Tashkent City', status: 'ACTIVE', type: 'RENT', monthlyRent: 22000000, deposit: 44000000, startDate: '2025-01-01', endDate: '2026-01-01', currency: 'UZS' },
+    { id: 'c5', number: 'CTR-2024-045', tenantName: 'Logistics Plus', unitName: 'D-102', buildingName: 'Piramit', status: 'EXPIRED', type: 'RENT', monthlyRent: 15000000, deposit: 30000000, startDate: '2024-06-01', endDate: '2026-06-01', currency: 'UZS' },
+  ],
+})
 
 function formatPrice(price: number, currency: string) {
   if (!price) return '—'

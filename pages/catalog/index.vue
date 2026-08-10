@@ -136,8 +136,23 @@ import { BUILDING_TYPE_LABELS } from '~/types'
 
 definePageMeta({ layout: 'public' })
 
-const { fetchCatalog } = useApi()
-const { data, pending, error } = await useAsyncData('catalog', () => fetchCatalog())
+const data = ref({
+  stats: { totalBuildings: 12, totalUnits: 420, vacantUnits: 47, occupiedUnits: 373, publishedListings: 34 },
+  buildings: [
+    { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', type: 'BUSINESS_CENTER', address: 'Mirzo Ulug\'bek tumani, Tashkent', floorsCount: 12, totalUnits: 420, occupiedUnits: 378, vacantUnits: 42, totalArea: 45000, gallery: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'] },
+    { id: 'b2', name: 'Trillant Tower', slug: 'trillant-tower', type: 'BUSINESS_CENTER', address: 'Yashnabad tumani, Tashkent', floorsCount: 18, totalUnits: 180, occupiedUnits: 171, vacantUnits: 9, totalArea: 28000, gallery: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80'] },
+    { id: 'b3', name: 'IT Park', slug: 'it-park', type: 'OFFICE', address: 'Yakkasaray tumani, Tashkent', floorsCount: 8, totalUnits: 150, occupiedUnits: 123, vacantUnits: 27, totalArea: 18000, gallery: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'] },
+    { id: 'b4', name: 'Piramit', slug: 'piramit', type: 'MIXED', address: 'Amir Temur ko\'chasi, Tashkent', floorsCount: 10, totalUnits: 90, occupiedUnits: 70, vacantUnits: 20, totalArea: 15000, gallery: ['https://images.unsplash.com/photo-1517089596392-fb9a9033e05b?w=800&q=80'] },
+    { id: 'b5', name: 'Business Center 1', slug: 'business-center-1', type: 'BUSINESS_CENTER', address: 'Chilonzor tumani, Tashkent', floorsCount: 6, totalUnits: 60, occupiedUnits: 53, vacantUnits: 7, totalArea: 8000, gallery: ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80'] },
+    { id: 'b6', name: 'Savdo Markaz', slug: 'savdo-markaz', type: 'SHOPPING', address: 'Sergeli tumani, Tashkent', floorsCount: 4, totalUnits: 120, occupiedUnits: 95, vacantUnits: 25, totalArea: 12000, gallery: ['https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80'] },
+  ],
+  listings: [
+    { id: 'l1', buildingId: 'b1', titleUz: 'A-301 · 85 m² ofis', titleRu: 'A-301 · 85 м² офис', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80'], viewsCount: 234, status: 'PUBLISHED', virtualTourUrl: '' },
+    { id: 'l2', buildingId: 'b2', titleUz: 'B-501 · 120 m² ofis', titleRu: 'B-501 · 120 м² офис', offerType: 'RENT', price: 35000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80'], viewsCount: 189, status: 'PUBLISHED', virtualTourUrl: '' },
+    { id: 'l3', buildingId: 'b3', titleUz: 'C-201 · 65 m² savdo', titleRu: 'C-201 · 65 м² торговое', offerType: 'RENT', price: 18000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80'], viewsCount: 312, status: 'PUBLISHED', virtualTourUrl: '' },
+    { id: 'l4', buildingId: 'b4', titleUz: 'D-102 · 200 m² ombor', titleRu: 'D-102 · 200 м² склад', offerType: 'RENT', price: 12000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&q=80'], viewsCount: 145, status: 'PUBLISHED', virtualTourUrl: '' },
+  ],
+})
 
 const search = ref('')
 const typeFilter = ref('')

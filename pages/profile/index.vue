@@ -197,11 +197,31 @@ import { FileText, Clock, FileCheck2, Receipt, Wrench, ShieldCheck } from 'lucid
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const config = useRuntimeConfig()
-const baseUrl = config.public.apiBase as string
 
-const { data, pending } = await useAsyncData('cabinet', () =>
-  $fetch<any>(`${baseUrl}/cabinetApi?action=profile`)
-)
+const data = ref({
+  user: { id: 'u1', fullName: 'Farhod Muxtorov', email: 'farhod@makon.uz', phone: '+998 90 123 45 67', pinfl: '31234567890123', organization: 'Makon Real Estate MChJ', tin: '312345678' },
+  stats: { totalApplications: 5, activeApplications: 2, activeContracts: 2, totalUnits: 3, outstandingDebt: 12500000 },
+  applications: [
+    { id: 'a1', number: 'APP-2026-012', applicantName: 'Farhod Muxtorov', status: 'OFFER_SENT', offeredPrice: 25000000, currency: 'UZS', createdDate: '2026-08-05' },
+    { id: 'a2', number: 'APP-2026-008', applicantName: 'Farhod Muxtorov', status: 'APPROVED', offeredPrice: 18000000, currency: 'UZS', createdDate: '2026-07-20' },
+  ],
+  contracts: [
+    { id: 'c1', number: 'CTR-2026-001', status: 'ACTIVE', unitName: 'A-301', monthlyRent: 25000000, startDate: '2026-03-15', endDate: '2027-03-15' },
+    { id: 'c2', number: 'CTR-2025-098', status: 'PENDING_SIGNATURE', unitName: 'B-303', monthlyRent: 22000000, startDate: '2026-01-01', endDate: '2027-01-01' },
+  ],
+  invoices: [
+    { id: 'i1', number: 'INV-2026-045', amount: 25000000, balance: 12500000, status: 'PARTIALLY_PAID', period: 'Iyul 2026', dueDate: '2026-08-15' },
+    { id: 'i2', number: 'INV-2026-041', amount: 25000000, balance: 0, status: 'PAID', period: 'Iyun 2026', dueDate: '2026-07-15' },
+  ],
+  serviceRequests: [
+    { id: 'sr1', number: 'SR-2026-012', status: 'IN_PROGRESS', description: 'Elektr simi almashtirish', createdDate: '2026-08-08' },
+  ],
+  units: [
+    { id: 'u1', name: 'A-301', buildingName: 'Tashkent City', area: 85, floor: 3 },
+    { id: 'u2', name: 'B-303', buildingName: 'Tashkent City', area: 92, floor: 3 },
+    { id: 'u3', name: 'C-201', buildingName: 'IT Park', area: 65, floor: 2 },
+  ],
+})
 
 const activeTab = ref('applications')
 const signing = ref<string | null>(null)

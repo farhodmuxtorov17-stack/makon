@@ -77,8 +77,18 @@ import { Plus, Download } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { fetchAdminData } = useApi()
-const { data, pending } = await useAsyncData('admin-invoices', () => fetchAdminData('invoices'))
+const data = ref({
+  stats: { totalInvoiced: 380000000, totalCollected: 295000000, outstanding: 85000000, unpaidCount: 7, paidCount: 35 },
+  invoices: [
+    { id: 'inv1', number: 'INV-2026-052', contractNumber: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', period: 'Avg 2026', amount: 25000000, paidAmount: 0, balance: 25000000, status: 'UNPAID', dueDate: '2026-08-15', currency: 'UZS' },
+    { id: 'inv2', number: 'INV-2026-051', contractNumber: 'CTR-2026-002', tenantName: 'Global Trade MChJ', period: 'Avg 2026', amount: 21000000, paidAmount: 21000000, balance: 0, status: 'PAID', dueDate: '2026-08-15', currency: 'UZS' },
+    { id: 'inv3', number: 'INV-2026-050', contractNumber: 'CTR-2026-005', tenantName: 'Smart Solutions MChJ', period: 'Avg 2026', amount: 35000000, paidAmount: 35000000, balance: 0, status: 'PAID', dueDate: '2026-08-15', currency: 'UZS' },
+    { id: 'inv4', number: 'INV-2026-049', contractNumber: 'CTR-2025-098', tenantName: 'Export Group MChJ', period: 'Avg 2026', amount: 22000000, paidAmount: 0, balance: 22000000, status: 'OVERDUE', dueDate: '2026-08-05', currency: 'UZS' },
+    { id: 'inv5', number: 'INV-2026-048', contractNumber: 'CTR-2024-045', tenantName: 'Logistics Plus', period: 'Avg 2026', amount: 15000000, paidAmount: 0, balance: 15000000, status: 'OVERDUE', dueDate: '2026-08-05', currency: 'UZS' },
+    { id: 'inv6', number: 'INV-2026-047', contractNumber: 'CTR-2025-098', tenantName: 'Export Group MChJ', period: 'Iyl 2026', amount: 22000000, paidAmount: 22000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
+    { id: 'inv7', number: 'INV-2026-046', contractNumber: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', period: 'Iyl 2026', amount: 25000000, paidAmount: 12500000, balance: 12500000, status: 'PARTIALLY_PAID', dueDate: '2026-07-15', currency: 'UZS' },
+  ],
+})
 
 const totalAmount = computed(() => data.value?.invoices.reduce((s: number, i: any) => s + (i.amount || 0), 0) || 0)
 const totalPaid = computed(() => data.value?.invoices.reduce((s: number, i: any) => s + (i.paidAmount || 0), 0) || 0)

@@ -68,8 +68,24 @@ import { Plus, Search } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { fetchAdminData } = useApi()
-const { data, pending } = await useAsyncData('admin-units', () => fetchAdminData('buildings'))
+const data = ref({
+  buildings: [
+    { id: 'b1', name: 'Tashkent City', totalUnits: 420, occupiedUnits: 378, vacantUnits: 42, type: 'BUSINESS_CENTER', address: 'Mirzo Ulug\'bek', floorsCount: 12, totalArea: 45000 },
+    { id: 'b2', name: 'Trillant Tower', totalUnits: 180, occupiedUnits: 171, vacantUnits: 9, type: 'BUSINESS_CENTER', address: 'Yashnabad', floorsCount: 18, totalArea: 28000 },
+    { id: 'b3', name: 'IT Park', totalUnits: 150, occupiedUnits: 123, vacantUnits: 27, type: 'OFFICE', address: 'Yakkasaray', floorsCount: 8, totalArea: 18000 },
+    { id: 'b4', name: 'Piramit', totalUnits: 90, occupiedUnits: 70, vacantUnits: 20, type: 'MIXED', address: 'Amir Temur', floorsCount: 10, totalArea: 15000 },
+  ],
+  units: [
+    { id: 'u1', name: 'A-301', buildingName: 'Tashkent City', floor: 3, area: 85, status: 'OCCUPIED', type: 'Ofis', tenant: 'ABC Logistics MChJ', contract: 'CTR-2026-001' },
+    { id: 'u2', name: 'A-302', buildingName: 'Tashkent City', floor: 3, area: 72, status: 'OCCUPIED', type: 'Ofis', tenant: 'Global Trade MChJ', contract: 'CTR-2026-002' },
+    { id: 'u3', name: 'A-303', buildingName: 'Tashkent City', floor: 3, area: 95, status: 'VACANT', type: 'Ofis', tenant: '', contract: '' },
+    { id: 'u4', name: 'B-501', buildingName: 'Trillant Tower', floor: 5, area: 120, status: 'OCCUPIED', type: 'Ofis', tenant: 'Smart Solutions MChJ', contract: 'CTR-2026-005' },
+    { id: 'u5', name: 'B-502', buildingName: 'Trillant Tower', floor: 5, area: 110, status: 'VACANT', type: 'Ofis', tenant: '', contract: '' },
+    { id: 'u6', name: 'C-201', buildingName: 'IT Park', floor: 2, area: 65, status: 'OCCUPIED', type: 'Savdo', tenant: 'Export Group MChJ', contract: 'CTR-2025-098' },
+    { id: 'u7', name: 'C-202', buildingName: 'IT Park', floor: 2, area: 58, status: 'VACANT', type: 'Savdo', tenant: '', contract: '' },
+    { id: 'u8', name: 'D-102', buildingName: 'Piramit', floor: 1, area: 200, status: 'OCCUPIED', type: 'Ombor', tenant: 'Logistics Plus', contract: 'CTR-2026-010' },
+  ],
+})
 
 const search = ref('')
 const statusFilter = ref('')

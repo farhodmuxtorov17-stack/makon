@@ -79,9 +79,18 @@ import { UserPlus, Search, ShieldCheck, Building2, Calculator, Wrench, User } fr
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const config = useRuntimeConfig()
-const { data, pending } = await useAsyncData('users', () =>
-  $fetch<any>(`${config.public.apiBase}/modulesApi?action=users`)
-)
+const data = ref({
+  users: [
+    { id: 'u1', name: 'Farhod Muxtorov', email: 'farhod@makon.uz', role: 'SUPER_HEAD', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-10T12:30:00', twoFactor: true },
+    { id: 'u2', name: 'Sardor Yusupov', email: 'sardor@makon.uz', role: 'BUILDING_MANAGER', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-09T18:45:00', twoFactor: false },
+    { id: 'u3', name: 'Dilnoza Karimova', email: 'dilnoza@makon.uz', role: 'ACCOUNTANT', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-10T09:00:00', twoFactor: true },
+    { id: 'u4', name: 'Aziz Toshmatov', email: 'aziz@makon.uz', role: 'FACILITY', status: 'ACTIVE', organization: 'TexServis MChJ', lastLogin: '2026-08-08T14:20:00', twoFactor: false },
+    { id: 'u5', name: 'Jasur Rahimov', email: 'jasur@makon.uz', role: 'WAREHOUSE_OPERATOR', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-07T11:15:00', twoFactor: false },
+    { id: 'u6', name: 'Malika Saidova', email: 'malika@makon.uz', role: 'CONTENT_OPERATOR', status: 'ACTIVE', organization: 'Makon Real Estate MChJ', lastLogin: '2026-08-06T10:00:00', twoFactor: false },
+    { id: 'u7', name: 'Bobur Aliyev', email: 'bobur@abc-logistics.uz', role: 'TENANT_OWNER', status: 'ACTIVE', organization: 'ABC Logistics MChJ', lastLogin: '2026-08-09T15:30:00', twoFactor: true },
+    { id: 'u8', name: 'Kamola Nazarova', email: 'kamola@global-trade.uz', role: 'TENANT_OWNER', status: 'PENDING_ERI', organization: 'Global Trade MChJ', lastLogin: '2026-08-04T09:00:00', twoFactor: false },
+  ],
+})
 
 const tab = ref('users')
 const search = ref('')

@@ -70,8 +70,16 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { fetchAdminData } = useApi()
-const { data, pending } = await useAsyncData('admin-debts', () => fetchAdminData('invoices'))
+const data = ref({
+  stats: { totalDebt: 85000000, overdueCount: 7, overdueAmount: 45000000, atRiskCount: 3 },
+  debts: [
+    { id: 'd1', tenantName: 'Export Group MChJ', contractNumber: 'CTR-2025-098', invoiceNumber: 'INV-2026-049', amount: 22000000, balance: 22000000, daysOverdue: 5, status: 'OVERDUE', unitName: 'B-303', buildingName: 'Tashkent City' },
+    { id: 'd2', tenantName: 'ABC Logistics MChJ', contractNumber: 'CTR-2026-001', invoiceNumber: 'INV-2026-052', amount: 25000000, balance: 12500000, daysOverdue: 0, status: 'PARTIALLY_PAID', unitName: 'A-301', buildingName: 'Tashkent City' },
+    { id: 'd3', tenantName: 'Piramit Tenant', contractNumber: 'CTR-2024-045', invoiceNumber: 'INV-2026-048', amount: 15000000, balance: 15000000, daysOverdue: 12, status: 'OVERDUE', unitName: 'D-102', buildingName: 'Piramit' },
+    { id: 'd4', tenantName: 'Small Business Co', contractNumber: 'CTR-2026-011', invoiceNumber: 'INV-2026-046', amount: 8000000, balance: 8000000, daysOverdue: 3, status: 'OVERDUE', unitName: 'C-203', buildingName: 'IT Park' },
+    { id: 'd5', tenantName: 'Export Group MChJ', contractNumber: 'CTR-2025-098', invoiceNumber: 'INV-2026-047', amount: 22000000, balance: 8000000, daysOverdue: 0, status: 'AT_RISK', unitName: 'B-303', buildingName: 'Tashkent City' },
+  ],
+})
 
 const debtors = computed(() => {
   return (data.value?.invoices || []).filter((i: any) => (i.balance || 0) > 0)

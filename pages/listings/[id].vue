@@ -177,11 +177,15 @@ definePageMeta({ layout: 'public' })
 
 const route = useRoute()
 const config = useRuntimeConfig()
-const baseUrl = config.public.apiBase as string
 
 // First fetch the catalog to find the listing by id
-const { data: catalogData } = await useAsyncData('catalog-for-listing', async () => {
-  return await $fetch<any>(`${baseUrl}/getPublicCatalog`, { method: 'POST', body: {} })
+const catalogData = ref({
+  buildings: [
+    { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', gallery: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80'], address: 'Mirzo Ulug\'bek, Tashkent', floorsCount: 12, totalArea: 45000, totalUnits: 420, vacantUnits: 42, type: 'BUSINESS_CENTER' },
+  ],
+  listings: [
+    { id: 'l1', buildingId: 'b1', titleUz: 'A-301 · 85 m² ofis', titleRu: 'A-301 · 85 м² офис', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'], viewsCount: 234, status: 'PUBLISHED', virtualTourUrl: '', descriptionUz: 'Tashkent City 3-qavatda 85 m² ofis maydoni. Tashqi devor, 4 deraza, konditsioner.', descriptionRu: 'Офис 85 м² на 3 этаже Tashkent City. Окна, кондиционер.' },
+  ],
 })
 
 const listingId = route.params.id as string

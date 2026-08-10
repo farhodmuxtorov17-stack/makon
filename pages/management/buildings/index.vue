@@ -225,7 +225,7 @@
 
             <div>
               <label class="label">Manzil</label>
-              <input v-model="newBuilding.address" type="text" required placeholder="Oybek ko'chasi 24" class="input w-full" />
+              <input v-model="newBuilding.address" type="text" required placeholder="Oybek ko\'chasi 24" class="input w-full" />
             </div>
 
             <div class="grid grid-cols-3 gap-3">

@@ -108,6 +108,7 @@ const allNavItems: Record<string, any[]> = {
     { to: '/management/applications', label: 'Arizalar', icon: FileText, badge: 3 },
     { to: '/management/service-requests', label: 'Servis so\'rovlari', icon: ClipboardList },
     { to: '/contracts', label: 'Shartnomalar', icon: ScrollText },
+    { to: '/management/floor-plans', label: 'Reja importi', icon: MapPin },
     { to: '/management/visual-settings', label: 'Vizual sozlamalar', icon: Eye },
     { to: '/meters', label: 'Hisoblagichlar', icon: Gauge },
     { to: '/reports', label: 'Hisobotlar', icon: BarChart3 },
@@ -136,6 +137,7 @@ const allNavItems: Record<string, any[]> = {
   ],
   CONTENT_OPERATOR: [
     { to: '/management/buildings', label: 'Binolar (read)', icon: Building2 },
+    { to: '/management/floor-plans', label: 'Reja importi', icon: MapPin },
     { to: '/management/visual-settings', label: 'Vizual sozlamalar', icon: Eye },
     { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
   ],
@@ -143,7 +145,9 @@ const allNavItems: Record<string, any[]> = {
     { to: '/cabinet', label: 'Mening kabinetim', icon: Home },
     { to: '/cabinet/units', label: 'Mening unitlarim', icon: Layers },
     { to: '/cabinet/applications', label: 'Ariza va hujjatlar', icon: FileText },
+    { to: '/cabinet/contracts', label: 'Shartnomalarim', icon: ScrollText },
     { to: '/cabinet/services', label: 'Hisob va servis', icon: ClipboardList },
+    { to: '/cabinet/meter-readings', label: 'Hisoblagichlar', icon: Gauge },
     { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
   ],
 }

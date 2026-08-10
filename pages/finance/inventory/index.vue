@@ -127,9 +127,19 @@ import { Package, Wallet, AlertTriangle, TrendingDown, Search, Plus, Download } 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const config = useRuntimeConfig()
-const { data, pending } = await useAsyncData('inventory', () =>
-  $fetch<any>(`${config.public.apiBase}/modulesApi?action=inventory`)
-)
+const data = ref({
+  stats: { totalItems: 247, totalValue: 125000000, lowStock: 14, outOfStock: 3 },
+  items: [
+    { id: 'i1', sku: 'MAT-001', name: 'Lampa LED 12W', category: 'Elektrika', unit: 'dona', stock: 45, minStock: 20, price: 35000, totalValue: 1575000 },
+    { id: 'i2', sku: 'MAT-002', name: 'Kabel 2.5mm (1m)', category: 'Elektrika', unit: 'metr', stock: 800, minStock: 200, price: 8000, totalValue: 6400000 },
+    { id: 'i3', sku: 'MAT-003', name: 'Radiator panel', category: 'Sanitariya', unit: 'dona', stock: 8, minStock: 15, price: 450000, totalValue: 3600000 },
+    { id: 'i4', sku: 'MAT-004', name: 'Truba PPR 25mm', category: 'Sanitariya', unit: 'metr', stock: 0, minStock: 50, price: 25000, totalValue: 0 },
+    { id: 'i5', sku: 'MAT-005', name: 'Bo\'yoq akril (10L)', category: 'Boshqa', unit: 'banka', stock: 25, minStock: 10, price: 180000, totalValue: 4500000 },
+    { id: 'i6', sku: 'MAT-006', name: 'Sement M400', category: 'Konstruksiya', unit: 'qop', stock: 120, minStock: 30, price: 75000, totalValue: 9000000 },
+    { id: 'i7', sku: 'MAT-007', name: 'Filter HVAC HEPA', category: 'Konditsioner', unit: 'dona', stock: 3, minStock: 8, price: 250000, totalValue: 750000 },
+    { id: 'i8', sku: 'MAT-008', name: 'Devor bo\'yog\'i (25kg)', category: 'Boshqa', unit: 'qop', stock: 50, minStock: 20, price: 320000, totalValue: 16000000 },
+  ],
+})
 
 const tab = ref('stock')
 const search = ref('')
