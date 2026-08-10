@@ -90,7 +90,7 @@
 
     <!-- Right: Visual showcase -->
     <div class="hidden lg:flex flex-1 relative overflow-hidden bg-ink-950">
-      <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/5403b92ba_generated_image.png"
+      <img src="https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/7c524b20c_tashkent_night.jpg"
         class="absolute inset-0 w-full h-full object-cover opacity-50" @error="handleImgError" />
       <div class="absolute inset-0 bg-gradient-to-br from-ink-950/90 via-ink-950/70 to-brand-950/80" />
 

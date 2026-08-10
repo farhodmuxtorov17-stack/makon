@@ -125,11 +125,11 @@ const tabs = [
 ]
 
 const buildings = [
-  { id: 'b1', name: 'Trilliant Tower', type: 'A+ Biznes markaz', location: 'Yunusobod', floors: 14, area: '15,800', units: 141, tenants: 133, occupancy: 94, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/65eba1a8b_generated_image.png' },
-  { id: 'b2', name: 'Tashkent City IBC', type: 'A klass', location: 'Yashnobod', floors: 22, area: '28,400', units: 186, tenants: 162, occupancy: 87, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/af7261266_generated_image.png' },
-  { id: 'b3', name: 'IT Park Tashkent', type: 'IT markaz', location: 'Mirzo Ulug\'bek', floors: 8, area: '9,200', units: 64, tenants: 59, occupancy: 92, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/768655312_generated_image.png' },
-  { id: 'b4', name: 'Piramit Tower', type: 'Biznes markaz', location: 'Mirobod', floors: 18, area: '19,600', units: 98, tenants: 76, occupancy: 78, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/d889d0296_generated_image.png' },
-  { id: 'b5', name: 'Crystal Plaza', type: 'A klass', location: 'Sergeli', floors: 12, area: '12,400', units: 84, tenants: 71, occupancy: 84, img: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/1908acd10_generated_image.png' },
+  { id: 'b1', name: 'Trilliant Tower', type: 'A+ Biznes markaz', location: 'Yunusobod', floors: 14, area: '15,800', units: 141, tenants: 133, occupancy: 94, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg' },
+  { id: 'b2', name: 'Tashkent City IBC', type: 'A klass', location: 'Yashnobod', floors: 22, area: '28,400', units: 186, tenants: 162, occupancy: 87, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/d62df0e1f_ibc_tashkent.jpg' },
+  { id: 'b3', name: 'IT Park Tashkent', type: 'IT markaz', location: 'Mirzo Ulug\'bek', floors: 8, area: '9,200', units: 64, tenants: 59, occupancy: 92, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/93bd7fd52_nest_one.jpg' },
+  { id: 'b4', name: 'Piramit Tower', type: 'Biznes markaz', location: 'Mirobod', floors: 18, area: '19,600', units: 98, tenants: 76, occupancy: 78, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/a63dc668a_piramit.jpg' },
+  { id: 'b5', name: 'Crystal Plaza', type: 'A klass', location: 'Sergeli', floors: 12, area: '12,400', units: 84, tenants: 71, occupancy: 84, img: 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e23becacd_tashkent_business.jpg' },
 ]
 
 const building = computed(() => buildings.find(b => b.id === route.params.id))
