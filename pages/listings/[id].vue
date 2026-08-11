@@ -69,6 +69,130 @@
               <p class="text-ink-400 leading-relaxed">{{ listing.descriptionUz || listing.descriptionRu || 'Tavsif kiritilmagan' }}</p>
             </div>
 
+
+            <!-- Floor Plan -->
+            <div class="card p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold">Planirovka (eskiy reja)</h3>
+                <div class="flex gap-2">
+                  <button @click="planView = 'plan'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
+                    :class="planView === 'plan' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
+                    Reja
+                  </button>
+                  <button @click="planView = 'dimensions'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
+                    :class="planView === 'dimensions' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
+                    O\'lchamlar
+                  </button>
+                </div>
+              </div>
+
+              <!-- SVG Floor Plan -->
+              <div class="floor-plan-container">
+                <svg viewBox="0 0 100 60" class="w-full" style="max-height: 400px;">
+                  <!-- Grid background -->
+                  <defs>
+                    <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
+                      <path d="M 5 0 L 0 0 0 5" fill="none" :stroke="planView === 'dimensions' ? 'rgba(99,102,241,0.12)' : 'rgba(255,255,255,0.04)'" stroke-width="0.3"/>
+                    </pattern>
+                    <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.9"/>
+                      <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.7"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="100" height="60" fill="url(#grid)" />
+
+                  <!-- Outer walls -->
+                  <rect x="2" y="2" width="96" height="56" fill="none" stroke="url(#wallGrad)" stroke-width="1.5" rx="0.5" />
+
+                  <!-- Room areas -->
+                  <template v-for="(room, i) in (listing.rooms || [])" :key="i">
+                    <rect :x="room.x" :y="room.y" :width="room.w" :height="room.h"
+                      :fill="roomColor(room.type)" :opacity="0.25" rx="0.5" />
+                    <rect :x="room.x" :y="room.y" :width="room.w" :height="room.h"
+                      fill="none" :stroke="roomColor(room.type)" stroke-width="0.4" stroke-dasharray="0.8,0.4" opacity="0.6" rx="0.5" />
+
+                    <!-- Room label -->
+                    <text v-if="planView === 'plan'" :x="room.x + room.w / 2" :y="room.y + room.h / 2 - 0.5"
+                      text-anchor="middle" fill="white" font-size="2.2" font-weight="500" opacity="0.9">
+                      {{ room.name }}
+                    </text>
+
+                    <!-- Dimensions -->
+                    <template v-if="planView === 'dimensions'">
+                      <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 - 1"
+                        text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="1.8">
+                        {{ (room.w * (listing.area || 85) / 5400).toFixed(0) }}m²
+                      </text>
+                      <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 + 1.5"
+                        text-anchor="middle" :fill="roomColor(room.type)" font-size="1.6" font-weight="600">
+                        {{ (room.w * 0.3).toFixed(1) }}×{{ (room.h * 0.3).toFixed(1) }}m
+                      </text>
+                    </template>
+                  </template>
+
+                  <!-- Door symbols (arcs) -->
+                  <path d="M 25 2 A 4 4 0 0 1 29 6" fill="none" stroke="rgba(167,139,250,0.5)" stroke-width="0.3" />
+                  <line x1="25" y1="2" x2="25" y2="6" stroke="rgba(167,139,250,0.4)" stroke-width="0.3" />
+
+                  <!-- Windows on top wall -->
+                  <line x1="15" y1="2" x2="22" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
+                  <line x1="35" y1="2" x2="45" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
+                  <line x1="50" y1="2" x2="58" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
+
+                  <!-- Windows on left wall -->
+                  <line x1="2" y1="35" x2="2" y2="42" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
+
+                  <!-- Total dimensions -->
+                  <text x="50" y="0.5" text-anchor="middle" fill="rgba(99,102,241,0.6)" font-size="1.8" font-weight="600">
+                    {{ (96 * 0.3).toFixed(1) }}m
+                  </text>
+                  <text x="0.8" y="30" text-anchor="middle" fill="rgba(99,102,241,0.6)" font-size="1.8" font-weight="600"
+                    transform="rotate(-90, 0.8, 30)">
+                    {{ (56 * 0.3).toFixed(1) }}m
+                  </text>
+
+                  <!-- North arrow -->
+                  <g transform="translate(92, 54)">
+                    <circle r="2.5" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.4)" stroke-width="0.2"/>
+                    <path d="M 0 -1.8 L 0.8 0.8 L 0 0.3 L -0.8 0.8 Z" fill="#6366f1" />
+                    <text y="-3" text-anchor="middle" fill="rgba(99,102,241,0.6)" font-size="1.2" font-weight="700">N</text>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Legend -->
+              <div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-white/5">
+                <div v-for="(room, i) in (listing.rooms || [])" :key="'lg'+i" class="flex items-center gap-1.5">
+                  <div class="w-3 h-3 rounded" :style="{ background: roomColor(room.type), opacity: 0.4 }" />
+                  <span class="text-xs text-ink-500">{{ room.name }}</span>
+                </div>
+                <div class="flex items-center gap-1.5 ml-auto">
+                  <div class="w-4 h-0.5 bg-blue-400/70 rounded"></div>
+                  <span class="text-xs text-ink-500">Deraza</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <svg width="14" height="14" viewBox="0 0 24 24"><path d="M4 4 A 8 8 0 0 1 12 12" fill="none" stroke="rgba(167,139,250,0.5)" stroke-width="1.5"/></svg>
+                  <span class="text-xs text-ink-500">Eshik</span>
+                </div>
+              </div>
+
+              <!-- Area summary -->
+              <div class="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5">
+                <div class="text-center">
+                  <div class="text-lg font-bold text-brand-400">{{ listing.area || 85 }}<span class="text-xs text-ink-500"> m²</span></div>
+                  <div class="text-xs text-ink-500">Umumiy maydon</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold text-brand-400">{{ (listing.rooms || []).length }}</div>
+                  <div class="text-xs text-ink-500">Xonalar</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold text-brand-400">{{ Math.ceil((listing.area || 85) / 8) }}</div>
+                  <div class="text-xs text-ink-500">Ish o\'rinlari</div>
+                </div>
+              </div>
+            </div>
+
             <!-- Building info -->
             <div class="card p-6">
               <h3 class="font-semibold mb-4">Bino ma'lumotlari</h3>
@@ -184,12 +308,31 @@ const catalogData = ref({
     { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', gallery: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png'], address: 'Mirzo Ulug\'bek, Tashkent', floorsCount: 12, totalArea: 45000, totalUnits: 420, vacantUnits: 42, type: 'BUSINESS_CENTER' },
   ],
   listings: [
-    { id: 'l1', buildingId: 'b1', titleUz: 'A-301 · 85 m² ofis', titleRu: 'A-301 · 85 м² офис', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png'], viewsCount: 234, status: 'PUBLISHED', virtualTourUrl: '', descriptionUz: 'Tashkent City 3-qavatda 85 m² ofis maydoni. Tashqi devor, 4 deraza, konditsioner.', descriptionRu: 'Офис 85 м² на 3 этаже Tashkent City. Окна, кондиционер.' },
+    { id: 'l1', buildingId: 'b1', titleUz: 'A-301 · 85 m² ofis', titleRu: 'A-301 · 85 м² офис', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png'], viewsCount: 234, status: 'PUBLISHED', virtualTourUrl: '', descriptionUz: 'Tashkent City 3-qavatda 85 m² ofis maydoni. Tashqi devor, 4 deraza, konditsioner.', descriptionRu: 'Офис 85 м² на 3 этаже Tashkent City. Окна, кондиционер.', floorPlanType: 'office', area: 85, rooms: [
+      { name: 'Resepshn', w: 25, h: 15, x: 5, y: 5, type: 'reception' },
+      { name: 'Ochiq ofis', w: 55, h: 35, x: 5, y: 25, type: 'open' },
+      { name: 'Yig\'ilish xonasi', w: 20, h: 15, x: 65, y: 5, type: 'meeting' },
+      { name: 'Oshxona', w: 20, h: 10, x: 65, y: 25, type: 'kitchen' },
+      { name: 'WC', w: 20, h: 10, x: 65, y: 40, type: 'wc' },
+    ] },
   ],
 })
 
 const listingId = route.params.id as string
-const listing = computed(() => catalogData.value?.listings?.find((l: any) => l.id === listingId))
+const listing = computed(() => {
+  const l = catalogData.value?.listings?.find((l: any) => l.id === listingId)
+  if (!l) return null
+  // Default rooms if not specified
+  if (!l.rooms) {
+    l.rooms = [
+      { name: 'Asosiy maydon', w: 60, h: 40, x: 5, y: 5, type: 'office' },
+      { name: 'Yordamchi', w: 25, h: 15, x: 70, y: 5, type: 'storage' },
+      { name: 'WC', w: 20, h: 10, x: 70, y: 25, type: 'wc' },
+    ]
+    l.area = l.area || 85
+  }
+  return l
+})
 const data = computed(() => {
   if (!listing.value || !catalogData.value) return null
   const building = catalogData.value.buildings.find((b: any) => b.id === listing.value.buildingId)
@@ -198,6 +341,7 @@ const data = computed(() => {
 const pending = ref(false)
 const error = ref('')
 
+const planView = ref<'plan' | 'dimensions'>('plan')
 const currentPhotoIdx = ref(0)
 const currentPhoto = computed(() => {
   return listing.value?.photos?.[currentPhotoIdx.value] || 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png'
@@ -247,9 +391,39 @@ function formatArea(m2: number) {
   return m2?.toLocaleString('ru-RU') || '—'
 }
 
+
+function roomColor(type: string) {
+  const colors: Record<string, string> = {
+    reception: '#a78bfa',
+    open: '#6366f1',
+    meeting: '#f59e0b',
+    kitchen: '#10b981',
+    wc: '#06b6d4',
+    storage: '#8b5cf6',
+    display: '#ec4899',
+    office: '#6366f1',
+    corridor: '#71717a',
+  }
+  return colors[type] || '#6366f1'
+}
+
 function formatPrice(price: number, currency: string) {
   if (!price) return '—'
   const formatted = new Intl.NumberFormat('ru-RU').format(price)
   return currency === 'USD' ? `$${formatted}` : `${formatted} so'm`
 }
 </script>
+
+<style scoped>
+.floor-plan-container {
+  background: rgba(99, 102, 241, 0.03);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(99, 102, 241, 0.08);
+  overflow: hidden;
+}
+.floor-plan-container svg {
+  display: block;
+  margin: 0 auto;
+}
+</style>
