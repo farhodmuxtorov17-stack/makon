@@ -4,308 +4,97 @@
       <div class="flex items-center gap-3">
         <button @click="navigateTo('/management/buildings')" class="btn btn-ghost btn-sm p-2"><ArrowLeft :size="18" /></button>
         <div>
-          <h1 class="text-2xl font-bold text-ink-900 dark:text-white">{{ building.name }}</h1>
-          <p class="text-ink-500 text-sm mt-0.5">{{ building.address }} · {{ building.floorsCount }} qavat · {{ building.totalUnits }} unit</p>
+          <h1 class="text-2xl font-bold text-ink-900 dark:text-white">{{ building?.name || 'Bino' }}</h1>
+          <p class="text-ink-500 text-sm mt-0.5">{{ building?.address }} · {{ building?.floorsCount }} qavat · {{ building?.totalUnits }} unit</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <NuxtLink :to="`/buildings/${building.slug}`" class="btn btn-secondary btn-sm"><Eye :size="14" /> Public</NuxtLink>
-        <NuxtLink :to="`/floors/3/plan`" class="btn btn-secondary btn-sm"><Map :size="14" /> 2D reja</NuxtLink>
-        <button class="btn btn-primary btn-sm btn-glow"><Edit3 :size="14" /> Tahrir</button>
+        <NuxtLink :to="`/management/buildings/${route.params.id}/units`" class="btn btn-secondary btn-sm"><Layers :size="14" /> Unitlar</NuxtLink>
+        <NuxtLink :to="`/buildings/${building?.slug || ''}`" class="btn btn-secondary btn-sm"><Eye :size="14" /> Public</NuxtLink>
       </div>
     </div>
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/management/units" />
-      <KpiCard :icon="TrendingUp" label="Band" :value="building.totalUnits" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/management/units" />
-      <KpiCard :icon="AlertCircle" label="Bo'sh" :value="building.occupiedUnits" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/management/units" />
-      <KpiCard :icon="Building2" label="Maydon" :value="building.vacantUnits" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/management/units" />
-    </div>
-
-    <!-- Tabs -->
-    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5 w-fit overflow-x-auto">
-      <button v-for="tab in tabs" :key="tab.value" @click="activeTab = tab.value"
-        class="px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-all font-medium"
-        :class="activeTab === tab.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
-        {{ tab.label }}
-      </button>
-    </div>
-
-    <!-- Passport tab -->
-    <div v-if="activeTab === 'passport'" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <div class="card p-5 lg:col-span-2">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bino pasporti</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-          <div class="passport-field">
-            <div class="text-xs text-ink-500">Nomi</div>
-            <div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.name }}</div>
-          </div>
-          <div class="passport-field">
-            <div class="text-xs text-ink-500">Manzil</div>
-            <div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.address }}</div>
-          </div>
-          <div class="passport-field">
-            <div class="text-xs text-ink-500">Tuman</div>
-            <div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.district }}</div>
-          </div>
-          <div class="passport-field">
-            <div class="text-xs text-ink-500">Turi</div>
-            <span class="badge badge-brand mt-1 text-xs">{{ building.typeLabel }}</span>
-          </div>
-          <div class="passport-field">
-            <div class="text-xs text-ink-500">Qavatlar</div>
-            <div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.floorsCount }}</div>
-          </div>
-          <div class="passport-field">
-            <div class="text-xs text-ink-500">Maydon</div>
-            <div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.totalArea }} m²</div>
-          </div>
-        </div>
-
-        <!-- Occupancy chart -->
-        <div class="mt-6">
-          <h4 class="text-sm font-semibold text-ink-900 dark:text-white mb-3">Bandlik bo'yicha qavatlar</h4>
-          <div class="space-y-2">
-            <div v-for="floor in floors" :key="floor.id" class="flex items-center gap-3">
-              <span class="text-xs text-ink-500 w-8">{{ floor.num }}-q</span>
-              <div class="flex-1 h-6 rounded-lg bg-black/5 dark:bg-white/5 overflow-hidden">
-                <div class="h-full rounded-lg flex items-center px-2 text-[10px] font-medium text-white transition-all"
-                  :style="{ width: (floor.occupied / floor.total * 100) + '%', background: floor.occupied / floor.total > 0.85 ? '#10b981' : floor.occupied / floor.total > 0.6 ? '#f59e0b' : '#ef4444' }">
-                  {{ floor.occupied }}/{{ floor.total }}
-                </div>
-              </div>
-              <span class="text-xs font-medium w-12 text-right" :class="floor.vacant > 0 ? 'text-amber-500' : 'text-ink-400'">{{ floor.vacant }} bo'sh</span>
-            </div>
-          </div>
-        </div>
+      <div class="card p-4">
+        <div class="text-xs text-ink-400 mb-1">Jami unitlar</div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ building?.totalUnits || 0 }}</div>
       </div>
-
-      <div class="space-y-4">
-        <!-- Status -->
-        <div class="card-premium p-5">
-          <h3 class="font-semibold text-ink-900 dark:text-white mb-3">Holat</h3>
-          <div class="space-y-2.5 text-sm">
-            <div class="flex items-center justify-between">
-              <span class="text-ink-500">3D model</span>
-              <span class="badge badge-success text-xs">Tayyor</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-ink-500">2D plan</span>
-              <span class="badge badge-success text-xs">Tayyor</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-ink-500">Public</span>
-              <span class="badge badge-success text-xs">Nashr etilgan</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-ink-500">Galereya</span>
-              <span class="badge badge-brand text-xs">{{ gallery.length }} rasm</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick actions -->
-        <div class="card-premium p-5">
-          <h3 class="font-semibold text-ink-900 dark:text-white mb-3">Tezkor amallar</h3>
-          <div class="space-y-2">
-            <NuxtLink :to="`/management/buildings/${building.id}/units`" class="btn btn-secondary btn-sm w-full justify-start"><Layers :size="14" /> Unitlar boshqaruvi</NuxtLink>
-            <NuxtLink :to="`/floors/${floors[0].id}/plan`" class="btn btn-secondary btn-sm w-full justify-start"><Map :size="14" /> 2D reja importi</NuxtLink>
-            <button class="btn btn-secondary btn-sm w-full justify-start"><Image :size="14" /> Galereya boshqaruvi</button>
-            <button class="btn btn-secondary btn-sm w-full justify-start"><FileText :size="14" /> Hujjatlar</button>
-          </div>
-        </div>
+      <div class="card p-4">
+        <div class="text-xs text-ink-400 mb-1">Band</div>
+        <div class="text-xl font-bold text-emerald-500">{{ building?.occupiedUnits || 0 }}</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-xs text-ink-400 mb-1">Bo'sh</div>
+        <div class="text-xl font-bold text-amber-500">{{ building?.vacantUnits || 0 }}</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-xs text-ink-400 mb-1">Maydon</div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ building?.totalArea?.toLocaleString('ru-RU') || 0 }} m²</div>
       </div>
     </div>
 
-    <!-- Floors tab -->
-    <div v-if="activeTab === 'floors'" class="card-premium p-5">
-      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Qavatlar ro'yxati</h3>
-      <div class="space-y-2">
-        <div v-for="floor in floors" :key="floor.id" class="floor-row">
-          <div class="floor-row__num">{{ floor.num }}</div>
-          <div class="flex-1 min-w-0">
-            <div class="text-sm font-medium text-ink-900 dark:text-white">{{ floor.num }}-qavat</div>
-            <div class="text-xs text-ink-500">
-              {{ floor.total }} unit · {{ floor.vacant }} bo'sh · 2D: {{ floor.hasPlan ? 'tayyor' : "yo'q" }}
-            </div>
-          </div>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <div class="hidden sm:flex items-center gap-2">
-              <div class="w-20 h-1.5 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
-                <div class="h-full rounded-full" :style="{ width: (floor.occupied / floor.total * 100) + '%', background: 'var(--accent)' }"></div>
-              </div>
-              <span class="text-xs text-ink-500">{{ Math.round(floor.occupied / floor.total * 100) }}%</span>
-            </div>
-            <NuxtLink :to="`/floors/${floor.id}/plan`" class="btn btn-ghost btn-sm"><Map :size="14" /></NuxtLink>
-            <NuxtLink :to="`/management/buildings/${building.id}/units`" class="btn btn-ghost btn-sm"><Layers :size="14" /></NuxtLink>
-          </div>
-        </div>
+    <!-- Building units -->
+    <div class="card overflow-hidden">
+      <div class="px-4 py-3 border-b border-ink-100 dark:border-white/10">
+        <h3 class="text-sm font-semibold text-ink-900 dark:text-white">Unitlar ({{ buildingUnits.length }})</h3>
       </div>
+      <table class="w-full" v-if="buildingUnits.length">
+        <thead>
+          <tr class="border-b border-ink-100 dark:border-white/10">
+            <th class="text-left text-xs text-ink-400 px-4 py-3">Unit</th>
+            <th class="text-left text-xs text-ink-400 px-4 py-3">Qavat</th>
+            <th class="text-left text-xs text-ink-400 px-4 py-3">Maydon</th>
+            <th class="text-left text-xs text-ink-400 px-4 py-3">Status</th>
+            <th class="text-right text-xs text-ink-400 px-4 py-3">Ijara</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="u in buildingUnits" :key="u.id" class="border-b border-ink-50 dark:border-white/5 hover:bg-ink-50 dark:hover:bg-white/5">
+            <td class="px-4 py-3 text-sm font-medium text-ink-900 dark:text-white">{{ u.unitNumber }}</td>
+            <td class="px-4 py-3 text-sm text-ink-400">{{ u.floor }}</td>
+            <td class="px-4 py-3 text-sm text-ink-400">{{ u.area }} m²</td>
+            <td class="px-4 py-3">
+              <span class="text-xs px-2 py-1 rounded-full" :class="u.status === 'OCCUPIED' ? 'bg-emerald-500/10 text-emerald-500' : u.status === 'RESERVED' ? 'bg-amber-500/10 text-amber-500' : 'bg-blue-500/10 text-blue-500'">
+                {{ statusLabel(u.status) }}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-right text-sm text-ink-600 dark:text-ink-300">{{ u.monthlyRent?.toLocaleString('ru-RU') || '—' }} {{ u.currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div v-else class="px-4 py-8 text-center text-sm text-ink-400">Unitlar topilmadi</div>
     </div>
 
-    <!-- Gallery tab -->
-    <div v-if="activeTab === 'gallery'" class="card-premium p-5">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-ink-900 dark:text-white">Fotogalereya</h3>
-        <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Rasm qo'shish</button>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div v-for="(photo, i) in gallery" :key="i" class="gallery-item">
-          <img :src="photo.url" :alt="photo.alt" loading="lazy" />
-          <span class="gallery-item__overlay">{{ photo.label }}</span>
+    <!-- Building info -->
+    <div class="card p-5" v-if="building">
+      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bino pasporti</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+        <div><div class="text-xs text-ink-500">Tuman</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.district }}</div></div>
+        <div><div class="text-xs text-ink-500">Qurilish yili</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.buildYear }}</div></div>
+        <div><div class="text-xs text-ink-500">Kadastr</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.cadastralNumber }}</div></div>
+        <div><div class="text-xs text-ink-500">Status</div>
+          <span class="badge mt-1 text-xs" :class="building.isPublished ? 'badge-success' : 'badge-warning'">{{ building.isPublished ? 'Faol' : 'Qoralama' }}</span>
         </div>
-      </div>
-    </div>
-
-    <!-- Docs tab -->
-    <div v-if="activeTab === 'docs'" class="card-premium p-5">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-ink-900 dark:text-white">Hujjatlar</h3>
-        <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yuklash</button>
-      </div>
-      <div class="space-y-2">
-        <div v-for="doc in docs" :key="doc.name" class="doc-row">
-          <div class="doc-row__icon"><FileText :size="18" class="text-brand-500" /></div>
-          <div class="flex-1 min-w-0">
-            <div class="text-sm font-medium text-ink-900 dark:text-white">{{ doc.name }}</div>
-            <div class="text-xs text-ink-500">{{ doc.type }} · {{ doc.size }} · {{ doc.date }}</div>
-          </div>
-          <button class="btn btn-ghost btn-sm"><Download :size="14" /></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Analytics tab -->
-    <div v-if="activeTab === 'analytics'" class="space-y-4">
-      <div class="card-premium p-5">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Tushum dinamikasi</h3>
-        <MakonChart type="area" :series="revenueSeries" :categories="months" :height="240" :colors="['var(--accent)']" />
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="card-premium p-5">
-          <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Unit turlari</h3>
-          <MakonChart type="donut" :series="[180, 120, 80, 40]" :donutLabels="['Ofis', 'Savdo', 'Ombor', 'Boshqa']" :height="240" :colors="['var(--accent)', '#3b82f6', '#10b981', '#f59e0b']" />
-        </div>
-        <div class="card-premium p-5">
-          <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis so'rovlari</h3>
-          <MakonChart type="bar" :series="serviceSeries" :categories="serviceCats" :height="240" :colors="['#f59e0b']" />
-        </div>
+        <div><div class="text-xs text-ink-500">3D model</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.has3dModel ? 'Bor' : 'Yo\'q' }}</div></div>
+        <div><div class="text-xs text-ink-500">Qulayliklar</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.amenities?.length || 0 }} ta</div></div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import KpiCard from '~/components/KpiCard.vue'
-import {
-  ArrowLeft, Eye, Edit3, Layers, Map, Plus, FileText, Download,
-  CheckCircle2, AlertCircle, Ruler, Image,
-} from 'lucide-vue-next'
+import { ArrowLeft, Layers, Eye } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const route = useRoute()
-const activeTab = ref('passport')
-const tabs = [
-  { value: 'passport', label: 'Pasport' },
-  { value: 'floors', label: 'Qavatlar' },
-  { value: 'gallery', label: 'Galereya' },
-  { value: 'docs', label: 'Hujjatlar' },
-  { value: 'analytics', label: 'Analitika' },
-]
+const store = useMakonStore()
 
-const building = {
-  id: route.params.id, slug: 'tashkent-city', name: 'Tashkent City',
-  address: "Tashkent sh., Mirzo Ulug'bek tumani", district: "Mirzo Ulug'bek",
-  typeLabel: 'Biznes markaz', floorsCount: 12, totalArea: 28000,
-  totalUnits: 420, occupiedUnits: 378, vacantUnits: 42,
+const building = computed(() => store.buildings.find(b => b.id === route.params.id))
+const buildingUnits = computed(() => store.units.filter(u => u.buildingId === route.params.id))
+
+function statusLabel(s: string) {
+  return { OCCUPIED: 'Band', RESERVED: 'Reserv', VACANT: 'Bo\'sh' }[s] || s
 }
-
-const floors = [
-  { id: 'f12', num: 12, total: 35, occupied: 33, vacant: 2, hasPlan: true },
-  { id: 'f11', num: 11, total: 35, occupied: 31, vacant: 4, hasPlan: true },
-  { id: 'f10', num: 10, total: 35, occupied: 32, vacant: 3, hasPlan: true },
-  { id: 'f9', num: 9, total: 35, occupied: 30, vacant: 5, hasPlan: true },
-  { id: 'f8', num: 8, total: 35, occupied: 31, vacant: 4, hasPlan: false },
-  { id: 'f7', num: 7, total: 35, occupied: 27, vacant: 8, hasPlan: true },
-  { id: 'f6', num: 6, total: 35, occupied: 33, vacant: 2, hasPlan: true },
-  { id: 'f5', num: 5, total: 35, occupied: 32, vacant: 3, hasPlan: true },
-]
-
-const gallery = [
-  { url: '/buildings/hero-tashkent.jpg', alt: 'Facade', label: 'Fasod' },
-  { url: '/buildings/bc-navroz.jpg', alt: 'Office', label: 'Ofis' },
-  { url: '/buildings/bc-city-plaza.jpg', alt: 'Lobby', label: 'Lobbi' },
-  { url: '/buildings/hero-tashkent.jpg', alt: 'Retail', label: 'Savdo' },
-  { url: '/buildings/bc-navroz.jpg', alt: 'Corridor', label: 'Koridor' },
-  { url: '/buildings/bc-city-plaza.jpg', alt: 'Aerial', label: 'Havodan' },
-  { url: '/buildings/hero-tashkent.jpg', alt: 'Night', label: 'Kechasi' },
-  { url: '/buildings/bc-navroz.jpg', alt: 'Meeting', label: 'Konferensiya' },
-]
-
-const docs = [
-  { name: 'Texnik pasport.pdf', type: 'PDF', size: '2.4 MB', date: '10 Yan 2026' },
-  { name: 'Arxitektura loyihasi.pdf', type: 'PDF', size: '12 MB', date: '5 Yan 2026' },
-  { name: '3D model.glb', type: 'GLB', size: '45 MB', date: '15 Dek 2025' },
-  { name: 'Foto obeyektga.djvu', type: 'DJVU', size: '5.6 MB', date: '20 Dek 2025' },
-]
-
-const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']
-const revenueSeries = [{ name: 'Tushum (mln)', data: [380, 390, 400, 410, 415, 420] }]
-
-const serviceCats = ['Elektr', 'Santexnika', 'Lift', 'Kondit.', 'Eshik', 'Boshqa']
-const serviceSeries = [{ name: 'So\'rovlar', data: [12, 8, 5, 7, 4, 6] }]
 </script>
-
-<style scoped>
-.passport-field {
-  padding: 10px;
-  border-radius: 10px;
-  background: rgba(0,0,0,0.02);
-}
-.dark .passport-field { background: rgba(255,255,255,0.02); }
-.floor-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  transition: background 0.15s;
-}
-.floor-row:hover { background: rgba(0,0,0,0.03); }
-.dark .floor-row:hover { background: rgba(255,255,255,0.03); }
-.floor-row__num {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(37,99,235,0.1); color: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 700; flex-shrink: 0;
-}
-.gallery-item {
-  position: relative;
-  aspect-ratio: 1;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-}
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-.gallery-item:hover img { transform: scale(1.05); }
-.gallery-item__overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 8px;
-  background: linear-gradient(transparent, rgba(0,0,0,0.7));
-  color: white; font-size: 12px; font-weight: 600;
-}
-.doc-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  transition: background 0.15s;
-}
-.doc-row:hover { background: rgba(0,0,0,0.03); }
-.dark .doc-row:hover { background: rgba(255,255,255,0.03); }
-.doc-row__icon {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(37,99,235,0.08);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-</style>

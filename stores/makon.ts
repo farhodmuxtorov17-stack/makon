@@ -826,6 +826,11 @@ export const useMakonStore = defineStore('makon', () => {
   })
 
   // Methods
+  function updateBuilding(id: string, patch: Partial<BuildingItem>) {
+    const b = buildings.value.find(b => b.id === id);
+    if (b) Object.assign(b, patch);
+  }
+
   function addBuilding(b: Omit<BuildingItem, 'id' | 'slug' | 'occupiedUnits' | 'reservedUnits' | 'vacantUnits'>) {
     const id = `b-${Date.now()}`
     const slug = b.name.toLowerCase().replace(/[^a-z0-0]/g, '-').replace(/-+/g, '-')
@@ -939,6 +944,8 @@ export const useMakonStore = defineStore('makon', () => {
     contracts,
     eriSignatures,
     visualSettings,
+    updateBuilding,
+
     addBuilding,
     addUnit,
     updateUnitStatus,
