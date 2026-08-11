@@ -43,6 +43,9 @@
       <!-- View toggle + filters button -->
       <div class="catalog-toolbar__actions">
         <div class="catalog-view-toggle">
+          <button :class="{ active: view === 'split' }" @click="view = 'split'" title="Ro'yxat + Xarita">
+            <Columns3 :size="15" />
+          </button>
           <button :class="{ active: view === 'list' }" @click="view = 'list'" title="Ro'yxat">
             <List :size="15" />
           </button>
@@ -148,17 +151,18 @@
       </aside>
 
       <!-- ---------- LISTINGS ---------- -->
-      <section v-if="view !== 'map'" class="catalog-listings">
-        <!-- LIST VIEW -->
-        <div v-if="view === 'list'" class="catalog-listings__list">
+      <section v-if="view !== 'map'" class="catalog-listings" :class="{ 'catalog-listings--split': view === 'split' }">
+        <!-- LIST / SPLIT VIEW -->
+        <div v-if="view === 'list' || view === 'split'" class="catalog-listings__list">
           <div
             v-for="item in filteredListings"
             :id="`listing-${item.id}`"
             :key="item.id"
             class="listing-card"
-            :class="{ 'listing-card--active': activeId === item.id }"
-            @mouseenter="activeId = item.id"
-            @mouseleave="activeId = null"
+            :class="{ 'listing-card--active': selectedId === item.id }"
+            @click="selectOnMap(item.id)"
+            @mouseenter="hoverId = item.id"
+            @mouseleave="hoverId = null"
           >
             <NuxtLink :to="`/listings/${item.id}`" class="listing-card__photo">
               <img :src="item.photo" :alt="item.title" loading="lazy" />
@@ -190,8 +194,8 @@
             :key="item.id"
             :to="`/listings/${item.id}`"
             class="grid-card"
-            @mouseenter="activeId = item.id"
-            @mouseleave="activeId = null"
+            @mouseenter="hoverId = item.id"
+            @mouseleave="hoverId = null"
           >
             <div class="grid-card__image">
               <img :src="item.photo" :alt="item.title" loading="lazy" />
@@ -219,13 +223,30 @@
         </div>
       </section>
 
-      <!-- ---------- MAP VIEW ---------- -->
+      <!-- ---------- MAP VIEW (full) ---------- -->
       <section v-if="view === 'map'" class="catalog-map-col">
         <ClientOnly>
           <CatalogMap
             :listings="mapListings"
             :center="[41.2995, 69.2401]"
             :zoom="11"
+            :focus-id="selectedId"
+            @select="handleMarkerSelect"
+          />
+          <template #fallback>
+            <div class="catalog-map-fallback">Xarita yuklanmoqda...</div>
+          </template>
+        </ClientOnly>
+      </section>
+
+      <!-- ---------- MAP COLUMN (split view, list + map side by side) ---------- -->
+      <section v-if="view === 'split'" class="catalog-map-col catalog-map-col--split">
+        <ClientOnly>
+          <CatalogMap
+            :listings="mapListings"
+            :center="[41.2995, 69.2401]"
+            :zoom="11"
+            :focus-id="selectedId"
             @select="handleMarkerSelect"
           />
           <template #fallback>
@@ -273,7 +294,7 @@ import {
   Heart, GitCompareArrows, ChevronDown, List, MapPin, SlidersHorizontal,
   SearchX, Ruler, ArrowRight, X, Building2, ShoppingBag, Warehouse,
   Home as HomeIcon, Search, Plus, LayoutGrid, Crown, ChevronLeft, ChevronRight,
-  ArrowUpDown, Clock, Factory,
+  ArrowUpDown, Clock, Factory, Columns3,
 } from 'lucide-vue-next'
 
 definePageMeta({ layout: false })
@@ -373,12 +394,14 @@ const filteredListings = computed(() => {
 
 const mapListings = computed(() => filteredListings.value.map(l => ({
   id: l.id, lat: l.lat, lng: l.lng, priceLabel: l.priceShort, title: l.title,
-  href: `/listings/${l.id}`, active: activeId.value === l.id,
+  href: `/listings/${l.id}`, active: selectedId.value === l.id || hoverId.value === l.id,
 })))
 
 // ---------------- UI state ----------------
-const view = ref<'list' | 'grid' | 'map'>('list')
-const activeId = ref<string | null>(null)
+const route = useRoute()
+const view = ref<'list' | 'grid' | 'map' | 'split'>(route.query.view === 'map' ? 'map' : route.query.view === 'grid' ? 'grid' : 'split')
+const selectedId = ref<string | null>(null)
+const hoverId = ref<string | null>(null)
 const favorites = ref<Set<string>>(new Set())
 const favoritesView = ref(false)
 const lang = ref<'uz' | 'ru'>('uz')
@@ -401,9 +424,15 @@ function scrollVip(dir: number) {
 }
 
 function handleMarkerSelect(id: string) {
-  activeId.value = id
-  view.value = 'list'
+  selectedId.value = id
+  if (view.value === 'map') {
+    view.value = 'split'
+  }
   nextTick(() => document.getElementById(`listing-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
+}
+
+function selectOnMap(id: string) {
+  selectedId.value = id
 }
 
 // Chip cycling
@@ -670,6 +699,8 @@ function cycleRegion() {
 
 /* ============ LISTINGS ============ */
 .catalog-listings { flex: 1; overflow-y: auto; padding: 12px; }
+.catalog-listings--split { flex: 0 0 400px; width: 400px; max-width: 400px; border-right: 1px solid rgba(0,0,0,0.06); }
+.dark .catalog-listings--split { border-right-color: rgba(255,255,255,0.06); }
 .catalog-listings__list { display: flex; flex-direction: column; gap: 10px; }
 .catalog-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; }
 
@@ -680,6 +711,9 @@ function cycleRegion() {
 }
 .dark .listing-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
 .listing-card:hover, .listing-card--active { border-color: rgba(99,102,241,0.4); box-shadow: 0 4px 16px rgba(99,102,241,0.12); }
+.listing-card { cursor: pointer; }
+.listing-card--active { border-color: #6366f1; background: rgba(99,102,241,0.05); box-shadow: 0 6px 20px rgba(99,102,241,0.18), 0 0 0 1px rgba(99,102,241,0.3); }
+.dark .listing-card--active { background: rgba(99,102,241,0.08); }
 .listing-card__photo {
   position: relative; width: 128px; height: 96px; flex-shrink: 0;
   border-radius: 10px; overflow: hidden; display: block;
@@ -745,6 +779,7 @@ function cycleRegion() {
 
 /* ============ MAP ============ */
 .catalog-map-col { flex: 1; position: relative; min-height: 500px; }
+.catalog-map-col--split { min-height: 0; }
 .catalog-map-fallback {
   width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
   color: #a1a1aa; background: #eef0f4;
@@ -774,6 +809,12 @@ function cycleRegion() {
   .catalog-topbar__search { max-width: 200px; }
   .catalog-login-btn { display: none; }
   .catalog-sidebar { display: none; }
+  .catalog-listings--split { flex: 0 0 340px; width: 340px; max-width: 340px; }
+}
+@media (max-width: 900px) {
+  .catalog-body:has(.catalog-map-col--split) { flex-direction: column; }
+  .catalog-listings--split { width: 100%; max-width: 100%; flex: 1 1 auto; border-right: none; }
+  .catalog-map-col--split { min-height: 380px; flex: 0 0 380px; }
 }
 @media (max-width: 640px) {
   .catalog-topbar__search { max-width: 150px; }

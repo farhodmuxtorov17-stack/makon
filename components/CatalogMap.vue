@@ -22,6 +22,7 @@ const props = defineProps<{
   listings: MapListing[]
   center?: [number, number]
   zoom?: number
+  focusId?: string | null
 }>()
 
 const emit = defineEmits<{ (e: 'select', id: string): void }>()
@@ -72,6 +73,13 @@ function renderMarkers() {
 
 watch(() => props.listings, () => {
   renderMarkers()
+})
+
+watch(() => props.focusId, (id) => {
+  if (!mapInstance || !id) return
+  const target = props.listings.find(l => l.id === id)
+  if (!target) return
+  mapInstance.flyTo([target.lat, target.lng], Math.max(mapInstance.getZoom(), 14), { duration: 0.7 })
 })
 
 onMounted(() => {
