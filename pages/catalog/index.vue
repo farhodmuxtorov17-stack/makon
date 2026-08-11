@@ -164,15 +164,16 @@
             @mouseenter="hoverId = item.id"
             @mouseleave="hoverId = null"
           >
-            <NuxtLink :to="`/listings/${item.id}`" class="listing-card__photo">
+            <div class="listing-card__photo" @click="view === 'split' ? selectOnMap(item.id) : null">
               <img :src="item.photo" :alt="item.title" loading="lazy" />
-              <button class="listing-card__fav" @click.prevent="toggleFavorite(item.id)">
+              <button class="listing-card__fav" @click.stop="toggleFavorite(item.id)">
                 <Heart :size="15" :fill="favorites.has(item.id) ? '#ef4444' : 'none'" :class="favorites.has(item.id) ? 'text-red-500' : 'text-ink-400'" />
               </button>
               <span class="listing-card__type-badge" :class="`listing-card__type-badge--${item.typeColor}`">{{ item.typeLabel }}</span>
-            </NuxtLink>
+            </div>
             <div class="listing-card__body">
-              <NuxtLink :to="`/listings/${item.id}`" class="listing-card__title">{{ item.title }}</NuxtLink>
+              <NuxtLink v-if="view !== 'split'" :to="`/listings/${item.id}`" class="listing-card__title">{{ item.title }}</NuxtLink>
+              <div v-else class="listing-card__title" @click="selectOnMap(item.id)">{{ item.title }}</div>
               <div class="listing-card__address"><MapPin :size="12" /><span>{{ item.address }}</span></div>
               <div class="listing-card__meta">
                 <span><Ruler :size="12" /> {{ item.area }} m²</span>
@@ -181,7 +182,7 @@
               </div>
               <div class="listing-card__footer">
                 <span class="listing-card__price">{{ item.priceFormatted }}</span>
-                <NuxtLink :to="`/listings/${item.id}`" class="listing-card__cta">Batafsil <ArrowRight :size="14" /></NuxtLink>
+                <NuxtLink :to="`/listings/${item.id}`" class="listing-card__cta" @click.stop>Batafsil <ArrowRight :size="14" /></NuxtLink>
               </div>
             </div>
           </div>
