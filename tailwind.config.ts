@@ -8,6 +8,7 @@ export default {
     './composables/**/*.{js,ts}',
     './app.vue',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -17,9 +18,9 @@ export default {
           800: '#115E56', 900: '#134E4A', 950: '#042F2E',
         },
         ink: {
-          50: '#FAFAF9', 100: '#F5F5F4', 200: '#E7E5E4', 300: '#D6D3D1',
-          400: '#A8A29E', 500: '#78716C', 600: '#57534E', 700: '#44403C',
-          800: '#292524', 900: '#1C1917', 950: '#0C0A09',
+          50: '#FAFAFA', 100: '#F4F4F5', 200: '#E4E4E7', 300: '#D4D4D8',
+          400: '#A1A1AA', 500: '#71717A', 600: '#52525B', 700: '#3F3F46',
+          800: '#27272A', 900: '#18181B', 950: '#09090B',
         },
       },
       fontFamily: {
@@ -37,22 +38,31 @@ export default {
         '3xl': ['26px', '32px'],
       },
       borderRadius: {
-        'xl': '10px',
-        '2xl': '14px',
-        '3xl': '16px',
+        'xl': '12px',
+        '2xl': '16px',
+        '3xl': '20px',
       },
       boxShadow: {
         'card': '0 1px 2px rgba(0,0,0,0.03)',
-        'card-hover': '0 2px 8px rgba(0,0,0,0.04)',
+        'card-hover': '0 4px 12px rgba(0,0,0,0.04)',
         'drawer': '0 -12px 40px rgba(0,0,0,0.08)',
+        'glow': '0 0 0 4px rgba(15,118,110,0.08)',
       },
       animation: {
-        'fade-in': 'fade-in 0.2s ease-out',
-        'slide-in': 'slide-in 0.25s ease-out',
-        'scale-in': 'scale-in 0.2s ease-out',
+        'fade-in': 'fade-in 0.3s ease-out',
+        'slide-in': 'slide-in 0.3s ease-out',
+        'scale-in': 'scale-in 0.25s ease-out',
+        'fade-up': 'fade-up 0.4s cubic-bezier(0.4,0,0.2,1)',
       },
       transitionTimingFunction: {
         'smooth': 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+        'premium': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      keyframes: {
+        'fade-in': { from: { opacity: '0', transform: 'translateY(4px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+        'slide-in': { from: { opacity: '0', transform: 'translateX(-8px)' }, to: { opacity: '1', transform: 'translateX(0)' } },
+        'scale-in': { from: { opacity: '0', transform: 'scale(0.96)' }, to: { opacity: '1', transform: 'scale(1)' } },
+        'fade-up': { from: { opacity: '0', transform: 'translateY(16px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
       },
     },
   },
