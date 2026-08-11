@@ -1,7 +1,8 @@
 <template>
   <div class="space-y-5">
     <div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Tizim sozlamalari</h1>
+      <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / SETTINGS</div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Tizim sozlamalari</h1>
       <p class="text-ink-500 text-sm mt-1">Platforma konfiguratsiyasi va integratsiyalar</p>
     </div>
 

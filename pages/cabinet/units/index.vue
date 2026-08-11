@@ -2,10 +2,43 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Mening unitlarim</h1>
+        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">CABINET / UNITS</div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Mening unitlarim</h1>
         <p class="text-ink-500 text-sm mt-1">{{ units.length }} ta unit · {{ totalArea }} m² jami maydon</p>
       </div>
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
+    </div>
+
+    <!-- Premium KPI strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><Building2 :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ units.length }}</div>
+          <div class="kpi-strip__label">Mening unitlarim</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><Ruler :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ totalArea }}<span class="text-sm font-500"> m²</span></div>
+          <div class="kpi-strip__label">Jami maydon</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><Wallet :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ formatUZSShort(totalMonthlyRent) }}</div>
+          <div class="kpi-strip__label">Oylik to'lov</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--rose">
+        <div class="kpi-strip__icon"><AlertCircle :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ totalDebt > 0 ? formatUZSShort(totalDebt) : "Yo'q" }}</div>
+          <div class="kpi-strip__label">Qarzdorlik</div>
+        </div>
+      </div>
     </div>
 
     <!-- Unit cards grid -->
@@ -75,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import { Plus } from 'lucide-vue-next'
+import { Plus, Building2, Ruler, Wallet, AlertCircle } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
@@ -103,6 +136,8 @@ const units = [
 ]
 
 const totalArea = computed(() => units.reduce((s, u) => s + u.area, 0))
+const totalMonthlyRent = computed(() => units.filter(u => u.type === 'RENT').reduce((s, u) => s + (u.rent ? parseInt(u.rent) * 1000000 : 0), 0))
+const totalDebt = computed(() => units.reduce((s, u) => s + u.debt, 0))
 
 
 </script>
@@ -140,4 +175,23 @@ const totalArea = computed(() => units.reduce((s, u) => s + u.area, 0))
 .unit-detail-card__badge--rent { background: var(--accent); }
 .unit-detail-card__badge--owned { background: #10b981; }
 .unit-detail-card__body { padding: 16px; }
+
+.kpi-strip {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px; position: relative; overflow: hidden;
+}
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--rose::before { background: #f43f5e; }
+.kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); color: #f43f5e; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+:deep(.dark) .kpi-strip { border-color: rgba(255,255,255,0.06); }
 </style>

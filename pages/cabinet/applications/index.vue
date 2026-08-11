@@ -2,7 +2,8 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Ariza va hujjatlar</h1>
+        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">CABINET / APPLICATIONS</div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Ariza va hujjatlar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ apps.length }} ta ariza · {{ activeCount }} faol</p>
       </div>
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
