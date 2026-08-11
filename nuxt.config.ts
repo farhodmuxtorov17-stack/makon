@@ -46,7 +46,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/catalog', '/login', '/register/eri', '/200.html', '/floors/3/plan'],
+      routes: ['/', '/catalog', '/login', '/register/eri', '/200.html', '/floors/3/plan', '/cabinet', '/cabinet/applications', '/cabinet/units', '/cabinet/contracts', '/cabinet/service-requests', '/cabinet/services', '/cabinet/meter-readings', '/meters', '/notifications', '/finance/approvals', '/admin/backups', '/admin/settings', '/admin/notification-templates', '/admin/users', '/admin/roles', '/profile', '/reports/executive', '/reports/building', '/finance/inventory', '/finance/stock-issues', '/facility/material-requests'],
       failOnError: false,
     },
   },

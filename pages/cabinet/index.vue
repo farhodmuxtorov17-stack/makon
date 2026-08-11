@@ -131,7 +131,7 @@
 
 <script setup lang="ts">
 import KpiCard from '~/components/KpiCard.vue'
-import { Plus, Layers, ScrollText, FileText, Wallet, Wrench, Receipt, AlertCircle, CheckCircle2 } from 'lucide-vue-next'
+import { Plus, Layers, ScrollText, FileText, Wallet, Wrench, Receipt, AlertCircle, CheckCircle2, ShieldCheck } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
