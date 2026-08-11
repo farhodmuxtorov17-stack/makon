@@ -29,9 +29,7 @@
 
       <!-- Hero content -->
       <div class="hero-content">
-        <div class="hero-badge">
-          Toshkent tijoriy ko'chmas mulk platformasi
-        </div>
+
         <h1 class="hero-title">
           Binolarning<br>
           <span class="hero-title__accent">raqamli nazorati</span>
@@ -66,28 +64,7 @@
           </div>
         </div>
 
-        <!-- Stats -->
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat__num">12</div>
-            <div class="hero-stat__label">Premium binolar</div>
-          </div>
-          <div class="hero-stat__divider hidden md:block"></div>
-          <div class="hero-stat">
-            <div class="hero-stat__num">47</div>
-            <div class="hero-stat__label">Bo'sh maydonlar</div>
-          </div>
-          <div class="hero-stat__divider hidden md:block"></div>
-          <div class="hero-stat">
-            <div class="hero-stat__num">420</div>
-            <div class="hero-stat__label">Jami unitlar</div>
-          </div>
-          <div class="hero-stat__divider hidden md:block"></div>
-          <div class="hero-stat">
-            <div class="hero-stat__num">89%</div>
-            <div class="hero-stat__label">Bandlik</div>
-          </div>
-        </div>
+
       </div></section>
 
     <!-- ============ FEATURED BUILDINGS ============ -->
@@ -583,20 +560,7 @@ function formatPrice(v: number) {
   max-width: 900px;
   margin: 0 auto;
 }
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 16px;
-  border-radius: 100px;
-  background: rgba(99,102,241,0.15);
-  border: 1px solid rgba(99,102,241,0.3);
-  color: #a5b4fc;
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 24px;
-  backdrop-filter: blur(12px);
-}
+
 
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
@@ -697,42 +661,7 @@ function formatPrice(v: number) {
 }
 
 /* Stats */
-.hero-stats {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  margin-top: 48px;
-}
-.hero-stat__num {
-  font-size: 36px;
-  font-weight: 800;
-  color: white;
-  letter-spacing: -0.02em;
-}
-.hero-stat__label {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  margin-top: 2px;
-}
-.hero-stat__divider {
-  width: 1px;
-  height: 40px;
-  background: rgba(255,255,255,0.15);
-}
 
-/* Scroll indicator */
-
-
-@keyframes scrollLine {
-  0% { transform: scaleY(0); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
-  51% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
-
-/* ============ TRUST BAR ============ */
-
-:deep(.dark) 
 
 
 
@@ -1501,8 +1430,8 @@ function formatPrice(v: number) {
   .hero-nav { padding: 16px 20px; }
   .hero-nav__links { display: none; }
   .hero-content { padding: 0 20px; }
-  .hero-stats { flex-wrap: wrap; justify-content: center; gap: 20px; }
-  .hero-stat__divider { display: none; }
+  
+  
 }
 
 /* ============ MAKON AI WIDGET ============ */
