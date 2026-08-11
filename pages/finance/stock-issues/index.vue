@@ -38,28 +38,28 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><ArrowDownToLine :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="inventory" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.length }}</div>
           <div class="kpi-strip__label">Jami chiqarish</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'COMPLETED').length }}</div>
           <div class="kpi-strip__label">Berilgan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><Clock :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'PENDING').length }}</div>
           <div class="kpi-strip__label">Kutilmoqda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--violet">
-        <div class="kpi-strip__icon"><Wallet :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="debt" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ formatUZSShort(totalValue) }}</div>
           <div class="kpi-strip__label">Jami qiymat</div>

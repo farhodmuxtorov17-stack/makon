@@ -14,10 +14,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Package" label="Jami pozitsiyalar" :value="materials.length" icon-color="#f97316" icon-bg="rgba(249,115,22,0.1)" to="/finance/inventory" :sparkData="[20,22,25,23,28,26,30]" sparkColor="#f97316" />
-      <KpiCard :icon="CheckCircle2" label="Ombor qiymati" :value="formatUZSShort(totalValue)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/inventory" :sparkData="[30,35,40,42,48,52,55]" sparkColor="#10b981" />
-      <KpiCard :icon="AlertCircle" label="Kam qoldi" :value="lowStockCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/inventory" :sparkData="[5,3,4,6,8,7,9]" sparkColor="#ef4444" />
-      <KpiCard :icon="Layers" label="Oylik sarflash" :value="formatUZSShort(monthlyUsage)" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/finance/inventory" :sparkData="[40,35,42,38,45,50,48]" sparkColor="var(--accent)" />
+      <KpiCard scene3d="inventory" label="Jami pozitsiyalar" :value="materials.length" icon-color="#f97316" icon-bg="rgba(249,115,22,0.1)" to="/finance/inventory" :sparkData="[20,22,25,23,28,26,30]" sparkColor="#f97316" />
+      <KpiCard scene3d="paid" label="Ombor qiymati" :value="formatUZSShort(totalValue)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/inventory" :sparkData="[30,35,40,42,48,52,55]" sparkColor="#10b981" />
+      <KpiCard scene3d="overdue" label="Kam qoldi" :value="lowStockCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/inventory" :sparkData="[5,3,4,6,8,7,9]" sparkColor="#ef4444" />
+      <KpiCard scene3d="buildings" label="Oylik sarflash" :value="formatUZSShort(monthlyUsage)" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/finance/inventory" :sparkData="[40,35,42,38,45,50,48]" sparkColor="var(--accent)" />
     </div>
 
     <!-- Category filter + search -->

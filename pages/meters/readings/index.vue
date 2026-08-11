@@ -10,10 +10,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Zap" label="Elektr" :value="electricReadings" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/meters/readings" />
-      <KpiCard :icon="Droplets" label="Suv" :value="waterReadings" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/meters/readings" />
-      <KpiCard :icon="Flame" label="Gaz" :value="gasReadings" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/meters/readings" />
-      <KpiCard :icon="AlertCircle" label="O'qilmagan" :value="unreadCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/meters/readings" />
+      <KpiCard scene3d="service" label="Elektr" :value="electricReadings" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/meters/readings" />
+      <KpiCard scene3d="service" label="Suv" :value="waterReadings" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/meters/readings" />
+      <KpiCard scene3d="overdue" label="Gaz" :value="gasReadings" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/meters/readings" />
+      <KpiCard scene3d="overdue" label="O'qilmagan" :value="unreadCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/meters/readings" />
     </div>
 
     <!-- Filters -->

@@ -43,28 +43,28 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><Package :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="inventory" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ requests.length }}</div>
           <div class="kpi-strip__label">Jami so'rov</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ requests.filter(r => r.status === 'APPROVED').length }}</div>
           <div class="kpi-strip__label">Tasdiqlangan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><Clock :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ requests.filter(r => r.status === 'PENDING').length }}</div>
           <div class="kpi-strip__label">Kutilmoqda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--rose">
-        <div class="kpi-strip__icon"><XCircle :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ requests.filter(r => r.status === 'REJECTED').length }}</div>
           <div class="kpi-strip__label">Rad etilgan</div>

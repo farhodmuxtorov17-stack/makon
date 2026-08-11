@@ -2,32 +2,47 @@
   <div>
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-xl font-bold text-ink-900 dark:text-white">Dashboard</h1>
+        <h1 class="text-xl font-bold text-ink-900 dark:text-white">Ish stoli</h1>
         <p class="text-sm text-ink-400 mt-0.5">{{ store.buildings.length }} ta biznes markaz</p>
       </div>
     </div>
 
-    <!-- KPIs from store -->
+    <!-- 3D KPI Cards -->
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Jami unitlar</div>
-        <div class="text-lg font-bold text-ink-900 dark:text-white">{{ totalUnits }}</div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="buildings" :size="48" />
+        <div>
+          <div class="text-xs text-ink-400 mb-0.5">Jami unitlar</div>
+          <div class="text-lg font-bold text-ink-900 dark:text-white">{{ totalUnits }}</div>
+        </div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Band</div>
-        <div class="text-lg font-bold text-emerald-500">{{ totalOccupied }}</div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="occupancy" :size="48" />
+        <div>
+          <div class="text-xs text-ink-400 mb-0.5">Band</div>
+          <div class="text-lg font-bold text-emerald-500">{{ totalOccupied }}</div>
+        </div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Bo'sh</div>
-        <div class="text-lg font-bold text-amber-500">{{ totalVacant }}</div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="units" :size="48" />
+        <div>
+          <div class="text-xs text-ink-400 mb-0.5">Bo'sh</div>
+          <div class="text-lg font-bold text-amber-500">{{ totalVacant }}</div>
+        </div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Arizalar</div>
-        <div class="text-lg font-bold text-blue-500">{{ store.applications.length }}</div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="applications" :size="48" />
+        <div>
+          <div class="text-xs text-ink-400 mb-0.5">Arizalar</div>
+          <div class="text-lg font-bold text-blue-500">{{ store.applications.length }}</div>
+        </div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Shartnomalar</div>
-        <div class="text-lg font-bold text-ink-900 dark:text-white">{{ activeContracts }}</div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="contract" :size="48" />
+        <div>
+          <div class="text-xs text-ink-400 mb-0.5">Shartnomalar</div>
+          <div class="text-lg font-bold text-ink-900 dark:text-white">{{ activeContracts }}</div>
+        </div>
       </div>
     </div>
 

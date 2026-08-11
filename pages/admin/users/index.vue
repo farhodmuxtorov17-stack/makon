@@ -11,28 +11,28 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><Users :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ users.length }}</div>
           <div class="kpi-strip__label">Jami foydalanuvchi</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><UserCheck :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="occupancy" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ activeCount }}</div>
           <div class="kpi-strip__label">Faol</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><Clock :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ pendingCount }}</div>
           <div class="kpi-strip__label">Taklif kutilmoqda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--violet">
-        <div class="kpi-strip__icon"><ShieldCheck :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="34" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ adminCount }}</div>
           <div class="kpi-strip__label">Adminlar</div>

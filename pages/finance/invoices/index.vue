@@ -2,12 +2,24 @@
   <div>
     <h1 class="text-xl font-bold text-ink-900 dark:text-white mb-6">Moliya — Invoyslar</h1>
 
-    <!-- KPIs -->
+    <!-- 3D KPIs -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <div class="card p-4"><div class="text-xs text-ink-400 mb-1">Jami</div><div class="text-lg font-bold text-ink-900 dark:text-white">{{ invoices.length }}</div></div>
-      <div class="card p-4"><div class="text-xs text-ink-400 mb-1">To'langan</div><div class="text-lg font-bold text-emerald-500">{{ paidCount }}</div></div>
-      <div class="card p-4"><div class="text-xs text-ink-400 mb-1">Kutilmoqda</div><div class="text-lg font-bold text-blue-500">{{ pendingCount }}</div></div>
-      <div class="card p-4"><div class="text-xs text-ink-400 mb-1">Muddati o'tgan</div><div class="text-lg font-bold text-red-500">{{ overdueCount }}</div></div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="buildings" :size="44" />
+        <div><div class="text-xs text-ink-400 mb-0.5">Jami</div><div class="text-lg font-bold text-ink-900 dark:text-white">{{ invoices.length }}</div></div>
+      </div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="paid" :size="44" />
+        <div><div class="text-xs text-ink-400 mb-0.5">To'langan</div><div class="text-lg font-bold text-emerald-500">{{ paidCount }}</div></div>
+      </div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="applications" :size="44" />
+        <div><div class="text-xs text-ink-400 mb-0.5">Kutilmoqda</div><div class="text-lg font-bold text-blue-500">{{ pendingCount }}</div></div>
+      </div>
+      <div class="card p-4 flex items-center gap-3">
+        <KpiScene3D type="overdue" :size="44" />
+        <div><div class="text-xs text-ink-400 mb-0.5">Muddati o'tgan</div><div class="text-lg font-bold text-red-500">{{ overdueCount }}</div></div>
+      </div>
     </div>
 
     <!-- Table -->
