@@ -8,7 +8,7 @@
         <div class="flex items-start justify-between flex-wrap gap-4">
           <div>
             <p class="text-white/60 text-sm font-medium mb-1">Super Rahbar Paneli</p>
-            <h1 class="text-3xl font-bold tracking-tight">Global Dashboard</h1>
+            <h1 class="text-3xl font-bold text-ink-900 dark:text-white tracking-tight">Global Dashboard</h1>
             <p class="text-white/70 text-sm mt-1.5">Barcha obyektlar bo'yicha strategik monitoring va real vaqt rejimi</p>
           </div>
           <div class="flex items-center gap-2">

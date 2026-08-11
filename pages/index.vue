@@ -98,9 +98,6 @@
       </div>
     </section>
 
-    <!-- ============ 3D INTERACTIVE SHOWCASE ============ -->
-    <Hero3DShowcase />
-
     <!-- ============ TRUST BAR ============ -->
     <section class="trust-bar">
       <div class="trust-bar__inner">
@@ -211,6 +208,22 @@
     </section>
 
     <!-- ============ FEATURES ============ -->
+    <section class="features-section">
+      <div class="features-section__header">
+        <div class="premium-section__eyebrow">PLATFORMA IMKONIYATLARI</div>
+        <h2 class="features-section__title">Bitta tizimda — 18 modul</h2>
+        <p class="features-section__subtitle">Binolarni boshqarishdan tortib hisoblagichlargacha — hammasi bitta joyda.</p>
+      </div>
+      <div class="features-grid">
+        <div v-for="(f, i) in features" :key="i" class="feature-card">
+          <div class="feature-card__icon" :class="f.color">
+            <component :is="f.icon" :size="20" />
+          </div>
+          <h4 class="feature-card__title">{{ f.title }}</h4>
+          <p class="feature-card__desc">{{ f.desc }}</p>
+        </div>
+      </div>
+    </section>
 
     <!-- ============ OFFICE SHOWCASE ============ -->
     <section class="showcase-section">
@@ -259,24 +272,28 @@
       </div>
     </section>
 
-    <!-- ============ STATS ============ -->
-    <section class="stats-section">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-item__num">12</div>
-          <div class="stat-item__label">Boshqariladigan binolar</div>
+    <!-- ============ METRICS ============ -->
+    <section class="metrics-section">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-card__icon icon-3d icon-3d-blue"><Building2 :size="20" /></div>
+          <div class="metric-card__num">12</div>
+          <div class="metric-card__label">Boshqariladigan binolar</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-item__num">420</div>
-          <div class="stat-item__label">Jami unitlar</div>
+        <div class="metric-card">
+          <div class="metric-card__icon icon-3d icon-3d-green"><Layers :size="20" /></div>
+          <div class="metric-card__num">420</div>
+          <div class="metric-card__label">Jami unitlar</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-item__num">47</div>
-          <div class="stat-item__label">Bo'sh maydonlar</div>
+        <div class="metric-card">
+          <div class="metric-card__icon icon-3d icon-3d-amber"><TrendingUp :size="20" /></div>
+          <div class="metric-card__num">47</div>
+          <div class="metric-card__label">Bo'sh maydonlar</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-item__num">89%</div>
-          <div class="stat-item__label">Bandlik darajasi</div>
+        <div class="metric-card">
+          <div class="metric-card__icon icon-3d icon-3d-purple"><Gauge :size="20" /></div>
+          <div class="metric-card__num">89%</div>
+          <div class="metric-card__label">Bandlik darajasi</div>
         </div>
       </div>
     </section>
@@ -400,7 +417,7 @@
 import {
   Building2, ShoppingBag, Warehouse, Store, Briefcase, ShieldCheck,
   FileCheck2, Users, Zap, Search, ArrowRight, Receipt, Wrench,
-  BarChart3, Gauge, Package, Building,
+  BarChart3, Gauge, Package, Building, Layers, TrendingUp,
 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })
@@ -428,7 +445,7 @@ const otherBuildings = [
 ]
 
 const features = [
-  { icon: Building2, title: 'Bino boshqaruvi', desc: "Binolar, qavatlar, unitlar — to'liq struktura. 3D ko'rinish va 2D planlar bilan.", color: 'text-brand-500 bg-brand-500/10' },
+  { icon: Building2, title: 'Bino boshqaruvi', desc: "Binolar, qavatlar, unitlar — to'liq struktura. 2D planlar bilan boshqaruv.", color: 'text-brand-500 bg-brand-500/10' },
   { icon: FileCheck2, title: 'ERI integratsiyasi', desc: "Yuridik shaxslar uchun xavfsiz elektron imzo. Shartnomalarni onlayn imzolang.", color: 'text-purple-500 bg-purple-500/10' },
   { icon: Receipt, title: 'Moliya boshqaruvi', desc: "Invoyslar, to'lovlar, qarzdorlik monitoringi. Avtomatik hisob-kitob va hisobotlar.", color: 'text-emerald-500 bg-emerald-500/10' },
   { icon: Wrench, title: "Xizmat ko'rsatish", desc: "Service request'lar, work order'lar, SLA monitoringi. Faol topshiriqlarni boshqaring.", color: 'text-amber-500 bg-amber-500/10' },
@@ -1348,40 +1365,119 @@ function formatPrice(v: number) {
   margin: 0;
 }
 
-/* ============ STATS ============ */
-.stats-section {
-  padding: 60px 24px;
+/* ============ FEATURES ============ */
+.features-section {
+  padding: 80px 24px;
+  background: #fafafa;
+}
+:deep(.dark) .features-section { background: #0f0f12; }
+.features-section__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+.features-section__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #18181b;
+  margin: 8px 0 12px;
+}
+:deep(.dark) .features-section__title { color: white; }
+.features-section__subtitle {
+  font-size: 15px;
+  color: #71717a;
+  line-height: 1.5;
+}
+:deep(.dark) .features-section__subtitle { color: rgba(255,255,255,0.5); }
+.features-grid {
   max-width: 1200px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
-.stats-grid {
+@media (max-width: 768px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .features-grid { grid-template-columns: 1fr; } }
+.feature-card {
+  padding: 28px 24px;
+  border-radius: 20px;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+:deep(.dark) .feature-card { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+.feature-card:hover {
+  border-color: rgba(99,102,241,0.2);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+:deep(.dark) .feature-card:hover {
+  border-color: rgba(99,102,241,0.2);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.feature-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.feature-card__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #18181b;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+:deep(.dark) .feature-card__title { color: white; }
+.feature-card__desc {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #71717a;
+}
+:deep(.dark) .feature-card__desc { color: rgba(255,255,255,0.5); }
+
+/* ============ METRICS ============ */
+.metrics-section {
+  padding: 64px 24px;
+  background: white;
+  border-top: 1px solid rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+:deep(.dark) .metrics-section { background: #09090b; border-color: rgba(255,255,255,0.04); }
+.metrics-grid {
+  max-width: 1000px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
-@media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-.stat-item {
+@media (max-width: 768px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+.metric-card {
   text-align: center;
-  padding: 24px;
-  border-radius: 16px;
-  background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
-:deep(.dark) .stat-item {
-  background: #18181b;
-  border-color: rgba(255,255,255,0.05);
-}
-.stat-item__num {
-  font-size: 40px;
+.metric-card__num {
+  font-size: clamp(32px, 4vw, 44px);
   font-weight: 800;
-  color: #6366f1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  color: #18181b;
+  line-height: 1;
+  margin-top: 10px;
 }
-.stat-item__label {
+:deep(.dark) .metric-card__num { color: white; }
+.metric-card__label {
   font-size: 13px;
   color: #71717a;
-  margin-top: 4px;
+  font-weight: 500;
 }
+:deep(.dark) .metric-card__label { color: rgba(255,255,255,0.5); }
 
 /* ============ CTA ============ */
 .cta-section {

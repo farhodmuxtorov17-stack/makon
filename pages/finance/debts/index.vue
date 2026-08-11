@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">Qarzdorlik</h1>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Qarzdorlik</h1>
         <p class="text-ink-500 text-sm mt-1">To'lanmagan invoyslar bo'yicha qoldiqlar</p>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <!-- Debtors table -->
       <div class="card overflow-hidden">
         <div class="p-4 border-b border-white/5">
-          <h3 class="font-semibold">Qarzdorlar ro'yxati</h3>
+          <h3 class="font-semibold dark:text-white">Qarzdorlar ro'yxati</h3>
         </div>
         <table class="w-full text-sm">
           <thead>

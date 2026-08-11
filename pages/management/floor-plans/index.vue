@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <div>
-      <h1 class="text-2xl font-bold">2D reja importi</h1>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">2D reja importi</h1>
       <p class="text-ink-500 text-sm mt-1">DWG/DXF fayllarini yuklash, poligon biriktirish va unit mapping</p>
     </div>
 
@@ -19,7 +19,7 @@
 
     <!-- Step 1: Upload -->
     <div v-if="currentStep === 0" class="card p-6 space-y-4">
-      <h3 class="font-semibold">Fayl yuklash</h3>
+      <h3 class="font-semibold dark:text-white">Fayl yuklash</h3>
       <div class="border-2 border-dashed border-black/10 dark:border-white/10 rounded-2xl p-12 text-center cursor-pointer hover:border-brand-500/30 transition-all" @click="fileInput?.click()">
         <input ref="fileInput" type="file" accept=".dwg,.dxf,.pdf,.png,.jpg" class="hidden" @change="handleFile" />
         <Upload :size="32" class="text-ink-500 mx-auto mb-3" />
@@ -38,7 +38,7 @@
 
     <!-- Step 2: Configure floor -->
     <div v-if="currentStep === 1" class="card p-6 space-y-4">
-      <h3 class="font-semibold">Qavat konfiguratsiyasi</h3>
+      <h3 class="font-semibold dark:text-white">Qavat konfiguratsiyasi</h3>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div>
           <label class="label">Bino</label>
@@ -74,7 +74,7 @@
     <!-- Step 3: Polygon detection -->
     <div v-if="currentStep === 2" class="card p-6 space-y-4">
       <div class="flex items-center justify-between mb-2">
-        <h3 class="font-semibold">Poligonlarni aniqlash va tahrir</h3>
+        <h3 class="font-semibold dark:text-white">Poligonlarni aniqlash va tahrir</h3>
         <span class="badge badge-success">{{ detectedPolygons.length }} poligon topildi</span>
       </div>
 
@@ -146,7 +146,7 @@
       <div class="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto">
         <CheckCircle2 :size="32" class="text-emerald-500" />
       </div>
-      <h3 class="text-lg font-semibold">Reja muvaffaqiyatli import qilindi!</h3>
+      <h3 class="text-lg font-semibold dark:text-white">Reja muvaffaqiyatli import qilindi!</h3>
       <p class="text-sm text-ink-500">{{ assignedCount }} ta unit poligon bilan biriktirildi. Endi 2D rejani ko'rishingiz mumkin.</p>
       <div class="flex justify-center gap-3 pt-2">
         <NuxtLink to="/floors/f3/plan" class="btn btn-primary"><Eye :size="16" /> 2D reja</NuxtLink>

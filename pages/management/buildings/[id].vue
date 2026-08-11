@@ -10,7 +10,7 @@
       </div>
       <div class="flex items-center gap-2">
         <NuxtLink :to="`/buildings/${building.slug}`" class="btn btn-secondary btn-sm"><Eye :size="14" /> Public</NuxtLink>
-        <NuxtLink :to="`/buildings/${building.id}/3d`" class="btn btn-secondary btn-sm"><Box :size="14" /> 3D</NuxtLink>
+        <NuxtLink :to="`/floors/3/plan`" class="btn btn-secondary btn-sm"><Map :size="14" /> 2D reja</NuxtLink>
         <button class="btn btn-primary btn-sm"><Edit3 :size="14" /> Tahrir</button>
       </div>
     </div>
@@ -222,7 +222,7 @@
 
 <script setup lang="ts">
 import {
-  ArrowLeft, Eye, Box, Edit3, Layers, Map, Plus, FileText, Download,
+  ArrowLeft, Eye, Edit3, Layers, Map, Plus, FileText, Download,
   CheckCircle2, AlertCircle, Ruler, Image,
 } from 'lucide-vue-next'
 

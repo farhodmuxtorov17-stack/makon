@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <div>
-      <h1 class="text-2xl font-bold">Tasdiqlash jarayoni</h1>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Tasdiqlash jarayoni</h1>
       <p class="text-ink-500 text-sm mt-1">Invoys va to'lov tasdiqlari</p>
     </div>
 

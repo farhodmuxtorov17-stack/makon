@@ -6,7 +6,7 @@
 
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold">2D reja — {{ floor.num }}-qavat</h1>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">2D reja — {{ floor.num }}-qavat</h1>
         <p class="text-ink-500 text-sm mt-1">Tashkent City · Unit poligonlari va atributlari</p>
       </div>
       <div class="flex items-center gap-2">
@@ -16,73 +16,78 @@
       </div>
     </div>
 
-    <!-- Floor plan canvas -->
+    <!-- Floor plan canvas with real architectural plan -->
     <div class="card overflow-hidden relative" style="height: 600px;">
-      <svg viewBox="0 0 800 500" class="w-full h-full" @click="deselectUnit">
-        <!-- Building outline -->
-        <rect x="50" y="50" width="700" height="400" fill="rgba(99,102,241,0.02)" stroke="rgba(99,102,241,0.3)" stroke-width="2" rx="4" />
-        
-        <!-- Corridor -->
-        <rect x="50" y="240" width="700" height="30" fill="rgba(99,102,241,0.05)" stroke="rgba(99,102,241,0.15)" stroke-width="1" stroke-dasharray="4 4" />
-        <text x="400" y="260" text-anchor="middle" class="text-xs fill-ink-500">Koridor</text>
-
-        <!-- Elevators -->
-        <rect x="60" y="200" width="50" height="40" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.3)" stroke-width="1" rx="2" />
-        <text x="85" y="225" text-anchor="middle" class="text-[10px] fill-ink-500">Lift</text>
-
-        <!-- Stairs -->
-        <rect x="690" y="200" width="50" height="40" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.3)" stroke-width="1" rx="2" />
-        <text x="715" y="225" text-anchor="middle" class="text-[10px] fill-ink-500">Zina</text>
-
-        <!-- Unit polygons -->
-        <polygon
-          v-for="unit in units"
-          :key="unit.id"
-          :points="unit.points"
-          :fill="unitFill(unit)"
-          :stroke="selectedUnit === unit.id ? '#6366f1' : 'rgba(99,102,241,0.3)'"
-          :stroke-width="selectedUnit === unit.id ? '2' : '1'"
-          class="cursor-pointer transition-all"
-          @click.stop="selectUnit(unit)"
+      <!-- Real floor plan image background -->
+      <div class="absolute inset-0 bg-ink-50 dark:bg-ink-900 flex items-center justify-center overflow-auto">
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/2/24/Chrysler_Building_6th_to_10th_floor_plan.png" 
+          alt="Chrysler Building 6th to 10th floor plan — architectural drawing"
+          class="max-w-full max-h-full object-contain opacity-90 dark:opacity-80"
+          style="filter: contrast(1.05);"
         />
-        
-        <!-- Unit labels -->
-        <g v-for="unit in units" :key="`label-${unit.id}`">
-          <text :x="unit.labelX" :y="unit.labelY" text-anchor="middle" class="text-sm font-medium" :fill="unit.status === 'OCCUPIED' ? '#10b981' : unit.status === 'VACANT' ? '#f59e0b' : '#71717a'">
-            {{ unit.name }}
-          </text>
-          <text :x="unit.labelX" :y="unit.labelY + 14" text-anchor="middle" class="text-[10px] fill-ink-500">
-            {{ unit.area }}m²
-          </text>
-        </g>
-      </svg>
+        <!-- Dark mode overlay -->
+        <div class="absolute inset-0 bg-ink-950/40 dark:hidden pointer-events-none"></div>
+      </div>
 
       <!-- Mode badge -->
-      <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-medium" :class="modeBadge">
+      <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-medium z-10" :class="modeBadge">
         {{ modeLabel }}
       </div>
 
       <!-- Legend -->
-      <div class="absolute top-4 right-4 flex flex-col gap-1 card p-3 text-xs">
+      <div class="absolute top-4 right-4 flex flex-col gap-1 card p-3 text-xs z-10">
         <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-emerald-500/30"></span> Band ({{ occupiedCount }})</div>
         <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-amber-500/30"></span> Bo'sh ({{ vacantCount }})</div>
         <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-zinc-500/20"></span> Texnik ({{ techCount }})</div>
       </div>
 
+      <!-- Unit markers overlay (positioned on top of real plan) -->
+      <div class="absolute inset-0 z-5 pointer-events-none">
+        <div 
+          v-for="unit in units" 
+          :key="unit.id"
+          class="absolute pointer-events-auto cursor-pointer transition-all rounded-lg flex items-center justify-center text-xs font-medium"
+          :style="{ left: unit.posX + '%', top: unit.posY + '%', width: unit.posW + '%', height: unit.posH + '%' }"
+          :class="selectedUnit === unit.id ? 'ring-2 ring-brand-500 scale-105' : ''"
+          @click.stop="selectUnit(unit)"
+        >
+          <span 
+            class="px-2 py-1 rounded-md backdrop-blur-sm shadow-sm"
+            :class="{
+              'bg-emerald-500/70 text-white': unit.status === 'OCCUPIED',
+              'bg-amber-500/80 text-white': unit.status === 'VACANT',
+              'bg-zinc-500/50 text-white': unit.status === 'TECHNICAL',
+            }"
+          >
+            {{ unit.name }}
+          </span>
+        </div>
+      </div>
+
       <!-- Edit toolbar -->
-      <div v-if="mode === 'edit'" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 card p-2">
+      <div v-if="mode === 'edit'" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 card p-2 z-10">
         <button class="btn btn-ghost btn-sm"><Square :size="14" /> To'rtburchak</button>
         <button class="btn btn-ghost btn-sm"><PenTool :size="14" /> Poligon</button>
         <button class="btn btn-ghost btn-sm"><Trash2 :size="14" /> O'chirish</button>
         <div class="w-px h-6 bg-black/10 dark:bg-white/10"></div>
         <button class="btn btn-primary btn-sm"><Save :size="14" /> Saqlash</button>
       </div>
+
+      <!-- Info banner -->
+      <div class="absolute bottom-4 right-4 card p-3 text-xs z-10 max-w-[200px]">
+        <div class="flex items-center gap-1.5 text-ink-500 mb-1">
+          <MapPin :size="12" />
+          <span class="font-medium">Chrysler Building</span>
+        </div>
+        <p class="text-ink-500 text-[11px] leading-relaxed">42-43 Lexington Ave, NYC. 6-10 qavatlar rejasi. Wikimedia Commons arxividan.</p>
+      </div>
     </div>
 
-    <!-- Unit detail panel -->
+    <!-- Unit detail panel -->    <!-- Unit detail panel -->
     <div v-if="selectedUnitData" class="card p-6">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold">Unit: {{ selectedUnitData.name }}</h3>
+        <h3 class="font-semibold dark:text-white">Unit: {{ selectedUnitData.name }}</h3>
         <button @click="deselectUnit" class="btn btn-ghost btn-sm"><X :size="14" /></button>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -125,7 +130,7 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, Eye, Edit3, MousePointerClick, Square, PenTool, Trash2, Save, X, Building2, Tag, FileText } from 'lucide-vue-next'
+import { ArrowLeft, Eye, Edit3, MousePointerClick, Square, PenTool, Trash2, Save, X, Building2, Tag, FileText, MapPin } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
@@ -137,14 +142,14 @@ const mode = ref<'view' | 'edit' | 'assign'>('view')
 const selectedUnit = ref<string | null>(null)
 
 const units = ref([
-  { id: 'u1', name: 'A-301', area: 85, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 4, tenant: 'ABC Logistics MChJ', contract: 'CTR-2026-001', endDate: '15.03.2027', points: '50,50 250,50 250,240 50,240', labelX: 150, labelY: 140 },
-  { id: 'u2', name: 'A-302', area: 72, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 3, tenant: 'Global Trade MChJ', contract: 'CTR-2026-002', endDate: '01.12.2026', points: '250,50 420,50 420,240 250,240', labelX: 335, labelY: 140 },
-  { id: 'u3', name: 'A-303', area: 95, status: 'VACANT', type: 'Ofis', exterior: true, windows: 4, tenant: '', contract: '', endDate: '', points: '420,50 620,50 620,240 420,240', labelX: 520, labelY: 140 },
-  { id: 'u4', name: 'A-304', area: 60, status: 'TECHNICAL', type: 'Texnik', exterior: false, windows: 0, tenant: '', contract: '', endDate: '', points: '620,50 750,50 750,240 620,240', labelX: 685, labelY: 140 },
-  { id: 'u5', name: 'B-301', area: 80, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 3, tenant: 'Smart Solutions MChJ', contract: 'CTR-2026-005', endDate: '01.06.2027', points: '50,270 230,270 230,450 50,450', labelX: 140, labelY: 360 },
-  { id: 'u6', name: 'B-302', area: 68, status: 'VACANT', type: 'Ofis', exterior: true, windows: 2, tenant: '', contract: '', endDate: '', points: '230,270 400,270 400,450 230,450', labelX: 315, labelY: 360 },
-  { id: 'u7', name: 'B-303', area: 92, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 4, tenant: 'Export Group MChJ', contract: 'CTR-2025-098', endDate: '01.01.2026', points: '400,270 580,270 580,450 400,450', labelX: 490, labelY: 360 },
-  { id: 'u8', name: 'B-304', area: 55, status: 'TECHNICAL', type: 'Texnik', exterior: false, windows: 0, tenant: '', contract: '', endDate: '', points: '580,270 750,270 750,450 580,450', labelX: 665, labelY: 360 },
+  { id: 'u1', name: 'A-301', area: 85, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 4, tenant: 'ABC Logistics MChJ', contract: 'CTR-2026-001', endDate: '15.03.2027', posX: 3, posY: 8, posW: 22, posH: 28 },
+  { id: 'u2', name: 'A-302', area: 72, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 3, tenant: 'Global Trade MChJ', contract: 'CTR-2026-002', endDate: '01.12.2026', posX: 28, posY: 8, posW: 18, posH: 28 },
+  { id: 'u3', name: 'A-303', area: 95, status: 'VACANT', type: 'Ofis', exterior: true, windows: 4, tenant: '', contract: '', endDate: '', posX: 50, posY: 8, posW: 22, posH: 28 },
+  { id: 'u4', name: 'A-304', area: 60, status: 'TECHNICAL', type: 'Texnik', exterior: false, windows: 0, tenant: '', contract: '', endDate: '', posX: 76, posY: 8, posW: 20, posH: 28 },
+  { id: 'u5', name: 'B-301', area: 80, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 3, tenant: 'Smart Solutions MChJ', contract: 'CTR-2026-005', endDate: '01.06.2027', posX: 3, posY: 60, posW: 22, posH: 30 },
+  { id: 'u6', name: 'B-302', area: 68, status: 'VACANT', type: 'Ofis', exterior: true, windows: 2, tenant: '', contract: '', endDate: '', posX: 28, posY: 60, posW: 18, posH: 30 },
+  { id: 'u7', name: 'B-303', area: 92, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 4, tenant: 'Export Group MChJ', contract: 'CTR-2025-098', endDate: '01.01.2026', posX: 50, posY: 60, posW: 22, posH: 30 },
+  { id: 'u8', name: 'B-304', area: 55, status: 'TECHNICAL', type: 'Texnik', exterior: false, windows: 0, tenant: '', contract: '', endDate: '', posX: 76, posY: 60, posW: 20, posH: 30 },
 ])
 
 const selectedUnitData = computed(() => units.value.find(u => u.id === selectedUnit.value))

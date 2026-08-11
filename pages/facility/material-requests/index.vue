@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight">Material so'rovlari</h1>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white tracking-tight">Material so'rovlari</h1>
         <p class="text-sm text-ink-500 mt-1">Work orderlar uchun materiallar zaruriyati</p>
       </div>
       <button class="btn btn-primary btn-sm" @click="showNew = !showNew">
@@ -13,7 +13,7 @@
 
     <!-- New request form -->
     <div v-if="showNew" class="card p-6 space-y-4">
-      <h3 class="font-semibold">Yangi material so'rovi</h3>
+      <h3 class="font-semibold dark:text-white">Yangi material so'rovi</h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label class="label">Work order</label>

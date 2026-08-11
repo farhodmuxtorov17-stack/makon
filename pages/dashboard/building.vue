@@ -10,7 +10,7 @@
             <span class="badge bg-white/15 text-white border border-white/20 backdrop-blur-md">{{ typeLabel(selectedBuilding.type) }}</span>
             <span class="badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">{{ selectedBuilding.vacantUnits }} bo'sh</span>
           </div>
-          <h1 class="text-2xl font-bold">{{ selectedBuilding.name }}</h1>
+          <h1 class="text-2xl font-bold text-ink-900 dark:text-white">{{ selectedBuilding.name }}</h1>
           <p class="text-white/60 text-sm mt-0.5 flex items-center gap-1">
             <MapPin :size="14" /> {{ selectedBuilding.district }}, {{ selectedBuilding.city }} · {{ selectedBuilding.floorsCount }} qavat · {{ selectedBuilding.totalUnits }} unit
           </p>

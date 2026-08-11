@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-xl font-bold mb-1">Tizimga kirish</h1>
+    <h1 class="text-xl font-bold text-ink-900 dark:text-white mb-1">Tizimga kirish</h1>
     <p class="text-sm text-ink-500 mb-6">MAKON platformasiga kiring</p>
 
     <form @submit.prevent="handleLogin" class="space-y-4">

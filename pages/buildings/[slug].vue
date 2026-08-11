@@ -38,44 +38,44 @@
           <!-- Description -->
           <div class="lg:col-span-2 space-y-6">
             <div class="card p-6">
-              <h2 class="font-semibold mb-3">Bino haqida</h2>
+              <h2 class="font-semibold text-ink-900 dark:text-white mb-3">Bino haqida</h2>
               <p class="text-ink-400 leading-relaxed">{{ building.description }}</p>
             </div>
 
             <!-- Specs -->
             <div class="card p-6">
-              <h2 class="font-semibold mb-4">Texnik ko'rsatkichlar</h2>
+              <h2 class="font-semibold text-ink-900 dark:text-white mb-4">Texnik ko'rsatkichlar</h2>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
-                  <div class="text-xs text-ink-600 mb-1">Qavatlar soni</div>
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Qavatlar soni</div>
                   <div class="text-2xl font-bold">{{ building.floorsCount }}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-ink-600 mb-1">Jami unitlar</div>
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Jami unitlar</div>
                   <div class="text-2xl font-bold">{{ building.totalUnits }}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-ink-600 mb-1">Band</div>
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Band</div>
                   <div class="text-2xl font-bold text-emerald-400">{{ building.occupiedUnits }}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-ink-600 mb-1">Bo'sh</div>
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Bo'sh</div>
                   <div class="text-2xl font-bold text-brand-400">{{ building.vacantUnits }}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-ink-600 mb-1">Umumiy maydon</div>
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Umumiy maydon</div>
                   <div class="text-2xl font-bold">{{ formatArea(building.totalArea) }} m²</div>
                 </div>
                 <div>
-                  <div class="text-xs text-ink-600 mb-1">Bandlik</div>
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Bandlik</div>
                   <div class="text-2xl font-bold">{{ occupancyPercent }}%</div>
                 </div>
                 <div>
-                  <div class="text-xs text-ink-600 mb-1">Tuman</div>
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Tuman</div>
                   <div class="text-lg font-bold">{{ building.district }}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-ink-600 mb-1">Shahar</div>
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Shahar</div>
                   <div class="text-lg font-bold">{{ building.city }}</div>
                 </div>
               </div>
@@ -83,7 +83,7 @@
 
             <!-- Listings -->
             <div v-if="buildingListings.length > 0" class="card p-6">
-              <h2 class="font-semibold mb-4">Bo'sh takliflar ({{ buildingListings.length }})</h2>
+              <h2 class="font-semibold text-ink-900 dark:text-white mb-4">Bo'sh takliflar ({{ buildingListings.length }})</h2>
               <div class="space-y-3">
                 <div v-for="l in buildingListings" :key="l.id" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/20 transition-colors">
                   <div class="w-16 h-16 rounded-lg overflow-hidden bg-ink-900 flex-shrink-0">
@@ -108,14 +108,14 @@
           <!-- Sidebar -->
           <div class="space-y-4">
             <div class="card p-6">
-              <h3 class="font-semibold mb-4">Aloqa va taklif</h3>
+              <h3 class="font-semibold dark:text-white mb-4">Aloqa va taklif</h3>
               <p class="text-sm text-ink-400 mb-4">Bu binodagi bo'sh maydonlar haqida taklif olish uchun ariza yuboring.</p>
               <NuxtLink to="/register/eri" class="btn btn-primary w-full mb-2">Taklif so'rash</NuxtLink>
               <NuxtLink to="/login" class="btn btn-secondary w-full">Tizimga kirish</NuxtLink>
             </div>
 
             <div class="card p-6">
-              <h3 class="font-semibold mb-3">Joylashuv</h3>
+              <h3 class="font-semibold dark:text-white mb-3">Joylashuv</h3>
               <p class="text-sm text-ink-400">{{ building.address }}</p>
               <p class="text-sm text-ink-500 mt-1">{{ building.district }}, {{ building.city }}</p>
             </div>

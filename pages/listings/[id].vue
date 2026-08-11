@@ -57,7 +57,7 @@
                   <Eye :size="14" /> {{ listing.viewsCount }} ko'rishlar
                 </span>
               </div>
-              <h1 class="text-3xl font-bold mb-2">{{ listing.titleUz }}</h1>
+              <h1 class="text-3xl font-bold text-ink-900 dark:text-white mb-2">{{ listing.titleUz }}</h1>
               <p class="text-ink-400 flex items-center gap-2">
                 <MapPin :size="16" /> {{ data.building.address }}, {{ data.building.district }}
               </p>
@@ -65,7 +65,7 @@
 
             <!-- Description -->
             <div class="card p-6">
-              <h3 class="font-semibold mb-3">Tavsif</h3>
+              <h3 class="font-semibold dark:text-white mb-3">Tavsif</h3>
               <p class="text-ink-400 leading-relaxed">{{ listing.descriptionUz || listing.descriptionRu || 'Tavsif kiritilmagan' }}</p>
             </div>
 
@@ -73,7 +73,7 @@
             <!-- Floor Plan (real image from internet) -->
             <div class="card p-6">
               <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Planirovka</h3>
+                <h3 class="font-semibold dark:text-white">Planirovka</h3>
                 <div class="flex gap-2">
                   <button @click="planView = 'photo'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
                     :class="planView === 'photo' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
@@ -198,7 +198,7 @@
 
             <!-- Building info -->
             <div class="card p-6">
-              <h3 class="font-semibold mb-4">Bino ma'lumotlari</h3>
+              <h3 class="font-semibold dark:text-white mb-4">Bino ma'lumotlari</h3>
               <NuxtLink :to="`/buildings/${data.building.slug}`" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
                 <div class="w-16 h-16 rounded-lg overflow-hidden bg-ink-900 flex-shrink-0">
                   <img v-if="data.building.gallery[0]" :src="data.building.gallery[0]" class="w-full h-full object-cover" />
@@ -214,7 +214,7 @@
 
             <!-- Virtual tour -->
             <div v-if="listing.virtualTourUrl" class="card p-6">
-              <h3 class="font-semibold mb-3">Virtual tur</h3>
+              <h3 class="font-semibold dark:text-white mb-3">Virtual tur</h3>
               <a :href="listing.virtualTourUrl" target="_blank" class="btn btn-secondary">
                 <ExternalLink :size="16" /> Virtual turni ochish
               </a>
@@ -274,7 +274,7 @@
                 <div class="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
                   <CheckCircle2 :size="28" class="text-emerald-400" />
                 </div>
-                <h4 class="font-semibold mb-1">Ariza qabul qilindi!</h4>
+                <h4 class="font-semibold dark:text-white mb-1">Ariza qabul qilindi!</h4>
                 <p class="text-sm text-ink-500 mb-4">Raqamingiz: <span class="font-mono text-brand-400">{{ appNumber }}</span></p>
                 <p class="text-xs text-ink-600">Tez orada menejerimiz siz bilan bog'lanadi</p>
               </div>

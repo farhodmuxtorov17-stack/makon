@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight">Hisoblagichlar</h1>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white tracking-tight">Hisoblagichlar</h1>
         <p class="text-sm text-ink-500 mt-1">Elektr, suv, gaz ko'rsatkichlari va avtomatik hisob-kitob</p>
       </div>
       <div class="flex gap-2">
@@ -21,7 +21,7 @@
 
     <!-- New reading form -->
     <div v-if="showNewReading" class="card p-6 space-y-4">
-      <h3 class="font-semibold">Yangi ko'rsatkich kiritish</h3>
+      <h3 class="font-semibold dark:text-white">Yangi ko'rsatkich kiritish</h3>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
           <label class="label">Hisoblagich</label>

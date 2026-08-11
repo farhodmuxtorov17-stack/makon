@@ -25,7 +25,7 @@
 
         <!-- Features -->
         <div class="card p-6">
-          <h3 class="font-semibold mb-4">Unit xususiyatlari</h3>
+          <h3 class="font-semibold dark:text-white mb-4">Unit xususiyatlari</h3>
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div v-for="f in unit.features" :key="f.label" class="flex items-center gap-2">
               <component :is="f.icon" :size="16" class="text-brand-500" />

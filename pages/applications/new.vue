@@ -5,7 +5,7 @@
     </div>
 
     <div>
-      <h1 class="text-2xl font-bold">Ijara / sotib olish arizasi</h1>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Ijara / sotib olish arizasi</h1>
       <p class="text-ink-500 text-sm mt-1">Tanlangan unit bo\'yicha ariza yuborish</p>
     </div>
 
@@ -40,7 +40,7 @@
 
     <!-- Step 1: Application type -->
     <div v-if="currentStep === 0" class="card p-6 space-y-4">
-      <h3 class="font-semibold">Ariza turi va tijoriy parametrlar</h3>
+      <h3 class="font-semibold dark:text-white">Ariza turi va tijoriy parametrlar</h3>
       <div class="grid grid-cols-2 gap-3">
         <button @click="form.type = 'RENT'" class="p-4 rounded-xl border-2 transition-all text-left" :class="form.type === 'RENT' ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 dark:border-white/5'">
           <Building2 :size="20" class="mb-2" :class="form.type === 'RENT' ? 'text-brand-500' : 'text-ink-500'" />
@@ -72,7 +72,7 @@
 
     <!-- Step 2: Organization info -->
     <div v-if="currentStep === 1" class="card p-6 space-y-4">
-      <h3 class="font-semibold">Tashkilot ma\'lumotlari (profile dan olindi)</h3>
+      <h3 class="font-semibold dark:text-white">Tashkilot ma\'lumotlari (profile dan olindi)</h3>
       <div class="grid grid-cols-2 gap-4">
         <div><label class="label">Tashkilot nomi</label><input type="text" class="input" value="ABC Logistics MChJ" disabled /></div>
         <div><label class="label">STIR</label><input type="text" class="input" value="308745612" disabled /></div>
@@ -88,7 +88,7 @@
 
     <!-- Step 3: Documents -->
     <div v-if="currentStep === 2" class="card p-6 space-y-4">
-      <h3 class="font-semibold">Hujjatlar yuklash</h3>
+      <h3 class="font-semibold dark:text-white">Hujjatlar yuklash</h3>
       <div class="border-2 border-dashed border-black/10 dark:border-white/10 rounded-2xl p-8 text-center cursor-pointer hover:border-brand-500/30 transition-all">
         <Upload :size="24" class="text-ink-500 mx-auto mb-2" />
         <div class="text-sm text-ink-500">Hujjatlarni yuklang (pasport, guvohnoma, hujjatlar)</div>
@@ -102,7 +102,7 @@
 
     <!-- Step 4: ERI confirm -->
     <div v-if="currentStep === 3" class="card p-6 space-y-4">
-      <h3 class="font-semibold">ERI orqali tasdiqlash</h3>
+      <h3 class="font-semibold dark:text-white">ERI orqali tasdiqlash</h3>
       <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10 flex items-start gap-3">
         <FileSignature :size="20" class="text-brand-500 flex-shrink-0" />
         <div class="text-sm text-ink-500">

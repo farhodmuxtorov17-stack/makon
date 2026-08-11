@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <h1 class="text-2xl font-bold mb-2">Server xatosi</h1>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mb-2">Server xatosi</h1>
       <p class="text-ink-500 mb-8">
         Texnik nosozlik yuz berdi. Biz bu haqda xabardor qilindik.
         Iltimos, birozdan keyin qayta urinib ko'ring.

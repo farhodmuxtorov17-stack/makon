@@ -51,7 +51,7 @@
           :key="cat.value"
           @click="activeCategory = cat.value"
           class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
-          :class="activeCategory === cat.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500 hover:text-ink-800'"
+          :class="activeCategory === cat.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500 hover:text-ink-800 dark:text-ink-100'"
         >
           {{ cat.label }}
         </button>

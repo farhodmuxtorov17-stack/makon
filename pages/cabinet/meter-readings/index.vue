@@ -5,7 +5,7 @@
     </div>
 
     <div>
-      <h1 class="text-2xl font-bold">Hisoblagich ko'rsatkichlari</h1>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisoblagich ko'rsatkichlari</h1>
       <p class="text-ink-500 text-sm mt-1">Elektr, suv va gaz — joriy oy</p>
     </div>
 
@@ -42,7 +42,7 @@
     <!-- Reading form -->
     <div class="card p-6 space-y-4">
       <div class="flex items-center justify-between">
-        <h3 class="font-semibold">Ko'rsatkich kiritish — {{ selectedMonthLabel }}</h3>
+        <h3 class="font-semibold dark:text-white">Ko'rsatkich kiritish — {{ selectedMonthLabel }}</h3>
         <span class="badge" :class="currentMonthData?.status === 'SUBMITTED' ? 'badge-success' : 'badge-warning'">
           {{ currentMonthData?.status === 'SUBMITTED' ? 'Topshirilgan' : 'Kutilmoqda' }}
         </span>
@@ -98,7 +98,7 @@
 
     <!-- History -->
     <div class="card p-6">
-      <h3 class="font-semibold mb-4">Tarix</h3>
+      <h3 class="font-semibold dark:text-white mb-4">Tarix</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>

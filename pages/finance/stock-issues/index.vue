@@ -1,13 +1,13 @@
 <template>
   <div class="space-y-6">
     <div>
-      <h1 class="text-2xl font-bold">Material berish va dalolatnomalar</h1>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Material berish va dalolatnomalar</h1>
       <p class="text-ink-500 text-sm mt-1">Tasdiqlangan so\'rovlar bo\'yicha ombordan material berish</p>
     </div>
 
     <!-- Pending issues -->
     <div class="card p-6">
-      <h3 class="font-semibold mb-4">Berishga tayyor so\'rovlar</h3>
+      <h3 class="font-semibold dark:text-white mb-4">Berishga tayyor so\'rovlar</h3>
       <div class="space-y-3">
         <div v-for="req in approvedRequests" :key="req.id" class="border border-black/5 dark:border-white/5 rounded-2xl p-4">
           <div class="flex items-center justify-between mb-3">
@@ -58,7 +58,7 @@
     <!-- Issue history -->
     <div class="card overflow-hidden">
       <div class="p-4 border-b border-black/5 dark:border-white/5">
-        <h3 class="font-semibold">Berish tarixi</h3>
+        <h3 class="font-semibold dark:text-white">Berish tarixi</h3>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
