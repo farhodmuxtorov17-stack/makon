@@ -2,18 +2,43 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Foydalanuvchilar</h1>
+        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / USERS</div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Foydalanuvchilar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUsers.length }} foydalanuvchi · {{ activeCount }} faol</p>
       </div>
       <button @click="showInvite = true" class="btn btn-primary btn-sm btn-glow"><UserPlus :size="14" /> Taklif yuborish</button>
     </div>
 
-    <!-- KPI -->
+    <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Users" label="Jami" :value="users.length" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/admin/users" />
-      <KpiCard :icon="UserCheck" label="Faol" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/admin/users" />
-      <KpiCard :icon="Clock" label="Taklif kutilmoqda" :value="pendingCount" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/admin/users" />
-      <KpiCard :icon="ShieldCheck" label="Adminlar" :value="adminCount" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/admin/roles" />
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><Users :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ users.length }}</div>
+          <div class="kpi-strip__label">Jami foydalanuvchi</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><UserCheck :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ activeCount }}</div>
+          <div class="kpi-strip__label">Faol</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><Clock :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ pendingCount }}</div>
+          <div class="kpi-strip__label">Taklif kutilmoqda</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--violet">
+        <div class="kpi-strip__icon"><ShieldCheck :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ adminCount }}</div>
+          <div class="kpi-strip__label">Adminlar</div>
+        </div>
+      </div>
     </div>
 
     <!-- Search + role filter -->

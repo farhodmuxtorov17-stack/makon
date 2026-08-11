@@ -2,18 +2,44 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Unitlar</h1>
+        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">MANAGEMENT / UNITS</div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Unitlar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUnits.length }} ta unit · {{ occupiedCount }} band · {{ vacantCount }} bo'sh</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi unit</button>
     </div>
 
-    <!-- KPI -->
+    <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Jami" :value="units.length" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/management/units" />
-      <KpiCard :icon="TrendingUp" label="Band" :value="units.length" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/management/units" />
-      <KpiCard :icon="AlertCircle" label="Bo'sh" :value="occupiedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/management/units" />
-      <KpiCard :icon="Building2" label="Maydon" :value="vacantCount" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/management/units" />
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><Layers :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ units.length }}</div>
+          <div class="kpi-strip__label">Jami unit</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ occupiedCount }}</div>
+          <div class="kpi-strip__label">Band</div>
+        </div>
+        <div class="kpi-strip__pct">{{ Math.round(occupiedCount / units.length * 100) }}%</div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><AlertCircle :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ vacantCount }}</div>
+          <div class="kpi-strip__label">Bo'sh</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><Ruler :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ totalArea }}<span class="text-sm font-500"> m²</span></div>
+          <div class="kpi-strip__label">Jami maydon</div>
+        </div>
+      </div>
     </div>
 
     <!-- Search + filters -->
@@ -41,53 +67,64 @@
       </select>
     </div>
 
-    <!-- Table -->
-    <div class="card overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
-              <th class="text-left font-medium px-4 py-3">Unit</th>
-              <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Bino</th>
-              <th class="text-center font-medium px-4 py-3 hidden md:table-cell">Qavat</th>
-              <th class="text-center font-medium px-4 py-3">Maydon</th>
-              <th class="text-left font-medium px-4 py-3 hidden lg:table-cell">Tur</th>
-              <th class="text-right font-medium px-4 py-3 hidden md:table-cell">Narxi/m²</th>
-              <th class="text-center font-medium px-4 py-3">Holat</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="u in filteredUnits" :key="u.id" @click="navigateTo(`/units/${u.id}`)" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer">
-              <td class="px-4 py-3 font-medium text-ink-900 dark:text-white">{{ u.name }}</td>
-              <td class="px-4 py-3 hidden sm:table-cell text-ink-500">{{ u.building }}</td>
-              <td class="px-4 py-3 text-center hidden md:table-cell text-ink-500">{{ u.floor }}</td>
-              <td class="px-4 py-3 text-center font-medium text-ink-900 dark:text-white">{{ u.area }} m²</td>
-              <td class="px-4 py-3 hidden lg:table-cell">
-                <span class="badge text-[10px] badge-neutral">{{ typeLabel(u.type) }}</span>
-              </td>
-              <td class="px-4 py-3 text-right hidden md:table-cell text-ink-500">{{ formatUZSShort(u.pricePerM2) }}</td>
-              <td class="px-4 py-3 text-center">
-                <span class="badge text-[10px]" :class="statusBadge(u.status)">{{ statusLabel(u.status) }}</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- Unit cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div
+        v-for="u in filteredUnits" :key="u.id"
+        class="unit-card"
+        :class="`unit-card--${u.status.toLowerCase()}`"
+        @click="navigateTo(`/units/${u.id}`)"
+      >
+        <div class="unit-card__top">
+          <div class="unit-card__left">
+            <div class="unit-card__icon" :style="{ background: typeColor(u.type) + '15', color: typeColor(u.type) }">
+              <component :is="typeIcon(u.type)" :size="16" />
+            </div>
+            <div>
+              <div class="unit-card__name">{{ u.name }}</div>
+              <div class="unit-card__building">{{ u.building }} · {{ u.floor }}-qavat</div>
+            </div>
+          </div>
+          <span class="unit-badge" :class="`unit-badge--${u.status.toLowerCase()}`">{{ statusLabel(u.status) }}</span>
+        </div>
+
+        <div class="unit-card__mid">
+          <div class="unit-stat">
+            <div class="unit-stat__val">{{ u.area }}<span class="text-xs"> m²</span></div>
+            <div class="unit-stat__label">Maydon</div>
+          </div>
+          <div class="unit-stat__divider"></div>
+          <div class="unit-stat">
+            <div class="unit-stat__val">{{ formatUZSShort(u.pricePerM2) }}</div>
+            <div class="unit-stat__label">Narxi / m²</div>
+          </div>
+          <div class="unit-stat__divider"></div>
+          <div class="unit-stat">
+            <div class="unit-stat__val">{{ formatUZSShort(u.area * u.pricePerM2) }}</div>
+            <div class="unit-stat__label">Jami</div>
+          </div>
+        </div>
+
+        <div class="unit-card__foot">
+          <span class="unit-type" :style="{ color: typeColor(u.type), background: typeColor(u.type) + '12' }">{{ typeLabel(u.type) }}</span>
+          <span class="unit-card__price">{{ formatUZS(u.area * u.pricePerM2) }}</span>
+        </div>
       </div>
-      <div v-if="filteredUnits.length === 0" class="py-12 text-center">
-        <SearchX :size="32" class="text-ink-300 mx-auto mb-2" />
-        <p class="text-ink-500 text-sm">Unitlar topilmadi</p>
-      </div>
+    </div>
+
+    <div v-if="filteredUnits.length === 0" class="py-12 text-center">
+      <SearchX :size="32" class="text-ink-300 mx-auto mb-2" />
+      <p class="text-ink-500 text-sm">Unitlar topilmadi</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import KpiCard from '~/components/KpiCard.vue'
-import { Plus, Layers, CheckCircle2, AlertCircle, Ruler, Search, SearchX } from 'lucide-vue-next'
+import { Plus, Layers, CheckCircle2, AlertCircle, Ruler, Search, SearchX, Building2, Store, Warehouse, Blend } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+const { formatUZS, formatUZSShort } = useFormat()
 
 const search = ref('')
 const statusFilter = ref('')
@@ -127,8 +164,61 @@ const filteredUnits = computed(() => {
   return r
 })
 
-
 function statusLabel(s: string) { return { OCCUPIED: 'Band', VACANT: "Bo'sh", RESERVED: 'Rezerv' }[s] || s }
-function statusBadge(s: string) { return { OCCUPIED: 'badge-success', VACANT: 'badge-warning', RESERVED: 'badge-brand' }[s] || 'badge-neutral' }
 function typeLabel(t: string) { return { OFFICE: 'Ofis', RETAIL: 'Savdo', WAREHOUSE: 'Ombor', MIXED: 'Aralash' }[t] || t }
+function typeColor(t: string) { return { OFFICE: '#0f766e', RETAIL: '#f59e0b', WAREHOUSE: '#3b82f6', MIXED: '#8b5cf6' }[t] || '#71717a' }
+function typeIcon(t: string) { return { OFFICE: Building2, RETAIL: Store, WAREHOUSE: Warehouse, MIXED: Blend }[t] || Building2 }
 </script>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px; position: relative; overflow: hidden;
+}
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.kpi-strip__pct { font-size: 11px; font-weight: 700; color: #10b981; padding: 3px 8px; border-radius: 6px; background: rgba(16,185,129,0.1); }
+
+.unit-card {
+  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px; padding: 16px 18px; cursor: pointer;
+  transition: all 0.2s ease; position: relative; overflow: hidden;
+}
+.unit-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: rgba(15,118,110,0.2); }
+.unit-card--occupied { border-left: 3px solid #10b981; }
+.unit-card--vacant { border-left: 3px solid #f59e0b; }
+.unit-card--reserved { border-left: 3px solid #6366f1; }
+.unit-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.unit-card__left { display: flex; align-items: center; gap: 10px; }
+.unit-card__icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.unit-card__name { font-size: 14px; font-weight: 700; font-family: 'SF Mono', monospace; }
+.unit-card__building { font-size: 11px; color: var(--ink-400); margin-top: 1px; }
+.unit-badge { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 5px; text-transform: uppercase; }
+.unit-badge--occupied { background: rgba(16,185,129,0.12); color: #10b981; }
+.unit-badge--vacant { background: rgba(245,158,11,0.12); color: #f59e0b; }
+.unit-badge--reserved { background: rgba(99,102,241,0.12); color: #6366f1; }
+.unit-card__mid { display: flex; align-items: center; margin-top: 14px; padding: 12px 0; border-top: 1px solid rgba(0,0,0,0.04); border-bottom: 1px solid rgba(0,0,0,0.04); }
+.unit-stat { flex: 1; text-align: center; }
+.unit-stat__val { font-size: 14px; font-weight: 700; }
+.unit-stat__label { font-size: 10px; color: var(--ink-400); margin-top: 2px; font-weight: 500; }
+.unit-stat__divider { width: 1px; height: 28px; background: rgba(0,0,0,0.06); }
+.unit-card__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+.unit-type { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+.unit-card__price { font-size: 13px; font-weight: 700; color: var(--accent, #0f766e); }
+:deep(.dark) .unit-card { border-color: rgba(255,255,255,0.06); }
+:deep(.dark) .unit-card__mid { border-color: rgba(255,255,255,0.06); }
+:deep(.dark) .unit-stat__divider { background: rgba(255,255,255,0.06); }
+:deep(.dark) .kpi-strip { border-color: rgba(255,255,255,0.06); }
+</style>
