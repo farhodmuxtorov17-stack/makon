@@ -13,34 +13,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="Package" label="Jami pozitsiyalar" value="{{ materials.length }}" icon-color="#f97316" icon-bg="rgba(249,115,22,0.1)" />
-          <span class="text-xs text-ink-500">Jami pozitsiyalar</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ materials.length }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="CheckCircle2" label="Ombor qiymati" value="{{ materials.length }}" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-          <span class="text-xs text-ink-500">Ombor qiymati</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatUZSShort(totalValue) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="AlertCircle" label="{{ formatUZSShort(totalValue) }}" value="{{ formatUZSShort(totalValue) }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-          <span class="text-xs text-ink-500">Kam qoldi</span>
-        </div>
-        <div class="text-xl font-bold text-red-500">{{ lowStockCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="Layers" label="Oylik sarflash" value="{{ lowStockCount }}" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
-          <span class="text-xs text-ink-500">Oylik sarflash</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatUZSShort(monthlyUsage) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
-      </div>
+      <KpiCard :icon="Package" label="Jami pozitsiyalar" :value="materials.length" icon-color="#f97316" icon-bg="rgba(249,115,22,0.1)" />
+      <KpiCard :icon="CheckCircle2" label="Ombor qiymati" :value="formatUZSShort(totalValue)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
+      <KpiCard :icon="AlertCircle" label="Kam qoldi" :value="lowStockCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+      <KpiCard :icon="Layers" label="Oylik sarflash" :value="formatUZSShort(monthlyUsage)" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
     </div>
 
     <!-- Category filter + search -->

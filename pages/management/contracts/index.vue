@@ -12,43 +12,19 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="CheckCircle2" label="Aktiv" value="{{ activeCount }}" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-          <span class="text-xs text-ink-500">Aktiv</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ activeCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="FileSignature" label="Imzolanmoqda" value="{{ activeCount }}" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
-          <span class="text-xs text-ink-500">Imzolanmoqda</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ signingCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="AlertCircle" label="Muddati o'tgan" value="{{ signingCount }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-          <span class="text-xs text-ink-500">Muddati o'tgan</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ expiredCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="ScrollText" label="ERI imzolangan" value="{{ expiredCount }}" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
-          <span class="text-xs text-ink-500">ERI imzolangan</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ eriCount }}</div>
-      </div>
+      <KpiCard :icon="CheckCircle2" label="Aktiv" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
+      <KpiCard :icon="FileSignature" label="Imzolanmoqda" :value="signingCount" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
+      <KpiCard :icon="AlertCircle" label="Muddati o'tgan" :value="expiredCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+      <KpiCard :icon="ShieldCheck" label="ERI imzolangan" :value="eriCount" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
     </div>
 
     <!-- Search -->
     <div class="flex flex-wrap items-center gap-2">
       <div class="relative flex-1 min-w-[200px]">
         <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-        <input v-model="search" type="text" placeholder="Raqam, ijarachi yoki STIR..." class="w-full text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+        <input v-model="search" type="text" placeholder="Raqam, ijarachi yoki STIR..." class="input pl-9" />
       </div>
-      <select v-model="statusFilter" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
+      <select v-model="statusFilter" class="input w-auto min-w-[140px]">
         <option value="">Barcha statuslar</option>
         <option value="ACTIVE">Aktiv</option>
         <option value="PARTIALLY_SIGNED">Qisman imzo</option>
@@ -60,62 +36,146 @@
     <!-- Table -->
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full text-sm">
+        <table class="data-table">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
-              <th class="text-left font-medium px-4 py-3">Raqam</th>
-              <th class="text-left font-medium px-4 py-3">Ijarachi</th>
-              <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Bino / Unit</th>
-              <th class="text-right font-medium px-4 py-3">Oylik</th>
-              <th class="text-center font-medium px-4 py-3 hidden lg:table-cell">Davr</th>
-              <th class="text-center font-medium px-4 py-3">ERI</th>
-              <th class="text-center font-medium px-4 py-3">Status</th>
-              <th class="text-right font-medium px-4 py-3"></th>
+            <tr>
+              <th>Raqam</th>
+              <th>Ijarachi</th>
+              <th class="hidden md:table-cell">Bino / Unit</th>
+              <th class="text-right">Oylik</th>
+              <th class="hidden lg:table-cell text-center">Davr</th>
+              <th class="text-center">ERI</th>
+              <th class="text-center">Status</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in filteredContracts" :key="c.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-              <td class="px-4 py-3 font-mono font-bold text-xs text-ink-900 dark:text-white">{{ c.number }}</td>
-              <td class="px-4 py-3">
-                <div class="font-medium text-ink-900 dark:text-white text-sm">{{ c.tenantName }}</div>
+            <tr v-for="c in filteredContracts" :key="c.id" class="cursor-pointer" @click="openContract(c)">
+              <td class="font-mono font-bold text-xs text-ink-900 dark:text-white">{{ c.number }}</td>
+              <td>
+                <div class="font-medium text-ink-900 dark:text-white">{{ c.tenantName }}</div>
                 <div class="text-xs text-ink-500 font-mono">STIR: {{ c.tenantTin }}</div>
               </td>
-              <td class="px-4 py-3 hidden md:table-cell">
+              <td class="hidden md:table-cell">
                 <div class="text-sm text-ink-900 dark:text-white">{{ c.buildingName }}</div>
                 <div class="text-xs text-brand-500 font-mono">{{ c.unitNumber }}</div>
               </td>
-              <td class="px-4 py-3 text-right font-bold text-brand-500">{{ formatUZS(c.monthlyRent) }}</td>
-              <td class="px-4 py-3 text-center hidden lg:table-cell text-xs text-ink-500 font-mono">{{ c.startDate }} — {{ c.endDate }}</td>
-              <td class="px-4 py-3 text-center">
+              <td class="text-right font-bold text-brand-600 dark:text-brand-400">{{ formatUZSShort(c.monthlyRent) }}</td>
+              <td class="hidden lg:table-cell text-center text-xs text-ink-500 font-mono">{{ c.startDate }} — {{ c.endDate }}</td>
+              <td class="text-center">
                 <div class="flex items-center justify-center gap-1">
                   <span class="eri-badge" :class="c.eriTenantSigned ? 'eri-badge--signed' : 'eri-badge--pending'">T</span>
                   <span class="eri-badge" :class="c.eriLandlordSigned ? 'eri-badge--signed' : 'eri-badge--pending'">L</span>
                 </div>
               </td>
-              <td class="px-4 py-3 text-center">
-                <span class="badge text-xs" :class="contractBadge(c.status)">{{ contractLabel(c.status) }}</span>
+              <td class="text-center">
+                <span class="badge" :class="contractBadge(c.status)">{{ contractLabel(c.status) }}</span>
               </td>
-              <td class="px-4 py-3 text-right">
-                <NuxtLink :to="`/contracts/${c.id}`" class="btn btn-ghost btn-sm text-xs">→</NuxtLink>
+              <td class="text-right">
+                <ChevronRight :size="16" class="text-ink-400" />
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+    <!-- Detail Drawer -->
+    <DrawerModal :show="!!selectedContract" title="Shartnoma tafsilotlari" @close="selectedContract = null">
+      <template v-if="selectedContract">
+        <div class="space-y-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-mono font-bold text-lg text-ink-900 dark:text-white">{{ selectedContract.number }}</div>
+              <div class="text-sm text-ink-500 mt-0.5">{{ selectedContract.tenantName }}</div>
+            </div>
+            <span class="badge" :class="contractBadge(selectedContract.status)">{{ contractLabel(selectedContract.status) }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="card p-3">
+              <div class="text-xs text-ink-500 mb-1">Ijarachi STIR</div>
+              <div class="font-mono font-bold text-sm text-ink-900 dark:text-white">{{ selectedContract.tenantTin }}</div>
+            </div>
+            <div class="card p-3">
+              <div class="text-xs text-ink-500 mb-1">Bino</div>
+              <div class="font-medium text-sm text-ink-900 dark:text-white">{{ selectedContract.buildingName }}</div>
+            </div>
+            <div class="card p-3">
+              <div class="text-xs text-ink-500 mb-1">Unit</div>
+              <div class="font-mono font-bold text-sm text-brand-600 dark:text-brand-400">{{ selectedContract.unitNumber }}</div>
+            </div>
+            <div class="card p-3">
+              <div class="text-xs text-ink-500 mb-1">Oylik to'lov</div>
+              <div class="font-bold text-sm text-ink-900 dark:text-white">{{ formatUZS(selectedContract.monthlyRent) }}</div>
+            </div>
+            <div class="card p-3">
+              <div class="text-xs text-ink-500 mb-1">Boshlanish</div>
+              <div class="font-mono text-sm text-ink-900 dark:text-white">{{ selectedContract.startDate }}</div>
+            </div>
+            <div class="card p-3">
+              <div class="text-xs text-ink-500 mb-1">Tugash</div>
+              <div class="font-mono text-sm text-ink-900 dark:text-white">{{ selectedContract.endDate }}</div>
+            </div>
+          </div>
+
+          <div class="card p-4">
+            <div class="text-xs font-semibold text-ink-500 uppercase tracking-wider mb-3">ERI imzolar</div>
+            <div class="flex gap-3">
+              <div class="flex-1 flex items-center gap-2 p-2.5 rounded-xl" :class="selectedContract.eriTenantSigned ? 'bg-emerald-500/10' : 'bg-amber-500/10'">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="selectedContract.eriTenantSigned ? 'bg-emerald-500/15 text-emerald-600' : 'bg-amber-500/15 text-amber-600'">
+                  <User :size="16" />
+                </div>
+                <div>
+                  <div class="text-xs text-ink-500">Ijarachi</div>
+                  <div class="text-sm font-medium" :class="selectedContract.eriTenantSigned ? 'text-emerald-600' : 'text-amber-600'">
+                    {{ selectedContract.eriTenantSigned ? 'Imzolangan' : 'Kutilmoqda' }}
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1 flex items-center gap-2 p-2.5 rounded-xl" :class="selectedContract.eriLandlordSigned ? 'bg-emerald-500/10' : 'bg-amber-500/10'">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="selectedContract.eriLandlordSigned ? 'bg-emerald-500/15 text-emerald-600' : 'bg-amber-500/15 text-amber-600'">
+                  <Building2 :size="16" />
+                </div>
+                <div>
+                  <div class="text-xs text-ink-500">Ulad egasi</div>
+                  <div class="text-sm font-medium" :class="selectedContract.eriLandlordSigned ? 'text-emerald-600' : 'text-amber-600'">
+                    {{ selectedContract.eriLandlordSigned ? 'Imzolangan' : 'Kutilmoqda' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-2 pt-1">
+            <NuxtLink :to="`/contracts/${selectedContract.id}`" class="btn btn-primary btn-md flex-1">
+              <FileText :size="15" /> To'liq ko'rish
+            </NuxtLink>
+            <button v-if="!selectedContract.eriTenantSigned || !selectedContract.eriLandlordSigned" class="btn btn-secondary btn-md">
+              <Send :size="15" /> ERI eslatma
+            </button>
+            <button v-if="selectedContract.status === 'EXPIRED'" class="btn btn-secondary btn-md">
+              <RefreshCw :size="15" /> Uzaytirish
+            </button>
+          </div>
+        </div>
+      </template>
+    </DrawerModal>
   </div>
 </template>
 
 <script setup lang="ts">
 import KpiCard from '~/components/KpiCard.vue'
-import { Plus, Search, CheckCircle2, Clock, AlertCircle, ShieldCheck } from 'lucide-vue-next'
+import DrawerModal from '~/components/DrawerModal.vue'
+import { Plus, Search, CheckCircle2, AlertCircle, ShieldCheck, FileSignature, ChevronRight, FileText, Send, RefreshCw, User, Building2 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+const { formatUZS, formatUZSShort, formatNumber, formatDate } = useFormat()
 
 const search = ref('')
 const statusFilter = ref('')
+const selectedContract = ref<any>(null)
 
 const contracts = [
   { id: 'c1', number: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', tenantTin: '308745612', buildingName: 'Tashkent City', unitNumber: 'A-301', monthlyRent: 25000000, startDate: '01.04.26', endDate: '15.03.27', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true },
@@ -142,6 +202,9 @@ const filteredContracts = computed(() => {
   return r
 })
 
+function openContract(c: any) {
+  selectedContract.value = c
+}
 
 function contractBadge(s: string) { return { ACTIVE: 'badge-success', PARTIALLY_SIGNED: 'badge-warning', DRAFT_READY: 'badge-brand', EXPIRED: 'badge-neutral' }[s] || 'badge-neutral' }
 function contractLabel(s: string) { return { ACTIVE: 'Aktiv', PARTIALLY_SIGNED: 'Qisman imzo', DRAFT_READY: 'Qoralama', EXPIRED: "Muddati o'tgan" }[s] || s }

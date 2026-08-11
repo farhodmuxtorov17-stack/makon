@@ -75,40 +75,9 @@
       <button class="btn btn-secondary btn-sm" @click="filters = { status: '', priority: '' }">Tozalash</button>
     </div>
 
-    <!-- Stats -->
+    <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-cyan-500"></div>
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="Wrench" label="Jami" value="{{ workOrders.length }}" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ workOrders.length }}</div>
-        <div class="text-xs text-ink-500 mt-0.5">Jami</div>
-      </div>
-      <div class="card p-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-amber-500"></div>
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="FileSignature" label="Jami" value="" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
-        </div>
-        <div class="text-xl font-bold text-amber-500">{{ workOrders.filter(o => o.status === 'IN_PROGRESS').length }}</div>
-        <div class="text-xs text-ink-500 mt-0.5">Jarayonda</div>
-      </div>
-      <div class="card p-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-emerald-500"></div>
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="CheckCircle2" label="Jarayonda" value="" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-        </div>
-        <div class="text-xl font-bold text-emerald-500">{{ workOrders.filter(o => o.status === 'COMPLETED').length }}</div>
-        <div class="text-xs text-ink-500 mt-0.5">Tugatilgan</div>
-      </div>
-      <div class="card p-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-red-500"></div>
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="AlertCircle" label="Tugatilgan" value="o.slaBreached).length }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-        </div>
-        <div class="text-xl font-bold text-red-500">{{ workOrders.filter(o => o.slaBreached).length }}</div>
-        <div class="text-xs text-ink-500 mt-0.5">SLA buzilgan</div>
-      </div>
+      <KpiCard :icon="Wrench" label="Jami" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
     </div>
 
     <!-- Work orders table -->

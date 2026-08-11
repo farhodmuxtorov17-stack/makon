@@ -10,34 +10,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="CheckCircle2" label="Faol" value="{{ activeCount }}" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-          <span class="text-xs text-ink-500">Faol</span>
-        </div>
-        <div class="text-xl font-bold text-emerald-500">{{ activeCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="FileSignature" label="Imzolanmoqda" value="{{ activeCount }}" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
-          <span class="text-xs text-ink-500">Imzolanmoqda</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ signingCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="ScrollText" label="ERI" value="{{ signingCount }}" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
-          <span class="text-xs text-ink-500">ERI</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ eriCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="AlertCircle" label="Muddati o'tgan" value="{{ eriCount }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-          <span class="text-xs text-ink-500">Muddati o'tgan</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ expiredCount }}</div>
-      </div>
+      <KpiCard :icon="CheckCircle2" label="Faol" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
+      <KpiCard :icon="FileSignature" label="Imzolanmoqda" :value="activeCount" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
+      <KpiCard :icon="ScrollText" label="ERI" :value="signingCount" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
+      <KpiCard :icon="AlertCircle" label="Muddati o'tgan" :value="eriCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
     </div>
 
     <!-- Contract cards -->

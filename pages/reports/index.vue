@@ -18,17 +18,15 @@
 
     <!-- KPI row -->
     <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-      <div v-for="kpi in kpis" :key="kpi.label" class="card p-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" :style="{ background: kpi.barColor }"></div>
-        <div class="flex items-start justify-between mb-2">
-          <KpiCard :icon="kpi.icon || Building2" :label="kpi.label" :value="kpi.value" :trend="kpi.trend" :icon-bg="kpi.iconBg" :icon-color="kpi.iconColor" />
-          <span v-if="kpi.trend" class="text-xs font-bold flex items-center gap-0.5" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
-            <component :is="kpi.trend > 0 ? TrendingUp : TrendingDown" :size="11" /> {{ Math.abs(kpi.trend) }}%
-          </span>
-        </div>
-        <div class="text-xl font-bold" :class="kpi.color">{{ kpi.value }}</div>
-        <div class="text-xs text-ink-500 mt-0.5">{{ kpi.label }}</div>
-      </div>
+      <KpiCard
+        v-for="kpi in kpis" :key="kpi.label"
+        :icon="kpi.icon || Building2"
+        :label="kpi.label"
+        :value="kpi.value"
+        :trend="kpi.trend"
+        :icon-bg="kpi.iconBg"
+        :icon-color="kpi.iconColor"
+      />
     </div>
 
     <!-- Charts row 1 -->
