@@ -1,7 +1,11 @@
 <template>
-  <div class="min-h-screen flex admin-bg">
+  <div class="min-h-screen flex admin-bg relative">
+    <!-- Aurora background orbs -->
+    <div class="aurora-orb aurora-orb--1"></div>
+    <div class="aurora-orb aurora-orb--2"></div>
+    <div class="aurora-orb aurora-orb--3"></div>
     <!-- Sidebar -->
-    <aside class="fixed lg:sticky top-0 left-0 h-screen z-40 transition-transform duration-300" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'" style="width: 256px;">
+    <aside class="fixed lg:sticky top-0 left-0 h-screen z-40 transition-transform duration-300 relative" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'" style="width: 256px;">
       <div class="h-full flex flex-col admin-sidebar">
         <!-- Logo -->
         <div class="h-[60px] flex items-center gap-3 px-5 flex-shrink-0">
@@ -47,7 +51,7 @@
 
     <div v-if="sidebarOpen" class="fixed inset-0 bg-black/60 z-30 lg:hidden" @click="sidebarOpen = false" />
 
-    <div class="flex-1 min-w-0 flex flex-col">
+    <div class="flex-1 min-w-0 flex flex-col relative z-10">
       <header class="h-[60px] sticky top-0 z-20 glass border-b border-black/5 dark:border-white/5 flex items-center px-4 lg:px-6 gap-3 flex-shrink-0">
         <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-500">
           <Menu :size="20" />
