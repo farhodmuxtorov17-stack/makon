@@ -2,11 +2,7 @@
 
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
-
-/* ═══════════════════════════════════════════════
-   MAKON DESIGN SYSTEM v2.0 — Premium Edition
-   ═══════════════════════════════════════════════ */
+/* MAKON Design System */
 
 :root {
   --bg: #FFFFFF;
