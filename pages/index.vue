@@ -9,7 +9,7 @@
         </NuxtLink>
         <div class="nav__links">
           <NuxtLink to="/catalog" class="nav__link">Katalog</NuxtLink>
-          <NuxtLink to="/catalog" class="nav__link">Binolar</NuxtLink>
+          <a href="#buildings" class="nav__link">Binolar</a>
           <a href="#how" class="nav__link">Jarayon</a>
           <a href="#features" class="nav__link">Imkoniyatlar</a>
           <a href="mailto:info@makon.uz" class="nav__link">Bog'lanish</a>
@@ -313,6 +313,7 @@ onMounted(() => {
 <style scoped>
 /* ════════ BASE ════════ */
 .landing {
+  scroll-behavior: smooth;
   background: var(--bg);
   overflow-x: hidden;
 }
@@ -565,6 +566,7 @@ onMounted(() => {
 /* ════════ PORTFOLIO ════════ */
 .portfolio {
   padding: 100px 0;
+  scroll-margin-top: 80px;
 }
 .portfolio__head {
   text-align: center;
@@ -808,6 +810,7 @@ onMounted(() => {
 .how {
   padding: 100px 0;
   background: var(--bg-subtle);
+  scroll-margin-top: 80px;
 }
 .how__head {
   text-align: center;
@@ -875,6 +878,7 @@ onMounted(() => {
 /* ════════ FEATURES ════════ */
 .features {
   padding: 100px 0;
+  scroll-margin-top: 80px;
 }
 .features__head {
   text-align: center;
