@@ -248,7 +248,7 @@ const newListing = ref({
   offerType: 'RENT' as 'RENT' | 'SALE',
   price: 3000,
   currency: 'UZS' as 'UZS' | 'UZS',
-  photoUrl: '/buildings/3d-tower-1.png',
+  photoUrl: '/buildings/hero-tashkent.jpg',
   virtualTourUrl: '',
   status: 'PUBLISHED' as 'DRAFT' | 'PUBLISHED' | 'HIDDEN' | 'ARCHIVED'
 })

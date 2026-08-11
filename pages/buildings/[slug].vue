@@ -270,7 +270,7 @@ const building = reactive({
   name: 'Tashkent City',
   district: 'Mirzo Ulug\'bek tumani',
   floors: 12, units: 240, area: '32 000', vacant: 47,
-  image: '/buildings/3d-tower-1.png'
+  image: '/buildings/hero-tashkent.jpg'
 })
 
 const activeFloor = ref(3)
@@ -373,12 +373,12 @@ function formatNum(n: number) {
 
 const unitFilter = ref('ALL')
 const units = [
-  { id: 1, slug: 'tashkent-city-office-101', name: 'Ofis 101', floor: 1, area: 45, type: 'OFFICE', price: '3 500 000', image: '/buildings/3d-tower-2.png' },
-  { id: 2, slug: 'tashkent-city-office-205', name: 'Ofis 205', floor: 2, area: 78, type: 'OFFICE', price: '6 200 000', image: '/buildings/3d-tower-3.png' },
-  { id: 3, slug: 'tashkent-city-retail-gf', name: 'Savdo maydoni GF', floor: 1, area: 120, type: 'RETAIL', price: '9 800 000', image: '/buildings/3d-tower-1.png' },
-  { id: 4, slug: 'tashkent-city-office-312', name: 'Ofis 312', floor: 3, area: 55, type: 'OFFICE', price: '4 300 000', image: '/buildings/3d-tower-2.png' },
-  { id: 5, slug: 'tashkent-city-office-408', name: 'Ofis 408', floor: 4, area: 92, type: 'OFFICE', price: '7 400 000', image: '/buildings/3d-tower-3.png' },
-  { id: 6, slug: 'tashkent-city-retail-1f', name: 'Savdo maydoni 1F', floor: 2, area: 85, type: 'RETAIL', price: '6 800 000', image: '/buildings/3d-tower-1.png' },
+  { id: 1, slug: 'tashkent-city-office-101', name: 'Ofis 101', floor: 1, area: 45, type: 'OFFICE', price: '3 500 000', image: '/buildings/bc-navroz.jpg' },
+  { id: 2, slug: 'tashkent-city-office-205', name: 'Ofis 205', floor: 2, area: 78, type: 'OFFICE', price: '6 200 000', image: '/buildings/bc-city-plaza.jpg' },
+  { id: 3, slug: 'tashkent-city-retail-gf', name: 'Savdo maydoni GF', floor: 1, area: 120, type: 'RETAIL', price: '9 800 000', image: '/buildings/hero-tashkent.jpg' },
+  { id: 4, slug: 'tashkent-city-office-312', name: 'Ofis 312', floor: 3, area: 55, type: 'OFFICE', price: '4 300 000', image: '/buildings/bc-navroz.jpg' },
+  { id: 5, slug: 'tashkent-city-office-408', name: 'Ofis 408', floor: 4, area: 92, type: 'OFFICE', price: '7 400 000', image: '/buildings/bc-city-plaza.jpg' },
+  { id: 6, slug: 'tashkent-city-retail-1f', name: 'Savdo maydoni 1F', floor: 2, area: 85, type: 'RETAIL', price: '6 800 000', image: '/buildings/hero-tashkent.jpg' },
 ]
 const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.filter(u => u.type === unitFilter.value))
 </script>
@@ -404,8 +404,8 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-nav__link { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; }
 .b-nav__link:hover { color: white; }
 .b-nav__right { display: flex; align-items: center; gap: 16px; }
-.b-nav__btn { display: inline-flex; align-items: center; gap: 5px; background: white; color: #09090b; padding: 10px 18px; border-radius: 11px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
-.b-nav__btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+.b-nav__btn { display: inline-flex; align-items: center; gap: 5px; background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); color: white; padding: 10px 18px; border-radius: 11px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 2px 12px rgba(0,102,255,0.3), inset 0 1px 0 rgba(255,255,255,0.15); }
+.b-nav__btn:hover { transform: translateY(-1px); background: linear-gradient(135deg, #0052CC 0%, #2563EB 100%); box-shadow: 0 8px 24px rgba(0,102,255,0.4); }
 .b-hero__content { position: relative; z-index: 5; max-width: 1400px; margin: 0 auto; padding: 80px 48px 0; }
 .b-hero__tag { display: inline-block; background: rgba(37,99,235,0.9); color: white; padding: 6px 14px; border-radius: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 16px; backdrop-filter: blur(10px); }
 .b-hero__title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; color: white; letter-spacing: -0.04em; margin: 0 0 10px; }
@@ -604,8 +604,8 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .unit-card__price-l { font-size: 11px; color: #a1a1aa; display: block; margin-bottom: 1px; }
 .unit-card__price-v { font-size: 16px; font-weight: 800; color: #18181b; letter-spacing: -0.01em; }
 .dark .unit-card__price-v { color: white; }
-.unit-card__btn { display: inline-flex; align-items: center; gap: 5px; padding: 10px 18px; border-radius: 10px; background: #18181b; color: white; font-size: 12px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; }
-.unit-card__btn:hover { background: var(--accent); }
+.unit-card__btn { display: inline-flex; align-items: center; gap: 5px; padding: 10px 18px; border-radius: 10px; background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); color: white; font-size: 12px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 10px rgba(0,102,255,0.25), inset 0 1px 0 rgba(255,255,255,0.15); }
+.unit-card__btn:hover { background: linear-gradient(135deg, #0052CC 0%, #2563EB 100%); box-shadow: 0 4px 16px rgba(0,102,255,0.35); }
 .dark .unit-card__btn { background: var(--accent); }
 .dark .unit-card__btn:hover { background: var(--accent-hover); }
 
@@ -616,8 +616,8 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-cta__inner { position: relative; z-index: 1; padding: 64px 48px; text-align: center; }
 .b-cta__title { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: white; letter-spacing: -0.035em; margin: 0 0 14px; }
 .b-cta__text { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 480px; margin: 0 auto 32px; }
-.b-cta__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: var(--accent); color: white; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(37,99,235,0.35); }
-.b-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,99,235,0.45); }
+.b-cta__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); color: white; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,102,255,0.35), inset 0 1px 0 rgba(255,255,255,0.15); }
+.b-cta__btn:hover { transform: translateY(-2px); background: linear-gradient(135deg, #0052CC 0%, #2563EB 100%); box-shadow: 0 8px 32px rgba(0,102,255,0.5); }
 
 /* ════════ FOOTER ════════ */
 .footer { background: #09090b; padding: 64px 48px 28px; }

@@ -134,7 +134,7 @@
               </svg>
             </div>
             <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF] dark:from-ink-800 dark:to-ink-900 h-24 flex items-center justify-center">
-              <img src="/buildings/3d-tower-2.png" alt="Building" class="h-full object-contain py-1" />
+              <img src="/buildings/bc-navroz.jpg" alt="Building" class="h-full object-contain py-1" />
             </div>
           </div>
         </div>

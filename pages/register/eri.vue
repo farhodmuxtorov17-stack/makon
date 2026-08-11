@@ -2,7 +2,7 @@
   <div class="auth">
     <!-- Left: Visual -->
     <div class="auth__visual">
-      <img src="/buildings/3d-tower-1.png" alt="Tashkent" class="auth__visual-img" />
+      <img src="/buildings/hero-tashkent.jpg" alt="Tashkent" class="auth__visual-img" />
       <div class="auth__visual-grad"></div>
       <div class="auth__visual-content">
         <NuxtLink to="/" class="auth__logo">
@@ -189,12 +189,12 @@ async function handleRegister() {
 .auth__submit {
   width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 14px; border-radius: 12px; border: none;
-  background: var(--accent); color: white;
+  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); color: white;
   font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: all 0.3s; box-shadow: none;
+  transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
   margin-top: 4px;
 }
-.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: none; }
+.auth__submit:hover:not(:disabled) { transform: translateY(-1px); background: linear-gradient(135deg, #0052CC 0%, #2563EB 100%); box-shadow: 0 6px 20px rgba(0,102,255,0.35); }
 .auth__submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* ERI box */

@@ -17,10 +17,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/management/units" scene="units" />
-      <KpiCard :icon="TrendingUp" label="Band" :value="building.totalUnits" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/management/units" scene="occupancy" />
-      <KpiCard :icon="AlertCircle" label="Bo'sh" :value="building.occupiedUnits" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/management/units" scene="overdue" />
-      <KpiCard :icon="Building2" label="Maydon" :value="building.vacantUnits" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/management/units" scene="buildings" />
+      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/management/units" />
+      <KpiCard :icon="TrendingUp" label="Band" :value="building.totalUnits" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/management/units" />
+      <KpiCard :icon="AlertCircle" label="Bo'sh" :value="building.occupiedUnits" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/management/units" />
+      <KpiCard :icon="Building2" label="Maydon" :value="building.vacantUnits" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/management/units" />
     </div>
 
     <!-- Tabs -->
@@ -197,7 +197,6 @@
 </template>
 
 <script setup lang="ts">
-import KpiScene3D from '~/components/KpiScene3D.vue'
 import KpiCard from '~/components/KpiCard.vue'
 import {
   ArrowLeft, Eye, Edit3, Layers, Map, Plus, FileText, Download,
@@ -235,14 +234,14 @@ const floors = [
 ]
 
 const gallery = [
-  { url: '/buildings/3d-tower-1.png', alt: 'Facade', label: 'Fasod' },
-  { url: '/buildings/3d-tower-2.png', alt: 'Office', label: 'Ofis' },
-  { url: '/buildings/3d-tower-3.png', alt: 'Lobby', label: 'Lobbi' },
-  { url: '/buildings/3d-tower-1.png', alt: 'Retail', label: 'Savdo' },
-  { url: '/buildings/3d-tower-2.png', alt: 'Corridor', label: 'Koridor' },
-  { url: '/buildings/3d-tower-3.png', alt: 'Aerial', label: 'Havodan' },
-  { url: '/buildings/3d-tower-1.png', alt: 'Night', label: 'Kechasi' },
-  { url: '/buildings/3d-tower-2.png', alt: 'Meeting', label: 'Konferensiya' },
+  { url: '/buildings/hero-tashkent.jpg', alt: 'Facade', label: 'Fasod' },
+  { url: '/buildings/bc-navroz.jpg', alt: 'Office', label: 'Ofis' },
+  { url: '/buildings/bc-city-plaza.jpg', alt: 'Lobby', label: 'Lobbi' },
+  { url: '/buildings/hero-tashkent.jpg', alt: 'Retail', label: 'Savdo' },
+  { url: '/buildings/bc-navroz.jpg', alt: 'Corridor', label: 'Koridor' },
+  { url: '/buildings/bc-city-plaza.jpg', alt: 'Aerial', label: 'Havodan' },
+  { url: '/buildings/hero-tashkent.jpg', alt: 'Night', label: 'Kechasi' },
+  { url: '/buildings/bc-navroz.jpg', alt: 'Meeting', label: 'Konferensiya' },
 ]
 
 const docs = [

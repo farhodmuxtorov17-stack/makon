@@ -13,28 +13,28 @@
     <!-- KPI cards with mini visuals -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="period-kpi period-kpi--teal">
-        <div class="period-kpi__icon"><Layers :size="18" /></div><KpiScene3D type="buildings" :size="44" style="position:absolute;top:-4px;right:-4px;opacity:0.5;pointer-events:none" />
+        <div class="period-kpi__icon"><Layers :size="18" /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ periods.length }}</div>
           <div class="period-kpi__label">Jami davrlar</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--green">
-        <div class="period-kpi__icon"><CheckCircle2 :size="18" /></div><KpiScene3D type="paid" :size="44" style="position:absolute;top:-4px;right:-4px;opacity:0.5;pointer-events:none" />
+        <div class="period-kpi__icon"><CheckCircle2 :size="18" /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ closedCount }}</div>
           <div class="period-kpi__label">Yopilgan</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--red">
-        <div class="period-kpi__icon"><AlertCircle :size="18" /></div><KpiScene3D type="overdue" :size="44" style="position:absolute;top:-4px;right:-4px;opacity:0.5;pointer-events:none" />
+        <div class="period-kpi__icon"><AlertCircle :size="18" /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ openCount }}</div>
           <div class="period-kpi__label">Faol davr</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--amber">
-        <div class="period-kpi__icon"><DollarSign :size="18" /></div><KpiScene3D type="revenue" :size="44" style="position:absolute;top:-4px;right:-4px;opacity:0.5;pointer-events:none" />
+        <div class="period-kpi__icon"><DollarSign :size="18" /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ formatUZSShort(totalRevenue) }}</div>
           <div class="period-kpi__label">Jami daromad</div>
@@ -99,7 +99,6 @@
 </template>
 
 <script setup lang="ts">
-import KpiScene3D from '~/components/KpiScene3D.vue'
 import { Plus, Layers, CheckCircle2, AlertCircle, DollarSign, FileText } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })

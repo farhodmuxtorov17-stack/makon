@@ -12,10 +12,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="CheckCircle2" label="Aktiv" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/contracts" scene="occupancy" :sparkData="[30,32,35,38,40,42,45]" sparkColor="#10b981" />
-      <KpiCard :icon="FileSignature" label="Imzolanmoqda" :value="signingCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" scene="signing" :sparkData="[2,3,4,3,5,4,6]" sparkColor="var(--accent)" />
-      <KpiCard :icon="AlertCircle" label="Muddati o'tgan" :value="expiredCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/contracts" scene="overdue" :sparkData="[5,4,3,4,5,3,2]" sparkColor="#ef4444" />
-      <KpiCard :icon="ShieldCheck" label="ERI imzolangan" :value="eriCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" scene="contract" :sparkData="[10,12,15,18,20,22,25]" sparkColor="var(--accent)" />
+      <KpiCard :icon="CheckCircle2" label="Aktiv" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/contracts" :sparkData="[30,32,35,38,40,42,45]" sparkColor="#10b981" />
+      <KpiCard :icon="FileSignature" label="Imzolanmoqda" :value="signingCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[2,3,4,3,5,4,6]" sparkColor="var(--accent)" />
+      <KpiCard :icon="AlertCircle" label="Muddati o'tgan" :value="expiredCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/contracts" :sparkData="[5,4,3,4,5,3,2]" sparkColor="#ef4444" />
+      <KpiCard :icon="ShieldCheck" label="ERI imzolangan" :value="eriCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[10,12,15,18,20,22,25]" sparkColor="var(--accent)" />
     </div>
 
     <!-- Search -->
@@ -165,7 +165,6 @@
 </template>
 
 <script setup lang="ts">
-import KpiScene3D from '~/components/KpiScene3D.vue'
 import KpiCard from '~/components/KpiCard.vue'
 import DrawerModal from '~/components/DrawerModal.vue'
 import { Plus, Search, CheckCircle2, AlertCircle, ShieldCheck, FileSignature, ChevronRight, FileText, Send, RefreshCw, User, Building2 } from 'lucide-vue-next'

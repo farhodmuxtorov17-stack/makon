@@ -39,21 +39,21 @@
     <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><ArrowDownToLine :size="18" /></div><KpiScene3D type="inventory" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
+        <div class="kpi-strip__icon"><ArrowDownToLine :size="18" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.length }}</div>
           <div class="kpi-strip__label">Jami chiqarish</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div><KpiScene3D type="paid" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
+        <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'COMPLETED').length }}</div>
           <div class="kpi-strip__label">Berilgan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><Clock :size="18" /></div><KpiScene3D type="applications" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
+        <div class="kpi-strip__icon"><Clock :size="18" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'PENDING').length }}</div>
           <div class="kpi-strip__label">Kutilmoqda</div>
@@ -110,7 +110,6 @@
 </template>
 
 <script setup lang="ts">
-import KpiScene3D from '~/components/KpiScene3D.vue'
 import { Plus, ArrowDownToLine, CheckCircle2, Clock, Wallet, Lightbulb, Droplet, PaintRoller, Boxes, Wrench } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })

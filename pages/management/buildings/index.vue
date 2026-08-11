@@ -14,28 +14,28 @@
     <!-- Stat Badges Row -->
     <div class="flex flex-wrap items-center gap-3">
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: rgba(37,99,235,0.1); color: var(--accent);"><Building2 :size="18" /></div><KpiScene3D type="buildings" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.35;pointer-events:none" />
+        <div class="stat-pill__icon" style="background: rgba(37,99,235,0.1); color: var(--accent);"><Building2 :size="18" /></div>
         <div>
           <div class="stat-pill__val">{{ buildings.length }}</div>
           <div class="stat-pill__label">Binolar</div>
         </div>
       </div>
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: rgba(99,102,241,0.1); color: #6366f1;"><Layers :size="18" /></div><KpiScene3D type="units" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.35;pointer-events:none" />
+        <div class="stat-pill__icon" style="background: rgba(99,102,241,0.1); color: #6366f1;"><Layers :size="18" /></div>
         <div>
           <div class="stat-pill__val">{{ totalFloors }}</div>
           <div class="stat-pill__label">Qavatlar</div>
         </div>
       </div>
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: rgba(245,158,11,0.1); color: #f59e0b;"><Box :size="18" /></div><KpiScene3D type="inventory" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.35;pointer-events:none" />
+        <div class="stat-pill__icon" style="background: rgba(245,158,11,0.1); color: #f59e0b;"><Box :size="18" /></div>
         <div>
           <div class="stat-pill__val">{{ totalUnits }}</div>
           <div class="stat-pill__label">Jami unit</div>
         </div>
       </div>
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: rgba(16,185,129,0.1); color: #10b981;"><Check :size="18" /></div><KpiScene3D type="occupancy" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.35;pointer-events:none" />
+        <div class="stat-pill__icon" style="background: rgba(16,185,129,0.1); color: #10b981;"><Check :size="18" /></div>
         <div>
           <div class="stat-pill__val">{{ totalOccupied }}<span class="stat-pill__of">/{{ totalUnits }}</span></div>
           <div class="stat-pill__label">Band unitlar</div>
@@ -316,7 +316,6 @@
 </template>
 
 <script setup lang="ts">
-import KpiScene3D from '~/components/KpiScene3D.vue'
 import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Search, Building2, MapPin, Globe, LayoutGrid, List, ArrowRight, Eye, Box, Layers, Check, Settings } from 'lucide-vue-next'
 

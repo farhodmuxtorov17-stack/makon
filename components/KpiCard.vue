@@ -1,11 +1,6 @@
 <template>
   <div class="kpi-card group" :class="{ 'kpi-card--clickable': to }" @click="handleClick">
-    <!-- 3D scene in top-right corner -->
-    <div v-if="scene" class="kpi-scene-wrap">
-      <KpiScene3D :type="scene" :size="56" />
-    </div>
-
-    <div class="flex items-start justify-between mb-3">
+    <div class="flex items-start justify-between mb-4">
       <div class="kpi-icon" :style="{ background: iconBg, color: iconColor }">
         <component :is="icon" :size="18" :stroke-width="1.75" />
       </div>
@@ -13,7 +8,7 @@
         <component :is="trend >= 0 ? ArrowUpRight : ArrowDownRight" :size="11" :stroke-width="2.5" />
         {{ Math.abs(trend) }}%
       </div>
-      <ArrowRight v-if="to && !scene" :size="14" class="kpi-arrow" :style="{ color: iconColor }" />
+      <ArrowRight v-if="to" :size="14" class="kpi-arrow" :style="{ color: iconColor }" />
     </div>
     <div class="kpi-value">{{ value }}</div>
     <div class="kpi-label">{{ label }}</div>
@@ -38,7 +33,6 @@ const props = defineProps<{
   iconBg?: string
   iconColor?: string
   to?: string
-  scene?: 'revenue' | 'occupancy' | 'buildings' | 'units' | 'overdue' | 'applications' | 'paid' | 'inventory' | 'signing' | 'contract' | 'service' | 'debt'
   sparkData?: number[]
   sparkColor?: string
 }>()
@@ -83,19 +77,6 @@ function handleClick() {
 .kpi-card--clickable:hover .kpi-arrow {
   opacity: 0.6;
   transform: translateX(0);
-}
-
-.kpi-scene-wrap {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  opacity: 0.85;
-  transition: opacity 0.3s, transform 0.3s;
-  pointer-events: none;
-}
-.kpi-card:hover .kpi-scene-wrap {
-  opacity: 1;
-  transform: scale(1.05);
 }
 
 .kpi-icon {

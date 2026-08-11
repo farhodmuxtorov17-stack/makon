@@ -6,7 +6,7 @@
       <div class="h-full flex flex-col admin-sidebar">
         <!-- Logo -->
         <div class="h-[60px] flex items-center gap-3 px-5 flex-shrink-0">
-          <div class="w-9 h-9 rounded-[10px] bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/30 transition-transform hover:scale-105">M</div>
+          <div class="w-9 h-9 rounded-[10px] bg-gradient-to-br from-[#0066FF] to-[#3B82F6] flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/30 transition-transform hover:scale-105">M</div>
           <div>
             <div class="font-bold text-[15px] tracking-tight text-ink-900 dark:text-white leading-none">MAKON</div>
             <div class="text-[10px] text-ink-400 uppercase tracking-widest mt-1">{{ currentRoleShort }}</div>
@@ -24,7 +24,7 @@
               :class="isActive(item.to) ? 'admin-sidebar-item-active' : 'admin-sidebar-item'"
               @click="sidebarOpen = false"
             >
-              <div v-if="isActive(item.to)" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-brand-500"></div>
+              <div v-if="isActive(item.to)" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-gradient-to-b from-[#0066FF] to-[#3B82F6]"></div>
               <component :is="item.icon" :size="17" :class="isActive(item.to) ? 'text-brand-500' : 'opacity-70'" />
               <span>{{ item.label }}</span>
               <span v-if="item.badge" class="ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-red-500/15 text-red-500 dark:text-red-400">{{ item.badge }}</span>
@@ -35,7 +35,7 @@
         <!-- User -->
         <div class="p-2.5 flex-shrink-0">
           <button @click="handleLogout" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] text-sm admin-sidebar-item transition-all duration-200 group">
-            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-xs font-bold text-white shadow-md shadow-brand-500/20">A</div>
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#0066FF] flex items-center justify-center text-xs font-bold text-white shadow-md shadow-brand-500/20">A</div>
             <div class="flex-1 text-left min-w-0">
               <div class="text-[13px] font-medium text-ink-900 dark:text-white truncate">Admin User</div>
               <div class="text-[11px] text-ink-500">Tizimdan chiqish</div>

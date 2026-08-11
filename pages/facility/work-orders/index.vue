@@ -78,10 +78,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Wrench" label="Jami work orderlar" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/facility/work-orders" scene="service" :sparkData="[10,12,8,15,11,14,9]" sparkColor="#f59e0b" />
-      <KpiCard :icon="Clock" label="Jarayonda" :value="inProgressCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/facility/work-orders" scene="buildings" :sparkData="[4,5,3,6,4,5,3]" sparkColor="var(--accent)" />
-      <KpiCard :icon="CheckCircle2" label="Tugatilgan" :value="completedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/facility/work-orders" scene="paid" :sparkData="[5,6,8,7,9,10,12]" sparkColor="#10b981" />
-      <KpiCard :icon="AlertTriangle" label="SLA buzilgan" :value="slaBreachedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/facility/work-orders" scene="overdue" :sparkData="[2,1,3,2,1,2,1]" sparkColor="#ef4444" />
+      <KpiCard :icon="Wrench" label="Jami work orderlar" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/facility/work-orders" :sparkData="[10,12,8,15,11,14,9]" sparkColor="#f59e0b" />
+      <KpiCard :icon="Clock" label="Jarayonda" :value="inProgressCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/facility/work-orders" :sparkData="[4,5,3,6,4,5,3]" sparkColor="var(--accent)" />
+      <KpiCard :icon="CheckCircle2" label="Tugatilgan" :value="completedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/facility/work-orders" :sparkData="[5,6,8,7,9,10,12]" sparkColor="#10b981" />
+      <KpiCard :icon="AlertTriangle" label="SLA buzilgan" :value="slaBreachedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/facility/work-orders" :sparkData="[2,1,3,2,1,2,1]" sparkColor="#ef4444" />
     </div>
 
     <!-- Category progress rings -->
@@ -191,7 +191,6 @@
 </template>
 
 <script setup lang="ts">
-import KpiScene3D from '~/components/KpiScene3D.vue'
 import KpiCard from '~/components/KpiCard.vue'
 import { Filter, Plus, X, Clock, CheckCircle2, AlertTriangle, Wrench, Droplets, Zap, Wind, Sparkles } from 'lucide-vue-next'
 import CategoryProgressCard from '~/components/CategoryProgressCard.vue'

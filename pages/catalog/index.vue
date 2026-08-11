@@ -311,18 +311,18 @@ interface RawListing {
 }
 
 const rawListings: RawListing[] = [
-  { id: 'l1', title: "Tashkent City'da A-301 · 85 m² ofis", district: "Mirzo Ulug'bek", address: "Amir Temur shoh ko'chasi 108", area: 85, type: 'OFFICE', offerType: 'RENT', price: 25000000, photo: '/buildings/3d-tower-1.png', lat: 41.3111, lng: 69.2797, vip: true },
-  { id: 'l2', title: "Trillant Tower B-501 · 120 m² premium ofis", district: 'Yashnobod', address: "Ziyolilar ko'chasi 6", area: 120, type: 'OFFICE', offerType: 'RENT', price: 35000000, photo: '/buildings/3d-tower-2.png', lat: 41.2967, lng: 69.3123, vip: true },
-  { id: 'l3', title: "IT Park C-201 · 65 m² savdo maydoni", district: 'Yakkasaroy', address: "Mirobod ko'chasi 22", area: 65, type: 'SHOPPING', offerType: 'RENT', price: 18000000, photo: '/buildings/3d-tower-3.png', lat: 41.2865, lng: 69.2654, vip: true },
-  { id: 'l4', title: "Piramit D-102 · 200 m² ombor", district: 'Shayxontohur', address: "Navoiy ko'chasi 34", area: 200, type: 'WAREHOUSE', offerType: 'RENT', price: 12000000, photo: '/buildings/3d-tower-1.png', lat: 41.3267, lng: 69.2389, vip: true },
-  { id: 'l5', title: "Savdo Markaz E-301 · 42 m² do'kon", district: 'Sergeli', address: "Qatortol ko'chasi 4", area: 42, type: 'SHOPPING', offerType: 'SALE', price: 450000000, photo: '/buildings/3d-tower-2.png', lat: 41.2156, lng: 69.2456, vip: true },
-  { id: 'l6', title: "Business Center-1 F-205 · 95 m² ofis", district: 'Chilonzor', address: "Bunyodkor shoh ko'chasi 45", area: 95, type: 'OFFICE', offerType: 'RENT', price: 22000000, photo: '/buildings/3d-tower-3.png', lat: 41.2701, lng: 69.1987, vip: false },
-  { id: 'l7', title: "Ombor majmuasi G-001 · 560 m²", district: 'Bektemir', address: "Guliston ko'chasi 15", area: 560, type: 'WAREHOUSE', offerType: 'RENT', price: 68000000, photo: '/buildings/3d-tower-1.png', lat: 41.2312, lng: 69.3452, vip: false },
-  { id: 'l8', title: "Mirobod biznes markazi · 110 m²", district: 'Mirobod', address: "Shota Rustaveli ko'chasi 7", area: 110, type: 'OFFICE', offerType: 'RENT', price: 28000000, photo: '/buildings/3d-tower-2.png', lat: 41.2934, lng: 69.2945, vip: false },
-  { id: 'l9', title: "Yashnobod ombor · 340 m² logistika", district: 'Yashnobod', address: "Katortol ko'chasi 11", area: 340, type: 'WAREHOUSE', offerType: 'RENT', price: 45000000, photo: '/buildings/3d-tower-3.png', lat: 41.3045, lng: 69.3287, vip: false },
-  { id: 'l10', title: "Tashkent City A-502 · 60 m² savdo", district: "Mirzo Ulug'bek", address: "Amir Temur shoh ko'chasi 108", area: 60, type: 'SHOPPING', offerType: 'SALE', price: 850000000, photo: '/buildings/3d-tower-1.png', lat: 41.3120, lng: 69.2805, vip: false },
-  { id: 'l11', title: "Chilonzor BC · 75 m² ofis maydoni", district: 'Chilonzor', address: "Bunyodkor shoh ko'chasi 12", area: 75, type: 'OFFICE', offerType: 'RENT', price: 19500000, photo: '/buildings/3d-tower-2.png', lat: 41.2789, lng: 69.2034, vip: false },
-  { id: 'l12', title: "Bektemir sanoat zonasi · 720 m²", district: 'Bektemir', address: "Sanoat ko'chasi 3", area: 720, type: 'WAREHOUSE', offerType: 'RENT', price: 89000000, photo: '/buildings/3d-tower-3.png', lat: 41.2089, lng: 69.3612, vip: false },
+  { id: 'l1', title: "Tashkent City'da A-301 · 85 m² ofis", district: "Mirzo Ulug'bek", address: "Amir Temur shoh ko'chasi 108", area: 85, type: 'OFFICE', offerType: 'RENT', price: 25000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.3111, lng: 69.2797, vip: true },
+  { id: 'l2', title: "Trillant Tower B-501 · 120 m² premium ofis", district: 'Yashnobod', address: "Ziyolilar ko'chasi 6", area: 120, type: 'OFFICE', offerType: 'RENT', price: 35000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2967, lng: 69.3123, vip: true },
+  { id: 'l3', title: "IT Park C-201 · 65 m² savdo maydoni", district: 'Yakkasaroy', address: "Mirobod ko'chasi 22", area: 65, type: 'SHOPPING', offerType: 'RENT', price: 18000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.2865, lng: 69.2654, vip: true },
+  { id: 'l4', title: "Piramit D-102 · 200 m² ombor", district: 'Shayxontohur', address: "Navoiy ko'chasi 34", area: 200, type: 'WAREHOUSE', offerType: 'RENT', price: 12000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.3267, lng: 69.2389, vip: true },
+  { id: 'l5', title: "Savdo Markaz E-301 · 42 m² do'kon", district: 'Sergeli', address: "Qatortol ko'chasi 4", area: 42, type: 'SHOPPING', offerType: 'SALE', price: 450000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2156, lng: 69.2456, vip: true },
+  { id: 'l6', title: "Business Center-1 F-205 · 95 m² ofis", district: 'Chilonzor', address: "Bunyodkor shoh ko'chasi 45", area: 95, type: 'OFFICE', offerType: 'RENT', price: 22000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.2701, lng: 69.1987, vip: false },
+  { id: 'l7', title: "Ombor majmuasi G-001 · 560 m²", district: 'Bektemir', address: "Guliston ko'chasi 15", area: 560, type: 'WAREHOUSE', offerType: 'RENT', price: 68000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.2312, lng: 69.3452, vip: false },
+  { id: 'l8', title: "Mirobod biznes markazi · 110 m²", district: 'Mirobod', address: "Shota Rustaveli ko'chasi 7", area: 110, type: 'OFFICE', offerType: 'RENT', price: 28000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2934, lng: 69.2945, vip: false },
+  { id: 'l9', title: "Yashnobod ombor · 340 m² logistika", district: 'Yashnobod', address: "Katortol ko'chasi 11", area: 340, type: 'WAREHOUSE', offerType: 'RENT', price: 45000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.3045, lng: 69.3287, vip: false },
+  { id: 'l10', title: "Tashkent City A-502 · 60 m² savdo", district: "Mirzo Ulug'bek", address: "Amir Temur shoh ko'chasi 108", area: 60, type: 'SHOPPING', offerType: 'SALE', price: 850000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.3120, lng: 69.2805, vip: false },
+  { id: 'l11', title: "Chilonzor BC · 75 m² ofis maydoni", district: 'Chilonzor', address: "Bunyodkor shoh ko'chasi 12", area: 75, type: 'OFFICE', offerType: 'RENT', price: 19500000, photo: '/buildings/bc-navroz.jpg', lat: 41.2789, lng: 69.2034, vip: false },
+  { id: 'l12', title: "Bektemir sanoat zonasi · 720 m²", district: 'Bektemir', address: "Sanoat ko'chasi 3", area: 720, type: 'WAREHOUSE', offerType: 'RENT', price: 89000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.2089, lng: 69.3612, vip: false },
 ]
 
 const TYPE_META: Record<string, { label: string; color: string; icon: any }> = {
@@ -541,10 +541,10 @@ function cycleRegion() {
 .catalog-cta-btn {
   display: flex; align-items: center; gap: 5px;
   font-size: 13px; font-weight: 700; color: white;
-  background: var(--accent); padding: 8px 16px; border-radius: 10px;
-  box-shadow: none; transition: all 0.2s;
+  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); padding: 8px 16px; border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,102,255,0.25), inset 0 1px 0 rgba(255,255,255,0.15); transition: all 0.2s;
 }
-.catalog-cta-btn:hover { background: var(--accent-hover); box-shadow: none; transform: translateY(-1px); }
+.catalog-cta-btn:hover { background: linear-gradient(135deg, #0052CC 0%, #2563EB 100%); box-shadow: 0 4px 16px rgba(0,102,255,0.35); transform: translateY(-1px); }
 
 /* ============ TOOLBAR ============ */
 .catalog-toolbar {
@@ -761,10 +761,10 @@ function cycleRegion() {
 .listing-card__price { font-size: 13.5px; font-weight: 800; color: #ea580c; letter-spacing: -0.02em; }
 .listing-card__cta {
   display: flex; align-items: center; gap: 3px; font-size: 11.5px; font-weight: 600;
-  color: white; background: var(--accent); padding: 6px 12px; border-radius: 8px;
-  box-shadow: none; transition: all 0.2s;
+  color: white; background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); padding: 6px 12px; border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,102,255,0.2), inset 0 1px 0 rgba(255,255,255,0.15); transition: all 0.2s;
 }
-.listing-card:hover .listing-card__cta { box-shadow: none; }
+.listing-card:hover .listing-card__cta { box-shadow: 0 4px 12px rgba(0,102,255,0.3); }
 
 /* Grid view */
 .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
