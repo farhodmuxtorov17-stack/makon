@@ -501,7 +501,7 @@ function cycleRegion() {
 .catalog-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .catalog-logo__icon {
   width: 32px; height: 32px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  background: var(--accent);
   color: white; display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 14px;
 }
@@ -541,10 +541,10 @@ function cycleRegion() {
 .catalog-cta-btn {
   display: flex; align-items: center; gap: 5px;
   font-size: 13px; font-weight: 700; color: white;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover)); padding: 8px 16px; border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(15,118,110,0.25); transition: all 0.2s;
+  background: var(--accent); padding: 8px 16px; border-radius: 10px;
+  box-shadow: none; transition: all 0.2s;
 }
-.catalog-cta-btn:hover { background: linear-gradient(135deg, var(--accent-hover), var(--accent-hover)); box-shadow: 0 4px 16px rgba(15,118,110,0.35); transform: translateY(-1px); }
+.catalog-cta-btn:hover { background: var(--accent-hover); box-shadow: none; transform: translateY(-1px); }
 
 /* ============ TOOLBAR ============ */
 .catalog-toolbar {
@@ -726,7 +726,7 @@ function cycleRegion() {
 }
 .listing-card:hover::before { opacity: 1; }
 .dark .listing-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
-.listing-card:hover, .listing-card--active { border-color: rgba(15,118,110,0.4); box-shadow: 0 8px 24px rgba(15,118,110,0.12); transform: translateY(-2px); }
+.listing-card:hover, .listing-card--active { border-color: rgba(15,118,110,0.4); box-shadow: none; transform: translateY(-2px); }
 .listing-card { cursor: pointer; }
 .listing-card--active { border-color: var(--accent); background: rgba(15,118,110,0.05); box-shadow: 0 6px 20px rgba(15,118,110,0.18), 0 0 0 1px rgba(15,118,110,0.3); }
 .dark .listing-card--active { background: rgba(15,118,110,0.08); }
@@ -761,10 +761,10 @@ function cycleRegion() {
 .listing-card__price { font-size: 13.5px; font-weight: 800; color: #ea580c; letter-spacing: -0.02em; }
 .listing-card__cta {
   display: flex; align-items: center; gap: 3px; font-size: 11.5px; font-weight: 600;
-  color: white; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); padding: 6px 12px; border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(15,118,110,0.2); transition: all 0.2s;
+  color: white; background: var(--accent); padding: 6px 12px; border-radius: 8px;
+  box-shadow: none; transition: all 0.2s;
 }
-.listing-card:hover .listing-card__cta { box-shadow: 0 4px 12px rgba(15,118,110,0.3); }
+.listing-card:hover .listing-card__cta { box-shadow: none; }
 
 /* Grid view */
 .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
@@ -774,7 +774,7 @@ function cycleRegion() {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
 }
 .dark .grid-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
-.grid-card:hover { border-color: rgba(15,118,110,0.3); box-shadow: 0 12px 32px rgba(15,118,110,0.1); transform: translateY(-4px); }
+.grid-card:hover { border-color: rgba(15,118,110,0.3); box-shadow: none; transform: translateY(-4px); }
 .grid-card__image img { transition: transform 0.5s; }
 .grid-card:hover .grid-card__image img { transform: scale(1.06); }
 .grid-card__image { position: relative; width: 100%; height: 160px; overflow: hidden; }

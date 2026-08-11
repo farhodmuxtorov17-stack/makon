@@ -206,7 +206,7 @@ function srStatusLabel(s: string) {
 }
 .unit-card:hover {
   border-color: rgba(15,118,110,0.2);
-  box-shadow: 0 4px 12px rgba(15,118,110,0.06);
+  box-shadow: none;
 }
 .unit-card__header {
   display: flex;

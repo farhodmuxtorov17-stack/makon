@@ -144,7 +144,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
   padding: 24px 48px; max-width: 1400px; margin: 0 auto; width: 100%;
 }
 .b-nav__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.b-nav__icon { width: 38px; height: 38px; border-radius: 11px; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: white; box-shadow: 0 4px 16px rgba(15,118,110,0.35); }
+.b-nav__icon { width: 38px; height: 38px; border-radius: 11px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: white; box-shadow: none; }
 .b-nav__logo span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; }
 .b-nav__links { display: flex; gap: 32px; }
 .b-nav__link { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; }
@@ -207,8 +207,8 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-cta__card::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 500px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(15,118,110,0.12), transparent 65%); pointer-events: none; }
 .b-cta__title { font-size: 28px; font-weight: 800; color: white; letter-spacing: -0.03em; margin: 0 0 10px; position: relative; }
 .b-cta__text { font-size: 15px; color: rgba(255,255,255,0.5); margin: 0 0 28px; position: relative; }
-.b-cta__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(15,118,110,0.3); position: relative; }
-.b-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(15,118,110,0.45); }
+.b-cta__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: var(--accent); color: white; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: none; position: relative; }
+.b-cta__btn:hover { transform: translateY(-2px); box-shadow: none; }
 
 /* Footer */
 .footer { background: #09090b; padding: 64px 48px 28px; }

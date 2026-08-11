@@ -181,8 +181,8 @@ function refresh() {
 .dark .dash__export { background: rgba(255,255,255,0.06); color: #a1a1aa; }
 .dash__export:hover { background: rgba(0,0,0,0.08); }
 .dark .dash__export:hover { background: rgba(255,255,255,0.1); }
-.dash__refresh { background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white; box-shadow: 0 2px 8px rgba(15,118,110,0.25); }
-.dash__refresh:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(15,118,110,0.35); }
+.dash__refresh { background: var(--accent); color: white; box-shadow: none; }
+.dash__refresh:hover { transform: translateY(-1px); box-shadow: none; }
 
 /* KPIs */
 .dash__kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }

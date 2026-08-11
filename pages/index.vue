@@ -230,7 +230,7 @@ function goToCatalog() {
 .nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav__logo {
   width: 38px; height: 38px; border-radius: 11px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  background: var(--accent);
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 17px; color: white;
   box-shadow: 0 4px 16px var(--accent-rgb, 15,118,110,0.35);
@@ -269,7 +269,7 @@ function goToCatalog() {
 .hero__title-2 {
   display: block; font-size: clamp(48px, 7vw, 80px);
   font-weight: 800; letter-spacing: -0.045em;
-  background: linear-gradient(135deg, #c7d2fe 0%, var(--accent) 40%, var(--accent) 100%);
+  background: var(--accent-subtle);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -294,13 +294,13 @@ function goToCatalog() {
 }
 .search__field input::placeholder { color: #a1a1aa; }
 .search__submit {
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white;
+  background: var(--accent); color: white;
   border: none; padding: 12px 24px; border-radius: 12px;
   font-size: 13px; font-weight: 600; cursor: pointer;
   transition: all 0.25s; box-shadow: 0 2px 8px var(--accent-rgb, 15,118,110,0.3);
 }
 .search__submit:hover {
-  background: linear-gradient(135deg, var(--accent-hover), var(--accent-hover));
+  background: var(--accent-hover);
   box-shadow: 0 4px 16px var(--accent-rgb, 15,118,110,0.4);
 }
 .search__chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
@@ -313,7 +313,7 @@ function goToCatalog() {
 }
 .chip:hover { background: rgba(255,255,255,0.12); color: white; border-color: rgba(255,255,255,0.18); }
 .chip--solid {
-  background: linear-gradient(135deg, var(--accent-rgb, 15,118,110,0.85), rgba(15,118,110,0.85));
+  background: linear-gradient(135deg, var(--accent));
   border-color: transparent; color: white;
 }
 .chip--solid:hover {
@@ -499,7 +499,7 @@ function goToCatalog() {
   transition: all 0.3s;
 }
 .cta__btn--solid {
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white;
+  background: var(--accent); color: white;
   box-shadow: 0 4px 20px var(--accent-rgb, 15,118,110,0.35);
 }
 .cta__btn--solid:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-rgb, 15,118,110,0.45); }

@@ -124,7 +124,7 @@ function handleEriLogin() {
   background: var(--text);
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 17px; color: white;
-  box-shadow: 0 4px 16px rgba(15,118,110,0.35);
+  box-shadow: none;
 }
 .auth__logo span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; }
 .auth__visual-bottom { max-width: 400px; }

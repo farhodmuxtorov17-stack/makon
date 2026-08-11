@@ -131,10 +131,10 @@ async function handleRegister() {
 .auth__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .auth__logo-icon {
   width: 38px; height: 38px; border-radius: 11px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  background: var(--accent);
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 17px; color: white;
-  box-shadow: 0 4px 16px rgba(15,118,110,0.35);
+  box-shadow: none;
 }
 .auth__logo span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; }
 .auth__visual-bottom { max-width: 400px; }
@@ -189,12 +189,12 @@ async function handleRegister() {
 .auth__submit {
   width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 14px; border-radius: 12px; border: none;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white;
+  background: var(--accent); color: white;
   font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: all 0.3s; box-shadow: 0 2px 10px rgba(15,118,110,0.25);
+  transition: all 0.3s; box-shadow: none;
   margin-top: 4px;
 }
-.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(15,118,110,0.35); }
+.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: none; }
 .auth__submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* ERI box */
@@ -206,9 +206,9 @@ async function handleRegister() {
 .dark .auth__eri-box { background: rgba(15,118,110,0.06); }
 .auth__eri-icon {
   width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 14px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white;
+  background: var(--accent); color: white;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(15,118,110,0.25);
+  box-shadow: none;
 }
 .auth__eri-title { font-size: 16px; font-weight: 700; color: #18181b; margin: 0 0 8px; }
 .dark .auth__eri-title { color: white; }

@@ -150,7 +150,7 @@ const palettes: Record<string, any> = {
   revenue: {
     frontTop: 'var(--accent)', frontBottom: 'var(--accent-hover)',
     sideTop: 'var(--accent)', sideBottom: '#3730a3',
-    topStart: '#a5b4fc', topEnd: 'var(--accent)',
+    topStart: 'var(--accent)', topEnd: 'var(--accent)',
     accent: '#f59e0b', windowLit: '#fde68a',
   },
   occupancy: {
@@ -166,9 +166,9 @@ const palettes: Record<string, any> = {
     accent: '#3b82f6', windowLit: '#dbeafe',
   },
   units: {
-    frontTop: '#a5b4fc', frontBottom: 'var(--accent-hover)',
+    frontTop: 'var(--accent)', frontBottom: 'var(--accent-hover)',
     sideTop: 'var(--accent)', sideBottom: '#3730a3',
-    topStart: '#c7d2fe', topEnd: '#a5b4fc',
+    topStart: 'var(--accent)', topEnd: 'var(--accent)',
     accent: 'var(--accent)', windowLit: '#e0e7ff',
   },
   overdue: {
