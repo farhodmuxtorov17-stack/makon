@@ -132,13 +132,13 @@ onBeforeUnmount(() => {
 }
 .price-bubble:hover {
   transform: translate(-50%, -50%) scale(1.08);
-  box-shadow: 0 4px 14px rgba(15,118,110,0.35), 0 0 0 1px rgba(15,118,110,0.3);
+  box-shadow: 0 4px 14px rgba(37,99,235,0.35), 0 0 0 1px rgba(37,99,235,0.3);
   z-index: 1000;
 }
 .price-bubble--active {
   background: var(--accent-hover);
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(15,118,110,0.45), 0 0 0 1px rgba(15,118,110,0.3);
+  box-shadow: 0 4px 14px rgba(37,99,235,0.45), 0 0 0 1px rgba(37,99,235,0.3);
   transform: translate(-50%, -50%) scale(1.1);
 }
 </style>

@@ -143,7 +143,7 @@ function formatUZSShort(n: number) {
 }
 .dark .period-kpi { background: #18181b; border-color: rgba(255,255,255,0.06); }
 .period-kpi__icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.period-kpi--teal .period-kpi__icon { background: rgba(15,118,110,0.1); color: var(--accent); }
+.period-kpi--teal .period-kpi__icon { background: rgba(37,99,235,0.1); color: var(--accent); }
 .period-kpi--green .period-kpi__icon { background: rgba(16,185,129,0.1); color: #10b981; }
 .period-kpi--red .period-kpi__icon { background: rgba(239,68,68,0.1); color: #ef4444; }
 .period-kpi--amber .period-kpi__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
@@ -157,7 +157,7 @@ function formatUZSShort(n: number) {
   cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 .dark .period-card { background: #18181b; border-color: rgba(255,255,255,0.06); }
-.period-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); border-color: rgba(15,118,110,0.15); }
+.period-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); border-color: rgba(37,99,235,0.15); }
 .dark .period-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
 .period-card--open { border-left: 3px solid #f59e0b; }
 .period-card__head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }

@@ -191,7 +191,7 @@ const maxVal = 40
 
 const occupancyData = [
   { name: 'Tashkent City', pct: 96, occupied: 230, total: 240, color: '#10b981' },
-  { name: 'Trillant Tower', pct: 89, occupied: 89, total: 100, color: '#0f766e' },
+  { name: 'Trillant Tower', pct: 89, occupied: 89, total: 100, color: '#2563EB' },
   { name: 'IT Park', pct: 92, occupied: 46, total: 50, color: '#f59e0b' },
   { name: 'Piramit', pct: 78, occupied: 39, total: 50, color: '#8b5cf6' },
   { name: 'Savdo Markaz', pct: 84, occupied: 42, total: 50, color: '#ec4899' },
@@ -199,7 +199,7 @@ const occupancyData = [
 
 const buildingCompare = [
   { name: 'Tashkent City', units: 240, occ: 96, revenue: 185000000, debt: 5200000, color: '#10b981' },
-  { name: 'Trillant Tower', units: 100, occ: 89, revenue: 68000000, debt: 3100000, color: '#0f766e' },
+  { name: 'Trillant Tower', units: 100, occ: 89, revenue: 68000000, debt: 3100000, color: '#2563EB' },
   { name: 'IT Park', units: 50, occ: 92, revenue: 32000000, debt: 1200000, color: '#f59e0b' },
   { name: 'Piramit', units: 50, occ: 78, revenue: 28000000, debt: 8400000, color: '#8b5cf6' },
   { name: 'Savdo Markaz', units: 50, occ: 84, revenue: 24000000, debt: 6800000, color: '#ec4899' },
@@ -214,12 +214,12 @@ const buildingCompare = [
 }
 .kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
 .kpi-strip--emerald::before { background: #10b981; }
-.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
 .kpi-strip--amber::before { background: #f59e0b; }
 .kpi-strip--rose::before { background: #f43f5e; }
 .kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
-.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); color: var(--accent, #2563EB); }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); color: #f43f5e; }
 .kpi-strip__body { flex: 1; min-width: 0; }
@@ -233,7 +233,7 @@ const buildingCompare = [
 .rev-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; }
 .rev-bars { display: flex; align-items: flex-end; gap: 3px; flex: 1; width: 100%; justify-content: center; }
 .rev-bar { width: 18px; border-radius: 4px 4px 0 0; min-height: 4px; transition: height 0.6s ease; }
-.rev-bar--rev { background: linear-gradient(180deg, #14b8a6, #0f766e); }
+.rev-bar--rev { background: linear-gradient(180deg, #3B82F6, #2563EB); }
 .rev-bar--debt { background: linear-gradient(180deg, #fb7185, #e11d48); }
 .rev-label { font-size: 10px; color: var(--ink-400); font-weight: 500; }
 

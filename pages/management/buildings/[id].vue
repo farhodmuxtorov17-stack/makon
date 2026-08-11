@@ -17,7 +17,7 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/management/units" />
+      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/management/units" />
       <KpiCard :icon="TrendingUp" label="Band" :value="building.totalUnits" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/management/units" />
       <KpiCard :icon="AlertCircle" label="Bo'sh" :value="building.occupiedUnits" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/management/units" />
       <KpiCard :icon="Building2" label="Maydon" :value="building.vacantUnits" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/management/units" />
@@ -275,7 +275,7 @@ const serviceSeries = [{ name: 'So\'rovlar', data: [12, 8, 5, 7, 4, 6] }]
 .dark .floor-row:hover { background: rgba(255,255,255,0.03); }
 .floor-row__num {
   width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(15,118,110,0.1); color: var(--accent);
+  background: rgba(37,99,235,0.1); color: var(--accent);
   display: flex; align-items: center; justify-content: center;
   font-size: 14px; font-weight: 700; flex-shrink: 0;
 }
@@ -304,7 +304,7 @@ const serviceSeries = [{ name: 'So\'rovlar', data: [12, 8, 5, 7, 4, 6] }]
 .dark .doc-row:hover { background: rgba(255,255,255,0.03); }
 .doc-row__icon {
   width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(15,118,110,0.08);
+  background: rgba(37,99,235,0.08);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }

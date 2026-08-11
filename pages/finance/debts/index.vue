@@ -231,7 +231,7 @@ function formatUZSShort(n: number) {
 .debt-card__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
 .debt-card--red .debt-card__icon { background: rgba(239,68,68,0.1); color: #ef4444; }
 .debt-card--amber .debt-card__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
-.debt-card--teal .debt-card__icon { background: rgba(15,118,110,0.1); color: var(--accent); }
+.debt-card--teal .debt-card__icon { background: rgba(37,99,235,0.1); color: var(--accent); }
 .debt-card__label { font-size: 13px; color: #71717a; font-weight: 500; }
 .dark .debt-card__label { color: #a1a1aa; }
 .debt-card__value { font-size: 28px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; margin-bottom: 14px; }

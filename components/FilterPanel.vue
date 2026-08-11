@@ -316,10 +316,10 @@ function toNum(v: string): number | null {
 .dark .filter-type-btn { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.07); color: #a1a1aa; }
 .filter-type-btn--active {
   border-color: var(--accent-hover);
-  background: rgba(15,118,110,0.08);
+  background: rgba(37,99,235,0.08);
   color: var(--accent-hover);
 }
-.dark .filter-type-btn--active { color: var(--accent); background: rgba(15,118,110,0.15); }
+.dark .filter-type-btn--active { color: var(--accent); background: rgba(37,99,235,0.15); }
 
 .filter-range {
   display: flex;

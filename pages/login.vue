@@ -111,7 +111,7 @@ function handleEriLogin() {
 .auth__visual-grad {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(9,9,11,0.4) 0%, rgba(9,9,11,0.2) 40%, rgba(9,9,11,0.85) 100%),
-              radial-gradient(ellipse at 30% 70%, rgba(15,118,110,0.08), transparent 50%);
+              radial-gradient(ellipse at 30% 70%, rgba(37,99,235,0.08), transparent 50%);
 }
 .auth__visual-content {
   position: absolute; inset: 0;
@@ -160,7 +160,7 @@ function handleEriLogin() {
   transition: all 0.25s; outline: none;
 }
 .dark .auth__input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
-.auth__input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(15,118,110,0.12); }
+.auth__input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
 .dark .auth__input:focus { background: rgba(255,255,255,0.06); }
 .auth__input::placeholder { color: #a1a1aa; }
 .auth__input-toggle { position: absolute; right: 14px; background: none; border: none; cursor: pointer; color: #a1a1aa; padding: 4px; }

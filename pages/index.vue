@@ -420,7 +420,7 @@ function goToCatalog() {
   border-color: transparent; color: white;
 }
 .chip--solid:hover {
-  background: linear-gradient(135deg, rgba(15,118,110,0.95), rgba(67,56,202,0.95));
+  background: linear-gradient(135deg, rgba(37,99,235,0.95), rgba(67,56,202,0.95));
 }
 
 /* ════════ BUILDINGS ════════ */
@@ -672,14 +672,14 @@ function goToCatalog() {
 .how__steps { display: flex; align-items: flex-start; justify-content: space-between; gap: 0; }
 .step { flex: 1; text-align: center; padding: 0 16px; position: relative; }
 .step__num { font-size: 13px; font-weight: 800; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 16px; }
-.step__icon { width: 56px; height: 56px; border-radius: 16px; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(15,118,110,0.2); transition: transform 0.3s; }
+.step__icon { width: 56px; height: 56px; border-radius: 16px; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(37,99,235,0.2); transition: transform 0.3s; }
 .step:hover .step__icon { transform: translateY(-4px) scale(1.05); }
 .step__title { font-size: 18px; font-weight: 700; color: #18181b; margin: 0 0 8px; letter-spacing: -0.02em; }
 .dark .step__title { color: white; }
 .step__text { font-size: 14px; color: #71717a; line-height: 1.6; margin: 0; }
 .dark .step__text { color: #a1a1aa; }
-.step__line { flex: 0 0 60px; height: 2px; background: linear-gradient(90deg, var(--accent), rgba(15,118,110,0.2)); margin-top: 44px; border-radius: 1px; }
-.dark .step__line { background: linear-gradient(90deg, var(--accent), rgba(45,212,191,0.1)); }
+.step__line { flex: 0 0 60px; height: 2px; background: linear-gradient(90deg, var(--accent), rgba(37,99,235,0.2)); margin-top: 44px; border-radius: 1px; }
+.dark .step__line { background: linear-gradient(90deg, var(--accent), rgba(96,165,250,0.1)); }
 
 /* ════════ FEATURES ════════ */
 .features { max-width: 1400px; margin: 0 auto; padding: 0 48px 100px; }
@@ -689,10 +689,10 @@ function goToCatalog() {
 .features__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .feat { padding: 32px; border-radius: 20px; background: white; border: 1px solid rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
 .dark .feat { background: #18181b; border: 1px solid rgba(255,255,255,0.06); }
-.feat:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.08); border-color: rgba(15,118,110,0.15); }
-.dark .feat:hover { box-shadow: 0 20px 48px rgba(0,0,0,0.3); border-color: rgba(15,118,110,0.2); }
+.feat:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.08); border-color: rgba(37,99,235,0.15); }
+.dark .feat:hover { box-shadow: 0 20px 48px rgba(0,0,0,0.3); border-color: rgba(37,99,235,0.2); }
 .feat__icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: white; }
-.feat__icon--teal { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+.feat__icon--teal { background: linear-gradient(135deg, #2563EB, #3B82F6); }
 .feat__icon--emerald { background: linear-gradient(135deg, #059669, #10b981); }
 .feat__icon--amber { background: linear-gradient(135deg, #d97706, #f59e0b); }
 .feat__icon--violet { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }

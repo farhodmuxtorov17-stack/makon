@@ -617,8 +617,8 @@ function cycleRegion() {
   background: rgba(0,0,0,0.04); white-space: nowrap; flex-shrink: 0;
 }
 .dark .catalog-chip { background: rgba(255,255,255,0.05); color: #d4d4d8; }
-.catalog-chip--active { background: rgba(15,118,110,0.1); color: var(--accent-hover); }
-.dark .catalog-chip--active { background: rgba(15,118,110,0.15); color: var(--accent); }
+.catalog-chip--active { background: rgba(37,99,235,0.1); color: var(--accent-hover); }
+.dark .catalog-chip--active { background: rgba(37,99,235,0.15); color: var(--accent); }
 .catalog-chip--clear { background: rgba(239,68,68,0.08); color: #ef4444; }
 
 /* ============ VIP CAROUSEL ============ */
@@ -721,15 +721,15 @@ function cycleRegion() {
 }
 .listing-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(15,118,110,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(37,99,235,0.4), transparent);
   opacity: 0; transition: opacity 0.3s;
 }
 .listing-card:hover::before { opacity: 1; }
 .dark .listing-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
-.listing-card:hover, .listing-card--active { border-color: rgba(15,118,110,0.4); box-shadow: none; transform: translateY(-2px); }
+.listing-card:hover, .listing-card--active { border-color: rgba(37,99,235,0.4); box-shadow: none; transform: translateY(-2px); }
 .listing-card { cursor: pointer; }
-.listing-card--active { border-color: var(--accent); background: rgba(15,118,110,0.05); box-shadow: 0 6px 20px rgba(15,118,110,0.18), 0 0 0 1px rgba(15,118,110,0.3); }
-.dark .listing-card--active { background: rgba(15,118,110,0.08); }
+.listing-card--active { border-color: var(--accent); background: rgba(37,99,235,0.05); box-shadow: 0 6px 20px rgba(37,99,235,0.18), 0 0 0 1px rgba(37,99,235,0.3); }
+.dark .listing-card--active { background: rgba(37,99,235,0.08); }
 .listing-card__photo {
   position: relative; width: 128px; height: 96px; flex-shrink: 0;
   border-radius: 10px; overflow: hidden; display: block;
@@ -774,7 +774,7 @@ function cycleRegion() {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
 }
 .dark .grid-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
-.grid-card:hover { border-color: rgba(15,118,110,0.3); box-shadow: none; transform: translateY(-4px); }
+.grid-card:hover { border-color: rgba(37,99,235,0.3); box-shadow: none; transform: translateY(-4px); }
 .grid-card__image img { transition: transform 0.5s; }
 .grid-card:hover .grid-card__image img { transform: scale(1.06); }
 .grid-card__image { position: relative; width: 100%; height: 160px; overflow: hidden; }

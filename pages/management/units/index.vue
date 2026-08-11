@@ -166,7 +166,7 @@ const filteredUnits = computed(() => {
 
 function statusLabel(s: string) { return { OCCUPIED: 'Band', VACANT: "Bo'sh", RESERVED: 'Rezerv' }[s] || s }
 function typeLabel(t: string) { return { OFFICE: 'Ofis', RETAIL: 'Savdo', WAREHOUSE: 'Ombor', MIXED: 'Aralash' }[t] || t }
-function typeColor(t: string) { return { OFFICE: '#0f766e', RETAIL: '#f59e0b', WAREHOUSE: '#3b82f6', MIXED: '#8b5cf6' }[t] || '#71717a' }
+function typeColor(t: string) { return { OFFICE: '#2563EB', RETAIL: '#f59e0b', WAREHOUSE: '#3b82f6', MIXED: '#8b5cf6' }[t] || '#71717a' }
 function typeIcon(t: string) { return { OFFICE: Building2, RETAIL: Store, WAREHOUSE: Warehouse, MIXED: Blend }[t] || Building2 }
 </script>
 
@@ -177,12 +177,12 @@ function typeIcon(t: string) { return { OFFICE: Building2, RETAIL: Store, WAREHO
   border-radius: 14px; position: relative; overflow: hidden;
 }
 .kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
 .kpi-strip--emerald::before { background: #10b981; }
 .kpi-strip--amber::before { background: #f59e0b; }
 .kpi-strip--blue::before { background: #3b82f6; }
 .kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); color: var(--accent, #2563EB); }
 .kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); color: #3b82f6; }
@@ -196,7 +196,7 @@ function typeIcon(t: string) { return { OFFICE: Building2, RETAIL: Store, WAREHO
   border-radius: 16px; padding: 16px 18px; cursor: pointer;
   transition: all 0.2s ease; position: relative; overflow: hidden;
 }
-.unit-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: rgba(15,118,110,0.2); }
+.unit-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: rgba(37,99,235,0.2); }
 .unit-card--occupied { border-left: 3px solid #10b981; }
 .unit-card--vacant { border-left: 3px solid #f59e0b; }
 .unit-card--reserved { border-left: 3px solid #6366f1; }
@@ -216,7 +216,7 @@ function typeIcon(t: string) { return { OFFICE: Building2, RETAIL: Store, WAREHO
 .unit-stat__divider { width: 1px; height: 28px; background: rgba(0,0,0,0.06); }
 .unit-card__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
 .unit-type { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
-.unit-card__price { font-size: 13px; font-weight: 700; color: var(--accent, #0f766e); }
+.unit-card__price { font-size: 13px; font-weight: 700; color: var(--accent, #2563EB); }
 :deep(.dark) .unit-card { border-color: rgba(255,255,255,0.06); }
 :deep(.dark) .unit-card__mid { border-color: rgba(255,255,255,0.06); }
 :deep(.dark) .unit-stat__divider { background: rgba(255,255,255,0.06); }

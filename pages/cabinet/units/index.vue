@@ -182,12 +182,12 @@ const totalDebt = computed(() => units.reduce((s, u) => s + u.debt, 0))
   border-radius: 14px; position: relative; overflow: hidden;
 }
 .kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
 .kpi-strip--blue::before { background: #3b82f6; }
 .kpi-strip--amber::before { background: #f59e0b; }
 .kpi-strip--rose::before { background: #f43f5e; }
 .kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); color: var(--accent, #2563EB); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); color: #3b82f6; }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); color: #f43f5e; }

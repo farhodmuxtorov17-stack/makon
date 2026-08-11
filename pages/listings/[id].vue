@@ -119,7 +119,7 @@
                 <svg viewBox="0 0 100 60" class="w-full" style="max-height: 400px;">
                   <defs>
                     <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
-                      <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(15,118,110,0.12)" stroke-width="0.3"/>
+                      <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(37,99,235,0.12)" stroke-width="0.3"/>
                     </pattern>
                     <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.9"/>
@@ -148,17 +148,17 @@
                   <line x1="35" y1="2" x2="45" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
                   <line x1="50" y1="2" x2="58" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
                   <line x1="2" y1="35" x2="2" y2="42" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
-                  <text x="50" y="0.5" text-anchor="middle" fill="rgba(15,118,110,0.6)" font-size="1.8" font-weight="600">
+                  <text x="50" y="0.5" text-anchor="middle" fill="rgba(37,99,235,0.6)" font-size="1.8" font-weight="600">
                     {{ (96 * 0.3).toFixed(1) }}m
                   </text>
-                  <text x="0.8" y="30" text-anchor="middle" fill="rgba(15,118,110,0.6)" font-size="1.8" font-weight="600"
+                  <text x="0.8" y="30" text-anchor="middle" fill="rgba(37,99,235,0.6)" font-size="1.8" font-weight="600"
                     transform="rotate(-90, 0.8, 30)">
                     {{ (56 * 0.3).toFixed(1) }}m
                   </text>
                   <g transform="translate(92, 54)">
-                    <circle r="2.5" fill="rgba(15,118,110,0.15)" stroke="rgba(15,118,110,0.4)" stroke-width="0.2"/>
+                    <circle r="2.5" fill="rgba(37,99,235,0.15)" stroke="rgba(37,99,235,0.4)" stroke-width="0.2"/>
                     <path d="M 0 -1.8 L 0.8 0.8 L 0 0.3 L -0.8 0.8 Z" fill="var(--accent)" />
-                    <text y="-3" text-anchor="middle" fill="rgba(15,118,110,0.6)" font-size="1.2" font-weight="700">N</text>
+                    <text y="-3" text-anchor="middle" fill="rgba(37,99,235,0.6)" font-size="1.2" font-weight="700">N</text>
                   </g>
                 </svg>
               </div>

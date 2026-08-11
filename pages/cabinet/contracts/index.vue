@@ -174,13 +174,13 @@ function statusLabel(s: string) { return { ACTIVE: 'Faol', PARTIALLY_SIGNED: 'Qi
   cursor: pointer; transition: all 0.2s ease;
   position: relative; overflow: hidden;
 }
-.con-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: rgba(15,118,110,0.2); }
+.con-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: rgba(37,99,235,0.2); }
 .con-card--active { border-left: 3px solid #10b981; }
 .con-card--partially_signed { border-left: 3px solid #f59e0b; }
 .con-card--expired { border-left: 3px solid #71717a; opacity: 0.75; }
 .con-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .con-card__left { display: flex; align-items: center; gap: 12px; }
-.con-card__icon { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(15,118,110,0.08); color: var(--accent, #0f766e); }
+.con-card__icon { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(37,99,235,0.08); color: var(--accent, #2563EB); }
 .con-card--partially_signed .con-card__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .con-card--expired .con-card__icon { background: rgba(113,113,122,0.1); color: #71717a; }
 .con-card__num { font-size: 14px; font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace; letter-spacing: -0.3px; }
@@ -191,7 +191,7 @@ function statusLabel(s: string) { return { ACTIVE: 'Faol', PARTIALLY_SIGNED: 'Qi
 .con-badge--expired { background: rgba(113,113,122,0.12); color: #71717a; }
 .con-card__mid { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 12px 0; border-top: 1px solid rgba(0,0,0,0.04); border-bottom: 1px solid rgba(0,0,0,0.04); }
 .con-rent { display: flex; align-items: baseline; gap: 4px; }
-.con-rent__amount { font-size: 18px; font-weight: 800; color: var(--accent, #0f766e); }
+.con-rent__amount { font-size: 18px; font-weight: 800; color: var(--accent, #2563EB); }
 .con-rent__period { font-size: 11px; color: var(--ink-400); font-weight: 500; }
 .con-dates { display: flex; align-items: center; gap: 8px; }
 .con-date { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--ink-500); font-family: 'SF Mono', 'Fira Code', monospace; }
@@ -214,7 +214,7 @@ function statusLabel(s: string) { return { ACTIVE: 'Faol', PARTIALLY_SIGNED: 'Qi
 .eri-line--done { background: #10b981; }
 .con-eri__pending { display: flex; align-items: center; gap: 3px; font-size: 10px; color: #f59e0b; font-weight: 600; margin-left: auto; }
 :deep(.dark) .con-card { border-color: rgba(255,255,255,0.06); }
-:deep(.dark) .con-card__icon { background: rgba(15,118,110,0.15); }
+:deep(.dark) .con-card__icon { background: rgba(37,99,235,0.15); }
 :deep(.dark) .con-progress__track { background: rgba(255,255,255,0.08); }
 :deep(.dark) .con-card__mid { border-color: rgba(255,255,255,0.06); }
 :deep(.dark) .kpi-strip { border-color: rgba(255,255,255,0.06); }

@@ -394,7 +394,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-hero__grad {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(9,9,11,0.3) 0%, rgba(9,9,11,0.2) 40%, rgba(9,9,11,0.85) 100%),
-              radial-gradient(ellipse at 50% 100%, rgba(15,118,110,0.1), transparent 60%);
+              radial-gradient(ellipse at 50% 100%, rgba(37,99,235,0.1), transparent 60%);
 }
 .b-nav { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding: 24px 48px; max-width: 1400px; margin: 0 auto; width: 100%; }
 .b-nav__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -407,7 +407,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-nav__btn { display: inline-flex; align-items: center; gap: 5px; background: white; color: #09090b; padding: 10px 18px; border-radius: 11px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
 .b-nav__btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
 .b-hero__content { position: relative; z-index: 5; max-width: 1400px; margin: 0 auto; padding: 80px 48px 0; }
-.b-hero__tag { display: inline-block; background: rgba(15,118,110,0.9); color: white; padding: 6px 14px; border-radius: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 16px; backdrop-filter: blur(10px); }
+.b-hero__tag { display: inline-block; background: rgba(37,99,235,0.9); color: white; padding: 6px 14px; border-radius: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 16px; backdrop-filter: blur(10px); }
 .b-hero__title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; color: white; letter-spacing: -0.04em; margin: 0 0 10px; }
 .b-hero__addr { display: flex; align-items: center; gap: 6px; font-size: 16px; color: rgba(255,255,255,0.6); margin: 0 0 28px; }
 .b-hero__specs { display: flex; align-items: center; gap: 24px; }
@@ -517,8 +517,8 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .mini-unit--occupied { background: rgba(82,82,91,0.12); }
 .dark .mini-unit--occupied { background: rgba(63,63,70,0.4); }
 .mini-unit--vacant { background: var(--accent-subtle); border-color: var(--accent-border); }
-.mini-unit--vacant:hover { background: rgba(15,118,110,0.15); transform: scale(1.03); }
-.dark .mini-unit--vacant:hover { background: rgba(45,212,191,0.15); }
+.mini-unit--vacant:hover { background: rgba(37,99,235,0.15); transform: scale(1.03); }
+.dark .mini-unit--vacant:hover { background: rgba(96,165,250,0.15); }
 .mini-unit--tech { background: rgba(0,0,0,0.03); opacity: 0.5; }
 .dark .mini-unit--tech { background: rgba(255,255,255,0.03); }
 .mini-unit--selected { background: var(--accent) !important; border-color: var(--accent) !important; box-shadow: 0 0 0 3px var(--accent-glow); }
@@ -587,12 +587,12 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-units__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .unit-card { border-radius: 18px; overflow: hidden; background: white; cursor: pointer; box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
 .dark .unit-card { background: #18181b; box-shadow: 0 2px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06); }
-.unit-card:hover { box-shadow: 0 24px 56px rgba(0,0,0,0.1), 0 0 0 1px rgba(15,118,110,0.1); transform: translateY(-4px); }
-.dark .unit-card:hover { box-shadow: 0 24px 56px rgba(0,0,0,0.5), 0 0 0 1px rgba(15,118,110,0.15); }
+.unit-card:hover { box-shadow: 0 24px 56px rgba(0,0,0,0.1), 0 0 0 1px rgba(37,99,235,0.1); transform: translateY(-4px); }
+.dark .unit-card:hover { box-shadow: 0 24px 56px rgba(0,0,0,0.5), 0 0 0 1px rgba(37,99,235,0.15); }
 .unit-card__img { position: relative; aspect-ratio: 16/10; overflow: hidden; }
 .unit-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
 .unit-card:hover .unit-card__img img { transform: scale(1.05); }
-.unit-card__badge { position: absolute; top: 14px; right: 14px; background: rgba(15,118,110,0.9); color: white; padding: 5px 12px; border-radius: 7px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; backdrop-filter: blur(10px); }
+.unit-card__badge { position: absolute; top: 14px; right: 14px; background: rgba(37,99,235,0.9); color: white; padding: 5px 12px; border-radius: 7px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; backdrop-filter: blur(10px); }
 .unit-card__info { padding: 20px; }
 .unit-card__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .unit-card__name { font-size: 17px; font-weight: 700; color: #18181b; letter-spacing: -0.02em; margin: 0; }
@@ -616,8 +616,8 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-cta__inner { position: relative; z-index: 1; padding: 64px 48px; text-align: center; }
 .b-cta__title { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: white; letter-spacing: -0.035em; margin: 0 0 14px; }
 .b-cta__text { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 480px; margin: 0 auto 32px; }
-.b-cta__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: var(--accent); color: white; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(15,118,110,0.35); }
-.b-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(15,118,110,0.45); }
+.b-cta__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: var(--accent); color: white; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(37,99,235,0.35); }
+.b-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,99,235,0.45); }
 
 /* ════════ FOOTER ════════ */
 .footer { background: #09090b; padding: 64px 48px 28px; }

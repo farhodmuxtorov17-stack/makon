@@ -149,7 +149,7 @@ const channels = ref([
   transition: border-color 0.15s;
 }
 .dark .settings-input { background: #09090b; color: #fafafa; border-color: rgba(255,255,255,0.1); }
-.settings-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15,118,110,0.1); }
+.settings-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
 .settings-input--disabled { opacity: 0.5; cursor: not-allowed; }
 .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-radius: 12px; background: rgba(0,0,0,0.02); cursor: pointer; }
 .dark .settings-row { background: rgba(255,255,255,0.02); }

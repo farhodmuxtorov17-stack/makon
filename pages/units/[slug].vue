@@ -14,9 +14,9 @@
       <!-- Left: photos -->
       <div class="lg:col-span-2 space-y-4">
         <div class="card-premium overflow-hidden">
-          <div class="h-80 relative flex items-center justify-center" style="background: radial-gradient(ellipse at center, rgba(15,118,110,0.06), transparent 70%);">
+          <div class="h-80 relative flex items-center justify-center" style="background: radial-gradient(ellipse at center, rgba(37,99,235,0.06), transparent 70%);">
             <svg viewBox="0 0 400 200" class="w-full h-full p-8">
-              <polygon :points="unit.planPoints" fill="rgba(15,118,110,0.08)" stroke="var(--accent)" stroke-width="2" />
+              <polygon :points="unit.planPoints" fill="rgba(37,99,235,0.08)" stroke="var(--accent)" stroke-width="2" />
               <text :x="200" :y="100" text-anchor="middle" class="text-lg fill-current text-brand-500 font-bold">{{ unit.name }}</text>
               <text :x="200" :y="120" text-anchor="middle" class="text-xs fill-current text-ink-500">{{ unit.area }} m²</text>
             </svg>
@@ -40,7 +40,7 @@
 
       <!-- Right: price & actions -->
       <div class="space-y-4">
-        <div class="card-premium p-6 sticky top-20 glow-brand" style="background: linear-gradient(135deg, rgba(15,118,110,0.04), rgba(255,255,255,1));">
+        <div class="card-premium p-6 sticky top-20 glow-brand" style="background: linear-gradient(135deg, rgba(37,99,235,0.04), rgba(255,255,255,1));">
           <div class="mb-4">
             <div class="text-3xl font-extrabold text-brand-600">{{ formatUZS(unit.price) }}</div>
             <div class="text-sm text-ink-500">{{ unit.pricePerM2 }} so\'m/m² oyiga</div>

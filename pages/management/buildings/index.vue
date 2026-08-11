@@ -14,7 +14,7 @@
     <!-- Stat Badges Row -->
     <div class="flex flex-wrap items-center gap-3">
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: rgba(15,118,110,0.1); color: var(--accent);"><Building2 :size="18" /></div>
+        <div class="stat-pill__icon" style="background: rgba(37,99,235,0.1); color: var(--accent);"><Building2 :size="18" /></div>
         <div>
           <div class="stat-pill__val">{{ buildings.length }}</div>
           <div class="stat-pill__label">Binolar</div>

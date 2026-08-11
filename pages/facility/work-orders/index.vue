@@ -79,7 +79,7 @@
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <KpiCard :icon="Wrench" label="Jami work orderlar" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/facility/work-orders" />
-      <KpiCard :icon="Clock" label="Jarayonda" :value="inProgressCount" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/facility/work-orders" />
+      <KpiCard :icon="Clock" label="Jarayonda" :value="inProgressCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/facility/work-orders" />
       <KpiCard :icon="CheckCircle2" label="Tugatilgan" :value="completedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/facility/work-orders" />
       <KpiCard :icon="AlertTriangle" label="SLA buzilgan" :value="slaBreachedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/facility/work-orders" />
     </div>

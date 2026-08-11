@@ -231,8 +231,8 @@ function formatUZSShort(n: number) {
   transition: all 0.3s;
 }
 .dark .approval-card { background: #18181b; border-color: rgba(255,255,255,0.06); }
-.approval-card:hover { border-color: rgba(15,118,110,0.15); box-shadow: 0 8px 24px rgba(0,0,0,0.04); }
-.dark .approval-card:hover { border-color: rgba(15,118,110,0.2); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.approval-card:hover { border-color: rgba(37,99,235,0.15); box-shadow: 0 8px 24px rgba(0,0,0,0.04); }
+.dark .approval-card:hover { border-color: rgba(37,99,235,0.2); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
 .approval-card__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .approval-card__body { flex: 1; min-width: 0; }
 .approval-card__amount { text-align: right; flex-shrink: 0; }

@@ -173,12 +173,12 @@ function categoryIcon(cat: string) {
   border-radius: 14px; position: relative; overflow: hidden;
 }
 .kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
 .kpi-strip--emerald::before { background: #10b981; }
 .kpi-strip--amber::before { background: #f59e0b; }
 .kpi-strip--violet::before { background: #8b5cf6; }
 .kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); color: var(--accent, #2563EB); }
 .kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); color: #8b5cf6; }
@@ -205,12 +205,12 @@ function categoryIcon(cat: string) {
 .si-card__body { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; }
 .si-material { font-size: 14px; font-weight: 600; }
 .si-qty { display: flex; align-items: baseline; gap: 3px; }
-.si-qty__num { font-size: 18px; font-weight: 800; color: var(--accent, #0f766e); }
+.si-qty__num { font-size: 18px; font-weight: 800; color: var(--accent, #2563EB); }
 .si-qty__unit { font-size: 12px; color: var(--ink-400); }
 .si-card__foot { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.04); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.si-value { font-size: 13px; font-weight: 700; color: var(--accent, #0f766e); }
+.si-value { font-size: 13px; font-weight: 700; color: var(--accent, #2563EB); }
 .si-recipient { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-500); }
-.si-recipient__avatar { width: 20px; height: 20px; border-radius: 50%; background: var(--accent, #0f766e); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+.si-recipient__avatar { width: 20px; height: 20px; border-radius: 50%; background: var(--accent, #2563EB); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
 .si-note { font-size: 11px; color: var(--ink-400); margin-left: auto; }
 :deep(.dark) .si-card { border-color: rgba(255,255,255,0.06); }
 :deep(.dark) .si-card__foot { border-color: rgba(255,255,255,0.06); }

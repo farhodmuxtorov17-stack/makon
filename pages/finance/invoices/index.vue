@@ -16,7 +16,7 @@
       <KpiCard :icon="DollarSign" label="Jami summa" :value="formatUZSShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/finance/invoices" />
       <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatUZSShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/invoices" />
       <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatUZSShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
-      <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/finance/debts" />
+      <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/finance/debts" />
     </div>
 
     <!-- Mini chart -->

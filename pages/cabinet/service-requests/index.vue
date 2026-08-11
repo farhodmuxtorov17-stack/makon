@@ -172,12 +172,12 @@ function categoryIcon(cat: string) {
   border-radius: 14px; position: relative; overflow: hidden;
 }
 .kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
 .kpi-strip--amber::before { background: #f59e0b; }
 .kpi-strip--emerald::before { background: #10b981; }
 .kpi-strip--violet::before { background: #8b5cf6; }
 .kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); color: var(--accent, #2563EB); }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
 .kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); color: #8b5cf6; }
@@ -191,7 +191,7 @@ function categoryIcon(cat: string) {
   cursor: pointer; transition: all 0.2s ease;
   position: relative; overflow: hidden;
 }
-.sr-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: rgba(15,118,110,0.2); }
+.sr-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: rgba(37,99,235,0.2); }
 .sr-card--in_progress { border-left: 3px solid #f59e0b; }
 .sr-card--completed { border-left: 3px solid #10b981; }
 .sr-card--cancelled { border-left: 3px solid #71717a; opacity: 0.65; }
