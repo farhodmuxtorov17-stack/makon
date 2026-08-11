@@ -1,14 +1,14 @@
 <template>
-  <div class="space-y-6 animate-fade-up">
+  <div class="space-y-6">
     <!-- Hero Header -->
-    <div class="relative overflow-hidden rounded-3xl border border-black/5 dark:border-white/5" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #818cf8 100%);">
-      <div class="absolute inset-0 bg-dots opacity-10"></div>
-      <div class="absolute top-0 right-0 w-96 h-96 rounded-full" style="background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);"></div>
+    <div class="relative overflow-hidden rounded-2xl border border-black/5 dark:border-white/5" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #818cf8 100%);">
+      
+      
       <div class="relative p-6 lg:p-8 text-white">
         <div class="flex items-start justify-between flex-wrap gap-4">
           <div>
             <p class="text-white/60 text-sm font-medium mb-1">Super Rahbar Paneli</p>
-            <h1 class="text-3xl font-bold text-ink-900 dark:text-white tracking-tight">Global Dashboard</h1>
+            <h1 class="text-3xl font-bold text-white tracking-tight">Global Dashboard</h1>
             <p class="text-white/70 text-sm mt-1.5">Barcha obyektlar bo'yicha strategik monitoring va real vaqt rejimi</p>
           </div>
           <div class="flex items-center gap-2">

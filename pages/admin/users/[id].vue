@@ -144,7 +144,7 @@
 
     <!-- Toast -->
     <transition name="toast">
-      <div v-if="showSaved" class="fixed bottom-6 right-6 card px-4 py-3 flex items-center gap-2 z-50 shadow-xl">
+      <div v-if="showSaved" class="fixed bottom-6 right-6 card px-4 py-3 flex items-center gap-2 z-50">
         <CheckCircle2 :size="18" class="text-emerald-500" />
         <span class="text-sm">Saqlandi</span>
       </div>

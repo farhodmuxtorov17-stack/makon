@@ -47,7 +47,7 @@
         <button
           @click="viewMode = 'card'"
           class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all"
-          :class="viewMode === 'card' ? 'bg-white dark:bg-ink-800 text-brand-500 shadow-sm' : 'text-ink-500 hover:text-ink-900 dark:hover:text-white'"
+          :class="viewMode === 'card' ? 'bg-white dark:bg-ink-800 text-brand-500' : 'text-ink-500 hover:text-ink-900 dark:hover:text-white'"
         >
           <LayoutGrid :size="16" /> Card
         </button>
@@ -192,7 +192,7 @@
     <Teleport to="body">
       <div v-if="showCreateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showCreateModal = false"></div>
-        <div class="relative w-full max-w-lg bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 shadow-2xl p-6 z-10 space-y-4">
+        <div class="relative w-full max-w-lg bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
           <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
             <h3 class="text-lg font-bold text-ink-900 dark:text-white">Yangi bino yaratish</h3>
             <button @click="showCreateModal = false" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400">

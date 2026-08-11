@@ -35,7 +35,7 @@
         <div class="space-y-3">
           <div
             v-for="app in getColumnApps(col.status)" :key="app.id"
-            class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer group shadow-sm bg-white dark:bg-ink-900"
+            class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer group bg-white dark:bg-ink-900"
             @click="selectedApp = app"
           >
             <!-- Card Header -->

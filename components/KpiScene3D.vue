@@ -264,57 +264,12 @@ const extraWindows = computed(() => {
 <style scoped>
 .kpi-scene-3d { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-.coin { transform-box: fill-box; transform-origin: center; animation: coin-fall 2.5s ease-in infinite; }
-.c1 { animation-delay: 0s; }
-.c2 { animation-delay: 0.5s; }
-.c3 { animation-delay: 1s; }
-.c4 { animation-delay: 1.5s; }
-.c5 { animation-delay: 0.8s; }
-
-@keyframes coin-fall {
-  0% { transform: translateY(-6px); opacity: 0; }
-  15% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { transform: translateY(36px); opacity: 0; }
-}
-
-.warn-pulse { transform-box: fill-box; transform-origin: center; animation: warn-pulse 1.5s ease-in-out infinite; }
-@keyframes warn-pulse {
-  0%, 100% { transform: scale(0.85); opacity: 0.85; }
-  50% { transform: scale(1.15); opacity: 1; }
-}
-
-.doc-float { transform-box: fill-box; transform-origin: center; animation: doc-float 3s ease-in-out infinite; }
-@keyframes doc-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
-.doc-badge { transform-box: fill-box; transform-origin: center; animation: badge-pop 2s ease-in-out infinite; }
-
-.occ-badge { transform-box: fill-box; transform-origin: center; animation: badge-pop 2s ease-in-out infinite; }
-@keyframes badge-pop {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.12); }
-}
-
-.pkg-float { transform-box: fill-box; transform-origin: center; animation: pkg-bob 2.5s ease-in-out infinite; }
-@keyframes pkg-bob {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-2px) rotate(2deg); }
-}
-
-.sign-float { transform-box: fill-box; transform-origin: center; animation: sign-sway 2.5s ease-in-out infinite; }
-@keyframes sign-sway {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-}
-
-.win-lit { animation: win-glow 4s ease-in-out infinite; }
-@keyframes win-glow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.65; }
-}
+/* All animations removed for cleaner, professional look */
+.coin { opacity: 0.8; }
+.warn-pulse { opacity: 0.9; }
+.doc-float, .pkg-float, .sign-float { opacity: 0.9; }
+.doc-badge, .occ-badge { opacity: 0.95; }
+.win-lit { opacity: 0.9; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; }

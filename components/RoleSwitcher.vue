@@ -12,7 +12,7 @@
     </button>
 
     <transition name="dropdown">
-      <div v-if="open" class="absolute right-0 top-full mt-2 w-80 card p-2 z-50 shadow-xl">
+      <div v-if="open" class="absolute right-0 top-full mt-2 w-80 card p-2 z-50">
         <div class="px-3 py-2 text-xs text-ink-500 font-medium uppercase tracking-wide">Rolni tanlang</div>
         <button
           v-for="role in roles"

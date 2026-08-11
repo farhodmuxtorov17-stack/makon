@@ -38,7 +38,7 @@
         <div class="space-y-3">
           <div
             v-for="sr in getColumnRequests(col.status)" :key="sr.id"
-            class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer shadow-sm bg-white dark:bg-ink-900"
+            class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer bg-white dark:bg-ink-900"
             @click="selectedRequest = sr"
           >
             <!-- Header badges -->

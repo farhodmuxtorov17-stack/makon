@@ -44,7 +44,7 @@
             <div class="flex flex-col items-center gap-1.5">
               <div
                 class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all"
-                :class="step.done ? 'bg-emerald-500/10 text-emerald-500' : step.current ? 'bg-brand-500/10 text-brand-500 ring-2 ring-brand-500/20' : 'bg-black/5 dark:bg-white/5 text-ink-400'"
+                :class="step.done ? 'bg-emerald-500/10 text-emerald-500' : step.current ? 'bg-brand-500/10 text-brand-500' : 'bg-black/5 dark:bg-white/5 text-ink-400'"
               >
                 <Check v-if="step.done" :size="14" />
                 <Clock v-else-if="step.current" :size="14" />

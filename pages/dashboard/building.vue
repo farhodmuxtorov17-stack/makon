@@ -1,7 +1,7 @@
 <template>
-  <div class="space-y-6 animate-fade-up">
+  <div class="space-y-6">
     <!-- Hero with building image -->
-    <div class="relative overflow-hidden rounded-3xl border border-black/5 dark:border-white/5 h-44">
+    <div class="relative overflow-hidden rounded-2xl border border-black/5 dark:border-white/5 h-44">
       <img :src="selectedBuilding.gallery[0]" :alt="selectedBuilding.name" class="absolute inset-0 w-full h-full object-cover" />
       <div class="absolute inset-0 bg-gradient-to-r from-ink-950/90 via-ink-950/70 to-ink-950/30"></div>
       <div class="relative h-full p-6 flex items-end">
@@ -10,12 +10,12 @@
             <span class="badge bg-white/15 text-white border border-white/20 backdrop-blur-md">{{ typeLabel(selectedBuilding.type) }}</span>
             <span class="badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">{{ selectedBuilding.vacantUnits }} bo'sh</span>
           </div>
-          <h1 class="text-2xl font-bold text-ink-900 dark:text-white">{{ selectedBuilding.name }}</h1>
+          <h1 class="text-2xl font-bold text-white">{{ selectedBuilding.name }}</h1>
           <p class="text-white/60 text-sm mt-0.5 flex items-center gap-1">
             <MapPin :size="14" /> {{ selectedBuilding.district }}, {{ selectedBuilding.city }} · {{ selectedBuilding.floorsCount }} qavat · {{ selectedBuilding.totalUnits }} unit
           </p>
         </div>
-        <select v-model="selectedId" class="ml-auto bg-white/10 backdrop-blur-md text-white text-sm rounded-xl px-3 py-2 border border-white/20">
+        <select v-model="selectedId" class="ml-auto bg-white/10 text-white text-sm rounded-xl px-3 py-2 border border-white/20 bg-white/10">
           <option v-for="b in buildings" :key="b.id" :value="b.id" class="text-ink-900">{{ b.name }}</option>
         </select>
       </div>

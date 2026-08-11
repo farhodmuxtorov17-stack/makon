@@ -30,7 +30,6 @@
       <!-- Hero content -->
       <div class="hero-content">
         <div class="hero-badge">
-          <span class="hero-badge__dot"></span>
           Toshkent tijoriy ko'chmas mulk platformasi
         </div>
         <h1 class="hero-title">
@@ -73,83 +72,23 @@
             <div class="hero-stat__num">12</div>
             <div class="hero-stat__label">Premium binolar</div>
           </div>
-          <div class="hero-stat__divider"></div>
+          <div class="hero-stat__divider hidden md:block"></div>
           <div class="hero-stat">
             <div class="hero-stat__num">47</div>
             <div class="hero-stat__label">Bo'sh maydonlar</div>
           </div>
-          <div class="hero-stat__divider"></div>
+          <div class="hero-stat__divider hidden md:block"></div>
           <div class="hero-stat">
             <div class="hero-stat__num">420</div>
             <div class="hero-stat__label">Jami unitlar</div>
           </div>
-          <div class="hero-stat__divider"></div>
+          <div class="hero-stat__divider hidden md:block"></div>
           <div class="hero-stat">
             <div class="hero-stat__num">89%</div>
             <div class="hero-stat__label">Bandlik</div>
           </div>
         </div>
-      </div>
-
-      <!-- Scroll indicator -->
-      <div class="hero-scroll">
-        <div class="hero-scroll__line"></div>
-        <span>Pastga</span>
-      </div>
-    </section>
-
-    <!-- ============ TRUST BAR ============ -->
-    <section class="trust-bar">
-      <div class="trust-bar__inner">
-        <div class="trust-item">
-          <ShieldCheck :size="16" class="trust-item__icon" />
-          ERI integratsiyasi
-        </div>
-        <div class="trust-item">
-          <FileCheck2 :size="16" class="trust-item__icon" />
-          18 modul
-        </div>
-        <div class="trust-item">
-          <Users :size="16" class="trust-item__icon" />
-          5 rol
-        </div>
-        <div class="trust-item">
-          <Building2 :size="16" class="trust-item__icon" />
-          322 jadval
-        </div>
-        <div class="trust-item">
-          <Zap :size="16" class="trust-item__icon" />
-          Real-time monitoring
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ PREMIUM LISTINGS ============ -->
-    <section id="catalog" class="premium-section">
-      <div class="premium-section__header">
-        <div>
-          <div class="premium-section__eyebrow">PREMIUM OB'EKTLAR</div>
-          <h2 class="premium-section__title">Bo'sh premium maydonlar</h2>
-        </div>
-        <NuxtLink to="/catalog" class="premium-section__link">
-          To'liq katalog <ArrowRight :size="16" />
-        </NuxtLink>
-      </div>
-
-      <div class="premium-grid">
-        <div v-for="(item, i) in premiumListings" :key="i" class="premium-card" @click="navigateTo(`/listings/${item.id}`)">
-          <div class="premium-card__image">
-            <img :src="item.photos[0]" :alt="item.titleUz" loading="lazy" />
-            <div class="premium-card__badge">{{ item.offerType === 'RENT' ? 'Ijaraga' : 'Sotuvda' }}</div>
-            <div class="premium-card__overlay">
-              <div class="premium-card__price">{{ formatPrice(item.price) }}</div>
-              <div class="premium-card__title">{{ item.titleUz }}</div>
-              <div class="premium-card__meta">{{ item.area }} m² · {{ item.building }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </div></section>
 
     <!-- ============ FEATURED BUILDINGS ============ -->
     <section id="buildings" class="buildings-section">
@@ -658,14 +597,7 @@ function formatPrice(v: number) {
   margin-bottom: 24px;
   backdrop-filter: blur(12px);
 }
-.hero-badge__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #6366f1;
-  box-shadow: 0 0 12px #6366f1;
-  animation: pulse 2s infinite;
-}
+
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 .hero-title {
@@ -789,23 +721,8 @@ function formatPrice(v: number) {
 }
 
 /* Scroll indicator */
-.hero-scroll {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding-bottom: 32px;
-  color: rgba(255,255,255,0.4);
-  font-size: 12px;
-}
-.hero-scroll__line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.4));
-  animation: scrollLine 2s infinite;
-}
+
+
 @keyframes scrollLine {
   0% { transform: scaleY(0); transform-origin: top; }
   50% { transform: scaleY(1); transform-origin: top; }
@@ -814,32 +731,11 @@ function formatPrice(v: number) {
 }
 
 /* ============ TRUST BAR ============ */
-.trust-bar {
-  padding: 16px 24px;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  background: #ffffff;
-}
-:deep(.dark) .trust-bar {
-  background: #09090b;
-  border-color: rgba(255,255,255,0.05);
-}
-.trust-bar__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 32px;
-}
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #71717a;
-}
-.trust-item__icon { color: #6366f1; }
+
+:deep(.dark) 
+
+
+
 
 /* ============ COMMON ============ */
 .premium-section__eyebrow {
