@@ -1,282 +1,292 @@
 <template>
-  <div class="space-y-6">
-    <!-- Hero with building image -->
-    <div class="relative overflow-hidden rounded-2xl border border-black/5 dark:border-white/5 h-44">
-      <img :src="selectedBuilding.gallery[0]" :alt="selectedBuilding.name" class="absolute inset-0 w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-ink-950/90 via-ink-950/70 to-ink-950/30"></div>
-      <div class="relative h-full p-6 flex items-end">
-        <div class="text-white">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="badge bg-white/15 text-white border border-white/20 backdrop-blur-md">{{ typeLabel(selectedBuilding.type) }}</span>
-            <span class="badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">{{ selectedBuilding.vacantUnits }} bo'sh</span>
-          </div>
-          <h1 class="text-2xl font-bold text-white">{{ selectedBuilding.name }}</h1>
-          <p class="text-white/60 text-sm mt-0.5 flex items-center gap-1">
-            <MapPin :size="14" /> {{ selectedBuilding.district }}, {{ selectedBuilding.city }} · {{ selectedBuilding.floorsCount }} qavat · {{ selectedBuilding.totalUnits }} unit
-          </p>
+  <div class="bdash">
+    <!-- Header -->
+    <div class="bdash__head">
+      <div class="bdash__head-left">
+        <div class="bdash__head-icon"><Building2 :size="20" /></div>
+        <div>
+          <h1 class="bdash__title">Bino rahbari</h1>
+          <p class="bdash__sub">{{ selectedBuilding.name }}</p>
         </div>
-        <select v-model="selectedId" class="ml-auto bg-white/10 text-white text-sm rounded-xl px-3 py-2 border border-white/20 bg-white/10">
-          <option v-for="b in buildings" :key="b.id" :value="b.id" class="text-ink-900">{{ b.name }}</option>
-        </select>
+      </div>
+      <div class="bdash__head-right">
+        <div class="bdash__select-wrap">
+          <span class="bdash__select-label">Obyekt tanlash</span>
+          <select v-model="selectedId" class="bdash__select">
+            <option v-for="b in buildings" :key="b.id" :value="b.id">{{ b.name }}</option>
+          </select>
+        </div>
+        <button class="bdash__date"><Calendar :size="14" /> Bugun, {{ today }}</button>
       </div>
     </div>
 
-    <!-- KPI -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard
-        v-for="kpi in buildingKpis" :key="kpi.label"
-        :icon="kpi.icon || Building2"
-        :label="kpi.label"
-        :value="kpi.value"
-        :trend="kpi.trend"
-        :to="kpi.to"
-        :icon-bg="kpi.iconBg"
-        :icon-color="kpi.iconColor"
-      />
-    </div>
-
-    <!-- Charts -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <div class="card-premium p-6 lg:col-span-2">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-ink-900 dark:text-white">Tushum dinamikasi</h3>
-          <div class="flex items-center gap-3 text-xs text-ink-500">
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span> Tushum</span>
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> To'langan</span>
-          </div>
+    <!-- KPI cards with sparklines -->
+    <div class="bdash__kpis">
+      <div v-for="kpi in kpis" :key="kpi.label" class="bdash__kpi">
+        <div class="bdash__kpi-top">
+          <span class="bdash__kpi-label">{{ kpi.label }}</span>
+          <span class="bdash__kpi-trend" :class="kpi.trend > 0 ? 'bdash__kpi-trend--up' : 'bdash__kpi-trend--down'">
+            <TrendingUp v-if="kpi.trend > 0" :size="11" />
+            <TrendingDown v-else :size="11" />
+            {{ Math.abs(kpi.trend) }}%
+          </span>
         </div>
-        <MakonChart type="area" :series="revenueSeries" :categories="months" :height="260" :colors="['var(--accent)', '#10b981']" />
-      </div>
-
-      <div class="card-premium p-6">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bandlik</h3>
-        <MakonChart type="donut" :series="occupancyData" :donutLabels="['Band', 'Bo\'sh']" :height="200" :colors="['var(--accent)', '#e4e4e7']" />
-        <div class="text-center mt-2">
-          <div class="text-3xl font-bold text-ink-900 dark:text-white">{{ occupancyPercent }}%</div>
-          <div class="text-xs text-ink-500">Umumiy bandlik darajasi</div>
-        </div>
+        <div class="bdash__kpi-val">{{ kpi.value }}</div>
+        <div class="bdash__kpi-spark"><Sparkline :data="kpi.spark" :color="kpi.color" :height="30" /></div>
       </div>
     </div>
 
-    <!-- Infrastructure health + Load distribution -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <div class="card-premium p-6 lg:col-span-2">
-        <div class="flex items-center justify-between mb-5">
-          <h3 class="font-semibold text-ink-900 dark:text-white">Infratuzilma holati</h3>
-          <span class="badge badge-success text-[11px]"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1"></span> Barqaror</span>
-        </div>
-        <div class="space-y-4">
-          <div v-for="sys in infraHealth" :key="sys.label">
-            <div class="flex items-center justify-between text-sm mb-1.5">
-              <span class="text-ink-600 dark:text-ink-300 flex items-center gap-2"><component :is="sys.icon" :size="14" class="text-ink-400" /> {{ sys.label }}</span>
-              <span class="font-bold" :class="sys.value > 70 ? 'text-emerald-500' : sys.value > 40 ? 'text-amber-500' : 'text-red-500'">{{ sys.value }}%</span>
-            </div>
-            <div class="h-2 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
-              <div class="h-full rounded-full transition-all duration-700" :style="{ width: sys.value + '%', background: sys.value > 70 ? '#10b981' : sys.value > 40 ? '#f59e0b' : '#ef4444' }"></div>
-            </div>
+    <!-- 3-col row -->
+    <div class="bdash__row3">
+      <!-- Bugungi muammolar -->
+      <div class="bdash__panel">
+        <div class="bdash__panel-head"><h3 class="bdash__panel-title">Bugungi muammolar</h3></div>
+        <div class="bdash__issues">
+          <div v-for="(iss, i) in issues" :key="i" class="bdash__issue-row">
+            <span class="bdash__issue-icon" :style="{ background: iss.bg, color: iss.color }"><component :is="iss.icon" :size="14" /></span>
+            <span class="bdash__issue-label">{{ iss.label }}</span>
+            <span class="bdash__issue-count" :style="{ color: iss.color }">{{ iss.count }}</span>
           </div>
         </div>
+        <NuxtLink to="/management/service-requests" class="bdash__panel-link">Batafsil →</NuxtLink>
       </div>
 
-      <div class="card-premium p-6">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Yuklama taqsimoti</h3>
-        <MakonChart type="donut" :series="loadDistribution.map(l => l.value)" :donutLabels="loadDistribution.map(l => l.label)" :height="170" :colors="loadDistribution.map(l => l.color)" />
-        <div class="space-y-1.5 mt-3">
-          <div v-for="l in loadDistribution" :key="l.label" class="flex items-center justify-between text-xs">
-            <span class="flex items-center gap-1.5 text-ink-500"><span class="w-2 h-2 rounded-full" :style="{ background: l.color }"></span>{{ l.label }}</span>
-            <span class="font-medium text-ink-700 dark:text-ink-200">{{ l.value }}%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Floor heatmap + Recent activity -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <!-- Floor heatmap -->
-      <div class="card-premium p-6 lg:col-span-2">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-ink-900 dark:text-white">Qavat bo'yicha bandlik</h3>
-          <div class="flex items-center gap-3 text-xs">
-            <span class="flex items-center gap-1.5 text-ink-500"><span class="w-3 h-3 rounded bg-emerald-500/60"></span> Band</span>
-            <span class="flex items-center gap-1.5 text-ink-500"><span class="w-3 h-3 rounded bg-amber-500/30"></span> Bo'sh</span>
-          </div>
-        </div>
-        <div class="space-y-1.5 max-h-[340px] overflow-y-auto tg-hide-scrollbar">
-          <div v-for="floor in floors" :key="floor.num" class="flex items-center gap-3 group cursor-pointer rounded-lg p-1 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-            <span class="text-xs text-ink-500 w-12 font-medium">{{ floor.num }}-qavat</span>
-            <div class="flex-1 h-7 rounded-lg overflow-hidden flex bg-black/5 dark:bg-white/5">
-              <div class="h-full transition-all duration-500" :style="{ width: floor.occupied + '%', background: floor.occupied > 85 ? '#10b981' : floor.occupied > 65 ? 'var(--accent)' : '#f59e0b', opacity: 0.7 }"></div>
+      <!-- Qavatlar bo'yicha bandlik -->
+      <div class="bdash__panel">
+        <div class="bdash__panel-head"><h3 class="bdash__panel-title">Qavatlar bo'yicha bandlik</h3></div>
+        <div class="bdash__floors-wrap">
+          <div class="bdash__floors-list">
+            <div v-for="f in floors" :key="f.num" class="bdash__floor-row">
+              <span class="bdash__floor-label">{{ f.num }}-qavat</span>
+              <div class="bdash__floor-track"><div class="bdash__floor-fill" :style="{ width: f.occupied + '%', background: f.occupied > 90 ? '#10b981' : f.occupied > 80 ? '#0f766e' : '#f59e0b' }"></div></div>
+              <span class="bdash__floor-pct">{{ f.occupied }}%</span>
             </div>
-            <div class="text-xs text-ink-500 w-20 text-right">
-              <span class="font-medium text-ink-700 dark:text-ink-200">{{ floor.occupied }}%</span>
-              · {{ floor.vacant }} bo'sh
+          </div>
+          <div class="bdash__tower">
+            <div class="bdash__tower-roof"></div>
+            <div v-for="f in floorsReversed" :key="f.num" class="bdash__tower-floor" :style="{ background: f.occupied > 90 ? 'linear-gradient(135deg, rgba(16,185,129,0.55), rgba(16,185,129,0.25))' : f.occupied > 80 ? 'linear-gradient(135deg, rgba(15,118,110,0.55), rgba(15,118,110,0.25))' : 'linear-gradient(135deg, rgba(245,158,11,0.5), rgba(245,158,11,0.2))' }"></div>
+            <div class="bdash__tower-base">
+              <span class="bdash__tower-tree">🌳</span>
+              <span class="bdash__tower-tree">🌳</span>
             </div>
           </div>
         </div>
+        <NuxtLink to="/management/floor-plans" class="bdash__panel-link">Batafsil →</NuxtLink>
       </div>
 
-      <!-- Quick actions -->
-      <div class="space-y-4">
-        <div class="card-premium p-5">
-          <h3 class="font-semibold text-ink-900 dark:text-white mb-3">Tezkor amallar</h3>
-          <div class="space-y-2">
-            <NuxtLink to="/management/units" class="flex items-center gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-brand-500/5 transition-colors group">
-              <div class="w-9 h-9 rounded-xl bg-brand-500/10 flex items-center justify-center"><Layers :size="16" class="text-brand-500" /></div>
-              <div class="flex-1"><div class="text-sm font-medium text-ink-900 dark:text-white">Unitlar boshqaruvi</div><div class="text-xs text-ink-500">{{ selectedBuilding.totalUnits }} ta unit</div></div>
-              <ArrowRight :size="16" class="text-ink-400 group-hover:text-brand-500 transition-colors" />
-            </NuxtLink>
-            <NuxtLink to="/management/listings" class="flex items-center gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-brand-500/5 transition-colors group">
-              <div class="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center"><Tag :size="16" class="text-amber-500" /></div>
-              <div class="flex-1"><div class="text-sm font-medium text-ink-900 dark:text-white">Listinglar</div><div class="text-xs text-ink-500">Bo'sh maydon e'lonlari</div></div>
-              <ArrowRight :size="16" class="text-ink-400 group-hover:text-brand-500 transition-colors" />
-            </NuxtLink>
-            <NuxtLink to="/management/service-requests" class="flex items-center gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-brand-500/5 transition-colors group">
-              <div class="w-9 h-9 rounded-xl bg-red-500/10 flex items-center justify-center"><Wrench :size="16" class="text-red-500" /></div>
-              <div class="flex-1"><div class="text-sm font-medium text-ink-900 dark:text-white">Servis so'rovlari</div><div class="text-xs text-ink-500">{{ slaList.length }} ta ochiq</div></div>
-              <ArrowRight :size="16" class="text-ink-400 group-hover:text-brand-500 transition-colors" />
-            </NuxtLink>
-            <NuxtLink :to="`/buildings/${selectedBuilding.slug}`" class="flex items-center gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-brand-500/5 transition-colors group">
-              <div class="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center"><MapPin :size="16" class="text-indigo-500" /></div>
-              <div class="flex-1"><div class="text-sm font-medium text-ink-900 dark:text-white">Bino sahifasi</div><div class="text-xs text-ink-500">Ochiq ko'rinish</div></div>
-              <ArrowRight :size="16" class="text-ink-400 group-hover:text-brand-500 transition-colors" />
-            </NuxtLink>
-          </div>
-        </div>
-
-        <!-- SLA status -->
-        <div class="card-premium p-5">
-          <h3 class="font-semibold text-ink-900 dark:text-white mb-3">SLA holati</h3>
-          <div class="space-y-2">
-            <div v-for="sr in slaList" :key="sr.id" class="flex items-center gap-3 p-2.5 rounded-xl bg-black/5 dark:bg-white/5">
-              <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" :class="srSlaClass(sr.sla)">
-                <Clock :size="14" :class="srSlaColor(sr.sla)" />
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="text-xs font-medium text-ink-900 dark:text-white truncate">{{ sr.number }}</div>
-                <div class="text-[11px] text-ink-500 truncate">{{ sr.category }} · {{ sr.unit }}</div>
-              </div>
-              <span class="text-xs font-medium flex-shrink-0" :class="srSlaColor(sr.sla)">{{ sr.timeLeft }}</span>
+      <!-- So'nggi arizalar -->
+      <div class="bdash__panel">
+        <div class="bdash__panel-head"><h3 class="bdash__panel-title">So'nggi arizalar</h3></div>
+        <div class="bdash__requests">
+          <div v-for="(r, i) in recentRequests" :key="i" class="bdash__request-row">
+            <div class="bdash__request-info">
+              <div class="bdash__request-title">{{ r.title }}</div>
+              <div class="bdash__request-meta">{{ r.unit }} · {{ r.time }}</div>
             </div>
+            <span class="bdash__request-badge" :class="`bdash__request-badge--${r.statusClass}`">{{ r.status }}</span>
           </div>
         </div>
+        <NuxtLink to="/management/service-requests" class="bdash__panel-link">Batafsil →</NuxtLink>
       </div>
     </div>
 
-    <!-- Application Queue -->
-    <div class="card-premium p-6">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-ink-900 dark:text-white">Ariza navbati</h3>
-        <NuxtLink to="/management/applications" class="text-sm text-brand-500 hover:text-brand-600 font-medium flex items-center gap-1">
-          Barchasi <ArrowRight :size="14" />
-        </NuxtLink>
+    <!-- 2-col row -->
+    <div class="bdash__row2">
+      <!-- Qarzdorlik ogohlantirishlari -->
+      <div class="bdash__panel">
+        <div class="bdash__panel-head"><h3 class="bdash__panel-title">Qarzdorlik ogohlantirishlari</h3></div>
+        <div class="bdash__debts">
+          <div v-for="(d, i) in debts" :key="i" class="bdash__debt-row">
+            <span class="bdash__debt-name">{{ d.name }}</span>
+            <span class="bdash__debt-amount">{{ d.amount }} mln</span>
+            <span class="bdash__debt-days">{{ d.days }} kun kechikkan</span>
+          </div>
+        </div>
+        <NuxtLink to="/finance/debts" class="bdash__panel-link">Batafsil →</NuxtLink>
       </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
-              <th class="pb-3 font-medium">Ariza</th>
-              <th class="pb-3 font-medium">Unit</th>
-              <th class="pb-3 font-medium">Turi</th>
-              <th class="pb-3 font-medium">Holati</th>
-              <th class="pb-3 font-medium text-right">Vaqt</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="app in appQueue" :key="app.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer">
-              <td class="py-3"><span class="font-medium text-ink-900 dark:text-white">{{ app.number }}</span></td>
-              <td class="py-3 text-ink-600 dark:text-ink-400">{{ app.unit }}</td>
-              <td class="py-3 text-ink-600 dark:text-ink-400">{{ app.type }}</td>
-              <td class="py-3"><span class="badge text-xs" :class="appBadge(app.status)">{{ appLabel(app.status) }}</span></td>
-              <td class="py-3 text-right text-xs text-ink-500">{{ app.time }}</td>
-            </tr>
-          </tbody>
-        </table>
+
+      <!-- Tasdiqlash kutilmoqda -->
+      <div class="bdash__panel">
+        <div class="bdash__panel-head"><h3 class="bdash__panel-title">Tasdiqlash kutilmoqda</h3></div>
+        <div class="bdash__approvals">
+          <div v-for="(a, i) in approvals" :key="i" class="bdash__approval-row">
+            <div class="bdash__approval-info">
+              <div class="bdash__approval-title">{{ a.title }}</div>
+              <div class="bdash__approval-meta">{{ a.who }} · {{ a.detail }}</div>
+            </div>
+            <span class="bdash__approval-time">{{ a.time }}</span>
+          </div>
+        </div>
+        <NuxtLink to="/finance/approvals" class="bdash__panel-link">Batafsil →</NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import KpiCard from '~/components/KpiCard.vue'
-import {
-  CheckCircle2, AlertCircle, Tag, FileText, Wrench, Clock, Layers,
-  MapPin, ArrowRight, ArrowUpRight, TrendingUp, Users, Wind, Droplets, Flame, Lightbulb, Server
-} from 'lucide-vue-next'
-import { BUILDING_TYPE_LABELS } from '~/types'
+import { Building2, TrendingUp, TrendingDown, Calendar, CreditCard, Wrench, ClipboardCheck, FileClock } from 'lucide-vue-next'
+import Sparkline from '~/components/Sparkline.vue'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const makonStore = useMakonStore()
-const buildings = computed(() => makonStore.buildings.filter(b => !b.id.startsWith('_deleted')))
-const selectedId = ref(buildings.value[0]?.id || 'b1')
-const selectedBuilding = computed(() => buildings.value.find(b => b.id === selectedId.value) || buildings.value[0])
+const today = '11.08.2026'
+const selectedId = ref('b1')
 
-function typeLabel(t: string) { return BUILDING_TYPE_LABELS[t]?.uz || t }
-
-const occupancyPercent = computed(() => {
-  const b = selectedBuilding.value
-  return Math.round((b.occupiedUnits / b.totalUnits) * 100)
-})
-
-const buildingKpis = computed(() => [
-  { scene: 'occupancy', label: 'Band unitlar', value: selectedBuilding.value.occupiedUnits, trend: 3 },
-  { scene: 'units', label: 'Bo\'sh unitlar', value: selectedBuilding.value.vacantUnits, trend: -2 },
-  { scene: 'applications', label: 'Aktiv listinglar', value: 28, trend: 5 },
-  { scene: 'applications', label: 'Ariza navbati', value: 12, trend: 1 },
-  { scene: 'overdue', label: 'Ochiq servis', value: 5, trend: -1 },
-])
-
-const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']
-const revenueSeries = [
-  { name: 'Tushum (mln so\'m)', data: [85, 92, 98, 105, 112, 118] },
-  { name: 'To\'langan (mln so\'m)', data: [78, 88, 95, 102, 108, 115] },
+const buildings = [
+  { id: 'b1', name: 'MAKON Business Center' },
+  { id: 'b2', name: "Navro'z Business Center" },
+  { id: 'b3', name: 'City Plaza' },
 ]
-const occupancyData = computed(() => [selectedBuilding.value.occupiedUnits, selectedBuilding.value.vacantUnits])
+const selectedBuilding = computed(() => buildings.find(b => b.id === selectedId.value) || buildings[0])
 
-const infraHealth = [
-  { label: 'HVAC samaradorligi', value: 78, icon: Wind },
-  { label: 'Suv ta\'minoti', value: 91, icon: Droplets },
-  { label: 'Yong\'in xavfsizligi', value: 96, icon: Flame },
+const kpis = [
+  { label: 'Bandlik', value: '92%', trend: 3.1, color: '#0f766e', spark: [86, 87, 88, 89, 90, 89, 91, 90, 92, 92] },
+  { label: 'Vacancy', value: '8%', trend: -1.4, color: '#f59e0b', spark: [14, 13, 12, 12, 11, 12, 10, 10, 9, 8] },
+  { label: "Bugungi to'lovlar", value: '128.4 mln', trend: 9.2, color: '#3b82f6', spark: [95, 100, 98, 105, 110, 108, 115, 118, 122, 128] },
+  { label: 'Qarzdorlik', value: '18.2 mln', trend: 4.8, color: '#ef4444', spark: [14, 15, 14.5, 15.5, 16, 16.5, 17, 17.5, 17.8, 18.2] },
+  { label: 'Servis arizalari', value: '14', trend: -12.0, color: '#8b5cf6', spark: [22, 21, 20, 19, 18, 17, 16, 15, 15, 14] },
 ]
 
-const loadDistribution = [
-  { label: 'Yoritish', value: 35, color: '#f59e0b' },
-  { label: 'HVAC (iqlim)', value: 40, color: 'var(--accent)' },
-  { label: 'IT va serverlar', value: 15, color: '#6366f1' },
-  { label: 'Boshqa', value: 10, color: '#a1a1aa' },
+const issues = [
+  { label: "Kechikkan to'lovlar", count: 3, icon: CreditCard, bg: 'rgba(239,68,68,0.1)', color: '#ef4444' },
+  { label: 'Servis arizalari (ochiq)', count: 4, icon: Wrench, bg: 'rgba(245,158,11,0.1)', color: '#f59e0b' },
+  { label: 'Tasdiqlash kutilmoqda', count: 2, icon: ClipboardCheck, bg: 'rgba(59,130,246,0.1)', color: '#3b82f6' },
+  { label: 'Shartnoma yakuni yaqin', count: 5, icon: FileClock, bg: 'rgba(139,92,246,0.1)', color: '#8b5cf6' },
 ]
 
 const floors = [
-  { num: 12, occupied: 95, vacant: 2 },
-  { num: 11, occupied: 88, vacant: 4 },
-  { num: 10, occupied: 92, vacant: 3 },
-  { num: 9, occupied: 85, vacant: 5 },
-  { num: 8, occupied: 90, vacant: 4 },
-  { num: 7, occupied: 78, vacant: 8 },
-  { num: 6, occupied: 82, vacant: 6 },
-  { num: 5, occupied: 95, vacant: 2 },
-  { num: 4, occupied: 70, vacant: 10 },
-  { num: 3, occupied: 88, vacant: 4 },
-  { num: 2, occupied: 95, vacant: 2 },
-  { num: 1, occupied: 60, vacant: 15 },
+  { num: 7, occupied: 95 },
+  { num: 6, occupied: 90 },
+  { num: 5, occupied: 85 },
+  { num: 4, occupied: 92 },
+  { num: 3, occupied: 88 },
+  { num: 2, occupied: 80 },
+  { num: 1, occupied: 75 },
+]
+const floorsReversed = computed(() => [...floors].reverse())
+
+const recentRequests = [
+  { title: 'Ofisda konditsioner nosoz', unit: '702-ofis', time: 'Bugun, 09:15', status: 'Yangi', statusClass: 'new' },
+  { title: 'Tozalash xizmati', unit: '514-ofis', time: 'Bugun, 08:40', status: 'Jarayonda', statusClass: 'progress' },
+  { title: 'Elektr rozetka ishlamayapti', unit: '309-ofis', time: 'Bugun, 08:10', status: 'Yangi', statusClass: 'new' },
+  { title: 'Avtoturargoh kartasi', unit: 'A-128', time: 'Kecha, 17:45', status: 'Yakunlandi', statusClass: 'done' },
 ]
 
-const appQueue = [
-  { id: 'a1', number: 'APP-089', unit: 'A-1201', type: 'Ijara', time: '1 soat oldin', status: 'SUBMITTED' },
-  { id: 'a2', number: 'APP-087', unit: 'C-805', type: 'Ijara', time: '3 soat oldin', status: 'OPERATION_REVIEW' },
-  { id: 'a3', number: 'APP-085', unit: 'B-402', type: 'Sotib olish', time: '5 soat oldin', status: 'FINANCE_REVIEW' },
-  { id: 'a4', number: 'APP-083', unit: 'D-301', type: 'Ijara', time: '1 kun oldin', status: 'DRAFT_READY' },
-  { id: 'a5', number: 'APP-081', unit: 'E-201', type: 'Ijara', time: '2 kun oldin', status: 'SIGNED' },
+const debts = [
+  { name: 'Alpha Solutions', amount: 12.6, days: 7 },
+  { name: 'Beta Trade', amount: 4.8, days: 5 },
+  { name: 'Gamma LLC', amount: 0.8, days: 1 },
 ]
 
-const slaList = [
-  { id: 's1', number: 'SR-2026-008', category: 'Elektr', unit: 'A-1201', sla: 'OK', timeLeft: '3h qoldi' },
-  { id: 's2', number: 'SR-2026-007', category: 'Sanitariya', unit: 'C-805', sla: 'WARNING', timeLeft: '45m qoldi' },
-  { id: 's3', number: 'SR-2026-006', category: 'Konditsioner', unit: 'B-402', sla: 'BREACH', timeLeft: '2h o\'tdi' },
+const approvals = [
+  { title: 'Yangi ijara shartnomasi', who: 'Techno Group', detail: '36.0 m²', time: 'Bugun, 10:30' },
+  { title: "Qo'shimcha xizmat", who: 'Marketing Pro', detail: 'Park joyi', time: 'Bugun, 09:45' },
+  { title: 'Reklama joyi', who: 'Cafe Central', detail: '1-qavat', time: 'Bugun, 09:20' },
 ]
-
-function appLabel(s: string) { return { SUBMITTED: 'Yangi', OPERATION_REVIEW: 'Operatsion', FINANCE_REVIEW: 'Moliyaviy', DRAFT_READY: 'Loyiha', SIGNED: 'Imzolangan' }[s] || s }
-function appBadge(s: string) { return { SUBMITTED: 'badge-neutral', OPERATION_REVIEW: 'badge-brand', FINANCE_REVIEW: 'badge-brand', DRAFT_READY: 'badge-warning', SIGNED: 'badge-success' }[s] || 'badge-neutral' }
-function srSlaClass(s: string) { return { OK: 'bg-emerald-500/10', WARNING: 'bg-amber-500/10', BREACH: 'bg-red-500/10' }[s] || 'bg-black/5' }
-function srSlaColor(s: string) { return { OK: 'text-emerald-500', WARNING: 'text-amber-500', BREACH: 'text-red-500' }[s] || 'text-ink-500' }
 </script>
+
+<style scoped>
+.bdash { max-width: 1360px; margin: 0 auto; }
+
+/* Head */
+.bdash__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+.bdash__head-left { display: flex; align-items: center; gap: 12px; }
+.bdash__head-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.bdash__title { font-size: 20px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; margin: 0; }
+.dark .bdash__title { color: white; }
+.bdash__sub { font-size: 13px; color: #71717a; margin: 2px 0 0; }
+.dark .bdash__sub { color: #a1a1aa; }
+.bdash__head-right { display: flex; gap: 10px; align-items: center; }
+.bdash__select-wrap { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08); background: white; }
+.dark .bdash__select-wrap { background: #1c1c1e; border-color: rgba(255,255,255,0.08); }
+.bdash__select-label { font-size: 11px; color: #a1a1aa; white-space: nowrap; }
+.bdash__select { font-size: 13px; font-weight: 600; border: none; background: transparent; color: #18181b; cursor: pointer; outline: none; }
+.dark .bdash__select { color: white; }
+.dark .bdash__select option { background: #1c1c1e; }
+.bdash__date {
+  display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px;
+  border-radius: 10px; font-size: 13px; font-weight: 500; border: 1px solid rgba(0,0,0,0.08);
+  background: white; color: #52525b; cursor: pointer;
+}
+.dark .bdash__date { background: #1c1c1e; border-color: rgba(255,255,255,0.08); color: #a1a1aa; }
+
+/* KPIs */
+.bdash__kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 20px; }
+@media (max-width: 1100px) { .bdash__kpis { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .bdash__kpis { grid-template-columns: repeat(2, 1fr); } }
+.bdash__kpi { padding: 16px 18px; border-radius: 16px; background: white; border: 1px solid rgba(0,0,0,0.05); transition: all 0.25s; }
+.dark .bdash__kpi { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+.bdash__kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.06); }
+.bdash__kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.bdash__kpi-label { font-size: 11.5px; color: #71717a; font-weight: 500; }
+.dark .bdash__kpi-label { color: #a1a1aa; }
+.bdash__kpi-trend { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 6px; }
+.bdash__kpi-trend--up { background: rgba(16,185,129,0.1); color: #10b981; }
+.bdash__kpi-trend--down { background: rgba(239,68,68,0.1); color: #ef4444; }
+.bdash__kpi-val { font-size: 21px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; margin-bottom: 8px; }
+.dark .bdash__kpi-val { color: white; }
+.bdash__kpi-spark { height: 30px; }
+
+/* Panels */
+.bdash__row3 { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 16px; margin-bottom: 20px; }
+.bdash__row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 1024px) { .bdash__row3, .bdash__row2 { grid-template-columns: 1fr; } }
+.bdash__panel { padding: 20px; border-radius: 18px; background: white; border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+.dark .bdash__panel { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+.bdash__panel-head { margin-bottom: 14px; }
+.bdash__panel-title { font-size: 14px; font-weight: 700; color: #18181b; margin: 0; }
+.dark .bdash__panel-title { color: white; }
+.bdash__panel-link { display: block; text-align: right; font-size: 12px; font-weight: 600; color: var(--accent, #0f766e); margin-top: 14px; text-decoration: none; }
+
+/* Issues list */
+.bdash__issues { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.bdash__issue-row { display: flex; align-items: center; gap: 10px; }
+.bdash__issue-icon { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.bdash__issue-label { flex: 1; font-size: 12.5px; color: #52525b; }
+.dark .bdash__issue-label { color: #d4d4d8; }
+.bdash__issue-count { font-size: 15px; font-weight: 800; }
+
+/* Floors + tower */
+.bdash__floors-wrap { display: flex; gap: 12px; flex: 1; }
+.bdash__floors-list { flex: 1; display: flex; flex-direction: column; gap: 6px; justify-content: center; }
+.bdash__floor-row { display: flex; align-items: center; gap: 8px; }
+.bdash__floor-label { font-size: 10.5px; color: #a1a1aa; width: 44px; flex-shrink: 0; }
+.bdash__floor-track { flex: 1; height: 6px; border-radius: 3px; background: rgba(0,0,0,0.06); overflow: hidden; }
+.dark .bdash__floor-track { background: rgba(255,255,255,0.08); }
+.bdash__floor-fill { height: 100%; border-radius: 3px; }
+.bdash__floor-pct { font-size: 10.5px; font-weight: 700; color: #52525b; width: 30px; text-align: right; flex-shrink: 0; }
+.dark .bdash__floor-pct { color: #d4d4d8; }
+.bdash__tower { width: 76px; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.bdash__tower-roof { width: 44px; height: 4px; border-radius: 2px 2px 0 0; background: rgba(0,0,0,0.15); }
+.dark .bdash__tower-roof { background: rgba(255,255,255,0.2); }
+.bdash__tower-floor { width: 48px; height: 15px; border: 1px solid rgba(255,255,255,0.4); border-top: none; }
+.bdash__tower-base { display: flex; gap: 20px; margin-top: 4px; font-size: 16px; }
+
+/* Requests */
+.bdash__requests { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.bdash__request-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.bdash__request-title { font-size: 12.5px; font-weight: 600; color: #18181b; line-height: 1.3; }
+.dark .bdash__request-title { color: white; }
+.bdash__request-meta { font-size: 11px; color: #a1a1aa; margin-top: 2px; }
+.bdash__request-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; flex-shrink: 0; white-space: nowrap; }
+.bdash__request-badge--new { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.bdash__request-badge--progress { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.bdash__request-badge--done { background: rgba(16,185,129,0.1); color: #10b981; }
+
+/* Debts */
+.bdash__debts { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.bdash__debt-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 10px; background: rgba(239,68,68,0.04); }
+.bdash__debt-name { font-size: 12.5px; font-weight: 600; color: #18181b; flex: 1; }
+.dark .bdash__debt-name { color: white; }
+.bdash__debt-amount { font-size: 12.5px; font-weight: 700; color: #18181b; }
+.dark .bdash__debt-amount { color: white; }
+.bdash__debt-days { font-size: 11px; font-weight: 600; color: #ef4444; white-space: nowrap; }
+
+/* Approvals */
+.bdash__approvals { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.bdash__approval-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 10px; background: rgba(59,130,246,0.04); }
+.bdash__approval-title { font-size: 12.5px; font-weight: 600; color: #18181b; }
+.dark .bdash__approval-title { color: white; }
+.bdash__approval-meta { font-size: 11px; color: #a1a1aa; margin-top: 2px; }
+.bdash__approval-time { font-size: 11px; font-weight: 600; color: #71717a; white-space: nowrap; }
+</style>
