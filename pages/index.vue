@@ -31,14 +31,14 @@
       <div class="hero-content">
         <div class="hero-badge">
           <span class="hero-badge__dot"></span>
-          Toshkent #1 tijoriy ko'chmas mulk platformasi
+          Toshkent tijoriy ko'chmas mulk platformasi
         </div>
         <h1 class="hero-title">
-          Biznesingiz uchun<br>
-          <span class="hero-title__accent">mukammal maydon</span>
+          Binolarning<br>
+          <span class="hero-title__accent">raqamli nazorati</span>
         </h1>
         <p class="hero-subtitle">
-          Tashkent City, Trillant Tower, IT Park va boshqa premium binolarda ofis, savdo va ombor maydonlari. ERI orqali xavfsiz shartnoma tuzish va to'liq boshqaruv — bitta tizimda.
+          Premium binolarda ofis, savdo va ombor maydonlari. ERI orqali xavfsiz shartnoma va to'liq boshqaruv — bitta tizimda.
         </p>
 
         <!-- Search -->
@@ -156,7 +156,7 @@
       <div class="buildings-section__header">
         <div class="premium-section__eyebrow">TAVSIYA ETILGAN BINOLAR</div>
         <h2 class="buildings-section__title">Toshkentning premium obyektlari</h2>
-        <p class="buildings-section__subtitle">Bo'sh maydonlar mavjud real biznes markazlar</p>
+        
       </div>
 
       <!-- Big featured building -->
@@ -219,7 +219,7 @@
         <div class="premium-section__eyebrow">INTERERLAR</div>
         <h2 class="showcase-section__title">Premium ofis maydonlari</h2>
         <p class="showcase-section__text">
-          Tashkent City va Trillant Tower'da joylashgan zamonaviy ofis xonalari — pardali oynalar, dizayner yoritish va panjarali bo'linishlar bilan. Har bir maydon biznesingiz uchun mukammal muhit yaratadi.
+          Zamonaviy ofis xonalari — pardali oynalar, dizayner yoritish va panjarali bo'linishlar bilan.
         </p>
         <div class="showcase-section__features">
           <div class="showcase-feature">
@@ -283,7 +283,7 @@
       <div class="cta-card">
         <h2 class="cta-card__title">Binongizni MAKON ga qo'shing</h2>
         <p class="cta-card__text">
-          Binongizni raqamlashtiring, bo'sh maydonlarni avtomatik katalogga chiqaring va ijara jarayonini to'liq boshqaring — ERI orqali xavfsiz shartnoma tuzish bilan.
+          Binongizni raqamlashtiring va ijara jarayonini to'liq boshqaring — ERI orqali xavfsiz shartnoma bilan.
         </p>
         <div class="cta-card__actions">
           <NuxtLink to="/register/eri" class="cta-card__btn cta-card__btn--primary">Ro'yxatdan o'tish</NuxtLink>
@@ -1577,14 +1577,13 @@ function formatPrice(v: number) {
   max-width: calc(100vw - 48px);
   height: 520px;
   max-height: calc(100vh - 120px);
-  background: white;
+  background: transparent;
   border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.dark .makon-ai-panel { background: #18181b; box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06); }
+.dark .makon-ai-panel { background: transparent; }
 
 /* Header */
 .makon-ai-panel__header {
@@ -1644,9 +1643,9 @@ function formatPrice(v: number) {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: #f9fafb;
+  background: transparent;
 }
-.dark .makon-ai-panel__body { background: #0f0f12; }
+.dark .makon-ai-panel__body { background: transparent; }
 
 /* Messages */
 .makon-ai-msg { display: flex; }
@@ -1691,20 +1690,22 @@ function formatPrice(v: number) {
   gap: 8px;
   padding: 10px 18px;
   flex-wrap: wrap;
-  border-top: 1px solid #f0f0f0;
+  border-top: none;
+  background: transparent;
 }
-.dark .makon-ai-panel__quick { border-top-color: #27272a; }
+.dark .makon-ai-panel__quick { border-top: none; }
 .makon-ai-chip {
   padding: 6px 12px;
   border-radius: 20px;
-  border: 1px solid #e5e7eb;
-  background: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
   font-size: 12px;
   color: #4b5563;
   cursor: pointer;
   transition: all 0.2s;
 }
-.dark .makon-ai-chip { background: #27272a; border-color: #3f3f46; color: #d4d4d8; }
+.dark .makon-ai-chip { background: rgba(39, 39, 42, 0.7); backdrop-filter: blur(8px); border-color: rgba(255, 255, 255, 0.15); color: #d4d4d8; }
 .makon-ai-chip:hover {
   border-color: #6366f1;
   color: #6366f1;
@@ -1717,9 +1718,9 @@ function formatPrice(v: number) {
   display: flex;
   gap: 8px;
   padding: 12px 14px;
-  border-top: 1px solid #f0f0f0;
+  border-top: none;
 }
-.dark .makon-ai-panel__input { border-top-color: #27272a; }
+.dark .makon-ai-panel__input { border-top: none; }
 .makon-ai-input {
   flex: 1;
   border: 1px solid #e5e7eb;
