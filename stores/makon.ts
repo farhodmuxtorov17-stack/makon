@@ -349,7 +349,59 @@ export const useMakonStore = defineStore('makon', () => {
       rentalHistory: []
     },
     {
-      id: 'u402', buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitNumber: '402', floor: 4, area: 140, status: 'VACANT', monthlyRent: 2800, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-402',
+      id: 'u501', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '501', floor: 5, area: 180, status: 'VACANT', monthlyRent: 5400, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-501',
+      rentalHistory: []
+    },
+    {
+      id: 'u502', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '502', floor: 5, area: 120, status: 'VACANT', monthlyRent: 3600, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-502',
+      rentalHistory: []
+    },
+    {
+      id: 'u303', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitNumber: '303', floor: 3, area: 95, status: 'VACANT', monthlyRent: 2850, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-303',
+      rentalHistory: []
+    },
+    {
+      id: 'u304', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitNumber: '304', floor: 3, area: 65, status: 'VACANT', monthlyRent: 1950, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-304',
+      rentalHistory: []
+    },
+    {
+      id: 'u403', buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitNumber: '403', floor: 4, area: 60, status: 'VACANT', monthlyRent: 1200, currency: 'USD', category: 'COWORKING', roomId: 'ROOM-403',
+      rentalHistory: []
+    },
+    {
+      id: 'u404', buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitNumber: '404', floor: 4, area: 200, status: 'VACANT', monthlyRent: 4000, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-404',
+      rentalHistory: []
+    },
+    {
+      id: 'u501b', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitNumber: 'G-01', floor: 1, area: 42, status: 'VACANT', monthlyRent: 1500, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-G01',
+      rentalHistory: []
+    },
+    {
+      id: 'u502b', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitNumber: 'G-02', floor: 1, area: 85, status: 'OCCUPIED', monthlyRent: 2550, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-G02',
+      rentalHistory: []
+    },
+    {
+      id: 'u503b', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitNumber: 'G-12', floor: 1, area: 120, status: 'VACANT', monthlyRent: 3600, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-G12',
+      rentalHistory: []
+    },
+    {
+      id: 'u504b', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitNumber: '2-05', floor: 2, area: 65, status: 'VACANT', monthlyRent: 1950, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-205',
+      rentalHistory: []
+    },
+    {
+      id: 'u601b', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-01', floor: 1, area: 560, status: 'VACANT', monthlyRent: 2800, currency: 'USD', category: 'WAREHOUSE', roomId: 'ROOM-W01',
+      rentalHistory: []
+    },
+    {
+      id: 'u602b', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-02', floor: 1, area: 340, status: 'VACANT', monthlyRent: 1700, currency: 'USD', category: 'WAREHOUSE', roomId: 'ROOM-W02',
+      rentalHistory: []
+    },
+    {
+      id: 'u603b', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-03', floor: 1, area: 720, status: 'OCCUPIED', monthlyRent: 3600, currency: 'USD', category: 'WAREHOUSE', roomId: 'ROOM-W03',
+      rentalHistory: []
+    },
+    {
+      id: 'u604b', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-04', floor: 2, area: 450, status: 'VACANT', monthlyRent: 2250, currency: 'USD', category: 'WAREHOUSE', roomId: 'ROOM-W04',
       rentalHistory: []
     }
   ])

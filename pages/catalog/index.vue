@@ -106,7 +106,7 @@
           v-for="item in vipListings"
           :key="item.id"
           class="vip-card"
-          @click="navigateTo(`/listings/${item.id}`)"
+          @click="navigateTo(`${item.link}`)"
         >
           <div class="vip-card__image">
             <img :src="item.photo" :alt="item.title" loading="lazy" />
@@ -172,7 +172,7 @@
               <span class="listing-card__type-badge" :class="`listing-card__type-badge--${item.typeColor}`">{{ item.typeLabel }}</span>
             </div>
             <div class="listing-card__body">
-              <NuxtLink v-if="view !== 'split'" :to="`/listings/${item.id}`" class="listing-card__title">{{ item.title }}</NuxtLink>
+              <NuxtLink v-if="view !== 'split'" :to="`${item.link}`" class="listing-card__title">{{ item.title }}</NuxtLink>
               <div v-else class="listing-card__title" @click="selectOnMap(item.id)">{{ item.title }}</div>
               <div class="listing-card__address"><MapPin :size="12" /><span>{{ item.address }}</span></div>
               <div class="listing-card__meta">
@@ -182,7 +182,7 @@
               </div>
               <div class="listing-card__footer">
                 <span class="listing-card__price">{{ item.priceFormatted }}</span>
-                <NuxtLink :to="`/listings/${item.id}`" class="listing-card__cta" @click.stop>Batafsil <ArrowRight :size="14" /></NuxtLink>
+                <NuxtLink :to="`${item.link}`" class="listing-card__cta" @click.stop>Batafsil <ArrowRight :size="14" /></NuxtLink>
               </div>
             </div>
           </div>
@@ -193,7 +193,7 @@
           <NuxtLink
             v-for="item in filteredListings"
             :key="item.id"
-            :to="`/listings/${item.id}`"
+            :to="`${item.link}`"
             class="grid-card"
             @mouseenter="hoverId = item.id"
             @mouseleave="hoverId = null"
@@ -303,27 +303,25 @@ definePageMeta({ layout: false })
 const { formatUZS, formatUZSShort, formatNumber, formatDate } = useFormat()
 useHead({ title: "Katalog — MAKON" })
 
-// ---------------- Mock data ----------------
-interface RawListing {
-  id: string; title: string; district: string; address: string; area: number
-  type: 'OFFICE' | 'SHOPPING' | 'WAREHOUSE'; offerType: 'RENT' | 'SALE'
-  price: number; photo: string; lat: number; lng: number; vip: boolean
+// ---------------- Store data ----------------
+const store = useMakonStore()
+
+// Photo rotation per building
+const BUILDING_PHOTOS: Record<string, string[]> = {
+  b1: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+  b2: ['/buildings/bc-finance.jpg', '/buildings/hero-tashkent.jpg', '/buildings/3d-tower-1.png'],
+  b3: ['/buildings/bc-city-plaza.jpg', '/buildings/bc-navroz.jpg', '/buildings/3d-tower-2.png'],
+  b4: ['/buildings/bc-navroz.jpg', '/buildings/bc-city-plaza.jpg', '/buildings/interior-office.png'],
+  b5: ['/buildings/bc-logistics.jpg', '/buildings/3d-tower-3.png', '/buildings/hero-tashkent.jpg'],
 }
 
-const rawListings: RawListing[] = [
-  { id: 'l1', title: "Tashkent City'da A-301 · 85 m² ofis", district: "Mirzo Ulug'bek", address: "Amir Temur shoh ko'chasi 108", area: 85, type: 'OFFICE', offerType: 'RENT', price: 25000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.3111, lng: 69.2797, vip: true },
-  { id: 'l2', title: "Trillant Tower B-501 · 120 m² ofis", district: 'Yashnobod', address: "Ziyolilar ko'chasi 6", area: 120, type: 'OFFICE', offerType: 'RENT', price: 35000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2967, lng: 69.3123, vip: true },
-  { id: 'l3', title: "IT Park C-201 · 65 m² savdo maydoni", district: 'Yakkasaroy', address: "Mirobod ko'chasi 22", area: 65, type: 'SHOPPING', offerType: 'RENT', price: 18000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.2865, lng: 69.2654, vip: true },
-  { id: 'l4', title: "Piramit D-102 · 200 m² ombor", district: 'Shayxontohur', address: "Navoiy ko'chasi 34", area: 200, type: 'WAREHOUSE', offerType: 'RENT', price: 12000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.3267, lng: 69.2389, vip: true },
-  { id: 'l5', title: "Savdo Markaz E-301 · 42 m² do'kon", district: 'Sergeli', address: "Qatortol ko'chasi 4", area: 42, type: 'SHOPPING', offerType: 'SALE', price: 450000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2156, lng: 69.2456, vip: true },
-  { id: 'l6', title: "Business Center-1 F-205 · 95 m² ofis", district: 'Chilonzor', address: "Bunyodkor shoh ko'chasi 45", area: 95, type: 'OFFICE', offerType: 'RENT', price: 22000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.2701, lng: 69.1987, vip: false },
-  { id: 'l7', title: "Ombor majmuasi G-001 · 560 m²", district: 'Bektemir', address: "Guliston ko'chasi 15", area: 560, type: 'WAREHOUSE', offerType: 'RENT', price: 68000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.2312, lng: 69.3452, vip: false },
-  { id: 'l8', title: "Mirobod biznes markazi · 110 m²", district: 'Mirobod', address: "Shota Rustaveli ko'chasi 7", area: 110, type: 'OFFICE', offerType: 'RENT', price: 28000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2934, lng: 69.2945, vip: false },
-  { id: 'l9', title: "Yashnobod ombor · 340 m² logistika", district: 'Yashnobod', address: "Katortol ko'chasi 11", area: 340, type: 'WAREHOUSE', offerType: 'RENT', price: 45000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.3045, lng: 69.3287, vip: false },
-  { id: 'l10', title: "Tashkent City A-502 · 60 m² savdo", district: "Mirzo Ulug'bek", address: "Amir Temur shoh ko'chasi 108", area: 60, type: 'SHOPPING', offerType: 'SALE', price: 850000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.3120, lng: 69.2805, vip: false },
-  { id: 'l11', title: "Chilonzor BC · 75 m² ofis maydoni", district: 'Chilonzor', address: "Bunyodkor shoh ko'chasi 12", area: 75, type: 'OFFICE', offerType: 'RENT', price: 19500000, photo: '/buildings/bc-navroz.jpg', lat: 41.2789, lng: 69.2034, vip: false },
-  { id: 'l12', title: "Bektemir sanoat zonasi · 720 m²", district: 'Bektemir', address: "Sanoat ko'chasi 3", area: 720, type: 'WAREHOUSE', offerType: 'RENT', price: 89000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.2089, lng: 69.3612, vip: false },
-]
+// Map store categories to catalog types
+const CATEGORY_TO_TYPE: Record<string, 'OFFICE' | 'SHOPPING' | 'WAREHOUSE'> = {
+  OFFICE: 'OFFICE',
+  COWORKING: 'OFFICE',
+  RETAIL: 'SHOPPING',
+  WAREHOUSE: 'WAREHOUSE',
+}
 
 const TYPE_META: Record<string, { label: string; color: string; icon: any }> = {
   OFFICE: { label: 'Ofis', color: 'blue', icon: Building2 },
@@ -331,19 +329,119 @@ const TYPE_META: Record<string, { label: string; color: string; icon: any }> = {
   WAREHOUSE: { label: 'Sanoat', color: 'orange', icon: Warehouse },
 }
 
+// Convert USD to UZS for display (approx rate)
+const USD_TO_UZS = 12700
 
-const listings = computed(() => rawListings.map(r => ({
-  ...r,
-  typeLabel: TYPE_META[r.type].label,
-  typeColor: TYPE_META[r.type].color,
-  typeIcon: TYPE_META[r.type].icon,
-  priceFormatted: formatUZS(r.price),
-  priceShort: formatUZSShort(r.price),
-})))
+interface CatalogItem {
+  id: string
+  title: string
+  district: string
+  address: string
+  area: number
+  floor: number
+  type: 'OFFICE' | 'SHOPPING' | 'WAREHOUSE'
+  offerType: 'RENT' | 'SALE'
+  price: number // UZS
+  priceFormatted: string
+  priceShort: string
+  photo: string
+  lat: number
+  lng: number
+  vip: boolean
+  buildingId: string
+  unitId: string
+  typeLabel: string
+  typeColor: string
+  typeIcon: any
+  link: string
+}
+
+// Generate catalog items from store units (VACANT + RESERVED) and published listings
+const listings = computed<CatalogItem[]>(() => {
+  const items: CatalogItem[] = []
+  const seenUnitIds = new Set<string>()
+
+  // First: published listings that have a unitId
+  for (const l of store.listings) {
+    if (l.status !== 'PUBLISHED') continue
+    const unit = store.units.find(u => u.id === l.unitId)
+    const building = store.buildings.find(b => b.id === l.buildingId)
+    if (!building) continue
+
+    const area = unit?.area || 0
+    const floor = unit?.floor || 0
+    const catType = unit ? (CATEGORY_TO_TYPE[unit.category] || 'OFFICE') : 'OFFICE'
+    const priceUZS = l.currency === 'USD' ? l.price * USD_TO_UZS : l.price
+    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/hero-tashkent.jpg'])[0]
+
+    items.push({
+      id: l.id,
+      title: l.titleUz,
+      district: building.district,
+      address: building.address,
+      area, floor,
+      type: catType,
+      offerType: l.offerType,
+      price: priceUZS,
+      priceFormatted: formatUZS(priceUZS),
+      priceShort: formatUZSShort(priceUZS),
+      photo,
+      lat: building.lat,
+      lng: building.lng,
+      vip: l.viewsCount > 200,
+      buildingId: building.id,
+      unitId: l.unitId || '',
+      link: `/listings/${l.id}`,
+      typeLabel: TYPE_META[catType].label,
+      typeColor: TYPE_META[catType].color,
+      typeIcon: TYPE_META[catType].icon,
+    })
+    if (l.unitId) seenUnitIds.add(l.unitId)
+  }
+
+  // Then: vacant/reserved units not already covered by a listing
+  for (const u of store.units) {
+    if (u.status === 'OCCUPIED') continue
+    if (seenUnitIds.has(u.id)) continue
+    const building = store.buildings.find(b => b.id === u.buildingId)
+    if (!building || !building.isPublished) continue
+
+    const catType = CATEGORY_TO_TYPE[u.category] || 'OFFICE'
+    const priceUZS = u.currency === 'USD' ? u.monthlyRent * USD_TO_UZS : u.monthlyRent
+    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/hero-tashkent.jpg'])[0]
+    const title = `${building.name} · ${u.unitNumber} · ${u.area} m²`
+
+    items.push({
+      id: `unit-${u.id}`,
+      title,
+      district: building.district,
+      address: building.address,
+      area: u.area,
+      floor: u.floor,
+      type: catType,
+      offerType: 'RENT',
+      price: priceUZS,
+      priceFormatted: formatUZS(priceUZS),
+      priceShort: formatUZSShort(priceUZS),
+      photo,
+      lat: building.lat,
+      lng: building.lng,
+      vip: u.area >= 200,
+      buildingId: building.id,
+      unitId: u.id,
+      link: `/buildings/${building.slug}`,
+      typeLabel: TYPE_META[catType].label,
+      typeColor: TYPE_META[catType].color,
+      typeIcon: TYPE_META[catType].icon,
+    })
+  }
+
+  return items
+})
 
 const vipListings = computed(() => listings.value.filter(l => l.vip))
 
-const districts = computed(() => [...new Set(rawListings.map(r => r.district))].sort())
+const districts = computed(() => [...new Set(listings.value.map(l => l.district))].sort())
 
 // ---------------- Filters ----------------
 const filters = reactive({
@@ -373,7 +471,7 @@ const filteredListings = computed(() => {
   let result = [...listings.value]
   if (filters.search) {
     const q = filters.search.toLowerCase()
-    result = result.filter(l => l.title.toLowerCase().includes(q) || l.address.toLowerCase().includes(q))
+    result = result.filter(l => l.title.toLowerCase().includes(q) || l.address.toLowerCase().includes(q) || l.district.toLowerCase().includes(q))
   }
   if (filters.offerType) result = result.filter(l => l.offerType === filters.offerType)
   if (filters.propertyType) result = result.filter(l => l.type === filters.propertyType)
