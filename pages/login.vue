@@ -2,7 +2,7 @@
   <div class="auth">
     <!-- Left: Visual -->
     <div class="auth__visual">
-      <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png" alt="Tashkent City" class="auth__visual-img" />
+      <img src="/buildings/3d-tower-1.png" alt="Tashkent City" class="auth__visual-img" />
       <div class="auth__visual-grad"></div>
       <div class="auth__visual-content">
         <NuxtLink to="/" class="auth__logo">

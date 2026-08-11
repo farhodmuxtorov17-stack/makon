@@ -310,10 +310,10 @@ const config = useRuntimeConfig()
 // First fetch the catalog to find the listing by id
 const catalogData = ref({
   buildings: [
-    { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', gallery: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png'], address: 'Mirzo Ulug\'bek, Tashkent', floorsCount: 12, totalArea: 45000, totalUnits: 420, vacantUnits: 42, type: 'BUSINESS_CENTER' },
+    { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', gallery: ['/buildings/3d-tower-1.png'], address: 'Mirzo Ulug\'bek, Tashkent', floorsCount: 12, totalArea: 45000, totalUnits: 420, vacantUnits: 42, type: 'BUSINESS_CENTER' },
   ],
   listings: [
-    { id: 'l1', buildingId: 'b1', titleUz: 'A-301 · 85 m² ofis', titleRu: 'A-301 · 85 м² офис', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png'], viewsCount: 234, status: 'PUBLISHED', virtualTourUrl: '', descriptionUz: 'Tashkent City 3-qavatda 85 m² ofis maydoni. Tashqi devor, 4 deraza, konditsioner.', descriptionRu: 'Офис 85 м² на 3 этаже Tashkent City. Окна, кондиционер.', floorPlanType: 'office', area: 85, rooms: [
+    { id: 'l1', buildingId: 'b1', titleUz: 'A-301 · 85 m² ofis', titleRu: 'A-301 · 85 м² офис', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['/buildings/3d-tower-2.png'], viewsCount: 234, status: 'PUBLISHED', virtualTourUrl: '', descriptionUz: 'Tashkent City 3-qavatda 85 m² ofis maydoni. Tashqi devor, 4 deraza, konditsioner.', descriptionRu: 'Офис 85 м² на 3 этаже Tashkent City. Окна, кондиционер.', floorPlanType: 'office', area: 85, rooms: [
       { name: 'Resepshn', w: 25, h: 15, x: 5, y: 5, type: 'reception' },
       { name: 'Ochiq ofis', w: 55, h: 35, x: 5, y: 25, type: 'open' },
       { name: 'Yig\'ilish xonasi', w: 20, h: 15, x: 65, y: 5, type: 'meeting' },
@@ -355,7 +355,7 @@ const defaultRooms = [
 ]
 const currentPhotoIdx = ref(0)
 const currentPhoto = computed(() => {
-  return listing.value?.photos?.[currentPhotoIdx.value] || 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png'
+  return listing.value?.photos?.[currentPhotoIdx.value] || '/buildings/3d-tower-3.png'
 })
 
 // Application form

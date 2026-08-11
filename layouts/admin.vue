@@ -1,9 +1,6 @@
 <template>
   <div class="min-h-screen flex admin-bg relative">
-    <!-- Aurora background orbs -->
-    <div class="aurora-orb aurora-orb--1"></div>
-    <div class="aurora-orb aurora-orb--2"></div>
-    <div class="aurora-orb aurora-orb--3"></div>
+
     <!-- Sidebar -->
     <aside class="fixed lg:sticky top-0 left-0 h-screen z-40 transition-transform duration-300 relative" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'" style="width: 256px;">
       <div class="h-full flex flex-col admin-sidebar">

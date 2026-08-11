@@ -9,6 +9,9 @@
           <p class="dash__sub">Barcha {{ buildings.length }} ta biznes markaz</p>
         </div>
       </div>
+      <div class="dash__head-3d">
+        <img src="/buildings/3d-tower-1.png" alt="3D Building" />
+      </div>
       <div class="dash__head-right">
         <select v-model="scopeFilter" class="dash__select">
           <option value="">Barcha obyektlar</option>
@@ -166,11 +169,11 @@ const kpis = [
 ]
 
 const buildings = [
-  { name: 'MAKON Business Center', slug: 'makon-bc', occupancy: 92, debt: 18.2, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png', mapX: 22, mapY: 30 },
-  { name: "Navro'z Business Center", slug: 'navroz-bc', occupancy: 85, debt: 22.5, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png', mapX: 62, mapY: 20 },
-  { name: 'City Plaza', slug: 'city-plaza', occupancy: 88, debt: 27.4, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png', mapX: 40, mapY: 62 },
-  { name: 'Tashkent Finance Center', slug: 'tashkent-finance-center', occupancy: 80, debt: 31.6, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3731e4525_generated_image.png', mapX: 75, mapY: 68 },
-  { name: 'Green Park Office', slug: 'green-park-office', occupancy: 90, debt: 25.7, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/a34b512d2_generated_image.png', mapX: 15, mapY: 78 },
+  { name: 'MAKON Business Center', slug: 'makon-bc', occupancy: 92, debt: 18.2, image: '/buildings/3d-tower-1.png', mapX: 22, mapY: 30 },
+  { name: "Navro'z Business Center", slug: 'navroz-bc', occupancy: 85, debt: 22.5, image: '/buildings/3d-tower-2.png', mapX: 62, mapY: 20 },
+  { name: 'City Plaza', slug: 'city-plaza', occupancy: 88, debt: 27.4, image: '/buildings/3d-tower-3.png', mapX: 40, mapY: 62 },
+  { name: 'Tashkent Finance Center', slug: 'tashkent-finance-center', occupancy: 80, debt: 31.6, image: '/buildings/3d-tower-1.png', mapX: 75, mapY: 68 },
+  { name: 'Green Park Office', slug: 'green-park-office', occupancy: 90, debt: 25.7, image: '/buildings/3d-tower-2.png', mapX: 15, mapY: 78 },
 ]
 
 const totalArea = 182560
@@ -307,4 +310,8 @@ function formatArea(v: number) { return v.toLocaleString('ru-RU') + ' m²' }
 .dash__compare-fill--occ { background: #2563EB; }
 .dash__compare-fill--vac { background: #f59e0b; }
 .dash__compare-link { display: block; text-align: center; font-size: 11px; font-weight: 600; color: var(--accent, #2563EB); margin-top: 12px; text-decoration: none; }
+.dash__head-3d { position: absolute; right: 220px; top: 50%; transform: translateY(-50%); width: 80px; height: 80px; opacity: 0.9; }
+.dash__head-3d img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(37,99,235,0.15)); }
+.dash__compare-img { height: 140px; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #F0F7FF, #E0EFFF); display: flex; align-items: center; justify-content: center; }
+.dash__compare-img img { width: 100%; height: 100%; object-fit: contain; padding: 8px; filter: drop-shadow(0 4px 16px rgba(37,99,235,0.12)); }
 </style>

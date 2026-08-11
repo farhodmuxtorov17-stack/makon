@@ -248,7 +248,7 @@ const newListing = ref({
   offerType: 'RENT' as 'RENT' | 'SALE',
   price: 3000,
   currency: 'UZS' as 'UZS' | 'UZS',
-  photoUrl: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
+  photoUrl: '/buildings/3d-tower-1.png',
   virtualTourUrl: '',
   status: 'PUBLISHED' as 'DRAFT' | 'PUBLISHED' | 'HIDDEN' | 'ARCHIVED'
 })

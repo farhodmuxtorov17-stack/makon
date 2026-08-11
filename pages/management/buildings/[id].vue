@@ -234,14 +234,14 @@ const floors = [
 ]
 
 const gallery = [
-  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png', alt: 'Facade', label: 'Fasod' },
-  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png', alt: 'Office', label: 'Ofis' },
-  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png', alt: 'Lobby', label: 'Lobbi' },
-  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png', alt: 'Retail', label: 'Savdo' },
-  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png', alt: 'Corridor', label: 'Koridor' },
-  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png', alt: 'Aerial', label: 'Havodan' },
-  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3075330ac_generated_image.png', alt: 'Night', label: 'Kechasi' },
-  { url: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png', alt: 'Meeting', label: 'Konferensiya' },
+  { url: '/buildings/3d-tower-1.png', alt: 'Facade', label: 'Fasod' },
+  { url: '/buildings/3d-tower-2.png', alt: 'Office', label: 'Ofis' },
+  { url: '/buildings/3d-tower-3.png', alt: 'Lobby', label: 'Lobbi' },
+  { url: '/buildings/3d-tower-1.png', alt: 'Retail', label: 'Savdo' },
+  { url: '/buildings/3d-tower-2.png', alt: 'Corridor', label: 'Koridor' },
+  { url: '/buildings/3d-tower-3.png', alt: 'Aerial', label: 'Havodan' },
+  { url: '/buildings/3d-tower-1.png', alt: 'Night', label: 'Kechasi' },
+  { url: '/buildings/3d-tower-2.png', alt: 'Meeting', label: 'Konferensiya' },
 ]
 
 const docs = [

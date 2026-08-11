@@ -3,7 +3,7 @@
     <!-- ════════ HERO ════════ -->
     <section class="hero">
       <div class="hero__bg">
-        <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png" alt="Tashkent City" class="hero__bg-img" />
+        <img src="/buildings/3d-tower-1.png" alt="Tashkent City" class="hero__bg-img" />
         <div class="hero__bg-grad"></div>
       </div>
 
@@ -67,7 +67,7 @@
       <!-- Featured -->
       <div class="featured" @click="navigateTo('/buildings/tashkent-city')">
         <div class="featured__media">
-          <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png" alt="Tashkent City" />
+          <img src="/buildings/3d-tower-1.png" alt="Tashkent City" />
           <div class="featured__media-grad"></div>
           <div class="featured__tag">PREMIUM</div>
         </div>
@@ -94,7 +94,7 @@
       <div class="grid">
         <div class="card card--tall" @click="navigateTo('/buildings/trillant-tower')">
           <div class="card__media">
-            <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png" alt="Trillant Tower" />
+            <img src="/buildings/3d-tower-2.png" alt="Trillant Tower" />
             <div class="card__grad"></div>
           </div>
           <div class="card__overlay">
@@ -107,7 +107,7 @@
 
         <div class="card" @click="navigateTo('/buildings/it-park')">
           <div class="card__media">
-            <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png" alt="IT Park" />
+            <img src="/buildings/3d-tower-3.png" alt="IT Park" />
             <div class="card__grad"></div>
           </div>
           <div class="card__overlay">
@@ -120,7 +120,7 @@
 
         <div class="card" @click="navigateTo('/buildings/piramit')">
           <div class="card__media">
-            <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/3731e4525_generated_image.png" alt="Piramit" />
+            <img src="/buildings/3d-tower-3.png" alt="Piramit" />
             <div class="card__grad"></div>
           </div>
           <div class="card__overlay">

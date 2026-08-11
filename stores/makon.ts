@@ -179,11 +179,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 10,
       vacantUnits: 15,
       totalArea: 28500,
-      gallery: [
-        'https://media.base44.com/images/public/6a78058ed735adc07d68319d/b0db07788_generated_image.png',
-        'https://media.base44.com/images/public/6a78058ed735adc07d68319d/b0db07788_generated_image.png',
-        'https://media.base44.com/images/public/6a78058ed735adc07d68319d/8fa70df4e_generated_image.png'
-      ],
+      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
       publicDescription: 'A-klassdagi zamonaviy biznes markazi. Markaziy panorama, aqlli binolar boshqaruvi (BMS) va premium ofislar.',
       publicDescriptionRu: 'Современный бизнес-центр класса А. Панорамный вид, умная система управления зданием (BMS) и премиум офисы.',
       isPublished: true,
@@ -215,10 +211,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 15,
       vacantUnits: 10,
       totalArea: 42000,
-      gallery: [
-        'https://media.base44.com/images/public/6a78058ed735adc07d68319d/99fff4d6f_generated_image.png',
-        'https://media.base44.com/images/public/6a78058ed735adc07d68319d/99fff4d6f_generated_image.png'
-      ],
+      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
       publicDescription: 'Tashkent City parkining qoq markazida joylashgan moliya markazi. Xalqaro banklar va moliyaviy kompaniyalar qarorgohi.',
       publicDescriptionRu: 'Финансовый хаб в самом центре Ташкент Сити. Штаб-квартира международных банков и финансовый институтов.',
       isPublished: true,
@@ -248,9 +241,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 10,
       vacantUnits: 20,
       totalArea: 18000,
-      gallery: [
-        'https://media.base44.com/images/public/6a78058ed735adc07d68319d/e6d4fe6e6_generated_image.png'
-      ],
+      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
       publicDescription: 'IT va venchur kompaniyalar uchun maxsus loyihalashtirilgan innovatsion ekotizim.',
       publicDescriptionRu: 'Инновационная экосистема, специально спроектированная для IT и венчурных компаний.',
       isPublished: true,
@@ -277,9 +268,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 2,
       vacantUnits: 2,
       totalArea: 22000,
-      gallery: [
-        'https://media.base44.com/images/public/6a78058ed735adc07d68319d/9adbd3468_generated_image.png'
-      ],
+      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
       publicDescription: 'Premial kiyim brendlari va savdo shoxobchalari uchun 5 qavatli savdo majmuasi.',
       publicDescriptionRu: '5-этажный торговый комплекс для премиальных брендов и ритейла.',
       isPublished: true,
@@ -306,9 +295,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 4,
       vacantUnits: 8,
       totalArea: 35000,
-      gallery: [
-        'https://media.base44.com/images/public/6a78058ed735adc07d68319d/8fa70df4e_generated_image.png'
-      ],
+      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
       publicDescription: 'A-klassdagi quruq va muzlatgichli ombor maydonlari. Temir yo\'l shaxobchasi va fura rampalari mavjud.',
       publicDescriptionRu: 'Складские площади класса А. Сухие и холодильные склады с ж/д веткой и рампой.',
       isPublished: false,
@@ -380,7 +367,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'RENT',
       price: 2850,
       currency: 'USD',
-      photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/8fa70df4e_generated_image.png'],
+      photos: ['/buildings/3d-tower-2.png'],
       viewsCount: 342,
       status: 'PUBLISHED',
       virtualTourUrl: 'https://my.matterport.com/show/?m=sample',
@@ -397,7 +384,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'RENT',
       price: 7200,
       currency: 'USD',
-      photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/b0db07788_generated_image.png'],
+      photos: ['/buildings/3d-tower-2.png'],
       viewsCount: 189,
       status: 'PUBLISHED',
       virtualTourUrl: '',
@@ -414,7 +401,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'RENT',
       price: 2800,
       currency: 'USD',
-      photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/e6d4fe6e6_generated_image.png'],
+      photos: ['/buildings/3d-tower-2.png'],
       viewsCount: 512,
       status: 'PUBLISHED',
       virtualTourUrl: '',
@@ -431,7 +418,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'SALE',
       price: 850000,
       currency: 'USD',
-      photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/99fff4d6f_generated_image.png'],
+      photos: ['/buildings/3d-tower-2.png'],
       viewsCount: 92,
       status: 'DRAFT',
       virtualTourUrl: '',

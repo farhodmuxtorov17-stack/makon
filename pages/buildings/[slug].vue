@@ -270,7 +270,7 @@ const building = reactive({
   name: 'Tashkent City',
   district: 'Mirzo Ulug\'bek tumani',
   floors: 12, units: 240, area: '32 000', vacant: 47,
-  image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png'
+  image: '/buildings/3d-tower-1.png'
 })
 
 const activeFloor = ref(3)
@@ -373,12 +373,12 @@ function formatNum(n: number) {
 
 const unitFilter = ref('ALL')
 const units = [
-  { id: 1, slug: 'tashkent-city-office-101', name: 'Ofis 101', floor: 1, area: 45, type: 'OFFICE', price: '3 500 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
-  { id: 2, slug: 'tashkent-city-office-205', name: 'Ofis 205', floor: 2, area: 78, type: 'OFFICE', price: '6 200 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
-  { id: 3, slug: 'tashkent-city-retail-gf', name: 'Savdo maydoni GF', floor: 1, area: 120, type: 'RETAIL', price: '9 800 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png' },
-  { id: 4, slug: 'tashkent-city-office-312', name: 'Ofis 312', floor: 3, area: 55, type: 'OFFICE', price: '4 300 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
-  { id: 5, slug: 'tashkent-city-office-408', name: 'Ofis 408', floor: 4, area: 92, type: 'OFFICE', price: '7 400 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
-  { id: 6, slug: 'tashkent-city-retail-1f', name: 'Savdo maydoni 1F', floor: 2, area: 85, type: 'RETAIL', price: '6 800 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png' },
+  { id: 1, slug: 'tashkent-city-office-101', name: 'Ofis 101', floor: 1, area: 45, type: 'OFFICE', price: '3 500 000', image: '/buildings/3d-tower-2.png' },
+  { id: 2, slug: 'tashkent-city-office-205', name: 'Ofis 205', floor: 2, area: 78, type: 'OFFICE', price: '6 200 000', image: '/buildings/3d-tower-3.png' },
+  { id: 3, slug: 'tashkent-city-retail-gf', name: 'Savdo maydoni GF', floor: 1, area: 120, type: 'RETAIL', price: '9 800 000', image: '/buildings/3d-tower-1.png' },
+  { id: 4, slug: 'tashkent-city-office-312', name: 'Ofis 312', floor: 3, area: 55, type: 'OFFICE', price: '4 300 000', image: '/buildings/3d-tower-2.png' },
+  { id: 5, slug: 'tashkent-city-office-408', name: 'Ofis 408', floor: 4, area: 92, type: 'OFFICE', price: '7 400 000', image: '/buildings/3d-tower-3.png' },
+  { id: 6, slug: 'tashkent-city-retail-1f', name: 'Savdo maydoni 1F', floor: 2, area: 85, type: 'RETAIL', price: '6 800 000', image: '/buildings/3d-tower-1.png' },
 ]
 const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.filter(u => u.type === unitFilter.value))
 </script>

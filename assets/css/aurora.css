@@ -55,14 +55,9 @@
   --gradient-button: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
 
   /* Aurora backgrounds */
-  --aurora-bg: transparent;
+  --aurora-bg: #FFFFFF;
   --aurora-sidebar: linear-gradient(180deg,
-    rgba(239,246,255,0.6) 0%,
-    rgba(219,234,254,0.3) 30%,
-    rgba(239,246,255,0.4) 70%,
-    rgba(219,234,254,0.2) 100%),
-    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(96,165,250,0.08), transparent),
-    #FFFFFF;
+    #FAFBFF 0%, #F8FAFF 50%, #FAFBFF 100%);
 }
 
 .dark {
@@ -108,15 +103,8 @@
   --gradient-card: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);
   --gradient-button: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
 
-  --aurora-bg: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(37,99,235,0.15), transparent),
-               radial-gradient(ellipse 60% 50% at 80% 100%, rgba(59,130,246,0.08), transparent),
-               radial-gradient(ellipse 60% 50% at 20% 80%, rgba(96,165,250,0.05), transparent),
-               #0A0F1E;
-  --aurora-sidebar: linear-gradient(180deg,
-    rgba(15,23,42,0.95) 0%,
-    rgba(12,20,38,0.98) 100%),
-    radial-gradient(ellipse 100% 40% at 50% 0%, rgba(37,99,235,0.08), transparent),
-    #0F172A;
+  --aurora-bg: #0A0F1E;
+  --aurora-sidebar: linear-gradient(180deg, #0F172A 0%, #0C1426 100%);
 }
 
 @layer base {

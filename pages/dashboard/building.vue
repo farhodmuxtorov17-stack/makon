@@ -9,6 +9,7 @@
           <p class="bdash__sub">{{ selectedBuilding.name }}</p>
         </div>
       </div>
+      <div class="bdash__head-3d"><img src="/buildings/3d-tower-2.png" alt="3D Building" /></div>
       <div class="bdash__head-right">
         <div class="bdash__select-wrap">
           <span class="bdash__select-label">Obyekt tanlash</span>
@@ -62,13 +63,8 @@
               <span class="bdash__floor-pct">{{ f.occupied }}%</span>
             </div>
           </div>
-          <div class="bdash__tower">
-            <div class="bdash__tower-roof"></div>
-            <div v-for="f in floorsReversed" :key="f.num" class="bdash__tower-floor" :style="{ background: f.occupied > 90 ? 'linear-gradient(135deg, rgba(16,185,129,0.55), rgba(16,185,129,0.25))' : f.occupied > 80 ? 'linear-gradient(135deg, rgba(37,99,235,0.55), rgba(37,99,235,0.25))' : 'linear-gradient(135deg, rgba(245,158,11,0.5), rgba(245,158,11,0.2))' }"></div>
-            <div class="bdash__tower-base">
-              <span class="bdash__tower-tree">🌳</span>
-              <span class="bdash__tower-tree">🌳</span>
-            </div>
+          <div class="bdash__tower-3d">
+            <img src="/buildings/3d-tower-3.png" alt="3D Building" />
           </div>
         </div>
         <NuxtLink to="/management/floor-plans" class="bdash__panel-link">Batafsil →</NuxtLink>
@@ -289,4 +285,8 @@ const approvals = [
 .dark .bdash__approval-title { color: white; }
 .bdash__approval-meta { font-size: 11px; color: #a1a1aa; margin-top: 2px; }
 .bdash__approval-time { font-size: 11px; font-weight: 600; color: #71717a; white-space: nowrap; }
+.bdash__head-3d { position: absolute; right: 220px; top: 50%; transform: translateY(-50%); width: 72px; height: 72px; opacity: 0.9; }
+.bdash__head-3d img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(37,99,235,0.15)); }
+.bdash__tower-3d { width: 120px; height: 180px; display: flex; align-items: flex-end; justify-content: center; }
+.bdash__tower-3d img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(37,99,235,0.2)); }
 </style>
