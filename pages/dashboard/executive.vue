@@ -2,105 +2,145 @@
   <div class="dash">
     <!-- Page header -->
     <div class="dash__head">
-      <div>
-        <h1 class="dash__title">Global Dashboard</h1>
-        <p class="dash__sub">Barcha binolar bo'yicha umumiy ko'rsatkichlar</p>
+      <div class="dash__head-left">
+        <div class="dash__head-icon"><Building2 :size="20" /></div>
+        <div>
+          <h1 class="dash__title">Super rahbar</h1>
+          <p class="dash__sub">Barcha {{ buildings.length }} ta biznes markaz</p>
+        </div>
       </div>
       <div class="dash__head-right">
-        <button class="dash__export" @click="() => {}"><Download :size="15" /> Eksport</button>
-        <button class="dash__refresh" @click="refresh"><RefreshCw :size="15" :class="{ 'animate-spin': refreshing }" /> Yangilash</button>
+        <select v-model="scopeFilter" class="dash__select">
+          <option value="">Barcha obyektlar</option>
+          <option v-for="b in buildings" :key="b.name" :value="b.name">{{ b.name }}</option>
+        </select>
+        <button class="dash__date">
+          <Calendar :size="14" /> Bugun, {{ today }}
+        </button>
       </div>
     </div>
 
-    <!-- KPI cards -->
+    <!-- KPI cards with sparklines -->
     <div class="dash__kpis">
       <div v-for="kpi in kpis" :key="kpi.label" class="dash__kpi">
         <div class="dash__kpi-top">
-          <div class="dash__kpi-icon" :style="{ background: kpi.bg, color: kpi.color }">
-            <component :is="kpi.icon" :size="20" />
-          </div>
-          <div class="dash__kpi-trend" :class="kpi.trend > 0 ? 'dash__kpi-trend--up' : 'dash__kpi-trend--down'">
-            <TrendingUp v-if="kpi.trend > 0" :size="13" />
-            <TrendingDown v-else :size="13" />
+          <span class="dash__kpi-label">{{ kpi.label }}</span>
+          <span class="dash__kpi-trend" :class="kpi.trend > 0 ? 'dash__kpi-trend--up' : 'dash__kpi-trend--down'">
+            <TrendingUp v-if="kpi.trend > 0" :size="11" />
+            <TrendingDown v-else :size="11" />
             {{ Math.abs(kpi.trend) }}%
-          </div>
+          </span>
         </div>
         <div class="dash__kpi-val">{{ kpi.value }}</div>
-        <div class="dash__kpi-label">{{ kpi.label }}</div>
-      </div>
-    </div>
-
-    <!-- Charts row -->
-    <div class="dash__charts">
-      <div class="dash__chart-card">
-        <div class="dash__chart-head">
-          <h3 class="dash__chart-title">Daromat dinamikasi</h3>
-          <div class="dash__chart-tabs">
-            <button :class="{ active: chartTab === 'month' }" @click="chartTab = 'month'">Oy</button>
-            <button :class="{ active: chartTab === 'quarter' }" @click="chartTab = 'quarter'">Chorak</button>
-            <button :class="{ active: chartTab === 'year' }" @click="chartTab = 'year'">Yil</button>
-          </div>
-        </div>
-        <div class="dash__chart-body">
-          <DotBarChart :data="chartData" :rows="14" :height="200" :format-value="(v) => v + 'M UZS'" />
-        </div>
-      </div>
-
-      <div class="dash__chart-card">
-        <div class="dash__chart-head">
-          <h3 class="dash__chart-title">Binolar bo'yicha daromat</h3>
-        </div>
-        <div class="dash__chart-body">
-          <div v-for="(item, i) in buildingRevenue" :key="i" class="dash__progress-row">
-            <div class="dash__progress-head">
-              <span class="dash__progress-name">{{ item.name }}</span>
-              <span class="dash__progress-val">{{ item.value }}M UZS</span>
-            </div>
-            <div class="dash__progress-bar">
-              <div class="dash__progress-fill" :style="{ width: item.percent + '%', background: item.color }"></div>
-            </div>
-          </div>
+        <div class="dash__kpi-spark">
+          <Sparkline :data="kpi.spark" :color="kpi.color" :height="32" />
         </div>
       </div>
     </div>
 
-    <!-- Recent activity + Buildings table -->
-    <div class="dash__bottom">
-      <div class="dash__card">
-        <div class="dash__card-head">
-          <h3 class="dash__card-title">So'nggi faollik</h3>
-          <NuxtLink to="/admin/audit" class="dash__card-link">Barchasi →</NuxtLink>
+    <!-- Map + Donut + Bar chart row -->
+    <div class="dash__row3">
+      <!-- Map -->
+      <div class="dash__panel dash__panel--map">
+        <div class="dash__panel-head">
+          <h3 class="dash__panel-title">Bandlik xaritasi</h3>
         </div>
-        <div class="dash__activity">
-          <div v-for="(act, i) in activities" :key="i" class="dash__activity-item">
-            <div class="dash__activity-dot" :style="{ background: act.color }"></div>
-            <div class="dash__activity-info">
-              <span class="dash__activity-text">{{ act.text }}</span>
-              <span class="dash__activity-time">{{ act.time }}</span>
+        <div class="dash__map">
+          <div class="dash__map-grid"></div>
+          <div
+            v-for="(b, i) in buildings" :key="i"
+            class="dash__map-pin"
+            :style="{ left: b.mapX + '%', top: b.mapY + '%' }"
+            :title="b.name"
+          >
+            <MapPin :size="22" :fill="b.occupancy > 85 ? '#0f766e' : '#f59e0b'" :stroke="'white'" stroke-width="1.5" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Donut -->
+      <div class="dash__panel">
+        <div class="dash__panel-head">
+          <h3 class="dash__panel-title">Portfel ko'rinishi</h3>
+        </div>
+        <div class="dash__donut-wrap">
+          <div class="dash__donut-svg">
+            <DonutChart :values="[{ value: occupiedArea, color: '#0f766e' }, { value: vacantArea, color: '#34d399' }]" />
+            <div class="dash__donut-center">
+              <div class="dash__donut-total">{{ formatArea(totalArea) }}</div>
+              <div class="dash__donut-total-label">Jami maydon</div>
+            </div>
+          </div>
+          <div class="dash__donut-legend">
+            <div class="dash__donut-legend-item">
+              <span class="dash__donut-dot" style="background:#0f766e"></span>
+              <div>
+                <div class="dash__donut-legend-label">Band</div>
+                <div class="dash__donut-legend-val">{{ formatArea(occupiedArea) }} ({{ Math.round(occupiedArea/totalArea*100) }}%)</div>
+              </div>
+            </div>
+            <div class="dash__donut-legend-item">
+              <span class="dash__donut-dot" style="background:#34d399"></span>
+              <div>
+                <div class="dash__donut-legend-label">Vacant</div>
+                <div class="dash__donut-legend-val">{{ formatArea(vacantArea) }} ({{ Math.round(vacantArea/totalArea*100) }}%)</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="dash__card">
-        <div class="dash__card-head">
-          <h3 class="dash__card-title">Binolar holati</h3>
-          <NuxtLink to="/management/buildings" class="dash__card-link">Barchasi →</NuxtLink>
+      <!-- Bar + line -->
+      <div class="dash__panel">
+        <div class="dash__panel-head">
+          <h3 class="dash__panel-title">Portfel dinamikasi</h3>
         </div>
-        <div class="dash__buildings">
-          <div v-for="(b, i) in buildings" :key="i" class="dash__building">
-            <div class="dash__building-img">
-              <img :src="b.image" :alt="b.name" />
+        <div class="dash__bars">
+          <div v-for="(m, i) in dynamicsData" :key="i" class="dash__bars-col">
+            <div class="dash__bars-stack">
+              <div class="dash__bars-seg dash__bars-seg--occ" :style="{ height: (m.occupied / maxDynamics * 100) + '%' }"></div>
+              <div class="dash__bars-seg dash__bars-seg--vac" :style="{ height: (m.vacant / maxDynamics * 100) + '%' }"></div>
             </div>
-            <div class="dash__building-info">
-              <span class="dash__building-name">{{ b.name }}</span>
-              <span class="dash__building-occ">{{ b.occupied }}/{{ b.total }} unit</span>
-            </div>
-            <div class="dash__building-bar">
-              <div class="dash__building-bar-fill" :style="{ width: (b.occupied / b.total * 100) + '%' }"></div>
-            </div>
-            <span class="dash__building-pct">{{ Math.round(b.occupied / b.total * 100) }}%</span>
+            <span class="dash__bars-label">{{ m.month }}</span>
           </div>
+        </div>
+        <div class="dash__bars-legend">
+          <span><i style="background:#0f766e"></i> Band maydon</span>
+          <span><i style="background:#bbf7d0"></i> Vacant maydon</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buildings comparison -->
+    <div class="dash__panel">
+      <div class="dash__panel-head">
+        <h3 class="dash__panel-title">Obyektlar taqqoslanishi</h3>
+      </div>
+      <div class="dash__compare-grid">
+        <div v-for="(b, i) in buildings" :key="i" class="dash__compare-card">
+          <div class="dash__compare-img">
+            <img :src="b.image" :alt="b.name" loading="lazy" />
+          </div>
+          <div class="dash__compare-name">{{ b.name }}</div>
+          <div class="dash__compare-metrics">
+            <div class="dash__compare-row">
+              <span class="dash__compare-metric-label">Bandlik</span>
+              <span class="dash__compare-metric-val">{{ b.occupancy }}%</span>
+            </div>
+            <div class="dash__compare-track"><div class="dash__compare-fill dash__compare-fill--occ" :style="{ width: b.occupancy + '%' }"></div></div>
+
+            <div class="dash__compare-row">
+              <span class="dash__compare-metric-label">Vacancy</span>
+              <span class="dash__compare-metric-val">{{ 100 - b.occupancy }}%</span>
+            </div>
+            <div class="dash__compare-track"><div class="dash__compare-fill dash__compare-fill--vac" :style="{ width: (100 - b.occupancy) + '%' }"></div></div>
+
+            <div class="dash__compare-row">
+              <span class="dash__compare-metric-label">Qarzdorlik</span>
+              <span class="dash__compare-metric-val">{{ b.debt }} mln</span>
+            </div>
+          </div>
+          <NuxtLink :to="`/buildings/${b.slug}`" class="dash__compare-link">Batafsil →</NuxtLink>
         </div>
       </div>
     </div>
@@ -108,170 +148,163 @@
 </template>
 
 <script setup lang="ts">
-import { Building2, Wallet, FileText, Users, TrendingUp, TrendingDown, Download, RefreshCw } from 'lucide-vue-next'
+import { Building2, TrendingUp, TrendingDown, Calendar, MapPin } from 'lucide-vue-next'
+import Sparkline from '~/components/Sparkline.vue'
+import DonutChart from '~/components/DonutChart.vue'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const refreshing = ref(false)
-const chartTab = ref('month')
+const scopeFilter = ref('')
+const today = '11.08.2026'
 
 const kpis = [
-  { label: 'Jami daromat', value: '247.8M UZS', trend: 12, icon: Wallet, bg: 'rgba(15,118,110,0.1)', color: 'var(--accent)' },
-  { label: 'Faol shartnomalar', value: '184', trend: 8, icon: FileText, bg: 'rgba(16,185,129,0.1)', color: '#10b981' },
-  { label: 'Bandlik darajasi', value: '81%', trend: 5, icon: Building2, bg: 'rgba(245,158,11,0.1)', color: '#f59e0b' },
-  { label: 'Ijarachilar', value: '192', trend: -3, icon: Users, bg: 'rgba(239,68,68,0.1)', color: '#ef4444' },
-]
-
-const chartData = [
-  { label: 'Yan', value: 165 }, { label: 'Fev', value: 178 }, { label: 'Mar', value: 172 },
-  { label: 'Apr', value: 196 }, { label: 'May', value: 205 }, { label: 'Iyn', value: 188 },
-  { label: 'Iyl', value: 218 }, { label: 'Avg', value: 210 }, { label: 'Sen', value: 228 },
-  { label: 'Okt', value: 221 }, { label: 'Noy', value: 202 }, { label: 'Dek', value: 247 },
-]
-
-const buildingRevenue = [
-  { name: 'Tashkent City', value: 85, percent: 100, color: 'linear-gradient(90deg, var(--accent), var(--accent-hover))' },
-  { name: 'Trillant Tower', value: 62, percent: 73, color: 'linear-gradient(90deg, var(--accent), var(--accent))' },
-  { name: 'Savdo Markaz', value: 48, percent: 56, color: 'linear-gradient(90deg, var(--accent), var(--accent))' },
-  { name: 'Logistika Markaz', value: 32, percent: 38, color: 'linear-gradient(90deg, #c7d2fe, var(--accent))' },
-]
-
-const activities = [
-  { text: 'Yangi shartnoma imzolandi — Ofis 205', time: '5 daqiqa oldin', color: '#10b981' },
-  { text: 'Ariza qabul qilindi — Savdo maydoni GF', time: '23 daqiqa oldin', color: 'var(--accent)' },
-  { text: 'To\'lov amalga oshirildi — 15.2M UZS', time: '1 soat oldin', color: '#10b981' },
-  { text: 'Servis so\'rovi yopildi — Trillant Tower', time: '2 soat oldin', color: '#f59e0b' },
-  { text: 'Yangi ijarachi ro\'yxatdan o\'tdi', time: '3 soat oldin', color: 'var(--accent)' },
+  { label: "Bandlik (o'rtacha)", value: '87%', trend: 4.2, color: '#0f766e', spark: [78, 80, 79, 82, 84, 83, 85, 86, 85, 87] },
+  { label: 'Vacancy', value: '13%', trend: -2.1, color: '#f59e0b', spark: [22, 20, 21, 18, 16, 17, 15, 14, 15, 13] },
+  { label: 'Qarzdorlik', value: '125.4 mln', trend: 6.3, color: '#ef4444', spark: [95, 100, 98, 105, 110, 108, 115, 118, 120, 125] },
+  { label: 'Servis arizalari', value: '156', trend: -8.0, color: '#8b5cf6', spark: [190, 185, 178, 172, 168, 165, 160, 158, 157, 156] },
+  { label: "To'lovlar (bugun)", value: '824.6 mln', trend: 12.5, color: '#3b82f6', spark: [600, 650, 630, 700, 690, 720, 750, 740, 800, 824] },
 ]
 
 const buildings = [
-  { name: 'Tashkent City', occupied: 193, total: 240, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png' },
-  { name: 'Trillant Tower', occupied: 68, total: 85, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
-  { name: 'Savdo Markaz', occupied: 42, total: 60, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png' },
-  { name: 'Logistika Markaz', occupied: 28, total: 40, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3731e4525_generated_image.png' },
+  { name: 'MAKON Business Center', slug: 'makon-bc', occupancy: 92, debt: 18.2, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png', mapX: 22, mapY: 30 },
+  { name: "Navro'z Business Center", slug: 'navroz-bc', occupancy: 85, debt: 22.5, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png', mapX: 62, mapY: 20 },
+  { name: 'City Plaza', slug: 'city-plaza', occupancy: 88, debt: 27.4, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png', mapX: 40, mapY: 62 },
+  { name: 'Tashkent Finance Center', slug: 'tashkent-finance-center', occupancy: 80, debt: 31.6, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3731e4525_generated_image.png', mapX: 75, mapY: 68 },
+  { name: 'Green Park Office', slug: 'green-park-office', occupancy: 90, debt: 25.7, image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/a34b512d2_generated_image.png', mapX: 15, mapY: 78 },
 ]
 
-function refresh() {
-  refreshing.value = true
-  setTimeout(() => refreshing.value = false, 1000)
-}
+const totalArea = 182560
+const occupiedArea = 158640
+const vacantArea = 23920
+
+const dynamicsData = [
+  { month: 'Yan', occupied: 148, vacant: 22 },
+  { month: 'Fev', occupied: 151, vacant: 21 },
+  { month: 'Mar', occupied: 153, vacant: 20 },
+  { month: 'Apr', occupied: 156, vacant: 24 },
+  { month: 'May', occupied: 158, vacant: 24 },
+]
+const maxDynamics = Math.max(...dynamicsData.map(d => d.occupied + d.vacant))
+
+function formatArea(v: number) { return v.toLocaleString('ru-RU') + ' m²' }
 </script>
 
 <style scoped>
-.dash { max-width: 1280px; margin: 0 auto; }
+.dash { max-width: 1360px; margin: 0 auto; }
 
 /* Head */
-.dash__head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
-.dash__title { font-size: 24px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0 0 4px; }
+.dash__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+.dash__head-left { display: flex; align-items: center; gap: 12px; }
+.dash__head-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.dash__title { font-size: 20px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; margin: 0; }
 .dark .dash__title { color: white; }
-.dash__sub { font-size: 14px; color: #71717a; margin: 0; }
+.dash__sub { font-size: 13px; color: #71717a; margin: 2px 0 0; }
 .dark .dash__sub { color: #a1a1aa; }
-.dash__head-right { display: flex; gap: 8px; }
-.dash__export, .dash__refresh {
-  display: inline-flex; align-items: center; gap: 7px; padding: 10px 16px;
-  border-radius: 11px; font-size: 13px; font-weight: 500; border: none; cursor: pointer;
+.dash__head-right { display: flex; gap: 10px; align-items: center; }
+.dash__select {
+  padding: 9px 14px; border-radius: 10px; font-size: 13px; font-weight: 500;
+  border: 1px solid rgba(0,0,0,0.08); background: white; color: #18181b; cursor: pointer;
+}
+.dark .dash__select { background: #1c1c1e; border-color: rgba(255,255,255,0.08); color: white; }
+.dash__date {
+  display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px;
+  border-radius: 10px; font-size: 13px; font-weight: 500; border: 1px solid rgba(0,0,0,0.08);
+  background: white; color: #52525b; cursor: pointer;
+}
+.dark .dash__date { background: #1c1c1e; border-color: rgba(255,255,255,0.08); color: #a1a1aa; }
+
+/* KPIs with sparklines */
+.dash__kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 20px; }
+@media (max-width: 1100px) { .dash__kpis { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .dash__kpis { grid-template-columns: repeat(2, 1fr); } }
+.dash__kpi {
+  padding: 16px 18px; border-radius: 16px; background: white; border: 1px solid rgba(0,0,0,0.05);
   transition: all 0.25s;
 }
-.dash__export { background: rgba(0,0,0,0.04); color: #52525b; }
-.dark .dash__export { background: rgba(255,255,255,0.06); color: #a1a1aa; }
-.dash__export:hover { background: rgba(0,0,0,0.08); }
-.dark .dash__export:hover { background: rgba(255,255,255,0.1); }
-.dash__refresh { background: var(--accent); color: white; box-shadow: none; }
-.dash__refresh:hover { transform: translateY(-1px); box-shadow: none; }
-
-/* KPIs */
-.dash__kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
-.dash__kpi {
-  padding: 22px; border-radius: 18px; background: white; border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.02); transition: all 0.3s;
-}
 .dark .dash__kpi { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
-.dash__kpi:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.06), 0 0 0 1px rgba(15,118,110,0.08); transform: translateY(-3px); }
-.dark .dash__kpi:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(15,118,110,0.1); }
-.dash__kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-.dash__kpi-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-.dash__kpi-trend { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 7px; }
+.dash__kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.06); }
+.dash__kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.dash__kpi-label { font-size: 11.5px; color: #71717a; font-weight: 500; }
+.dark .dash__kpi-label { color: #a1a1aa; }
+.dash__kpi-trend { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 6px; }
 .dash__kpi-trend--up { background: rgba(16,185,129,0.1); color: #10b981; }
 .dash__kpi-trend--down { background: rgba(239,68,68,0.1); color: #ef4444; }
-.dash__kpi-val { font-size: 26px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; }
+.dash__kpi-val { font-size: 22px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; margin-bottom: 8px; }
 .dark .dash__kpi-val { color: white; }
-.dash__kpi-label { font-size: 13px; color: #71717a; margin-top: 4px; }
-.dark .dash__kpi-label { color: #a1a1aa; }
+.dash__kpi-spark { height: 32px; }
 
-/* Charts */
-.dash__charts { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; margin-bottom: 20px; }
-.dash__chart-card { padding: 22px; border-radius: 18px; background: white; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
-.dark .dash__chart-card { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
-.dash__chart-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-.dash__chart-title { font-size: 15px; font-weight: 700; color: #18181b; margin: 0; }
-.dark .dash__chart-title { color: white; }
-.dash__chart-tabs { display: flex; gap: 4px; background: rgba(0,0,0,0.04); padding: 3px; border-radius: 9px; }
-.dark .dash__chart-tabs { background: rgba(255,255,255,0.04); }
-.dash__chart-tabs button { padding: 6px 14px; border-radius: 7px; font-size: 12px; font-weight: 500; color: #71717a; background: none; border: none; cursor: pointer; transition: all 0.25s; }
-.dark .dash__chart-tabs button { color: #a1a1aa; }
-.dash__chart-tabs button.active { background: white; color: #18181b; box-shadow: 0 1px 2px rgba(0,0,0,0.06); font-weight: 600; }
-.dark .dash__chart-tabs button.active { background: rgba(255,255,255,0.08); color: white; }
-
-/* Bar chart */
-.dash__chart-bars { display: flex; align-items: flex-end; gap: 8px; height: 200px; padding-top: 10px; }
-.dash__chart-bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
-.dash__chart-bar-fill { width: 100%; max-width: 28px; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, var(--accent), var(--accent)); transition: all 0.4s ease; min-height: 4px; }
-.dash__chart-bar-fill:hover { background: linear-gradient(180deg, var(--accent), var(--accent-hover)); }
-.dash__chart-bar-label { font-size: 10px; color: #a1a1aa; font-weight: 500; }
-
-/* Progress rows */
-.dash__progress-row { margin-bottom: 16px; }
-.dash__progress-row:last-child { margin-bottom: 0; }
-.dash__progress-head { display: flex; justify-content: space-between; margin-bottom: 8px; }
-.dash__progress-name { font-size: 13px; font-weight: 500; color: #52525b; }
-.dark .dash__progress-name { color: #d4d4d8; }
-.dash__progress-val { font-size: 13px; font-weight: 700; color: #18181b; }
-.dark .dash__progress-val { color: white; }
-.dash__progress-bar { height: 8px; border-radius: 4px; background: rgba(0,0,0,0.04); overflow: hidden; }
-.dark .dash__progress-bar { background: rgba(255,255,255,0.06); }
-.dash__progress-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
-
-/* Bottom */
-.dash__bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.dash__card { padding: 22px; border-radius: 18px; background: white; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
-.dark .dash__card { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
-.dash__card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-.dash__card-title { font-size: 15px; font-weight: 700; color: #18181b; margin: 0; }
-.dark .dash__card-title { color: white; }
-.dash__card-link { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500; }
-.dash__card-link:hover { text-decoration: underline; }
-
-/* Activity */
-.dash__activity { display: flex; flex-direction: column; gap: 14px; }
-.dash__activity-item { display: flex; align-items: flex-start; gap: 12px; }
-.dash__activity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
-.dash__activity-info { display: flex; flex-direction: column; gap: 2px; }
-.dash__activity-text { font-size: 13px; color: #3f3f46; font-weight: 500; }
-.dark .dash__activity-text { color: #d4d4d8; }
-.dash__activity-time { font-size: 12px; color: #a1a1aa; }
-
-/* Buildings */
-.dash__buildings { display: flex; flex-direction: column; gap: 14px; }
-.dash__building { display: flex; align-items: center; gap: 12px; }
-.dash__building-img { width: 48px; height: 48px; border-radius: 10px; overflow: hidden; flex-shrink: 0; }
-.dash__building-img img { width: 100%; height: 100%; object-fit: cover; }
-.dash__building-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
-.dash__building-name { font-size: 13px; font-weight: 600; color: #18181b; }
-.dark .dash__building-name { color: white; }
-.dash__building-occ { font-size: 12px; color: #a1a1aa; }
-.dash__building-bar { flex: 1; max-width: 120px; height: 6px; border-radius: 3px; background: rgba(0,0,0,0.04); overflow: hidden; }
-.dark .dash__building-bar { background: rgba(255,255,255,0.06); }
-.dash__building-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); transition: width 0.5s; }
-.dash__building-pct { font-size: 13px; font-weight: 700; color: #18181b; min-width: 36px; text-align: right; }
-.dark .dash__building-pct { color: white; }
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .dash__kpis { grid-template-columns: 1fr 1fr; }
-  .dash__charts { grid-template-columns: 1fr; }
-  .dash__bottom { grid-template-columns: 1fr; }
+/* 3-col row */
+.dash__row3 { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+@media (max-width: 1024px) { .dash__row3 { grid-template-columns: 1fr; } }
+.dash__panel {
+  padding: 20px; border-radius: 18px; background: white; border: 1px solid rgba(0,0,0,0.05);
 }
-@media (max-width: 640px) {
-  .dash__kpis { grid-template-columns: 1fr; }
+.dark .dash__panel { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+.dash__panel-head { margin-bottom: 14px; }
+.dash__panel-title { font-size: 14px; font-weight: 700; color: #18181b; margin: 0; }
+.dark .dash__panel-title { color: white; }
+
+/* Map */
+.dash__panel--map { position: relative; }
+.dash__map { position: relative; height: 240px; border-radius: 14px; overflow: hidden; background: linear-gradient(135deg, #eef2f5, #e2e8ec); }
+.dark .dash__map { background: linear-gradient(135deg, #1a1a1c, #232326); }
+.dash__map-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
+.dark .dash__map-grid { background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); }
+.dash__map-pin { position: absolute; transform: translate(-50%, -100%); filter: drop-shadow(0 3px 6px rgba(0,0,0,0.25)); transition: transform 0.2s; cursor: pointer; }
+.dash__map-pin:hover { transform: translate(-50%, -100%) scale(1.2); }
+
+/* Donut */
+.dash__donut-wrap { display: flex; align-items: center; gap: 16px; }
+.dash__donut-svg { position: relative; width: 108px; height: 108px; flex-shrink: 0; }
+.dash__donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.dash__donut-total { font-size: 13px; font-weight: 800; color: #18181b; }
+.dark .dash__donut-total { color: white; }
+.dash__donut-total-label { font-size: 8.5px; color: #a1a1aa; margin-top: 1px; text-align: center; }
+.dash__donut-legend { display: flex; flex-direction: column; gap: 12px; }
+.dash__donut-legend-item { display: flex; align-items: center; gap: 8px; }
+.dash__donut-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.dash__donut-legend-label { font-size: 11.5px; color: #71717a; }
+.dash__donut-legend-val { font-size: 13px; font-weight: 700; color: #18181b; }
+.dark .dash__donut-legend-val { color: white; }
+
+/* Bars */
+.dash__bars { display: flex; align-items: flex-end; justify-content: space-between; height: 160px; gap: 8px; margin-bottom: 12px; }
+.dash__bars-col { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; height: 100%; justify-content: flex-end; }
+.dash__bars-stack { width: 60%; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; border-radius: 4px; overflow: hidden; }
+.dash__bars-seg--occ { background: #0f766e; }
+.dash__bars-seg--vac { background: #bbf7d0; }
+.dash__bars-label { font-size: 10.5px; color: #a1a1aa; }
+.dash__bars-legend { display: flex; gap: 16px; font-size: 11px; color: #71717a; }
+.dash__bars-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.dash__bars-legend i { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+
+/* Compare cards */
+.dash__compare-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+@media (max-width: 1100px) { .dash__compare-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px) { .dash__compare-grid { grid-template-columns: repeat(2, 1fr); } }
+.dash__compare-card {
+  border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);
+  background: #fafafa; padding-bottom: 14px; transition: all 0.2s;
+}
+.dark .dash__compare-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
+.dash__compare-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+.dash__compare-img { height: 90px; overflow: hidden; }
+.dash__compare-img img { width: 100%; height: 100%; object-fit: cover; }
+.dash__compare-name { font-size: 12.5px; font-weight: 700; color: #18181b; padding: 10px 12px 6px; line-height: 1.3; }
+.dark .dash__compare-name { color: white; }
+.dash__compare-metrics { padding: 0 12px; }
+.dash__compare-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; margin-bottom: 3px; }
+.dash__compare-metric-label { font-size: 10.5px; color: #a1a1aa; }
+.dash__compare-metric-val { font-size: 11px; font-weight: 700; color: #18181b; }
+.dark .dash__compare-metric-val { color: white; }
+.dash__compare-track { height: 4px; border-radius: 2px; background: rgba(0,0,0,0.06); overflow: hidden; }
+.dark .dash__compare-track { background: rgba(255,255,255,0.08); }
+.dash__compare-fill { height: 100%; border-radius: 2px; }
+.dash__compare-fill--occ { background: #0f766e; }
+.dash__compare-fill--vac { background: #f59e0b; }
+.dash__compare-link { display: block; text-align: center; font-size: 11px; font-weight: 600; color: var(--accent, #0f766e); margin-top: 12px; text-decoration: none; }
 </style>
