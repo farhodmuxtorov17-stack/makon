@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-5">
-    <!-- Welcome header -->
+    
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/30">A</div>

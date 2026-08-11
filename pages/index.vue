@@ -31,9 +31,6 @@
         <div class="hero__overlay"></div>
       </div>
       <div class="hero__center">
-        <div class="hero__badge">
-          <ShieldCheck :size="13" /> Davlat standartlariga muvofiq · ERI integratsiyasi
-        </div>
         <h1 class="hero__title">
           Binolarning raqamli boshqaruvi
         </h1>
@@ -69,19 +66,6 @@
             <button class="hero-chip" @click="navigateTo('/catalog?offer=rent')">Ijaraga</button>
             <button class="hero-chip" @click="navigateTo('/catalog?offer=sale')">Sotuvda</button>
           </div>
-        </div>
-        <div class="hero__actions">
-          <NuxtLink to="/catalog" class="hero__cta">
-            Katalogga kirish <ArrowRight :size="16" />
-          </NuxtLink>
-          <a href="#how" class="hero__link">Jarayonni ko'rish</a>
-        </div>
-        <div class="hero__trust">
-          <div class="hero__trust-item"><div class="hero__trust-n">12K+</div><div class="hero__trust-l">Boshqariladigan maydon</div></div>
-          <div class="hero__trust-line"></div>
-          <div class="hero__trust-item"><div class="hero__trust-n">98%</div><div class="hero__trust-l">O'rtacha bandlik</div></div>
-          <div class="hero__trust-line"></div>
-          <div class="hero__trust-item"><div class="hero__trust-n">240+</div><div class="hero__trust-l">Faol shartnoma</div></div>
         </div>
       </div>
       <div class="hero__scroll">
@@ -185,33 +169,6 @@
       </div>
     </section>
 
-
-    <!-- STATS BAND -->
-    <section class="stats-band">
-      <div class="container">
-        <div class="stats-band__grid">
-          <div class="stats-band__item">
-            <div class="stats-band__num">12K<span>+</span></div>
-            <div class="stats-band__label">Boshqariladigan maydon (m²)</div>
-          </div>
-          <div class="stats-band__divider"></div>
-          <div class="stats-band__item">
-            <div class="stats-band__num">240<span>+</span></div>
-            <div class="stats-band__label">Faol shartnoma</div>
-          </div>
-          <div class="stats-band__divider"></div>
-          <div class="stats-band__item">
-            <div class="stats-band__num">98<span>%</span></div>
-            <div class="stats-band__label">O'rtacha bandlik</div>
-          </div>
-          <div class="stats-band__divider"></div>
-          <div class="stats-band__item">
-            <div class="stats-band__num">24<span>soat</span></div>
-            <div class="stats-band__label">Arizaga javob vaqti</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- HOW IT WORKS -->
     <section id="how" class="how">

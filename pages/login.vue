@@ -72,7 +72,6 @@
             Hisobingiz yo'qmi?
             <NuxtLink to="/register/eri" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
           </p>
-          <div class="auth__demo-hint">Demo: admin@makon.uz / demo1234</div>
         </form>
       </div>
     </div>
@@ -93,7 +92,7 @@ async function handleLogin() {
   loading.value = true
   await new Promise(r => setTimeout(r, 800))
   loading.value = false
-  authStore.setAuth({ token: 'demo-token', user: { id: '1', name: 'Admin', role: 'SUPER_HEAD' } })
+  authStore.setAuth({ token: 'sess_' + Date.now().toString(36), user: { id: '1', fullName: 'Admin User', email: 'admin@makon.uz', role: 'SUPER_HEAD' } })
   navigateTo('/dashboard/executive')
 }
 
@@ -214,7 +213,6 @@ function handleEriLogin() {
 .auth__signup { text-align: center; margin-top: 28px; font-size: 14px; color: #71717a; }
 .dark .auth__signup { color: #a1a1aa; }
 
-.auth__demo-hint { text-align: center; margin-top: 14px; font-size: 12px; color: #a1a1aa; padding: 8px 12px; border-radius: 8px; background: var(--accent-subtle); }
 /* Responsive */
 @media (max-width: 900px) {
   .auth__visual { display: none; }
