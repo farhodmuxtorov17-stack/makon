@@ -70,18 +70,14 @@
             </div>
 
 
-            <!-- 3D Floor Plan -->
+            <!-- Floor Plan (real image from internet) -->
             <div class="card p-6">
               <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">3D Planirovka</h3>
+                <h3 class="font-semibold">Planirovka</h3>
                 <div class="flex gap-2">
-                  <button @click="planView = '3d'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
-                    :class="planView === '3d' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
-                    3D Ko'rinish
-                  </button>
-                  <button @click="planView = 'plan'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
-                    :class="planView === 'plan' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
-                    Reja
+                  <button @click="planView = 'photo'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
+                    :class="planView === 'photo' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
+                    Planirovka
                   </button>
                   <button @click="planView = 'dimensions'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
                     :class="planView === 'dimensions' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
@@ -90,21 +86,40 @@
                 </div>
               </div>
 
-              <!-- 3D View -->
-              <div v-if="planView === '3d'" class="floor-plan-container">
-                <FloorPlan3D
-                  :rooms="listing.rooms || defaultRooms"
-                  :area="listing.area || 85"
-                  :dark="true"
-                />
+              <!-- Real floor plan photo -->
+              <div v-if="planView === 'photo'" class="floor-plan-container">
+                <div class="relative rounded-xl overflow-hidden bg-ink-900">
+                  <img
+                    :src="floorPlanImage"
+                    alt="Ofis planirovkasi"
+                    class="w-full"
+                    style="max-height: 500px; object-fit: contain;"
+                  />
+                  <!-- Overlay info -->
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-950/90 to-transparent p-4">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-1.5 text-xs text-white/70">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6l9-3 9 3M3 6v12l9 3 9-3V6M3 6l9 3 9-3M12 9v12" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                          {{ listing.area || 85 }} m²
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-white/70">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18" stroke="currentColor" stroke-width="1"/></svg>
+                          {{ (listing.rooms || []).length }} xona
+                        </div>
+                      </div>
+                      <span class="text-xs text-white/40">Tipik ofis planirovkasi</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <!-- 2D Plan View (original SVG) -->
+              <!-- Dimensions view (2D SVG) -->
               <div v-else class="floor-plan-container">
                 <svg viewBox="0 0 100 60" class="w-full" style="max-height: 400px;">
                   <defs>
                     <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
-                      <path d="M 5 0 L 0 0 0 5" fill="none" :stroke="planView === 'dimensions' ? 'rgba(99,102,241,0.12)' : 'rgba(255,255,255,0.04)'" stroke-width="0.3"/>
+                      <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(99,102,241,0.12)" stroke-width="0.3"/>
                     </pattern>
                     <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stop-color="#6366f1" stop-opacity="0.9"/>
@@ -113,25 +128,19 @@
                   </defs>
                   <rect width="100" height="60" fill="url(#grid)" />
                   <rect x="2" y="2" width="96" height="56" fill="none" stroke="url(#wallGrad)" stroke-width="1.5" rx="0.5" />
-                  <template v-for="(room, i) in (listing.rooms || [])" :key="i">
+                  <template v-for="(room, i) in (listing.rooms || defaultRooms)" :key="i">
                     <rect :x="room.x" :y="room.y" :width="room.w" :height="room.h"
                       :fill="roomColor(room.type)" :opacity="0.25" rx="0.5" />
                     <rect :x="room.x" :y="room.y" :width="room.w" :height="room.h"
                       fill="none" :stroke="roomColor(room.type)" stroke-width="0.4" stroke-dasharray="0.8,0.4" opacity="0.6" rx="0.5" />
-                    <text v-if="planView === 'plan'" :x="room.x + room.w / 2" :y="room.y + room.h / 2 - 0.5"
-                      text-anchor="middle" fill="white" font-size="2.2" font-weight="500" opacity="0.9">
-                      {{ room.name }}
+                    <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 - 1"
+                      text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="1.8">
+                      {{ (room.w * (listing.area || 85) / 5400).toFixed(0) }}m2
                     </text>
-                    <template v-if="planView === 'dimensions'">
-                      <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 - 1"
-                        text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="1.8">
-                        {{ (room.w * (listing.area || 85) / 5400).toFixed(0) }}m²
-                      </text>
-                      <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 + 1.5"
-                        text-anchor="middle" :fill="roomColor(room.type)" font-size="1.6" font-weight="600">
-                        {{ (room.w * 0.3).toFixed(1) }}x{{ (room.h * 0.3).toFixed(1) }}m
-                      </text>
-                    </template>
+                    <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 + 1.5"
+                      text-anchor="middle" :fill="roomColor(room.type)" font-size="1.6" font-weight="600">
+                      {{ (room.w * 0.3).toFixed(1) }}x{{ (room.h * 0.3).toFixed(1) }}m
+                    </text>
                   </template>
                   <path d="M 25 2 A 4 4 0 0 1 29 6" fill="none" stroke="rgba(167,139,250,0.5)" stroke-width="0.3" />
                   <line x1="25" y1="2" x2="25" y2="6" stroke="rgba(167,139,250,0.4)" stroke-width="0.3" />
@@ -156,7 +165,7 @@
 
               <!-- Legend -->
               <div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-white/5">
-                <div v-for="(room, i) in (listing.rooms || [])" :key="'lg'+i" class="flex items-center gap-1.5">
+                <div v-for="(room, i) in (listing.rooms || defaultRooms)" :key="'lg'+i" class="flex items-center gap-1.5">
                   <div class="w-3 h-3 rounded" :style="{ background: roomColor(room.type), opacity: 0.4 }" />
                   <span class="text-xs text-ink-500">{{ room.name }}</span>
                 </div>
@@ -335,7 +344,7 @@ const data = computed(() => {
 const pending = ref(false)
 const error = ref('')
 
-const planView = ref<'3d' | 'plan' | 'dimensions'>('3d')
+const planView = ref<'photo' | 'dimensions'>('photo')
 const defaultRooms = [
   { name: 'Ofis', type: 'office', x: 5, y: 5, w: 50, h: 30 },
   { name: 'Konferensiya', type: 'meeting', x: 5, y: 38, w: 35, h: 22 },
