@@ -12,28 +12,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-start justify-between mb-3">
-          <KpiScene3D type="units" :size="48" />
+          <KpiCard :icon="Layers" label="Jami davrlar" value="{{ periods.length }}" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ periods.length }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Jami davrlar</div>
       </div>
       <div class="card p-4">
         <div class="flex items-start justify-between mb-3">
-          <KpiScene3D type="paid" :size="48" />
+          <KpiCard :icon="CheckCircle2" label="Jami davrlar" value="{{ periods.length }}" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
         </div>
         <div class="text-xl font-bold text-emerald-500">{{ closedCount }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Yopilgan</div>
       </div>
       <div class="card p-4">
         <div class="flex items-start justify-between mb-3">
-          <KpiScene3D type="overdue" :size="48" />
+          <KpiCard :icon="AlertCircle" label="Yopilgan" value="{{ closedCount }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
         </div>
         <div class="text-xl font-bold text-amber-500">{{ openCount }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Faol davr</div>
       </div>
       <div class="card p-4">
         <div class="flex items-start justify-between mb-3">
-          <KpiScene3D type="revenue" :size="48" />
+          <KpiCard :icon="DollarSign" label="Faol davr" value="{{ openCount }}" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ totalRevenue }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Jami daromad (oy)</div>
@@ -87,6 +87,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Calendar, CheckCircle2, Clock, Wallet } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })

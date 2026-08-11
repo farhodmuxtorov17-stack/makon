@@ -6,47 +6,27 @@
         <p class="text-ink-500 text-sm mt-1">{{ filteredInvoices.length }} / {{ invoices.length }} invoys</p>
       </div>
       <div class="flex items-center gap-2">
-        <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
-        <button class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi invoys</button>
+        <button @click="exportCSV" class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
+        <button @click="showCreateModal = true" class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi invoys</button>
       </div>
     </div>
 
     <!-- KPI cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="revenue" :size="48" />
-          <span class="text-xs text-ink-500">Jami summa</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(totalAmount) }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="paid" :size="48" />
-          <span class="text-xs text-ink-500">To'langan</span>
-        </div>
-        <div class="text-xl font-bold text-emerald-500">{{ formatShort(totalPaid) }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="overdue" :size="48" />
-          <span class="text-xs text-ink-500">Qoldiq</span>
-        </div>
-        <div class="text-xl font-bold text-red-500">{{ formatShort(totalBalance) }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="units" :size="48" />
-          <span class="text-xs text-ink-500">To'lanmagan</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ unpaidCount }} <span class="text-sm text-ink-500 font-normal">ta</span></div>
-      </div>
+      <KpiCard :icon="DollarSign" label="Jami summa" :value="formatShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
+      <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
+      <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+      <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
     </div>
 
     <!-- Mini chart -->
     <div class="card p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">To'lov dinamikasi (6 oy)</h3>
+        <div class="flex items-center gap-3 text-xs text-ink-500">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span> Jami</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> To'langan</span>
+        </div>
       </div>
       <MakonChart type="bar" :series="paymentSeries" :categories="paymentMonths" :height="200" :colors="['#6366f1', '#10b981']" :stacked="true" />
     </div>
@@ -54,22 +34,14 @@
     <!-- Status tabs + search -->
     <div class="flex items-center justify-between flex-wrap gap-3">
       <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
-        <button
-          v-for="tab in statusTabs"
-          :key="tab.value"
-          @click="activeTab = tab.value"
-          class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
-          :class="activeTab === tab.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500 hover:text-ink-800 dark:hover:text-ink-200'"
-        >
+        <button v-for="tab in statusTabs" :key="tab.value" @click="activeTab = tab.value" class="px-4 py-2 rounded-lg text-sm font-medium transition-all" :class="activeTab === tab.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500 hover:text-ink-800 dark:hover:text-ink-200'">
           {{ tab.label }}
           <span v-if="tab.count > 0" class="ml-1.5 text-xs" :class="activeTab === tab.value ? 'text-brand-500' : 'text-ink-400'">{{ tab.count }}</span>
         </button>
       </div>
-      <div class="flex items-center gap-2">
-        <div class="relative">
-          <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-          <input v-model="search" type="text" placeholder="Invoys yoki ijarachi..." class="w-56 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
-        </div>
+      <div class="relative">
+        <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
+        <input v-model="search" type="text" placeholder="Invoys yoki ijarachi..." class="w-56 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
       </div>
     </div>
 
@@ -90,7 +62,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="inv in filteredInvoices" :key="inv.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer">
+            <tr v-for="inv in filteredInvoices" :key="inv.id" class="border-b border-black/5 dark:border-white/5 hover:bg-brand-500/5 transition-colors cursor-pointer" @click="openInvoice(inv)">
               <td class="px-4 py-3 font-mono text-xs text-ink-700 dark:text-ink-300">{{ inv.number }}</td>
               <td class="px-4 py-3 hidden md:table-cell font-medium text-ink-900 dark:text-white">{{ inv.tenantName }}</td>
               <td class="px-4 py-3 hidden lg:table-cell text-ink-500 font-mono text-xs">{{ inv.contractNumber }}</td>
@@ -112,16 +84,106 @@
         <p class="text-ink-500 text-sm">Invoys topilmadi</p>
       </div>
     </div>
+
+    <!-- Invoice Detail Drawer -->
+    <DrawerModal :open="!!selectedInvoice" :title="selectedInvoice?.number || ''" width="480px" @close="selectedInvoice = null">
+      <div v-if="selectedInvoice" class="space-y-5">
+        <div class="flex items-center gap-2">
+          <span class="badge" :class="invoiceBadge(selectedInvoice.status)">{{ invoiceLabel(selectedInvoice.status) }}</span>
+          <span class="text-xs text-ink-500">{{ selectedInvoice.period }}</span>
+        </div>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-ink-500">Ijarachi</span>
+            <span class="text-sm font-semibold text-ink-900 dark:text-white">{{ selectedInvoice.tenantName }}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-ink-500">Shartnoma</span>
+            <span class="text-sm font-mono text-ink-700 dark:text-ink-300">{{ selectedInvoice.contractNumber }}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-ink-500">Muddat</span>
+            <span class="text-sm text-ink-900 dark:text-white">{{ formatDate(selectedInvoice.dueDate) }}</span>
+          </div>
+        </div>
+        <div class="p-4 rounded-xl bg-black/5 dark:bg-white/5 space-y-2">
+          <div class="flex justify-between text-sm">
+            <span class="text-ink-500">Jami summa</span>
+            <span class="font-bold text-ink-900 dark:text-white">{{ formatShort(selectedInvoice.amount) }} so'm</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-ink-500">To'langan</span>
+            <span class="font-bold text-emerald-500">{{ formatShort(selectedInvoice.paidAmount) }} so'm</span>
+          </div>
+          <div class="flex justify-between text-sm border-t border-black/5 dark:border-white/5 pt-2">
+            <span class="text-ink-500">Qoldiq</span>
+            <span class="font-bold" :class="selectedInvoice.balance > 0 ? 'text-red-500' : 'text-emerald-500'">{{ formatShort(selectedInvoice.balance) }} so'm</span>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button v-if="selectedInvoice.balance > 0" @click="markAsPaid(selectedInvoice)" class="btn btn-primary btn-sm flex-1">
+            <CheckCircle2 :size="14" /> To'lovni tasdiqlash
+          </button>
+          <button @click="exportSingle(selectedInvoice)" class="btn btn-secondary btn-sm flex-1">
+            <Download :size="14" /> Yuklab olish
+          </button>
+        </div>
+      </div>
+    </DrawerModal>
+
+    <!-- Create Invoice Modal -->
+    <DrawerModal :open="showCreateModal" title="Yangi invoys yaratish" width="480px" @close="showCreateModal = false">
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Ijarachi</label>
+          <select v-model="newInvoice.tenantName" class="input w-full">
+            <option value="">Tanlang...</option>
+            <option>ABC Logistics MChJ</option>
+            <option>Global Trade MChJ</option>
+            <option>Smart Solutions MChJ</option>
+            <option>Export Group MChJ</option>
+            <option>Logistics Plus</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Shartnoma raqami</label>
+            <input v-model="newInvoice.contractNumber" type="text" class="input w-full" placeholder="CTR-2026-001" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Davr</label>
+            <input v-model="newInvoice.period" type="text" class="input w-full" placeholder="Avg 2026" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Summa (so'm)</label>
+            <input v-model.number="newInvoice.amount" type="number" class="input w-full" placeholder="25000000" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Muddat</label>
+            <input v-model="newInvoice.dueDate" type="date" class="input w-full" />
+          </div>
+        </div>
+      </div>
+      <template #footer>
+        <button @click="showCreateModal = false" class="btn btn-ghost btn-sm">Bekor qilish</button>
+        <button @click="createInvoice" class="btn btn-primary btn-sm"><Check :size="14" /> Yaratish</button>
+      </template>
+    </DrawerModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Plus, Download, Receipt, CheckCircle2, AlertCircle, Clock, Search, SearchX } from 'lucide-vue-next'
+import KpiCard from '~/components/KpiCard.vue'
+import { Plus, Download, Receipt, CheckCircle2, AlertCircle, Clock, Search, SearchX, Layers, DollarSign, Check } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const search = ref('')
 const activeTab = ref('all')
+const showCreateModal = ref(false)
+const selectedInvoice = ref<any>(null)
 
 interface Invoice {
   id: string; number: string; contractNumber: string; tenantName: string;
@@ -130,7 +192,7 @@ interface Invoice {
   dueDate: string; currency: string;
 }
 
-const invoices: Invoice[] = [
+const invoices = ref<Invoice[]>([
   { id: 'inv1', number: 'INV-2026-052', contractNumber: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', period: 'Avg 2026', amount: 25000000, paidAmount: 0, balance: 25000000, status: 'UNPAID', dueDate: '2026-08-15', currency: 'UZS' },
   { id: 'inv2', number: 'INV-2026-051', contractNumber: 'CTR-2026-002', tenantName: 'Global Trade MChJ', period: 'Avg 2026', amount: 21000000, paidAmount: 21000000, balance: 0, status: 'PAID', dueDate: '2026-08-15', currency: 'UZS' },
   { id: 'inv3', number: 'INV-2026-050', contractNumber: 'CTR-2026-005', tenantName: 'Smart Solutions MChJ', period: 'Avg 2026', amount: 35000000, paidAmount: 35000000, balance: 0, status: 'PAID', dueDate: '2026-08-15', currency: 'UZS' },
@@ -141,18 +203,20 @@ const invoices: Invoice[] = [
   { id: 'inv8', number: 'INV-2026-045', contractNumber: 'CTR-2026-003', tenantName: 'Tech Hub MChJ', period: 'Iyl 2026', amount: 18000000, paidAmount: 18000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
   { id: 'inv9', number: 'INV-2026-044', contractNumber: 'CTR-2025-077', tenantName: 'Mega Group MChJ', period: 'Iyl 2026', amount: 32000000, paidAmount: 0, balance: 32000000, status: 'UNPAID', dueDate: '2026-08-15', currency: 'UZS' },
   { id: 'inv10', number: 'INV-2026-043', contractNumber: 'CTR-2024-045', tenantName: 'Logistics Plus', period: 'Iyl 2026', amount: 15000000, paidAmount: 15000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
-]
+])
+
+const newInvoice = ref({ tenantName: '', contractNumber: '', period: 'Avg 2026', amount: 0, dueDate: '2026-08-15' })
 
 const statusTabs = computed(() => [
-  { label: 'Barchasi', value: 'all', count: invoices.length },
-  { label: 'To\'langan', value: 'PAID', count: invoices.filter(i => i.status === 'PAID').length },
-  { label: 'To\'lanmagan', value: 'UNPAID', count: invoices.filter(i => i.status === 'UNPAID').length },
-  { label: 'Qisman', value: 'PARTIALLY_PAID', count: invoices.filter(i => i.status === 'PARTIALLY_PAID').length },
-  { label: 'Muddati o\'tgan', value: 'OVERDUE', count: invoices.filter(i => i.status === 'OVERDUE').length },
+  { label: 'Barchasi', value: 'all', count: invoices.value.length },
+  { label: 'To\'langan', value: 'PAID', count: invoices.value.filter(i => i.status === 'PAID').length },
+  { label: 'To\'lanmagan', value: 'UNPAID', count: invoices.value.filter(i => i.status === 'UNPAID').length },
+  { label: 'Qisman', value: 'PARTIALLY_PAID', count: invoices.value.filter(i => i.status === 'PARTIALLY_PAID').length },
+  { label: 'Muddati o\'tgan', value: 'OVERDUE', count: invoices.value.filter(i => i.status === 'OVERDUE').length },
 ])
 
 const filteredInvoices = computed(() => {
-  let result = [...invoices]
+  let result = [...invoices.value]
   if (activeTab.value !== 'all') result = result.filter(i => i.status === activeTab.value)
   if (search.value) {
     const q = search.value.toLowerCase()
@@ -161,41 +225,75 @@ const filteredInvoices = computed(() => {
   return result
 })
 
-const totalAmount = computed(() => invoices.reduce((s, i) => s + i.amount, 0))
-const totalPaid = computed(() => invoices.reduce((s, i) => s + i.paidAmount, 0))
-const totalBalance = computed(() => invoices.reduce((s, i) => s + i.balance, 0))
-const unpaidCount = computed(() => invoices.filter(i => i.status !== 'PAID' && i.status !== 'CANCELLED').length)
+const totalAmount = computed(() => invoices.value.reduce((s, i) => s + i.amount, 0))
+const totalPaid = computed(() => invoices.value.reduce((s, i) => s + i.paidAmount, 0))
+const totalBalance = computed(() => invoices.value.reduce((s, i) => s + i.balance, 0))
+const unpaidCount = computed(() => invoices.value.filter(i => i.balance > 0).length)
 
 const paymentMonths = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']
 const paymentSeries = [
-  { name: 'To\'langan', data: [820, 890, 950, 1020, 1090, 1295] },
-  { name: 'Qoldiq', data: [180, 110, 170, 80, 160, 225] },
+  { name: 'Jami', data: [180, 195, 210, 225, 240, 255] },
+  { name: "To'langan", data: [150, 170, 185, 200, 220, 235] },
 ]
 
-function formatShort(price: number) {
-  if (!price) return '0'
-  if (price >= 1_000_000_000) return (price / 1_000_000_000).toFixed(1) + ' mlr'
-  if (price >= 1_000_000) return (price / 1_000_000).toFixed(1) + 'M'
-  return new Intl.NumberFormat('ru-RU').format(price)
+function openInvoice(inv: any) {
+  selectedInvoice.value = inv
 }
 
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })
+function markAsPaid(inv: any) {
+  inv.paidAmount = inv.amount
+  inv.balance = 0
+  inv.status = 'PAID'
+  selectedInvoice.value = null
 }
 
-function invoiceBadge(status: string) {
-  const map: Record<string, string> = {
-    PAID: 'badge-success', UNPAID: 'badge-danger', PARTIALLY_PAID: 'badge-warning',
-    OVERDUE: 'badge-danger', DRAFT: 'badge-neutral', CANCELLED: 'badge-neutral',
-  }
-  return map[status] || 'badge-neutral'
+function createInvoice() {
+  const num = `INV-2026-${String(invoices.value.length + 53).padStart(3, '0')}`
+  invoices.value.unshift({
+    id: 'inv' + Date.now(),
+    number: num,
+    contractNumber: newInvoice.value.contractNumber,
+    tenantName: newInvoice.value.tenantName,
+    period: newInvoice.value.period,
+    amount: newInvoice.value.amount,
+    paidAmount: 0,
+    balance: newInvoice.value.amount,
+    status: 'UNPAID',
+    dueDate: newInvoice.value.dueDate,
+    currency: 'UZS'
+  })
+  showCreateModal.value = false
+  newInvoice.value = { tenantName: '', contractNumber: '', period: 'Avg 2026', amount: 0, dueDate: '2026-08-15' }
 }
 
-function invoiceLabel(status: string) {
-  const map: Record<string, string> = {
-    PAID: 'To\'langan', UNPAID: 'To\'lanmagan', PARTIALLY_PAID: 'Qisman',
-    OVERDUE: 'Muddati o\'tgan', DRAFT: 'Qoralama', CANCELLED: 'Bekor',
-  }
-  return map[status] || status
+function exportCSV() {
+  const headers = 'Raqam,Ijarachi,Shartnoma,Davr,Summa,To\'langan,Qoldiq,Status,Muddat\n'
+  const rows = filteredInvoices.value.map(i => `${i.number},${i.tenantName},${i.contractNumber},${i.period},${i.amount},${i.paidAmount},${i.balance},${i.status},${i.dueDate}`).join('\n')
+  const blob = new Blob([headers + rows], { type: 'text/csv' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'invoyslar.csv'
+  a.click()
+}
+
+function exportSingle(inv: any) {
+  alert(`${inv.number} yuklab olindi`)
+}
+
+function formatShort(v: number) {
+  if (v >= 1_000_000_000) return (v / 1_000_000_000).toFixed(1) + ' mlr'
+  if (v >= 1_000_000) return (v / 1_000_000).toFixed(0) + 'M'
+  if (v >= 1_000) return (v / 1_000).toFixed(0) + 'K'
+  return String(v)
+}
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('uz', { day: '2-digit', month: 'short', year: 'numeric' })
+}
+function invoiceLabel(s: string) {
+  return { PAID: "To'langan", UNPAID: "To'lanmagan", PARTIALLY_PAID: 'Qisman', OVERDUE: "Muddati o'tgan", DRAFT: 'Qoralama', CANCELLED: 'Bekor' }[s] || s
+}
+function invoiceBadge(s: string) {
+  return { PAID: 'badge-success', UNPAID: 'badge-warning', PARTIALLY_PAID: 'badge-brand', OVERDUE: 'badge-danger', DRAFT: 'badge-neutral', CANCELLED: 'badge-neutral' }[s] || 'badge-neutral'
 }
 </script>

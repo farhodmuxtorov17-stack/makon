@@ -31,7 +31,7 @@
           <option value="">Barcha tumanlar</option>
           <option value="Mirobod">Mirobod</option>
           <option value="Shayxontohur">Shayxontohur</option>
-          <option value="Yakkasaroy">Yakkasaroy</option>
+          <option value="Yakkasaray">Yakkasaray</option>
           <option value="Yunusobod">Yunusobod</option>
           <option value="Sergeli">Sergeli</option>
         </select>
@@ -42,20 +42,11 @@
         </select>
       </div>
 
-      <!-- Table / Card View Toggle -->
       <div class="flex items-center p-1 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5">
-        <button
-          @click="viewMode = 'card'"
-          class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all"
-          :class="viewMode === 'card' ? 'bg-white dark:bg-ink-800 text-brand-500' : 'text-ink-500 hover:text-ink-900 dark:hover:text-white'"
-        >
+        <button @click="viewMode = 'card'" class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all" :class="viewMode === 'card' ? 'bg-white dark:bg-ink-800 text-brand-500 shadow-sm' : 'text-ink-500 hover:text-ink-900 dark:hover:text-white'">
           <LayoutGrid :size="16" /> Card
         </button>
-        <button
-          @click="viewMode = 'table'"
-          class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all"
-          :class="viewMode === 'table' ? 'bg-white dark:bg-ink-800 text-brand-500 shadow-sm' : 'text-ink-500 hover:text-ink-900 dark:hover:text-white'"
-        >
+        <button @click="viewMode = 'table'" class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all" :class="viewMode === 'table' ? 'bg-white dark:bg-ink-800 text-brand-500 shadow-sm' : 'text-ink-500 hover:text-ink-900 dark:hover:text-white'">
           <List :size="16" /> Jadval
         </button>
       </div>
@@ -63,49 +54,32 @@
 
     <!-- CARD VIEW -->
     <div v-if="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <div v-for="b in filteredBuildings" :key="b.id" class="card overflow-hidden group hover:border-brand-500/40 transition-all duration-300">
-        <!-- Card Cover -->
+      <div v-for="b in filteredBuildings" :key="b.id" class="card overflow-hidden group hover:border-brand-500/40 transition-all duration-300 cursor-pointer" @click="openBuilding(b)">
         <div class="h-44 overflow-hidden bg-ink-900 relative">
           <img v-if="b.gallery && b.gallery[0]" :src="b.gallery[0]" :alt="b.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           <div v-else class="w-full h-full flex items-center justify-center text-ink-600"><Building2 :size="48" /></div>
-          
           <div class="absolute top-3 right-3 flex gap-2">
             <span class="badge badge-brand text-xs font-semibold shadow-md">{{ typeLabel(b.type) }}</span>
             <span v-if="b.vacantUnits > 0" class="badge badge-success text-xs shadow-md">{{ b.vacantUnits }} bo'sh</span>
             <span v-else class="badge badge-neutral text-xs shadow-md">To'liq</span>
           </div>
-
-          <!-- Publish Toggle Badge -->
-          <button
-            @click.stop="togglePublish(b)"
-            class="absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-medium backdrop-blur transition-all flex items-center gap-1"
-            :class="b.isPublished ? 'bg-emerald-500/80 text-white' : 'bg-black/60 text-ink-300 hover:bg-black/80'"
-            title="Chop etilganlik holatini o'zgartirish"
-          >
-            <Globe :size="12" /> {{ b.isPublished ? 'Nashr qilingan' : 'Qoralama' }}
+          <button @click.stop="togglePublish(b)" class="absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-medium backdrop-blur transition-all flex items-center gap-1" :class="b.isPublished ? 'bg-emerald-500/80 text-white' : 'bg-black/60 text-ink-300 hover:bg-black/80'">
+            <Globe :size="12" /> {{ b.isPublished ? 'Nashr' : 'Qoralama' }}
           </button>
         </div>
-
-        <!-- Card Body -->
         <div class="p-5 space-y-4">
           <div>
-            <NuxtLink :to="`/management/buildings/${b.id}`" class="font-bold text-lg text-ink-900 dark:text-white hover:text-brand-500 transition-colors line-clamp-1">
-              {{ b.name }}
-            </NuxtLink>
+            <div class="font-bold text-lg text-ink-900 dark:text-white line-clamp-1">{{ b.name }}</div>
             <p class="text-xs text-ink-500 flex items-center gap-1.5 mt-1">
               <MapPin :size="13" class="text-brand-500 flex-shrink-0" /> {{ b.address }}, {{ b.district }}
             </p>
           </div>
-
-          <!-- Stats Grid -->
           <div class="grid grid-cols-4 gap-2 py-2 px-3 rounded-xl bg-black/5 dark:bg-white/5 text-xs text-center">
             <div><div class="text-ink-500 text-[10px] uppercase">Qavat</div><div class="font-bold text-ink-900 dark:text-white">{{ b.floorsCount }}</div></div>
             <div><div class="text-ink-500 text-[10px] uppercase">Unit</div><div class="font-bold text-ink-900 dark:text-white">{{ b.totalUnits }}</div></div>
             <div><div class="text-ink-500 text-[10px] uppercase">Band</div><div class="font-bold text-emerald-500">{{ b.occupiedUnits }}</div></div>
             <div><div class="text-ink-500 text-[10px] uppercase">Maydon</div><div class="font-bold text-ink-900 dark:text-white">{{ (b.totalArea / 1000).toFixed(1) }}k m²</div></div>
           </div>
-
-          <!-- Occupancy Bar -->
           <div>
             <div class="flex justify-between items-center text-xs mb-1">
               <span class="text-ink-500">Bandlik ko'rsatkichi</span>
@@ -115,16 +89,13 @@
               <div class="h-full bg-gradient-to-r from-brand-500 to-brand-600 rounded-full transition-all duration-500" :style="{ width: occupancyPct(b) + '%' }"></div>
             </div>
           </div>
-
-          <!-- Footer Actions -->
           <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs">
             <div class="flex items-center gap-2">
               <span v-if="b.has3dModel" class="badge badge-neutral text-[10px]"><Box :size="10" class="mr-1 inline" /> 3D</span>
               <span v-if="b.has2dPlan" class="badge badge-neutral text-[10px]"><Layers :size="10" class="mr-1 inline" /> 2D</span>
+              <span class="text-ink-400">{{ b.managedBy || 'Tayinlanmagan' }}</span>
             </div>
-            <NuxtLink :to="`/management/buildings/${b.id}`" class="text-brand-500 font-semibold hover:underline flex items-center gap-1">
-              Batafsil <ArrowRight :size="14" />
-            </NuxtLink>
+            <span class="text-brand-500 font-semibold flex items-center gap-1">Batafsil <ArrowRight :size="14" /></span>
           </div>
         </div>
       </div>
@@ -146,7 +117,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="b in filteredBuildings" :key="b.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3 transition-colors">
+            <tr v-for="b in filteredBuildings" :key="b.id" class="border-b border-black/5 dark:border-white/5 hover:bg-brand-500/5 transition-colors cursor-pointer" @click="openBuilding(b)">
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-lg bg-ink-800 overflow-hidden flex-shrink-0">
@@ -154,16 +125,14 @@
                     <div v-else class="w-full h-full flex items-center justify-center text-ink-500"><Building2 :size="18" /></div>
                   </div>
                   <div>
-                    <NuxtLink :to="`/management/buildings/${b.id}`" class="font-medium text-ink-900 dark:text-white hover:text-brand-500">
-                      {{ b.name }}
-                    </NuxtLink>
+                    <div class="font-medium text-ink-900 dark:text-white">{{ b.name }}</div>
                     <div class="text-xs text-ink-500">{{ b.address }}</div>
                   </div>
                 </div>
               </td>
               <td class="px-4 py-3"><span class="badge badge-brand text-xs">{{ typeLabel(b.type) }}</span></td>
               <td class="px-4 py-3 text-ink-500">{{ b.district }}</td>
-              <td class="px-4 py-3 text-center font-medium">{{ b.floorsCount }} qavat / {{ b.totalUnits }} unit</td>
+              <td class="px-4 py-3 text-center font-medium">{{ b.floorsCount }} / {{ b.totalUnits }}</td>
               <td class="px-4 py-3 text-center">
                 <div class="flex items-center justify-center gap-2">
                   <span class="font-bold text-xs">{{ occupancyPct(b) }}%</span>
@@ -173,14 +142,17 @@
                 </div>
               </td>
               <td class="px-4 py-3 text-center">
-                <button @click="togglePublish(b)" class="badge cursor-pointer" :class="b.isPublished ? 'badge-success' : 'badge-neutral'">
-                  {{ b.isPublished ? 'Nashr etilgan' : 'Qoralama' }}
+                <button @click.stop="togglePublish(b)" class="badge cursor-pointer" :class="b.isPublished ? 'badge-success' : 'badge-neutral'">
+                  {{ b.isPublished ? 'Nashr' : 'Qoralama' }}
                 </button>
               </td>
               <td class="px-4 py-3 text-right">
-                <NuxtLink :to="`/management/buildings/${b.id}`" class="btn btn-ghost btn-sm text-xs">
-                  Boshqaruv →
-                </NuxtLink>
+                <button @click.stop="openBuilding(b)" class="btn btn-ghost btn-sm px-2" title="Batafsil">
+                  <Eye :size="16" />
+                </button>
+                <button @click.stop="togglePublish(b)" class="btn btn-ghost btn-sm px-2" title="Nashr">
+                  <Globe :size="16" />
+                </button>
               </td>
             </tr>
           </tbody>
@@ -188,155 +160,200 @@
       </div>
     </div>
 
-    <!-- Create Building Modal -->
-    <Teleport to="body">
-      <div v-if="showCreateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showCreateModal = false"></div>
-        <div class="relative w-full max-w-lg bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white">Yangi bino yaratish</h3>
-            <button @click="showCreateModal = false" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400">
-              <X :size="20" />
-            </button>
+    <!-- Create Modal -->
+    <DrawerModal :open="showCreateModal" title="Yangi bino qo'shish" width="480px" @close="showCreateModal = false">
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Bino nomi</label>
+          <input v-model="newBuilding.name" type="text" class="input w-full" placeholder="Masalan: Tashkent City" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Turi</label>
+            <select v-model="newBuilding.type" class="input w-full">
+              <option value="BUSINESS_CENTER">Biznes markaz</option>
+              <option value="OFFICE">Ofis binosi</option>
+              <option value="SHOPPING">Savdo markaz</option>
+              <option value="WAREHOUSE">Ombor</option>
+              <option value="MIXED">Aralash</option>
+            </select>
           </div>
-
-          <form @submit.prevent="handleCreateBuilding" class="space-y-4">
-            <div>
-              <label class="label">Bino nomi</label>
-              <input v-model="newBuilding.name" type="text" required placeholder="Masalan: Orient Plaza A" class="input w-full" />
-            </div>
-
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="label">Bino turi</label>
-                <select v-model="newBuilding.type" class="input w-full">
-                  <option value="BUSINESS_CENTER">Biznes markaz</option>
-                  <option value="OFFICE">Ofis binosi</option>
-                  <option value="SHOPPING">Savdo markazi</option>
-                  <option value="WAREHOUSE">Ombor</option>
-                  <option value="MIXED">Aralash</option>
-                </select>
-              </div>
-              <div>
-                <label class="label">Tuman</label>
-                <input v-model="newBuilding.district" type="text" required placeholder="Mirobod" class="input w-full" />
-              </div>
-            </div>
-
-            <div>
-              <label class="label">Manzil</label>
-              <input v-model="newBuilding.address" type="text" required placeholder="Oybek ko\'chasi 24" class="input w-full" />
-            </div>
-
-            <div class="grid grid-cols-3 gap-3">
-              <div>
-                <label class="label">Qavatlar soni</label>
-                <input v-model.number="newBuilding.floorsCount" type="number" min="1" required class="input w-full" />
-              </div>
-              <div>
-                <label class="label">Unitlar soni</label>
-                <input v-model.number="newBuilding.totalUnits" type="number" min="1" required class="input w-full" />
-              </div>
-              <div>
-                <label class="label">Umumiy m²</label>
-                <input v-model.number="newBuilding.totalArea" type="number" min="100" required class="input w-full" />
-              </div>
-            </div>
-
-            <div>
-              <label class="label">Ommaviy tavsif (Uzbek)</label>
-              <textarea v-model="newBuilding.publicDescription" rows="2" placeholder="Bino haqida qisqacha ma'lumot..." class="input w-full"></textarea>
-            </div>
-
-            <div class="flex items-center justify-end gap-3 pt-4 border-t border-black/5 dark:border-white/5">
-              <button type="button" @click="showCreateModal = false" class="btn btn-secondary">Bekor qilish</button>
-              <button type="submit" class="btn btn-primary">Bino yaratish</button>
-            </div>
-          </form>
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Tuman</label>
+            <select v-model="newBuilding.district" class="input w-full">
+              <option v-for="d in districts" :key="d" :value="d">{{ d }}</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Manzil</label>
+          <input v-model="newBuilding.address" type="text" class="input w-full" placeholder="Masalan: Mirzo Ulug'bek tumani" />
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Qavatlar</label>
+            <input v-model.number="newBuilding.floorsCount" type="number" class="input w-full" placeholder="12" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Unitlar</label>
+            <input v-model.number="newBuilding.totalUnits" type="number" class="input w-full" placeholder="420" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Maydon (m²)</label>
+            <input v-model.number="newBuilding.totalArea" type="number" class="input w-full" placeholder="45000" />
+          </div>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Rasm URL</label>
+          <input v-model="newBuilding.gallery" type="text" class="input w-full" placeholder="https://..." />
         </div>
       </div>
-    </Teleport>
-    <CreateBuildingModal :show="showCreateBuilding" @close="showCreateBuilding = false" @created="onBuildingCreated" />
-</div>
+      <template #footer>
+        <button @click="showCreateModal = false" class="btn btn-ghost btn-sm">Bekor qilish</button>
+        <button @click="createBuilding" class="btn btn-primary btn-sm">
+          <Check :size="14" /> Yaratish
+        </button>
+      </template>
+    </DrawerModal>
+
+    <!-- Building Detail Drawer -->
+    <DrawerModal :open="!!selectedBuilding" :title="selectedBuilding?.name || ''" width="520px" @close="selectedBuilding = null">
+      <div v-if="selectedBuilding" class="space-y-5">
+        <div class="rounded-xl overflow-hidden h-48 bg-ink-800">
+          <img v-if="selectedBuilding.gallery?.[0]" :src="selectedBuilding.gallery[0]" class="w-full h-full object-cover" />
+          <div v-else class="w-full h-full flex items-center justify-center text-ink-500"><Building2 :size="48" /></div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="badge badge-brand">{{ typeLabel(selectedBuilding.type) }}</span>
+          <span class="badge" :class="selectedBuilding.isPublished ? 'badge-success' : 'badge-neutral'">
+            {{ selectedBuilding.isPublished ? 'Nashr qilingan' : 'Qoralama' }}
+          </span>
+        </div>
+        <div>
+          <div class="text-xs text-ink-500 mb-1">Manzil</div>
+          <div class="text-sm font-medium text-ink-900 dark:text-white flex items-center gap-1.5">
+            <MapPin :size="14" class="text-brand-500" /> {{ selectedBuilding.address }}, {{ selectedBuilding.district }}
+          </div>
+        </div>
+        <div class="grid grid-cols-4 gap-3">
+          <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 text-center">
+            <div class="text-lg font-bold text-ink-900 dark:text-white">{{ selectedBuilding.floorsCount }}</div>
+            <div class="text-[10px] text-ink-500 uppercase">Qavat</div>
+          </div>
+          <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 text-center">
+            <div class="text-lg font-bold text-ink-900 dark:text-white">{{ selectedBuilding.totalUnits }}</div>
+            <div class="text-[10px] text-ink-500 uppercase">Unit</div>
+          </div>
+          <div class="p-3 rounded-xl bg-emerald-500/5 text-center">
+            <div class="text-lg font-bold text-emerald-500">{{ selectedBuilding.occupiedUnits }}</div>
+            <div class="text-[10px] text-ink-500 uppercase">Band</div>
+          </div>
+          <div class="p-3 rounded-xl bg-brand-500/5 text-center">
+            <div class="text-lg font-bold text-brand-500">{{ selectedBuilding.vacantUnits }}</div>
+            <div class="text-[10px] text-ink-500 uppercase">Bo'sh</div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-ink-500">Bandlik</span>
+            <span class="font-bold text-brand-500">{{ occupancyPct(selectedBuilding) }}%</span>
+          </div>
+          <div class="h-2.5 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-brand-500 to-brand-600 rounded-full" :style="{ width: occupancyPct(selectedBuilding) + '%' }"></div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-3 rounded-xl border border-black/5 dark:border-white/5">
+            <div class="text-xs text-ink-500">Maydon</div>
+            <div class="text-sm font-bold text-ink-900 dark:text-white">{{ selectedBuilding.totalArea.toLocaleString() }} m²</div>
+          </div>
+          <div class="p-3 rounded-xl border border-black/5 dark:border-white/5">
+            <div class="text-xs text-ink-500">Boshqaruvchi</div>
+            <div class="text-sm font-bold text-ink-900 dark:text-white">{{ selectedBuilding.managedBy || 'Tayinlanmagan' }}</div>
+          </div>
+        </div>
+      </div>
+      <template #footer>
+        <button @click="selectedBuilding = null" class="btn btn-ghost btn-sm">Yopish</button>
+        <NuxtLink :to="`/management/buildings/${selectedBuilding?.id}`" class="btn btn-primary btn-sm">
+          <Settings :size="14" /> Boshqarish
+        </NuxtLink>
+      </template>
+    </DrawerModal>
+  </div>
 </template>
 
 <script setup lang="ts">
-import CreateBuildingModal from '~/components/CreateBuildingModal.vue'
-import { Plus, Search, Building2, MapPin, ArrowRight, LayoutGrid, List, Globe, Box, Layers, X } from 'lucide-vue-next'
-import { BUILDING_TYPE_LABELS } from '~/types'
+import KpiCard from '~/components/KpiCard.vue'
+import { Plus, Search, Building2, MapPin, Globe, LayoutGrid, List, ArrowRight, Eye, Box, Layers, Check, Settings } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const makonStore = useMakonStore()
+const buildings = computed(() => makonStore.buildings.filter(b => !b.id.startsWith('_deleted')))
 
 const search = ref('')
 const typeFilter = ref('')
 const districtFilter = ref('')
 const statusFilter = ref('')
-const viewMode = ref<'card' | 'table'>('card')
+const viewMode = ref('card')
 const showCreateModal = ref(false)
+const selectedBuilding = ref<any>(null)
+
+const districts = ['Mirobod', 'Shayxontohur', 'Yakkasaray', 'Yunusobod', 'Sergeli', 'Yashnabad', 'Mirzo Ulug\'bek']
 
 const newBuilding = ref({
-  name: '',
-  type: 'BUSINESS_CENTER',
-  address: '',
-  city: 'Toshkent',
-  district: 'Mirobod',
-  floorsCount: 10,
-  totalUnits: 40,
-  totalArea: 12000,
-  gallery: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png'],
-  publicDescription: '',
-  publicDescriptionRu: '',
-  isPublished: true,
-  cadastralNumber: '10:04:9998877:01',
-  buildYear: 2025,
-  has3dModel: false,
-  has2dPlan: false,
-  documents: [],
-  amenities: ['24/7 Xavfsizlik', 'Parkovka', 'Fiber-Optic Internet']
+  name: '', type: 'BUSINESS_CENTER', district: 'Mirobod', address: '',
+  floorsCount: 12, totalUnits: 100, totalArea: 20000, gallery: ''
 })
 
 const filteredBuildings = computed(() => {
-  let result = [...makonStore.buildings]
-
+  let r = [...buildings.value]
   if (search.value) {
     const q = search.value.toLowerCase()
-    result = result.filter(b =>
-      b.name?.toLowerCase().includes(q) ||
-      b.address?.toLowerCase().includes(q) ||
-      b.district?.toLowerCase().includes(q)
-    )
+    r = r.filter(b => b.name.toLowerCase().includes(q) || b.address?.toLowerCase().includes(q) || b.district?.toLowerCase().includes(q))
   }
-  if (typeFilter.value) result = result.filter(b => b.type === typeFilter.value)
-  if (districtFilter.value) result = result.filter(b => b.district === districtFilter.value)
-  if (statusFilter.value === 'vacant') result = result.filter(b => (b.vacantUnits || 0) > 0)
-  if (statusFilter.value === 'full') result = result.filter(b => (b.vacantUnits || 0) === 0)
-
-  return result
+  if (typeFilter.value) r = r.filter(b => b.type === typeFilter.value)
+  if (districtFilter.value) r = r.filter(b => b.district === districtFilter.value)
+  if (statusFilter.value === 'vacant') r = r.filter(b => b.vacantUnits > 0)
+  if (statusFilter.value === 'full') r = r.filter(b => b.vacantUnits === 0)
+  return r
 })
 
-function typeLabel(type: string) {
-  return BUILDING_TYPE_LABELS[type as keyof typeof BUILDING_TYPE_LABELS]?.uz || type
+function openBuilding(b: any) {
+  selectedBuilding.value = b
+}
+
+function togglePublish(b: any) {
+  makonStore.updateBuilding(b.id, { isPublished: !b.isPublished })
+}
+
+function createBuilding() {
+  const building = {
+    ...newBuilding.value,
+    gallery: newBuilding.value.gallery ? [newBuilding.value.gallery] : [],
+    occupiedUnits: 0,
+    vacantUnits: newBuilding.value.totalUnits,
+    slug: newBuilding.value.name.toLowerCase().replace(/\s+/g, '-'),
+    isPublished: false,
+    has3dModel: false,
+    has2dPlan: false,
+  }
+  makonStore.addBuilding(building)
+  showCreateModal.value = false
+  newBuilding.value = { name: '', type: 'BUSINESS_CENTER', district: 'Mirobod', address: '', floorsCount: 12, totalUnits: 100, totalArea: 20000, gallery: '' }
 }
 
 function occupancyPct(b: any) {
   if (!b.totalUnits) return 0
-  return Math.round(((b.occupiedUnits || 0) / b.totalUnits) * 100)
+  return Math.round((b.occupiedUnits / b.totalUnits) * 100)
 }
 
-function togglePublish(b: any) {
-  b.isPublished = !b.isPublished
-}
-
-function handleCreateBuilding() {
-  makonStore.addBuilding({
-    ...newBuilding.value
-  })
-  showCreateModal.value = false
-  // Reset form
-  newBuilding.value.name = ''
-  newBuilding.value.address = ''
-  newBuilding.value.publicDescription = ''
+function typeLabel(t: string) {
+  const labels: Record<string, string> = {
+    BUSINESS_CENTER: 'Biznes markaz', OFFICE: 'Ofis binosi', SHOPPING: 'Savdo markaz',
+    WAREHOUSE: 'Ombor', RESIDENTIAL: 'Turar joy', MIXED: 'Aralash'
+  }
+  return labels[t] || t
 }
 </script>

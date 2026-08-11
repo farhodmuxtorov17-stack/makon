@@ -18,14 +18,14 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-3">
-          <KpiScene3D type="units" :size="48" />
+          <KpiCard :icon="Layers" label="Mening unitlarim" value="" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
         </div>
         <div class="text-2xl font-bold text-ink-900 dark:text-white">{{ units.length }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Mening unitlarim</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-3">
-          <KpiScene3D type="paid" :size="48" />
+          <KpiCard :icon="CheckCircle2" label="Mening unitlarim" value="" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
           <span class="badge badge-success text-[10px] ml-auto">Faol</span>
         </div>
         <div class="text-2xl font-bold text-ink-900 dark:text-white">{{ activeContracts }}</div>
@@ -33,7 +33,7 @@
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-3">
-          <KpiScene3D type="applications" :size="48" />
+          <KpiCard :icon="FileText" label="Faol shartnomalar" value="" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
           <span v-if="pendingApps > 0" class="badge badge-warning text-[10px] ml-auto">{{ pendingApps }}</span>
         </div>
         <div class="text-2xl font-bold text-ink-900 dark:text-white">{{ pendingApps }}</div>
@@ -41,7 +41,7 @@
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-3">
-          <KpiScene3D type="debt" :size="48" />
+          <KpiCard :icon="Wallet" label="Kutilayotgan arizalar" value="" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
         </div>
         <div class="text-2xl font-bold text-red-500">{{ formatShort(debt) }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Qarzdorlik so'm</div>
@@ -156,6 +156,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Layers, ScrollText, FileText, Wallet, Wrench, Receipt, AlertCircle, CheckCircle2 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })

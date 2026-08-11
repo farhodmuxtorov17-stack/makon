@@ -15,28 +15,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="inventory" :size="48" />
+          <KpiCard :icon="Package" label="Jami pozitsiyalar" value="{{ materials.length }}" icon-color="#f97316" icon-bg="rgba(249,115,22,0.1)" />
           <span class="text-xs text-ink-500">Jami pozitsiyalar</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ materials.length }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="paid" :size="48" />
+          <KpiCard :icon="CheckCircle2" label="Ombor qiymati" value="{{ materials.length }}" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
           <span class="text-xs text-ink-500">Ombor qiymati</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(totalValue) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="overdue" :size="48" />
+          <KpiCard :icon="AlertCircle" label="{{ formatShort(totalValue) }}" value="{{ formatShort(totalValue) }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
           <span class="text-xs text-ink-500">Kam qoldi</span>
         </div>
         <div class="text-xl font-bold text-red-500">{{ lowStockCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="units" :size="48" />
+          <KpiCard :icon="Layers" label="Oylik sarflash" value="{{ lowStockCount }}" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
           <span class="text-xs text-ink-500">Oylik sarflash</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(monthlyUsage) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
@@ -112,6 +112,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiCard from '~/components/KpiCard.vue'
 import {
   Plus, Download, Package, Wallet, AlertCircle, TrendingDown,
   Search, MoreHorizontal, Wrench, Lightbulb, PaintRoller, Boxes, Droplet,

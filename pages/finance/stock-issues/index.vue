@@ -12,7 +12,7 @@
         <div v-for="req in approvedRequests" :key="req.id" class="border border-black/5 dark:border-white/5 rounded-2xl p-4">
           <div class="flex items-center justify-between mb-3">
             <div class="flex items-center gap-3">
-              <KpiScene3D type="paid" :size="48" />
+              <KpiCard :icon="CheckCircle2" label="" value="" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
               <div>
                 <div class="text-sm font-medium">{{ req.number }} · {{ req.workOrder }}</div>
                 <div class="text-xs text-ink-500">{{ req.building }} · Tasdiqlangan: {{ req.approvedDate }}</div>
@@ -98,6 +98,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiCard from '~/components/KpiCard.vue'
 import { CheckCircle2, Send, Download } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })

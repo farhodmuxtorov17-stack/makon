@@ -39,7 +39,7 @@
         <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" :style="{ background: kpi.color }"></div>
         <div class="flex items-start justify-between mb-3">
           <!-- 3D Scene Icon -->
-          <KpiScene3D :type="kpi.scene" :size="56" />
+          <KpiCard :icon="kpi.icon || Building2" :label="kpi.label" :value="kpi.value" :trend="kpi.trend" :icon-bg="kpi.iconBg" :icon-color="kpi.iconColor" />
           <div v-if="kpi.trend" class="text-xs font-bold flex items-center gap-0.5" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
             <component :is="kpi.trend > 0 ? ArrowUpRight : ArrowDownRight" :size="14" />
             {{ Math.abs(kpi.trend) }}%
@@ -308,6 +308,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiCard from '~/components/KpiCard.vue'
 import {
   Building2, Layers, CheckCircle2, TrendingUp, AlertCircle, FileText,
   Receipt, Package, Download, ArrowUpRight, ArrowDownRight, ArrowRight,
@@ -371,12 +372,12 @@ const quickStats = [
 ]
 
 const kpis = [
-  { scene: 'buildings', label: 'Binolar', value: '24', trend: 8, color: '#3b82f6' },
-  { scene: 'units', label: 'Jami unitlar', value: '1,248', trend: 3, color: '#6366f1' },
-  { scene: 'occupancy', label: 'Bandlik', value: '87.3%', trend: 2, color: '#10b981' },
-  { scene: 'revenue', label: 'Oylik tushum', value: '1.42 mlr', trend: 12, color: '#f59e0b' },
-  { scene: 'overdue', label: 'Muddati o\'tgan', value: '42', trend: -5, color: '#ef4444' },
-  { scene: 'applications', label: 'Aktiv arizalar', value: '18', trend: 4, color: '#8b5cf6' },
+  { icon: Building2, label: "Binolar", value: "24", trend: 8, iconColor: "#3b82f6", iconBg: "rgba(59,130,246,0.1)" },
+  { icon: Layers, label: "Jami unitlar", value: "1,248", trend: 3, iconColor: "#6366f1", iconBg: "rgba(99,102,241,0.1)" },
+  { icon: TrendingUp, label: "Bandlik", value: "87.3%", trend: 2, iconColor: "#10b981", iconBg: "rgba(16,185,129,0.1)" },
+  { icon: DollarSign, label: "Oylik tushum", value: "1.42 mlr", trend: 12, iconColor: "#f59e0b", iconBg: "rgba(245,158,11,0.1)" },
+  { icon: AlertCircle, label: "Muddati o'tgan", value: "42", trend: -5, iconColor: "#ef4444", iconBg: "rgba(239,68,68,0.1)" },
+  { icon: FileText, label: "Aktiv arizalar", value: "18", trend: 4, iconColor: "#8b5cf6", iconBg: "rgba(139,92,246,0.1)" },
 ]
 
 const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']

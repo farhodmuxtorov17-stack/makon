@@ -19,28 +19,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="units" :size="48" />
+          <KpiCard :icon="Layers" label="Jami unitlar" value="{{ building.totalUnits }}" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
           <span class="text-xs text-ink-500">Jami unitlar</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ building.totalUnits }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="occupancy" :size="48" />
+          <KpiCard :icon="TrendingUp" label="Band" value="{{ building.totalUnits }}" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
           <span class="text-xs text-ink-500">Band</span>
         </div>
         <div class="text-xl font-bold text-emerald-500">{{ building.occupiedUnits }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="overdue" :size="48" />
+          <KpiCard :icon="AlertCircle" label="Bo'sh" value="{{ building.occupiedUnits }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
           <span class="text-xs text-ink-500">Bo'sh</span>
         </div>
         <div class="text-xl font-bold text-amber-500">{{ building.vacantUnits }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="buildings" :size="48" />
+          <KpiCard :icon="Building2" label="Maydon" value="{{ building.vacantUnits }}" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" />
           <span class="text-xs text-ink-500">Maydon</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ building.totalArea }} <span class="text-xs font-normal text-ink-500">m²</span></div>
@@ -221,6 +221,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiCard from '~/components/KpiCard.vue'
 import {
   ArrowLeft, Eye, Edit3, Layers, Map, Plus, FileText, Download,
   CheckCircle2, AlertCircle, Ruler, Image,

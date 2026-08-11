@@ -21,7 +21,7 @@
       <div v-for="kpi in kpis" :key="kpi.label" class="card p-4 relative overflow-hidden">
         <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" :style="{ background: kpi.barColor }"></div>
         <div class="flex items-start justify-between mb-2">
-          <KpiScene3D :type="kpi.scene" :size="44" />
+          <KpiCard :icon="kpi.icon || Building2" :label="kpi.label" :value="kpi.value" :trend="kpi.trend" :icon-bg="kpi.iconBg" :icon-color="kpi.iconColor" />
           <span v-if="kpi.trend" class="text-xs font-bold flex items-center gap-0.5" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
             <component :is="kpi.trend > 0 ? TrendingUp : TrendingDown" :size="11" /> {{ Math.abs(kpi.trend) }}%
           </span>
@@ -143,7 +143,7 @@
 </template>
 
 <script setup lang="ts">
-import KpiScene3D from '~/components/KpiScene3D.vue'
+import KpiCard from '~/components/KpiCard.vue'
 import { Download, FileSpreadsheet, TrendingUp, TrendingDown, FileText, CheckCircle2, AlertCircle, Wrench, Building2, Users } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })

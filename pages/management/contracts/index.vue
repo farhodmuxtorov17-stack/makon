@@ -14,28 +14,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="paid" :size="48" />
+          <KpiCard :icon="CheckCircle2" label="Aktiv" value="{{ activeCount }}" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
           <span class="text-xs text-ink-500">Aktiv</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ activeCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="signing" :size="48" />
+          <KpiCard :icon="FileSignature" label="Imzolanmoqda" value="{{ activeCount }}" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
           <span class="text-xs text-ink-500">Imzolanmoqda</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ signingCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="overdue" :size="48" />
+          <KpiCard :icon="AlertCircle" label="Muddati o'tgan" value="{{ signingCount }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
           <span class="text-xs text-ink-500">Muddati o'tgan</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ expiredCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiScene3D type="contract" :size="48" />
+          <KpiCard :icon="ScrollText" label="ERI imzolangan" value="{{ expiredCount }}" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
           <span class="text-xs text-ink-500">ERI imzolangan</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ eriCount }}</div>
@@ -107,6 +107,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Search, CheckCircle2, Clock, AlertCircle, ShieldCheck } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })

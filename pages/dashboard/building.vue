@@ -26,7 +26,7 @@
       <div v-for="kpi in kpis" :key="kpi.label" class="kpi-card">
         <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" :style="{ background: kpi.color }"></div>
         <div class="flex items-start justify-between mb-2">
-          <KpiScene3D :type="kpi.scene" :size="52" />
+          <KpiCard :icon="kpi.icon || Building2" :label="kpi.label" :value="kpi.value" :trend="kpi.trend" :icon-bg="kpi.iconBg" :icon-color="kpi.iconColor" />
           <span v-if="kpi.trend" class="text-xs font-bold flex items-center gap-0.5" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
             <ArrowUpRight v-if="kpi.trend > 0" :size="12" />{{ Math.abs(kpi.trend) }}%
           </span>
@@ -166,6 +166,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiCard from '~/components/KpiCard.vue'
 import {
   CheckCircle2, AlertCircle, Tag, FileText, Wrench, Clock, Layers,
   MapPin, ArrowRight, ArrowUpRight, TrendingUp, Users
