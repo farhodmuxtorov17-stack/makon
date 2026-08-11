@@ -98,6 +98,9 @@
       </div>
     </section>
 
+    <!-- ============ 3D INTERACTIVE SHOWCASE ============ -->
+    <Hero3DShowcase />
+
     <!-- ============ TRUST BAR ============ -->
     <section class="trust-bar">
       <div class="trust-bar__inner">
