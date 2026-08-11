@@ -139,29 +139,43 @@ const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, 
 
 const org = { name: 'Orient Logistika MChJ', tin: '308745612' }
 
-const units = ref([
-  { id: 'u1', name: 'A-301', building: 'Tashkent City', floor: 3, area: 85, type: 'RENT', contractEnd: '15 Mar 2027' },
-  { id: 'u2', name: 'B-205', building: 'Trillant Tower', floor: 2, area: 120, type: 'RENT', contractEnd: '01 Dek 2026' },
-  { id: 'u3', name: 'C-101', building: 'IT Park', floor: 1, area: 45, type: 'OWNED', contractEnd: '—' },
-])
+const store = useMakonStore()
 
-const applications = ref([
-  { id: 'a1', number: 'APP-2026-001', unit: 'A-301 Tashkent City', price: 25000000, status: 'FINANCE_REVIEW' },
-  { id: 'a2', number: 'APP-2026-002', unit: 'D-401 Piramit', price: 850000000, status: 'SIGNED' },
-  { id: 'a3', number: 'APP-2026-003', unit: 'E-102 Trillant', price: 18000000, status: 'SUBMITTED' },
-])
+const units = computed(() => store.units.slice(0, 5).map(u => ({
+  id: u.id,
+  name: u.code,
+  building: store.buildings.find(b => b.id === u.buildingId)?.name || 'Bino',
+  floor: u.floor,
+  area: u.area,
+  type: u.status === 'OCCUPIED' ? 'RENT' : 'OWNED',
+  contractEnd: u.status === 'OCCUPIED' ? '15 Mar 2027' : '—',
+})))
 
-const serviceRequests = ref([
-  { id: 'sr1', category: 'Elektr ta\'miri', unit: 'A-301', date: '2 kun oldin', status: 'IN_PROGRESS' },
-  { id: 'sr2', category: 'Sanitariya', unit: 'B-205', date: '5 kun oldin', status: 'ASSIGNED' },
-])
+const applications = computed(() => store.applications.slice(0, 4).map(a => ({
+  id: a.id,
+  number: a.number,
+  unit: store.units.find(u => u.id === a.unitId)?.code + ' ' + (store.buildings.find(b => b.id === store.units.find(u => u.id === a.unitId)?.buildingId)?.name || ''),
+  price: a.offeredPrice,
+  status: a.status,
+})))
 
-const notifications = ref([
-  { id: 'n1', title: 'Invoys INV-2026-001 tasdiqlandi', time: '1 soat oldin', read: false, icon: Receipt, iconBg: 'bg-emerald-500/10', iconColor: 'text-emerald-500' },
-  { id: 'n2', title: 'Shartnoma CTR-2026-002 imzolash kutilmoqda', time: '3 soat oldin', read: false, icon: AlertCircle, iconBg: 'bg-amber-500/10', iconColor: 'text-amber-500' },
-  { id: 'n3', title: 'Servis so\'rov SR-004 qabul qilindi', time: '1 kun oldin', read: true, icon: CheckCircle2, iconBg: 'bg-blue-500/10', iconColor: 'text-blue-500' },
-  { id: 'n4', title: 'Hisoblagich ko\'rsatkichi eslatmasi', time: '2 kun oldin', read: true, icon: AlertCircle, iconBg: 'bg-purple-500/10', iconColor: 'text-purple-500' },
-])
+const serviceRequests = computed(() => store.serviceRequests.slice(0, 3).map(sr => ({
+  id: sr.id,
+  category: sr.category,
+  unit: store.units.find(u => u.id === sr.unitId)?.code || '—',
+  date: timeAgo(sr.createdAt),
+  status: sr.status,
+})))
+
+const notifications = computed(() => store.notifications.slice(0, 5).map(n => ({
+  id: n.id,
+  title: n.title,
+  time: n.time,
+  read: n.read,
+  icon: { invoice: Receipt, eri: ShieldCheck, service: Wrench, contract: FileText, application: FileText }[n.type as any] || AlertCircle,
+  iconBg: { invoice: 'bg-emerald-500/10', eri: 'bg-purple-500/10', service: 'bg-amber-500/10', contract: 'bg-blue-500/10', application: 'bg-indigo-500/10' }[n.type as any] || 'bg-ink-500/10',
+  iconColor: { invoice: 'text-emerald-500', eri: 'text-purple-500', service: 'text-amber-500', contract: 'text-blue-500', application: 'text-indigo-500' }[n.type as any] || 'text-ink-500',
+})))
 
 const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']
 const paymentSeries = [
@@ -169,8 +183,8 @@ const paymentSeries = [
   { name: 'Qoldiq', data: [3, 0, 0, 0, 2.5, 4.2] },
 ]
 
-const activeContracts = computed(() => units.value.filter(u => u.type === 'RENT').length)
-const pendingApps = computed(() => applications.value.filter(a => !['SIGNED', 'ACTIVE', 'REJECTED'].includes(a.status)).length)
+const activeContracts = computed(() => units.value.filter((u: any) => u.type === 'RENT').length)
+const pendingApps = computed(() => applications.value.filter((a: any) => !['SIGNED', 'ACTIVE', 'REJECTED'].includes(a.status)).length)
 const debt = computed(() => 4200000)
 
 

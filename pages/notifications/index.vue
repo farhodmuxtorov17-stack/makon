@@ -62,18 +62,8 @@ definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const typeFilter = ref('')
 
-const notifications = ref([
-  { id: '1', type: 'invoice', title: 'Invoys INV-2026-052 tasdiqlandi', desc: '25.0M so\'m · Unit A-301 Tashkent City', time: '5 daq oldin', read: false },
-  { id: '2', type: 'eri', title: 'Shartnoma CTR-2026-010 imzolash kutilmoqda', desc: 'Bino egasi ERI imzosi kutilmoqda', time: '20 daq oldin', read: false },
-  { id: '3', type: 'service', title: 'Servis so\'rov SR-2026-004 qabul qilindi', desc: 'Elektr ta\'miri · A-301', time: '1 soat oldin', read: false },
-  { id: '4', type: 'contract', title: 'Shartnoma CTR-2026-002 faol holatga o\'tdi', desc: 'Ipak Yuli Savdo MChJ · 12 oylik ijara', time: '2 soat oldin', read: false },
-  { id: '5', type: 'application', title: 'Yangi ariza APP-2026-003 yuborildi', desc: 'E-102 Trillant Tower · Ijara', time: '3 soat oldin', read: true },
-  { id: '6', type: 'invoice', title: 'Invoys INV-2026-046 muddati o\'tdi', desc: '35.0M so\'m · Unit B-205', time: '5 soat oldin', read: true },
-  { id: '7', type: 'eri', title: 'ERI sertifikati muddati yaqinlashmoqda', desc: 'Orient Logistika MChJ · 30 kun qoldi', time: '1 kun oldin', read: true },
-  { id: '8', type: 'service', title: 'Work order WO-2026-038 yakunlandi', desc: 'Konditsioner ta\'miri · A-301', time: '1 kun oldin', read: true },
-  { id: '9', type: 'contract', title: 'Shartnoma CTR-2025-098 muddati tugadi', desc: 'Sergeli Logistika · A-205 Tashkent City', time: '2 kun oldin', read: true },
-  { id: '10', type: 'application', title: 'Ariza APP-2026-002 moliyaviy ko\'rikdan o\'tdi', desc: 'D-401 Piramit · Sotib olish', time: '3 kun oldin', read: true },
-])
+const store = useMakonStore()
+const notifications = computed(() => store.notifications)
 
 const unreadCount = computed(() => notifications.value.filter(n => !n.read).length)
 const filteredNotifications = computed(() => {
@@ -81,7 +71,7 @@ const filteredNotifications = computed(() => {
   return notifications.value.filter(n => n.type === typeFilter.value)
 })
 
-function markAllRead() { notifications.value.forEach(n => n.read = true) }
+function markAllRead() { store.markAllNotificationsRead() }
 
 function iconComp(type: string) {
   return { invoice: Receipt, eri: ShieldCheck, service: Wrench, contract: FileText, application: FileText }[type] || AlertCircle

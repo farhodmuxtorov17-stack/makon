@@ -125,76 +125,40 @@ const tabs = computed(() => [
   { value: 'ACTIVE', label: 'Faol', count: apps.value.filter(a => a.status === 'ACTIVE').length },
 ])
 
-const apps = ref([
-  {
-    id: 'a1', number: 'APP-2026-001', unit: 'A-301 Tashkent City', type: 'RENT', price: 25000000,
-    status: 'FINANCE_REVIEW', eriSigned: false, contractId: '', createdDate: '12 Avg 2026',
-    durationMonths: 12, startDate: '01 Sent 2026',
-    timeline: [
-      { label: 'Ariza', done: true, current: false },
-      { label: 'Operatsion', done: true, current: false },
-      { label: 'Moliyaviy', done: false, current: true },
-      { label: 'Loyiha', done: false, current: false },
-      { label: 'ERI imzo', done: false, current: false },
-      { label: 'Faol', done: false, current: false },
-    ],
-  },
-  {
-    id: 'a2', number: 'APP-2026-002', unit: 'D-401 Piramit', type: 'SALE', price: 850000000,
-    status: 'DRAFT_READY', eriSigned: false, contractId: '', createdDate: '05 Avg 2026',
-    durationMonths: 0, startDate: '—',
-    timeline: [
-      { label: 'Ariza', done: true, current: false },
-      { label: 'Operatsion', done: true, current: false },
-      { label: 'Moliyaviy', done: true, current: false },
-      { label: 'Loyiha', done: true, current: false },
-      { label: 'ERI imzo', done: false, current: true },
-      { label: 'Faol', done: false, current: false },
-    ],
-  },
-  {
-    id: 'a3', number: 'APP-2026-003', unit: 'E-102 Trillant Tower', type: 'RENT', price: 18000000,
-    status: 'SUBMITTED', eriSigned: false, contractId: '', createdDate: '14 Avg 2026',
-    durationMonths: 6, startDate: '01 Okt 2026',
-    timeline: [
-      { label: 'Ariza', done: true, current: false },
-      { label: 'Operatsion', done: false, current: true },
-      { label: 'Moliyaviy', done: false, current: false },
-      { label: 'Loyiha', done: false, current: false },
-      { label: 'ERI imzo', done: false, current: false },
-      { label: 'Faol', done: false, current: false },
-    ],
-  },
-  {
-    id: 'a4', number: 'APP-2026-004', unit: 'B-205 Trillant Tower', type: 'RENT', price: 35000000,
-    status: 'ACTIVE', eriSigned: true, contractId: 'c2', createdDate: '15 May 2026',
-    durationMonths: 12, startDate: '15 May 2026',
-    timeline: [
-      { label: 'Ariza', done: true, current: false },
-      { label: 'Operatsion', done: true, current: false },
-      { label: 'Moliyaviy', done: true, current: false },
-      { label: 'Loyiha', done: true, current: false },
-      { label: 'ERI imzo', done: true, current: false },
-      { label: 'Faol', done: true, current: false },
-    ],
-  },
-  {
-    id: 'a5', number: 'APP-2026-005', unit: 'C-201 IT Park', type: 'RENT', price: 18000000,
-    status: 'SIGNED', eriSigned: true, contractId: 'c3', createdDate: '01 Iyn 2026',
-    durationMonths: 12, startDate: '01 Iyn 2026',
-    timeline: [
-      { label: 'Ariza', done: true, current: false },
-      { label: 'Operatsion', done: true, current: false },
-      { label: 'Moliyaviy', done: true, current: false },
-      { label: 'Loyiha', done: true, current: false },
-      { label: 'ERI imzo', done: true, current: false },
-      { label: 'Faol', done: false, current: true },
-    ],
-  },
-])
+const store = useMakonStore()
 
-const activeCount = computed(() => apps.value.filter(a => a.status === 'ACTIVE' || a.status === 'SIGNED').length)
-const filteredApps = computed(() => statusFilter.value ? apps.value.filter(a => a.status === statusFilter.value) : apps.value)
+function buildTimeline(status: string) {
+  const steps = ['SUBMITTED', 'OPERATION_REVIEW', 'FINANCE_REVIEW', 'DRAFT_READY', 'SIGNED', 'ACTIVE']
+  const labels = ['Ariza', 'Operatsion', 'Moliyaviy', 'Loyiha', 'ERI imzo', 'Faol']
+  const idx = steps.indexOf(status)
+  return labels.map((label, i) => ({
+    label,
+    done: i < idx || (i === idx && (status === 'SIGNED' || status === 'ACTIVE')),
+    current: i === idx && status !== 'ACTIVE',
+  }))
+}
+
+const apps = computed(() => store.applications.map(a => {
+  const unit = store.units.find(u => u.id === a.unitId)
+  const building = store.buildings.find(b => b.id === unit?.buildingId)
+  return {
+    id: a.id,
+    number: a.number,
+    unit: (unit?.code || '') + ' ' + (building?.name || ''),
+    type: a.type,
+    price: a.offeredPrice,
+    status: a.status,
+    eriSigned: a.status === 'SIGNED' || a.status === 'ACTIVE',
+    contractId: store.contracts.find(c => c.applicationId === a.id)?.id || '',
+    createdDate: formatDate(a.createdDate),
+    durationMonths: a.durationMonths,
+    startDate: a.desiredStartDate || '—',
+    timeline: buildTimeline(a.status),
+  }
+}))
+
+const activeCount = computed(() => apps.value.filter((a: any) => a.status === 'ACTIVE' || a.status === 'SIGNED').length)
+const filteredApps = computed(() => statusFilter.value ? apps.value.filter((a: any) => a.status === statusFilter.value) : apps.value)
 
 
 

@@ -156,44 +156,14 @@ const tab = ref('meters')
 
 const newReading = reactive({ meterId: '', value: 0, date: new Date().toISOString().split('T')[0], note: '' })
 
-const meters = ref([
-  { id: 'mt1', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'ELECTRICITY', serialNumber: 'EL-001', currentReading: 15820, previousReading: 14500, tariff: 450, lastReadingDate: '2026-08-01' },
-  { id: 'mt2', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'WATER_COLD', serialNumber: 'WC-001', currentReading: 342, previousReading: 298, tariff: 3500, lastReadingDate: '2026-08-01' },
-  { id: 'mt3', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'WATER_HOT', serialNumber: 'WH-001', currentReading: 185, previousReading: 162, tariff: 8500, lastReadingDate: '2026-08-01' },
-  { id: 'mt4', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'GAS', serialNumber: 'GS-001', currentReading: 1240, previousReading: 1150, tariff: 1200, lastReadingDate: '2026-08-01' },
-  { id: 'mt5', buildingName: 'Trillant Tower', unitCode: 'B-501', type: 'ELECTRICITY', serialNumber: 'EL-002', currentReading: 22450, previousReading: 20100, tariff: 450, lastReadingDate: '2026-08-01' },
-  { id: 'mt6', buildingName: 'Trillant Tower', unitCode: 'B-501', type: 'WATER_COLD', serialNumber: 'WC-002', currentReading: 512, previousReading: 478, tariff: 3500, lastReadingDate: '2026-08-01' },
-  { id: 'mt7', buildingName: 'IT Park', unitCode: 'C-201', type: 'ELECTRICITY', serialNumber: 'EL-003', currentReading: 8720, previousReading: 8100, tariff: 450, lastReadingDate: '2026-08-01' },
-  { id: 'mt8', buildingName: 'IT Park', unitCode: 'C-201', type: 'WATER_COLD', serialNumber: 'WC-003', currentReading: 198, previousReading: 175, tariff: 3500, lastReadingDate: '2026-08-01' },
-])
+const store = useMakonStore()
+const meters = computed(() => store.meters)
 
-const readings = ref([
-  { id: 1, date: '2026-08-01', serialNumber: 'EL-001', unitCode: 'A-301', type: 'ELECTRICITY', value: 15820, consumption: 1320, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-  { id: 2, date: '2026-08-01', serialNumber: 'WC-001', unitCode: 'A-301', type: 'WATER_COLD', value: 342, consumption: 44, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-  { id: 3, date: '2026-08-01', serialNumber: 'WH-001', unitCode: 'A-301', type: 'WATER_HOT', value: 185, consumption: 23, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-  { id: 4, date: '2026-08-01', serialNumber: 'GS-001', unitCode: 'A-301', type: 'GAS', value: 1240, consumption: 90, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-  { id: 5, date: '2026-08-01', serialNumber: 'EL-002', unitCode: 'B-501', type: 'ELECTRICITY', value: 22450, consumption: 2350, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-  { id: 6, date: '2026-07-01', serialNumber: 'EL-001', unitCode: 'A-301', type: 'ELECTRICITY', value: 14500, consumption: 1180, readBy: 'Bino menejeri', note: 'Iyun oyi' },
-])
+const readings = computed(() => store.readings)
 
 function addReading() {
-  const meter = meters.value.find(m => m.id === newReading.meterId)
-  if (!meter) return
-  const consumption = newReading.value - meter.currentReading
-  readings.value.unshift({
-    id: Date.now(),
-    date: newReading.date,
-    serialNumber: meter.serialNumber,
-    unitCode: meter.unitCode,
-    type: meter.type,
-    value: newReading.value,
-    consumption: Math.max(0, consumption),
-    readBy: 'Tizim',
-    note: newReading.note,
-  })
-  meter.previousReading = meter.currentReading
-  meter.currentReading = newReading.value
-  meter.lastReadingDate = newReading.date
+  if (!newReading.meterId || !newReading.value) return
+  store.addReading(newReading.meterId, newReading.value, newReading.date, newReading.note)
   showNewReading.value = false
   newReading.meterId = ''; newReading.value = 0; newReading.note = ''
 }

@@ -127,33 +127,18 @@ const approvalSteps = [
 
 const currentStepIndex = ref(1)
 
-const pendingApprovals = ref([
-  { id: 'a1', title: 'Invoys INV-2026-051', submitter: 'Dilshod Karimov (Buxgalter)', date: '11 Avg 2026', contract: 'CTR-2026-001', amount: 8500000, type: 'Invoys', currentStep: 1 },
-  { id: 'a2', title: 'To\'lov TM-2026-089', submitter: 'Aziza Yusupova (Operator)', date: '10 Avg 2026', contract: 'CTR-2026-005', amount: 4800000, type: 'To\'lov', currentStep: 2 },
-  { id: 'a3', title: 'Invoys INV-2026-052', submitter: 'Sardor Rahimov (Buxgalter)', date: '09 Avg 2026', contract: 'CTR-2026-012', amount: 5500000, type: 'Invoys', currentStep: 0 },
-  { id: 'a4', title: 'Depozit DP-2026-015', submitter: 'Dilshod Karimov (Buxgalter)', date: '08 Avg 2026', contract: 'CTR-2026-018', amount: 3900000, type: 'Depozit', currentStep: 1 },
-])
+const store = useMakonStore()
+const pendingApprovals = computed(() => store.pendingApprovals)
 
-const history = ref([
-  { id: 'h1', title: 'Invoys INV-2026-048', submitter: 'Dilshod Karimov', amount: 7200000, date: '05 Avg 2026', status: 'APPROVED' },
-  { id: 'h2', title: 'To\'lov TM-2026-085', submitter: 'Aziza Yusupova', amount: 6200000, date: '03 Avg 2026', status: 'APPROVED' },
-  { id: 'h3', title: 'Invoys INV-2026-046', submitter: 'Sardor Rahimov', amount: 5500000, date: '01 Avg 2026', status: 'REJECTED' },
-  { id: 'h4', title: 'Invoys INV-2026-044', submitter: 'Dilshod Karimov', amount: 8500000, date: '28 Iyl 2026', status: 'APPROVED' },
-])
+const history = computed(() => store.approvalHistory)
 
 const pendingCount = computed(() => pendingApprovals.value.length)
 const approvedCount = computed(() => history.value.filter(h => h.status === 'APPROVED').length)
 const rejectedCount = computed(() => history.value.filter(h => h.status === 'REJECTED').length)
 const pendingAmount = computed(() => pendingApprovals.value.reduce((s, a) => s + a.amount, 0))
 
-function approve(a: any) {
-  pendingApprovals.value = pendingApprovals.value.filter(x => x.id !== a.id)
-  history.value.unshift({ id: 'h' + Date.now(), title: a.title, submitter: a.submitter.split('(')[0].trim(), amount: a.amount, date: '11 Avg 2026', status: 'APPROVED' })
-}
-function reject(a: any) {
-  pendingApprovals.value = pendingApprovals.value.filter(x => x.id !== a.id)
-  history.value.unshift({ id: 'h' + Date.now(), title: a.title, submitter: a.submitter.split('(')[0].trim(), amount: a.amount, date: '11 Avg 2026', status: 'REJECTED' })
-}
+function approve(a: any) { store.approveItem(a.id) }
+function reject(a: any) { store.rejectItem(a.id) }
 
 function stepIcon(step: number) {
   return [FileText, CreditCard, Stamp, CheckCircle][step]

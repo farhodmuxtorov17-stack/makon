@@ -89,20 +89,10 @@ import { Plus, Download, RotateCcw, Trash2, Database, CheckCircle2, Clock, HardD
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const backups = ref([
-  { id: '1', name: 'backup_20260810_1600', type: 'MANUAL', size: '1.2 GB', time: '10 Avg 16:00', status: 'SUCCESS' },
-  { id: '2', name: 'backup_20260810_1200', type: 'AUTO', size: '1.2 GB', time: '10 Avg 12:00', status: 'SUCCESS' },
-  { id: '3', name: 'backup_20260810_0600', type: 'AUTO', size: '1.2 GB', time: '10 Avg 06:00', status: 'SUCCESS' },
-  { id: '4', name: 'backup_20260810_0000', type: 'AUTO', size: '1.1 GB', time: '10 Avg 00:00', status: 'SUCCESS' },
-  { id: '5', name: 'backup_20260809_1800', type: 'AUTO', size: '1.1 GB', time: '09 Avg 18:00', status: 'SUCCESS' },
-  { id: '6', name: 'backup_20260809_1200', type: 'AUTO', size: '1.1 GB', time: '09 Avg 12:00', status: 'SUCCESS' },
-  { id: '7', name: 'backup_20260809_0600', type: 'AUTO', size: '1.1 GB', time: '09 Avg 06:00', status: 'FAILED' },
-  { id: '8', name: 'backup_20260809_0000', type: 'AUTO', size: '1.0 GB', time: '09 Avg 00:00', status: 'SUCCESS' },
-])
+const store = useMakonStore()
+const backups = computed(() => store.backups)
 
 const successCount = computed(() => backups.value.filter(b => b.status === 'SUCCESS').length)
 
-function createBackup() {
-  backups.value.unshift({ id: Date.now().toString(), name: 'backup_20260810_1610', type: 'MANUAL', size: '1.2 GB', time: '10 Avg 16:10', status: 'SUCCESS' })
-}
+function createBackup() { store.createBackup() }
 </script>

@@ -271,6 +271,69 @@ export interface AdminUserItem {
 }
 
 
+
+interface MeterItem {
+  id: string
+  buildingName: string
+  unitCode: string
+  type: 'ELECTRICITY' | 'WATER_COLD' | 'WATER_HOT' | 'GAS'
+  serialNumber: string
+  currentReading: number
+  previousReading: number
+  tariff: number
+  lastReadingDate: string
+}
+
+interface ReadingItem {
+  id: number
+  date: string
+  serialNumber: string
+  unitCode: string
+  type: string
+  value: number
+  consumption: number
+  readBy: string
+  note: string
+}
+
+interface NotificationItem {
+  id: string
+  type: 'invoice' | 'eri' | 'service' | 'contract' | 'application'
+  title: string
+  desc: string
+  time: string
+  read: boolean
+}
+
+interface ApprovalItem {
+  id: string
+  title: string
+  submitter: string
+  date: string
+  contract: string
+  amount: number
+  type: string
+  currentStep: number
+}
+
+interface ApprovalHistoryItem {
+  id: string
+  title: string
+  submitter: string
+  amount: number
+  date: string
+  status: 'APPROVED' | 'REJECTED'
+}
+
+interface BackupItem {
+  id: string
+  name: string
+  type: 'MANUAL' | 'AUTO'
+  size: string
+  time: string
+  status: 'SUCCESS' | 'FAILED'
+}
+
 export const useMakonStore = defineStore('makon', () => {
   // Buildings Initial Data
   const buildings = ref<BuildingItem[]>([
@@ -1211,6 +1274,130 @@ export const useMakonStore = defineStore('makon', () => {
 
 
 
+
+  const meters = ref<MeterItem[]>([
+    { id: 'mt1', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'ELECTRICITY', serialNumber: 'EL-001', currentReading: 15820, previousReading: 14500, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt2', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'WATER_COLD', serialNumber: 'WC-001', currentReading: 342, previousReading: 298, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt3', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'WATER_HOT', serialNumber: 'WH-001', currentReading: 185, previousReading: 162, tariff: 8500, lastReadingDate: '2026-08-01' },
+    { id: 'mt4', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'GAS', serialNumber: 'GS-001', currentReading: 1240, previousReading: 1150, tariff: 1200, lastReadingDate: '2026-08-01' },
+    { id: 'mt5', buildingName: 'Trillant Tower', unitCode: 'B-501', type: 'ELECTRICITY', serialNumber: 'EL-002', currentReading: 22450, previousReading: 20100, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt6', buildingName: 'Trillant Tower', unitCode: 'B-501', type: 'WATER_COLD', serialNumber: 'WC-002', currentReading: 512, previousReading: 478, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt7', buildingName: 'IT Park', unitCode: 'C-201', type: 'ELECTRICITY', serialNumber: 'EL-003', currentReading: 8720, previousReading: 8100, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt8', buildingName: 'IT Park', unitCode: 'C-201', type: 'WATER_COLD', serialNumber: 'WC-003', currentReading: 198, previousReading: 175, tariff: 3500, lastReadingDate: '2026-08-01' },
+  ])
+
+  const readings = ref<ReadingItem[]>([
+    { id: 1, date: '2026-08-01', serialNumber: 'EL-001', unitCode: 'A-301', type: 'ELECTRICITY', value: 15820, consumption: 1320, readBy: 'Bino menejeri', note: 'Iyul oyi' },
+    { id: 2, date: '2026-08-01', serialNumber: 'WC-001', unitCode: 'A-301', type: 'WATER_COLD', value: 342, consumption: 44, readBy: 'Bino menejeri', note: 'Iyul oyi' },
+    { id: 3, date: '2026-08-01', serialNumber: 'WH-001', unitCode: 'A-301', type: 'WATER_HOT', value: 185, consumption: 23, readBy: 'Bino menejeri', note: 'Iyul oyi' },
+    { id: 4, date: '2026-08-01', serialNumber: 'GS-001', unitCode: 'A-301', type: 'GAS', value: 1240, consumption: 90, readBy: 'Bino menejeri', note: 'Iyul oyi' },
+    { id: 5, date: '2026-08-01', serialNumber: 'EL-002', unitCode: 'B-501', type: 'ELECTRICITY', value: 22450, consumption: 2350, readBy: 'Bino menejeri', note: 'Iyul oyi' },
+    { id: 6, date: '2026-07-01', serialNumber: 'EL-001', unitCode: 'A-301', type: 'ELECTRICITY', value: 14500, consumption: 1180, readBy: 'Bino menejeri', note: 'Iyun oyi' },
+  ])
+
+  const notifications = ref<NotificationItem[]>([
+    { id: '1', type: 'invoice', title: 'Invoys INV-2026-052 tasdiqlandi', desc: "25.0M so'm | Unit A-301 Tashkent City", time: '5 daq oldin', read: false },
+    { id: '2', type: 'eri', title: "Shartnoma CTR-2026-010 imzolash kutilmoqda", desc: 'Bino egasi ERI imzosi kutilmoqda', time: '20 daq oldin', read: false },
+    { id: '3', type: 'service', title: "Servis so'rov SR-2026-004 qabul qilindi", desc: "Elektr ta'miri | A-301", time: '1 soat oldin', read: false },
+    { id: '4', type: 'contract', title: "Shartnoma CTR-2026-002 faol holatga o'tdi", desc: 'Ipak Yuli Savdo MChJ | 12 oylik ijara', time: '2 soat oldin', read: false },
+    { id: '5', type: 'application', title: 'Yangi ariza APP-2026-003 yuborildi', desc: 'E-102 Trillant Tower | Ijara', time: '3 soat oldin', read: true },
+    { id: '6', type: 'invoice', title: "Invoys INV-2026-046 muddati o'tdi", desc: "35.0M so'm | Unit B-205", time: '5 soat oldin', read: true },
+    { id: '7', type: 'eri', title: 'ERI sertifikati muddati yaqinlashmoqda', desc: 'Orient Logistika MChJ | 30 kun qoldi', time: '1 kun oldin', read: true },
+    { id: '8', type: 'service', title: 'Work order WO-2026-038 yakunlandi', desc: "Konditsioner ta'miri | A-301", time: '1 kun oldin', read: true },
+    { id: '9', type: 'contract', title: 'Shartnoma CTR-2025-098 muddati tugadi', desc: 'Sergeli Logistika | A-205 Tashkent City', time: '2 kun oldin', read: true },
+    { id: '10', type: 'application', title: "Ariza APP-2026-002 moliyaviy ko'rikdan o'tdi", desc: 'D-401 Piramit | Sotib olish', time: '3 kun oldin', read: true },
+  ])
+
+  const pendingApprovals = ref<ApprovalItem[]>([
+    { id: 'a1', title: 'Invoys INV-2026-051', submitter: 'Dilshod Karimov (Buxgalter)', date: '11 Avg 2026', contract: 'CTR-2026-001', amount: 8500000, type: 'Invoys', currentStep: 1 },
+    { id: 'a2', title: "To'lov TM-2026-089", submitter: 'Aziza Yusupova (Operator)', date: '10 Avg 2026', contract: 'CTR-2026-005', amount: 4800000, type: "To'lov", currentStep: 2 },
+    { id: 'a3', title: 'Invoys INV-2026-052', submitter: 'Sardor Rahimov (Buxgalter)', date: '09 Avg 2026', contract: 'CTR-2026-012', amount: 5500000, type: 'Invoys', currentStep: 0 },
+    { id: 'a4', title: 'Depozit DP-2026-015', submitter: 'Dilshod Karimov (Buxgalter)', date: '08 Avg 2026', contract: 'CTR-2026-018', amount: 3900000, type: 'Depozit', currentStep: 1 },
+  ])
+
+  const approvalHistory = ref<ApprovalHistoryItem[]>([
+    { id: 'h1', title: 'Invoys INV-2026-048', submitter: 'Dilshod Karimov', amount: 7200000, date: '05 Avg 2026', status: 'APPROVED' },
+    { id: 'h2', title: "To'lov TM-2026-085", submitter: 'Aziza Yusupova', amount: 6200000, date: '03 Avg 2026', status: 'APPROVED' },
+    { id: 'h3', title: 'Invoys INV-2026-046', submitter: 'Sardor Rahimov', amount: 5500000, date: '01 Avg 2026', status: 'REJECTED' },
+    { id: 'h4', title: 'Invoys INV-2026-044', submitter: 'Dilshod Karimov', amount: 8500000, date: '28 Iyl 2026', status: 'APPROVED' },
+  ])
+
+  const backups = ref<BackupItem[]>([
+    { id: '1', name: 'backup_20260810_1600', type: 'MANUAL', size: '1.2 GB', time: '10 Avg 16:00', status: 'SUCCESS' },
+    { id: '2', name: 'backup_20260810_1200', type: 'AUTO', size: '1.2 GB', time: '10 Avg 12:00', status: 'SUCCESS' },
+    { id: '3', name: 'backup_20260810_0600', type: 'AUTO', size: '1.2 GB', time: '10 Avg 06:00', status: 'SUCCESS' },
+    { id: '4', name: 'backup_20260810_0000', type: 'AUTO', size: '1.1 GB', time: '10 Avg 00:00', status: 'SUCCESS' },
+    { id: '5', name: 'backup_20260809_1800', type: 'AUTO', size: '1.1 GB', time: '09 Avg 18:00', status: 'SUCCESS' },
+    { id: '6', name: 'backup_20260809_1200', type: 'AUTO', size: '1.1 GB', time: '09 Avg 12:00', status: 'SUCCESS' },
+    { id: '7', name: 'backup_20260809_0600', type: 'AUTO', size: '1.1 GB', time: '09 Avg 06:00', status: 'FAILED' },
+    { id: '8', name: 'backup_20260809_0000', type: 'AUTO', size: '1.0 GB', time: '09 Avg 00:00', status: 'SUCCESS' },
+  ])
+
+  function addReading(meterId: string, value: number, date: string, note: string) {
+    const meter = meters.value.find(m => m.id === meterId)
+    if (!meter) return
+    const consumption = Math.max(0, value - meter.currentReading)
+    readings.value.unshift({
+      id: Date.now(),
+      date,
+      serialNumber: meter.serialNumber,
+      unitCode: meter.unitCode,
+      type: meter.type,
+      value,
+      consumption,
+      readBy: 'Tizim',
+      note,
+    })
+    meter.previousReading = meter.currentReading
+    meter.currentReading = value
+    meter.lastReadingDate = date
+  }
+
+  function markAllNotificationsRead() {
+    notifications.value.forEach(n => n.read = true)
+  }
+
+  function approveItem(id: string) {
+    const item = pendingApprovals.value.find(a => a.id === id)
+    if (!item) return
+    pendingApprovals.value = pendingApprovals.value.filter(a => a.id !== id)
+    approvalHistory.value.unshift({
+      id: 'h' + Date.now(),
+      title: item.title,
+      submitter: item.submitter.split('(')[0].trim(),
+      amount: item.amount,
+      date: '11 Avg 2026',
+      status: 'APPROVED',
+    })
+  }
+
+  function rejectItem(id: string) {
+    const item = pendingApprovals.value.find(a => a.id === id)
+    if (!item) return
+    pendingApprovals.value = pendingApprovals.value.filter(a => a.id !== id)
+    approvalHistory.value.unshift({
+      id: 'h' + Date.now(),
+      title: item.title,
+      submitter: item.submitter.split('(')[0].trim(),
+      amount: item.amount,
+      date: '11 Avg 2026',
+      status: 'REJECTED',
+    })
+  }
+
+  function createBackup() {
+    const now = new Date()
+    const ts = now.toISOString().replace(/[-:T]/g, '').slice(0, 12)
+    backups.value.unshift({
+      id: Date.now().toString(),
+      name: 'backup_' + ts,
+      type: 'MANUAL',
+      size: '1.2 GB',
+      time: '11 Avg ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0'),
+      status: 'SUCCESS',
+    })
+  }
+
   return {
     buildings,
     units,
@@ -1242,5 +1429,16 @@ export const useMakonStore = defineStore('makon', () => {
     addMaterialRequest,
     updateMaterialRequestStatus,
     updateStockIssueStatus,
+    meters,
+    readings,
+    notifications,
+    pendingApprovals,
+    approvalHistory,
+    backups,
+    addReading,
+    markAllNotificationsRead,
+    approveItem,
+    rejectItem,
+    createBackup,
   }
 })
