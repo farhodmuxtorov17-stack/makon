@@ -60,6 +60,21 @@
       </div>
     </section>
 
+
+    <!-- ════════ TRUST BAR ════════ -->
+    <section class="trust">
+      <div class="container">
+        <div class="trust__label">Ishonchli hamkorlar</div>
+        <div class="trust__logos">
+          <div class="trust__logo">TASHKENT CITY</div>
+          <div class="trust__logo">TRILLANT</div>
+          <div class="trust__logo">CITY PLAZA</div>
+          <div class="trust__logo">GREEN PARK</div>
+          <div class="trust__logo">SERGELI HUB</div>
+        </div>
+      </div>
+    </section>
+
     <!-- ════════ BUILDINGS PORTFOLIO ════════ -->
     <section id="buildings" class="portfolio">
       <div class="container">
@@ -137,6 +152,34 @@
           <NuxtLink to="/catalog" class="btn-all">
             Barcha obyektlarni ko'rish <ArrowRight :size="16" />
           </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════ STATS BAND ════════ -->
+    <section class="stats-band">
+      <div class="container">
+        <div class="stats-band__grid">
+          <div class="stats-band__item">
+            <div class="stats-band__num">12K<span>+</span></div>
+            <div class="stats-band__label">Boshqariladigan maydon (m²)</div>
+          </div>
+          <div class="stats-band__divider"></div>
+          <div class="stats-band__item">
+            <div class="stats-band__num">240<span>+</span></div>
+            <div class="stats-band__label">Faol shartnoma</div>
+          </div>
+          <div class="stats-band__divider"></div>
+          <div class="stats-band__item">
+            <div class="stats-band__num">98<span>%</span></div>
+            <div class="stats-band__label">O'rtacha bandlik</div>
+          </div>
+          <div class="stats-band__divider"></div>
+          <div class="stats-band__item">
+            <div class="stats-band__num">24<span>soat</span></div>
+            <div class="stats-band__label">Arizaga javob vaqti</div>
+          </div>
         </div>
       </div>
     </section>
@@ -232,6 +275,50 @@
       </div>
     </section>
 
+
+    <!-- ════════ TESTIMONIALS ════════ -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="testimonials__head">
+          <div class="eyebrow">FIKRLAR</div>
+          <h2 class="section-title">Biznes rahbarlarining fikrlari</h2>
+          <p class="section-sub">MAKON platformasidan foydalanayotgan mijozlarimiz tajribasi.</p>
+        </div>
+        <div class="testimonials__grid">
+          <div class="testimonial">
+            <div class="testimonial__quote">"MAKON platformasiga o'tganimizdan beri boshqaruv jarayonlari 3 baravar tezlashdi. ERI shartnoma imzolash endi soniyalar ichida."</div>
+            <div class="testimonial__author">
+              <div class="testimonial__avatar">AJ</div>
+              <div>
+                <div class="testimonial__name">Akmal Jumayev</div>
+                <div class="testimonial__role">Bosh direktor, Tashkent City Management</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial__quote">"Invoyslar va to'lovlarni avtomatlashtirish bizga oyiga 40 soat vaqtni tejadi. Qarzdorlik monitoringi — ajoyib funksiya."</div>
+            <div class="testimonial__author">
+              <div class="testimonial__avatar">SR</div>
+              <div>
+                <div class="testimonial__name">Saida Rahimova</div>
+                <div class="testimonial__role">Bosh buxgalter, Trillant Tower</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial__quote">"Xizmat so'rovlari va ish buyruqlari endi bir tizimda. Texnik xizmat ko'rsatish samaradorligi sezilarli oshdi."</div>
+            <div class="testimonial__author">
+              <div class="testimonial__avatar">BK</div>
+              <div>
+                <div class="testimonial__name">Bekzod Karimov</div>
+                <div class="testimonial__role">Texnik direktor, City Plaza</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ════════ CTA ════════ -->
     <section class="cta">
       <div class="container">
@@ -294,21 +381,52 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowRight, Search, MapPin, ShieldCheck, FileText, KeyRound, Building2, Wallet, Wrench, BarChart3, Bell, ChevronDown, Store, ShoppingBag, Warehouse } from 'lucide-vue-next'
+import { ref, onMounted, onUnmounted } from 'vue'
+import {
+  ArrowRight, MapPin, Search, FileText, ShieldCheck, KeyRound,
+  Building2, Wallet, Wrench, BarChart3, Bell, ChevronDown,
+  Star, Quote
+} from 'lucide-vue-next'
 
-const heroSearch = ref('')
 const scrolled = ref(false)
+let ticking = false
 
-function goToCatalog() {
-  navigateTo('/catalog')
+function onScroll() {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      scrolled.value = window.scrollY > 30
+      ticking = false
+    })
+    ticking = true
+  }
 }
 
+// Scroll-triggered animations
+let observer: IntersectionObserver | null = null
+
 onMounted(() => {
-  window.addEventListener('scroll', () => {
-    scrolled.value = window.scrollY > 40
+  window.addEventListener('scroll', onScroll, { passive: true })
+  
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('reveal-in')
+        observer?.unobserve(e.target)
+      }
+    })
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' })
+  
+  // Observe all section children
+  document.querySelectorAll('.portfolio__head, .portfolio__featured, .b-card, .step, .feat, .stats-band__item, .testimonial, .trust__logo').forEach(el => {
+    el.classList.add('reveal')
+    observer?.observe(el)
   })
 })
-</script>
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+  observer?.disconnect()
+})</script>
 
 <style scoped>
 /* ════════ BASE ════════ */
@@ -897,9 +1015,15 @@ onMounted(() => {
   transition: all 0.3s;
 }
 .feat:hover {
-  border-color: var(--accent-border);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  border-color: var(--accent-border, rgba(37,99,235,0.2));
+  box-shadow: 0 8px 32px rgba(37,99,235,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  transform: translateY(-4px);
+}
+.feat:hover .feat__icon {
+  transform: scale(1.1) rotate(-4deg);
+}
+.feat__icon {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .feat__icon {
   width: 44px;
@@ -980,8 +1104,8 @@ onMounted(() => {
   transition: all 0.2s;
 }
 .cta__btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(37,99,235,0.5);
 }
 .cta__link {
   color: rgba(255,255,255,0.9);
@@ -1081,4 +1205,195 @@ onMounted(() => {
   .section-title { font-size: 28px; }
   .cta__title { font-size: 26px; }
 }
+
+/* ════════ SCROLL ANIMATIONS ════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+.b-card.reveal { transition-delay: 0.05s; }
+.b-card:nth-child(2).reveal { transition-delay: 0.12s; }
+.b-card:nth-child(3).reveal { transition-delay: 0.2s; }
+.step.reveal { transition-delay: 0.05s; }
+.step:nth-child(3).reveal { transition-delay: 0.1s; }
+.step:nth-child(5).reveal { transition-delay: 0.15s; }
+.step:nth-child(7).reveal { transition-delay: 0.2s; }
+.feat.reveal { transition-delay: 0.05s; }
+.feat:nth-child(2).reveal { transition-delay: 0.1s; }
+.feat:nth-child(3).reveal { transition-delay: 0.15s; }
+.feat:nth-child(4).reveal { transition-delay: 0.05s; }
+.feat:nth-child(5).reveal { transition-delay: 0.1s; }
+.feat:nth-child(6).reveal { transition-delay: 0.15s; }
+.testimonial.reveal { transition-delay: 0.05s; }
+.testimonial:nth-child(2).reveal { transition-delay: 0.12s; }
+.testimonial:nth-child(3).reveal { transition-delay: 0.2s; }
+.stats-band__item.reveal { transition-delay: 0.05s; }
+.trust__logo.reveal { transition-delay: 0.05s; }
+
+/* ════════ TRUST BAR ════════ */
+.trust {
+  padding: 36px 0 28px;
+  border-bottom: 1px solid var(--border, rgba(0,0,0,0.06));
+}
+.trust__label {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted, #94a3b8);
+  margin-bottom: 20px;
+}
+.trust__logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.trust__logo {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, #94a3b8);
+  opacity: 0.6;
+  transition: opacity 0.3s, color 0.3s;
+  cursor: default;
+}
+.trust__logo:hover {
+  opacity: 1;
+  color: var(--text-secondary, #475569);
+}
+
+/* ════════ STATS BAND ════════ */
+.stats-band {
+  padding: 56px 0;
+  background: var(--bg-subtle, #f8fafc);
+}
+.stats-band__grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 0;
+}
+.stats-band__item {
+  text-align: center;
+}
+.stats-band__num {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text, #18181b);
+  line-height: 1;
+}
+.stats-band__num span {
+  font-size: 22px;
+  color: var(--accent, #2563eb);
+  font-weight: 700;
+}
+.stats-band__label {
+  font-size: 13px;
+  color: var(--text-muted, #94a3b8);
+  margin-top: 8px;
+  font-weight: 500;
+}
+.stats-band__divider {
+  width: 1px;
+  height: 48px;
+  background: var(--border, rgba(0,0,0,0.08));
+  margin: 0 16px;
+}
+@media (max-width: 768px) {
+  .stats-band__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .stats-band__divider { display: none; }
+  .stats-band__num { font-size: 30px; }
+}
+
+/* ════════ TESTIMONIALS ════════ */
+.testimonials {
+  padding: 100px 0;
+  background: var(--bg, #fff);
+}
+.testimonials__head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.testimonial {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0,0,0,0.06));
+  border-radius: 18px;
+  padding: 32px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.testimonial:hover {
+  border-color: var(--accent-border, rgba(37,99,235,0.15));
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.testimonial::before {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--accent, #2563eb);
+  opacity: 0.08;
+  line-height: 1;
+}
+.testimonial__quote {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary, #52525b);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testimonial__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent, #2563eb), var(--accent-light, #3b82f6));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+.testimonial__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text, #18181b);
+}
+.testimonial__role {
+  font-size: 12px;
+  color: var(--text-muted, #94a3b8);
+  margin-top: 2px;
+}
+@media (max-width: 768px) {
+  .testimonials__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
