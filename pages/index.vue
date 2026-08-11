@@ -1,173 +1,190 @@
 <template>
-  <div class="landing-page">
-    <!-- ============ HERO ============ -->
-    <section class="hero-section">
-      <div class="hero-bg">
-        <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png" alt="Tashkent City" class="hero-bg__img" />
-        <div class="hero-bg__overlay"></div>
-        <div class="hero-bg__grid"></div>
+  <div class="landing">
+    <!-- ════════ HERO ════════ -->
+    <section class="hero">
+      <div class="hero__bg">
+        <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png" alt="Tashkent City" class="hero__bg-img" />
+        <div class="hero__bg-grad"></div>
       </div>
 
-      <!-- Nav -->
-      <nav class="hero-nav">
-        <NuxtLink to="/" class="hero-nav__logo">
-          <div class="hero-nav__logo-icon">M</div>
-          <span class="hero-nav__logo-text">MAKON</span>
+      <nav class="nav">
+        <NuxtLink to="/" class="nav__brand">
+          <div class="nav__logo">M</div>
+          <span>MAKON</span>
         </NuxtLink>
-        <div class="hero-nav__links">
-          <NuxtLink to="/catalog" class="hero-nav__link">Katalog</NuxtLink>
-          <a href="#buildings" class="hero-nav__link">Binolar</a>
-          <a href="#contacts" class="hero-nav__link">Bog'lanish</a>
+        <div class="nav__links">
+          <NuxtLink to="/catalog" class="nav__link">Katalog</NuxtLink>
+          <a href="#buildings" class="nav__link">Binolar</a>
+          <a href="#contacts" class="nav__link">Bog'lanish</a>
         </div>
-        <div class="hero-nav__actions">
+        <div class="nav__right">
           <ThemeToggle />
-          <NuxtLink to="/login" class="hero-nav__login">Kirish</NuxtLink>
-          <NuxtLink to="/register/eri" class="hero-nav__cta">
-            Ro'yxatdan o'tish
-            <ArrowRight :size="15" />
+          <NuxtLink to="/login" class="nav__link">Kirish</NuxtLink>
+          <NuxtLink to="/register/eri" class="nav__btn">
+            Ro'yxatdan o'tish <ArrowRight :size="14" />
           </NuxtLink>
         </div>
       </nav>
 
-      <!-- Hero content - CENTERED -->
-      <div class="hero-content">
-        <div class="hero-content__inner">
-          <h1 class="hero-title">
-            Binolaring<br>
-            <span class="hero-title__accent">raqamli nazarati</span>
+      <div class="hero__center">
+        <div class="hero__content">
+          <h1 class="hero__title">
+            <span class="hero__title-1">Binolarning</span>
+            <span class="hero__title-2">raqamli nazorati</span>
           </h1>
-          <p class="hero-subtitle">
-            Premium binolarda ofis, savdo va ombor maydonlari.<br>
-            ERI orqali xavfsiz shartnoma va to'liq boshqaruv — bitta tizimda.
+          <p class="hero__lead">
+            Premium binolarda ofis, savdo va ombor maydonlari — ERI orqali xavfsiz shartnoma va to'liq boshqaruv bitta tizimda.
           </p>
 
-          <!-- Search -->
-          <div class="hero-search">
-            <div class="hero-search__bar">
-              <Search :size="20" class="hero-search__icon" />
+          <div class="search">
+            <div class="search__field">
+              <Search :size="19" class="search__icon" />
               <input v-model="heroSearch" type="text" placeholder="Bino, maydon turi yoki manzil bo'yicha qidiring..." @keyup.enter="goToCatalog" />
-              <button class="hero-search__btn" @click="goToCatalog">
+              <button class="search__submit" @click="goToCatalog">
                 Qidirish
-                <ArrowRight :size="16" />
               </button>
             </div>
-            <div class="hero-chips">
-              <NuxtLink to="/catalog?offerType=RENT" class="hero-chip">
-                <Building2 :size="15" /> Ijaraga
-              </NuxtLink>
-              <NuxtLink to="/catalog?offerType=SALE" class="hero-chip">
-                <ShoppingBag :size="15" /> Sotuvda
-              </NuxtLink>
-              <NuxtLink to="/catalog?type=WAREHOUSE" class="hero-chip">
-                <Warehouse :size="15" /> Ombor
-              </NuxtLink>
-              <NuxtLink to="/catalog?type=SHOPPING" class="hero-chip">
-                <Store :size="15" /> Savdo
-              </NuxtLink>
-              <NuxtLink to="/catalog" class="hero-chip hero-chip--accent">
-                Barchasi <ArrowRight :size="14" />
-              </NuxtLink>
+            <div class="search__chips">
+              <NuxtLink to="/catalog?offerType=RENT" class="chip"><Building2 :size="14" /> Ijaraga</NuxtLink>
+              <NuxtLink to="/catalog?offerType=SALE" class="chip"><ShoppingBag :size="14" /> Sotuvda</NuxtLink>
+              <NuxtLink to="/catalog?type=WAREHOUSE" class="chip"><Warehouse :size="14" /> Ombor</NuxtLink>
+              <NuxtLink to="/catalog?type=SHOPPING" class="chip"><Store :size="14" /> Savdo</NuxtLink>
+              <NuxtLink to="/catalog" class="chip chip--solid">Barchasi <ArrowRight :size="13" /></NuxtLink>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ BUILDINGS ============ -->
-    <section id="buildings" class="buildings-section">
-      <div class="section-header">
-        <h2 class="section-title">Toshkentning premium obyektlari</h2>
-        <p class="section-subtitle">Eng yaxshi biznes markazlari va savdo obyektlari — bitta platformada</p>
+    <!-- ════════ BUILDINGS ════════ -->
+    <section id="buildings" class="buildings">
+      <div class="buildings__head">
+        <div class="eyebrow">PORTFEL</div>
+        <h2 class="buildings__title">Toshkentning premium obyektlari</h2>
+        <p class="buildings__sub">Biznes markazlari, savdo obyektlari va logistika markazlari — bitta platformada boshqariladi.</p>
       </div>
 
-      <!-- Big featured building -->
-      <div class="buildings-featured" @click="navigateTo('/buildings/tashkent-city')">
-        <div class="buildings-featured__image">
-          <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png" alt="Tashkent City" />
-          <div class="buildings-featured__overlay"></div>
+      <!-- Featured -->
+      <div class="featured" @click="navigateTo('/buildings/tashkent-city')">
+        <div class="featured__media">
+          <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png" alt="Tashkent City" />
+          <div class="featured__media-grad"></div>
+          <div class="featured__tag">PREMIUM</div>
         </div>
-        <div class="buildings-featured__content">
-          <h3 class="buildings-featured__name">Tashkent City</h3>
-          <p class="buildings-featured__address">
-            <MapPin :size="14" /> Mirzo Ulug'bek tumani, Toshkent
-          </p>
-          <div class="buildings-featured__bottom">
-            <div class="buildings-featured__price">
-              <span class="buildings-featured__price-label">Ijaraga</span>
-              <span class="buildings-featured__price-value">25M UZS/oy</span>
+        <div class="featured__info">
+          <div class="featured__num">01</div>
+          <h3 class="featured__name">Tashkent City</h3>
+          <p class="featured__addr"><MapPin :size="14" /> Mirzo Ulug'bek tumani, Toshkent</p>
+          <div class="featured__specs">
+            <div class="featured__spec"><span class="featured__spec-n">12</span><span class="featured__spec-l">Qavat</span></div>
+            <div class="featured__spec"><span class="featured__spec-n">240</span><span class="featured__spec-l">Unit</span></div>
+            <div class="featured__spec"><span class="featured__spec-n">32K</span><span class="featured__spec-l">m² maydon</span></div>
+          </div>
+          <div class="featured__foot">
+            <div class="featured__price">
+              <span class="featured__price-l">Ijaraga</span>
+              <span class="featured__price-v">25 000 000 UZS<span class="featured__price-u">/oy</span></span>
             </div>
-            <span class="buildings-featured__btn">
-              Batafsil <ArrowRight :size="16" />
-            </span>
+            <button class="featured__btn">Batafsil <ArrowRight :size="15" /></button>
           </div>
         </div>
       </div>
 
-      <!-- Building grid -->
-      <div class="buildings-grid">
-        <div v-for="b in otherBuildings" :key="b.id" class="building-card" @click="navigateTo(`/buildings/${b.slug}`)">
-          <div class="building-card__image">
-            <img :src="b.gallery" :alt="b.name" loading="lazy" />
+      <!-- Grid: asymmetric editorial layout -->
+      <div class="grid">
+        <div class="card card--tall" @click="navigateTo('/buildings/trillant-tower')">
+          <div class="card__media">
+            <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png" alt="Trillant Tower" />
+            <div class="card__grad"></div>
           </div>
-          <div class="building-card__body">
-            <h4 class="building-card__name">{{ b.name }}</h4>
-            <p class="building-card__addr">
-              <MapPin :size="13" /> {{ b.address }}
-            </p>
-            <div class="building-card__footer">
-              <span class="building-card__price">{{ b.priceMin }}/oy</span>
-              <span class="building-card__view">Batafsil <ArrowRight :size="13" /></span>
-            </div>
+          <div class="card__overlay">
+            <div class="card__num">02</div>
+            <h4 class="card__name">Trillant Tower</h4>
+            <p class="card__addr"><MapPin :size="12" /> Yashnabad</p>
+            <div class="card__price">18 000 000 UZS<span>/oy</span></div>
+          </div>
+        </div>
+
+        <div class="card" @click="navigateTo('/buildings/it-park')">
+          <div class="card__media">
+            <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png" alt="IT Park" />
+            <div class="card__grad"></div>
+          </div>
+          <div class="card__overlay">
+            <div class="card__num">03</div>
+            <h4 class="card__name">Savdo Markaz</h4>
+            <p class="card__addr"><MapPin :size="12" /> Yakkasaray</p>
+            <div class="card__price">12 000 000 UZS<span>/oy</span></div>
+          </div>
+        </div>
+
+        <div class="card" @click="navigateTo('/buildings/piramit')">
+          <div class="card__media">
+            <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/3731e4525_generated_image.png" alt="Piramit" />
+            <div class="card__grad"></div>
+          </div>
+          <div class="card__overlay">
+            <div class="card__num">04</div>
+            <h4 class="card__name">Logistika Markaz</h4>
+            <p class="card__addr"><MapPin :size="12" /> Sergeli</p>
+            <div class="card__price">8 000 000 UZS<span>/oy</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="buildings__all">
+        <NuxtLink to="/catalog" class="btn-all">
+          Barcha obyektlarni ko'rish <ArrowRight :size="16" />
+        </NuxtLink>
+      </div>
+    </section>
+
+    <!-- ════════ CTA ════════ -->
+    <section id="contacts" class="cta">
+      <div class="cta__card">
+        <div class="cta__glow"></div>
+        <div class="cta__inner">
+          <div class="eyebrow eyebrow--dark">ERI SERTIFIKATLANGAN</div>
+          <h2 class="cta__title">Binongizni raqamlashtiring</h2>
+          <p class="cta__text">Binongizni MAKON platformasiga qo'shing — ijara jarayonini to'liq boshqaring, ERI orqali xavfsiz shartnoma tuzing, to'lovlarni avtomatlashtiring.</p>
+          <div class="cta__btns">
+            <NuxtLink to="/register/eri" class="cta__btn cta__btn--solid">
+              Ro'yxatdan o'tish <ArrowRight :size="16" />
+            </NuxtLink>
+            <a href="https://t.me/makon_bot" target="_blank" class="cta__btn cta__btn--ghost">
+              <MessageCircle :size="16" /> Bog'lanish
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ CTA ============ -->
-    <section id="contacts" class="cta-section">
-      <div class="cta-card">
-        <div class="cta-card__glow"></div>
-        <h2 class="cta-card__title">Binongizni MAKON ga qo'shing</h2>
-        <p class="cta-card__text">
-          Binongizni raqamlashtiring va ijara jarayonini to'liq boshqaring — ERI orqali xavfsiz shartnoma bilan.
-        </p>
-        <div class="cta-card__actions">
-          <NuxtLink to="/register/eri" class="cta-card__btn cta-card__btn--primary">
-            Ro'yxatdan o'tish <ArrowRight :size="16" />
-          </NuxtLink>
-          <a href="https://t.me/makon_bot" target="_blank" class="cta-card__btn cta-card__btn--secondary">
-            <MessageCircle :size="16" /> Bog'lanish
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ FOOTER ============ -->
-    <footer class="landing-footer">
-      <div class="landing-footer__inner">
-        <div class="landing-footer__brand">
-          <div class="hero-nav__logo">
-            <div class="hero-nav__logo-icon">M</div>
+    <!-- ════════ FOOTER ════════ -->
+    <footer class="footer">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="nav__brand">
+            <div class="nav__logo">M</div>
             <span>MAKON</span>
           </div>
-          <p class="landing-footer__desc">Toshkentdagi premium ko'chmas mulk obyektlarini boshqarish va ijaraga berish uchun yagona raqamli platforma.</p>
+          <p class="footer__desc">Toshkentdagi premium ko'chmas mulk obyektlarini boshqarish va ijaraga berish uchun yagona raqamli platforma.</p>
         </div>
-        <div class="landing-footer__col">
-          <h5 class="landing-footer__heading">PLATFORMA</h5>
-          <NuxtLink to="/catalog" class="landing-footer__link">Katalog</NuxtLink>
-          <NuxtLink to="/login" class="landing-footer__link">Tizimga kirish</NuxtLink>
-          <NuxtLink to="/register/eri" class="landing-footer__link">Ro'yxatdan o'tish</NuxtLink>
-        </div>
-        <div class="landing-footer__col">
-          <h5 class="landing-footer__heading">BOG'LANISH</h5>
-          <p class="landing-footer__text">Toshkent, O'zbekiston</p>
-          <p class="landing-footer__text">+998 71 200 00 00</p>
-          <p class="landing-footer__text">info@makon.uz</p>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <h5 class="footer__h">PLATFORMA</h5>
+            <NuxtLink to="/catalog" class="footer__link">Katalog</NuxtLink>
+            <NuxtLink to="/login" class="footer__link">Tizimga kirish</NuxtLink>
+            <NuxtLink to="/register/eri" class="footer__link">Ro'yxatdan o'tish</NuxtLink>
+          </div>
+          <div class="footer__col">
+            <h5 class="footer__h">BOG'LANISH</h5>
+            <p class="footer__text">Toshkent, O'zbekiston</p>
+            <p class="footer__text">+998 71 200 00 00</p>
+            <p class="footer__text">info@makon.uz</p>
+          </div>
         </div>
       </div>
-      <div class="landing-footer__bottom">
-        <span>© 2026 MAKON — ERI orqali xavfsiz platforma</span>
-      </div>
+      <div class="footer__bottom">© 2026 MAKON — ERI orqali xavfsiz platforma</div>
     </footer>
   </div>
 </template>
@@ -179,312 +196,358 @@ const heroSearch = ref('')
 function goToCatalog() {
   navigateTo({ path: '/catalog', query: heroSearch.value ? { q: heroSearch.value } : {} })
 }
-
-const otherBuildings = [
-  { id: 'b2', name: 'Trillant Tower', slug: 'trillant-tower', address: 'Yashnabad, Toshkent', priceMin: '18M UZS', gallery: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png' },
-  { id: 'b3', name: 'IT Park', slug: 'it-park', address: 'Yakkasaray, Toshkent', priceMin: '12M UZS', gallery: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png' },
-  { id: 'b4', name: 'Piramit', slug: 'piramit', address: 'Amir Temur, Toshkent', priceMin: '15M UZS', gallery: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3075330ac_generated_image.png' },
-  { id: 'b5', name: 'Savdo Markaz', slug: 'savdo-markaz', address: 'Sergeli, Toshkent', priceMin: '8M UZS', gallery: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png' },
-]
 </script>
 
 <style scoped>
-.landing-page { overflow-x: hidden; }
+/* ════════ GLOBAL ════════ */
+.landing { overflow-x: hidden; }
+.eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  color: #6366f1; text-transform: uppercase; margin-bottom: 14px;
+}
+.eyebrow--dark { color: #818cf8; }
 
-/* ============ HERO ============ */
-.hero-section {
+/* ════════ HERO ════════ */
+.hero {
   position: relative; min-height: 100vh;
   display: flex; flex-direction: column; overflow: hidden;
 }
-.hero-bg { position: absolute; inset: 0; z-index: 0; }
-.hero-bg__img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.hero-bg__overlay {
+.hero__bg { position: absolute; inset: 0; z-index: 0; }
+.hero__bg-img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.hero__bg-grad {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(9,9,11,0.75) 0%, rgba(9,9,11,0.45) 40%, rgba(9,9,11,0.88) 100%);
-}
-.hero-bg__grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at center, black 20%, transparent 70%);
-  mask-image: radial-gradient(ellipse 80% 60% at center, black 20%, transparent 70%);
+  background:
+    linear-gradient(180deg, rgba(9,9,11,0.6) 0%, rgba(9,9,11,0.35) 35%, rgba(9,9,11,0.85) 100%),
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(99,102,241,0.08), transparent 50%);
 }
 
 /* Nav */
-.hero-nav {
+.nav {
   position: relative; z-index: 10;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 22px 48px; max-width: 1400px; margin: 0 auto; width: 100%;
+  padding: 24px 48px; max-width: 1400px; margin: 0 auto; width: 100%;
 }
-.hero-nav__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.hero-nav__logo-icon {
-  width: 40px; height: 40px; border-radius: 12px;
+.nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav__logo {
+  width: 38px; height: 38px; border-radius: 11px;
   background: linear-gradient(135deg, #6366f1, #4f46e5);
   display: flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 18px; color: white;
-  box-shadow: 0 4px 20px rgba(99,102,241,0.35);
+  font-weight: 800; font-size: 17px; color: white;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
 }
-.hero-nav__logo-text { font-weight: 800; font-size: 18px; color: white; letter-spacing: -0.02em; }
-.hero-nav__links { display: flex; align-items: center; gap: 32px; }
-.hero-nav__link { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.25s; }
-.hero-nav__link:hover { color: white; }
-.hero-nav__actions { display: flex; align-items: center; gap: 14px; }
-.hero-nav__login { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.25s; }
-.hero-nav__login:hover { color: white; }
-.hero-nav__cta {
-  display: inline-flex; align-items: center; gap: 6px;
+.nav__brand span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; }
+.nav__links { display: flex; gap: 32px; }
+.nav__link {
+  color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; font-weight: 500;
+  transition: color 0.3s;
+}
+.nav__link:hover { color: white; }
+.nav__right { display: flex; align-items: center; gap: 16px; }
+.nav__btn {
+  display: inline-flex; align-items: center; gap: 5px;
   background: white; color: #09090b;
-  padding: 10px 20px; border-radius: 12px;
+  padding: 10px 18px; border-radius: 11px;
   font-size: 13px; font-weight: 600; text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 12px rgba(255,255,255,0.08);
+  transition: all 0.3s; box-shadow: 0 2px 10px rgba(255,255,255,0.08);
 }
-.hero-nav__cta:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(255,255,255,0.15); }
+.nav__btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
 
-/* Hero content - CENTERED */
-.hero-content {
+/* Hero center content */
+.hero__center {
   position: relative; z-index: 5; flex: 1;
   display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 0 48px 100px;
+  text-align: center; padding: 0 48px 120px;
 }
-.hero-content__inner { max-width: 760px; }
-.hero-title {
-  font-size: clamp(44px, 6.5vw, 72px);
-  font-weight: 800; color: white;
-  letter-spacing: -0.04em; line-height: 1.02;
-  margin-bottom: 24px;
+.hero__content { max-width: 720px; }
+.hero__title {
+  margin: 0 0 28px; line-height: 0.98;
 }
-.hero-title__accent {
-  background: linear-gradient(135deg, #818cf8 0%, #6366f1 50%, #4f46e5 100%);
+.hero__title-1 {
+  display: block; font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800; color: white; letter-spacing: -0.045em;
+}
+.hero__title-2 {
+  display: block; font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800; letter-spacing: -0.045em;
+  background: linear-gradient(135deg, #c7d2fe 0%, #818cf8 40%, #6366f1 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.hero-subtitle {
-  font-size: 18px; line-height: 1.65;
-  color: rgba(255,255,255,0.6); margin-bottom: 40px;
+.hero__lead {
+  font-size: 18px; line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+  margin: 0 0 44px; max-width: 560px; margin-left: auto; margin-right: auto;
 }
 
-/* Search - centered */
-.hero-search { max-width: 600px; margin: 0 auto 40px; }
-.hero-search__bar {
+/* Search */
+.search { max-width: 580px; margin: 0 auto; }
+.search__field {
   display: flex; align-items: center; gap: 10px;
-  background: rgba(255,255,255,0.96); border-radius: 16px;
-  padding: 7px 7px 7px 20px; margin-bottom: 16px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.95); border-radius: 16px;
+  padding: 6px 6px 6px 20px; margin-bottom: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
-.hero-search__icon { color: #a1a1aa; flex-shrink: 0; }
-.hero-search__bar input {
+.search__icon { color: #a1a1aa; flex-shrink: 0; }
+.search__field input {
   flex: 1; border: none; outline: none; background: transparent;
-  font-size: 14px; color: #18181b; padding: 11px 0;
+  font-size: 14px; color: #18181b; padding: 12px 0;
 }
-.hero-search__bar input::placeholder { color: #a1a1aa; }
-.hero-search__btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; border: none;
-  padding: 11px 22px; border-radius: 11px;
+.search__field input::placeholder { color: #a1a1aa; }
+.search__submit {
+  background: linear-gradient(135deg, #6366f1, #4f46e5); color: white;
+  border: none; padding: 12px 24px; border-radius: 12px;
   font-size: 13px; font-weight: 600; cursor: pointer;
   transition: all 0.25s; box-shadow: 0 2px 8px rgba(99,102,241,0.3);
 }
-.hero-search__btn:hover {
+.search__submit:hover {
   background: linear-gradient(135deg, #4f46e5, #4338ca);
   box-shadow: 0 4px 16px rgba(99,102,241,0.4);
 }
-.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-.hero-chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.75); padding: 8px 16px; border-radius: 10px;
+.search__chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7); padding: 8px 15px; border-radius: 10px;
   font-size: 12px; font-weight: 500; text-decoration: none;
-  transition: all 0.25s; backdrop-filter: blur(12px);
+  transition: all 0.3s; backdrop-filter: blur(12px);
 }
-.hero-chip:hover { background: rgba(255,255,255,0.14); color: white; border-color: rgba(255,255,255,0.18); }
-.hero-chip--accent {
-  background: linear-gradient(135deg, rgba(99,102,241,0.9), rgba(79,70,229,0.9));
-  border-color: rgba(99,102,241,0.5); color: white;
+.chip:hover { background: rgba(255,255,255,0.12); color: white; border-color: rgba(255,255,255,0.18); }
+.chip--solid {
+  background: linear-gradient(135deg, rgba(99,102,241,0.85), rgba(79,70,229,0.85));
+  border-color: transparent; color: white;
 }
-.hero-chip--accent:hover {
+.chip--solid:hover {
   background: linear-gradient(135deg, rgba(79,70,229,0.95), rgba(67,56,202,0.95));
-  border-color: rgba(99,102,241,0.7);
 }
 
-/* ============ COMMON SECTIONS ============ */
-.section-header { text-align: center; max-width: 680px; margin: 0 auto 64px; }
-.section-title {
-  font-size: clamp(28px, 4vw, 40px); font-weight: 800;
-  color: #18181b; letter-spacing: -0.03em; margin-bottom: 14px;
+/* ════════ BUILDINGS ════════ */
+.buildings { padding: 120px 48px 100px; max-width: 1400px; margin: 0 auto; }
+.buildings__head { text-align: center; max-width: 640px; margin: 0 auto 72px; }
+.buildings__title {
+  font-size: clamp(30px, 4.5vw, 44px); font-weight: 800;
+  color: #18181b; letter-spacing: -0.035em; margin: 0 0 14px;
 }
-:deep(.dark) .section-title { color: white; }
-.section-subtitle { font-size: 16px; color: #71717a; line-height: 1.6; }
-:deep(.dark) .section-subtitle { color: #a1a1aa; }
+:deep(.dark) .buildings__title { color: white; }
+.buildings__sub { font-size: 16px; color: #71717a; line-height: 1.6; }
+:deep(.dark) .buildings__sub { color: #a1a1aa; }
 
-/* ============ BUILDINGS ============ */
-.buildings-section { padding: 120px 48px; max-width: 1400px; margin: 0 auto; }
-.buildings-featured {
-  display: grid; grid-template-columns: 1.2fr 1fr; gap: 0;
-  border-radius: 28px; overflow: hidden; margin-bottom: 36px;
+/* Featured */
+.featured {
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: 0;
+  border-radius: 28px; overflow: hidden; margin-bottom: 28px;
   background: white;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
-  cursor: pointer; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-:deep(.dark) .buildings-featured {
+:deep(.dark) .featured {
   background: #18181b;
   box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
 }
-.buildings-featured:hover {
-  box-shadow: 0 32px 80px rgba(0,0,0,0.12), 0 0 0 1px rgba(99,102,241,0.1);
-  transform: translateY(-6px);
+.featured:hover {
+  box-shadow: 0 32px 80px rgba(0,0,0,0.1), 0 0 0 1px rgba(99,102,241,0.1);
+  transform: translateY(-4px);
 }
-:deep(.dark) .buildings-featured:hover {
+:deep(.dark) .featured:hover {
   box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.15);
 }
-.buildings-featured__image { position: relative; aspect-ratio: 16/10; overflow: hidden; }
-.buildings-featured__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-.buildings-featured:hover .buildings-featured__image img { transform: scale(1.05); }
-.buildings-featured__overlay {
+.featured__media { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+.featured__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s; }
+.featured:hover .featured__media img { transform: scale(1.05); }
+.featured__media-grad {
   position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.08) 100%);
+  background: linear-gradient(90deg, transparent 60%, rgba(0,0,0,0.05) 100%);
 }
-.buildings-featured__content { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
-.buildings-featured__name {
-  font-size: 32px; font-weight: 800; color: #18181b;
-  margin-bottom: 8px; letter-spacing: -0.025em;
+.featured__tag {
+  position: absolute; top: 20px; left: 20px;
+  background: rgba(99,102,241,0.9); color: white;
+  padding: 6px 14px; border-radius: 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  backdrop-filter: blur(10px);
 }
-:deep(.dark) .buildings-featured__name { color: white; }
-.buildings-featured__address { display: flex; align-items: center; gap: 5px; font-size: 14px; color: #71717a; margin-bottom: 32px; }
-.buildings-featured__address svg { color: #a1a1aa; }
-.buildings-featured__bottom { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-.buildings-featured__price-label { font-size: 12px; color: #a1a1aa; display: block; margin-bottom: 2px; }
-.buildings-featured__price-value { font-size: 28px; font-weight: 800; color: #18181b; letter-spacing: -0.025em; }
-:deep(.dark) .buildings-featured__price-value { color: white; }
-.buildings-featured__btn {
+.featured__info { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+.featured__num {
+  font-size: 13px; font-weight: 700; color: #a1a1aa;
+  letter-spacing: 0.05em; margin-bottom: 12px;
+}
+.featured__name {
+  font-size: 34px; font-weight: 800; color: #18181b;
+  letter-spacing: -0.03em; margin: 0 0 8px;
+}
+:deep(.dark) .featured__name { color: white; }
+.featured__addr {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 14px; color: #71717a; margin: 0 0 32px;
+}
+.featured__addr svg { color: #a1a1aa; }
+.featured__specs { display: flex; gap: 32px; margin-bottom: 36px; }
+.featured__spec { display: flex; flex-direction: column; gap: 2px; }
+.featured__spec-n { font-size: 20px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; }
+:deep(.dark) .featured__spec-n { color: white; }
+.featured__spec-l { font-size: 11px; color: #a1a1aa; font-weight: 500; }
+.featured__foot { display: flex; align-items: flex-end; justify-content: space-between; margin-top: auto; }
+.featured__price-l { font-size: 12px; color: #a1a1aa; display: block; margin-bottom: 2px; }
+.featured__price-v {
+  font-size: 24px; font-weight: 800; color: #18181b; letter-spacing: -0.02em;
+}
+:deep(.dark) .featured__price-v { color: white; }
+.featured__price-u { font-size: 13px; font-weight: 500; color: #a1a1aa; }
+.featured__btn {
   display: inline-flex; align-items: center; gap: 6px;
   background: #18181b; color: white;
-  padding: 13px 26px; border-radius: 12px;
-  font-size: 13px; font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 13px 24px; border-radius: 12px;
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  transition: all 0.3s;
 }
-.buildings-featured__btn:hover { background: #6366f1; transform: translateX(2px); }
-:deep(.dark) .buildings-featured__btn { background: #6366f1; }
-:deep(.dark) .buildings-featured__btn:hover { background: #4f46e5; }
+.featured__btn:hover { background: #6366f1; transform: translateX(3px); }
+:deep(.dark) .featured__btn { background: #6366f1; }
+:deep(.dark) .featured__btn:hover { background: #4f46e5; }
 
-/* Building cards */
-.buildings-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.building-card {
-  background: white; border-radius: 20px; overflow: hidden;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04);
-  cursor: pointer; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-:deep(.dark) .building-card {
+/* Editorial grid - asymmetric */
+.grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 24px; }
+.card {
+  position: relative; border-radius: 22px; overflow: hidden; cursor: pointer;
   background: #18181b;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.04);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+:deep(.dark) .card {
   box-shadow: 0 2px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06);
 }
-.building-card:hover {
+.card:hover {
   box-shadow: 0 28px 64px rgba(0,0,0,0.12), 0 0 0 1px rgba(99,102,241,0.1);
-  transform: translateY(-8px);
+  transform: translateY(-6px);
 }
-:deep(.dark) .building-card:hover {
+:deep(.dark) .card:hover {
   box-shadow: 0 28px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.15);
 }
-.building-card__image { position: relative; aspect-ratio: 16/10; overflow: hidden; }
-.building-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
-.building-card:hover .building-card__image img { transform: scale(1.06); }
-.building-card__body { padding: 22px; }
-.building-card__name { font-size: 18px; font-weight: 700; color: #18181b; margin-bottom: 5px; letter-spacing: -0.015em; }
-:deep(.dark) .building-card__name { color: white; }
-.building-card__addr { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #71717a; margin-bottom: 16px; }
-.building-card__addr svg { color: #a1a1aa; }
-.building-card__footer { display: flex; align-items: center; justify-content: space-between; }
-.building-card__price { font-size: 16px; font-weight: 700; color: #18181b; letter-spacing: -0.015em; }
-:deep(.dark) .building-card__price { color: white; }
-.building-card__view { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #6366f1; transition: gap 0.25s; }
-.building-card:hover .building-card__view { gap: 7px; }
+.card--tall { grid-row: span 2; }
+.card__media { position: relative; width: 100%; height: 100%; aspect-ratio: 4/3; overflow: hidden; }
+.card--tall .card__media { aspect-ratio: 3/5; }
+.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s; }
+.card:hover .card__media img { transform: scale(1.06); }
+.card__grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.9) 100%);
+}
+.card__overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 24px;
+}
+.card__num {
+  font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.4);
+  letter-spacing: 0.05em; margin-bottom: 6px;
+}
+.card__name {
+  font-size: 20px; font-weight: 700; color: white;
+  letter-spacing: -0.02em; margin: 0 0 4px;
+}
+.card--tall .card__name { font-size: 26px; }
+.card__addr {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 13px; color: rgba(255,255,255,0.6); margin: 0 0 12px;
+}
+.card__price {
+  font-size: 15px; font-weight: 700; color: white;
+}
+.card--tall .card__price { font-size: 17px; }
+.card__price span { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.5); }
 
-/* ============ CTA ============ */
-.cta-section { padding: 100px 48px; max-width: 1400px; margin: 0 auto; }
-.cta-card {
+/* All button */
+.buildings__all { text-align: center; margin-top: 48px; }
+.btn-all {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 14px;
+  background: rgba(99,102,241,0.06); color: #6366f1;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  border: 1px solid rgba(99,102,241,0.12);
+  transition: all 0.3s;
+}
+.btn-all:hover {
+  background: #6366f1; color: white; border-color: #6366f1;
+  transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99,102,241,0.25);
+}
+
+/* ════════ CTA ════════ */
+.cta { padding: 100px 48px; max-width: 1400px; margin: 0 auto; }
+.cta__card {
   position: relative;
   background: linear-gradient(135deg, #09090b 0%, #18181b 50%, #1c1c1f 100%);
-  border-radius: 32px; padding: 72px 48px; text-align: center;
-  overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+  border-radius: 32px; overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.2);
 }
-:deep(.dark) .cta-card {
-  background: linear-gradient(135deg, #18181b 0%, #09090b 50%, #18181b 100%);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
-}
-.cta-card__glow {
-  position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+.cta__glow {
+  position: absolute; top: -30%; left: 50%; transform: translateX(-50%);
   width: 700px; height: 500px; border-radius: 50%;
   background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 65%);
   pointer-events: none;
 }
-.cta-card__title {
-  position: relative; z-index: 1;
-  font-size: clamp(28px, 4vw, 42px); font-weight: 800;
-  color: white; letter-spacing: -0.03em; margin-bottom: 16px;
+.cta__inner { position: relative; z-index: 1; padding: 80px 48px; text-align: center; }
+.cta__title {
+  font-size: clamp(30px, 4.5vw, 46px); font-weight: 800;
+  color: white; letter-spacing: -0.035em; margin: 0 0 18px;
 }
-.cta-card__text {
-  position: relative; z-index: 1;
-  font-size: 17px; color: rgba(255,255,255,0.55);
-  line-height: 1.6; max-width: 520px; margin: 0 auto 36px;
+.cta__text {
+  font-size: 17px; color: rgba(255,255,255,0.5);
+  line-height: 1.6; max-width: 520px; margin: 0 auto 40px;
 }
-.cta-card__actions {
-  position: relative; z-index: 1;
-  display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
-}
-.cta-card__btn {
+.cta__btns { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.cta__btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 28px; border-radius: 14px;
+  padding: 15px 30px; border-radius: 14px;
   font-size: 14px; font-weight: 600; text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s;
 }
-.cta-card__btn--primary {
+.cta__btn--solid {
   background: linear-gradient(135deg, #6366f1, #4f46e5); color: white;
   box-shadow: 0 4px 20px rgba(99,102,241,0.35);
 }
-.cta-card__btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(99,102,241,0.45); }
-.cta-card__btn--secondary {
-  background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9);
+.cta__btn--solid:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(99,102,241,0.45); }
+.cta__btn--ghost {
+  background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.9);
   border: 1px solid rgba(255,255,255,0.1);
 }
-.cta-card__btn--secondary:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.15); }
+.cta__btn--ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }
 
-/* ============ FOOTER ============ */
-.landing-footer { background: #09090b; padding: 64px 48px 32px; }
-.landing-footer__inner {
+/* ════════ FOOTER ════════ */
+.footer { background: #09090b; padding: 64px 48px 28px; }
+.footer__top {
   max-width: 1400px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px;
+  display: grid; grid-template-columns: 2fr 1.5fr; gap: 48px;
   padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.landing-footer__brand { max-width: 400px; }
-.landing-footer__desc { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-top: 16px; }
-.landing-footer__col { display: flex; flex-direction: column; gap: 12px; }
-.landing-footer__heading {
+.footer__desc { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-top: 16px; max-width: 360px; }
+.footer__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.footer__col { display: flex; flex-direction: column; gap: 12px; }
+.footer__h {
   font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.12em; color: rgba(255,255,255,0.3); margin-bottom: 4px;
+  letter-spacing: 0.12em; color: rgba(255,255,255,0.3); margin: 0 0 4px;
 }
-.landing-footer__link { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.25s; }
-.landing-footer__link:hover { color: white; }
-.landing-footer__text { font-size: 14px; color: rgba(255,255,255,0.45); }
-.landing-footer__bottom { max-width: 1400px; margin: 0 auto; padding-top: 24px; font-size: 13px; color: rgba(255,255,255,0.3); }
+.footer__link { font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.25s; }
+.footer__link:hover { color: white; }
+.footer__text { font-size: 14px; color: rgba(255,255,255,0.45); margin: 0; }
+.footer__bottom { max-width: 1400px; margin: 0 auto; padding-top: 24px; font-size: 13px; color: rgba(255,255,255,0.3); }
 
-/* ============ RESPONSIVE ============ */
+/* ════════ RESPONSIVE ════════ */
 @media (max-width: 1024px) {
-  .buildings-grid { grid-template-columns: repeat(2, 1fr); }
-  .hero-nav__links { display: none; }
+  .grid { grid-template-columns: 1fr 1fr; }
+  .card--tall { grid-row: span 1; }
+  .card--tall .card__media { aspect-ratio: 4/3; }
+  .nav__links { display: none; }
+  .featured { grid-template-columns: 1fr; }
+  .featured__info { padding: 36px 28px; }
+  .featured__name { font-size: 26px; }
 }
 @media (max-width: 768px) {
-  .buildings-featured { grid-template-columns: 1fr; }
-  .buildings-featured__content { padding: 28px; }
-  .buildings-featured__name { font-size: 24px; }
-  .buildings-grid { grid-template-columns: 1fr; }
-  .buildings-section, .cta-section { padding: 64px 20px; }
-  .hero-nav { padding: 16px 20px; }
-  .hero-content { padding: 0 20px 64px; }
-  .landing-footer__inner { grid-template-columns: 1fr; gap: 32px; }
-  .landing-footer { padding: 48px 20px 24px; }
-  .cta-card { padding: 48px 24px; border-radius: 24px; }
+  .grid { grid-template-columns: 1fr; }
+  .buildings, .cta { padding: 64px 20px; }
+  .nav { padding: 16px 20px; }
+  .hero__center { padding: 0 20px 80px; }
+  .footer__top { grid-template-columns: 1fr; gap: 32px; }
+  .footer__cols { grid-template-columns: 1fr 1fr; }
+  .footer { padding: 48px 20px 24px; }
+  .cta__inner { padding: 48px 24px; }
+  .cta__card { border-radius: 24px; }
+  .featured__specs { flex-wrap: wrap; gap: 20px; }
 }
 </style>
