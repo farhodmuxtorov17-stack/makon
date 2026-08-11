@@ -17,7 +17,6 @@
         <div class="hero-nav__links">
           <NuxtLink to="/catalog" class="hero-nav__link">Katalog</NuxtLink>
           <a href="#buildings" class="hero-nav__link">Binolar</a>
-          <a href="#how-it-works" class="hero-nav__link">Qanday ishlaydi</a>
           <a href="#contacts" class="hero-nav__link">Bog'lanish</a>
         </div>
         <div class="hero-nav__actions">
