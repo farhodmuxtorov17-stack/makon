@@ -399,8 +399,14 @@ const mapListings = computed(() => filteredListings.value.map(l => ({
 })))
 
 // ---------------- UI state ----------------
-const route = useRoute()
-const view = ref<'list' | 'grid' | 'map' | 'split'>(route.query.view === 'map' ? 'map' : route.query.view === 'grid' ? 'grid' : 'split')
+const view = ref<'list' | 'grid' | 'map' | 'split'>('split')
+
+onMounted(() => {
+  const params = new URLSearchParams(window.location.search)
+  if (params.get('view') === 'map') view.value = 'map'
+  else if (params.get('view') === 'grid') view.value = 'grid'
+  else if (params.get('view') === 'list') view.value = 'list'
+})
 const selectedId = ref<string | null>(null)
 const hoverId = ref<string | null>(null)
 const favorites = ref<Set<string>>(new Set())

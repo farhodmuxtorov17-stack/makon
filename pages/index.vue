@@ -16,8 +16,8 @@
         </NuxtLink>
         <div class="hero-nav__links">
           <a href="#catalog" class="hero-nav__link">Katalog</a>
-          <a href="#how" class="hero-nav__link">Imkoniyatlar</a>
           <a href="#buildings" class="hero-nav__link">Binolar</a>
+          <a href="#how-it-works" class="hero-nav__link">Qanday ishlaydi</a>
           <a href="#contacts" class="hero-nav__link">Bog'lanish</a>
         </div>
         <div class="hero-nav__actions">
@@ -208,23 +208,6 @@
     </section>
 
     <!-- ============ FEATURES ============ -->
-    <section id="how" class="features-section">
-      <div class="features-section__header">
-        <div class="premium-section__eyebrow">PLATFORMA IMKONIYATLARI</div>
-        <h2 class="features-section__title">18 modul, 322 jadval va 51 yo'nalish</h2>
-        <p class="features-section__subtitle">Ko'chmas mulkni boshqarishning to'liq raqamli ekotizimi</p>
-      </div>
-
-      <div class="features-grid">
-        <div v-for="(f, i) in features" :key="i" class="feature-card">
-          <div class="feature-card__icon" :class="f.color">
-            <component :is="f.icon" :size="22" />
-          </div>
-          <h4 class="feature-card__title">{{ f.title }}</h4>
-          <p class="feature-card__desc">{{ f.desc }}</p>
-        </div>
-      </div>
-    </section>
 
     <!-- ============ OFFICE SHOWCASE ============ -->
     <section class="showcase-section">
@@ -259,7 +242,7 @@
     </section>
 
     <!-- ============ HOW IT WORKS ============ -->
-    <section class="how-section">
+    <section id="how-it-works" class="how-section">
       <div class="how-section__header">
         <div class="premium-section__eyebrow">QANDAY ISHLAYDI</div>
         <h2 class="how-section__title">Katalogdan shartnomagacha — 4 qadam</h2>
@@ -337,6 +320,76 @@
         <span class="landing-footer__badge">ERI orqali xavfsiz identifikatsiya</span>
       </div>
     </footer>
+
+    <!-- ============ MAKON AI ASSISTANT ============ -->
+    <div class="makon-ai-widget" :class="{ 'makon-ai-widget--open': aiOpen }">
+      <!-- Chat Panel -->
+      <transition name="ai-panel">
+        <div v-if="aiOpen" class="makon-ai-panel">
+          <div class="makon-ai-panel__header">
+            <div class="makon-ai-panel__avatar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L3 7v6c0 5 3.5 9 9 10 5.5-1 9-5 9-10V7l-9-5z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M8.5 12.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="makon-ai-panel__name">Makon AI</div>
+              <div class="makon-ai-panel__status">
+                <span class="makon-ai-panel__dot"></span> Onlayn
+              </div>
+            </div>
+            <button class="makon-ai-panel__close" @click="aiOpen = false">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+
+          <div class="makon-ai-panel__body" ref="aiBody">
+            <div v-for="(msg, i) in aiMessages" :key="i" class="makon-ai-msg" :class="`makon-ai-msg--${msg.role}`">
+              <div class="makon-ai-msg__bubble">{{ msg.text }}</div>
+            </div>
+            <div v-if="aiTyping" class="makon-ai-msg makon-ai-msg--assistant">
+              <div class="makon-ai-typing">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="makon-ai-panel__quick">
+            <button v-for="(q, i) in aiQuickActions" :key="i" @click="sendQuick(q)" class="makon-ai-chip">{{ q.label }}</button>
+          </div>
+
+          <div class="makon-ai-panel__input">
+            <input
+              v-model="aiInput"
+              @keyup.enter="sendAi"
+              type="text"
+              placeholder="Savolingizni yozing..."
+              class="makon-ai-input"
+            />
+            <button class="makon-ai-send" @click="sendAi" :disabled="!aiInput.trim()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </transition>
+
+      <!-- Floating Button -->
+      <button class="makon-ai-fab" @click="aiOpen = !aiOpen">
+        <transition name="ai-fab-icon" mode="out-in">
+          <svg v-if="!aiOpen" key="open" width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C8 2 5 5 5 9c0 2 1 3.5 2.5 5L7 17l3-1c.7.2 1.3.3 2 .3 4 0 7-3 7-7s-3-7-7-7z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+            <circle cx="9" cy="9" r="1" fill="white"/>
+            <circle cx="12" cy="9" r="1" fill="white"/>
+            <circle cx="15" cy="9" r="1" fill="white"/>
+          </svg>
+          <svg v-else key="close" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M6 6l12 12M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </transition>
+        <span v-if="!aiOpen" class="makon-ai-fab__badge">AI</span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -382,6 +435,57 @@ const features = [
   { icon: ShieldCheck, title: 'Rollar va huquqlar', desc: "5 rol: SUPER_HEAD, BUILDING_MANAGER, ACCOUNTANT, FACILITY, TENANT_OWNER.", color: 'text-indigo-500 bg-indigo-500/10' },
   { icon: Building, title: 'Katalog va listinglar', desc: "Ochiq katalog, listinglar, virtual turlar. Ko'rishlar statistikasi.", color: 'text-cyan-500 bg-cyan-500/10' },
 ]
+
+// === Makon AI Assistant ===
+const aiOpen = ref(false)
+const aiInput = ref('')
+const aiTyping = ref(false)
+const aiBody = ref<HTMLElement | null>(null)
+const aiMessages = ref([
+  { role: 'assistant', text: 'Salom! Men Makon AI yordamchisiman. Sizga ofis, ombor yoki savdo maydoni topishda yordam beraman. Nimadan boshlaymiz?' }
+])
+const aiQuickActions = [
+  { label: 'Ofis qidiryapman', query: 'ofis' },
+  { label: 'Narxlar qancha?', query: 'narx' },
+  { label: 'Qanday ro\'yxatdan o\'tish?', query: 'register' },
+  { label: 'Bino joylashtirish', query: 'building' },
+]
+
+const sendQuick = (q) => {
+  aiInput.value = q.label
+  sendAi()
+}
+
+const sendAi = () => {
+  const text = aiInput.value.trim()
+  if (!text) return
+  aiMessages.value.push({ role: 'user', text })
+  aiInput.value = ''
+  aiTyping.value = true
+
+  setTimeout(() => {
+    const lower = text.toLowerCase()
+    let reply = ''
+    if (lower.includes('ofis') || lower.includes('офис')) {
+      reply = 'Tashkent City va Trillant Tower\'da 85-200 m² ofis maydonlari mavjud. Katalog bo\'limiga o\'tib, o\'zingizga mos ofisni tanlang. Narxlar oyiga 15-25 mln so\'\'mdan boshlanadi.'
+    } else if (lower.includes('narx') || lower.includes('цена') || lower.includes('price')) {
+      reply = 'Ijara narxlari joylashuv va maydonga qarab: ofislar uchun 15-25 mln so\'\'m/oy, savdo maydonlari uchun 8-18 mln so\'\'m/oy, omborlar uchun 5-12 mln so\'\'m/oy. Aniq narxlar katalogda ko\'rsatilgan.'
+    } else if (lower.includes('ro\'yxat') || lower.includes('registr') || lower.includes('register')) {
+      reply = 'Ro\'yxatdan o\'tish ERI orqali amalga oshiriladi. "Ro\'yxatdan o\'tish" tugmasini bosing — ERI identifikatsiyasidan o\'ting va shaxsiy kabinetingizga kiring. Jarayon 2-3 daqiqa oladi.'
+    } else if (lower.includes('bino') || lower.includes('building') || lower.includes('joylashtir')) {
+      reply = 'Bino joylashtirish uchun avval ro\'yxatdan o\'ting. Keyin shaxsiy kabinetda "Bino qo\'shish" bo\'limidan binongiz ma\'lumotlarini kiriting — avtomatik katalogga chiqariladi.'
+    } else if (lower.includes('salom') || lower.includes('hello') || lower.includes('assalom')) {
+      reply = 'Assalomu alaykum! MAKON platformasiga xush kelibsiz. Sizga ofis, ombor yoki savdo maydoni topishda yordam bera olaman.'
+    } else {
+      reply = 'Tushundim! Bu masala bo\'yicha menejerimiz sizga batafsil maslahat bera oladi. Telefon: +998 71 200 00 00 yoki info@makon.uz ga yozing.'
+    }
+    aiMessages.value.push({ role: 'assistant', text: reply })
+    aiTyping.value = false
+    nextTick(() => {
+      if (aiBody.value) aiBody.value.scrollTop = aiBody.value.scrollHeight
+    })
+  }, 1200 + Math.random() * 600)
+}
 
 const steps = [
   { title: 'Katalogdan qidiring', desc: "Bo'sh maydonlarni filtrlash, taqqoslash va tanlash." },
@@ -1405,4 +1509,282 @@ function formatPrice(v: number) {
   .hero-stats { flex-wrap: wrap; justify-content: center; gap: 20px; }
   .hero-stat__divider { display: none; }
 }
+
+/* ============ MAKON AI WIDGET ============ */
+.makon-ai-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+
+/* FAB Button */
+.makon-ai-fab {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35), 0 0 0 0 rgba(99, 102, 241, 0.4);
+  animation: ai-pulse-ring 2.5s ease-out infinite;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.makon-ai-fab:hover { transform: scale(1.08); }
+.makon-ai-fab:active { transform: scale(0.95); }
+
+@keyframes ai-pulse-ring {
+  0% { box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35), 0 0 0 0 rgba(99, 102, 241, 0.5); }
+  70% { box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35), 0 0 0 18px rgba(99, 102, 241, 0); }
+  100% { box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35), 0 0 0 0 rgba(99, 102, 241, 0); }
+}
+
+.makon-ai-fab__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #f59e0b;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 8px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.ai-fab-icon-enter-active, .ai-fab-icon-leave-active { transition: all 0.2s; }
+.ai-fab-icon-enter-from { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+.ai-fab-icon-leave-to { opacity: 0; transform: rotate(90deg) scale(0.5); }
+
+/* Chat Panel */
+.ai-panel-enter-active { transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.ai-panel-leave-active { transition: all 0.2s ease; }
+.ai-panel-enter-from, .ai-panel-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+}
+
+.makon-ai-panel {
+  position: absolute;
+  bottom: 76px;
+  right: 0;
+  width: 380px;
+  max-width: calc(100vw - 48px);
+  height: 520px;
+  max-height: calc(100vh - 120px);
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.dark .makon-ai-panel { background: #18181b; box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06); }
+
+/* Header */
+.makon-ai-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+}
+.makon-ai-panel__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.makon-ai-panel__name { font-weight: 700; font-size: 15px; }
+.makon-ai-panel__status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+.makon-ai-panel__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.3);
+}
+.makon-ai-panel__close {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.makon-ai-panel__close:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* Body */
+.makon-ai-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f9fafb;
+}
+.dark .makon-ai-panel__body { background: #0f0f12; }
+
+/* Messages */
+.makon-ai-msg { display: flex; }
+.makon-ai-msg--user { justify-content: flex-end; }
+.makon-ai-msg__bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.makon-ai-msg--assistant .makon-ai-msg__bubble {
+  background: white;
+  color: #1f2937;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.dark .makon-ai-msg--assistant .makon-ai-msg__bubble { background: #27272a; color: #f4f4f5; }
+.makon-ai-msg--user .makon-ai-msg__bubble {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+/* Typing indicator */
+.makon-ai-typing { display: flex; gap: 4px; padding: 10px 14px; background: white; border-radius: 16px; border-bottom-left-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+.dark .makon-ai-typing { background: #27272a; }
+.makon-ai-typing span {
+  width: 8px; height: 8px; border-radius: 50%; background: #9ca3af;
+  animation: ai-typing-bounce 1.4s ease-in-out infinite;
+}
+.makon-ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.makon-ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes ai-typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Quick actions */
+.makon-ai-panel__quick {
+  display: flex;
+  gap: 8px;
+  padding: 10px 18px;
+  flex-wrap: wrap;
+  border-top: 1px solid #f0f0f0;
+}
+.dark .makon-ai-panel__quick { border-top-color: #27272a; }
+.makon-ai-chip {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  font-size: 12px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dark .makon-ai-chip { background: #27272a; border-color: #3f3f46; color: #d4d4d8; }
+.makon-ai-chip:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+  background: #eef2ff;
+}
+.dark .makon-ai-chip:hover { background: rgba(99,102,241,0.1); }
+
+/* Input */
+.makon-ai-panel__input {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid #f0f0f0;
+}
+.dark .makon-ai-panel__input { border-top-color: #27272a; }
+.makon-ai-input {
+  flex: 1;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+  background: #f9fafb;
+  color: #1f2937;
+  transition: border-color 0.2s;
+}
+.dark .makon-ai-input { background: #0f0f12; border-color: #3f3f46; color: #f4f4f5; }
+.makon-ai-input:focus { border-color: #6366f1; }
+.makon-ai-send {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.makon-ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+.makon-ai-send:not(:disabled):hover { opacity: 0.9; }
+
+@media (max-width: 640px) {
+  .makon-ai-panel { width: calc(100vw - 32px); height: calc(100vh - 100px); }
+  .makon-ai-widget { bottom: 16px; right: 16px; }
+  .makon-ai-fab { width: 52px; height: 52px; }
+}
+
+/* ============ GLOWING CTA BUTTON ============ */
+.btn-glow {
+  position: relative;
+  animation: btn-glow-pulse 2s ease-in-out infinite;
+}
+@keyframes btn-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 1px 3px rgba(79,70,229,0.4), 0 0 0 0 rgba(99,102,241,0.5), 0 0 0 0 rgba(99,102,241,0.3);
+  }
+  50% {
+    box-shadow: 0 1px 3px rgba(79,70,229,0.4), 0 0 0 6px rgba(99,102,241,0.15), 0 0 20px 4px rgba(99,102,241,0.25);
+  }
+}
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #6366f1);
+  opacity: 0;
+  z-index: -1;
+  border-radius: 12px;
+  animation: btn-glow-shimmer 3s linear infinite;
+  background-size: 200% 100%;
+}
+@keyframes btn-glow-shimmer {
+  0% { opacity: 0; background-position: 0% 0%; }
+  50% { opacity: 0.4; background-position: 100% 0%; }
+  100% { opacity: 0; background-position: 200% 0%; }
+}
+
 </style>

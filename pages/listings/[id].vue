@@ -102,7 +102,7 @@
                 <div class="text-xs text-ink-500 mt-1">{{ listing.offerType === 'RENT' ? 'oyiga' : 'bir martalik to\'lov' }}</div>
               </div>
 
-              <button @click="showForm = !showForm" class="btn btn-primary w-full mb-3" v-if="!formSubmitted">
+              <button @click="showForm = !showForm" class="btn btn-primary w-full mb-3 btn-glow" v-if="!formSubmitted">
                 {{ showForm ? 'Bekor qilish' : 'Ariza yuborish' }}
               </button>
 
@@ -136,7 +136,7 @@
                   <label class="label">Izoh</label>
                   <textarea v-model="form.notes" class="input" rows="3" placeholder="Qo'shimcha ma'lumot..."></textarea>
                 </div>
-                <button @click="submitApplication" class="btn btn-primary w-full" :disabled="submitting">
+                <button @click="submitApplication" class="btn btn-primary w-full btn-glow" :disabled="submitting">
                   {{ submitting ? 'Yuborilmoqda...' : 'Arizani yuborish' }}
                 </button>
                 <p class="text-xs text-ink-600">Ariza yuborib, siz shartlarga rozilik bildirasiz</p>
