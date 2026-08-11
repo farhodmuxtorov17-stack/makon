@@ -129,7 +129,7 @@
           </div>
           <div>
             <label class="label">Narx formati</label>
-            <select class="input"><option selected>so'm/oy</option><option>$/m²/oy</option><option>so'm/m²/oy</option></select>
+            <select class="input"><option selected>UZS/oy</option><option>$/m²/oy</option><option>UZS/m²/oy</option></select>
           </div>
         </div>
         <div class="space-y-2">

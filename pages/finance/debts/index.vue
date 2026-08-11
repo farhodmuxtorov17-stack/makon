@@ -12,9 +12,9 @@
     <template v-else-if="data">
       <!-- Summary -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <KpiCard :icon="AlertCircle" label="Jami qarzdorlik" :value="formatUZSShort(totalDebt)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-        <KpiCard :icon="Clock" label="Muddati o'tgan" :value="formatUZSShort(overdueDebt)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
-        <KpiCard :icon="Users" label="Qarzdorlar soni" :value="debtors.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
+        <KpiCard :icon="AlertCircle" label="Jami qarzdorlik" :value="formatUZSShort(totalDebt)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
+        <KpiCard :icon="Clock" label="Muddati o'tgan" :value="formatUZSShort(overdueDebt)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/finance/debts" />
+        <KpiCard :icon="Users" label="Qarzdorlar soni" :value="debtors.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/finance/debts" />
       </div>
 
       <!-- Debtors table -->

@@ -112,7 +112,7 @@
 
     <!-- Price -->
     <div class="filter-group">
-      <label class="filter-label">Narx (so'm)</label>
+      <label class="filter-label">Narx (UZS)</label>
       <div class="filter-range">
         <input
           type="number"

@@ -1,5 +1,5 @@
 <template>
-  <div class="kpi-card group">
+  <div class="kpi-card group" :class="{ 'kpi-card--clickable': to }" @click="handleClick">
     <div class="flex items-start justify-between mb-3">
       <div class="kpi-icon" :style="{ background: iconBg, color: iconColor }">
         <component :is="icon" :size="18" :stroke-width="2" />
@@ -8,6 +8,7 @@
         <component :is="trend >= 0 ? ArrowUpRight : ArrowDownRight" :size="11" :stroke-width="2.5" />
         {{ Math.abs(trend) }}%
       </div>
+      <ArrowRight v-if="to" :size="14" class="kpi-arrow" :style="{ color: iconColor }" />
     </div>
     <div class="kpi-value">{{ value }}</div>
     <div class="kpi-label">{{ label }}</div>
@@ -16,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowUpRight, ArrowDownRight } from 'lucide-vue-next'
+import { ArrowUpRight, ArrowDownRight, ArrowRight } from 'lucide-vue-next'
 
 const props = defineProps<{
   icon: any
@@ -26,7 +27,12 @@ const props = defineProps<{
   sub?: string
   iconBg?: string
   iconColor?: string
+  to?: string
 }>()
+
+function handleClick() {
+  if (props.to) navigateTo(props.to)
+}
 </script>
 
 <style scoped>
@@ -52,6 +58,23 @@ const props = defineProps<{
 :global(.dark) .kpi-card:hover {
   box-shadow: 0 4px 14px rgba(0,0,0,0.2);
   border-color: rgba(99,102,241,0.1);
+}
+
+.kpi-card--clickable {
+  cursor: pointer;
+}
+.kpi-card--clickable:hover {
+  border-color: rgba(99,102,241,0.2);
+  box-shadow: 0 8px 24px rgba(99,102,241,0.08);
+}
+.kpi-arrow {
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  transform: translateX(-4px);
+}
+.kpi-card--clickable:hover .kpi-arrow {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .kpi-icon {

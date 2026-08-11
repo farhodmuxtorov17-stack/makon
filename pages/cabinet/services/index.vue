@@ -34,7 +34,7 @@
           <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Keyingi to'lov</span>
         </div>
         <div class="text-2xl font-bold text-ink-900 dark:text-white">15 Avg</div>
-        <div class="text-xs text-ink-500 mt-1">25.0M so'm · INV-2026-052</div>
+        <div class="text-xs text-ink-500 mt-1">25.0M UZS · INV-2026-052</div>
       </div>
     </div>
 

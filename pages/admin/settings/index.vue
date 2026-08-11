@@ -33,7 +33,7 @@
           <div>
             <label class="text-xs font-medium text-ink-500 mb-1.5 block">Valyuta</label>
             <select class="settings-input">
-              <option>UZS (so'm)</option>
+              <option>UZS (UZS)</option>
               <option>UZS (so0027m)</option>
             </select>
           </div>

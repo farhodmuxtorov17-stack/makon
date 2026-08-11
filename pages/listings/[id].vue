@@ -248,7 +248,7 @@
                   <input v-model="form.applicantEmail" type="email" class="input" placeholder="email@example.uz" />
                 </div>
                 <div>
-                  <label class="label">Taklif narxi (so'm)</label>
+                  <label class="label">Taklif narxi (UZS)</label>
                   <input v-model.number="form.offeredPrice" type="number" class="input" :placeholder="listing.price" />
                 </div>
                 <div>

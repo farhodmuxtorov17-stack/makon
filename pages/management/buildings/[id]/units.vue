@@ -163,7 +163,7 @@
                 <label class="label">Valyuta</label>
                 <select v-model="newUnit.currency" class="input w-full">
                   <option value="UZS">UZS (so0027m)</option>
-                  <option value="UZS">UZS (so'm)</option>
+                  <option value="UZS">UZS (UZS)</option>
                 </select>
               </div>
             </div>

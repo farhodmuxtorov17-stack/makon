@@ -16,10 +16,10 @@
 
     <!-- KPI Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Mening unitlarim" :value="units.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
-      <KpiCard :icon="CheckCircle2" label="Faol shartnomalar" :value="activeContracts" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-      <KpiCard :icon="FileText" label="Kutilayotgan arizalar" :value="pendingApps" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
-      <KpiCard :icon="Wallet" label="Qarzdorlik" :value="formatUZSShort(debt)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+      <KpiCard :icon="Layers" label="Mening unitlarim" :value="units.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/cabinet/units" />
+      <KpiCard :icon="CheckCircle2" label="Faol shartnomalar" :value="activeContracts" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/cabinet/contracts" />
+      <KpiCard :icon="FileText" label="Kutilayotgan arizalar" :value="pendingApps" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" to="/cabinet/applications" />
+      <KpiCard :icon="Wallet" label="Qarzdorlik" :value="formatUZSShort(debt)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
     </div>
 
     <!-- Two columns: chart + notifications -->
@@ -95,7 +95,7 @@
             </div>
             <div class="flex-1 min-w-0">
               <div class="text-sm font-medium text-ink-900 dark:text-white truncate">{{ app.number }}</div>
-              <div class="text-xs text-ink-500">{{ app.unit }} · {{ formatUZSShort(app.price) }} so'm</div>
+              <div class="text-xs text-ink-500">{{ app.unit }} · {{ formatUZSShort(app.price) }} UZS</div>
             </div>
             <span class="badge text-[10px] flex-shrink-0" :class="appStatusBadge(app.status)">{{ appStatusLabel(app.status) }}</span>
           </div>

@@ -14,7 +14,7 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <KpiCard :icon="CheckCircle2" label="Aktiv" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
       <KpiCard :icon="FileSignature" label="Imzolanmoqda" :value="signingCount" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
-      <KpiCard :icon="AlertCircle" label="Muddati o'tgan" :value="expiredCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+      <KpiCard :icon="AlertCircle" label="Muddati o'tgan" :value="expiredCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/contracts" />
       <KpiCard :icon="ShieldCheck" label="ERI imzolangan" :value="eriCount" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
     </div>
 

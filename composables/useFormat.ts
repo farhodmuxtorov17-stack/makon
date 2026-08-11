@@ -5,11 +5,11 @@
 
 export function useFormat() {
   /**
-   * Full format: 25 000 000 so'm
+   * Full format: 25 000 000 UZS
    */
   function formatUZS(amount: number): string {
     if (!amount && amount !== 0) return '—'
-    return new Intl.NumberFormat('ru-RU').format(Math.round(amount)) + " so'm"
+    return new Intl.NumberFormat('ru-RU').format(Math.round(amount)) + " UZS"
   }
 
   /**
@@ -24,17 +24,17 @@ export function useFormat() {
   }
 
   /**
-   * Compact with currency: 25.0M so'm
+   * Compact with currency: 25.0M UZS
    */
   function formatUZSCompact(amount: number): string {
-    return formatUZSShort(amount) + " so'm"
+    return formatUZSShort(amount) + " UZS"
   }
 
   /**
-   * Per m²: 294 000 so'm/m²
+   * Per m²: 294 000 UZS/m²
    */
   function formatPerM2(amount: number): string {
-    return new Intl.NumberFormat('ru-RU').format(Math.round(amount)) + " so'm/m²"
+    return new Intl.NumberFormat('ru-RU').format(Math.round(amount)) + " UZS/m²"
   }
 
   /**

@@ -10,10 +10,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Clock" label="Kutilmoqda" :value="pendingCount" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
-      <KpiCard :icon="FileSignature" label="Imzolangan" :value="signedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-      <KpiCard :icon="AlertCircle" label="Rad etilgan" :value="rejectedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-      <KpiCard :icon="ShieldCheck" label="Jami" :value="signatures.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
+      <KpiCard :icon="Clock" label="Kutilmoqda" :value="pendingCount" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/eri/signatures" />
+      <KpiCard :icon="FileSignature" label="Imzolangan" :value="signedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/eri/signatures" />
+      <KpiCard :icon="AlertCircle" label="Rad etilgan" :value="rejectedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/eri/signatures" />
+      <KpiCard :icon="ShieldCheck" label="Jami" :value="signatures.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/eri/signatures" />
     </div>
 
     <!-- Filter -->

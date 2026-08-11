@@ -32,7 +32,7 @@
             </select>
           </div>
           <div>
-            <label class="label">Narx (so'm)</label>
+            <label class="label">Narx (UZS)</label>
             <input v-model="form.price" type="number" class="input" placeholder="25000000" />
           </div>
         </div>

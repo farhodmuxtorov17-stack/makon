@@ -13,10 +13,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Package" label="Jami pozitsiyalar" :value="materials.length" icon-color="#f97316" icon-bg="rgba(249,115,22,0.1)" />
-      <KpiCard :icon="CheckCircle2" label="Ombor qiymati" :value="formatUZSShort(totalValue)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-      <KpiCard :icon="AlertCircle" label="Kam qoldi" :value="lowStockCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-      <KpiCard :icon="Layers" label="Oylik sarflash" :value="formatUZSShort(monthlyUsage)" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
+      <KpiCard :icon="Package" label="Jami pozitsiyalar" :value="materials.length" icon-color="#f97316" icon-bg="rgba(249,115,22,0.1)" to="/finance/inventory" />
+      <KpiCard :icon="CheckCircle2" label="Ombor qiymati" :value="formatUZSShort(totalValue)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/inventory" />
+      <KpiCard :icon="AlertCircle" label="Kam qoldi" :value="lowStockCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/inventory" />
+      <KpiCard :icon="Layers" label="Oylik sarflash" :value="formatUZSShort(monthlyUsage)" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/finance/inventory" />
     </div>
 
     <!-- Category filter + search -->

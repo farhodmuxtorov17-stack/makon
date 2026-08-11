@@ -10,10 +10,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Users" label="Jami" :value="users.length" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" />
-      <KpiCard :icon="UserCheck" label="Faol" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-      <KpiCard :icon="Clock" label="Taklif kutilmoqda" :value="pendingCount" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
-      <KpiCard :icon="ShieldCheck" label="Adminlar" :value="adminCount" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" />
+      <KpiCard :icon="Users" label="Jami" :value="users.length" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/admin/users" />
+      <KpiCard :icon="UserCheck" label="Faol" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/admin/users" />
+      <KpiCard :icon="Clock" label="Taklif kutilmoqda" :value="pendingCount" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/admin/users" />
+      <KpiCard :icon="ShieldCheck" label="Adminlar" :value="adminCount" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" to="/admin/roles" />
     </div>
 
     <!-- Search + role filter -->

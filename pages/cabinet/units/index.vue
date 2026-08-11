@@ -41,7 +41,7 @@
             </div>
             <div class="text-center p-2 rounded-lg bg-black/5 dark:bg-white/5">
               <div class="text-sm font-bold text-ink-900 dark:text-white">{{ unit.rent || '—' }}</div>
-              <div class="text-[10px] text-ink-500">so'm/oy</div>
+              <div class="text-[10px] text-ink-500">UZS/oy</div>
             </div>
           </div>
 

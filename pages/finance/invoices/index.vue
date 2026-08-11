@@ -13,10 +13,10 @@
 
     <!-- KPI cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="DollarSign" label="Jami summa" :value="formatUZSShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
-      <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatUZSShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-      <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatUZSShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-      <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
+      <KpiCard :icon="DollarSign" label="Jami summa" :value="formatUZSShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/finance/invoices" />
+      <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatUZSShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/invoices" />
+      <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatUZSShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
+      <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/finance/debts" />
     </div>
 
     <!-- Mini chart -->
@@ -109,15 +109,15 @@
         <div class="p-4 rounded-xl bg-black/5 dark:bg-white/5 space-y-2">
           <div class="flex justify-between text-sm">
             <span class="text-ink-500">Jami summa</span>
-            <span class="font-bold text-ink-900 dark:text-white">{{ formatUZSShort(selectedInvoice.amount) }} so'm</span>
+            <span class="font-bold text-ink-900 dark:text-white">{{ formatUZSShort(selectedInvoice.amount) }} UZS</span>
           </div>
           <div class="flex justify-between text-sm">
             <span class="text-ink-500">To'langan</span>
-            <span class="font-bold text-emerald-500">{{ formatUZSShort(selectedInvoice.paidAmount) }} so'm</span>
+            <span class="font-bold text-emerald-500">{{ formatUZSShort(selectedInvoice.paidAmount) }} UZS</span>
           </div>
           <div class="flex justify-between text-sm border-t border-black/5 dark:border-white/5 pt-2">
             <span class="text-ink-500">Qoldiq</span>
-            <span class="font-bold" :class="selectedInvoice.balance > 0 ? 'text-red-500' : 'text-emerald-500'">{{ formatUZSShort(selectedInvoice.balance) }} so'm</span>
+            <span class="font-bold" :class="selectedInvoice.balance > 0 ? 'text-red-500' : 'text-emerald-500'">{{ formatUZSShort(selectedInvoice.balance) }} UZS</span>
           </div>
         </div>
         <div class="flex gap-2">
@@ -157,7 +157,7 @@
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Summa (so'm)</label>
+            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Summa (UZS)</label>
             <input v-model.number="newInvoice.amount" type="number" class="input w-full" placeholder="25000000" />
           </div>
           <div>

@@ -56,7 +56,7 @@
           </div>
           <div class="text-xs text-ink-500">Oldingi: {{ formatNum(lastMonthData?.electricity || 0) }} kWh</div>
           <input v-model="readings.electricity" type="number" step="0.01" class="input" placeholder="0" :disabled="readonly" />
-          <div v-if="readings.electricity" class="text-xs text-ink-500">Sarf: {{ formatNum(Number(readings.electricity) - (lastMonthData?.electricity || 0)) }} kWh · {{ formatNum((Number(readings.electricity) - (lastMonthData?.electricity || 0)) * 375) }} so'm</div>
+          <div v-if="readings.electricity" class="text-xs text-ink-500">Sarf: {{ formatNum(Number(readings.electricity) - (lastMonthData?.electricity || 0)) }} kWh · {{ formatNum((Number(readings.electricity) - (lastMonthData?.electricity || 0)) * 375) }} UZS</div>
         </div>
 
         <!-- Water -->
@@ -66,7 +66,7 @@
           </div>
           <div class="text-xs text-ink-500">Oldingi: {{ formatNum(lastMonthData?.water || 0) }} m³</div>
           <input v-model="readings.water" type="number" step="0.01" class="input" placeholder="0" :disabled="readonly" />
-          <div v-if="readings.water" class="text-xs text-ink-500">Sarf: {{ formatNum(Number(readings.water) - (lastMonthData?.water || 0)) }} m³ · {{ formatNum((Number(readings.water) - (lastMonthData?.water || 0)) * 1200) }} so'm</div>
+          <div v-if="readings.water" class="text-xs text-ink-500">Sarf: {{ formatNum(Number(readings.water) - (lastMonthData?.water || 0)) }} m³ · {{ formatNum((Number(readings.water) - (lastMonthData?.water || 0)) * 1200) }} UZS</div>
         </div>
 
         <!-- Gas -->
@@ -76,14 +76,14 @@
           </div>
           <div class="text-xs text-ink-500">Oldingi: {{ formatNum(lastMonthData?.gas || 0) }} m³</div>
           <input v-model="readings.gas" type="number" step="0.01" class="input" placeholder="0" :disabled="readonly" />
-          <div v-if="readings.gas" class="text-xs text-ink-500">Sarf: {{ formatNum(Number(readings.gas) - (lastMonthData?.gas || 0)) }} m³ · {{ formatNum((Number(readings.gas) - (lastMonthData?.gas || 0)) * 1800) }} so'm</div>
+          <div v-if="readings.gas" class="text-xs text-ink-500">Sarf: {{ formatNum(Number(readings.gas) - (lastMonthData?.gas || 0)) }} m³ · {{ formatNum((Number(readings.gas) - (lastMonthData?.gas || 0)) * 1800) }} UZS</div>
         </div>
       </div>
 
       <!-- Total -->
       <div class="p-4 rounded-xl bg-brand-500/5 flex items-center justify-between">
         <span class="text-sm text-ink-500">Jami summa:</span>
-        <span class="text-lg font-bold">{{ formatNum(totalAmount) }} so'm</span>
+        <span class="text-lg font-bold">{{ formatNum(totalAmount) }} UZS</span>
       </div>
 
       <!-- Actions -->
@@ -117,7 +117,7 @@
               <td class="px-3 py-2 text-right">{{ formatNum(h.electricity) }} kWh</td>
               <td class="px-3 py-2 text-right">{{ formatNum(h.water) }} m³</td>
               <td class="px-3 py-2 text-right">{{ formatNum(h.gas) }} m³</td>
-              <td class="px-3 py-2 text-right font-medium">{{ formatNum(h.total) }} so'm</td>
+              <td class="px-3 py-2 text-right font-medium">{{ formatNum(h.total) }} UZS</td>
               <td class="px-3 py-2 text-center">
                 <span class="badge text-xs" :class="h.status === 'PAID' ? 'badge-success' : h.status === 'SUBMITTED' ? 'badge-warning' : 'badge-neutral'">
                   {{ h.status === 'PAID' ? 'To\'langan' : h.status === 'SUBMITTED' ? 'Topshirilgan' : 'Kutilmoqda' }}
