@@ -34,7 +34,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="inv in debtors" :key="inv.id" class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <tr v-for="inv in debtors" :key="inv.id" @click="navigateTo(`/finance/invoices/${inv.id}`)" class="border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer">
               <td class="px-4 py-3 font-medium">{{ inv.tenantName }}</td>
               <td class="px-4 py-3 hidden md:table-cell font-mono text-xs text-ink-500">{{ inv.number }}</td>
               <td class="px-4 py-3 text-right">{{ formatUZS(inv.amount) }}</td>

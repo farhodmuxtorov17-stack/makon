@@ -10,10 +10,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Jami" :value="units.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
-      <KpiCard :icon="TrendingUp" label="Band" :value="units.length" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-      <KpiCard :icon="AlertCircle" label="Bo'sh" :value="occupiedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-      <KpiCard :icon="Building2" label="Maydon" :value="vacantCount" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" />
+      <KpiCard :icon="Layers" label="Jami" :value="units.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/management/units" />
+      <KpiCard :icon="TrendingUp" label="Band" :value="units.length" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/management/units" />
+      <KpiCard :icon="AlertCircle" label="Bo'sh" :value="occupiedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/management/units" />
+      <KpiCard :icon="Building2" label="Maydon" :value="vacantCount" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/management/units" />
     </div>
 
     <!-- Search + filters -->
@@ -57,7 +57,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="u in filteredUnits" :key="u.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <tr v-for="u in filteredUnits" :key="u.id" @click="navigateTo(`/units/${u.id}`)" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer">
               <td class="px-4 py-3 font-medium text-ink-900 dark:text-white">{{ u.name }}</td>
               <td class="px-4 py-3 hidden sm:table-cell text-ink-500">{{ u.building }}</td>
               <td class="px-4 py-3 text-center hidden md:table-cell text-ink-500">{{ u.floor }}</td>

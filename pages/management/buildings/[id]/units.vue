@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="u in filteredUnits" :key="u.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3 transition-colors">
+            <tr v-for="u in filteredUnits" :key="u.id" @click="navigateTo(`/units/${u.id}`)" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3 transition-colors cursor-pointer">
               <td class="px-4 py-3 font-bold font-mono text-ink-900 dark:text-white">
                 {{ u.unitNumber }}
               </td>

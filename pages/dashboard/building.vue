@@ -29,6 +29,7 @@
         :label="kpi.label"
         :value="kpi.value"
         :trend="kpi.trend"
+        :to="kpi.to"
         :icon-bg="kpi.iconBg"
         :icon-color="kpi.iconColor"
       />

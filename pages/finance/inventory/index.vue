@@ -55,7 +55,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="mat in filteredMaterials" :key="mat.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <tr v-for="mat in filteredMaterials" :key="mat.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer" @click="navigateTo('/finance/inventory')">
               <td class="px-4 py-3 font-medium text-ink-900 dark:text-white">
                 <div class="flex items-center gap-2">
                   <div class="w-8 h-8 rounded-lg flex items-center justify-center" :style="{ background: categoryColor(mat.category) + '15' }">

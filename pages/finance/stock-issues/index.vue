@@ -77,7 +77,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="issue in issues" :key="issue.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3">
+            <tr v-for="issue in issues" :key="issue.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3 cursor-pointer" @click="navigateTo('/finance/stock-issues')">
               <td class="px-4 py-3 font-medium">{{ issue.actNumber }}</td>
               <td class="px-4 py-3 text-ink-500">{{ issue.request }}</td>
               <td class="px-4 py-3">{{ issue.recipient }}</td>

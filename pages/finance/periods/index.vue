@@ -44,7 +44,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="p in periods" :key="p.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <tr v-for="p in periods" :key="p.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer" @click="navigateTo('/finance/periods')">
               <td class="px-4 py-3 font-medium text-ink-900 dark:text-white">{{ p.label }}</td>
               <td class="px-4 py-3 text-ink-500">{{ p.year }}</td>
               <td class="px-4 py-3 text-center text-ink-700 dark:text-ink-300">{{ p.invoiceCount }}</td>

@@ -82,7 +82,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="inv in invoices" :key="inv.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <tr v-for="inv in invoices" :key="inv.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer" @click="navigateTo('/cabinet/services')">
               <td class="px-3 py-3 font-mono text-xs text-ink-700 dark:text-ink-300">{{ inv.number }}</td>
               <td class="px-3 py-3 hidden sm:table-cell text-ink-500">{{ inv.unit }}</td>
               <td class="px-3 py-3 hidden md:table-cell text-ink-500">{{ inv.period }}</td>

@@ -47,7 +47,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="r in filteredReadings" :key="r.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <tr v-for="r in filteredReadings" :key="r.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer" @click="navigateTo('/meters/readings')">
               <td class="px-4 py-3 font-mono text-xs text-ink-900 dark:text-white">{{ r.meterNumber }}</td>
               <td class="px-4 py-3 hidden sm:table-cell text-ink-500">{{ r.unit }} · {{ r.building }}</td>
               <td class="px-4 py-3 text-center">

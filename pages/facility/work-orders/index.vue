@@ -100,7 +100,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-ink-100 dark:divide-ink-800">
-            <tr v-for="order in filteredOrders" :key="order.id" class="hover:bg-ink-50 dark:hover:bg-ink-900/30">
+            <tr v-for="order in filteredOrders" :key="order.id" class="hover:bg-ink-50 dark:hover:bg-ink-900/30 cursor-pointer" @click="selectedOrder = order">
               <td class="px-4 py-3 font-mono text-xs">{{ order.number }}</td>
               <td class="px-4 py-3">{{ order.category }}</td>
               <td class="px-4 py-3">{{ order.buildingName }}</td>

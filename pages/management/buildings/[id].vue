@@ -17,10 +17,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
-      <KpiCard :icon="TrendingUp" label="Band" :value="building.totalUnits" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-      <KpiCard :icon="AlertCircle" label="Bo'sh" :value="building.occupiedUnits" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
-      <KpiCard :icon="Building2" label="Maydon" :value="building.vacantUnits" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" />
+      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/management/units" />
+      <KpiCard :icon="TrendingUp" label="Band" :value="building.totalUnits" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/management/units" />
+      <KpiCard :icon="AlertCircle" label="Bo'sh" :value="building.occupiedUnits" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/management/units" />
+      <KpiCard :icon="Building2" label="Maydon" :value="building.vacantUnits" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/management/units" />
     </div>
 
     <!-- Tabs -->
