@@ -42,12 +42,7 @@
           </div>
         </div>
         <div class="dash__chart-body">
-          <div class="dash__chart-bars">
-            <div v-for="(bar, i) in chartData" :key="i" class="dash__chart-bar">
-              <div class="dash__chart-bar-fill" :style="{ height: bar.height + '%' }"></div>
-              <div class="dash__chart-bar-label">{{ bar.label }}</div>
-            </div>
-          </div>
+          <DotBarChart :data="chartData" :rows="14" :height="200" :format-value="(v) => v + 'M UZS'" />
         </div>
       </div>
 
@@ -128,10 +123,10 @@ const kpis = [
 ]
 
 const chartData = [
-  { label: 'Yan', height: 65 }, { label: 'Fev', height: 72 }, { label: 'Mar', height: 68 },
-  { label: 'Apr', height: 80 }, { label: 'May', height: 85 }, { label: 'Iyn', height: 78 },
-  { label: 'Iyl', height: 92 }, { label: 'Avg', height: 88 }, { label: 'Sen', height: 95 },
-  { label: 'Okt', height: 90 }, { label: 'Noy', height: 82 }, { label: 'Dek', height: 98 },
+  { label: 'Yan', value: 165 }, { label: 'Fev', value: 178 }, { label: 'Mar', value: 172 },
+  { label: 'Apr', value: 196 }, { label: 'May', value: 205 }, { label: 'Iyn', value: 188 },
+  { label: 'Iyl', value: 218 }, { label: 'Avg', value: 210 }, { label: 'Sen', value: 228 },
+  { label: 'Okt', value: 221 }, { label: 'Noy', value: 202 }, { label: 'Dek', value: 247 },
 ]
 
 const buildingRevenue = [
