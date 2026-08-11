@@ -245,15 +245,8 @@ const categoryProgress = computed(() => {
     umumiy: calc('Umumiy toza') || 90,
   }
 })
-const workOrders = ref([
-  { id: 1, number: 'WO-2026-001', category: 'Santexnika', buildingName: 'Tashkent City', unitCode: 'A-301', assignedToName: 'Akmal Sodiqov', priority: 'URGENT', status: 'IN_PROGRESS', slaDueAt: '2026-08-12', slaBreached: false, description: 'A-301 ofisida quvur nuqsoni, suv oqmoqda. Shoshilinch.' },
-  { id: 2, number: 'WO-2026-002', category: 'Elektr', buildingName: 'Trillant Tower', unitCode: 'B-501', assignedToName: 'Bekzod Aliyev', priority: 'HIGH', status: 'ASSIGNED', slaDueAt: '2026-08-14', slaBreached: false, description: 'B-501 da elektr rozetkasi ishlamayapti.' },
-  { id: 3, number: 'WO-2026-003', category: 'Konditsioner', buildingName: 'IT Park', unitCode: 'C-201', assignedToName: 'Dilshod Karimov', priority: 'NORMAL', status: 'COMPLETED', slaDueAt: '2026-08-08', slaBreached: false, description: 'C-201 konditsioner filtrlarini almashtirish.' },
-  { id: 4, number: 'WO-2026-004', category: 'Umumiy toza', buildingName: 'Piramit', unitCode: 'D-102', assignedToName: null, priority: 'LOW', status: 'ASSIGNED', slaDueAt: '2026-08-15', slaBreached: false, description: 'D-102 umumiy tozalash ishlari.' },
-  { id: 5, number: 'WO-2026-005', category: 'Santexnika', buildingName: 'Tashkent City', unitCode: 'A-205', assignedToName: 'Akmal Sodiqov', priority: 'HIGH', status: 'IN_PROGRESS', slaDueAt: '2026-08-09', slaBreached: true, description: 'A-205 dush kabina shikastlangan.' },
-  { id: 6, number: 'WO-2026-006', category: 'Elektr', buildingName: 'Savdo Markaz', unitCode: 'E-301', assignedToName: 'Bekzod Aliyev', priority: 'NORMAL', status: 'COMPLETED', slaDueAt: '2026-08-07', slaBreached: false, description: 'E-301 yoritish lampalarini almashtirish.' },
-  { id: 7, number: 'WO-2026-007', category: 'Konditsioner', buildingName: 'Trillant Tower', unitCode: 'B-502', assignedToName: null, priority: 'URGENT', status: 'ASSIGNED', slaDueAt: '2026-08-11', slaBreached: false, description: 'B-502 konditsioner sovimayapti, tezkor tahlil kerak.' },
-])
+const store = useMakonStore()
+const workOrders = computed(() => store.workOrders)
 
 const filteredOrders = computed(() => {
   return workOrders.value.filter(o => {
@@ -264,21 +257,22 @@ const filteredOrders = computed(() => {
 })
 
 function createOrder() {
-  const req = serviceRequests.find(r => r.id === newOrder.requestId)
-  const bld = buildings.find(b => b.id === newOrder.buildingId)
-  const wrk = workers.find(w => w.id === newOrder.assignedTo)
-  workOrders.value.unshift({
+  // Add to store
+  const bld = store.buildings.find(b => b.id === newOrder.buildingId)
+  store.workOrders.push({
     id: Date.now(),
-    number: `WO-2026-${String(workOrders.value.length + 1).padStart(3, '0')}`,
-    category: req?.category || 'Umumiy',
+    number: `WO-2026-${String(store.workOrders.length + 1).padStart(3, '0')}`,
+    category: 'Umumiy',
+    buildingId: newOrder.buildingId,
     buildingName: bld?.name || '—',
     unitCode: '',
-    assignedToName: wrk?.name.split(' — ')[0] || null,
+    assignedToName: newOrder.assignedTo || null,
     priority: 'NORMAL',
     status: 'ASSIGNED',
     slaDueAt: newOrder.slaDueAt || '',
     slaBreached: false,
     description: newOrder.description,
+    createdAt: new Date().toISOString().split('T')[0],
   })
   showNew.value = false
   newOrder.requestId = ''; newOrder.buildingId = ''; newOrder.assignedTo = ''; newOrder.slaDueAt = ''; newOrder.description = ''

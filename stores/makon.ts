@@ -162,6 +162,54 @@ export interface EriSignatureItem {
   errorMessage?: string
 }
 
+export interface InvoiceItem {
+  id: string
+  number: string
+  contractId: string
+  contractNumber: string
+  tenantName: string
+  buildingId: string
+  buildingName: string
+  unitNumber: string
+  period: string
+  amount: number
+  paidAmount: number
+  balance: number
+  currency: 'UZS' | 'USD'
+  status: 'PENDING' | 'PAID' | 'PARTIAL' | 'OVERDUE'
+  dueDate: string
+  issuedDate: string
+}
+
+export interface PeriodItem {
+  id: string
+  label: string
+  year: number
+  month: number
+  status: 'OPEN' | 'CLOSED'
+  revenue: number
+  collected: number
+  debt: number
+  invoiceCount: number
+  collectedPct: number
+}
+
+export interface WorkOrderItem {
+  id: number
+  number: string
+  category: string
+  buildingId: string
+  buildingName: string
+  unitCode: string
+  assignedToName: string | null
+  priority: 'URGENT' | 'HIGH' | 'NORMAL' | 'LOW'
+  status: 'ASSIGNED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED'
+  slaDueAt: string
+  slaBreached: boolean
+  description: string
+  createdAt: string
+}
+
 export const useMakonStore = defineStore('makon', () => {
   // Buildings Initial Data
   const buildings = ref<BuildingItem[]>([
@@ -987,6 +1035,40 @@ export const useMakonStore = defineStore('makon', () => {
     }
   }
 
+  // ---------------- Invoices ----------------
+  const invoices = ref<InvoiceItem[]>([
+    { id: 'inv-001', number: 'INV-2026-045', contractId: 'c1', contractNumber: 'CTR-2026-001', tenantName: 'Orient Logistika MChJ', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-03', period: '2026-07', amount: 8500000, paidAmount: 0, balance: 8500000, currency: 'UZS', status: 'OVERDUE', dueDate: '2026-07-01', issuedDate: '2026-06-28' },
+    { id: 'inv-002', number: 'INV-2026-046', contractId: 'c2', contractNumber: 'CTR-2026-002', tenantName: 'Ipak Yuli Savdo MChJ', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitNumber: 'G-02', period: '2026-07', amount: 6200000, paidAmount: 3100000, balance: 3100000, currency: 'UZS', status: 'PARTIAL', dueDate: '2026-07-15', issuedDate: '2026-06-30' },
+    { id: 'inv-003', number: 'INV-2026-047', contractId: 'c3', contractNumber: 'CTR-2026-005', tenantName: 'Alfa Biznes MChJ', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitNumber: '303', period: '2026-08', amount: 4800000, paidAmount: 0, balance: 4800000, currency: 'UZS', status: 'PENDING', dueDate: '2026-08-01', issuedDate: '2026-07-28' },
+    { id: 'inv-004', number: 'INV-2026-048', contractId: 'c1', contractNumber: 'CTR-2025-098', tenantName: 'Markaz Savdo MChJ', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '103', period: '2026-06', amount: 7200000, paidAmount: 5400000, balance: 1800000, currency: 'UZS', status: 'PARTIAL', dueDate: '2026-06-15', issuedDate: '2026-05-28' },
+    { id: 'inv-005', number: 'INV-2026-049', contractId: 'c2', contractNumber: 'CTR-2026-012', tenantName: 'Chorsu Retail MChJ', buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitNumber: '404', period: '2026-08', amount: 5500000, paidAmount: 0, balance: 5500000, currency: 'UZS', status: 'PENDING', dueDate: '2026-08-10', issuedDate: '2026-07-30' },
+    { id: 'inv-006', number: 'INV-2026-050', contractId: 'c3', contractNumber: 'CTR-2026-018', tenantName: 'Zomin Invest MChJ', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitNumber: '302', period: '2026-07', amount: 3900000, paidAmount: 2920000, balance: 980000, currency: 'UZS', status: 'PARTIAL', dueDate: '2026-07-20', issuedDate: '2026-06-25' },
+    { id: 'inv-007', number: 'INV-2026-051', contractId: 'c1', contractNumber: 'CTR-2026-001', tenantName: 'Orient Logistika MChJ', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-03', period: '2026-08', amount: 8500000, paidAmount: 8500000, balance: 0, currency: 'UZS', status: 'PAID', dueDate: '2026-08-01', issuedDate: '2026-07-28' },
+    { id: 'inv-008', number: 'INV-2026-052', contractId: 'c2', contractNumber: 'CTR-2026-002', tenantName: 'Ipak Yuli Savdo MChJ', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitNumber: 'G-02', period: '2026-08', amount: 6200000, paidAmount: 6200000, balance: 0, currency: 'UZS', status: 'PAID', dueDate: '2026-08-01', issuedDate: '2026-07-28' },
+  ])
+
+  // ---------------- Periods ----------------
+  const periods = ref<PeriodItem[]>([
+    { id: 'p1', label: 'Avgust', year: 2026, month: 8, status: 'OPEN', revenue: 42000000, collected: 31500000, debt: 10500000, invoiceCount: 48, collectedPct: 75 },
+    { id: 'p2', label: 'Iyul', year: 2026, month: 7, status: 'CLOSED', revenue: 38500000, collected: 36200000, debt: 2300000, invoiceCount: 45, collectedPct: 94 },
+    { id: 'p3', label: 'Iyun', year: 2026, month: 6, status: 'CLOSED', revenue: 41000000, collected: 39500000, debt: 1500000, invoiceCount: 47, collectedPct: 96 },
+    { id: 'p4', label: 'May', year: 2026, month: 5, status: 'CLOSED', revenue: 37000000, collected: 36800000, debt: 200000, invoiceCount: 43, collectedPct: 99 },
+    { id: 'p5', label: 'Aprel', year: 2026, month: 4, status: 'CLOSED', revenue: 35000000, collected: 35000000, debt: 0, invoiceCount: 41, collectedPct: 100 },
+    { id: 'p6', label: 'Mart', year: 2026, month: 3, status: 'CLOSED', revenue: 34000000, collected: 33500000, debt: 500000, invoiceCount: 40, collectedPct: 98 },
+  ])
+
+  // ---------------- Work Orders ----------------
+  const workOrders = ref<WorkOrderItem[]>([
+    { id: 1, number: 'WO-2026-001', category: 'Santexnika', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitCode: '303', assignedToName: 'Akmal Sodiqov', priority: 'URGENT', status: 'IN_PROGRESS', slaDueAt: '2026-08-12', slaBreached: false, description: '303-ofisda quvur nuqsoni, suv oqmoqda. Shoshilinch.', createdAt: '2026-08-10' },
+    { id: 2, number: 'WO-2026-002', category: 'Elektr', buildingId: 'b1', buildingName: 'Trillant Tower A', unitCode: '501', assignedToName: 'Bekzod Aliyev', priority: 'HIGH', status: 'ASSIGNED', slaDueAt: '2026-08-14', slaBreached: false, description: '501-da elektr rozetkasi ishlamayapti.', createdAt: '2026-08-10' },
+    { id: 3, number: 'WO-2026-003', category: 'Konditsioner', buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitCode: '402', assignedToName: 'Dilshod Karimov', priority: 'NORMAL', status: 'COMPLETED', slaDueAt: '2026-08-08', slaBreached: false, description: '402-konditsioner filtrlarini almashtirish.', createdAt: '2026-08-07' },
+    { id: 4, number: 'WO-2026-004', category: 'Umumiy toza', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitCode: 'G-12', assignedToName: null, priority: 'LOW', status: 'ASSIGNED', slaDueAt: '2026-08-15', slaBreached: false, description: 'G-12 umumiy tozalash ishlari.', createdAt: '2026-08-10' },
+    { id: 5, number: 'WO-2026-005', category: 'Santexnika', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitCode: '304', assignedToName: 'Akmal Sodiqov', priority: 'HIGH', status: 'IN_PROGRESS', slaDueAt: '2026-08-09', slaBreached: true, description: '304-dush kabina shikastlangan.', createdAt: '2026-08-08' },
+    { id: 6, number: 'WO-2026-006', category: 'Elektr', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitCode: 'W-02', assignedToName: 'Bekzod Aliyev', priority: 'NORMAL', status: 'COMPLETED', slaDueAt: '2026-08-07', slaBreached: false, description: 'W-02 yoritish lampalarini almashtirish.', createdAt: '2026-08-06' },
+    { id: 7, number: 'WO-2026-007', category: 'Konditsioner', buildingId: 'b1', buildingName: 'Trillant Tower A', unitCode: '502', assignedToName: null, priority: 'URGENT', status: 'ASSIGNED', slaDueAt: '2026-08-11', slaBreached: false, description: '502-konditsioner sovimayapti, tezkor tahlil kerak.', createdAt: '2026-08-10' },
+  ])
+
+
   return {
     buildings,
     units,
@@ -995,6 +1077,9 @@ export const useMakonStore = defineStore('makon', () => {
     serviceRequests,
     contracts,
     eriSignatures,
+    invoices,
+    periods,
+    workOrders,
     visualSettings,
     updateBuilding,
 

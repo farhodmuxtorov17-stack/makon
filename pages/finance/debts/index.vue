@@ -163,14 +163,30 @@ definePageMeta({ layout: 'admin', middleware: 'auth' })
 const search = ref('')
 const filterStatus = ref('ALL')
 
-const debtors = ref([
-  { id: 'inv-001', tenantName: 'Orient Logistika MChJ', contract: 'CTR-2026-001', number: 'INV-2026-045', amount: 8500000, balance: 8500000, dueDate: '2026-07-01', paidPct: 0, color: 'bg-red-500/10 text-red-500', initials: 'OL' },
-  { id: 'inv-002', tenantName: 'Ipak Yuli Savdo MChJ', contract: 'CTR-2026-002', number: 'INV-2026-046', amount: 6200000, balance: 3100000, dueDate: '2026-07-15', paidPct: 50, color: 'bg-amber-500/10 text-amber-500', initials: 'IY' },
-  { id: 'inv-003', tenantName: 'Alfa Biznes MChJ', contract: 'CTR-2026-005', number: 'INV-2026-047', amount: 4800000, balance: 4800000, dueDate: '2026-08-01', paidPct: 0, color: 'bg-teal-500/10 text-teal-500', initials: 'AB' },
-  { id: 'inv-004', tenantName: 'Markaz Savdo MChJ', contract: 'CTR-2025-098', number: 'INV-2026-048', amount: 7200000, balance: 1800000, dueDate: '2026-06-15', paidPct: 75, color: 'bg-orange-500/10 text-orange-500', initials: 'MS' },
-  { id: 'inv-005', tenantName: 'Chorsu Retail MChJ', contract: 'CTR-2026-012', number: 'INV-2026-049', amount: 5500000, balance: 5500000, dueDate: '2026-08-10', paidPct: 0, color: 'bg-purple-500/10 text-purple-500', initials: 'NR' },
-  { id: 'inv-006', tenantName: 'Zomin Invest MChJ', contract: 'CTR-2026-018', number: 'INV-2026-050', amount: 3900000, balance: 980000, dueDate: '2026-07-20', paidPct: 75, color: 'bg-sky-500/10 text-sky-500', initials: 'TH' },
-])
+const store = useMakonStore()
+
+const COLOR_MAP: Record<string, string> = {
+  OVERDUE: 'bg-red-500/10 text-red-500',
+  PARTIAL: 'bg-amber-500/10 text-amber-500',
+  PENDING: 'bg-teal-500/10 text-teal-500',
+  PAID: 'bg-green-500/10 text-green-500',
+}
+
+const debtors = computed(() => store.invoices
+  .filter(inv => inv.balance > 0)
+  .map(inv => ({
+    id: inv.id,
+    tenantName: inv.tenantName,
+    contract: inv.contractNumber,
+    number: inv.number,
+    amount: inv.amount,
+    balance: inv.balance,
+    dueDate: inv.dueDate,
+    paidPct: inv.amount > 0 ? Math.round((inv.paidAmount / inv.amount) * 100) : 0,
+    color: COLOR_MAP[inv.status] || 'bg-gray-500/10 text-gray-500',
+    initials: inv.tenantName.split(' ').slice(0, 2).map(w => w[0]).join(''),
+  }))
+)
 
 const filteredDebtors = computed(() => {
   let result = debtors.value

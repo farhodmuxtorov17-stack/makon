@@ -103,14 +103,8 @@ import { Plus, Layers, CheckCircle2, AlertCircle, DollarSign, FileText } from 'l
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const periods = ref([
-  { id: 'p1', label: 'Avgust', year: 2026, status: 'OPEN', revenue: 42000000, collected: 31500000, debt: 10500000, invoiceCount: 48, collectedPct: 75 },
-  { id: 'p2', label: 'Iyul', year: 2026, status: 'CLOSED', revenue: 38500000, collected: 36200000, debt: 2300000, invoiceCount: 45, collectedPct: 94 },
-  { id: 'p3', label: 'Iyun', year: 2026, status: 'CLOSED', revenue: 41000000, collected: 39500000, debt: 1500000, invoiceCount: 47, collectedPct: 96 },
-  { id: 'p4', label: 'May', year: 2026, status: 'CLOSED', revenue: 37000000, collected: 36800000, debt: 200000, invoiceCount: 43, collectedPct: 99 },
-  { id: 'p5', label: 'Aprel', year: 2026, status: 'CLOSED', revenue: 35000000, collected: 35000000, debt: 0, invoiceCount: 41, collectedPct: 100 },
-  { id: 'p6', label: 'Mart', year: 2026, status: 'CLOSED', revenue: 34000000, collected: 33500000, debt: 500000, invoiceCount: 40, collectedPct: 98 },
-])
+const store = useMakonStore()
+const periods = computed(() => store.periods)
 
 const closedCount = computed(() => periods.value.filter(p => p.status === 'CLOSED').length)
 const openCount = computed(() => periods.value.filter(p => p.status === 'OPEN').length)
