@@ -93,7 +93,7 @@ const activeCount = computed(() => templates.value.filter(t => t.active).length)
   position: absolute; content: ''; height: 16px; width: 16px;
   left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s;
 }
-.toggle input:checked + .toggle__slider { background: #6366f1; }
+.toggle input:checked + .toggle__slider { background: var(--accent); }
 .toggle input:checked + .toggle__slider::before { transform: translateX(18px); }
 .template-lang { padding: 8px; border-radius: 10px; background: rgba(0,0,0,0.02); }
 .dark .template-lang { background: rgba(255,255,255,0.02); }

@@ -109,7 +109,7 @@ function iconColor(type: string) {
 }
 .notif-row:hover { background: rgba(0,0,0,0.03); }
 .dark .notif-row:hover { background: rgba(255,255,255,0.03); }
-.notif-row--unread { background: rgba(99,102,241,0.04); }
+.notif-row--unread { background: rgba(15,118,110,0.04); }
 .notif-row__icon {
   width: 36px; height: 36px; border-radius: 10px;
   display: flex; align-items: center; justify-content: center;

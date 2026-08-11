@@ -16,9 +16,9 @@
 
     <!-- KPI Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Mening unitlarim" :value="units.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/cabinet/units" />
+      <KpiCard :icon="Layers" label="Mening unitlarim" :value="units.length" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/cabinet/units" />
       <KpiCard :icon="CheckCircle2" label="Faol shartnomalar" :value="activeContracts" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/cabinet/contracts" />
-      <KpiCard :icon="FileText" label="Kutilayotgan arizalar" :value="pendingApps" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" to="/cabinet/applications" />
+      <KpiCard :icon="FileText" label="Kutilayotgan arizalar" :value="pendingApps" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/cabinet/applications" />
       <KpiCard :icon="Wallet" label="Qarzdorlik" :value="formatUZSShort(debt)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
     </div>
 
@@ -205,8 +205,8 @@ function srStatusLabel(s: string) {
   border-color: rgba(255,255,255,0.06);
 }
 .unit-card:hover {
-  border-color: rgba(99,102,241,0.2);
-  box-shadow: 0 4px 12px rgba(99,102,241,0.06);
+  border-color: rgba(15,118,110,0.2);
+  box-shadow: 0 4px 12px rgba(15,118,110,0.06);
 }
 .unit-card__header {
   display: flex;

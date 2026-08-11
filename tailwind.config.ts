@@ -12,19 +12,19 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
-          400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
-          800: '#3730a3', 900: '#312e81', 950: '#1e1b4b',
+          50: '#F0FDFA', 100: '#CCFBF1', 200: '#99F6E4', 300: '#5EEAD4',
+          400: '#2DD4BF', 500: '#14B8A6', 600: '#0D9488', 700: '#0F766E',
+          800: '#115E56', 900: '#134E4A', 950: '#042F2E',
         },
         ink: {
-          50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8',
-          400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46',
-          800: '#27272a', 900: '#18181b', 950: '#09090b',
+          50: '#FAFAF9', 100: '#F5F5F4', 200: '#E7E5E4', 300: '#D6D3D1',
+          400: '#A8A29E', 500: '#78716C', 600: '#57534E', 700: '#44403C',
+          800: '#292524', 900: '#1C1917', 950: '#0C0A09',
         },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Instrument Serif', 'Georgia', 'serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       fontSize: {
@@ -37,18 +37,18 @@ export default {
         '3xl': ['26px', '32px'],
       },
       borderRadius: {
-        'xl': '12px',
-        '2xl': '16px',
-        '3xl': '20px',
+        'xl': '10px',
+        '2xl': '14px',
+        '3xl': '16px',
       },
       boxShadow: {
-        'card': '0 1px 2px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.02)',
-        'card-hover': '0 4px 12px rgba(0,0,0,0.04), 0 0 0 1px rgba(99,102,241,0.06)',
-        'drawer': '0 -20px 60px rgba(0,0,0,0.12)',
+        'card': '0 1px 2px rgba(0,0,0,0.03)',
+        'card-hover': '0 2px 8px rgba(0,0,0,0.04)',
+        'drawer': '0 -12px 40px rgba(0,0,0,0.08)',
       },
       animation: {
-        'fade-in': 'fade-in 0.25s ease-out',
-        'slide-in': 'slide-in 0.3s ease-out',
+        'fade-in': 'fade-in 0.2s ease-out',
+        'slide-in': 'slide-in 0.25s ease-out',
         'scale-in': 'scale-in 0.2s ease-out',
       },
       transitionTimingFunction: {

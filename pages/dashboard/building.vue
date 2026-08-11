@@ -45,12 +45,12 @@
             <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> To'langan</span>
           </div>
         </div>
-        <MakonChart type="area" :series="revenueSeries" :categories="months" :height="260" :colors="['#6366f1', '#10b981']" />
+        <MakonChart type="area" :series="revenueSeries" :categories="months" :height="260" :colors="['var(--accent)', '#10b981']" />
       </div>
 
       <div class="card-premium p-6">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bandlik</h3>
-        <MakonChart type="donut" :series="occupancyData" :donutLabels="['Band', 'Bo\'sh']" :height="200" :colors="['#6366f1', '#e4e4e7']" />
+        <MakonChart type="donut" :series="occupancyData" :donutLabels="['Band', 'Bo\'sh']" :height="200" :colors="['var(--accent)', '#e4e4e7']" />
         <div class="text-center mt-2">
           <div class="text-3xl font-bold text-ink-900 dark:text-white">{{ occupancyPercent }}%</div>
           <div class="text-xs text-ink-500">Umumiy bandlik darajasi</div>
@@ -73,7 +73,7 @@
           <div v-for="floor in floors" :key="floor.num" class="flex items-center gap-3 group cursor-pointer rounded-lg p-1 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
             <span class="text-xs text-ink-500 w-12 font-medium">{{ floor.num }}-qavat</span>
             <div class="flex-1 h-7 rounded-lg overflow-hidden flex bg-black/5 dark:bg-white/5">
-              <div class="h-full transition-all duration-500" :style="{ width: floor.occupied + '%', background: floor.occupied > 85 ? '#10b981' : floor.occupied > 65 ? '#6366f1' : '#f59e0b', opacity: 0.7 }"></div>
+              <div class="h-full transition-all duration-500" :style="{ width: floor.occupied + '%', background: floor.occupied > 85 ? '#10b981' : floor.occupied > 65 ? 'var(--accent)' : '#f59e0b', opacity: 0.7 }"></div>
             </div>
             <div class="text-xs text-ink-500 w-20 text-right">
               <span class="font-medium text-ink-700 dark:text-ink-200">{{ floor.occupied }}%</span>

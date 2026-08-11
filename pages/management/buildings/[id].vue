@@ -17,7 +17,7 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/management/units" />
+      <KpiCard :icon="Layers" label="Jami unitlar" :value="building.totalUnits" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/management/units" />
       <KpiCard :icon="TrendingUp" label="Band" :value="building.totalUnits" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/management/units" />
       <KpiCard :icon="AlertCircle" label="Bo'sh" :value="building.occupiedUnits" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/management/units" />
       <KpiCard :icon="Building2" label="Maydon" :value="building.vacantUnits" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/management/units" />
@@ -133,7 +133,7 @@
           <div class="flex items-center gap-2 flex-shrink-0">
             <div class="hidden sm:flex items-center gap-2">
               <div class="w-20 h-1.5 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
-                <div class="h-full rounded-full" :style="{ width: (floor.occupied / floor.total * 100) + '%', background: '#6366f1' }"></div>
+                <div class="h-full rounded-full" :style="{ width: (floor.occupied / floor.total * 100) + '%', background: 'var(--accent)' }"></div>
               </div>
               <span class="text-xs text-ink-500">{{ Math.round(floor.occupied / floor.total * 100) }}%</span>
             </div>
@@ -180,12 +180,12 @@
     <div v-if="activeTab === 'analytics'" class="space-y-4">
       <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Tushum dinamikasi</h3>
-        <MakonChart type="area" :series="revenueSeries" :categories="months" :height="240" :colors="['#6366f1']" />
+        <MakonChart type="area" :series="revenueSeries" :categories="months" :height="240" :colors="['var(--accent)']" />
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Unit turlari</h3>
-          <MakonChart type="donut" :series="[180, 120, 80, 40]" :donutLabels="['Ofis', 'Savdo', 'Ombor', 'Boshqa']" :height="240" :colors="['#6366f1', '#3b82f6', '#10b981', '#f59e0b']" />
+          <MakonChart type="donut" :series="[180, 120, 80, 40]" :donutLabels="['Ofis', 'Savdo', 'Ombor', 'Boshqa']" :height="240" :colors="['var(--accent)', '#3b82f6', '#10b981', '#f59e0b']" />
         </div>
         <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis so'rovlari</h3>
@@ -275,7 +275,7 @@ const serviceSeries = [{ name: 'So\'rovlar', data: [12, 8, 5, 7, 4, 6] }]
 .dark .floor-row:hover { background: rgba(255,255,255,0.03); }
 .floor-row__num {
   width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(99,102,241,0.1); color: #6366f1;
+  background: rgba(15,118,110,0.1); color: var(--accent);
   display: flex; align-items: center; justify-content: center;
   font-size: 14px; font-weight: 700; flex-shrink: 0;
 }
@@ -304,7 +304,7 @@ const serviceSeries = [{ name: 'So\'rovlar', data: [12, 8, 5, 7, 4, 6] }]
 .dark .doc-row:hover { background: rgba(255,255,255,0.03); }
 .doc-row__icon {
   width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(99,102,241,0.08);
+  background: rgba(15,118,110,0.08);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }

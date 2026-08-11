@@ -154,7 +154,7 @@ const metrics = [
 ]
 
 function roleColor(r: string) {
-  return { SUPER_HEAD: '#8b5cf6', BUILDING_MANAGER: '#6366f1', ACCOUNTANT: '#10b981', FACILITY: '#f59e0b' }[r] || '#71717a'
+  return { SUPER_HEAD: 'var(--accent)', BUILDING_MANAGER: 'var(--accent)', ACCOUNTANT: '#10b981', FACILITY: '#f59e0b' }[r] || '#71717a'
 }
 </script>
 

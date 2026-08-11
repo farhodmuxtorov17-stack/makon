@@ -248,12 +248,12 @@ const buildingSections = ref([
 ])
 
 const colors = [
-  { name: 'indigo', label: 'Indigo', value: '#6366f1' },
+  { name: 'indigo', label: 'Indigo', value: 'var(--accent)' },
   { name: 'blue', label: 'Blue', value: '#3b82f6' },
   { name: 'emerald', label: 'Emerald', value: '#10b981' },
   { name: 'amber', label: 'Amber', value: '#f59e0b' },
   { name: 'rose', label: 'Rose', value: '#f43f5e' },
-  { name: 'violet', label: 'Violet', value: '#8b5cf6' },
+  { name: 'violet', label: 'Violet', value: 'var(--accent)' },
 ]
 
 function moveSection(i: number, dir: number) {

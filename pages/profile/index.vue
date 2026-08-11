@@ -169,7 +169,7 @@ const sessions = [
   transition: border-color 0.15s;
 }
 .dark .profile-input { background: #09090b; color: #fafafa; border-color: rgba(255,255,255,0.1); }
-.profile-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+.profile-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15,118,110,0.1); }
 .profile-input--disabled { opacity: 0.5; cursor: not-allowed; }
 .notif-setting {
   display: flex; align-items: center; justify-content: space-between;
@@ -182,9 +182,9 @@ const sessions = [
 .toggle__slider { position: absolute; cursor: pointer; inset: 0; background: rgba(0,0,0,0.1); border-radius: 22px; transition: 0.2s; }
 .dark .toggle__slider { background: rgba(255,255,255,0.1); }
 .toggle__slider::before { position: absolute; content: ''; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
-.toggle input:checked + .toggle__slider { background: #6366f1; }
+.toggle input:checked + .toggle__slider { background: var(--accent); }
 .toggle input:checked + .toggle__slider::before { transform: translateX(18px); }
 .session-row { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: rgba(0,0,0,0.02); }
 .dark .session-row { background: rgba(255,255,255,0.02); }
-.session-row__icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(99,102,241,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.session-row__icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(15,118,110,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 </style>

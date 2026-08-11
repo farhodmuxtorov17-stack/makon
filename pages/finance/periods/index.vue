@@ -10,7 +10,7 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Layers" label="Jami davrlar" :value="periods.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/finance/periods" />
+      <KpiCard :icon="Layers" label="Jami davrlar" :value="periods.length" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/finance/periods" />
       <KpiCard :icon="CheckCircle2" label="Yopilgan" :value="closedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/periods" />
       <KpiCard :icon="AlertCircle" label="Faol davr" :value="openCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/periods" />
       <KpiCard :icon="DollarSign" label="Jami daromad" :value="formatUZSShort(totalRevenue)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/finance/invoices" />
@@ -25,7 +25,7 @@
           <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-400"></span> Qarz</span>
         </div>
       </div>
-      <MakonChart type="bar" :series="chartSeries" :categories="chartMonths" :height="220" :colors="['#6366f1', '#ef4444']" :stacked="true" />
+      <MakonChart type="bar" :series="chartSeries" :categories="chartMonths" :height="220" :colors="['var(--accent)', '#ef4444']" :stacked="true" />
     </div>
 
     <!-- Periods table -->

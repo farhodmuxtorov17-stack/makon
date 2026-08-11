@@ -119,11 +119,11 @@
                 <svg viewBox="0 0 100 60" class="w-full" style="max-height: 400px;">
                   <defs>
                     <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
-                      <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(99,102,241,0.12)" stroke-width="0.3"/>
+                      <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(15,118,110,0.12)" stroke-width="0.3"/>
                     </pattern>
                     <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.9"/>
-                      <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.7"/>
+                      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.9"/>
+                      <stop offset="100%" stop-color="var(--accent-hover)" stop-opacity="0.7"/>
                     </linearGradient>
                   </defs>
                   <rect width="100" height="60" fill="url(#grid)" />
@@ -148,17 +148,17 @@
                   <line x1="35" y1="2" x2="45" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
                   <line x1="50" y1="2" x2="58" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
                   <line x1="2" y1="35" x2="2" y2="42" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
-                  <text x="50" y="0.5" text-anchor="middle" fill="rgba(99,102,241,0.6)" font-size="1.8" font-weight="600">
+                  <text x="50" y="0.5" text-anchor="middle" fill="rgba(15,118,110,0.6)" font-size="1.8" font-weight="600">
                     {{ (96 * 0.3).toFixed(1) }}m
                   </text>
-                  <text x="0.8" y="30" text-anchor="middle" fill="rgba(99,102,241,0.6)" font-size="1.8" font-weight="600"
+                  <text x="0.8" y="30" text-anchor="middle" fill="rgba(15,118,110,0.6)" font-size="1.8" font-weight="600"
                     transform="rotate(-90, 0.8, 30)">
                     {{ (56 * 0.3).toFixed(1) }}m
                   </text>
                   <g transform="translate(92, 54)">
-                    <circle r="2.5" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.4)" stroke-width="0.2"/>
-                    <path d="M 0 -1.8 L 0.8 0.8 L 0 0.3 L -0.8 0.8 Z" fill="#6366f1" />
-                    <text y="-3" text-anchor="middle" fill="rgba(99,102,241,0.6)" font-size="1.2" font-weight="700">N</text>
+                    <circle r="2.5" fill="rgba(15,118,110,0.15)" stroke="rgba(15,118,110,0.4)" stroke-width="0.2"/>
+                    <path d="M 0 -1.8 L 0.8 0.8 L 0 0.3 L -0.8 0.8 Z" fill="var(--accent)" />
+                    <text y="-3" text-anchor="middle" fill="rgba(15,118,110,0.6)" font-size="1.2" font-weight="700">N</text>
                   </g>
                 </svg>
               </div>
@@ -406,25 +406,25 @@ function formatArea(m2: number) {
 function roomColor(type: string) {
   const colors: Record<string, string> = {
     reception: '#a78bfa',
-    open: '#6366f1',
+    open: 'var(--accent)',
     meeting: '#f59e0b',
     kitchen: '#10b981',
     wc: '#06b6d4',
-    storage: '#8b5cf6',
+    storage: 'var(--accent)',
     display: '#ec4899',
-    office: '#6366f1',
+    office: 'var(--accent)',
     corridor: '#71717a',
   }
-  return colors[type] || '#6366f1'
+  return colors[type] || 'var(--accent)'
 }
 </script>
 
 <style scoped>
 .floor-plan-container {
-  background: rgba(99, 102, 241, 0.03);
+  background: rgba(15, 118, 110, 0.03);
   border-radius: 12px;
   padding: 16px;
-  border: 1px solid rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(15, 118, 110, 0.08);
   overflow: hidden;
 }
 .floor-plan-container svg {

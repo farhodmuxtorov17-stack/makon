@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<{
   donutLabels?: string[]
 }>(), {
   height: 280,
-  colors: () => ['#6366f1'],
+  colors: () => ['var(--accent)'],
   horizontal: false,
   stacked: false,
 })

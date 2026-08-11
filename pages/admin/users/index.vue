@@ -13,7 +13,7 @@
       <KpiCard :icon="Users" label="Jami" :value="users.length" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" to="/admin/users" />
       <KpiCard :icon="UserCheck" label="Faol" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/admin/users" />
       <KpiCard :icon="Clock" label="Taklif kutilmoqda" :value="pendingCount" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/admin/users" />
-      <KpiCard :icon="ShieldCheck" label="Adminlar" :value="adminCount" icon-color="#8b5cf6" icon-bg="rgba(139,92,246,0.1)" to="/admin/roles" />
+      <KpiCard :icon="ShieldCheck" label="Adminlar" :value="adminCount" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/admin/roles" />
     </div>
 
     <!-- Search + role filter -->
@@ -219,7 +219,7 @@ function sendInvite() {
 }
 
 function roleColor(r: string) {
-  return { SUPER_HEAD: '#8b5cf6', BUILDING_MANAGER: '#6366f1', ACCOUNTANT: '#10b981', FACILITY: '#f59e0b' }[r] || '#71717a'
+  return { SUPER_HEAD: 'var(--accent)', BUILDING_MANAGER: 'var(--accent)', ACCOUNTANT: '#10b981', FACILITY: '#f59e0b' }[r] || '#71717a'
 }
 function roleLabel(r: string) {
   return { SUPER_HEAD: 'Rahbar', BUILDING_MANAGER: 'Bino rahbari', ACCOUNTANT: 'Buxgalter', FACILITY: 'Pudratchi' }[r] || r

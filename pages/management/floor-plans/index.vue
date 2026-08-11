@@ -81,11 +81,11 @@
       <!-- Canvas preview -->
       <div class="rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 p-4" style="height: 400px;">
         <svg viewBox="0 0 800 350" class="w-full h-full">
-          <rect x="40" y="40" width="720" height="270" fill="none" stroke="rgba(99,102,241,0.2)" stroke-width="1" stroke-dasharray="4 4" />
+          <rect x="40" y="40" width="720" height="270" fill="none" stroke="rgba(15,118,110,0.2)" stroke-width="1" stroke-dasharray="4 4" />
           <polygon v-for="(poly, i) in detectedPolygons" :key="i"
             :points="poly.points"
-            :fill="poly.assigned ? 'rgba(16,185,129,0.1)' : 'rgba(99,102,241,0.08)'"
-            :stroke="poly.assigned ? '#10b981' : '#6366f1'"
+            :fill="poly.assigned ? 'rgba(16,185,129,0.1)' : 'rgba(15,118,110,0.08)'"
+            :stroke="poly.assigned ? '#10b981' : 'var(--accent)'"
             stroke-width="1.5" class="cursor-pointer transition-all"
             @click="selectPolygon(i)"
           />

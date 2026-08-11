@@ -225,9 +225,9 @@ function toNum(v: string): number | null {
 .filter-panel__reset {
   font-size: 12px;
   font-weight: 600;
-  color: #4f46e5;
+  color: var(--accent-hover);
 }
-.dark .filter-panel__reset { color: #818cf8; }
+.dark .filter-panel__reset { color: var(--accent); }
 
 .filter-group {
   display: flex;
@@ -291,7 +291,7 @@ function toNum(v: string): number | null {
   text-align: center;
 }
 .filter-pill--active {
-  background: #4f46e5;
+  background: var(--accent-hover);
   color: white;
 }
 
@@ -315,11 +315,11 @@ function toNum(v: string): number | null {
 }
 .dark .filter-type-btn { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.07); color: #a1a1aa; }
 .filter-type-btn--active {
-  border-color: #4f46e5;
-  background: rgba(99,102,241,0.08);
-  color: #4f46e5;
+  border-color: var(--accent-hover);
+  background: rgba(15,118,110,0.08);
+  color: var(--accent-hover);
 }
-.dark .filter-type-btn--active { color: #818cf8; background: rgba(99,102,241,0.15); }
+.dark .filter-type-btn--active { color: var(--accent); background: rgba(15,118,110,0.15); }
 
 .filter-range {
   display: flex;

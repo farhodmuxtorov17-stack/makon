@@ -163,7 +163,7 @@ const modeBadge = computed(() => ({ view: 'bg-brand-500/10 text-brand-500', edit
 function selectUnit(unit: any) { selectedUnit.value = unit.id }
 function deselectUnit() { selectedUnit.value = null }
 function unitFill(unit: any) {
-  if (selectedUnit.value === unit.id) return 'rgba(99,102,241,0.15)'
+  if (selectedUnit.value === unit.id) return 'rgba(15,118,110,0.15)'
   return unit.status === 'OCCUPIED' ? 'rgba(16,185,129,0.08)' : unit.status === 'VACANT' ? 'rgba(245,158,11,0.08)' : 'rgba(113,113,122,0.05)'
 }
 function statusLabel(s: string) { return { OCCUPIED: 'Band', VACANT: 'Bo\'sh', TECHNICAL: 'Texnik' }[s] || s }

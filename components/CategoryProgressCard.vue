@@ -40,7 +40,7 @@ const props = defineProps<{
 }>()
 
 const trend = computed(() => props.trend ?? 0)
-const color = computed(() => props.color || '#6366f1')
+const color = computed(() => props.color || 'var(--accent)')
 const radius = 27
 const circumference = 2 * Math.PI * radius
 const offset = computed(() => circumference - (props.value / 100) * circumference)

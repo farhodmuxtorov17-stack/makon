@@ -501,7 +501,7 @@ function cycleRegion() {
 .catalog-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .catalog-logo__icon {
   width: 32px; height: 32px; border-radius: 9px;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   color: white; display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 14px;
 }
@@ -541,10 +541,10 @@ function cycleRegion() {
 .catalog-cta-btn {
   display: flex; align-items: center; gap: 5px;
   font-size: 13px; font-weight: 700; color: white;
-  background: linear-gradient(135deg, #6366f1, #4f46e5); padding: 8px 16px; border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.25); transition: all 0.2s;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover)); padding: 8px 16px; border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(15,118,110,0.25); transition: all 0.2s;
 }
-.catalog-cta-btn:hover { background: linear-gradient(135deg, #4f46e5, #4338ca); box-shadow: 0 4px 16px rgba(99,102,241,0.35); transform: translateY(-1px); }
+.catalog-cta-btn:hover { background: linear-gradient(135deg, var(--accent-hover), var(--accent-hover)); box-shadow: 0 4px 16px rgba(15,118,110,0.35); transform: translateY(-1px); }
 
 /* ============ TOOLBAR ============ */
 .catalog-toolbar {
@@ -583,8 +583,8 @@ function cycleRegion() {
   width: 34px; height: 32px; display: flex; align-items: center; justify-content: center;
   border-radius: 7px; color: #71717a;
 }
-.catalog-view-toggle button.active { background: #fff; color: #4f46e5; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
-.dark .catalog-view-toggle button.active { background: #27272a; color: #818cf8; }
+.catalog-view-toggle button.active { background: #fff; color: var(--accent-hover); box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+.dark .catalog-view-toggle button.active { background: #27272a; color: var(--accent); }
 .catalog-filter-btn {
   display: flex; align-items: center; gap: 6px;
   font-size: 13px; font-weight: 600; color: #52525b;
@@ -593,7 +593,7 @@ function cycleRegion() {
 }
 .dark .catalog-filter-btn { color: #d4d4d8; border-color: rgba(255,255,255,0.08); }
 .catalog-filter-btn__count {
-  background: #4f46e5; color: white; font-size: 10px; font-weight: 700;
+  background: var(--accent-hover); color: white; font-size: 10px; font-weight: 700;
   min-width: 18px; height: 18px; border-radius: 9px;
   display: flex; align-items: center; justify-content: center; padding: 0 5px;
 }
@@ -617,8 +617,8 @@ function cycleRegion() {
   background: rgba(0,0,0,0.04); white-space: nowrap; flex-shrink: 0;
 }
 .dark .catalog-chip { background: rgba(255,255,255,0.05); color: #d4d4d8; }
-.catalog-chip--active { background: rgba(99,102,241,0.1); color: #4f46e5; }
-.dark .catalog-chip--active { background: rgba(99,102,241,0.15); color: #818cf8; }
+.catalog-chip--active { background: rgba(15,118,110,0.1); color: var(--accent-hover); }
+.dark .catalog-chip--active { background: rgba(15,118,110,0.15); color: var(--accent); }
 .catalog-chip--clear { background: rgba(239,68,68,0.08); color: #ef4444; }
 
 /* ============ VIP CAROUSEL ============ */
@@ -721,15 +721,15 @@ function cycleRegion() {
 }
 .listing-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(15,118,110,0.4), transparent);
   opacity: 0; transition: opacity 0.3s;
 }
 .listing-card:hover::before { opacity: 1; }
 .dark .listing-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
-.listing-card:hover, .listing-card--active { border-color: rgba(99,102,241,0.4); box-shadow: 0 8px 24px rgba(99,102,241,0.12); transform: translateY(-2px); }
+.listing-card:hover, .listing-card--active { border-color: rgba(15,118,110,0.4); box-shadow: 0 8px 24px rgba(15,118,110,0.12); transform: translateY(-2px); }
 .listing-card { cursor: pointer; }
-.listing-card--active { border-color: #6366f1; background: rgba(99,102,241,0.05); box-shadow: 0 6px 20px rgba(99,102,241,0.18), 0 0 0 1px rgba(99,102,241,0.3); }
-.dark .listing-card--active { background: rgba(99,102,241,0.08); }
+.listing-card--active { border-color: var(--accent); background: rgba(15,118,110,0.05); box-shadow: 0 6px 20px rgba(15,118,110,0.18), 0 0 0 1px rgba(15,118,110,0.3); }
+.dark .listing-card--active { background: rgba(15,118,110,0.08); }
 .listing-card__photo {
   position: relative; width: 128px; height: 96px; flex-shrink: 0;
   border-radius: 10px; overflow: hidden; display: block;
@@ -761,10 +761,10 @@ function cycleRegion() {
 .listing-card__price { font-size: 13.5px; font-weight: 800; color: #ea580c; letter-spacing: -0.02em; }
 .listing-card__cta {
   display: flex; align-items: center; gap: 3px; font-size: 11.5px; font-weight: 600;
-  color: white; background: linear-gradient(135deg, #6366f1, #4f46e5); padding: 6px 12px; border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(99,102,241,0.2); transition: all 0.2s;
+  color: white; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); padding: 6px 12px; border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(15,118,110,0.2); transition: all 0.2s;
 }
-.listing-card:hover .listing-card__cta { box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+.listing-card:hover .listing-card__cta { box-shadow: 0 4px 12px rgba(15,118,110,0.3); }
 
 /* Grid view */
 .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
@@ -774,7 +774,7 @@ function cycleRegion() {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
 }
 .dark .grid-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
-.grid-card:hover { border-color: rgba(99,102,241,0.3); box-shadow: 0 12px 32px rgba(99,102,241,0.1); transform: translateY(-4px); }
+.grid-card:hover { border-color: rgba(15,118,110,0.3); box-shadow: 0 12px 32px rgba(15,118,110,0.1); transform: translateY(-4px); }
 .grid-card__image img { transition: transform 0.5s; }
 .grid-card:hover .grid-card__image img { transform: scale(1.06); }
 .grid-card__image { position: relative; width: 100%; height: 160px; overflow: hidden; }

@@ -16,7 +16,7 @@
       <KpiCard :icon="DollarSign" label="Jami summa" :value="formatUZSShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/finance/invoices" />
       <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatUZSShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/invoices" />
       <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatUZSShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
-      <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/finance/debts" />
+      <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/finance/debts" />
     </div>
 
     <!-- Mini chart -->
@@ -28,7 +28,7 @@
           <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> To'langan</span>
         </div>
       </div>
-      <MakonChart type="bar" :series="paymentSeries" :categories="paymentMonths" :height="200" :colors="['#6366f1', '#10b981']" :stacked="true" />
+      <MakonChart type="bar" :series="paymentSeries" :categories="paymentMonths" :height="200" :colors="['var(--accent)', '#10b981']" :stacked="true" />
     </div>
 
     <!-- Status tabs + search -->

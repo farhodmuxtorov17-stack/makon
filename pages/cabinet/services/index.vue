@@ -130,11 +130,11 @@ definePageMeta({ layout: 'admin', middleware: 'auth' })
 const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const serviceCharges = [
-  { name: 'Ijara to\'lovi', icon: Receipt, color: '#6366f1', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
+  { name: 'Ijara to\'lovi', icon: Receipt, color: 'var(--accent)', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
   { name: 'Elektr energiyasi', icon: Zap, color: '#f59e0b', amount: 1320000, details: '440 kWh × 3000 so\'m', unit: 'oylik', percent: 4 },
   { name: 'Suv ta\'minoti', icon: Droplet, color: '#3b82f6', amount: 182000, details: '130 m³ × 1400 so\'m', unit: 'oylik', percent: 1 },
   { name: 'Gaz', icon: Flame, color: '#ef4444', amount: 225000, details: '150 m³ × 1500 so\'m', unit: 'oylik', percent: 1 },
-  { name: 'Faqat texnik xizmat', icon: Wrench, color: '#8b5cf6', amount: 500000, details: 'A-301 · oylik', unit: 'oylik', percent: 2 },
+  { name: 'Faqat texnik xizmat', icon: Wrench, color: 'var(--accent)', amount: 500000, details: 'A-301 · oylik', unit: 'oylik', percent: 2 },
   { name: 'Axlat olib ketish', icon: Trash2, color: '#10b981', amount: 120000, details: 'A-301 · oylik', unit: 'oylik', percent: 1 },
 ]
 

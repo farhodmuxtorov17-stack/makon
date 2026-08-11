@@ -37,13 +37,13 @@
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-semibold text-ink-900 dark:text-white">Binolar bo'yicha tushum (6 oy)</h3>
         </div>
-        <MakonChart type="bar" :series="revenueByBuilding" :categories="months" :height="280" :colors="['#6366f1', '#3b82f6', '#10b981', '#f59e0b']" :stacked="true" />
+        <MakonChart type="bar" :series="revenueByBuilding" :categories="months" :height="280" :colors="['var(--accent)', '#3b82f6', '#10b981', '#f59e0b']" :stacked="true" />
       </div>
 
       <!-- Conversion donut -->
       <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Ariza konversiyasi</h3>
-        <MakonChart type="donut" :series="[842, 156, 42, 28]" :donutLabels="['Ko\'rishlar', 'Arizalar', 'Shartnomalar', 'Imzolangan']" :height="280" :colors="['#3b82f6', '#6366f1', '#a855f7', '#10b981']" />
+        <MakonChart type="donut" :series="[842, 156, 42, 28]" :donutLabels="['Ko\'rishlar', 'Arizalar', 'Shartnomalar', 'Imzolangan']" :height="280" :colors="['#3b82f6', 'var(--accent)', '#a855f7', '#10b981']" />
       </div>
     </div>
 

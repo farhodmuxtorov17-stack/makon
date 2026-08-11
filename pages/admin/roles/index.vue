@@ -72,8 +72,8 @@ definePageMeta({ layout: 'admin', middleware: 'auth' })
 const selectedRole = ref('SUPER_HEAD')
 
 const roles = [
-  { value: 'SUPER_HEAD', label: 'Super Rahbar', color: '#8b5cf6', icon: ShieldCheck, usersCount: 2 },
-  { value: 'BUILDING_MANAGER', label: 'Bino Rahbari', color: '#6366f1', icon: Building2, usersCount: 3 },
+  { value: 'SUPER_HEAD', label: 'Super Rahbar', color: 'var(--accent)', icon: ShieldCheck, usersCount: 2 },
+  { value: 'BUILDING_MANAGER', label: 'Bino Rahbari', color: 'var(--accent)', icon: Building2, usersCount: 3 },
   { value: 'ACCOUNTANT', label: 'Buxgalter', color: '#10b981', icon: Receipt, usersCount: 2 },
   { value: 'FACILITY', label: 'Pudratchi', color: '#f59e0b', icon: Wrench, usersCount: 3 },
   { value: 'TENANT_OWNER', label: 'Ijarachi', color: '#3b82f6', icon: Users, usersCount: 12 },
@@ -120,8 +120,8 @@ function getRolePermissions(role: string) {
   transition: all 0.15s;
 }
 .dark .role-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
-.role-card:hover { border-color: rgba(99,102,241,0.2); }
-.role-card--active { border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,0.15); }
+.role-card:hover { border-color: rgba(15,118,110,0.2); }
+.role-card--active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(15,118,110,0.15); }
 .role-card__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
 .role-card__name { font-size: 13px; font-weight: 700; color: #18181b; }
 .dark .role-card__name { color: #fafafa; }

@@ -93,7 +93,7 @@ const filteredEntries = computed(() => {
 })
 
 function actionColor(type: string) {
-  return { CREATE: '#10b981', UPDATE: '#6366f1', DELETE: '#ef4444', AUTH: '#3b82f6', APPROVE: '#8b5cf6' }[type] || '#71717a'
+  return { CREATE: '#10b981', UPDATE: 'var(--accent)', DELETE: '#ef4444', AUTH: '#3b82f6', APPROVE: 'var(--accent)' }[type] || '#71717a'
 }
 function actionIcon(type: string) {
   return { CREATE: FileText, UPDATE: Edit3, DELETE: Trash2, AUTH: LogIn, APPROVE: CheckCircle }[type] || AlertCircle

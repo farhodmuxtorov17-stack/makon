@@ -121,7 +121,7 @@ const refreshing = ref(false)
 const chartTab = ref('month')
 
 const kpis = [
-  { label: 'Jami daromat', value: '247.8M UZS', trend: 12, icon: Wallet, bg: 'rgba(99,102,241,0.1)', color: '#6366f1' },
+  { label: 'Jami daromat', value: '247.8M UZS', trend: 12, icon: Wallet, bg: 'rgba(15,118,110,0.1)', color: 'var(--accent)' },
   { label: 'Faol shartnomalar', value: '184', trend: 8, icon: FileText, bg: 'rgba(16,185,129,0.1)', color: '#10b981' },
   { label: 'Bandlik darajasi', value: '81%', trend: 5, icon: Building2, bg: 'rgba(245,158,11,0.1)', color: '#f59e0b' },
   { label: 'Ijarachilar', value: '192', trend: -3, icon: Users, bg: 'rgba(239,68,68,0.1)', color: '#ef4444' },
@@ -135,18 +135,18 @@ const chartData = [
 ]
 
 const buildingRevenue = [
-  { name: 'Tashkent City', value: 85, percent: 100, color: 'linear-gradient(90deg, #6366f1, #4f46e5)' },
-  { name: 'Trillant Tower', value: 62, percent: 73, color: 'linear-gradient(90deg, #818cf8, #6366f1)' },
-  { name: 'Savdo Markaz', value: 48, percent: 56, color: 'linear-gradient(90deg, #a5b4fc, #818cf8)' },
-  { name: 'Logistika Markaz', value: 32, percent: 38, color: 'linear-gradient(90deg, #c7d2fe, #a5b4fc)' },
+  { name: 'Tashkent City', value: 85, percent: 100, color: 'linear-gradient(90deg, var(--accent), var(--accent-hover))' },
+  { name: 'Trillant Tower', value: 62, percent: 73, color: 'linear-gradient(90deg, var(--accent), var(--accent))' },
+  { name: 'Savdo Markaz', value: 48, percent: 56, color: 'linear-gradient(90deg, var(--accent), var(--accent))' },
+  { name: 'Logistika Markaz', value: 32, percent: 38, color: 'linear-gradient(90deg, #c7d2fe, var(--accent))' },
 ]
 
 const activities = [
   { text: 'Yangi shartnoma imzolandi — Ofis 205', time: '5 daqiqa oldin', color: '#10b981' },
-  { text: 'Ariza qabul qilindi — Savdo maydoni GF', time: '23 daqiqa oldin', color: '#6366f1' },
+  { text: 'Ariza qabul qilindi — Savdo maydoni GF', time: '23 daqiqa oldin', color: 'var(--accent)' },
   { text: 'To\'lov amalga oshirildi — 15.2M UZS', time: '1 soat oldin', color: '#10b981' },
   { text: 'Servis so\'rovi yopildi — Trillant Tower', time: '2 soat oldin', color: '#f59e0b' },
-  { text: 'Yangi ijarachi ro\'yxatdan o\'tdi', time: '3 soat oldin', color: '#6366f1' },
+  { text: 'Yangi ijarachi ro\'yxatdan o\'tdi', time: '3 soat oldin', color: 'var(--accent)' },
 ]
 
 const buildings = [
@@ -181,8 +181,8 @@ function refresh() {
 .dark .dash__export { background: rgba(255,255,255,0.06); color: #a1a1aa; }
 .dash__export:hover { background: rgba(0,0,0,0.08); }
 .dark .dash__export:hover { background: rgba(255,255,255,0.1); }
-.dash__refresh { background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; box-shadow: 0 2px 8px rgba(99,102,241,0.25); }
-.dash__refresh:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(99,102,241,0.35); }
+.dash__refresh { background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white; box-shadow: 0 2px 8px rgba(15,118,110,0.25); }
+.dash__refresh:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(15,118,110,0.35); }
 
 /* KPIs */
 .dash__kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
@@ -191,8 +191,8 @@ function refresh() {
   box-shadow: 0 1px 3px rgba(0,0,0,0.02); transition: all 0.3s;
 }
 .dark .dash__kpi { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
-.dash__kpi:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.06), 0 0 0 1px rgba(99,102,241,0.08); transform: translateY(-3px); }
-.dark .dash__kpi:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(99,102,241,0.1); }
+.dash__kpi:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.06), 0 0 0 1px rgba(15,118,110,0.08); transform: translateY(-3px); }
+.dark .dash__kpi:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(15,118,110,0.1); }
 .dash__kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 .dash__kpi-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
 .dash__kpi-trend { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 7px; }
@@ -220,8 +220,8 @@ function refresh() {
 /* Bar chart */
 .dash__chart-bars { display: flex; align-items: flex-end; gap: 8px; height: 200px; padding-top: 10px; }
 .dash__chart-bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
-.dash__chart-bar-fill { width: 100%; max-width: 28px; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, #818cf8, #6366f1); transition: all 0.4s ease; min-height: 4px; }
-.dash__chart-bar-fill:hover { background: linear-gradient(180deg, #6366f1, #4f46e5); }
+.dash__chart-bar-fill { width: 100%; max-width: 28px; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, var(--accent), var(--accent)); transition: all 0.4s ease; min-height: 4px; }
+.dash__chart-bar-fill:hover { background: linear-gradient(180deg, var(--accent), var(--accent-hover)); }
 .dash__chart-bar-label { font-size: 10px; color: #a1a1aa; font-weight: 500; }
 
 /* Progress rows */
@@ -243,7 +243,7 @@ function refresh() {
 .dash__card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .dash__card-title { font-size: 15px; font-weight: 700; color: #18181b; margin: 0; }
 .dark .dash__card-title { color: white; }
-.dash__card-link { font-size: 13px; color: #6366f1; text-decoration: none; font-weight: 500; }
+.dash__card-link { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500; }
 .dash__card-link:hover { text-decoration: underline; }
 
 /* Activity */
@@ -266,7 +266,7 @@ function refresh() {
 .dash__building-occ { font-size: 12px; color: #a1a1aa; }
 .dash__building-bar { flex: 1; max-width: 120px; height: 6px; border-radius: 3px; background: rgba(0,0,0,0.04); overflow: hidden; }
 .dark .dash__building-bar { background: rgba(255,255,255,0.06); }
-.dash__building-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #6366f1, #4f46e5); transition: width 0.5s; }
+.dash__building-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); transition: width 0.5s; }
 .dash__building-pct { font-size: 13px; font-weight: 700; color: #18181b; min-width: 36px; text-align: right; }
 .dark .dash__building-pct { color: white; }
 

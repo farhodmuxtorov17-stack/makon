@@ -137,7 +137,7 @@ const totalArea = computed(() => units.reduce((s, u) => s + u.area, 0))
   font-size: 10px; font-weight: 700;
   padding: 3px 10px; border-radius: 6px; color: white;
 }
-.unit-detail-card__badge--rent { background: #6366f1; }
+.unit-detail-card__badge--rent { background: var(--accent); }
 .unit-detail-card__badge--owned { background: #10b981; }
 .unit-detail-card__body { padding: 16px; }
 </style>

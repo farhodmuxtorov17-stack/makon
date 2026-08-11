@@ -111,7 +111,7 @@ function handleEriLogin() {
 .auth__visual-grad {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(9,9,11,0.4) 0%, rgba(9,9,11,0.2) 40%, rgba(9,9,11,0.85) 100%),
-              radial-gradient(ellipse at 30% 70%, rgba(99,102,241,0.15), transparent 50%);
+              radial-gradient(ellipse at 30% 70%, rgba(15,118,110,0.08), transparent 50%);
 }
 .auth__visual-content {
   position: absolute; inset: 0;
@@ -121,10 +121,10 @@ function handleEriLogin() {
 .auth__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .auth__logo-icon {
   width: 38px; height: 38px; border-radius: 11px;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  background: var(--text);
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 17px; color: white;
-  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+  box-shadow: 0 4px 16px rgba(15,118,110,0.35);
 }
 .auth__logo span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; }
 .auth__visual-bottom { max-width: 400px; }
@@ -160,7 +160,7 @@ function handleEriLogin() {
   transition: all 0.25s; outline: none;
 }
 .dark .auth__input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
-.auth__input:focus { border-color: #6366f1; background: white; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+.auth__input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(15,118,110,0.12); }
 .dark .auth__input:focus { background: rgba(255,255,255,0.06); }
 .auth__input::placeholder { color: #a1a1aa; }
 .auth__input-toggle { position: absolute; right: 14px; background: none; border: none; cursor: pointer; color: #a1a1aa; padding: 4px; }
@@ -170,8 +170,8 @@ function handleEriLogin() {
 .auth__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
 .auth__check { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #52525b; cursor: pointer; }
 .dark .auth__check { color: #a1a1aa; }
-.auth__checkbox { width: 16px; height: 16px; border-radius: 5px; accent-color: #6366f1; }
-.auth__link { font-size: 13px; color: #6366f1; text-decoration: none; font-weight: 500; }
+.auth__checkbox { width: 16px; height: 16px; border-radius: 5px; accent-color: var(--accent); }
+.auth__link { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500; }
 .auth__link:hover { text-decoration: underline; }
 .auth__link--bold { font-weight: 600; }
 
@@ -179,11 +179,11 @@ function handleEriLogin() {
 .auth__submit {
   width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 14px; border-radius: 12px; border: none;
-  background: linear-gradient(135deg, #6366f1, #4f46e5); color: white;
+  background: var(--text); color: white;
   font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: all 0.3s; box-shadow: 0 2px 10px rgba(99,102,241,0.25);
+  transition: all 0.3s; box-shadow: var(--shadow-md);
 }
-.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(99,102,241,0.35); }
+.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
 .auth__submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* Divider */
@@ -208,13 +208,13 @@ function handleEriLogin() {
   transition: all 0.3s;
 }
 .dark .auth__eri { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
-.auth__eri:hover { border-color: #6366f1; background: rgba(99,102,241,0.05); }
+.auth__eri:hover { border-color: var(--accent); background: var(--accent-subtle); }
 
 /* Signup */
 .auth__signup { text-align: center; margin-top: 28px; font-size: 14px; color: #71717a; }
 .dark .auth__signup { color: #a1a1aa; }
 
-.auth__demo-hint { text-align: center; margin-top: 14px; font-size: 12px; color: #a1a1aa; padding: 8px 12px; border-radius: 8px; background: rgba(99,102,241,0.05); }
+.auth__demo-hint { text-align: center; margin-top: 14px; font-size: 12px; color: #a1a1aa; padding: 8px 12px; border-radius: 8px; background: var(--accent-subtle); }
 /* Responsive */
 @media (max-width: 900px) {
   .auth__visual { display: none; }

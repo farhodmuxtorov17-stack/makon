@@ -16,7 +16,7 @@
       <KpiCard :icon="Package" label="Jami pozitsiyalar" :value="materials.length" icon-color="#f97316" icon-bg="rgba(249,115,22,0.1)" to="/finance/inventory" />
       <KpiCard :icon="CheckCircle2" label="Ombor qiymati" :value="formatUZSShort(totalValue)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/inventory" />
       <KpiCard :icon="AlertCircle" label="Kam qoldi" :value="lowStockCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/inventory" />
-      <KpiCard :icon="Layers" label="Oylik sarflash" :value="formatUZSShort(monthlyUsage)" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/finance/inventory" />
+      <KpiCard :icon="Layers" label="Oylik sarflash" :value="formatUZSShort(monthlyUsage)" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/finance/inventory" />
     </div>
 
     <!-- Category filter + search -->
@@ -146,7 +146,7 @@ const monthlyUsage = computed(() => 8450000)
 
 
 function categoryColor(cat: string) {
-  return { ELECTRICAL: '#f59e0b', PLUMBING: '#3b82f6', PAINT: '#ec4899', CONSTRUCTION: '#6b7280', HARDWARE: '#8b5cf6' }[cat] || '#71717a'
+  return { ELECTRICAL: '#f59e0b', PLUMBING: '#3b82f6', PAINT: '#ec4899', CONSTRUCTION: '#6b7280', HARDWARE: 'var(--accent)' }[cat] || '#71717a'
 }
 
 function categoryLabel(cat: string) {

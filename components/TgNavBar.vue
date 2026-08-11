@@ -109,7 +109,7 @@ function handleBack() {
   align-items: center;
   gap: 2px;
   padding: 8px 10px;
-  color: #6366f1;
+  color: var(--accent);
   font-size: 15px;
   font-weight: 500;
   background: none;
@@ -118,7 +118,7 @@ function handleBack() {
   white-space: nowrap;
 }
 .tg-nav-bar--dark .tg-nav-bar__back {
-  color: #818cf8;
+  color: var(--accent);
 }
 .tg-nav-bar__tabs {
   display: flex;
@@ -141,14 +141,14 @@ function handleBack() {
   min-width: 48px;
 }
 .tg-nav-bar__tab--active {
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.1);
+  color: var(--accent);
+  background: rgba(15, 118, 110, 0.1);
 }
 .tg-nav-bar--dark .tg-nav-bar__tab {
   color: #a1a1aa;
 }
 .tg-nav-bar--dark .tg-nav-bar__tab--active {
-  color: #818cf8;
-  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent);
+  background: rgba(15, 118, 110, 0.15);
 }
 </style>

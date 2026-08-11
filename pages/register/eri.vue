@@ -121,7 +121,7 @@ async function handleRegister() {
 .auth__visual-grad {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(9,9,11,0.4) 0%, rgba(9,9,11,0.2) 40%, rgba(9,9,11,0.85) 100%),
-              radial-gradient(ellipse at 30% 70%, rgba(99,102,241,0.15), transparent 50%);
+              radial-gradient(ellipse at 30% 70%, rgba(15,118,110,0.15), transparent 50%);
 }
 .auth__visual-content {
   position: absolute; inset: 0;
@@ -131,10 +131,10 @@ async function handleRegister() {
 .auth__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .auth__logo-icon {
   width: 38px; height: 38px; border-radius: 11px;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 17px; color: white;
-  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+  box-shadow: 0 4px 16px rgba(15,118,110,0.35);
 }
 .auth__logo span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; }
 .auth__visual-bottom { max-width: 400px; }
@@ -160,7 +160,7 @@ async function handleRegister() {
   font-size: 12px; font-weight: 700; transition: all 0.3s;
 }
 .dark .auth__step-n { background: rgba(255,255,255,0.06); }
-.auth__step--active .auth__step-n { background: #6366f1; color: white; }
+.auth__step--active .auth__step-n { background: var(--accent); color: white; }
 .auth__step--done .auth__step-n { background: #10b981; color: white; }
 .auth__step span { font-size: 12px; color: #71717a; font-weight: 500; }
 .dark .auth__step span { color: #a1a1aa; }
@@ -181,7 +181,7 @@ async function handleRegister() {
   background: rgba(0,0,0,0.02); font-size: 14px; color: #18181b; transition: all 0.25s; outline: none;
 }
 .dark .auth__input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
-.auth__input:focus { border-color: #6366f1; background: white; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+.auth__input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(15,118,110,0.12); }
 .dark .auth__input:focus { background: rgba(255,255,255,0.06); }
 .auth__input::placeholder { color: #a1a1aa; }
 
@@ -189,26 +189,26 @@ async function handleRegister() {
 .auth__submit {
   width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 14px; border-radius: 12px; border: none;
-  background: linear-gradient(135deg, #6366f1, #4f46e5); color: white;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white;
   font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: all 0.3s; box-shadow: 0 2px 10px rgba(99,102,241,0.25);
+  transition: all 0.3s; box-shadow: 0 2px 10px rgba(15,118,110,0.25);
   margin-top: 4px;
 }
-.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(99,102,241,0.35); }
+.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(15,118,110,0.35); }
 .auth__submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* ERI box */
 .auth__eri-box {
   text-align: center; padding: 32px 24px; border-radius: 16px;
-  background: rgba(99,102,241,0.04); border: 1.5px solid rgba(99,102,241,0.1);
+  background: rgba(15,118,110,0.04); border: 1.5px solid rgba(15,118,110,0.1);
   margin-bottom: 20px;
 }
-.dark .auth__eri-box { background: rgba(99,102,241,0.06); }
+.dark .auth__eri-box { background: rgba(15,118,110,0.06); }
 .auth__eri-icon {
   width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 14px;
-  background: linear-gradient(135deg, #6366f1, #4f46e5); color: white;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(99,102,241,0.25);
+  box-shadow: 0 4px 16px rgba(15,118,110,0.25);
 }
 .auth__eri-title { font-size: 16px; font-weight: 700; color: #18181b; margin: 0 0 8px; }
 .dark .auth__eri-title { color: white; }
@@ -228,7 +228,7 @@ async function handleRegister() {
 /* Signup */
 .auth__signup { text-align: center; margin-top: 28px; font-size: 14px; color: #71717a; }
 .dark .auth__signup { color: #a1a1aa; }
-.auth__link { color: #6366f1; text-decoration: none; font-weight: 500; }
+.auth__link { color: var(--accent); text-decoration: none; font-weight: 500; }
 .auth__link:hover { text-decoration: underline; }
 .auth__link--bold { font-weight: 600; }
 

@@ -108,13 +108,13 @@
         <line x1="42" y1="7" x2="49" y2="7" :stroke="c.accent" stroke-width="0.4" />
         <line x1="42" y1="9" x2="49" y2="9" :stroke="c.accent" stroke-width="0.4" />
         <line x1="42" y1="11" x2="47" y2="11" :stroke="c.accent" stroke-width="0.4" />
-        <path d="M 50 2 L 56 8 L 54 10 L 48 4 Z" fill="#6366f1" />
-        <path d="M 54 10 L 56 8 L 57 9 L 55 11 Z" fill="#4f46e5" />
+        <path d="M 50 2 L 56 8 L 54 10 L 48 4 Z" fill="var(--accent)" />
+        <path d="M 54 10 L 56 8 L 57 9 L 55 11 Z" fill="var(--accent-hover)" />
       </g>
 
       <!-- Contract: ERI shield with lock -->
       <g v-if="type === 'contract'" class="eri-shield">
-        <path d="M 44 3 L 54 3 L 54 11 Q 54 15 49 17 Q 44 15 44 11 Z" fill="#8b5cf6" />
+        <path d="M 44 3 L 54 3 L 54 11 Q 54 15 49 17 Q 44 15 44 11 Z" fill="var(--accent)" />
         <path d="M 47 7 L 51 7 L 51 10 Q 51 12 49 13 Q 47 12 47 10 Z" fill="none" stroke="white" stroke-width="0.8" />
         <rect x="48" y="8" width="2" height="2" fill="white" rx="0.3" />
         <circle cx="49" cy="11" r="1" fill="white" />
@@ -148,9 +148,9 @@ const props = withDefaults(defineProps<{
 
 const palettes: Record<string, any> = {
   revenue: {
-    frontTop: '#818cf8', frontBottom: '#4f46e5',
-    sideTop: '#6366f1', sideBottom: '#3730a3',
-    topStart: '#a5b4fc', topEnd: '#818cf8',
+    frontTop: 'var(--accent)', frontBottom: 'var(--accent-hover)',
+    sideTop: 'var(--accent)', sideBottom: '#3730a3',
+    topStart: '#a5b4fc', topEnd: 'var(--accent)',
     accent: '#f59e0b', windowLit: '#fde68a',
   },
   occupancy: {
@@ -166,10 +166,10 @@ const palettes: Record<string, any> = {
     accent: '#3b82f6', windowLit: '#dbeafe',
   },
   units: {
-    frontTop: '#a5b4fc', frontBottom: '#4f46e5',
-    sideTop: '#818cf8', sideBottom: '#3730a3',
+    frontTop: '#a5b4fc', frontBottom: 'var(--accent-hover)',
+    sideTop: 'var(--accent)', sideBottom: '#3730a3',
     topStart: '#c7d2fe', topEnd: '#a5b4fc',
-    accent: '#6366f1', windowLit: '#e0e7ff',
+    accent: 'var(--accent)', windowLit: '#e0e7ff',
   },
   overdue: {
     frontTop: '#f87171', frontBottom: '#dc2626',
@@ -181,7 +181,7 @@ const palettes: Record<string, any> = {
     frontTop: '#c084fc', frontBottom: '#7c3aed',
     sideTop: '#a78bfa', sideBottom: '#5b21b6',
     topStart: '#d8b4fe', topEnd: '#c084fc',
-    accent: '#8b5cf6', windowLit: '#ede9fe',
+    accent: 'var(--accent)', windowLit: '#ede9fe',
   },
   paid: {
     frontTop: '#34d399', frontBottom: '#059669',
@@ -205,7 +205,7 @@ const palettes: Record<string, any> = {
     frontTop: '#c084fc', frontBottom: '#7c3aed',
     sideTop: '#a78bfa', sideBottom: '#5b21b6',
     topStart: '#d8b4fe', topEnd: '#c084fc',
-    accent: '#8b5cf6', windowLit: '#ede9fe',
+    accent: 'var(--accent)', windowLit: '#ede9fe',
   },
   service: {
     frontTop: '#22d3ee', frontBottom: '#0891b2',

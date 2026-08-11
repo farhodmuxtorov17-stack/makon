@@ -78,7 +78,7 @@
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <KpiCard :icon="Wrench" label="Jami work orderlar" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/facility/work-orders" />
-      <KpiCard :icon="Clock" label="Jarayonda" :value="inProgressCount" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" to="/facility/work-orders" />
+      <KpiCard :icon="Clock" label="Jarayonda" :value="inProgressCount" icon-color="var(--accent)" icon-bg="rgba(15,118,110,0.1)" to="/facility/work-orders" />
       <KpiCard :icon="CheckCircle2" label="Tugatilgan" :value="completedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/facility/work-orders" />
       <KpiCard :icon="AlertTriangle" label="SLA buzilgan" :value="slaBreachedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/facility/work-orders" />
     </div>
@@ -93,7 +93,7 @@
         <CategoryProgressCard label="Santexnika" :value="categoryProgress.santexnika" :trend="4" color="#3b82f6" :icon="Droplets" />
         <CategoryProgressCard label="Elektr" :value="categoryProgress.elektr" :trend="2" color="#f59e0b" :icon="Zap" />
         <CategoryProgressCard label="Konditsioner" :value="categoryProgress.konditsioner" :trend="-3" color="#10b981" :icon="Wind" />
-        <CategoryProgressCard label="Umumiy toza" :value="categoryProgress.umumiy" :trend="6" color="#8b5cf6" :icon="Sparkles" />
+        <CategoryProgressCard label="Umumiy toza" :value="categoryProgress.umumiy" :trend="6" color="var(--accent)" :icon="Sparkles" />
       </div>
     </div>
 
