@@ -53,7 +53,7 @@
             :style="{ left: b.mapX + '%', top: b.mapY + '%' }"
             :title="b.name"
           >
-            <MapPin :size="22" :fill="b.occupancy > 85 ? '#0f766e' : '#f59e0b'" :stroke="'white'" stroke-width="1.5" />
+            <MapPin :size="22" :fill="b.occupancy > 85 ? '#2563EB' : '#F59E0B'" :stroke="'white'" stroke-width="1.5" />
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="dash__donut-wrap">
           <div class="dash__donut-svg">
-            <DonutChart :values="[{ value: occupiedArea, color: '#0f766e' }, { value: vacantArea, color: '#34d399' }]" />
+            <DonutChart :values="[{ value: occupiedArea, color: '#2563EB' }, { value: vacantArea, color: '#93C5FD' }]" />
             <div class="dash__donut-center">
               <div class="dash__donut-total">{{ formatArea(totalArea) }}</div>
               <div class="dash__donut-total-label">Jami maydon</div>
@@ -73,14 +73,14 @@
           </div>
           <div class="dash__donut-legend">
             <div class="dash__donut-legend-item">
-              <span class="dash__donut-dot" style="background:#0f766e"></span>
+              <span class="dash__donut-dot" style="background:#2563EB"></span>
               <div>
                 <div class="dash__donut-legend-label">Band</div>
                 <div class="dash__donut-legend-val">{{ formatArea(occupiedArea) }} ({{ Math.round(occupiedArea/totalArea*100) }}%)</div>
               </div>
             </div>
             <div class="dash__donut-legend-item">
-              <span class="dash__donut-dot" style="background:#34d399"></span>
+              <span class="dash__donut-dot" style="background:#93C5FD"></span>
               <div>
                 <div class="dash__donut-legend-label">Vacant</div>
                 <div class="dash__donut-legend-val">{{ formatArea(vacantArea) }} ({{ Math.round(vacantArea/totalArea*100) }}%)</div>
@@ -105,8 +105,8 @@
           </div>
         </div>
         <div class="dash__bars-legend">
-          <span><i style="background:#0f766e"></i> Band maydon</span>
-          <span><i style="background:#bbf7d0"></i> Vacant maydon</span>
+          <span><i style="background:#2563EB"></i> Band maydon</span>
+          <span><i style="background:#BFDBFE"></i> Vacant maydon</span>
         </div>
       </div>
     </div>
@@ -158,11 +158,11 @@ const scopeFilter = ref('')
 const today = '11.08.2026'
 
 const kpis = [
-  { label: "Bandlik (o'rtacha)", value: '87%', trend: 4.2, color: '#0f766e', spark: [78, 80, 79, 82, 84, 83, 85, 86, 85, 87] },
-  { label: 'Vacancy', value: '13%', trend: -2.1, color: '#f59e0b', spark: [22, 20, 21, 18, 16, 17, 15, 14, 15, 13] },
-  { label: 'Qarzdorlik', value: '125.4 mln', trend: 6.3, color: '#ef4444', spark: [95, 100, 98, 105, 110, 108, 115, 118, 120, 125] },
-  { label: 'Servis arizalari', value: '156', trend: -8.0, color: '#8b5cf6', spark: [190, 185, 178, 172, 168, 165, 160, 158, 157, 156] },
-  { label: "To'lovlar (bugun)", value: '824.6 mln', trend: 12.5, color: '#3b82f6', spark: [600, 650, 630, 700, 690, 720, 750, 740, 800, 824] },
+  { label: "Bandlik (o'rtacha)", value: '87%', trend: 4.2, color: '#2563EB', spark: [78, 80, 79, 82, 84, 83, 85, 86, 85, 87] },
+  { label: 'Vacancy', value: '13%', trend: -2.1, color: '#F59E0B', spark: [22, 20, 21, 18, 16, 17, 15, 14, 15, 13] },
+  { label: 'Qarzdorlik', value: '125.4 mln', trend: 6.3, color: '#EF4444', spark: [95, 100, 98, 105, 110, 108, 115, 118, 120, 125] },
+  { label: 'Servis arizalari', value: '156', trend: -8.0, color: '#8B5CF6', spark: [190, 185, 178, 172, 168, 165, 160, 158, 157, 156] },
+  { label: "To'lovlar (bugun)", value: '824.6 mln', trend: 12.5, color: '#3B82F6', spark: [600, 650, 630, 700, 690, 720, 750, 740, 800, 824] },
 ]
 
 const buildings = [
@@ -195,7 +195,7 @@ function formatArea(v: number) { return v.toLocaleString('ru-RU') + ' m²' }
 /* Head */
 .dash__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
 .dash__head-left { display: flex; align-items: center; gap: 12px; }
-.dash__head-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.dash__head-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(37,99,235,0.1); color: var(--accent, #2563EB); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .dash__title { font-size: 20px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; margin: 0; }
 .dark .dash__title { color: white; }
 .dash__sub { font-size: 13px; color: #71717a; margin: 2px 0 0; }
@@ -275,8 +275,8 @@ function formatArea(v: number) { return v.toLocaleString('ru-RU') + ' m²' }
 .dash__bars { display: flex; align-items: flex-end; justify-content: space-between; height: 160px; gap: 8px; margin-bottom: 12px; }
 .dash__bars-col { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; height: 100%; justify-content: flex-end; }
 .dash__bars-stack { width: 60%; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; border-radius: 4px; overflow: hidden; }
-.dash__bars-seg--occ { background: #0f766e; }
-.dash__bars-seg--vac { background: #bbf7d0; }
+.dash__bars-seg--occ { background: #2563EB; }
+.dash__bars-seg--vac { background: #BFDBFE; }
 .dash__bars-label { font-size: 10.5px; color: #a1a1aa; }
 .dash__bars-legend { display: flex; gap: 16px; font-size: 11px; color: #71717a; }
 .dash__bars-legend span { display: inline-flex; align-items: center; gap: 5px; }
@@ -304,7 +304,7 @@ function formatArea(v: number) { return v.toLocaleString('ru-RU') + ' m²' }
 .dash__compare-track { height: 4px; border-radius: 2px; background: rgba(0,0,0,0.06); overflow: hidden; }
 .dark .dash__compare-track { background: rgba(255,255,255,0.08); }
 .dash__compare-fill { height: 100%; border-radius: 2px; }
-.dash__compare-fill--occ { background: #0f766e; }
+.dash__compare-fill--occ { background: #2563EB; }
 .dash__compare-fill--vac { background: #f59e0b; }
-.dash__compare-link { display: block; text-align: center; font-size: 11px; font-weight: 600; color: var(--accent, #0f766e); margin-top: 12px; text-decoration: none; }
+.dash__compare-link { display: block; text-align: center; font-size: 11px; font-weight: 600; color: var(--accent, #2563EB); margin-top: 12px; text-decoration: none; }
 </style>

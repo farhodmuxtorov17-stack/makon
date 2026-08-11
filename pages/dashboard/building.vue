@@ -58,13 +58,13 @@
           <div class="bdash__floors-list">
             <div v-for="f in floors" :key="f.num" class="bdash__floor-row">
               <span class="bdash__floor-label">{{ f.num }}-qavat</span>
-              <div class="bdash__floor-track"><div class="bdash__floor-fill" :style="{ width: f.occupied + '%', background: f.occupied > 90 ? '#10b981' : f.occupied > 80 ? '#0f766e' : '#f59e0b' }"></div></div>
+              <div class="bdash__floor-track"><div class="bdash__floor-fill" :style="{ width: f.occupied + '%', background: f.occupied > 90 ? '#10B981' : f.occupied > 80 ? '#2563EB' : '#F59E0B' }"></div></div>
               <span class="bdash__floor-pct">{{ f.occupied }}%</span>
             </div>
           </div>
           <div class="bdash__tower">
             <div class="bdash__tower-roof"></div>
-            <div v-for="f in floorsReversed" :key="f.num" class="bdash__tower-floor" :style="{ background: f.occupied > 90 ? 'linear-gradient(135deg, rgba(16,185,129,0.55), rgba(16,185,129,0.25))' : f.occupied > 80 ? 'linear-gradient(135deg, rgba(15,118,110,0.55), rgba(15,118,110,0.25))' : 'linear-gradient(135deg, rgba(245,158,11,0.5), rgba(245,158,11,0.2))' }"></div>
+            <div v-for="f in floorsReversed" :key="f.num" class="bdash__tower-floor" :style="{ background: f.occupied > 90 ? 'linear-gradient(135deg, rgba(16,185,129,0.55), rgba(16,185,129,0.25))' : f.occupied > 80 ? 'linear-gradient(135deg, rgba(37,99,235,0.55), rgba(37,99,235,0.25))' : 'linear-gradient(135deg, rgba(245,158,11,0.5), rgba(245,158,11,0.2))' }"></div>
             <div class="bdash__tower-base">
               <span class="bdash__tower-tree">🌳</span>
               <span class="bdash__tower-tree">🌳</span>
@@ -140,18 +140,18 @@ const buildings = [
 const selectedBuilding = computed(() => buildings.find(b => b.id === selectedId.value) || buildings[0])
 
 const kpis = [
-  { label: 'Bandlik', value: '92%', trend: 3.1, color: '#0f766e', spark: [86, 87, 88, 89, 90, 89, 91, 90, 92, 92] },
-  { label: 'Vacancy', value: '8%', trend: -1.4, color: '#f59e0b', spark: [14, 13, 12, 12, 11, 12, 10, 10, 9, 8] },
-  { label: "Bugungi to'lovlar", value: '128.4 mln', trend: 9.2, color: '#3b82f6', spark: [95, 100, 98, 105, 110, 108, 115, 118, 122, 128] },
-  { label: 'Qarzdorlik', value: '18.2 mln', trend: 4.8, color: '#ef4444', spark: [14, 15, 14.5, 15.5, 16, 16.5, 17, 17.5, 17.8, 18.2] },
-  { label: 'Servis arizalari', value: '14', trend: -12.0, color: '#8b5cf6', spark: [22, 21, 20, 19, 18, 17, 16, 15, 15, 14] },
+  { label: 'Bandlik', value: '92%', trend: 3.1, color: '#2563EB', spark: [86, 87, 88, 89, 90, 89, 91, 90, 92, 92] },
+  { label: 'Vacancy', value: '8%', trend: -1.4, color: '#F59E0B', spark: [14, 13, 12, 12, 11, 12, 10, 10, 9, 8] },
+  { label: "Bugungi to'lovlar", value: '128.4 mln', trend: 9.2, color: '#3B82F6', spark: [95, 100, 98, 105, 110, 108, 115, 118, 122, 128] },
+  { label: 'Qarzdorlik', value: '18.2 mln', trend: 4.8, color: '#EF4444', spark: [14, 15, 14.5, 15.5, 16, 16.5, 17, 17.5, 17.8, 18.2] },
+  { label: 'Servis arizalari', value: '14', trend: -12.0, color: '#8B5CF6', spark: [22, 21, 20, 19, 18, 17, 16, 15, 15, 14] },
 ]
 
 const issues = [
-  { label: "Kechikkan to'lovlar", count: 3, icon: CreditCard, bg: 'rgba(239,68,68,0.1)', color: '#ef4444' },
-  { label: 'Servis arizalari (ochiq)', count: 4, icon: Wrench, bg: 'rgba(245,158,11,0.1)', color: '#f59e0b' },
-  { label: 'Tasdiqlash kutilmoqda', count: 2, icon: ClipboardCheck, bg: 'rgba(59,130,246,0.1)', color: '#3b82f6' },
-  { label: 'Shartnoma yakuni yaqin', count: 5, icon: FileClock, bg: 'rgba(139,92,246,0.1)', color: '#8b5cf6' },
+  { label: "Kechikkan to'lovlar", count: 3, icon: CreditCard, bg: 'rgba(239,68,68,0.1)', color: '#EF4444' },
+  { label: 'Servis arizalari (ochiq)', count: 4, icon: Wrench, bg: 'rgba(245,158,11,0.1)', color: '#F59E0B' },
+  { label: 'Tasdiqlash kutilmoqda', count: 2, icon: ClipboardCheck, bg: 'rgba(59,130,246,0.1)', color: '#3B82F6' },
+  { label: 'Shartnoma yakuni yaqin', count: 5, icon: FileClock, bg: 'rgba(139,92,246,0.1)', color: '#8B5CF6' },
 ]
 
 const floors = [
@@ -191,7 +191,7 @@ const approvals = [
 /* Head */
 .bdash__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
 .bdash__head-left { display: flex; align-items: center; gap: 12px; }
-.bdash__head-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.bdash__head-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(37,99,235,0.1); color: var(--accent, #2563EB); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .bdash__title { font-size: 20px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; margin: 0; }
 .dark .bdash__title { color: white; }
 .bdash__sub { font-size: 13px; color: #71717a; margin: 2px 0 0; }
@@ -236,7 +236,7 @@ const approvals = [
 .bdash__panel-head { margin-bottom: 14px; }
 .bdash__panel-title { font-size: 14px; font-weight: 700; color: #18181b; margin: 0; }
 .dark .bdash__panel-title { color: white; }
-.bdash__panel-link { display: block; text-align: right; font-size: 12px; font-weight: 600; color: var(--accent, #0f766e); margin-top: 14px; text-decoration: none; }
+.bdash__panel-link { display: block; text-align: right; font-size: 12px; font-weight: 600; color: var(--accent, #2563EB); margin-top: 14px; text-decoration: none; }
 
 /* Issues list */
 .bdash__issues { display: flex; flex-direction: column; gap: 10px; flex: 1; }

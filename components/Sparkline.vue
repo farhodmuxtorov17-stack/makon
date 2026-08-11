@@ -21,7 +21,7 @@ const props = defineProps<{
 
 const width = props.width || 100
 const height = props.height || 32
-const color = props.color || '#0f766e'
+const color = props.color || '#2563EB'
 const gradId = 'spark-' + Math.random().toString(36).slice(2, 9)
 
 const points = computed(() => {
