@@ -13,9 +13,9 @@
 
     <!-- KPI cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="DollarSign" label="Jami summa" :value="formatShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
-      <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
-      <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+      <KpiCard :icon="DollarSign" label="Jami summa" :value="formatUZSShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
+      <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatUZSShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
+      <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatUZSShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
       <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
     </div>
 
@@ -67,9 +67,9 @@
               <td class="px-4 py-3 hidden md:table-cell font-medium text-ink-900 dark:text-white">{{ inv.tenantName }}</td>
               <td class="px-4 py-3 hidden lg:table-cell text-ink-500 font-mono text-xs">{{ inv.contractNumber }}</td>
               <td class="px-4 py-3 hidden md:table-cell text-ink-500">{{ inv.period }}</td>
-              <td class="px-4 py-3 text-right font-semibold text-ink-900 dark:text-white">{{ formatShort(inv.amount) }}</td>
+              <td class="px-4 py-3 text-right font-semibold text-ink-900 dark:text-white">{{ formatUZSShort(inv.amount) }}</td>
               <td class="px-4 py-3 text-right hidden sm:table-cell" :class="inv.balance > 0 ? 'text-red-500 font-medium' : 'text-emerald-500'">
-                {{ formatShort(inv.balance) }}
+                {{ formatUZSShort(inv.balance) }}
               </td>
               <td class="px-4 py-3 hidden md:table-cell text-center text-ink-500 text-xs">{{ formatDate(inv.dueDate) }}</td>
               <td class="px-4 py-3 text-center">
@@ -109,15 +109,15 @@
         <div class="p-4 rounded-xl bg-black/5 dark:bg-white/5 space-y-2">
           <div class="flex justify-between text-sm">
             <span class="text-ink-500">Jami summa</span>
-            <span class="font-bold text-ink-900 dark:text-white">{{ formatShort(selectedInvoice.amount) }} so'm</span>
+            <span class="font-bold text-ink-900 dark:text-white">{{ formatUZSShort(selectedInvoice.amount) }} so'm</span>
           </div>
           <div class="flex justify-between text-sm">
             <span class="text-ink-500">To'langan</span>
-            <span class="font-bold text-emerald-500">{{ formatShort(selectedInvoice.paidAmount) }} so'm</span>
+            <span class="font-bold text-emerald-500">{{ formatUZSShort(selectedInvoice.paidAmount) }} so'm</span>
           </div>
           <div class="flex justify-between text-sm border-t border-black/5 dark:border-white/5 pt-2">
             <span class="text-ink-500">Qoldiq</span>
-            <span class="font-bold" :class="selectedInvoice.balance > 0 ? 'text-red-500' : 'text-emerald-500'">{{ formatShort(selectedInvoice.balance) }} so'm</span>
+            <span class="font-bold" :class="selectedInvoice.balance > 0 ? 'text-red-500' : 'text-emerald-500'">{{ formatUZSShort(selectedInvoice.balance) }} so'm</span>
           </div>
         </div>
         <div class="flex gap-2">
@@ -179,6 +179,8 @@ import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Download, Receipt, CheckCircle2, AlertCircle, Clock, Search, SearchX, Layers, DollarSign, Check } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const search = ref('')
 const activeTab = ref('all')
@@ -281,15 +283,7 @@ function exportSingle(inv: any) {
   alert(`${inv.number} yuklab olindi`)
 }
 
-function formatShort(v: number) {
-  if (v >= 1_000_000_000) return (v / 1_000_000_000).toFixed(1) + ' mlr'
-  if (v >= 1_000_000) return (v / 1_000_000).toFixed(0) + 'M'
-  if (v >= 1_000) return (v / 1_000).toFixed(0) + 'K'
-  return String(v)
-}
-function formatDate(d: string) {
-  return new Date(d).toLocaleDateString('uz', { day: '2-digit', month: 'short', year: 'numeric' })
-}
+
 function invoiceLabel(s: string) {
   return { PAID: "To'langan", UNPAID: "To'lanmagan", PARTIALLY_PAID: 'Qisman', OVERDUE: "Muddati o'tgan", DRAFT: 'Qoralama', CANCELLED: 'Bekor' }[s] || s
 }

@@ -118,7 +118,7 @@
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <span class="text-sm">{{ formatPrice(c.monthlyRent) }}</span>
+            <span class="text-sm">{{ formatUZS(c.monthlyRent) }}</span>
             <span class="badge text-xs" :class="c.status === 'ACTIVE' ? 'badge-success' : 'badge-neutral'">{{ c.status === 'ACTIVE' ? 'Faol' : 'Tugagan' }}</span>
           </div>
         </div>
@@ -156,6 +156,8 @@
 import { ArrowLeft, Save, Trash2, CheckCircle2, XCircle, ScrollText, AlertTriangle, FileText, Settings, LogIn, Download, PenLine } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const route = useRoute()
 const userId = route.params.id
@@ -231,8 +233,7 @@ function deleteUser() {
   navigateTo('/admin/users')
 }
 
-function formatDateTime(d: string) { return new Date(d).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) }
-function formatPrice(p: number) { return (p / 1000000).toFixed(1) + 'M so\'m' }
+
 </script>
 
 <style scoped>

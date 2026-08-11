@@ -20,7 +20,7 @@
           <div class="text-sm text-ink-500">{{ listing.building }} · {{ listing.area }} m² · {{ listing.floor }}-qavat</div>
         </div>
         <div class="text-right">
-          <div class="font-medium">{{ formatMoney(listing.price) }}</div>
+          <div class="font-medium">{{ formatUZS(listing.price) }}</div>
           <span class="badge badge-brand text-xs">{{ listing.offerType === 'RENT' ? 'Ijara' : 'Sotuv' }}</span>
         </div>
       </div>
@@ -126,6 +126,8 @@ import { ArrowLeft, Building2, ShoppingBag, Upload, FileSignature } from 'lucide
 
 definePageMeta({ layout: 'public' })
 
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+
 const currentStep = ref(0)
 const submitting = ref(false)
 const steps = ['Ariza turi', 'Tashkilot', 'Hujjatlar', 'ERI tasdiq']
@@ -149,5 +151,5 @@ function submit() {
   }, 1500)
 }
 
-function formatMoney(v: number) { return new Intl.NumberFormat('ru-RU').format(v) + ' so\'m' }
+
 </script>

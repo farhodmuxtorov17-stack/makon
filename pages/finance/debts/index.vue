@@ -14,11 +14,11 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="card p-5">
           <div class="text-xs text-ink-500 mb-1">Jami qarzdorlik</div>
-          <div class="text-2xl font-bold text-red-400">{{ formatPrice(totalDebt, 'UZS') }}</div>
+          <div class="text-2xl font-bold text-red-400">{{ formatUZS(totalDebt) }}</div>
         </div>
         <div class="card p-5">
           <div class="text-xs text-ink-500 mb-1">Muddati o'tgan</div>
-          <div class="text-2xl font-bold text-red-400">{{ formatPrice(overdueDebt, 'UZS') }}</div>
+          <div class="text-2xl font-bold text-red-400">{{ formatUZS(overdueDebt) }}</div>
         </div>
         <div class="card p-5">
           <div class="text-xs text-ink-500 mb-1">Qarzdorlar soni</div>
@@ -46,8 +46,8 @@
             <tr v-for="inv in debtors" :key="inv.id" class="border-b border-white/5 hover:bg-white/5 transition-colors">
               <td class="px-4 py-3 font-medium">{{ inv.tenantName }}</td>
               <td class="px-4 py-3 hidden md:table-cell font-mono text-xs text-ink-500">{{ inv.number }}</td>
-              <td class="px-4 py-3 text-right">{{ formatPrice(inv.amount, inv.currency) }}</td>
-              <td class="px-4 py-3 text-right text-red-400 font-semibold">{{ formatPrice(inv.balance, inv.currency) }}</td>
+              <td class="px-4 py-3 text-right">{{ formatUZS(inv.amount) }}</td>
+              <td class="px-4 py-3 text-right text-red-400 font-semibold">{{ formatUZS(inv.balance) }}</td>
               <td class="px-4 py-3 hidden md:table-cell text-center text-xs" :class="isOverdue(inv.dueDate) ? 'text-red-400' : 'text-ink-400'">
                 {{ formatDate(inv.dueDate) }}
               </td>
@@ -69,6 +69,8 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const data = ref({
   stats: { totalDebt: 85000000, overdueCount: 7, overdueAmount: 45000000, atRiskCount: 3 },
@@ -93,14 +95,5 @@ function isOverdue(date: string) {
   return new Date(date) < new Date()
 }
 
-function formatPrice(price: number, currency: string) {
-  if (!price) return '—'
-  const formatted = new Intl.NumberFormat('ru-RU').format(price)
-  return currency === 'USD' ? `$${formatted}` : `${(formatted / 1000000).toFixed(1)}M`
-}
 
-function formatDate(date: string) {
-  if (!date) return '—'
-  return new Date(date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' })
-}
 </script>

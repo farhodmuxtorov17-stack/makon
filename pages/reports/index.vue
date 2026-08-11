@@ -93,8 +93,8 @@
                   <span class="text-xs font-medium text-ink-500">{{ b.occupancy }}%</span>
                 </div>
               </td>
-              <td class="px-5 py-3 text-right hidden sm:table-cell font-medium">{{ formatShort(b.revenue) }}</td>
-              <td class="px-5 py-3 text-right hidden lg:table-cell text-ink-500">{{ formatShort(b.pricePerM2) }}</td>
+              <td class="px-5 py-3 text-right hidden sm:table-cell font-medium">{{ formatUZSShort(b.revenue) }}</td>
+              <td class="px-5 py-3 text-right hidden lg:table-cell text-ink-500">{{ formatUZSShort(b.pricePerM2) }}</td>
               <td class="px-5 py-3 text-center hidden md:table-cell">
                 <span v-if="b.apps > 0" class="badge badge-brand text-xs">{{ b.apps }}</span>
                 <span v-else class="text-ink-400 text-xs">—</span>
@@ -134,7 +134,7 @@
               <div class="text-sm font-medium text-ink-900 dark:text-white truncate">{{ t.name }}</div>
               <div class="text-xs text-ink-500">{{ t.units }} unit · {{ t.building }}</div>
             </div>
-            <span class="text-sm font-bold text-brand-500 flex-shrink-0">{{ formatShort(t.revenue) }}</span>
+            <span class="text-sm font-bold text-brand-500 flex-shrink-0">{{ formatUZSShort(t.revenue) }}</span>
           </div>
         </div>
       </div>
@@ -147,6 +147,8 @@ import KpiCard from '~/components/KpiCard.vue'
 import { Download, FileSpreadsheet, TrendingUp, TrendingDown, FileText, CheckCircle2, AlertCircle, Wrench, Building2, Users } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const period = ref('month')
 
@@ -203,10 +205,5 @@ const topTenants = [
   { name: 'Tech Hub MChJ', units: 1, building: 'IT Park', revenue: 28000000 },
 ]
 
-function formatShort(v: number) {
-  if (v >= 1_000_000_000) return (v / 1_000_000_000).toFixed(1) + 'B'
-  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + 'M'
-  if (v >= 1_000) return (v / 1_000).toFixed(0) + 'K'
-  return String(v)
-}
+
 </script>

@@ -57,7 +57,7 @@
             </div>
           </div>
           <div class="text-right">
-            <div class="text-sm font-bold text-brand-500">{{ formatMoney(c.monthlyRent) }}</div>
+            <div class="text-sm font-bold text-brand-500">{{ formatUZS(c.monthlyRent) }}</div>
             <div class="text-xs text-ink-500">{{ c.startDate }} → {{ c.endDate }}</div>
           </div>
         </div>
@@ -88,6 +88,8 @@ import { Plus, FileText, CheckCircle2, Clock, ShieldCheck, AlertCircle } from 'l
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+
 const contracts = [
   { id: 'c1', number: 'CTR-2026-001', unit: 'A-301', buildingName: 'Tashkent City', monthlyRent: 25000000, startDate: '01.04.26', endDate: '15.03.27', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true, daysLeft: 218 },
   { id: 'c2', number: 'CTR-2026-002', unit: 'B-205', buildingName: 'Trillant Tower', monthlyRent: 35000000, startDate: '15.05.26', endDate: '14.05.27', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true, daysLeft: 278 },
@@ -101,7 +103,7 @@ const signingCount = computed(() => contracts.filter(c => c.status === 'PARTIALL
 const eriCount = computed(() => contracts.filter(c => c.eriTenantSigned && c.eriLandlordSigned).length)
 const expiredCount = computed(() => contracts.filter(c => c.status === 'EXPIRED').length)
 
-function formatMoney(v: number) { return (v / 1_000_000).toFixed(1) + 'M' }
+
 function statusLabel(s: string) { return { ACTIVE: 'Faol', PARTIALLY_SIGNED: 'Qisman imzo', EXPIRED: "Muddati o'tgan" }[s] || s }
 function statusBadge(s: string) { return { ACTIVE: 'badge-success', PARTIALLY_SIGNED: 'badge-warning', EXPIRED: 'badge-neutral' }[s] || 'badge-neutral' }
 function statusIcon(s: string) {

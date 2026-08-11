@@ -17,7 +17,7 @@
           <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center"><Wallet :size="20" class="text-emerald-500" /></div>
           <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Joriy balans</span>
         </div>
-        <div class="text-2xl font-bold text-emerald-500">{{ formatMoney(0) }}</div>
+        <div class="text-2xl font-bold text-emerald-500">{{ formatUZS(0) }}</div>
         <div class="text-xs text-ink-500 mt-1">Qarzdorlik yo'q (unit A-301)</div>
       </div>
       <div class="card p-5 bg-gradient-to-br from-red-500/5 to-transparent border-red-500/20">
@@ -25,7 +25,7 @@
           <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center"><AlertCircle :size="20" class="text-red-500" /></div>
           <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Qarzdorlik</span>
         </div>
-        <div class="text-2xl font-bold text-red-500">{{ formatMoney(4200000) }}</div>
+        <div class="text-2xl font-bold text-red-500">{{ formatUZS(4200000) }}</div>
         <div class="text-xs text-ink-500 mt-1">Unit B-205 · 5 kun kechikish</div>
       </div>
       <div class="card p-5">
@@ -49,7 +49,7 @@
           <div class="flex-1">
             <div class="flex items-center justify-between mb-1">
               <span class="text-sm font-medium text-ink-900 dark:text-white">{{ charge.name }}</span>
-              <span class="text-sm font-bold text-ink-900 dark:text-white">{{ formatMoney(charge.amount) }}</span>
+              <span class="text-sm font-bold text-ink-900 dark:text-white">{{ formatUZS(charge.amount) }}</span>
             </div>
             <div class="flex items-center gap-3 text-xs text-ink-500">
               <span>{{ charge.details }}</span>
@@ -86,7 +86,7 @@
               <td class="px-3 py-3 font-mono text-xs text-ink-700 dark:text-ink-300">{{ inv.number }}</td>
               <td class="px-3 py-3 hidden sm:table-cell text-ink-500">{{ inv.unit }}</td>
               <td class="px-3 py-3 hidden md:table-cell text-ink-500">{{ inv.period }}</td>
-              <td class="px-3 py-3 text-right font-semibold text-ink-900 dark:text-white">{{ formatMoney(inv.amount) }}</td>
+              <td class="px-3 py-3 text-right font-semibold text-ink-900 dark:text-white">{{ formatUZS(inv.amount) }}</td>
               <td class="px-3 py-3 text-center">
                 <span class="badge text-[10px]" :class="inv.status === 'PAID' ? 'badge-success' : inv.status === 'OVERDUE' ? 'badge-danger' : 'badge-warning'">
                   {{ inv.status === 'PAID' ? 'To\'langan' : inv.status === 'OVERDUE' ? 'Muddati o\'tgan' : 'Kutilmoqda' }}
@@ -127,6 +127,8 @@ import {
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+
 const serviceCharges = [
   { name: 'Ijara to\'lovi', icon: Receipt, color: '#6366f1', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
   { name: 'Elektr energiyasi', icon: Zap, color: '#f59e0b', amount: 1320000, details: '440 kWh × 3000 so\'m', unit: 'oylik', percent: 4 },
@@ -148,11 +150,7 @@ const serviceRequests = [
   { id: 'sr2', category: 'Sanitariya', unit: 'B-205', date: '5 kun oldin', status: 'ASSIGNED', icon: Wrench, iconBg: 'bg-purple-500/10', iconColor: 'text-purple-500' },
 ]
 
-function formatMoney(v: number) {
-  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + 'M'
-  if (v >= 1_000) return (v / 1_000).toFixed(0) + 'K'
-  return String(v)
-}
+
 
 function srBadgeClass(s: string) {
   return { ASSIGNED: 'badge-brand', IN_PROGRESS: 'badge-warning', DONE: 'badge-success' }[s] || 'badge-neutral'

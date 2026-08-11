@@ -299,6 +299,8 @@ import {
 } from 'lucide-vue-next'
 
 definePageMeta({ layout: false })
+
+const { formatUZS, formatUZSShort, formatNumber, formatDate } = useFormat()
 useHead({ title: "Katalog — MAKON" })
 
 // ---------------- Mock data ----------------
@@ -329,20 +331,14 @@ const TYPE_META: Record<string, { label: string; color: string; icon: any }> = {
   WAREHOUSE: { label: 'Sanoat', color: 'orange', icon: Warehouse },
 }
 
-function formatPriceFull(price: number) {
-  return new Intl.NumberFormat('ru-RU').format(price) + " so'm"
-}
-function formatPriceShort(price: number) {
-  return (price / 1_000_000).toFixed(1) + 'M'
-}
 
 const listings = computed(() => rawListings.map(r => ({
   ...r,
   typeLabel: TYPE_META[r.type].label,
   typeColor: TYPE_META[r.type].color,
   typeIcon: TYPE_META[r.type].icon,
-  priceFormatted: formatPriceFull(r.price),
-  priceShort: formatPriceShort(r.price),
+  priceFormatted: formatUZS(r.price),
+  priceShort: formatUZSShort(r.price),
 })))
 
 const vipListings = computed(() => listings.value.filter(l => l.vip))

@@ -57,7 +57,7 @@
 
             <!-- Price & Duration -->
             <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs">
-              <span class="font-bold text-brand-500">{{ formatPrice(app.offeredPrice, app.currency) }}</span>
+              <span class="font-bold text-brand-500">{{ formatUZS(app.offeredPrice) }}</span>
               <span class="text-ink-500 text-[10px]">{{ app.durationMonths }} oy</span>
             </div>
 
@@ -113,11 +113,11 @@
               </div>
               <div>
                 <span class="text-xs text-ink-500 block">Taklif qilingan ijara</span>
-                <span class="font-bold text-brand-500">${{ selectedApp.offeredPrice }}/oy</span>
+                <span class="font-bold text-brand-500">{{ formatUZS(selectedApp.offeredPrice) }}/oy</span>
               </div>
               <div>
                 <span class="text-xs text-ink-500 block">Depozit summasi</span>
-                <span class="font-medium text-ink-900 dark:text-white">${{ selectedApp.depositAmount }}</span>
+                <span class="font-medium text-ink-900 dark:text-white">{{ formatUZS(selectedApp.depositAmount) }}</span>
               </div>
               <div>
                 <span class="text-xs text-ink-500 block">Telefon</span>
@@ -201,6 +201,8 @@ import { ArrowRight, History, X, FileText, Check, RotateCcw, XCircle } from 'luc
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+
 const makonStore = useMakonStore()
 
 const buildingFilter = ref('')
@@ -228,10 +230,6 @@ function getColumnApps(status: string) {
   })
 }
 
-function formatPrice(p: number, c: string) {
-  if (!p) return '—'
-  return c === 'USD' ? `$${p.toLocaleString('ru-RU')}` : `${(p / 1000000).toFixed(1)}M`
-}
 
 function advanceStatus(appId: string, nextStatus: any) {
   makonStore.updateApplicationStatus(appId, nextStatus)

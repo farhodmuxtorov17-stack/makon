@@ -80,11 +80,11 @@
         <div class="space-y-3 text-sm">
           <div class="flex items-center justify-between">
             <span class="text-ink-500 text-xs">Oylik ijara</span>
-            <span class="font-bold text-brand-500">{{ formatMoney(contract.monthlyRent) }}</span>
+            <span class="font-bold text-brand-500">{{ formatUZS(contract.monthlyRent) }}</span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-ink-500 text-xs">Depozit</span>
-            <span class="font-medium text-ink-900 dark:text-white">{{ formatMoney(contract.deposit) }}</span>
+            <span class="font-medium text-ink-900 dark:text-white">{{ formatUZS(contract.deposit) }}</span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-ink-500 text-xs">Boshlanish</span>
@@ -128,8 +128,8 @@
       <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Shartnoma matni</h3>
       <div class="prose prose-sm max-w-none dark:prose-invert space-y-3 text-sm text-ink-700 dark:text-ink-300 leading-relaxed">
         <p><b>1. Predmet.</b> Ijaraga beruvchi ijarachiga {{ contract.buildingName }} binosidagi {{ contract.unitNumber }} unitni ijaraga beradi. Maydon: {{ contract.unitArea }} m².</p>
-        <p><b>2. Ijara to'lovi.</b> Oylik ijara to'lovi {{ formatMoney(contract.monthlyRent) }} {{ contract.currency }} ni tashkil etadi. To'lov har oyning 15-sanasigacha amalga oshiriladi.</p>
-        <p><b>3. Depozit.</b> Ijarachi {{ formatMoney(contract.deposit) }} {{ contract.currency }} miqdorida garanta pulini to'laydi. Shartnoma tugagach qaytariladi.</p>
+        <p><b>2. Ijara to'lovi.</b> Oylik ijara to'lovi {{ formatUZS(contract.monthlyRent) }} {{ contract.currency }} ni tashkil etadi. To'lov har oyning 15-sanasigacha amalga oshiriladi.</p>
+        <p><b>3. Depozit.</b> Ijarachi {{ formatUZS(contract.deposit) }} {{ contract.currency }} miqdorida garanta pulini to'laydi. Shartnoma tugagach qaytariladi.</p>
         <p><b>4. Muddat.</b> Shartnoma {{ contract.startDate }} dan {{ contract.endDate }} gacha, ya'ni {{ contract.durationMonths }} oygacha amal qiladi.</p>
         <p><b>5. Taraflar huquq va majburiyatlari.</b> Ijarachi unitdan faqat biznes maqsadlarida foydalanish huquqiga ega. Ijaraga beruvchi texnik xizmat ko'rsatishni ta'minlaydi.</p>
         <p><b>6. Tugatish.</b> Shartnoma muddati tugaganda yoki taraflar kelishuvi bilan tugatiladi. Erta tugatish uchun 30 kun oldin xabar berilishi kerak.</p>
@@ -146,7 +146,7 @@
           </div>
           <div class="flex-1 min-w-0">
             <div class="text-sm font-medium text-ink-900 dark:text-white font-mono">{{ inv.number }}</div>
-            <div class="text-xs text-ink-500">{{ inv.period }} · {{ formatMoney(inv.amount) }}</div>
+            <div class="text-xs text-ink-500">{{ inv.period }} · {{ formatUZS(inv.amount) }}</div>
           </div>
           <span class="badge text-[10px]" :class="inv.status === 'PAID' ? 'badge-success' : inv.status === 'OVERDUE' ? 'badge-danger' : 'badge-warning'">
             {{ inv.status === 'PAID' ? 'To\'langan' : inv.status === 'OVERDUE' ? 'Muddati o\'tgan' : 'Kutilmoqda' }}
@@ -164,6 +164,8 @@ import {
 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const route = useRoute()
 
@@ -190,9 +192,7 @@ const contractInvoices = [
   { id: '4', number: 'INV-2026-035', period: 'May 2026', amount: 25000000, status: 'PAID' },
 ]
 
-function formatMoney(v: number) {
-  return new Intl.NumberFormat('ru-RU').format(v) + ' so\'m'
-}
+
 
 function statusBadge(s: string) {
   return { ACTIVE: 'badge-success', PARTIALLY_SIGNED: 'badge-warning', DRAFT_READY: 'badge-brand', EXPIRED: 'badge-neutral' }[s] || 'badge-neutral'

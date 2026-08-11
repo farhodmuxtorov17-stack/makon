@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="text-right">
-            <div class="text-sm font-bold text-ink-900 dark:text-white">{{ formatMoney(app.price) }}</div>
+            <div class="text-sm font-bold text-ink-900 dark:text-white">{{ formatUZS(app.price) }}</div>
             <span class="badge text-xs mt-1 inline-block" :class="appStatusBadge(app.status)">{{ appStatusLabel(app.status) }}</span>
           </div>
         </div>
@@ -110,6 +110,8 @@
 import { Plus, Check, Clock, FileText, History, FileSignature, ScrollText } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const statusFilter = ref('')
 
@@ -193,11 +195,7 @@ const apps = ref([
 const activeCount = computed(() => apps.value.filter(a => a.status === 'ACTIVE' || a.status === 'SIGNED').length)
 const filteredApps = computed(() => statusFilter.value ? apps.value.filter(a => a.status === statusFilter.value) : apps.value)
 
-function formatMoney(v: number) {
-  if (v >= 1_000_000_000) return (v / 1_000_000_000).toFixed(1) + ' mlr'
-  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + 'M'
-  return new Intl.NumberFormat('ru-RU').format(v)
-}
+
 
 function appStatusLabel(s: string) {
   return { SUBMITTED: 'Yuborilgan', OPERATION_REVIEW: 'Operatsion', FINANCE_REVIEW: 'Moliyaviy ko\'rik', FINANCE_APPROVED: 'Moliya tasdiq', DRAFT_READY: 'Loyiha tayyor', PARTIALLY_SIGNED: 'Qisman imzo', SIGNED: 'Imzolangan', ACTIVE: 'Faol', REJECTED: 'Rad etilgan' }[s] || s

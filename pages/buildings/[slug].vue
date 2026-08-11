@@ -97,7 +97,7 @@
                     <p class="text-xs text-ink-500 truncate">{{ l.area }} m² · {{ l.floor }}-qavat</p>
                   </div>
                   <div class="text-right flex-shrink-0">
-                    <div class="text-lg font-bold text-brand-400">{{ formatPrice(l.price) }}</div>
+                    <div class="text-lg font-bold text-brand-400">{{ formatUZS(l.price) }}</div>
                     <NuxtLink :to="'/listings/' + l.id" class="btn btn-primary btn-sm mt-1">Batafsil</NuxtLink>
                   </div>
                 </div>
@@ -137,6 +137,8 @@ import { ArrowLeft, MapPin } from 'lucide-vue-next'
 import { BUILDING_TYPE_LABELS } from '~/types'
 
 definePageMeta({ layout: 'public' })
+
+const { formatUZS, formatUZSShort, formatNumber } = useFormat()
 
 const route = useRoute()
 
@@ -251,9 +253,5 @@ function formatArea(m2: number) {
   return m2?.toLocaleString('ru-RU') || '—'
 }
 
-function formatPrice(price: number) {
-  if (price >= 1_000_000_000) return (price / 1_000_000_000).toFixed(1) + ' mlrd so\'m'
-  if (price >= 1_000_000) return (price / 1_000_000).toFixed(0) + 'M so\'m'
-  return new Intl.NumberFormat('ru-RU').format(price) + ' so\'m'
-}
+
 </script>

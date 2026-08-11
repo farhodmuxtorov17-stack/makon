@@ -42,7 +42,7 @@
       <div class="space-y-4">
         <div class="card p-6 sticky top-20">
           <div class="mb-4">
-            <div class="text-2xl font-bold">{{ formatMoney(unit.price) }}</div>
+            <div class="text-2xl font-bold">{{ formatUZS(unit.price) }}</div>
             <div class="text-sm text-ink-500">{{ unit.pricePerM2 }} so\'m/m² oyiga</div>
           </div>
 
@@ -90,6 +90,8 @@ import { ChevronRight, Eye, FileText, Maximize, Building2, Layers, Wind, Wifi, C
 
 definePageMeta({ layout: 'public' })
 
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+
 const route = useRoute()
 
 const building = { slug: 'tashkent-city', name: 'Tashkent City' }
@@ -119,5 +121,5 @@ function makeOffer() {
   navigateTo('/register/eri?redirect=/applications/new')
 }
 
-function formatMoney(v: number) { return new Intl.NumberFormat('ru-RU').format(v) + ' so\'m' }
+
 </script>

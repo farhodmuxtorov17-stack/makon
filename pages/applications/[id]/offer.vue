@@ -203,7 +203,7 @@ function handleAccept() {
     type: 'RENT' as 'RENT' | 'SALE',
     monthlyRent: offerTerms.value.monthlyRent,
     depositAmount: offerTerms.value.depositAmount,
-    currency: 'USD' as 'USD' | 'UZS',
+    currency: 'UZS' as 'UZS' | 'UZS',
     startDate: app.value.startDate,
     endDate: '2027-09-01',
     status: 'DRAFT_READY' as any,

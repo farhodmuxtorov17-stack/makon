@@ -85,7 +85,7 @@
                 <div class="text-sm text-ink-900 dark:text-white">{{ c.buildingName }}</div>
                 <div class="text-xs text-brand-500 font-mono">{{ c.unitNumber }}</div>
               </td>
-              <td class="px-4 py-3 text-right font-bold text-brand-500">{{ formatMoney(c.monthlyRent) }}</td>
+              <td class="px-4 py-3 text-right font-bold text-brand-500">{{ formatUZS(c.monthlyRent) }}</td>
               <td class="px-4 py-3 text-center hidden lg:table-cell text-xs text-ink-500 font-mono">
                 {{ c.startDate }} — {{ c.endDate }}
               </td>
@@ -114,6 +114,8 @@
 import { Plus, Search, CheckCircle2, Clock, AlertCircle, ShieldCheck, SearchX } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const search = ref('')
 const statusFilter = ref('')
@@ -154,9 +156,7 @@ const filteredContracts = computed(() => {
   return result
 })
 
-function formatMoney(v: number) {
-  return (v / 1_000_000).toFixed(1) + 'M'
-}
+
 
 function contractBadge(status: string) {
   return { ACTIVE: 'badge-success', PARTIALLY_SIGNED: 'badge-warning', DRAFT_READY: 'badge-brand', EXPIRED: 'badge-neutral' }[status] || 'badge-neutral'

@@ -98,8 +98,8 @@
               <td class="px-4 py-3 font-bold">{{ m.currentReading.toLocaleString('ru-RU') }}</td>
               <td class="px-4 py-3 text-ink-500">{{ m.previousReading.toLocaleString('ru-RU') }}</td>
               <td class="px-4 py-3 text-brand-400 font-medium">{{ (m.currentReading - m.previousReading).toLocaleString('ru-RU') }}</td>
-              <td class="px-4 py-3">{{ formatPrice(m.tariff) }}</td>
-              <td class="px-4 py-3 font-bold">{{ formatPrice((m.currentReading - m.previousReading) * m.tariff) }}</td>
+              <td class="px-4 py-3">{{ formatUZS(m.tariff) }}</td>
+              <td class="px-4 py-3 font-bold">{{ formatUZS((m.currentReading - m.previousReading) * m.tariff) }}</td>
               <td class="px-4 py-3 text-ink-500">{{ m.lastReadingDate }}</td>
             </tr>
           </tbody>
@@ -147,6 +147,8 @@
 import { Gauge, ClipboardList, Plus } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin' })
+
+const { formatUZS, formatUZSShort, formatNumber } = useFormat()
 
 const showNewReading = ref(false)
 const tab = ref('meters')
@@ -201,7 +203,5 @@ function typeLabel(t: string) {
 function typeClass(t: string) {
   return { ELECTRICITY: 'badge-warning', WATER_COLD: 'badge-info', WATER_HOT: 'badge-info', GAS: 'badge-secondary' }[t] || ''
 }
-function formatPrice(n: number) {
-  return new Intl.NumberFormat('ru-RU').format(n)
-}
+
 </script>

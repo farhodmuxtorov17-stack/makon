@@ -43,7 +43,7 @@
         <div class="flex items-center gap-2 mb-3">
           <KpiCard :icon="Wallet" label="Kutilayotgan arizalar" value="" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
         </div>
-        <div class="text-2xl font-bold text-red-500">{{ formatShort(debt) }}</div>
+        <div class="text-2xl font-bold text-red-500">{{ formatUZSShort(debt) }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Qarzdorlik so'm</div>
       </div>
     </div>
@@ -121,7 +121,7 @@
             </div>
             <div class="flex-1 min-w-0">
               <div class="text-sm font-medium text-ink-900 dark:text-white truncate">{{ app.number }}</div>
-              <div class="text-xs text-ink-500">{{ app.unit }} · {{ formatShort(app.price) }} so'm</div>
+              <div class="text-xs text-ink-500">{{ app.unit }} · {{ formatUZSShort(app.price) }} so'm</div>
             </div>
             <span class="badge text-[10px] flex-shrink-0" :class="appStatusBadge(app.status)">{{ appStatusLabel(app.status) }}</span>
           </div>
@@ -161,6 +161,8 @@ import { Plus, Layers, ScrollText, FileText, Wallet, Wrench, Receipt, AlertCircl
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+
 const org = { name: 'ABC Logistics MChJ', tin: '308745612' }
 
 const units = ref([
@@ -197,12 +199,7 @@ const activeContracts = computed(() => units.value.filter(u => u.type === 'RENT'
 const pendingApps = computed(() => applications.value.filter(a => !['SIGNED', 'ACTIVE', 'REJECTED'].includes(a.status)).length)
 const debt = computed(() => 4200000)
 
-function formatShort(v: number) {
-  if (v >= 1_000_000_000) return (v / 1_000_000_000).toFixed(1) + 'B'
-  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + 'M'
-  if (v >= 1_000) return (v / 1_000).toFixed(0) + 'K'
-  return String(v)
-}
+
 
 function appStatusLabel(s: string) {
   return { SUBMITTED: 'Yuborilgan', OPERATION_REVIEW: 'Operatsion', FINANCE_REVIEW: 'Moliyaviy', SIGNED: 'Imzolangan', ACTIVE: 'Faol', REJECTED: 'Rad etilgan' }[s] || s

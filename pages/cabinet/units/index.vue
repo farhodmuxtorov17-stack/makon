@@ -58,7 +58,7 @@
             <div class="flex items-center justify-between">
               <span class="text-ink-500">Qarzdorlik:</span>
               <span :class="unit.debt > 0 ? 'text-red-500 font-bold' : 'text-emerald-500 font-medium'">
-                {{ unit.debt > 0 ? formatShort(unit.debt) + ' so\'m' : 'Yo\'q' }}
+                {{ unit.debt > 0 ? formatUZSShort(unit.debt) + ' so\'m' : 'Yo\'q' }}
               </span>
             </div>
           </div>
@@ -78,6 +78,8 @@
 import { Plus } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const units = [
   {
@@ -102,10 +104,7 @@ const units = [
 
 const totalArea = computed(() => units.reduce((s, u) => s + u.area, 0))
 
-function formatShort(v: number) {
-  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + 'M'
-  return String(v)
-}
+
 </script>
 
 <style scoped>

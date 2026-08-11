@@ -225,7 +225,7 @@
           <div class="lg:sticky lg:top-6 h-fit space-y-4">
             <div class="card p-6">
               <div class="mb-4">
-                <div class="text-3xl font-bold text-brand-400">{{ formatPrice(listing.price, listing.currency) }}</div>
+                <div class="text-3xl font-bold text-brand-400">{{ formatUZS(listing.price) }}</div>
                 <div class="text-xs text-ink-500 mt-1">{{ listing.offerType === 'RENT' ? 'oyiga' : 'bir martalik to\'lov' }}</div>
               </div>
 
@@ -301,6 +301,8 @@ import { ArrowLeft, MapPin, Building2, ChevronRight, ExternalLink, Eye, Phone, C
 import { BUILDING_TYPE_LABELS } from '~/types'
 
 definePageMeta({ layout: 'public' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const route = useRoute()
 const config = useRuntimeConfig()
@@ -414,12 +416,6 @@ function roomColor(type: string) {
     corridor: '#71717a',
   }
   return colors[type] || '#6366f1'
-}
-
-function formatPrice(price: number, currency: string) {
-  if (!price) return '—'
-  const formatted = new Intl.NumberFormat('ru-RU').format(price)
-  return currency === 'USD' ? `$${formatted}` : `${formatted} so'm`
 }
 </script>
 

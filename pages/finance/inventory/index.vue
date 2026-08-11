@@ -25,11 +25,11 @@
           <KpiCard :icon="CheckCircle2" label="Ombor qiymati" value="{{ materials.length }}" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
           <span class="text-xs text-ink-500">Ombor qiymati</span>
         </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(totalValue) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatUZSShort(totalValue) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <KpiCard :icon="AlertCircle" label="{{ formatShort(totalValue) }}" value="{{ formatShort(totalValue) }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+          <KpiCard :icon="AlertCircle" label="{{ formatUZSShort(totalValue) }}" value="{{ formatUZSShort(totalValue) }}" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
           <span class="text-xs text-ink-500">Kam qoldi</span>
         </div>
         <div class="text-xl font-bold text-red-500">{{ lowStockCount }}</div>
@@ -39,7 +39,7 @@
           <KpiCard :icon="Layers" label="Oylik sarflash" value="{{ lowStockCount }}" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
           <span class="text-xs text-ink-500">Oylik sarflash</span>
         </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatShort(monthlyUsage) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ formatUZSShort(monthlyUsage) }} <span class="text-xs text-ink-500 font-normal">so'm</span></div>
       </div>
     </div>
 
@@ -93,8 +93,8 @@
               </td>
               <td class="px-4 py-3 text-right font-mono text-sm text-ink-900 dark:text-white">{{ mat.quantity }} <span class="text-xs text-ink-400">{{ mat.unit }}</span></td>
               <td class="px-4 py-3 text-right hidden md:table-cell font-mono text-xs text-ink-500">{{ mat.minStock }} {{ mat.unit }}</td>
-              <td class="px-4 py-3 text-right hidden sm:table-cell font-medium">{{ formatShort(mat.unitPrice) }}</td>
-              <td class="px-4 py-3 text-right hidden lg:table-cell font-semibold">{{ formatShort(mat.quantity * mat.unitPrice) }}</td>
+              <td class="px-4 py-3 text-right hidden sm:table-cell font-medium">{{ formatUZSShort(mat.unitPrice) }}</td>
+              <td class="px-4 py-3 text-right hidden lg:table-cell font-semibold">{{ formatUZSShort(mat.quantity * mat.unitPrice) }}</td>
               <td class="px-4 py-3 text-center">
                 <span v-if="mat.quantity <= mat.minStock" class="badge badge-danger text-xs">Kam</span>
                 <span v-else-if="mat.quantity <= mat.minStock * 1.5" class="badge badge-warning text-xs">Past</span>
@@ -119,6 +119,8 @@ import {
 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatNumber } = useFormat()
 
 const search = ref('')
 const activeCategory = ref('all')
@@ -166,13 +168,6 @@ const totalValue = computed(() => materials.reduce((s, m) => s + m.quantity * m.
 const lowStockCount = computed(() => materials.filter(m => m.quantity <= m.minStock).length)
 const monthlyUsage = computed(() => 8450000)
 
-function formatShort(price: number) {
-  if (!price) return '0'
-  if (price >= 1_000_000_000) return (price / 1_000_000_000).toFixed(1) + 'B'
-  if (price >= 1_000_000) return (price / 1_000_000).toFixed(1) + 'M'
-  if (price >= 1_000) return (price / 1_000).toFixed(0) + 'K'
-  return String(price)
-}
 
 function categoryColor(cat: string) {
   return { ELECTRICAL: '#f59e0b', PLUMBING: '#3b82f6', PAINT: '#ec4899', CONSTRUCTION: '#6b7280', HARDWARE: '#8b5cf6' }[cat] || '#71717a'

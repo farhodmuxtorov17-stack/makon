@@ -72,7 +72,7 @@
           <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5">
             <div>
               <div class="text-[10px] text-ink-500 uppercase tracking-wider">Narx</div>
-              <div class="text-lg font-bold text-brand-500">{{ formatPrice(l.price, l.currency) }}</div>
+              <div class="text-lg font-bold text-brand-500">{{ formatUZS(l.price) }}</div>
             </div>
 
             <div class="flex items-center gap-3 text-xs text-ink-500">
@@ -144,7 +144,7 @@
               <div>
                 <label class="label">Valyuta</label>
                 <select v-model="newListing.currency" class="input w-full">
-                  <option value="USD">USD ($)</option>
+                  <option value="UZS">UZS (so0027m)</option>
                   <option value="UZS">UZS (so'm)</option>
                 </select>
               </div>
@@ -210,7 +210,7 @@
           </div>
 
           <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
-            <div class="text-xl font-bold text-brand-500">{{ formatPrice(previewListing.price, previewListing.currency) }}</div>
+            <div class="text-xl font-bold text-brand-500">{{ formatUZS(previewListing.price) }}</div>
             <span class="badge" :class="statusBadgeClass(previewListing.status)">{{ statusLabel(previewListing.status) }}</span>
           </div>
         </div>
@@ -226,6 +226,8 @@ import CreateListingModal from '~/components/CreateListingModal.vue'
 import { Plus, Search, Tag, Power, Eye, X } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const route = useRoute()
 const makonStore = useMakonStore()
@@ -245,7 +247,7 @@ const newListing = ref({
   descriptionRu: '',
   offerType: 'RENT' as 'RENT' | 'SALE',
   price: 3000,
-  currency: 'USD' as 'USD' | 'UZS',
+  currency: 'UZS' as 'UZS' | 'UZS',
   photoUrl: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
   virtualTourUrl: '',
   status: 'PUBLISHED' as 'DRAFT' | 'PUBLISHED' | 'HIDDEN' | 'ARCHIVED'
@@ -281,10 +283,6 @@ const filteredListings = computed(() => {
   return result
 })
 
-function formatPrice(price: number, currency: string) {
-  if (!price) return '—'
-  return currency === 'USD' ? `$${price.toLocaleString('ru-RU')}` : `${(price / 1000000).toFixed(1)}M so'm`
-}
 
 function statusBadgeClass(status: string) {
   if (status === 'PUBLISHED') return 'badge-success'

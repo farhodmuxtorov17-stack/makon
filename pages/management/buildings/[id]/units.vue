@@ -62,7 +62,7 @@
               <td class="px-4 py-3"><span class="badge badge-neutral text-xs">{{ u.category || 'OFFICE' }}</span></td>
               <td class="px-4 py-3 text-right font-medium">{{ u.area }} m²</td>
               <td class="px-4 py-3 text-right font-bold text-brand-500">
-                {{ formatPrice(u.monthlyRent, u.currency) }}
+                {{ formatUZS(u.monthlyRent) }}
               </td>
               <td class="px-4 py-3 text-center">
                 <button
@@ -162,7 +162,7 @@
               <div>
                 <label class="label">Valyuta</label>
                 <select v-model="newUnit.currency" class="input w-full">
-                  <option value="USD">USD ($)</option>
+                  <option value="UZS">UZS (so0027m)</option>
                   <option value="UZS">UZS (so'm)</option>
                 </select>
               </div>
@@ -233,7 +233,7 @@
             <div v-for="(h, idx) in selectedHistoryUnit.rentalHistory" :key="idx" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-1 text-xs">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-ink-900 dark:text-white text-sm">{{ h.tenantName }}</span>
-                <span class="font-mono text-brand-500 font-bold">${{ h.monthlyRent }}/oy</span>
+                <span class="font-mono text-brand-500 font-bold">{{ formatUZS(h.monthlyRent) }}/oy</span>
               </div>
               <div class="text-ink-500">
                 Muddati: {{ h.startDate }} — {{ h.endDate }}
@@ -258,6 +258,8 @@ import { ArrowLeft, Plus, Search, Link, Tag, History, X } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+
 const route = useRoute()
 const router = useRouter()
 const makonStore = useMakonStore()
@@ -279,7 +281,7 @@ const newUnit = ref({
   area: 100,
   category: 'OFFICE',
   monthlyRent: 3000,
-  currency: 'USD' as 'USD' | 'UZS',
+  currency: 'UZS' as 'UZS' | 'UZS',
   status: 'VACANT' as 'VACANT' | 'RESERVED' | 'OCCUPIED'
 })
 
@@ -305,10 +307,6 @@ const filteredUnits = computed(() => {
   return result
 })
 
-function formatPrice(p: number, c: string) {
-  if (!p) return '—'
-  return c === 'USD' ? `$${p.toLocaleString('ru-RU')}` : `${(p / 1000000).toFixed(1)}M so'm`
-}
 
 function statusClass(status: string) {
   if (status === 'OCCUPIED') return 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'

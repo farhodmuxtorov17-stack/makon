@@ -89,7 +89,7 @@
               <td class="px-4 py-3 hidden lg:table-cell">
                 <span class="badge text-[10px] badge-neutral">{{ typeLabel(u.type) }}</span>
               </td>
-              <td class="px-4 py-3 text-right hidden md:table-cell text-ink-500">{{ formatShort(u.pricePerM2) }}</td>
+              <td class="px-4 py-3 text-right hidden md:table-cell text-ink-500">{{ formatUZSShort(u.pricePerM2) }}</td>
               <td class="px-4 py-3 text-center">
                 <span class="badge text-[10px]" :class="statusBadge(u.status)">{{ statusLabel(u.status) }}</span>
               </td>
@@ -110,6 +110,8 @@ import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Layers, CheckCircle2, AlertCircle, Ruler, Search, SearchX } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
 const search = ref('')
 const statusFilter = ref('')
@@ -149,11 +151,7 @@ const filteredUnits = computed(() => {
   return r
 })
 
-function formatShort(v: number) {
-  if (v >= 1_000_000) return (v / 1_000_000).toFixed(0) + 'M'
-  if (v >= 1_000) return (v / 1_000).toFixed(0) + 'K'
-  return String(v)
-}
+
 function statusLabel(s: string) { return { OCCUPIED: 'Band', VACANT: "Bo'sh", RESERVED: 'Rezerv' }[s] || s }
 function statusBadge(s: string) { return { OCCUPIED: 'badge-success', VACANT: 'badge-warning', RESERVED: 'badge-brand' }[s] || 'badge-neutral' }
 function typeLabel(t: string) { return { OFFICE: 'Ofis', RETAIL: 'Savdo', WAREHOUSE: 'Ombor', MIXED: 'Aralash' }[t] || t }
