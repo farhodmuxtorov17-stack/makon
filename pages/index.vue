@@ -33,10 +33,6 @@
       <!-- Hero content - CENTERED -->
       <div class="hero-content">
         <div class="hero-content__inner">
-          <div class="hero-badge">
-            <div class="hero-badge__dot"></div>
-            ERI sertifikatlangan platforma
-          </div>
           <h1 class="hero-title">
             Binolarning<br>
             <span class="hero-title__accent">raqamli nazarati</span>
@@ -75,38 +71,16 @@
             </div>
           </div>
 
-          <!-- Stats - centered -->
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <div class="hero-stat__num">5</div>
-              <div class="hero-stat__label">Premium binolar</div>
-            </div>
-            <div class="hero-stat__divider"></div>
-            <div class="hero-stat">
-              <div class="hero-stat__num">960</div>
-              <div class="hero-stat__label">Unitlar</div>
-            </div>
-            <div class="hero-stat__divider"></div>
-            <div class="hero-stat">
-              <div class="hero-stat__num">118</div>
-              <div class="hero-stat__label">Bo'sh maydon</div>
-            </div>
-          </div>
+ 
         </div>
       </div>
 
-      <!-- Scroll indicator -->
-      <div class="hero-scroll">
-        <div class="hero-scroll__mouse">
-          <div class="hero-scroll__dot"></div>
-        </div>
-      </div>
+ 
     </section>
 
     <!-- ============ BUILDINGS ============ -->
     <section id="buildings" class="buildings-section">
       <div class="section-header">
-        <div class="section-eyebrow">TAVSIYA ETILGAN BINOLAR</div>
         <h2 class="section-title">Toshkentning premium obyektlari</h2>
         <p class="section-subtitle">Eng yaxshi biznes markazlari va savdo obyektlari — bitta platformada</p>
       </div>
@@ -115,36 +89,14 @@
       <div class="buildings-featured" @click="navigateTo('/buildings/tashkent-city')">
         <div class="buildings-featured__image">
           <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png" alt="Tashkent City" />
-          <div class="buildings-featured__badge">
-            <div class="buildings-featured__badge-dot"></div>
-            A+ SINF
-          </div>
+ 
           <div class="buildings-featured__overlay"></div>
         </div>
         <div class="buildings-featured__content">
-          <div class="buildings-featured__tag">Biznes markaz</div>
           <h3 class="buildings-featured__name">Tashkent City</h3>
           <p class="buildings-featured__address">
             <MapPin :size="14" /> Mirzo Ulug'bek tumani, Toshkent
           </p>
-          <div class="buildings-featured__specs">
-            <div class="buildings-featured__spec">
-              <Layers :size="16" />
-              <div><span>12</span> qavat</div>
-            </div>
-            <div class="buildings-featured__spec">
-              <Building :size="16" />
-              <div><span>420</span> unit</div>
-            </div>
-            <div class="buildings-featured__spec">
-              <Ruler :size="16" />
-              <div><span>45,000</span> m²</div>
-            </div>
-            <div class="buildings-featured__spec">
-              <TrendingUp :size="16" />
-              <div><span>42</span> bo'sh</div>
-            </div>
-          </div>
           <div class="buildings-featured__bottom">
             <div class="buildings-featured__price">
               <span class="buildings-featured__price-label">Ijaraga</span>
@@ -162,22 +114,14 @@
         <div v-for="b in otherBuildings" :key="b.id" class="building-card" @click="navigateTo(`/buildings/${b.slug}`)">
           <div class="building-card__image">
             <img :src="b.gallery" :alt="b.name" loading="lazy" />
-            <div class="building-card__vacancy">
-              <div class="building-card__vacancy-dot"></div>
-              {{ b.vacantUnits }} bo'sh
-            </div>
-            <div class="building-card__type-badge">{{ b.typeLabel }}</div>
+ 
+ 
           </div>
           <div class="building-card__body">
             <h4 class="building-card__name">{{ b.name }}</h4>
             <p class="building-card__addr">
               <MapPin :size="13" /> {{ b.address }}
             </p>
-            <div class="building-card__specs">
-              <div class="building-card__spec"><Layers :size="13" /> {{ b.floorsCount }} qavat</div>
-              <div class="building-card__spec"><Building :size="13" /> {{ b.totalUnits }} unit</div>
-              <div class="building-card__spec"><Ruler :size="13" /> {{ b.totalArea }} m²</div>
-            </div>
             <div class="building-card__footer">
               <span class="building-card__price">{{ b.priceMin }}/oy</span>
               <span class="building-card__view">Batafsil <ArrowRight :size="13" /></span>
@@ -187,46 +131,9 @@
       </div>
     </section>
 
-    <!-- ============ HOW IT WORKS ============ -->
-    <section id="how-it-works" class="how-section">
-      <div class="section-header">
-        <div class="section-eyebrow">QANDAY ISHLAYDI</div>
-        <h2 class="section-title">Katalogdan shartnomagacha — 4 qadam</h2>
-        <p class="section-subtitle">Soddaroq bo'lishi mumkin emas — bizning platformamizda hamma narsa avtomatlashtirilgan</p>
-      </div>
-      <div class="how-steps">
-        <div v-for="(step, i) in steps" :key="i" class="how-step">
-          <div class="how-step__num">{{ i + 1 }}</div>
-          <div class="how-step__icon">
-            <component :is="step.icon" :size="24" />
-          </div>
-          <h4 class="how-step__title">{{ step.title }}</h4>
-          <p class="how-step__desc">{{ step.desc }}</p>
-          <div v-if="i < steps.length - 1" class="how-step__line"></div>
-        </div>
-      </div>
-    </section>
+ 
 
-    <!-- ============ PLATFORM FEATURES ============ -->
-    <section class="platform-section">
-      <div class="section-header">
-        <div class="section-eyebrow">PLATFORMA IMKONIYATLARI</div>
-        <h2 class="section-title">Bitta tizimda — 18 modul</h2>
-        <p class="section-subtitle">Binodan hisoblagichgacha — boshqaruvning barcha jarayonlari bitta platformada</p>
-      </div>
-      <div class="platform-grid">
-        <NuxtLink v-for="(f, i) in features" :key="i" :to="f.to" class="platform-card">
-          <div class="platform-card__icon" :style="{ background: f.bg, color: f.color }">
-            <component :is="f.icon" :size="20" />
-          </div>
-          <div class="platform-card__body">
-            <h4 class="platform-card__title">{{ f.title }}</h4>
-            <p class="platform-card__desc">{{ f.desc }}</p>
-          </div>
-          <ArrowRight :size="16" class="platform-card__arrow" />
-        </NuxtLink>
-      </div>
-    </section>
+ 
 
     <!-- ============ CTA ============ -->
     <section id="contacts" class="cta-section">
@@ -383,21 +290,6 @@ const steps = [
 }
 .hero-content__inner { max-width: 760px; }
 
-/* Badge */
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.8); padding: 6px 16px; border-radius: 100px;
-  font-size: 12px; font-weight: 500; margin-bottom: 24px;
-  backdrop-filter: blur(10px);
-}
-.hero-badge__dot {
-  width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
-  box-shadow: 0 0 8px rgba(34,197,94,0.6);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
-
 .hero-title {
   font-size: clamp(40px, 6vw, 68px);
   font-weight: 800; color: white;
@@ -445,28 +337,6 @@ const steps = [
 .hero-chip:hover { background: rgba(255,255,255,0.15); color: white; }
 .hero-chip--accent { background: #6366f1; border-color: #6366f1; color: white; }
 .hero-chip--accent:hover { background: #4f46e5; }
-
-/* Hero stats - centered */
-.hero-stats { display: flex; align-items: center; justify-content: center; gap: 32px; }
-.hero-stat__num { font-size: 36px; font-weight: 800; color: white; letter-spacing: -0.03em; line-height: 1; }
-.hero-stat__label { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
-.hero-stat__divider { width: 1px; height: 40px; background: rgba(255,255,255,0.12); }
-
-/* Scroll indicator */
-.hero-scroll {
-  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-  z-index: 5;
-}
-.hero-scroll__mouse {
-  width: 24px; height: 38px; border: 2px solid rgba(255,255,255,0.3);
-  border-radius: 12px; display: flex; justify-content: center;
-}
-.hero-scroll__dot {
-  width: 4px; height: 8px; border-radius: 2px; background: rgba(255,255,255,0.5);
-  margin-top: 6px;
-  animation: scroll-bounce 1.5s ease-in-out infinite;
-}
-@keyframes scroll-bounce { 0%,100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(8px); opacity: 0.3; } }
 
 /* ============ COMMON SECTIONS ============ */
 .section-header { text-align: center; max-width: 680px; margin: 0 auto 56px; }
@@ -529,11 +399,6 @@ const steps = [
 :deep(.dark) .buildings-featured__name { color: white; }
 .buildings-featured__address { display: flex; align-items: center; gap: 4px; font-size: 14px; color: #71717a; margin-bottom: 28px; }
 .buildings-featured__address svg { color: #a1a1aa; }
-.buildings-featured__specs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
-.buildings-featured__spec { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #71717a; }
-.buildings-featured__spec svg { color: #6366f1; flex-shrink: 0; }
-.buildings-featured__spec span { font-weight: 700; color: #18181b; }
-:deep(.dark) .buildings-featured__spec span { color: white; }
 .buildings-featured__bottom { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
 .buildings-featured__price-label { font-size: 12px; color: #a1a1aa; display: block; }
 .buildings-featured__price-value { font-size: 26px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; }
@@ -587,86 +452,6 @@ const steps = [
 .building-card__view { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #6366f1; }
 
 /* ============ HOW IT WORKS ============ */
-.how-section {
-  padding: 100px 48px;
-  max-width: 1400px; margin: 0 auto;
-}
-.how-steps {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
-  position: relative;
-}
-.how-step {
-  position: relative; text-align: center; padding: 32px 24px;
-  background: white; border-radius: 18px; border: 1px solid rgba(0,0,0,0.06);
-  transition: all 0.3s;
-}
-:deep(.dark) .how-step { background: #18181b; border-color: rgba(255,255,255,0.06); }
-.how-step:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
-.how-step__num {
-  position: absolute; top: 20px; right: 20px;
-  font-size: 48px; font-weight: 800; color: rgba(99,102,241,0.08);
-  line-height: 1; letter-spacing: -0.04em;
-}
-:deep(.dark) .how-step__num { color: rgba(129,140,248,0.1); }
-.how-step__icon {
-  width: 56px; height: 56px; border-radius: 16px;
-  background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(99,102,241,0.05));
-  display: flex; align-items: center; justify-content: center;
-  color: #6366f1; margin: 0 auto 20px;
-}
-:deep(.dark) .how-step__icon { background: linear-gradient(135deg, rgba(129,140,248,0.15), rgba(129,140,248,0.05)); }
-.how-step__title { font-size: 16px; font-weight: 700; color: #18181b; margin-bottom: 8px; }
-:deep(.dark) .how-step__title { color: white; }
-.how-step__desc { font-size: 13px; color: #71717a; line-height: 1.6; }
-:deep(.dark) .how-step__desc { color: #a1a1aa; }
-.how-step__line {
-  position: absolute; top: 50%; right: -24px; width: 24px; height: 2px;
-  background: linear-gradient(90deg, rgba(99,102,241,0.2), rgba(99,102,241,0.05));
-}
-
-/* ============ PLATFORM FEATURES ============ */
-.platform-section {
-  padding: 100px 48px;
-  max-width: 1400px; margin: 0 auto;
-}
-.platform-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.platform-card {
-  display: flex; align-items: flex-start; gap: 14px;
-  padding: 24px; border-radius: 16px;
-  background: white; border: 1px solid rgba(0,0,0,0.06);
-  text-decoration: none; transition: all 0.3s; position: relative; overflow: hidden;
-}
-:deep(.dark) .platform-card { background: #18181b; border-color: rgba(255,255,255,0.06); }
-.platform-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(99,102,241,0.05), transparent);
-  opacity: 0; transition: opacity 0.3s;
-}
-.platform-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-  border-color: rgba(99,102,241,0.2);
-}
-.platform-card:hover::before { opacity: 1; }
-.platform-card__icon {
-  width: 44px; height: 44px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; position: relative; z-index: 1;
-}
-.platform-card__body { flex: 1; position: relative; z-index: 1; }
-.platform-card__title {
-  font-size: 14px; font-weight: 700; color: #18181b; margin-bottom: 4px;
-}
-:deep(.dark) .platform-card__title { color: white; }
-.platform-card__desc { font-size: 12px; color: #71717a; line-height: 1.5; }
-:deep(.dark) .platform-card__desc { color: #a1a1aa; }
-.platform-card__arrow {
-  color: #d1d5db; flex-shrink: 0; position: relative; z-index: 1;
-  transition: all 0.3s;
-}
-.platform-card:hover .platform-card__arrow { color: #6366f1; transform: translateX(4px); }
-
-/* ============ CTA ============ */
 .cta-section { padding: 80px 48px; max-width: 1400px; margin: 0 auto; }
 .cta-card {
   position: relative;
@@ -751,10 +536,7 @@ const steps = [
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1024px) {
   .buildings-grid { grid-template-columns: repeat(2, 1fr); }
-  .platform-grid { grid-template-columns: repeat(2, 1fr); }
-  .how-steps { grid-template-columns: repeat(2, 1fr); }
   .buildings-featured { grid-template-columns: 1fr; }
-  .how-step__line { display: none; }
 }
 @media (max-width: 640px) {
   .hero-nav { padding: 16px 20px; }
@@ -762,10 +544,9 @@ const steps = [
   .hero-content { padding: 0 20px 60px; }
   .hero-title { font-size: 38px; }
   .hero-subtitle { font-size: 15px; }
-  .hero-stats { gap: 16px; }
   .hero-stat__num { font-size: 26px; }
-  .buildings-section, .how-section, .platform-section, .cta-section { padding: 64px 20px; }
-  .buildings-grid, .platform-grid, .how-steps { grid-template-columns: 1fr; }
+  .buildings-section, .cta-section { padding: 64px 20px; }
+  .buildings-grid { grid-template-columns: 1fr; }
   .buildings-featured__content { padding: 24px; }
   .cta-card { padding: 40px 24px; }
   .cta-card__actions { flex-direction: column; }
