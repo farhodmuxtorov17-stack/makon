@@ -58,6 +58,38 @@
       </div>
     </div>
 
+    <!-- Infrastructure health + Load distribution -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div class="card-premium p-6 lg:col-span-2">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-semibold text-ink-900 dark:text-white">Infratuzilma holati</h3>
+          <span class="badge badge-success text-[11px]"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1"></span> Barqaror</span>
+        </div>
+        <div class="space-y-4">
+          <div v-for="sys in infraHealth" :key="sys.label">
+            <div class="flex items-center justify-between text-sm mb-1.5">
+              <span class="text-ink-600 dark:text-ink-300 flex items-center gap-2"><component :is="sys.icon" :size="14" class="text-ink-400" /> {{ sys.label }}</span>
+              <span class="font-bold" :class="sys.value > 70 ? 'text-emerald-500' : sys.value > 40 ? 'text-amber-500' : 'text-red-500'">{{ sys.value }}%</span>
+            </div>
+            <div class="h-2 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-700" :style="{ width: sys.value + '%', background: sys.value > 70 ? '#10b981' : sys.value > 40 ? '#f59e0b' : '#ef4444' }"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-premium p-6">
+        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Yuklama taqsimoti</h3>
+        <MakonChart type="donut" :series="loadDistribution.map(l => l.value)" :donutLabels="loadDistribution.map(l => l.label)" :height="170" :colors="loadDistribution.map(l => l.color)" />
+        <div class="space-y-1.5 mt-3">
+          <div v-for="l in loadDistribution" :key="l.label" class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1.5 text-ink-500"><span class="w-2 h-2 rounded-full" :style="{ background: l.color }"></span>{{ l.label }}</span>
+            <span class="font-medium text-ink-700 dark:text-ink-200">{{ l.value }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Floor heatmap + Recent activity -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
       <!-- Floor heatmap -->
@@ -168,7 +200,7 @@
 import KpiCard from '~/components/KpiCard.vue'
 import {
   CheckCircle2, AlertCircle, Tag, FileText, Wrench, Clock, Layers,
-  MapPin, ArrowRight, ArrowUpRight, TrendingUp, Users
+  MapPin, ArrowRight, ArrowUpRight, TrendingUp, Users, Wind, Droplets, Flame, Lightbulb, Server
 } from 'lucide-vue-next'
 import { BUILDING_TYPE_LABELS } from '~/types'
 
@@ -200,6 +232,19 @@ const revenueSeries = [
   { name: 'To\'langan (mln so\'m)', data: [78, 88, 95, 102, 108, 115] },
 ]
 const occupancyData = computed(() => [selectedBuilding.value.occupiedUnits, selectedBuilding.value.vacantUnits])
+
+const infraHealth = [
+  { label: 'HVAC samaradorligi', value: 78, icon: Wind },
+  { label: 'Suv ta\'minoti', value: 91, icon: Droplets },
+  { label: 'Yong\'in xavfsizligi', value: 96, icon: Flame },
+]
+
+const loadDistribution = [
+  { label: 'Yoritish', value: 35, color: '#f59e0b' },
+  { label: 'HVAC (iqlim)', value: 40, color: 'var(--accent)' },
+  { label: 'IT va serverlar', value: 15, color: '#6366f1' },
+  { label: 'Boshqa', value: 10, color: '#a1a1aa' },
+]
 
 const floors = [
   { num: 12, occupied: 95, vacant: 2 },
