@@ -10,34 +10,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Zap :size="16" class="text-amber-500" /></div>
-          <span class="text-xs text-ink-500">Elektr</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ electricTotal }} <span class="text-xs text-ink-500 font-normal">kWh</span></div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Droplet :size="16" class="text-blue-500" /></div>
-          <span class="text-xs text-ink-500">Suv</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ waterTotal }} <span class="text-xs text-ink-500 font-normal">m³</span></div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center"><Flame :size="16" class="text-red-500" /></div>
-          <span class="text-xs text-ink-500">Gaz</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ gasTotal }} <span class="text-xs text-ink-500 font-normal">m³</span></div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><CheckCircle2 :size="16" class="text-emerald-500" /></div>
-          <span class="text-xs text-ink-500">O'qilgan</span>
-        </div>
-        <div class="text-xl font-bold text-emerald-500">{{ readCount }}</div>
-      </div>
+      <KpiCard :icon="Zap" label="Elektr" :value="electricReadings" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
+      <KpiCard :icon="Droplets" label="Suv" :value="waterReadings" icon-color="#3b82f6" icon-bg="rgba(59,130,246,0.1)" />
+      <KpiCard :icon="Flame" label="Gaz" :value="gasReadings" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+      <KpiCard :icon="AlertCircle" label="O'qilmagan" :value="unreadCount" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
     </div>
 
     <!-- Filters -->
@@ -94,6 +70,7 @@
 
 <script setup lang="ts">
 import { Plus, Search, Zap, Droplet, Flame, CheckCircle2 } from 'lucide-vue-next'
+import KpiCard from '~/components/KpiCard.vue'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
@@ -111,6 +88,9 @@ const readings = [
   { id: '8', meterNumber: 'GS-A301-002', unit: 'A-301', building: 'Tashkent City', type: 'GAS', previous: 3100, current: 3250, consumption: 150, date: '08 Avg', read: true },
 ]
 
+const electricReadings = computed(() => readings.filter(r => r.type === 'ELECTRIC').length)
+const waterReadings = computed(() => readings.filter(r => r.type === 'WATER').length)
+const gasReadings = computed(() => readings.filter(r => r.type === 'GAS').length)
 const unreadCount = computed(() => readings.filter(r => !r.read).length)
 const readCount = computed(() => readings.filter(r => r.read).length)
 const electricTotal = computed(() => readings.filter(r => r.type === 'ELECTRIC').reduce((s, r) => s + r.consumption, 0))

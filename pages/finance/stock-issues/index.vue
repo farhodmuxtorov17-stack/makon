@@ -12,7 +12,9 @@
         <div v-for="req in approvedRequests" :key="req.id" class="border border-black/5 dark:border-white/5 rounded-2xl p-4">
           <div class="flex items-center justify-between mb-3">
             <div class="flex items-center gap-3">
-              <KpiCard :icon="CheckCircle2" label="" value="" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(16,185,129,0.1); color: #10b981;">
+              <CheckCircle2 :size="20" />
+            </div>
               <div>
                 <div class="text-sm font-medium">{{ req.number }} · {{ req.workOrder }}</div>
                 <div class="text-xs text-ink-500">{{ req.building }} · Tasdiqlangan: {{ req.approvedDate }}</div>

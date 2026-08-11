@@ -77,7 +77,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="Wrench" label="Jami" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
+      <KpiCard :icon="Wrench" label="Jami work orderlar" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
+      <KpiCard :icon="Clock" label="Jarayonda" :value="inProgressCount" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
+      <KpiCard :icon="CheckCircle2" label="Tugatilgan" :value="completedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
+      <KpiCard :icon="AlertTriangle" label="SLA buzilgan" :value="slaBreachedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
     </div>
 
     <!-- Work orders table -->
@@ -174,7 +177,7 @@
 
 <script setup lang="ts">
 import KpiCard from '~/components/KpiCard.vue'
-import { Filter, Plus, X } from 'lucide-vue-next'
+import { Filter, Plus, X, Clock, CheckCircle2, AlertTriangle, Wrench } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin' })
 
@@ -207,6 +210,10 @@ const serviceRequests = [
   { id: 'sr3', number: 'SR-003', category: 'Konditsioner' },
 ]
 
+
+const inProgressCount = computed(() => workOrders.value.filter(o => o.status === 'IN_PROGRESS').length)
+const completedCount = computed(() => workOrders.value.filter(o => o.status === 'COMPLETED' || o.status === 'DONE').length)
+const slaBreachedCount = computed(() => workOrders.value.filter(o => o.slaBreached).length)
 const workOrders = ref([
   { id: 1, number: 'WO-2026-001', category: 'Santexnika', buildingName: 'Tashkent City', unitCode: 'A-301', assignedToName: 'Akmal Sodiqov', priority: 'URGENT', status: 'IN_PROGRESS', slaDueAt: '2026-08-12', slaBreached: false, description: 'A-301 ofisida quvur nuqsoni, suv oqmoqda. Shoshilinch.' },
   { id: 2, number: 'WO-2026-002', category: 'Elektr', buildingName: 'Trillant Tower', unitCode: 'B-501', assignedToName: 'Bekzod Aliyev', priority: 'HIGH', status: 'ASSIGNED', slaDueAt: '2026-08-14', slaBreached: false, description: 'B-501 da elektr rozetkasi ishlamayapti.' },

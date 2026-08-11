@@ -12,18 +12,9 @@
     <template v-else-if="data">
       <!-- Summary -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="card p-5">
-          <div class="text-xs text-ink-500 mb-1">Jami qarzdorlik</div>
-          <div class="text-2xl font-bold text-red-400">{{ formatUZS(totalDebt) }}</div>
-        </div>
-        <div class="card p-5">
-          <div class="text-xs text-ink-500 mb-1">Muddati o'tgan</div>
-          <div class="text-2xl font-bold text-red-400">{{ formatUZS(overdueDebt) }}</div>
-        </div>
-        <div class="card p-5">
-          <div class="text-xs text-ink-500 mb-1">Qarzdorlar soni</div>
-          <div class="text-2xl font-bold">{{ debtors.length }}</div>
-        </div>
+        <KpiCard :icon="AlertCircle" label="Jami qarzdorlik" :value="formatUZSShort(totalDebt)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+        <KpiCard :icon="Clock" label="Muddati o'tgan" :value="formatUZSShort(overdueDebt)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
+        <KpiCard :icon="Users" label="Qarzdorlar soni" :value="debtors.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
       </div>
 
       <!-- Debtors table -->

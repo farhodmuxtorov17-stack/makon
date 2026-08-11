@@ -10,34 +10,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Clock :size="16" class="text-amber-500" /></div>
-          <span class="text-xs text-ink-500">Kutilmoqda</span>
-        </div>
-        <div class="text-xl font-bold text-amber-500">{{ pendingCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><CheckCircle2 :size="16" class="text-emerald-500" /></div>
-          <span class="text-xs text-ink-500">Imzolangan</span>
-        </div>
-        <div class="text-xl font-bold text-emerald-500">{{ signedCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center"><XCircle :size="16" class="text-red-500" /></div>
-          <span class="text-xs text-ink-500">Xatolik</span>
-        </div>
-        <div class="text-xl font-bold text-red-500">{{ failedCount }}</div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><ShieldCheck :size="16" class="text-purple-500" /></div>
-          <span class="text-xs text-ink-500">Jami</span>
-        </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ signatures.length }}</div>
-      </div>
+      <KpiCard :icon="Clock" label="Kutilmoqda" :value="pendingCount" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" />
+      <KpiCard :icon="FileSignature" label="Imzolangan" :value="signedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" />
+      <KpiCard :icon="AlertCircle" label="Rad etilgan" :value="rejectedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" />
+      <KpiCard :icon="ShieldCheck" label="Jami" :value="signatures.length" icon-color="#6366f1" icon-bg="rgba(99,102,241,0.1)" />
     </div>
 
     <!-- Filter -->
@@ -111,6 +87,7 @@
 
 <script setup lang="ts">
 import { Clock, CheckCircle2, XCircle, ShieldCheck, RefreshCw, Send, RotateCw, ExternalLink } from 'lucide-vue-next'
+import KpiCard from '~/components/KpiCard.vue'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
@@ -134,6 +111,7 @@ const signatures = [
 ]
 
 const pendingCount = computed(() => signatures.filter(s => s.status === 'PENDING').length)
+const rejectedCount = computed(() => signatures.filter(s => s.status === 'REJECTED').length)
 const signedCount = computed(() => signatures.filter(s => s.status === 'SIGNED').length)
 const failedCount = computed(() => signatures.filter(s => s.status === 'FAILED').length)
 
