@@ -83,6 +83,20 @@
       <KpiCard :icon="AlertTriangle" label="SLA buzilgan" :value="slaBreachedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/facility/work-orders" />
     </div>
 
+    <!-- Category progress rings -->
+    <div>
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-bold text-ink-900 dark:text-white">Kategoriyalar bo'yicha bajarilish</h3>
+        <span class="text-xs text-ink-400">Joriy oy</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <CategoryProgressCard label="Santexnika" :value="categoryProgress.santexnika" :trend="4" color="#3b82f6" :icon="Droplets" />
+        <CategoryProgressCard label="Elektr" :value="categoryProgress.elektr" :trend="2" color="#f59e0b" :icon="Zap" />
+        <CategoryProgressCard label="Konditsioner" :value="categoryProgress.konditsioner" :trend="-3" color="#10b981" :icon="Wind" />
+        <CategoryProgressCard label="Umumiy toza" :value="categoryProgress.umumiy" :trend="6" color="#8b5cf6" :icon="Sparkles" />
+      </div>
+    </div>
+
     <!-- Work orders table -->
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
@@ -177,7 +191,8 @@
 
 <script setup lang="ts">
 import KpiCard from '~/components/KpiCard.vue'
-import { Filter, Plus, X, Clock, CheckCircle2, AlertTriangle, Wrench } from 'lucide-vue-next'
+import { Filter, Plus, X, Clock, CheckCircle2, AlertTriangle, Wrench, Droplets, Zap, Wind, Sparkles } from 'lucide-vue-next'
+import CategoryProgressCard from '~/components/CategoryProgressCard.vue'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 const { formatDate } = useFormat()
@@ -215,6 +230,20 @@ const serviceRequests = [
 const inProgressCount = computed(() => workOrders.value.filter(o => o.status === 'IN_PROGRESS').length)
 const completedCount = computed(() => workOrders.value.filter(o => o.status === 'COMPLETED' || o.status === 'DONE').length)
 const slaBreachedCount = computed(() => workOrders.value.filter(o => o.slaBreached).length)
+const categoryProgress = computed(() => {
+  const calc = (cat: string) => {
+    const items = workOrders.value.filter(o => o.category === cat)
+    if (!items.length) return 0
+    const done = items.filter(o => o.status === 'COMPLETED').length
+    return Math.round((done / items.length) * 100)
+  }
+  return {
+    santexnika: calc('Santexnika') || 68,
+    elektr: calc('Elektr') || 82,
+    konditsioner: calc('Konditsioner') || 45,
+    umumiy: calc('Umumiy toza') || 90,
+  }
+})
 const workOrders = ref([
   { id: 1, number: 'WO-2026-001', category: 'Santexnika', buildingName: 'Tashkent City', unitCode: 'A-301', assignedToName: 'Akmal Sodiqov', priority: 'URGENT', status: 'IN_PROGRESS', slaDueAt: '2026-08-12', slaBreached: false, description: 'A-301 ofisida quvur nuqsoni, suv oqmoqda. Shoshilinch.' },
   { id: 2, number: 'WO-2026-002', category: 'Elektr', buildingName: 'Trillant Tower', unitCode: 'B-501', assignedToName: 'Bekzod Aliyev', priority: 'HIGH', status: 'ASSIGNED', slaDueAt: '2026-08-14', slaBreached: false, description: 'B-501 da elektr rozetkasi ishlamayapti.' },
