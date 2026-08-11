@@ -70,26 +70,38 @@
             </div>
 
 
-            <!-- Floor Plan -->
+            <!-- 3D Floor Plan -->
             <div class="card p-6">
               <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Planirovka (eskiy reja)</h3>
+                <h3 class="font-semibold">3D Planirovka</h3>
                 <div class="flex gap-2">
+                  <button @click="planView = '3d'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
+                    :class="planView === '3d' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
+                    3D Ko'rinish
+                  </button>
                   <button @click="planView = 'plan'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
                     :class="planView === 'plan' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
                     Reja
                   </button>
                   <button @click="planView = 'dimensions'" class="text-xs px-3 py-1.5 rounded-lg transition-colors"
                     :class="planView === 'dimensions' ? 'bg-brand-500/20 text-brand-400' : 'text-ink-500 hover:text-ink-300'">
-                    O\'lchamlar
+                    O'lchamlar
                   </button>
                 </div>
               </div>
 
-              <!-- SVG Floor Plan -->
-              <div class="floor-plan-container">
+              <!-- 3D View -->
+              <div v-if="planView === '3d'" class="floor-plan-container">
+                <FloorPlan3D
+                  :rooms="listing.rooms || defaultRooms"
+                  :area="listing.area || 85"
+                  :dark="true"
+                />
+              </div>
+
+              <!-- 2D Plan View (original SVG) -->
+              <div v-else class="floor-plan-container">
                 <svg viewBox="0 0 100 60" class="w-full" style="max-height: 400px;">
-                  <!-- Grid background -->
                   <defs>
                     <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
                       <path d="M 5 0 L 0 0 0 5" fill="none" :stroke="planView === 'dimensions' ? 'rgba(99,102,241,0.12)' : 'rgba(255,255,255,0.04)'" stroke-width="0.3"/>
@@ -100,24 +112,16 @@
                     </linearGradient>
                   </defs>
                   <rect width="100" height="60" fill="url(#grid)" />
-
-                  <!-- Outer walls -->
                   <rect x="2" y="2" width="96" height="56" fill="none" stroke="url(#wallGrad)" stroke-width="1.5" rx="0.5" />
-
-                  <!-- Room areas -->
                   <template v-for="(room, i) in (listing.rooms || [])" :key="i">
                     <rect :x="room.x" :y="room.y" :width="room.w" :height="room.h"
                       :fill="roomColor(room.type)" :opacity="0.25" rx="0.5" />
                     <rect :x="room.x" :y="room.y" :width="room.w" :height="room.h"
                       fill="none" :stroke="roomColor(room.type)" stroke-width="0.4" stroke-dasharray="0.8,0.4" opacity="0.6" rx="0.5" />
-
-                    <!-- Room label -->
                     <text v-if="planView === 'plan'" :x="room.x + room.w / 2" :y="room.y + room.h / 2 - 0.5"
                       text-anchor="middle" fill="white" font-size="2.2" font-weight="500" opacity="0.9">
                       {{ room.name }}
                     </text>
-
-                    <!-- Dimensions -->
                     <template v-if="planView === 'dimensions'">
                       <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 - 1"
                         text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="1.8">
@@ -125,24 +129,16 @@
                       </text>
                       <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 + 1.5"
                         text-anchor="middle" :fill="roomColor(room.type)" font-size="1.6" font-weight="600">
-                        {{ (room.w * 0.3).toFixed(1) }}×{{ (room.h * 0.3).toFixed(1) }}m
+                        {{ (room.w * 0.3).toFixed(1) }}x{{ (room.h * 0.3).toFixed(1) }}m
                       </text>
                     </template>
                   </template>
-
-                  <!-- Door symbols (arcs) -->
                   <path d="M 25 2 A 4 4 0 0 1 29 6" fill="none" stroke="rgba(167,139,250,0.5)" stroke-width="0.3" />
                   <line x1="25" y1="2" x2="25" y2="6" stroke="rgba(167,139,250,0.4)" stroke-width="0.3" />
-
-                  <!-- Windows on top wall -->
                   <line x1="15" y1="2" x2="22" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
                   <line x1="35" y1="2" x2="45" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
                   <line x1="50" y1="2" x2="58" y2="2" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
-
-                  <!-- Windows on left wall -->
                   <line x1="2" y1="35" x2="2" y2="42" stroke="#60a5fa" stroke-width="0.6" opacity="0.7" />
-
-                  <!-- Total dimensions -->
                   <text x="50" y="0.5" text-anchor="middle" fill="rgba(99,102,241,0.6)" font-size="1.8" font-weight="600">
                     {{ (96 * 0.3).toFixed(1) }}m
                   </text>
@@ -150,8 +146,6 @@
                     transform="rotate(-90, 0.8, 30)">
                     {{ (56 * 0.3).toFixed(1) }}m
                   </text>
-
-                  <!-- North arrow -->
                   <g transform="translate(92, 54)">
                     <circle r="2.5" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.4)" stroke-width="0.2"/>
                     <path d="M 0 -1.8 L 0.8 0.8 L 0 0.3 L -0.8 0.8 Z" fill="#6366f1" />
@@ -179,7 +173,7 @@
               <!-- Area summary -->
               <div class="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5">
                 <div class="text-center">
-                  <div class="text-lg font-bold text-brand-400">{{ listing.area || 85 }}<span class="text-xs text-ink-500"> m²</span></div>
+                  <div class="text-lg font-bold text-brand-400">{{ listing.area || 85 }}<span class="text-xs text-ink-500"> m2</span></div>
                   <div class="text-xs text-ink-500">Umumiy maydon</div>
                 </div>
                 <div class="text-center">
@@ -188,7 +182,7 @@
                 </div>
                 <div class="text-center">
                   <div class="text-lg font-bold text-brand-400">{{ Math.ceil((listing.area || 85) / 8) }}</div>
-                  <div class="text-xs text-ink-500">Ish o\'rinlari</div>
+                  <div class="text-xs text-ink-500">Ish o rinlari</div>
                 </div>
               </div>
             </div>
@@ -341,7 +335,13 @@ const data = computed(() => {
 const pending = ref(false)
 const error = ref('')
 
-const planView = ref<'plan' | 'dimensions'>('plan')
+const planView = ref<'3d' | 'plan' | 'dimensions'>('3d')
+const defaultRooms = [
+  { name: 'Ofis', type: 'office', x: 5, y: 5, w: 50, h: 30 },
+  { name: 'Konferensiya', type: 'meeting', x: 5, y: 38, w: 35, h: 22 },
+  { name: 'Qabul', type: 'reception', x: 43, y: 38, w: 24, h: 14 },
+  { name: 'Oshxona', type: 'kitchen', x: 43, y: 55, w: 24, h: 8 },
+]
 const currentPhotoIdx = ref(0)
 const currentPhoto = computed(() => {
   return listing.value?.photos?.[currentPhotoIdx.value] || 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png'
