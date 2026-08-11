@@ -1,261 +1,227 @@
 <template>
-  <div class="min-h-screen">
-    <template v-if="building">
-      <!-- Hero -->
-      <section class="relative h-[480px] overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center scale-105" :style="{ backgroundImage: `url(${building.gallery[0]})` }" />
-        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(9,9,11,0.95) 0%, rgba(9,9,11,0.6) 50%, rgba(9,9,11,0.2) 100%);"></div>
-        <div class="absolute inset-0" style="background: radial-gradient(ellipse at bottom left, rgba(99,102,241,0.1), transparent 60%);"></div>
-
-        <div class="relative max-w-7xl mx-auto px-4 lg:px-6 h-full flex items-end pb-10">
-          <div>
-            <NuxtLink to="/catalog" class="inline-flex items-center gap-1.5 text-sm text-ink-400 hover:text-white mb-5 transition-all hover:translate-x-[-3px]">
-              <ArrowLeft :size="16" /> Katalogga qaytish
-            </NuxtLink>
-            <div class="flex items-center gap-3 mb-4">
-              <span class="badge badge-brand" style="backdrop-filter: blur(8px); background: rgba(99,102,241,0.2); border: 1px solid rgba(99,102,241,0.3);">{{ typeLabel(building.type) }}</span>
-              <span v-if="building.vacantUnits > 0" class="badge badge-success" style="backdrop-filter: blur(8px); background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3);">
-                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1"></div>
-                {{ building.vacantUnits }} bo'sh maydon
-              </span>
-            </div>
-            <h1 class="text-5xl font-extrabold mb-3 text-white tracking-tight" style="text-shadow: 0 2px 20px rgba(0,0,0,0.3);">{{ building.name }}</h1>
-            <p class="text-ink-300 flex items-center gap-2 text-base">
-              <MapPin :size="16" /> {{ building.address }}
-            </p>
-          </div>
+  <div class="building-page">
+    <!-- Hero with building image -->
+    <div class="b-hero">
+      <div class="b-hero__bg">
+        <img :src="building.image" :alt="building.name" class="b-hero__img" />
+        <div class="b-hero__grad"></div>
+      </div>
+      <nav class="b-nav">
+        <NuxtLink to="/" class="b-nav__logo">
+          <div class="b-nav__icon">M</div>
+          <span>MAKON</span>
+        </NuxtLink>
+        <div class="b-nav__links">
+          <NuxtLink to="/catalog" class="b-nav__link">Katalog</NuxtLink>
+          <NuxtLink to="/" class="b-nav__link">Bosh sahifa</NuxtLink>
         </div>
-      </section>
-
-      <!-- Gallery -->
-      <section class="py-8 px-4 lg:px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div v-for="(img, i) in building.gallery" :key="i" class="aspect-square rounded-2xl overflow-hidden bg-ink-900 group cursor-pointer">
-            <img :src="img" :alt="`${building.name} - ${i + 1}`" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
-          </div>
+        <div class="b-nav__right">
+          <ThemeToggle />
+          <NuxtLink to="/login" class="b-nav__link">Kirish</NuxtLink>
+          <NuxtLink to="/register/eri" class="b-nav__btn">Ro'yxatdan o'tish <ArrowRight :size="14" /></NuxtLink>
         </div>
-      </section>
-
-      <!-- Info Grid -->
-      <section class="py-8 px-4 lg:px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Description -->
-          <div class="lg:col-span-2 space-y-6">
-            <div class="card-premium p-6">
-              <h2 class="font-semibold text-ink-900 dark:text-white mb-3">Bino haqida</h2>
-              <p class="text-ink-400 leading-relaxed">{{ building.description }}</p>
-            </div>
-
-            <!-- Specs -->
-            <div class="card-premium p-6">
-              <h2 class="font-semibold text-ink-900 dark:text-white mb-5">Texnik ko'rsatkichlar</h2>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Qavatlar soni</div>
-                  <div class="text-2xl font-bold">{{ building.floorsCount }}</div>
-                </div>
-                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Jami unitlar</div>
-                  <div class="text-2xl font-bold">{{ building.totalUnits }}</div>
-                </div>
-                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-emerald-500/5">
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Band</div>
-                  <div class="text-2xl font-bold text-emerald-500">{{ building.occupiedUnits }}</div>
-                </div>
-                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Bo'sh</div>
-                  <div class="text-2xl font-bold text-brand-500">{{ building.vacantUnits }}</div>
-                </div>
-                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Umumiy maydon</div>
-                  <div class="text-2xl font-bold">{{ formatArea(building.totalArea) }} m²</div>
-                </div>
-                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Bandlik</div>
-                  <div class="text-2xl font-bold">{{ occupancyPercent }}%</div>
-                </div>
-                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Tuman</div>
-                  <div class="text-lg font-bold">{{ building.district }}</div>
-                </div>
-                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Shahar</div>
-                  <div class="text-lg font-bold">{{ building.city }}</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Listings -->
-            <div v-if="buildingListings.length > 0" class="card-premium p-6">
-              <h2 class="font-semibold text-ink-900 dark:text-white mb-4">Bo'sh takliflar ({{ buildingListings.length }})</h2>
-              <div class="space-y-3">
-                <div v-for="l in buildingListings" :key="l.id" class="flex items-center gap-4 p-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.04] hover:border-brand-500/20 hover:shadow-md transition-all duration-300 cursor-pointer" @click="navigateTo('/listings/' + l.id)">
-                  <div class="w-16 h-16 rounded-lg overflow-hidden bg-ink-900 flex-shrink-0">
-                    <img :src="l.photos[0]" :alt="l.titleUz" class="w-full h-full object-cover" loading="lazy" />
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-2 mb-1">
-                      <span class="badge" :class="l.offerType === 'RENT' ? 'badge-brand' : 'badge-success'">{{ l.offerType === 'RENT' ? 'Ijaraga' : 'Sotuvga' }}</span>
-                    </div>
-                    <h4 class="font-medium text-sm truncate">{{ l.titleUz }}</h4>
-                    <p class="text-xs text-ink-500 truncate">{{ l.area }} m² · {{ l.floor }}-qavat</p>
-                  </div>
-                  <div class="text-right flex-shrink-0">
-                    <div class="text-lg font-bold text-brand-400">{{ formatUZS(l.price) }}</div>
-                    <NuxtLink :to="'/listings/' + l.id" class="btn btn-primary btn-sm mt-1">Batafsil</NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sidebar -->
-          <div class="space-y-4">
-            <div class="card-premium p-6 glow-brand" style="background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(139,92,246,0.03));">
-              <h3 class="font-semibold dark:text-white mb-4">Aloqa va taklif</h3>
-              <p class="text-sm text-ink-400 mb-5">Bu binodagi bo'sh maydonlar haqida taklif olish uchun ariza yuboring.</p>
-              <NuxtLink to="/register/eri" class="btn btn-primary w-full mb-2 btn-glow">Taklif so'rash</NuxtLink>
-              <NuxtLink to="/login" class="btn btn-secondary w-full">Tizimga kirish</NuxtLink>
-            </div>
-
-            <div class="card-premium p-6">
-              <h3 class="font-semibold dark:text-white mb-3">Joylashuv</h3>
-              <p class="text-sm text-ink-400">{{ building.address }}</p>
-              <p class="text-sm text-ink-500 mt-1">{{ building.district }}, {{ building.city }}</p>
-            </div>
-          </div>
+      </nav>
+      <div class="b-hero__content">
+        <div class="b-hero__tag">PREMIUM BIZNES MARKAZ</div>
+        <h1 class="b-hero__title">{{ building.name }}</h1>
+        <p class="b-hero__addr"><MapPin :size="16" /> {{ building.district }}, Toshkent</p>
+        <div class="b-hero__specs">
+          <div class="b-hero__spec"><span class="b-hero__spec-n">{{ building.floors }}</span><span class="b-hero__spec-l">Qavat</span></div>
+          <div class="b-hero__spec-divider"></div>
+          <div class="b-hero__spec"><span class="b-hero__spec-n">{{ building.units }}</span><span class="b-hero__spec-l">Unit</span></div>
+          <div class="b-hero__spec-divider"></div>
+          <div class="b-hero__spec"><span class="b-hero__spec-n">{{ building.area }}</span><span class="b-hero__spec-l">m² maydon</span></div>
+          <div class="b-hero__spec-divider"></div>
+          <div class="b-hero__spec"><span class="b-hero__spec-n">{{ building.vacant }}</span><span class="b-hero__spec-l">Bo'sh unit</span></div>
         </div>
-      </section>
-    </template>
-
-    <!-- Not found -->
-    <div v-else class="py-32 text-center">
-      <p class="text-red-400 mb-4">Bino topilmadi</p>
-      <NuxtLink to="/catalog" class="btn btn-secondary btn-sm">Katalogga qaytish</NuxtLink>
+      </div>
     </div>
+
+    <!-- Available units -->
+    <section class="b-units">
+      <div class="b-units__head">
+        <h2 class="b-units__title">Bo'sh maydonlar</h2>
+        <div class="b-units__filters">
+          <button :class="{ active: unitFilter === 'ALL' }" @click="unitFilter = 'ALL'">Barchasi</button>
+          <button :class="{ active: unitFilter === 'OFFICE' }" @click="unitFilter = 'OFFICE'">Ofis</button>
+          <button :class="{ active: unitFilter === 'RETAIL' }" @click="unitFilter = 'RETAIL'">Savdo</button>
+          <button :class="{ active: unitFilter === 'WAREHOUSE' }" @click="unitFilter = 'WAREHOUSE'">Ombor</button>
+        </div>
+      </div>
+
+      <div class="b-units__grid">
+        <div v-for="unit in filteredUnits" :key="unit.id" class="unit-card" @click="navigateTo(`/units/${unit.slug}`)">
+          <div class="unit-card__img">
+            <img :src="unit.image" :alt="unit.name" />
+            <div class="unit-card__badge">{{ unit.type }}</div>
+          </div>
+          <div class="unit-card__info">
+            <div class="unit-card__top">
+              <h3 class="unit-card__name">{{ unit.name }}</h3>
+              <span class="unit-card__floor">{{ unit.floor }}-qavat</span>
+            </div>
+            <p class="unit-card__area">{{ unit.area }} m²</p>
+            <div class="unit-card__foot">
+              <div class="unit-card__price">
+                <span class="unit-card__price-l">Oylik</span>
+                <span class="unit-card__price-v">{{ unit.price }} UZS</span>
+              </div>
+              <button class="unit-card__btn">Batafsil <ArrowRight :size="14" /></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="b-cta">
+      <div class="b-cta__card">
+        <h2 class="b-cta__title">Bu binoda ofis kerakmi?</h2>
+        <p class="b-cta__text">Ariza qoldiring — operatorimiz siz bilan bog'lanadi</p>
+        <NuxtLink to="/applications/new" class="b-cta__btn">Ariza qoldirish <ArrowRight :size="16" /></NuxtLink>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="b-nav__logo"><div class="b-nav__icon">M</div><span>MAKON</span></div>
+          <p class="footer__desc">Toshkentdagi premium ko'chmas mulk obyektlarini boshqarish platformasi.</p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col"><h5 class="footer__h">PLATFORMA</h5><NuxtLink to="/catalog" class="footer__link">Katalog</NuxtLink><NuxtLink to="/login" class="footer__link">Kirish</NuxtLink><NuxtLink to="/register/eri" class="footer__link">Ro'yxatdan o'tish</NuxtLink></div>
+          <div class="footer__col"><h5 class="footer__h">BOG'LANISH</h5><p class="footer__text">Toshkent, O'zbekiston</p><p class="footer__text">+998 71 200 00 00</p><p class="footer__text">info@makon.uz</p></div>
+        </div>
+      </div>
+      <div class="footer__bottom">© 2026 MAKON — ERI orqali xavfsiz platforma</div>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, MapPin } from 'lucide-vue-next'
-import { BUILDING_TYPE_LABELS } from '~/types'
-
-definePageMeta({ layout: 'public' })
-
-const { formatUZS, formatUZSShort, formatNumber } = useFormat()
+import { ArrowRight, MapPin } from 'lucide-vue-next'
 
 const route = useRoute()
+definePageMeta({ layout: 'blank' })
 
-// All buildings with real Tashkent imagery
-const buildings: Record<string, any> = {
-  'tashkent-city': {
-    id: 'b1', name: 'Tashkent City', type: 'BUSINESS_CENTER',
-    address: 'Mirzo Ulug\'bek tumani, Tashkent', district: 'Mirzo Ulug\'bek', city: 'Toshkent',
-    floorsCount: 12, totalUnits: 420, occupiedUnits: 378, vacantUnits: 42, totalArea: 45000,
-    gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/99fff4d6f_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png',
-    ],
-    description: 'Tashkent City — Toshkent shahrining markazidagi premium biznes markazi. 12 qavat, 420 unit, 45 000 m². Zamonaviy infratuzilma, 24/7 xavfsizlik, keng avtoturargoh.',
-  },
-  'trillant-tower': {
-    id: 'b2', name: 'Trillant Tower', type: 'BUSINESS_CENTER',
-    address: 'Yashnabad tumani, Toshkent', district: 'Yashnabad', city: 'Toshkent',
-    floorsCount: 18, totalUnits: 180, occupiedUnits: 171, vacantUnits: 9, totalArea: 28000,
-    gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/b0db07788_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png',
-    ],
-    description: 'Trillant Tower — Yashnabad tumanidagi nufuzli 18 qavatli biznes markazi. Panel oynali fasad, zamonaviy ofis maydonlari, yer osti avtoturargohi. 180 unit, 28 000 m².',
-  },
-  'it-park': {
-    id: 'b3', name: 'IT Park', type: 'OFFICE',
-    address: 'Yakkasaray tumani, Toshkent', district: 'Yakkasaray', city: 'Toshkent',
-    floorsCount: 8, totalUnits: 150, occupiedUnits: 123, vacantUnits: 27, totalArea: 18000,
-    gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/e6d4fe6e6_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png',
-    ],
-    description: 'IT Park — O\'zbekistonning yetakchi texnologik markazi. 8 qavat, 150 unit, 18 000 m². Yuqori tezlikdagi internet, konferensiya zallari, start-up inkubatsiya maydonlari.',
-  },
-  'piramit': {
-    id: 'b4', name: 'Piramit', type: 'MIXED',
-    address: 'Amir Temur shoh ko\'chasi, Toshkent', district: 'Amir Temur', city: 'Toshkent',
-    floorsCount: 10, totalUnits: 90, occupiedUnits: 70, vacantUnits: 20, totalArea: 15000,
-    gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/8fa70df4e_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png',
-    ],
-    description: 'Piramit Center — markazda joylashgan aralash tipdagi bino. Ofislar, savdo maydonlari va omborlarni o\'zida jamlagan. 10 qavat, 90 unit, 15 000 m².',
-  },
-  'savdo-markaz': {
-    id: 'b5', name: 'Savdo Markaz', type: 'SHOPPING',
-    address: 'Sergeli tumani, Toshkent', district: 'Sergeli', city: 'Toshkent',
-    floorsCount: 4, totalUnits: 120, occupiedUnits: 95, vacantUnits: 25, totalArea: 12000,
-    gallery: [
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/9adbd3468_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/57f4f22c1_generated_image.png',
-      'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3075330ac_generated_image.png',
-    ],
-    description: 'Savdo Markaz — Sergeli tumanidagi yirik savdo markazi. 4 qavat, 120 unit, 12 000 m². Do\'konlar, kafe, oziq-ovqat bo\'limi, keng avtoturargoh.',
-  },
-}
-
-const building = computed(() => {
-  const slug = route.params.slug as string
-  return buildings[slug] || null
+const building = reactive({
+  name: 'Tashkent City',
+  district: 'Mirzo Ulug\'bek tumani',
+  floors: 12, units: 240, area: '32 000', vacant: 47,
+  image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png'
 })
 
-const buildingListings = computed(() => {
-  if (!building.value) return []
-  const slug = route.params.slug as string
-  const listingsMap: Record<string, any[]> = {
-    'tashkent-city': [
-      { id: 'l1', titleUz: 'A-301 · 85 m² ofis', offerType: 'RENT', price: 25000000, area: 85, floor: 3, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png'] },
-      { id: 'l2', titleUz: 'A-302 · 72 m² ofis', offerType: 'RENT', price: 21000000, area: 72, floor: 3, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png'] },
-      { id: 'l6', titleUz: 'A-205 · 50 m² ofis', offerType: 'RENT', price: 15000000, area: 50, floor: 2, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/337ead24c_generated_image.png'] },
-    ],
-    'trillant-tower': [
-      { id: 'l2', titleUz: 'B-501 · 120 m² premium ofis', offerType: 'RENT', price: 35000000, area: 120, floor: 5, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png'] },
-      { id: 'l7', titleUz: 'B-502 · 95 m² ofis', offerType: 'RENT', price: 28000000, area: 95, floor: 5, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/6daa9acc3_generated_image.png'] },
-    ],
-    'it-park': [
-      { id: 'l3', titleUz: 'C-201 · 65 m² savdo maydoni', offerType: 'RENT', price: 18000000, area: 65, floor: 2, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png'] },
-      { id: 'l8', titleUz: 'C-202 · 45 m² ofis', offerType: 'RENT', price: 14000000, area: 45, floor: 2, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/41072e285_generated_image.png'] },
-    ],
-    'piramit': [
-      { id: 'l4', titleUz: 'D-102 · 200 m² savdo maydoni', offerType: 'RENT', price: 15000000, area: 200, floor: 1, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/3075330ac_generated_image.png'] },
-      { id: 'l9', titleUz: 'D-201 · 80 m² ofis', offerType: 'RENT', price: 22000000, area: 80, floor: 2, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/3075330ac_generated_image.png'] },
-    ],
-    'savdo-markaz': [
-      { id: 'l5', titleUz: 'E-301 · 42 m² do\'kon', offerType: 'SALE', price: 450000000, area: 42, floor: 3, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png'] },
-      { id: 'l10', titleUz: 'E-102 · 35 m² do\'kon', offerType: 'RENT', price: 12000000, area: 35, floor: 1, photos: ['https://media.base44.com/images/public/6a78058ed735adc07d68319d/2292e635f_generated_image.png'] },
-    ],
-  }
-  return listingsMap[slug] || []
-})
+const unitFilter = ref('ALL')
 
-const occupancyPercent = computed(() => {
-  if (!building.value || !building.value.totalUnits) return 0
-  return Math.round((building.value.occupiedUnits / building.value.totalUnits) * 100)
-})
+const units = [
+  { id: 1, slug: 'tashkent-city-office-101', name: 'Ofis 101', floor: 1, area: 45, type: 'OFFICE', price: '3 500 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
+  { id: 2, slug: 'tashkent-city-office-205', name: 'Ofis 205', floor: 2, area: 78, type: 'OFFICE', price: '6 200 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
+  { id: 3, slug: 'tashkent-city-retail-gf', name: 'Savdo maydoni GF', floor: 1, area: 120, type: 'RETAIL', price: '9 800 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png' },
+  { id: 4, slug: 'tashkent-city-office-312', name: 'Ofis 312', floor: 3, area: 55, type: 'OFFICE', price: '4 300 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
+  { id: 5, slug: 'tashkent-city-office-408', name: 'Ofis 408', floor: 4, area: 92, type: 'OFFICE', price: '7 400 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/0d7f1ae52_generated_image.png' },
+  { id: 6, slug: 'tashkent-city-retail-1f', name: 'Savdo maydoni 1F', floor: 2, area: 85, type: 'RETAIL', price: '6 800 000', image: 'https://media.base44.com/images/public/6a78058ed735adc07d68319d/22d244e7f_generated_image.png' },
+]
 
-function typeLabel(type: string) {
-  return BUILDING_TYPE_LABELS[type as keyof typeof BUILDING_TYPE_LABELS]?.uz || type
-}
-
-function formatArea(m2: number) {
-  return m2?.toLocaleString('ru-RU') || '—'
-}
-
-
+const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.filter(u => u.type === unitFilter.value))
 </script>
+
+<style scoped>
+.building-page { overflow-x: hidden; }
+
+/* Hero */
+.b-hero { position: relative; height: 520px; overflow: hidden; }
+.b-hero__bg { position: absolute; inset: 0; }
+.b-hero__img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.b-hero__grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(9,9,11,0.3) 0%, rgba(9,9,11,0.2) 40%, rgba(9,9,11,0.85) 100%),
+              radial-gradient(ellipse at 50% 100%, rgba(99,102,241,0.1), transparent 60%);
+}
+.b-nav {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 48px; max-width: 1400px; margin: 0 auto; width: 100%;
+}
+.b-nav__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.b-nav__icon { width: 38px; height: 38px; border-radius: 11px; background: linear-gradient(135deg, #6366f1, #4f46e5); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: white; box-shadow: 0 4px 16px rgba(99,102,241,0.35); }
+.b-nav__logo span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; }
+.b-nav__links { display: flex; gap: 32px; }
+.b-nav__link { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; }
+.b-nav__link:hover { color: white; }
+.b-nav__right { display: flex; align-items: center; gap: 16px; }
+.b-nav__btn { display: inline-flex; align-items: center; gap: 5px; background: white; color: #09090b; padding: 10px 18px; border-radius: 11px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+.b-nav__btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+
+.b-hero__content { position: relative; z-index: 5; max-width: 1400px; margin: 0 auto; padding: 80px 48px 0; }
+.b-hero__tag { display: inline-block; background: rgba(99,102,241,0.9); color: white; padding: 6px 14px; border-radius: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 16px; backdrop-filter: blur(10px); }
+.b-hero__title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; color: white; letter-spacing: -0.04em; margin: 0 0 10px; }
+.b-hero__addr { display: flex; align-items: center; gap: 6px; font-size: 16px; color: rgba(255,255,255,0.6); margin: 0 0 28px; }
+.b-hero__specs { display: flex; align-items: center; gap: 24px; }
+.b-hero__spec { display: flex; flex-direction: column; gap: 2px; }
+.b-hero__spec-n { font-size: 28px; font-weight: 800; color: white; letter-spacing: -0.02em; }
+.b-hero__spec-l { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 500; }
+.b-hero__spec-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.12); }
+
+/* Units */
+.b-units { max-width: 1400px; margin: 0 auto; padding: 80px 48px; }
+.b-units__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
+.b-units__title { font-size: 28px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; }
+.dark .b-units__title { color: white; }
+.b-units__filters { display: flex; gap: 6px; background: rgba(0,0,0,0.04); padding: 4px; border-radius: 12px; }
+.dark .b-units__filters { background: rgba(255,255,255,0.04); }
+.b-units__filters button { padding: 8px 16px; border-radius: 9px; font-size: 13px; font-weight: 500; color: #71717a; background: none; border: none; cursor: pointer; transition: all 0.25s; }
+.dark .b-units__filters button { color: #a1a1aa; }
+.b-units__filters button.active { background: white; color: #18181b; box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-weight: 600; }
+.dark .b-units__filters button.active { background: rgba(255,255,255,0.08); color: white; }
+
+.b-units__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.unit-card { border-radius: 18px; overflow: hidden; background: white; cursor: pointer; box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+.dark .unit-card { background: #18181b; box-shadow: 0 2px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06); }
+.unit-card:hover { box-shadow: 0 24px 56px rgba(0,0,0,0.1), 0 0 0 1px rgba(99,102,241,0.1); transform: translateY(-4px); }
+.dark .unit-card:hover { box-shadow: 0 24px 56px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.15); }
+.unit-card__img { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+.unit-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+.unit-card:hover .unit-card__img img { transform: scale(1.05); }
+.unit-card__badge { position: absolute; top: 14px; right: 14px; background: rgba(99,102,241,0.9); color: white; padding: 5px 12px; border-radius: 7px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; backdrop-filter: blur(10px); }
+.unit-card__info { padding: 20px; }
+.unit-card__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.unit-card__name { font-size: 17px; font-weight: 700; color: #18181b; letter-spacing: -0.02em; margin: 0; }
+.dark .unit-card__name { color: white; }
+.unit-card__floor { font-size: 12px; color: #a1a1aa; font-weight: 500; }
+.unit-card__area { font-size: 13px; color: #71717a; margin: 0 0 16px; }
+.dark .unit-card__area { color: #a1a1aa; }
+.unit-card__foot { display: flex; align-items: center; justify-content: space-between; }
+.unit-card__price-l { font-size: 11px; color: #a1a1aa; display: block; margin-bottom: 1px; }
+.unit-card__price-v { font-size: 16px; font-weight: 800; color: #18181b; letter-spacing: -0.01em; }
+.dark .unit-card__price-v { color: white; }
+.unit-card__btn { display: inline-flex; align-items: center; gap: 5px; padding: 10px 18px; border-radius: 10px; background: #18181b; color: white; font-size: 12px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; }
+.unit-card__btn:hover { background: #6366f1; }
+.dark .unit-card__btn { background: #6366f1; }
+.dark .unit-card__btn:hover { background: #4f46e5; }
+
+/* CTA */
+.b-cta { padding: 0 48px 80px; max-width: 1400px; margin: 0 auto; }
+.b-cta__card { background: linear-gradient(135deg, #09090b 0%, #18181b 50%, #1c1c1f 100%); border-radius: 28px; padding: 56px 48px; text-align: center; position: relative; overflow: hidden; }
+.b-cta__card::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 500px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.12), transparent 65%); pointer-events: none; }
+.b-cta__title { font-size: 28px; font-weight: 800; color: white; letter-spacing: -0.03em; margin: 0 0 10px; position: relative; }
+.b-cta__text { font-size: 15px; color: rgba(255,255,255,0.5); margin: 0 0 28px; position: relative; }
+.b-cta__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(99,102,241,0.3); position: relative; }
+.b-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(99,102,241,0.45); }
+
+/* Footer */
+.footer { background: #09090b; padding: 64px 48px 28px; }
+.footer__top { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1.5fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.footer__desc { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-top: 16px; max-width: 360px; }
+.footer__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.footer__col { display: flex; flex-direction: column; gap: 12px; }
+.footer__h { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.3); margin: 0 0 4px; }
+.footer__link { font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.25s; }
+.footer__link:hover { color: white; }
+.footer__text { font-size: 14px; color: rgba(255,255,255,0.45); margin: 0; }
+.footer__bottom { max-width: 1400px; margin: 0 auto; padding-top: 24px; font-size: 13px; color: rgba(255,255,255,0.3); }
+
+@media (max-width: 1024px) { .b-units__grid { grid-template-columns: 1fr 1fr; } .b-nav__links { display: none; } }
+@media (max-width: 768px) { .b-units__grid { grid-template-columns: 1fr; } .b-units, .b-cta, .footer { padding-left: 20px; padding-right: 20px; } .b-nav { padding: 16px 20px; } .b-hero__content { padding: 60px 20px 0; } .b-hero__specs { flex-wrap: wrap; gap: 16px; } .b-hero__spec-divider { display: none; } .footer__top { grid-template-columns: 1fr; } }
+</style>

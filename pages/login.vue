@@ -1,192 +1,221 @@
 <template>
-  <div>
-    <div class="login-header">
-      <h1 class="login-title">Xush kelibsiz</h1>
-      <p class="login-subtitle">Tizimga kiring va binolaringizni boshqaring</p>
-    </div>
-
-    <form @submit.prevent="handleLogin" class="login-form">
-      <div class="field">
-        <label class="field__label">Email yoki STIR</label>
-        <div class="field__input-wrap">
-          <Mail :size="18" class="field__icon" />
-          <input v-model="form.login" type="text" class="field__input" placeholder="admin@makon.uz" />
+  <div class="auth">
+    <!-- Left: Visual -->
+    <div class="auth__visual">
+      <img src="https://media.base44.com/images/public/6a78058ed735adc07d68319d/3b441d5a2_generated_image.png" alt="Tashkent City" class="auth__visual-img" />
+      <div class="auth__visual-grad"></div>
+      <div class="auth__visual-content">
+        <NuxtLink to="/" class="auth__logo">
+          <div class="auth__logo-icon">M</div>
+          <span>MAKON</span>
+        </NuxtLink>
+        <div class="auth__visual-bottom">
+          <h2 class="auth__visual-title">Toshkentning premium obyektlari boshqaruvi</h2>
+          <p class="auth__visual-text">ERI orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
         </div>
       </div>
+    </div>
 
-      <div class="field">
-        <label class="field__label">Parol</label>
-        <div class="field__input-wrap">
-          <Lock :size="18" class="field__icon" />
-          <input
-            v-model="form.password"
-            :type="showPassword ? 'text' : 'password'"
-            class="field__input field__input--password"
-            placeholder="••••••••"
-          />
-          <button type="button" @click="showPassword = !showPassword" class="field__toggle">
-            <Eye v-if="showPassword" :size="18" />
-            <EyeOff v-else :size="18" />
+    <!-- Right: Form -->
+    <div class="auth__form-side">
+      <div class="auth__form-wrap">
+        <div class="auth__form-head">
+          <h1 class="auth__form-title">Xush kelibsiz</h1>
+          <p class="auth__form-sub">Tizimga kirish uchun ma'lumotlaringizni kiriting</p>
+        </div>
+
+        <form @submit.prevent="handleLogin" class="auth__form">
+          <div class="auth__field">
+            <label class="auth__label">Login yoki ERI ID</label>
+            <div class="auth__input-wrap">
+              <User :size="17" class="auth__input-icon" />
+              <input v-model="form.login" type="text" placeholder="admin@makon.uz" class="auth__input" />
+            </div>
+          </div>
+
+          <div class="auth__field">
+            <label class="auth__label">Parol</label>
+            <div class="auth__input-wrap">
+              <Lock :size="17" class="auth__input-icon" />
+              <input v-model="form.password" :type="showPassword ? 'text' : 'password'" placeholder="••••••••" class="auth__input" />
+              <button type="button" @click="showPassword = !showPassword" class="auth__input-toggle">
+                <Eye v-if="!showPassword" :size="17" />
+                <EyeOff v-else :size="17" />
+              </button>
+            </div>
+          </div>
+
+          <div class="auth__row">
+            <label class="auth__check">
+              <input type="checkbox" v-model="form.remember" class="auth__checkbox" />
+              <span>Eslab qolish</span>
+            </label>
+            <a href="#" class="auth__link">Parolni unutdingizmi?</a>
+          </div>
+
+          <button type="submit" class="auth__submit" :disabled="loading">
+            <span v-if="!loading">Tizimga kirish</span>
+            <span v-else>Kirilmoqda...</span>
+            <ArrowRight v-if="!loading" :size="17" />
           </button>
-        </div>
+
+          <div class="auth__divider">
+            <span>YOKI</span>
+          </div>
+
+          <button type="button" @click="handleEriLogin" class="auth__eri">
+            <KeyRound :size="18" />
+            ERI orqali kirish
+          </button>
+
+          <p class="auth__signup">
+            Hisobingiz yo'qmi?
+            <NuxtLink to="/register/eri" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
+          </p>
+        </form>
       </div>
-
-      <div class="login-options">
-        <label class="login-check">
-          <input type="checkbox" v-model="form.remember" />
-          <span>Eslab qolish</span>
-        </label>
-        <a href="#" class="login-link">Parolni unutdingizmi?</a>
-      </div>
-
-      <button type="submit" class="login-btn" :disabled="loading">
-        <span v-if="!loading">Kirish</span>
-        <span v-else class="login-btn__loading">
-          <Loader2 :size="16" class="spin" /> Kirilmoqda...
-        </span>
-      </button>
-    </form>
-
-    <div class="login-divider">
-      <span>yoki</span>
-    </div>
-
-    <div class="login-alt">
-      <button @click="handleEriLogin" class="alt-btn alt-btn--eri">
-        <ShieldCheck :size="18" />
-        <span>ERI orqali kirish</span>
-        <ChevronRight :size="16" />
-      </button>
-      <button @click="openTelegramApp" class="alt-btn alt-btn--telegram">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-        </svg>
-        <span>Telegram orqali</span>
-      </button>
-    </div>
-
-    <p class="login-register">
-      Hisobingiz yo'qmi?
-      <NuxtLink to="/register/eri" class="login-link login-link--accent">Ro'yxatdan o'ting</NuxtLink>
-    </p>
-
-    <div class="login-demo">
-      <Info :size="14" />
-      <span>Demo: <code>admin@makon.uz</code> · <code>admin123</code></span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ShieldCheck, Eye, EyeOff, Mail, Lock, ChevronRight, Loader2, Info } from 'lucide-vue-next'
+import { User, Lock, Eye, EyeOff, ArrowRight, KeyRound } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'auth' })
+definePageMeta({ layout: 'blank' })
 
-const authStore = useAuthStore()
-const router = useRouter()
-
-const form = ref({
-  login: 'admin@makon.uz',
-  password: 'admin123',
-  remember: true
-})
-
-const loading = ref(false)
+const form = reactive({ login: '', password: '', remember: false })
 const showPassword = ref(false)
+const loading = ref(false)
+const authStore = useAuthStore()
 
 async function handleLogin() {
   loading.value = true
-  await new Promise(r => setTimeout(r, 600))
-  authStore.setUser({
-    id: 'u1',
-    email: form.value.login,
-    fullName: 'Admin User',
-    role: 'SUPER_HEAD'
-  } as any)
-  router.push('/dashboard/executive')
+  await new Promise(r => setTimeout(r, 800))
   loading.value = false
+  authStore.setAuth({ token: 'demo-token', user: { id: '1', name: 'Admin', role: 'SUPER_HEAD' } })
+  navigateTo('/dashboard/executive')
 }
 
 function handleEriLogin() {
-  router.push('/register/eri')
-}
-
-function openTelegramApp() {
-  window.open('https://t.me/makon_bot', '_blank')
+  navigateTo('/register/eri')
 }
 </script>
 
 <style scoped>
-.login-header { margin-bottom: 28px; }
-.login-title { font-size: 24px; font-weight: 800; color: #18181b; letter-spacing: -0.02em; margin-bottom: 4px; }
-:deep(.dark) .login-title { color: white; }
-.login-subtitle { font-size: 14px; color: #71717a; }
+.auth { display: flex; min-height: 100vh; }
 
-.login-form { display: flex; flex-direction: column; gap: 16px; }
-
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field__label { font-size: 13px; font-weight: 600; color: #52525b; }
-:deep(.dark) .field__label { color: #d4d4d8; }
-.field__input-wrap { position: relative; display: flex; align-items: center; }
-.field__icon { position: absolute; left: 14px; color: #a1a1aa; pointer-events: none; z-index: 1; }
-.field__input {
-  width: 100%; padding: 12px 14px 12px 42px; border-radius: 12px;
-  border: 1.5px solid rgba(0,0,0,0.08); background: #fafafa;
-  font-size: 14px; color: #18181b; outline: none; transition: all 0.2s;
+/* Visual side */
+.auth__visual { position: relative; width: 48%; overflow: hidden; }
+.auth__visual-img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.auth__visual-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(9,9,11,0.4) 0%, rgba(9,9,11,0.2) 40%, rgba(9,9,11,0.85) 100%),
+              radial-gradient(ellipse at 30% 70%, rgba(99,102,241,0.15), transparent 50%);
 }
-.field__input:focus { border-color: #6366f1; background: white; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
-:deep(.dark) .field__input { background: #09090b; border-color: rgba(255,255,255,0.08); color: white; }
-:deep(.dark) .field__input:focus { background: #09090b; border-color: #6366f1; }
-.field__input::placeholder { color: #a1a1aa; }
-.field__input--password { padding-right: 42px; }
-.field__toggle { position: absolute; right: 14px; background: none; border: none; cursor: pointer; color: #a1a1aa; display: flex; align-items: center; }
-.field__toggle:hover { color: #6366f1; }
+.auth__visual-content {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 40px 48px;
+}
+.auth__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.auth__logo-icon {
+  width: 38px; height: 38px; border-radius: 11px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 17px; color: white;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+}
+.auth__logo span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; }
+.auth__visual-bottom { max-width: 400px; }
+.auth__visual-title {
+  font-size: 28px; font-weight: 800; color: white;
+  letter-spacing: -0.03em; line-height: 1.15; margin: 0 0 10px;
+}
+.auth__visual-text { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.5; margin: 0; }
 
-.login-options { display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
-.login-check { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #71717a; }
-.login-check input { width: 15px; height: 15px; accent-color: #6366f1; }
-.login-link { color: #6366f1; text-decoration: none; font-weight: 500; }
-.login-link:hover { text-decoration: underline; }
-.login-link--accent { font-weight: 600; }
+/* Form side */
+.auth__form-side {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  padding: 40px; background: #ffffff;
+}
+.dark .auth__form-side { background: #09090b; }
+.auth__form-wrap { width: 100%; max-width: 380px; }
+.auth__form-head { margin-bottom: 36px; }
+.auth__form-title { font-size: 28px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0 0 6px; }
+.dark .auth__form-title { color: white; }
+.auth__form-sub { font-size: 14px; color: #71717a; margin: 0; }
+.dark .auth__form-sub { color: #a1a1aa; }
 
-.login-btn {
-  width: 100%; padding: 12px; border-radius: 12px;
-  background: #6366f1; color: white; border: none;
+/* Fields */
+.auth__field { margin-bottom: 18px; }
+.auth__label { display: block; font-size: 12px; font-weight: 600; color: #52525b; margin-bottom: 7px; }
+.dark .auth__label { color: #a1a1aa; }
+.auth__input-wrap { position: relative; display: flex; align-items: center; }
+.auth__input-icon { position: absolute; left: 14px; color: #a1a1aa; z-index: 1; }
+.auth__input {
+  width: 100%; padding: 13px 14px 13px 42px;
+  border-radius: 12px; border: 1.5px solid rgba(0,0,0,0.08);
+  background: rgba(0,0,0,0.02); font-size: 14px; color: #18181b;
+  transition: all 0.25s; outline: none;
+}
+.dark .auth__input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
+.auth__input:focus { border-color: #6366f1; background: white; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+.dark .auth__input:focus { background: rgba(255,255,255,0.06); }
+.auth__input::placeholder { color: #a1a1aa; }
+.auth__input-toggle { position: absolute; right: 14px; background: none; border: none; cursor: pointer; color: #a1a1aa; padding: 4px; }
+.auth__input-toggle:hover { color: #71717a; }
+
+/* Row */
+.auth__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.auth__check { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #52525b; cursor: pointer; }
+.dark .auth__check { color: #a1a1aa; }
+.auth__checkbox { width: 16px; height: 16px; border-radius: 5px; accent-color: #6366f1; }
+.auth__link { font-size: 13px; color: #6366f1; text-decoration: none; font-weight: 500; }
+.auth__link:hover { text-decoration: underline; }
+.auth__link--bold { font-weight: 600; }
+
+/* Submit */
+.auth__submit {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px; border-radius: 12px; border: none;
+  background: linear-gradient(135deg, #6366f1, #4f46e5); color: white;
   font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: all 0.2s; display: flex; align-items: center; justify-content: center; min-height: 44px;
+  transition: all 0.3s; box-shadow: 0 2px 10px rgba(99,102,241,0.25);
 }
-.login-btn:hover:not(:disabled) { background: #4f46e5; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(99,102,241,0.3); }
-.login-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-.login-btn__loading { display: flex; align-items: center; gap: 8px; }
-.spin { animation: spin 1s linear infinite; }
-@keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(99,102,241,0.35); }
+.auth__submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.login-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
-.login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
-:deep(.dark) .login-divider::before, :deep(.dark) .login-divider::after { background: rgba(255,255,255,0.06); }
-.login-divider span { font-size: 12px; color: #a1a1aa; font-weight: 500; }
-
-.login-alt { display: flex; flex-direction: column; gap: 10px; }
-.alt-btn {
-  display: flex; align-items: center; gap: 10px; width: 100%;
-  padding: 11px 14px; border-radius: 12px;
-  font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: all 0.2s; border: 1.5px solid;
+/* Divider */
+.auth__divider { text-align: center; margin: 22px 0; position: relative; }
+.auth__divider::before {
+  content: ''; position: absolute; top: 50%; left: 0; right: 0;
+  height: 1px; background: rgba(0,0,0,0.06);
 }
-.alt-btn span { flex: 1; text-align: left; }
-.alt-btn--eri { background: rgba(99,102,241,0.05); border-color: rgba(99,102,241,0.2); color: #6366f1; }
-.alt-btn--eri:hover { background: rgba(99,102,241,0.1); border-color: #6366f1; }
-.alt-btn--telegram { background: #229ED9; border-color: #229ED9; color: white; }
-.alt-btn--telegram:hover { background: #1a8bbf; }
-
-.login-register { text-align: center; font-size: 14px; color: #71717a; margin-top: 20px; }
-
-.login-demo {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  margin-top: 16px; padding: 10px 14px; border-radius: 10px;
-  background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.1);
-  font-size: 12px; color: #71717a;
+.dark .auth__divider::before { background: rgba(255,255,255,0.06); }
+.auth__divider span {
+  position: relative; background: #ffffff; padding: 0 14px;
+  font-size: 11px; font-weight: 700; color: #a1a1aa; letter-spacing: 0.1em;
 }
-.login-demo code { font-weight: 600; color: #6366f1; }
-:deep(.dark) .login-demo { background: rgba(99,102,241,0.08); }
+.dark .auth__divider span { background: #09090b; }
+
+/* ERI button */
+.auth__eri {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 14px; border-radius: 12px;
+  background: rgba(0,0,0,0.03); border: 1.5px solid rgba(0,0,0,0.08);
+  color: #18181b; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: all 0.3s;
+}
+.dark .auth__eri { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
+.auth__eri:hover { border-color: #6366f1; background: rgba(99,102,241,0.05); }
+
+/* Signup */
+.auth__signup { text-align: center; margin-top: 28px; font-size: 14px; color: #71717a; }
+.dark .auth__signup { color: #a1a1aa; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .auth__visual { display: none; }
+  .auth__form-side { padding: 24px; }
+}
 </style>
