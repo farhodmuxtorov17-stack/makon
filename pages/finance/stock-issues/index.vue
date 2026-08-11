@@ -1,132 +1,218 @@
 <template>
-  <div class="space-y-6">
-    <div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Material berish va dalolatnomalar</h1>
-      <p class="text-ink-500 text-sm mt-1">Tasdiqlangan so\'rovlar bo\'yicha ombordan material berish</p>
+  <div class="space-y-5">
+    <!-- Header -->
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FINANCE / STOCK ISSUES</div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Ombordan chiqarish</h1>
+        <p class="text-ink-500 text-sm mt-1">Materiallarni ombordan chiqarish hujjatlari</p>
+      </div>
+      <button class="btn btn-primary btn-sm btn-glow" @click="showNew = !showNew"><Plus :size="14" /> Yangi chiqarish</button>
     </div>
 
-    <!-- Pending issues -->
-    <div class="card-premium p-6">
-      <h3 class="font-semibold dark:text-white mb-4">Berishga tayyor so\'rovlar</h3>
-      <div class="space-y-3">
-        <div v-for="req in approvedRequests" :key="req.id" class="border border-black/5 dark:border-white/5 rounded-2xl p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(16,185,129,0.1); color: #10b981;">
-              <CheckCircle2 :size="20" />
-            </div>
-              <div>
-                <div class="text-sm font-medium">{{ req.number }} · {{ req.workOrder }}</div>
-                <div class="text-xs text-ink-500">{{ req.building }} · Tasdiqlangan: {{ req.approvedDate }}</div>
-              </div>
-            </div>
-            <span class="text-sm font-medium">{{ req.totalAmount }}</span>
-          </div>
-          <!-- Items -->
-          <div class="space-y-1 mb-3">
-            <div v-for="item in req.items" :key="item.sku" class="flex items-center justify-between text-xs p-2 rounded-lg bg-black/5 dark:bg-white/5">
-              <span>{{ item.name }} ({{ item.sku }})</span>
-              <div class="flex items-center gap-3">
-                <span class="text-ink-500">Zaxira: {{ item.stock }}</span>
-                <span class="font-medium">{{ item.qty }} {{ item.unit }}</span>
-                <span :class="item.stock >= item.qty ? 'text-emerald-500' : 'text-red-500'">
-                  {{ item.stock >= item.qty ? 'Yetarli' : 'Yetarli emas' }}
-                </span>
-              </div>
-            </div>
-          </div>
-          <!-- Issue form -->
-          <div class="grid grid-cols-3 gap-3 items-end">
-            <div>
-              <label class="label text-xs">Oluvchi</label>
-              <select class="input">
-                <option>Sardor Yusupov</option>
-                <option>Aziz Toshmatov</option>
-              </select>
-            </div>
-            <div>
-              <label class="label text-xs">Dalolatnoma raqami</label>
-              <input type="text" class="input" placeholder="AKT-2026-..." />
-            </div>
-            <div class="flex gap-2">
-              <button class="btn btn-primary flex-1" @click="() => {}"><Send :size="14" /> Berish</button>
-              <button class="btn btn-secondary" @click="() => {}">ERI tasdiq</button>
-            </div>
-          </div>
+    <!-- New form -->
+    <div v-if="showNew" class="card p-6 space-y-4">
+      <h3 class="font-semibold dark:text-white">Ombordan material chiqarish</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="label">Material</label>
+          <select v-model="newIssue.materialId" class="input">
+            <option value="">Tanlang...</option>
+            <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.name }} (qoldiq: {{ m.stock }} {{ m.unit }})</option>
+          </select>
+        </div>
+        <div>
+          <label class="label">Miqdori</label>
+          <input v-model.number="newIssue.quantity" type="number" min="1" class="input" placeholder="0" />
+        </div>
+        <div>
+          <label class="label">Izoh</label>
+          <input v-model="newIssue.note" type="text" class="input" placeholder="Sabab..." />
+        </div>
+      </div>
+      <div class="flex gap-2">
+        <button class="btn btn-primary btn-sm btn-glow" @click="createIssue">Chiqarish</button>
+        <button class="btn btn-secondary btn-sm" @click="showNew = false">Bekor</button>
+      </div>
+    </div>
+
+    <!-- Premium KPI strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><ArrowDownToLine :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ issues.length }}</div>
+          <div class="kpi-strip__label">Jami chiqarish</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'COMPLETED').length }}</div>
+          <div class="kpi-strip__label">Berilgan</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><Clock :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'PENDING').length }}</div>
+          <div class="kpi-strip__label">Kutilmoqda</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--violet">
+        <div class="kpi-strip__icon"><Wallet :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ formatUZSShort(totalValue) }}</div>
+          <div class="kpi-strip__label">Jami qiymat</div>
         </div>
       </div>
     </div>
 
-    <!-- Issue history -->
-    <div class="card overflow-hidden">
-      <div class="p-4 border-b border-black/5 dark:border-white/5">
-        <h3 class="font-semibold dark:text-white">Berish tarixi</h3>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
-              <th class="px-4 py-3">Dalolatnoma</th>
-              <th class="px-4 py-3">So\'rov</th>
-              <th class="px-4 py-3">Oluvchi</th>
-              <th class="px-4 py-3 text-right">Itemlar</th>
-              <th class="px-4 py-3 text-right">Summa</th>
-              <th class="px-4 py-3">Sana</th>
-              <th class="px-4 py-3 text-center">ERI</th>
-              <th class="px-4 py-3"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="issue in issues" :key="issue.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3 cursor-pointer" @click="navigateTo('/finance/stock-issues')">
-              <td class="px-4 py-3 font-medium">{{ issue.actNumber }}</td>
-              <td class="px-4 py-3 text-ink-500">{{ issue.request }}</td>
-              <td class="px-4 py-3">{{ issue.recipient }}</td>
-              <td class="px-4 py-3 text-right">{{ issue.itemCount }}</td>
-              <td class="px-4 py-3 text-right font-medium">{{ issue.amount }}</td>
-              <td class="px-4 py-3 text-ink-500 text-xs">{{ issue.date }}</td>
-              <td class="px-4 py-3 text-center">
-                <span v-if="issue.eriSigned" class="badge badge-success text-xs">Imzolangan</span>
-                <span v-else class="badge badge-warning text-xs">Kutilmoqda</span>
-              </td>
-              <td class="px-4 py-3 text-right">
-                <button class="btn btn-ghost btn-sm" @click="() => {}"><Download :size="14" /></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- Issue cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div
+        v-for="iss in issues" :key="iss.id"
+        class="si-card"
+        :class="`si-card--${iss.status.toLowerCase()}`"
+      >
+        <div class="si-card__top">
+          <div class="si-card__left">
+            <div class="si-card__icon" :style="{ background: categoryColor(iss.category) + '15', color: categoryColor(iss.category) }">
+              <component :is="categoryIcon(iss.category)" :size="16" />
+            </div>
+            <div>
+              <div class="si-card__num">{{ iss.number }}</div>
+              <div class="si-card__date">{{ iss.date }}</div>
+            </div>
+          </div>
+          <span class="si-badge" :class="`si-badge--${iss.status.toLowerCase()}`">{{ statusLabel(iss.status) }}</span>
+        </div>
+
+        <div class="si-card__body">
+          <div class="si-material">{{ iss.materialName }}</div>
+          <div class="si-qty">
+            <span class="si-qty__num">{{ iss.quantity }}</span>
+            <span class="si-qty__unit">{{ iss.unit }}</span>
+          </div>
+        </div>
+
+        <div class="si-card__foot">
+          <div class="si-value">{{ formatUZSShort(iss.totalValue) }}</div>
+          <div class="si-recipient">
+            <div class="si-recipient__avatar">{{ iss.recipient.charAt(0) }}</div>
+            <span>{{ iss.recipient }}</span>
+          </div>
+          <span class="si-note" v-if="iss.note">{{ iss.note }}</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import KpiCard from '~/components/KpiCard.vue'
-import { CheckCircle2, Send, Download } from 'lucide-vue-next'
+import { Plus, ArrowDownToLine, CheckCircle2, Clock, Wallet, Lightbulb, Droplet, PaintRoller, Boxes, Wrench } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const approvedRequests = ref([
-  {
-    id: 'mr1', number: 'MR-2026-008', workOrder: 'WO-2026-012', building: 'Tashkent City', approvedDate: '2 soat oldin', totalAmount: '2,400,000 so\'m',
-    items: [
-      { sku: 'EL-001', name: 'Kabel 3x2.5', stock: 450, qty: 50, unit: 'm' },
-      { sku: 'EL-002', name: 'Rozetka', stock: 32, qty: 8, unit: 'dona' },
-      { sku: 'EL-003', name: 'Avtomat 16A', stock: 15, qty: 3, unit: 'dona' },
-    ]
-  },
-  {
-    id: 'mr2', number: 'MR-2026-009', workOrder: 'WO-2026-015', building: 'IT Park', approvedDate: '5 soat oldin', totalAmount: '850,000 so\'m',
-    items: [
-      { sku: 'PL-001', name: 'Truba PPR 25', stock: 120, qty: 20, unit: 'm' },
-      { sku: 'PL-002', name: 'Fitil 25', stock: 48, qty: 12, unit: 'dona' },
-    ]
-  },
-])
+const { formatUZS, formatUZSShort } = useFormat()
+
+const showNew = ref(false)
+const newIssue = reactive({ materialId: '', quantity: 0, note: '' })
+
+const materials = [
+  { id: 'm1', name: 'PPR quvur 25mm', stock: 120, unit: 'm', price: 22000 },
+  { id: 'm2', name: 'Kabel 3x2.5', stock: 45, unit: 'm', price: 12000 },
+  { id: 'm3', name: 'Konditsioner filtri', stock: 8, unit: 'dona', price: 85000 },
+  { id: 'm4', name: "Bo'yoq (oq)", stock: 15, unit: 'l', price: 28000 },
+  { id: 'm5', name: 'Lampa LED 12W', stock: 45, unit: 'dona', price: 35000 },
+]
 
 const issues = ref([
-  { id: 'is1', actNumber: 'AKT-2026-012', request: 'MR-2026-006', recipient: 'Sardor Yusupov', itemCount: 5, amount: '1,200,000 so\'m', date: '1 kun oldin', eriSigned: true },
-  { id: 'is2', actNumber: 'AKT-2026-011', request: 'MR-2026-005', recipient: 'Aziz Toshmatov', itemCount: 3, amount: '650,000 so\'m', date: '2 kun oldin', eriSigned: true },
-  { id: 'is3', actNumber: 'AKT-2026-010', request: 'MR-2026-004', recipient: 'Sardor Yusupov', itemCount: 8, amount: '3,200,000 so\'m', date: '3 kun oldin', eriSigned: false },
-  { id: 'is4', actNumber: 'AKT-2026-009', request: 'MR-2026-003', recipient: 'Aziz Toshmatov', itemCount: 2, amount: '450,000 so\'m', date: '5 kun oldin', eriSigned: true },
+  { id: 1, number: 'SI-001', materialName: 'Lampa LED 12W', quantity: 5, unit: 'dona', category: 'ELECTRICAL', recipient: 'Akmal Sodiqov', status: 'COMPLETED', date: '10.08.26', totalValue: 175000, note: 'WO-001 uchun' },
+  { id: 2, number: 'SI-002', materialName: 'Kabel 3x2.5', quantity: 20, unit: 'm', category: 'ELECTRICAL', recipient: 'Bekzod Aliyev', status: 'COMPLETED', date: '09.08.26', totalValue: 240000, note: 'WO-002' },
+  { id: 3, number: 'SI-003', materialName: 'Konditsioner filtri', quantity: 2, unit: 'dona', category: 'PLUMBING', recipient: 'Dilshod Karimov', status: 'PENDING', date: '10.08.26', totalValue: 170000, note: 'WO-005' },
+  { id: 4, number: 'SI-004', materialName: "Bo'yoq (oq)", quantity: 3, unit: 'l', category: 'PAINT', recipient: 'Akmal Sodiqov', status: 'COMPLETED', date: '07.08.26', totalValue: 84000, note: 'Devor bo\'yash' },
+  { id: 5, number: 'SI-005', materialName: 'PPR quvur 25mm', quantity: 8, unit: 'm', category: 'PLUMBING', recipient: 'Bekzod Aliyev', status: 'COMPLETED', date: '05.08.26', totalValue: 176000, note: 'Truba almashtirish' },
 ])
+
+const totalValue = computed(() => issues.value.reduce((s, i) => s + i.totalValue, 0))
+
+function createIssue() {
+  const mat = materials.find(m => m.id === newIssue.materialId)
+  if (!mat || !newIssue.quantity) return
+  issues.value.unshift({
+    id: Date.now(),
+    number: `SI-${String(issues.value.length + 1).padStart(3, '0')}`,
+    materialName: mat.name,
+    quantity: newIssue.quantity,
+    unit: mat.unit,
+    category: 'ELECTRICAL',
+    recipient: 'Tizim',
+    status: 'PENDING',
+    date: new Date().toLocaleDateString('ru-RU').split('.').slice(0, 2).join('.') + '.26',
+    totalValue: mat.price * newIssue.quantity,
+    note: newIssue.note,
+  })
+  showNew.value = false
+  newIssue.materialId = ''; newIssue.quantity = 0; newIssue.note = ''
+}
+
+function statusLabel(s: string) { return { PENDING: 'Kutilmoqda', COMPLETED: 'Berilgan', CANCELLED: 'Bekor' }[s] || s }
+function categoryColor(cat: string) {
+  return { ELECTRICAL: '#f59e0b', PLUMBING: '#3b82f6', PAINT: '#ec4899' }[cat] || '#71717a'
+}
+function categoryIcon(cat: string) {
+  return { ELECTRICAL: Lightbulb, PLUMBING: Droplet, PAINT: PaintRoller }[cat] || Boxes
+}
 </script>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px; position: relative; overflow: hidden;
+}
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--violet::before { background: #8b5cf6; }
+.kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); color: #8b5cf6; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+
+.si-card {
+  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px; padding: 16px 18px; transition: all 0.2s ease; position: relative; overflow: hidden;
+}
+.si-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.si-card--completed { border-left: 3px solid #10b981; }
+.si-card--pending { border-left: 3px solid #f59e0b; }
+.si-card--cancelled { border-left: 3px solid #71717a; opacity: 0.65; }
+.si-card__top { display: flex; align-items: flex-start; justify-content: space-between; }
+.si-card__left { display: flex; align-items: center; gap: 10px; }
+.si-card__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.si-card__num { font-size: 13px; font-weight: 700; font-family: 'SF Mono', monospace; }
+.si-card__date { font-size: 11px; color: var(--ink-400); margin-top: 1px; }
+.si-badge { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 5px; text-transform: uppercase; }
+.si-badge--completed { background: rgba(16,185,129,0.12); color: #10b981; }
+.si-badge--pending { background: rgba(245,158,11,0.12); color: #f59e0b; }
+.si-badge--cancelled { background: rgba(113,113,122,0.12); color: #71717a; }
+.si-card__body { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; }
+.si-material { font-size: 14px; font-weight: 600; }
+.si-qty { display: flex; align-items: baseline; gap: 3px; }
+.si-qty__num { font-size: 18px; font-weight: 800; color: var(--accent, #0f766e); }
+.si-qty__unit { font-size: 12px; color: var(--ink-400); }
+.si-card__foot { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.04); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.si-value { font-size: 13px; font-weight: 700; color: var(--accent, #0f766e); }
+.si-recipient { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-500); }
+.si-recipient__avatar { width: 20px; height: 20px; border-radius: 50%; background: var(--accent, #0f766e); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+.si-note { font-size: 11px; color: var(--ink-400); margin-left: auto; }
+:deep(.dark) .si-card { border-color: rgba(255,255,255,0.06); }
+:deep(.dark) .si-card__foot { border-color: rgba(255,255,255,0.06); }
+:deep(.dark) .kpi-strip { border-color: rgba(255,255,255,0.06); }
+</style>

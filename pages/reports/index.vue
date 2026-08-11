@@ -1,208 +1,250 @@
 <template>
   <div class="space-y-5">
+    <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisobotlar</h1>
-        <p class="text-ink-500 text-sm mt-1">Tizim analitikasi va ko'rsatkichlar</p>
+        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ANALYTICS / REPORTS</div>
+        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Hisobotlar</h1>
+        <p class="text-ink-500 text-sm mt-1">Daromad, bandlik va operatsion ko'rsatkichlar</p>
       </div>
       <div class="flex items-center gap-2">
-        <select v-model="period" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
-          <option value="month">Oylik</option>
-          <option value="quarter">Choraklik</option>
-          <option value="year">Yillik</option>
-        </select>
-        <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> PDF</button>
-        <button class="btn btn-secondary btn-sm" @click="() => {}"><FileSpreadsheet :size="14" /> Excel</button>
-      </div>
-    </div>
-
-    <!-- KPI row -->
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-      <KpiCard
-        v-for="kpi in kpis" :key="kpi.label"
-        :icon="kpi.icon || Building2"
-        :label="kpi.label"
-        :value="kpi.value"
-        :trend="kpi.trend"
-        :to="kpi.to"
-        :icon-bg="kpi.iconBg"
-        :icon-color="kpi.iconColor"
-      />
-    </div>
-
-    <!-- Charts row 1 -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <!-- Revenue by building -->
-      <div class="card p-5 lg:col-span-2">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-ink-900 dark:text-white">Binolar bo'yicha tushum (6 oy)</h3>
+        <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
+          <button
+            v-for="p in periods"
+            :key="p.value"
+            @click="activePeriod = p.value"
+            class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
+            :class="activePeriod === p.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'"
+          >{{ p.label }}</button>
         </div>
-        <MakonChart type="bar" :series="revenueByBuilding" :categories="months" :height="280" :colors="['var(--accent)', '#3b82f6', '#10b981', '#f59e0b']" :stacked="true" />
-      </div>
-
-      <!-- Conversion donut -->
-      <div class="card-premium p-5">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Ariza konversiyasi</h3>
-        <MakonChart type="donut" :series="[842, 156, 42, 28]" :donutLabels="['Ko\'rishlar', 'Arizalar', 'Shartnomalar', 'Imzolangan']" :height="280" :colors="['#3b82f6', 'var(--accent)', '#a855f7', '#10b981']" />
+        <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
       </div>
     </div>
 
-    <!-- Charts row 2 -->
+    <!-- Premium KPI strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><Wallet :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">227.5<span class="text-sm font-500"> mln</span></div>
+          <div class="kpi-strip__label">Jami daromad (UZS)</div>
+        </div>
+        <div class="kpi-strip__trend kpi-strip__trend--up">
+          <TrendingUp :size="12" /> +12.4%
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><Building2 :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">94.2<span class="text-sm font-500">%</span></div>
+          <div class="kpi-strip__label">Bandlik darajasi</div>
+        </div>
+        <div class="kpi-strip__trend kpi-strip__trend--up">
+          <TrendingUp :size="12" /> +3.1%
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><FileText :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">240</div>
+          <div class="kpi-strip__label">Faol shartnoma</div>
+        </div>
+        <div class="kpi-strip__trend kpi-strip__trend--up">
+          <TrendingUp :size="12" /> +8
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--rose">
+        <div class="kpi-strip__icon"><AlertCircle :size="18" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">24.7<span class="text-sm font-500"> mln</span></div>
+          <div class="kpi-strip__label">Qarzdorlik (UZS)</div>
+        </div>
+        <div class="kpi-strip__trend kpi-strip__trend--down">
+          <TrendingDown :size="12" /> -5.2%
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts row -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <!-- Occupancy trend -->
-      <div class="card-premium p-5">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bandlik dinamikasi</h3>
-        <MakonChart type="area" :series="occupancySeries" :categories="months" :height="240" :colors="['#10b981']" />
+      <!-- Revenue chart -->
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-ink-900 dark:text-white text-base">Daromad dinamikasi</h3>
+            <p class="text-xs text-ink-500 mt-0.5">So'nggi 8 oy</p>
+          </div>
+          <div class="flex items-center gap-3 text-xs">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-brand-500"></span> Daromad</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-rose-400"></span> Qarz</span>
+          </div>
+        </div>
+        <div class="revenue-chart">
+          <div v-for="(m, i) in monthlyData" :key="i" class="rev-col">
+            <div class="rev-bars">
+              <div class="rev-bar rev-bar--debt" :style="{ height: (m.debt / maxVal * 100) + '%' }"></div>
+              <div class="rev-bar rev-bar--rev" :style="{ height: (m.revenue / maxVal * 100) + '%' }"></div>
+            </div>
+            <span class="rev-label">{{ m.month }}</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Service SLA -->
-      <div class="card-premium p-5">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis SLA holati (kategoriya bo'yicha)</h3>
-        <MakonChart type="bar" :series="slaSeries" :categories="slaCategories" :height="240" :colors="['#10b981', '#f59e0b', '#ef4444']" :horizontal="true" :stacked="true" />
+      <!-- Occupancy donut -->
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-ink-900 dark:text-white text-base">Bandlik taqsimoti</h3>
+            <p class="text-xs text-ink-500 mt-0.5">Bino bo'yicha</p>
+          </div>
+        </div>
+        <div class="occ-list">
+          <div v-for="(b, i) in occupancyData" :key="i" class="occ-row">
+            <div class="occ-row__top">
+              <span class="occ-row__name">{{ b.name }}</span>
+              <span class="occ-row__val">{{ b.pct }}%</span>
+            </div>
+            <div class="occ-row__track">
+              <div class="occ-row__fill" :style="{ width: b.pct + '%', background: b.color }"></div>
+            </div>
+            <div class="occ-row__meta">{{ b.occupied }} / {{ b.total }} unit</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Building performance table -->
-    <div class="card overflow-hidden">
-      <div class="p-5 border-b border-black/5 dark:border-white/5">
-        <h3 class="font-semibold text-ink-900 dark:text-white">Binolar bo'yicha ko'rsatkichlar</h3>
+    <!-- Building comparison -->
+    <div class="card p-5">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="font-bold text-ink-900 dark:text-white text-base">Bino bo'yicha solishtirma</h3>
+          <p class="text-xs text-ink-500 mt-0.5">Daromad va bandlik</p>
+        </div>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
-              <th class="text-left font-medium px-5 py-3">Bino</th>
-              <th class="text-center font-medium px-5 py-3 hidden md:table-cell">Unitlar</th>
-              <th class="text-center font-medium px-5 py-3">Bandlik</th>
-              <th class="text-right font-medium px-5 py-3 hidden sm:table-cell">Oylik tushum</th>
-              <th class="text-right font-medium px-5 py-3 hidden lg:table-cell">Metr² narxi</th>
-              <th class="text-center font-medium px-5 py-3 hidden md:table-cell">Arizalar</th>
-              <th class="text-center font-medium px-5 py-3">SLA</th>
+            <tr class="text-left text-xs text-ink-500 uppercase tracking-widest border-b border-black/5 dark:border-white/5">
+              <th class="px-4 py-3 font-medium">Bino</th>
+              <th class="px-4 py-3 font-medium text-right">Unit</th>
+              <th class="px-4 py-3 font-medium text-right">Bandlik</th>
+              <th class="px-4 py-3 font-medium text-right hidden md:table-cell">Daromad</th>
+              <th class="px-4 py-3 font-medium text-right hidden md:table-cell">Qarz</th>
+              <th class="px-4 py-3 font-medium text-center">Holat</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="b in buildingsReport" :key="b.name" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-              <td class="px-5 py-3 font-medium text-ink-900 dark:text-white">{{ b.name }}</td>
-              <td class="px-5 py-3 text-center hidden md:table-cell text-ink-500">{{ b.units }}</td>
-              <td class="px-5 py-3 text-center">
-                <div class="inline-flex items-center gap-2">
-                  <div class="w-14 h-1.5 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
-                    <div class="h-full rounded-full" :style="{ width: b.occupancy + '%', background: b.occupancy > 80 ? '#10b981' : b.occupancy > 60 ? '#f59e0b' : '#ef4444' }"></div>
+            <tr v-for="(b, i) in buildingCompare" :key="i" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg flex items-center justify-center" :style="{ background: b.color + '15' }">
+                    <Building2 :size="14" :style="{ color: b.color }" />
                   </div>
-                  <span class="text-xs font-medium text-ink-500">{{ b.occupancy }}%</span>
+                  <span class="font-medium text-ink-900 dark:text-white">{{ b.name }}</span>
                 </div>
               </td>
-              <td class="px-5 py-3 text-right hidden sm:table-cell font-medium">{{ formatUZSShort(b.revenue) }}</td>
-              <td class="px-5 py-3 text-right hidden lg:table-cell text-ink-500">{{ formatUZSShort(b.pricePerM2) }}</td>
-              <td class="px-5 py-3 text-center hidden md:table-cell">
-                <span v-if="b.apps > 0" class="badge badge-brand text-xs">{{ b.apps }}</span>
-                <span v-else class="text-ink-400 text-xs">—</span>
+              <td class="px-4 py-3 text-right font-mono">{{ b.units }}</td>
+              <td class="px-4 py-3 text-right">
+                <span class="font-semibold" :style="{ color: b.occ >= 90 ? '#10b981' : b.occ >= 70 ? '#f59e0b' : '#ef4444' }">{{ b.occ }}%</span>
               </td>
-              <td class="px-5 py-3 text-center">
-                <span class="text-sm font-bold" :class="b.sla >= 90 ? 'text-emerald-500' : b.sla >= 75 ? 'text-amber-500' : 'text-red-500'">{{ b.sla }}%</span>
+              <td class="px-4 py-3 text-right hidden md:table-cell font-semibold">{{ formatUZSShort(b.revenue) }}</td>
+              <td class="px-4 py-3 text-right hidden md:table-cell text-rose-500">{{ b.debt > 0 ? formatUZSShort(b.debt) : '—' }}</td>
+              <td class="px-4 py-3 text-center">
+                <span class="badge text-xs" :class="b.occ >= 90 ? 'badge-success' : b.occ >= 70 ? 'badge-warning' : 'badge-danger'">
+                  {{ b.occ >= 90 ? 'Yuqori' : b.occ >= 70 ? "O'rta" : 'Past' }}
+                </span>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-
-    <!-- Recent activity feed -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="card-premium p-5">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">So'nggi faollik</h3>
-        <div class="space-y-2">
-          <div v-for="a in activities" :key="a.id" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" :class="a.iconBg">
-              <component :is="a.icon" :size="15" :class="a.iconColor" />
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="text-sm text-ink-900 dark:text-white truncate">{{ a.text }}</div>
-              <div class="text-xs text-ink-400">{{ a.time }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-premium p-5">
-        <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Top ijarachi (daromad)</h3>
-        <div class="space-y-2">
-          <div v-for="(t, i) in topTenants" :key="t.name" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-            <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" :class="i === 0 ? 'bg-amber-500/15 text-amber-500' : 'bg-ink-500/10 text-ink-500'">{{ i + 1 }}</span>
-            <div class="flex-1 min-w-0">
-              <div class="text-sm font-medium text-ink-900 dark:text-white truncate">{{ t.name }}</div>
-              <div class="text-xs text-ink-500">{{ t.units }} unit · {{ t.building }}</div>
-            </div>
-            <span class="text-sm font-bold text-brand-500 flex-shrink-0">{{ formatUZSShort(t.revenue) }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import KpiCard from '~/components/KpiCard.vue'
-import { Download, FileSpreadsheet, TrendingUp, TrendingDown, FileText, CheckCircle2, AlertCircle, Wrench, Building2, Users } from 'lucide-vue-next'
+import { Download, Wallet, Building2, FileText, AlertCircle, TrendingUp, TrendingDown } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+const { formatUZS, formatUZSShort } = useFormat()
 
-const period = ref('month')
-
-const kpis = [
-  { label: 'Konversiya', value: '68%', color: 'text-emerald-500', trend: 5 },
-  { label: "O'rtacha ijara", value: '23.4M', color: 'text-ink-900 dark:text-white', trend: 3 },
-  { label: 'Hal qilish', value: '2.1 kun', color: 'text-ink-900 dark:text-white', trend: -8 },
-  { label: 'Mamnunlik', value: '92%', color: 'text-emerald-500', trend: 3 },
-  { label: 'KPI Score', value: '8.4/10', color: 'text-brand-500', trend: 2 },
+const activePeriod = ref('month')
+const periods = [
+  { value: 'week', label: 'Hafta' },
+  { value: 'month', label: 'Oy' },
+  { value: 'quarter', label: 'Chorak' },
+  { value: 'year', label: 'Yil' },
 ]
 
-const months = ['Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg']
-const revenueByBuilding = [
-  { name: 'Tashkent City', data: [380, 390, 400, 410, 415, 420] },
-  { name: 'Trillant Tower', data: [340, 350, 360, 365, 375, 380] },
-  { name: 'IT Park', data: [250, 255, 260, 270, 275, 280] },
-  { name: 'Piramit', data: [160, 165, 170, 172, 175, 180] },
+const monthlyData = [
+  { month: 'Mart', revenue: 28, debt: 3.2 },
+  { month: 'Aprel', revenue: 31, debt: 2.8 },
+  { month: 'May', revenue: 29, debt: 4.1 },
+  { month: 'Iyun', revenue: 34, debt: 2.5 },
+  { month: 'Iyul', revenue: 36, debt: 3.8 },
+  { month: 'Avgust', revenue: 38, debt: 2.9 },
+  { month: 'Sent', revenue: 33, debt: 4.2 },
+  { month: 'Okt', revenue: 38.5, debt: 2.1 },
+]
+const maxVal = 40
+
+const occupancyData = [
+  { name: 'Tashkent City', pct: 96, occupied: 230, total: 240, color: '#10b981' },
+  { name: 'Trillant Tower', pct: 89, occupied: 89, total: 100, color: '#0f766e' },
+  { name: 'IT Park', pct: 92, occupied: 46, total: 50, color: '#f59e0b' },
+  { name: 'Piramit', pct: 78, occupied: 39, total: 50, color: '#8b5cf6' },
+  { name: 'Savdo Markaz', pct: 84, occupied: 42, total: 50, color: '#ec4899' },
 ]
 
-const occupancySeries = [
-  { name: 'Bandlik %', data: [82, 83, 84, 85, 86, 87.3] },
+const buildingCompare = [
+  { name: 'Tashkent City', units: 240, occ: 96, revenue: 185000000, debt: 5200000, color: '#10b981' },
+  { name: 'Trillant Tower', units: 100, occ: 89, revenue: 68000000, debt: 3100000, color: '#0f766e' },
+  { name: 'IT Park', units: 50, occ: 92, revenue: 32000000, debt: 1200000, color: '#f59e0b' },
+  { name: 'Piramit', units: 50, occ: 78, revenue: 28000000, debt: 8400000, color: '#8b5cf6' },
+  { name: 'Savdo Markaz', units: 50, occ: 84, revenue: 24000000, debt: 6800000, color: '#ec4899' },
 ]
-
-const slaCategories = ['Elektr', 'Santexnika', 'Devor', 'Lift', 'Eshik', 'Konditsioner']
-const slaSeries = [
-  { name: 'SLA ichida', data: [45, 38, 22, 18, 15, 12] },
-  { name: 'SLA yaqin', data: [3, 2, 1, 1, 2, 1] },
-  { name: 'SLA buzilgan', data: [1, 1, 0, 0, 1, 0] },
-]
-
-const buildingsReport = [
-  { name: 'Tashkent City', units: 420, occupancy: 90, revenue: 420000000, pricePerM2: 294000, apps: 8, sla: 96 },
-  { name: 'Trillant Tower', units: 180, occupancy: 95, revenue: 380000000, pricePerM2: 316000, apps: 3, sla: 98 },
-  { name: 'IT Park', units: 150, occupancy: 82, revenue: 280000000, pricePerM2: 268000, apps: 5, sla: 92 },
-  { name: 'Piramit', units: 90, occupancy: 78, revenue: 180000000, pricePerM2: 200000, apps: 2, sla: 85 },
-  { name: 'Savdo Markaz', units: 120, occupancy: 79, revenue: 95000000, pricePerM2: 182000, apps: 0, sla: 90 },
-  { name: 'Bektemir Sanoat', units: 288, occupancy: 72, revenue: 65000000, pricePerM2: 95000, apps: 0, sla: 78 },
-]
-
-const activities = [
-  { id: '1', text: 'Yangi shartnoma CTR-2026-010 imzolandi', time: '5 daq oldin', icon: FileText, iconBg: 'bg-emerald-500/10', iconColor: 'text-emerald-500' },
-  { id: '2', text: 'ABC Logistics MChJ 22M so\'m to\'ladi', time: '20 daq oldin', icon: CheckCircle2, iconBg: 'bg-blue-500/10', iconColor: 'text-blue-500' },
-  { id: '3', text: 'Export Group MChJ invoys muddati o\'tdi', time: '1 soat oldin', icon: AlertCircle, iconBg: 'bg-red-500/10', iconColor: 'text-red-500' },
-  { id: '4', text: 'Work order WO-038 yaratildi (Tashkent City)', time: '2 soat oldin', icon: Wrench, iconBg: 'bg-amber-500/10', iconColor: 'text-amber-500' },
-  { id: '5', text: 'Yangi bino "Savdo Markaz" qo\'shildi', time: '5 soat oldin', icon: Building2, iconBg: 'bg-purple-500/10', iconColor: 'text-purple-500' },
-  { id: '6', text: '5 ta yangi ariza qabul qilindi', time: '1 kun oldin', icon: FileText, iconBg: 'bg-indigo-500/10', iconColor: 'text-indigo-500' },
-]
-
-const topTenants = [
-  { name: 'Smart Solutions MChJ', units: 3, building: 'IT Park + Trillant', revenue: 95000000 },
-  { name: 'ABC Logistics MChJ', units: 2, building: 'Tashkent City', revenue: 50000000 },
-  { name: 'Global Trade MChJ', units: 2, building: 'Tashkent City', revenue: 42000000 },
-  { name: 'Mega Group MChJ', units: 1, building: 'Trillant Tower', revenue: 32000000 },
-  { name: 'Tech Hub MChJ', units: 1, building: 'IT Park', revenue: 28000000 },
-]
-
-
 </script>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px; position: relative; overflow: hidden; flex-wrap: wrap;
+}
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #0f766e); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--rose::before { background: #f43f5e; }
+.kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(15,118,110,0.1); color: var(--accent, #0f766e); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); color: #f43f5e; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.kpi-strip__trend { display: flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+.kpi-strip__trend--up { background: rgba(16,185,129,0.1); color: #10b981; }
+.kpi-strip__trend--down { background: rgba(244,63,94,0.1); color: #f43f5e; }
+
+.revenue-chart { display: flex; align-items: flex-end; gap: 6px; height: 200px; padding-top: 10px; }
+.rev-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; }
+.rev-bars { display: flex; align-items: flex-end; gap: 3px; flex: 1; width: 100%; justify-content: center; }
+.rev-bar { width: 18px; border-radius: 4px 4px 0 0; min-height: 4px; transition: height 0.6s ease; }
+.rev-bar--rev { background: linear-gradient(180deg, #14b8a6, #0f766e); }
+.rev-bar--debt { background: linear-gradient(180deg, #fb7185, #e11d48); }
+.rev-label { font-size: 10px; color: var(--ink-400); font-weight: 500; }
+
+.occ-list { display: flex; flex-direction: column; gap: 14px; }
+.occ-row__top { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.occ-row__name { font-size: 13px; font-weight: 600; color: var(--ink-700, #333); }
+.occ-row__val { font-size: 13px; font-weight: 700; }
+.occ-row__track { height: 8px; background: rgba(0,0,0,0.06); border-radius: 4px; overflow: hidden; }
+.occ-row__fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.occ-row__meta { font-size: 11px; color: var(--ink-400); margin-top: 3px; }
+
+:deep(.dark) .kpi-strip { border-color: rgba(255,255,255,0.06); }
+:deep(.dark) .occ-row__track { background: rgba(255,255,255,0.08); }
+</style>
