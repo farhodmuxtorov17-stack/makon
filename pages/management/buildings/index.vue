@@ -11,6 +11,38 @@
       </button>
     </div>
 
+    <!-- Stat Badges Row -->
+    <div class="flex flex-wrap items-center gap-3">
+      <div class="stat-pill">
+        <div class="stat-pill__icon" style="background: rgba(15,118,110,0.1); color: var(--accent);"><Building2 :size="18" /></div>
+        <div>
+          <div class="stat-pill__val">{{ buildings.length }}</div>
+          <div class="stat-pill__label">Binolar</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-pill__icon" style="background: rgba(99,102,241,0.1); color: #6366f1;"><Layers :size="18" /></div>
+        <div>
+          <div class="stat-pill__val">{{ totalFloors }}</div>
+          <div class="stat-pill__label">Qavatlar</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-pill__icon" style="background: rgba(245,158,11,0.1); color: #f59e0b;"><Box :size="18" /></div>
+        <div>
+          <div class="stat-pill__val">{{ totalUnits }}</div>
+          <div class="stat-pill__label">Jami unit</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-pill__icon" style="background: rgba(16,185,129,0.1); color: #10b981;"><Check :size="18" /></div>
+        <div>
+          <div class="stat-pill__val">{{ totalOccupied }}<span class="stat-pill__of">/{{ totalUnits }}</span></div>
+          <div class="stat-pill__label">Band unitlar</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Search + Filters + View Toggle -->
     <div class="flex flex-wrap items-center justify-between gap-3">
       <div class="flex flex-wrap items-center gap-3 flex-1 min-w-[280px]">
@@ -307,6 +339,10 @@ const newBuilding = ref({
   floorsCount: 12, totalUnits: 100, totalArea: 20000, gallery: ''
 })
 
+const totalFloors = computed(() => buildings.value.reduce((s, b) => s + (b.floorsCount || 0), 0))
+const totalUnits = computed(() => buildings.value.reduce((s, b) => s + (b.totalUnits || 0), 0))
+const totalOccupied = computed(() => buildings.value.reduce((s, b) => s + (b.occupiedUnits || 0), 0))
+
 const filteredBuildings = computed(() => {
   let r = [...buildings.value]
   if (search.value) {
@@ -357,3 +393,43 @@ function typeLabel(t: string) {
   return labels[t] || t
 }
 </script>
+
+<style scoped>
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  flex: 1;
+  min-width: 160px;
+}
+.stat-pill__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.stat-pill__val {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+}
+.stat-pill__of {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.stat-pill__label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+</style>
