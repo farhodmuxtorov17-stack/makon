@@ -139,6 +139,109 @@
       </div>
     </section>
 
+    <!-- ════════ STATS BAND ════════ -->
+    <section class="stats-band">
+      <div class="stats-band__inner">
+        <div class="stat-item">
+          <div class="stat-item__num">12K+</div>
+          <div class="stat-item__label">Boshqariladigan unit</div>
+        </div>
+        <div class="stat-item__sep"></div>
+        <div class="stat-item">
+          <div class="stat-item__num">98%</div>
+          <div class="stat-item__label">Bandlik darajasi</div>
+        </div>
+        <div class="stat-item__sep"></div>
+        <div class="stat-item">
+          <div class="stat-item__num">240</div>
+          <div class="stat-item__label">Faol shartnoma</div>
+        </div>
+        <div class="stat-item__sep"></div>
+        <div class="stat-item">
+          <div class="stat-item__num">5</div>
+          <div class="stat-item__label">Premium bino</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ HOW IT WORKS ════════ -->
+    <section class="how">
+      <div class="how__head">
+        <div class="eyebrow">QANDAY ISHLAYDI</div>
+        <h2 class="how__title">To'rt qadam — ofisdan shartnomagacha</h2>
+        <p class="how__sub">MAKON imkoniyatlari bilan tanishing — qidirishdan boshlab, ERI orqali shartnoma imzolashgacha.</p>
+      </div>
+      <div class="how__steps">
+        <div class="step">
+          <div class="step__num">01</div>
+          <div class="step__icon"><Search :size="22" /></div>
+          <h4 class="step__title">Qidiring</h4>
+          <p class="step__text">Katalogda binoni, qavatni va maydonni tanlang. Interaktiv qavat rejasi orqali bo'sh unitlarni ko'ring.</p>
+        </div>
+        <div class="step__line"></div>
+        <div class="step">
+          <div class="step__num">02</div>
+          <div class="step__icon"><FileText :size="22" /></div>
+          <h4 class="step__title">Ariza qoldiring</h4>
+          <p class="step__text">Maydon turini, muddatni va boshlang'ich sanani ko'rsating. Operator 24 soat ichida bog'lanadi.</p>
+        </div>
+        <div class="step__line"></div>
+        <div class="step">
+          <div class="step__num">03</div>
+          <div class="step__icon"><ShieldCheck :size="22" /></div>
+          <h4 class="step__title">ERI orqali imzolang</h4>
+          <p class="step__text">Shartnoma ERI ( elektron raqamli imzo) orqali xavfsiz imzolanadi. Hech qanday qog'oz kerak emas.</p>
+        </div>
+        <div class="step__line"></div>
+        <div class="step">
+          <div class="step__num">04</div>
+          <div class="step__icon"><KeyRound :size="22" /></div>
+          <h4 class="step__title">Boshqaring</h4>
+          <p class="step__text">Shaxsiy kabinetingizdan invoyslar, xizmat so'rovlari va hisoblagichlarni boshqaring.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ FEATURES ════════ -->
+    <section class="features">
+      <div class="features__head">
+        <div class="eyebrow">PLATFORMA IMKONIYATLARI</div>
+        <h2 class="features__title">Binolar uchun yagona raqamli ekotizim</h2>
+      </div>
+      <div class="features__grid">
+        <div class="feat">
+          <div class="feat__icon feat__icon--teal"><Building2 :size="20" /></div>
+          <h4 class="feat__title">3D Bino Modeli</h4>
+          <p class="feat__text">Binoning 3D modeli orqali har bir qavat va unitni interaktiv ko'rish va tanlash.</p>
+        </div>
+        <div class="feat">
+          <div class="feat__icon feat__icon--emerald"><FileText :size="20" /></div>
+          <h4 class="feat__title">ERI Shartnoma</h4>
+          <p class="feat__text">Elektron raqamli imzo orqali qonuniy kuchga ega shartnomalar — qog'azsiz va xavfsiz.</p>
+        </div>
+        <div class="feat">
+          <div class="feat__icon feat__icon--amber"><Wallet :size="20" /></div>
+          <h4 class="feat__title">Moliya Boshqaruvi</h4>
+          <p class="feat__text">Invoyslar, to'lovlardar va qarzdorliklarni avtomatik hisob-kitob qilish.</p>
+        </div>
+        <div class="feat">
+          <div class="feat__icon feat__icon--violet"><Wrench :size="20" /></div>
+          <h4 class="feat__title">Xizmat So'rovlari</h4>
+          <p class="feat__text">Texnik xizmatlar, ta'mirlash ishlari va materiallar boshqaruvi bitta tizimda.</p>
+        </div>
+        <div class="feat">
+          <div class="feat__icon feat__icon--sky"><BarChart3 :size="20" /></div>
+          <h4 class="feat__title">Dashboard va Hisobotlar</h4>
+          <p class="feat__text">Bandlik, daromad va ijara dinamikasini real vaqtda kuzatib boring.</p>
+        </div>
+        <div class="feat">
+          <div class="feat__icon feat__icon--rose"><Users :size="20" /></div>
+          <h4 class="feat__title">Rolli Boshqaruv</h4>
+          <p class="feat__text">Super admin, bino menejeri, buxgalter, operator va texnik xodimlar uchun rollar.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ════════ CTA ════════ -->
     <section id="contacts" class="cta">
       <div class="cta__card">
@@ -190,7 +293,7 @@
 </template>
 
 <script setup lang="ts">
-import { Search, Building2, ShoppingBag, Warehouse, Store, ArrowRight, MapPin, MessageCircle } from 'lucide-vue-next'
+import { Search, Building2, ShoppingBag, Warehouse, Store, ArrowRight, MapPin, MessageCircle, FileText, ShieldCheck, KeyRound, Wallet, Wrench, BarChart3, Users } from 'lucide-vue-next'
 
 const heroSearch = ref('')
 function goToCatalog() {
@@ -549,5 +652,73 @@ function goToCatalog() {
   .cta__inner { padding: 48px 24px; }
   .cta__card { border-radius: 24px; }
   .featured__specs { flex-wrap: wrap; gap: 20px; }
+}
+
+/* ════════ STATS BAND ════════ */
+.stats-band { background: var(--accent); padding: 32px 48px; }
+.stats-band__inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-around; gap: 16px; }
+.stat-item { text-align: center; }
+.stat-item__num { font-size: clamp(32px, 4vw, 44px); font-weight: 800; color: white; letter-spacing: -0.03em; }
+.stat-item__label { font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500; margin-top: 4px; }
+.stat-item__sep { width: 1px; height: 48px; background: rgba(255,255,255,0.15); }
+
+/* ════════ HOW IT WORKS ════════ */
+.how { max-width: 1400px; margin: 0 auto; padding: 100px 48px; }
+.how__head { text-align: center; margin-bottom: 60px; }
+.how__title { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: #18181b; letter-spacing: -0.035em; margin: 0 0 12px; }
+.dark .how__title { color: white; }
+.how__sub { font-size: 16px; color: #71717a; max-width: 560px; margin: 0 auto; line-height: 1.6; }
+.dark .how__sub { color: #a1a1aa; }
+.how__steps { display: flex; align-items: flex-start; justify-content: space-between; gap: 0; }
+.step { flex: 1; text-align: center; padding: 0 16px; position: relative; }
+.step__num { font-size: 13px; font-weight: 800; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 16px; }
+.step__icon { width: 56px; height: 56px; border-radius: 16px; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(15,118,110,0.2); transition: transform 0.3s; }
+.step:hover .step__icon { transform: translateY(-4px) scale(1.05); }
+.step__title { font-size: 18px; font-weight: 700; color: #18181b; margin: 0 0 8px; letter-spacing: -0.02em; }
+.dark .step__title { color: white; }
+.step__text { font-size: 14px; color: #71717a; line-height: 1.6; margin: 0; }
+.dark .step__text { color: #a1a1aa; }
+.step__line { flex: 0 0 60px; height: 2px; background: linear-gradient(90deg, var(--accent), rgba(15,118,110,0.2)); margin-top: 44px; border-radius: 1px; }
+.dark .step__line { background: linear-gradient(90deg, var(--accent), rgba(45,212,191,0.1)); }
+
+/* ════════ FEATURES ════════ */
+.features { max-width: 1400px; margin: 0 auto; padding: 0 48px 100px; }
+.features__head { text-align: center; margin-bottom: 56px; }
+.features__title { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: #18181b; letter-spacing: -0.035em; margin: 0; }
+.dark .features__title { color: white; }
+.features__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.feat { padding: 32px; border-radius: 20px; background: white; border: 1px solid rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+.dark .feat { background: #18181b; border: 1px solid rgba(255,255,255,0.06); }
+.feat:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.08); border-color: rgba(15,118,110,0.15); }
+.dark .feat:hover { box-shadow: 0 20px 48px rgba(0,0,0,0.3); border-color: rgba(15,118,110,0.2); }
+.feat__icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: white; }
+.feat__icon--teal { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+.feat__icon--emerald { background: linear-gradient(135deg, #059669, #10b981); }
+.feat__icon--amber { background: linear-gradient(135deg, #d97706, #f59e0b); }
+.feat__icon--violet { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
+.feat__icon--sky { background: linear-gradient(135deg, #0284c7, #0ea5e9); }
+.feat__icon--rose { background: linear-gradient(135deg, #e11d48, #f43f5e); }
+.feat__title { font-size: 17px; font-weight: 700; color: #18181b; margin: 0 0 8px; letter-spacing: -0.02em; }
+.dark .feat__title { color: white; }
+.feat__text { font-size: 14px; color: #71717a; line-height: 1.6; margin: 0; }
+.dark .feat__text { color: #a1a1aa; }
+
+/* ════════ RESPONSIVE ════════ */
+@media (max-width: 1024px) {
+  .features__grid { grid-template-columns: 1fr 1fr; }
+  .how__steps { flex-wrap: wrap; justify-content: center; }
+  .step { flex: 0 0 45%; margin-bottom: 32px; }
+  .step__line { display: none; }
+}
+@media (max-width: 768px) {
+  .stats-band { padding: 24px 20px; }
+  .stats-band__inner { flex-wrap: wrap; gap: 20px; }
+  .stat-item__sep { display: none; }
+  .how { padding: 60px 20px; }
+  .how__steps { flex-direction: column; align-items: center; }
+  .step { flex: 1 1 100%; max-width: 320px; margin-bottom: 40px; }
+  .step__line { display: none; }
+  .features { padding: 0 20px 60px; }
+  .features__grid { grid-template-columns: 1fr; }
 }
 </style>
