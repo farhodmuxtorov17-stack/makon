@@ -18,14 +18,14 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-3">
-          <div class="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center"><Layers :size="18" class="text-indigo-500" /></div>
+          <KpiScene3D type="units" :size="48" />
         </div>
         <div class="text-2xl font-bold text-ink-900 dark:text-white">{{ units.length }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Mening unitlarim</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-3">
-          <div class="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center"><ScrollText :size="18" class="text-emerald-500" /></div>
+          <KpiScene3D type="paid" :size="48" />
           <span class="badge badge-success text-[10px] ml-auto">Faol</span>
         </div>
         <div class="text-2xl font-bold text-ink-900 dark:text-white">{{ activeContracts }}</div>
@@ -33,7 +33,7 @@
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-3">
-          <div class="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center"><FileText :size="18" class="text-amber-500" /></div>
+          <KpiScene3D type="applications" :size="48" />
           <span v-if="pendingApps > 0" class="badge badge-warning text-[10px] ml-auto">{{ pendingApps }}</span>
         </div>
         <div class="text-2xl font-bold text-ink-900 dark:text-white">{{ pendingApps }}</div>
@@ -41,7 +41,7 @@
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-3">
-          <div class="w-9 h-9 rounded-xl bg-red-500/10 flex items-center justify-center"><Wallet :size="18" class="text-red-500" /></div>
+          <KpiScene3D type="debt" :size="48" />
         </div>
         <div class="text-2xl font-bold text-red-500">{{ formatShort(debt) }}</div>
         <div class="text-xs text-ink-500 mt-0.5">Qarzdorlik so'm</div>

@@ -77,21 +77,37 @@
 
     <!-- Stats -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">Jami</div>
-        <div class="text-2xl font-bold">{{ workOrders.length }}</div>
+      <div class="card p-4 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-cyan-500"></div>
+        <div class="flex items-center gap-2 mb-2">
+          <KpiScene3D type="service" :size="48" />
+        </div>
+        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ workOrders.length }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">Jami</div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">Jarayonda</div>
-        <div class="text-2xl font-bold text-amber-400">{{ workOrders.filter(o => o.status === 'IN_PROGRESS').length }}</div>
+      <div class="card p-4 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-amber-500"></div>
+        <div class="flex items-center gap-2 mb-2">
+          <KpiScene3D type="signing" :size="48" />
+        </div>
+        <div class="text-xl font-bold text-amber-500">{{ workOrders.filter(o => o.status === 'IN_PROGRESS').length }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">Jarayonda</div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">Tugatilgan</div>
-        <div class="text-2xl font-bold text-emerald-400">{{ workOrders.filter(o => o.status === 'COMPLETED').length }}</div>
+      <div class="card p-4 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-emerald-500"></div>
+        <div class="flex items-center gap-2 mb-2">
+          <KpiScene3D type="paid" :size="48" />
+        </div>
+        <div class="text-xl font-bold text-emerald-500">{{ workOrders.filter(o => o.status === 'COMPLETED').length }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">Tugatilgan</div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">SLA buzilgan</div>
-        <div class="text-2xl font-bold text-red-400">{{ workOrders.filter(o => o.slaBreached).length }}</div>
+      <div class="card p-4 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-red-500"></div>
+        <div class="flex items-center gap-2 mb-2">
+          <KpiScene3D type="overdue" :size="48" />
+        </div>
+        <div class="text-xl font-bold text-red-500">{{ workOrders.filter(o => o.slaBreached).length }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">SLA buzilgan</div>
       </div>
     </div>
 

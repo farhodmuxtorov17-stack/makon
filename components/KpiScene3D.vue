@@ -101,13 +101,48 @@
         <rect x="38" y="8" width="8" height="6" rx="0.5" fill="white" :stroke="c.accent" stroke-width="0.4" class="sign-float" />
         <text x="42" y="12.5" text-anchor="middle" font-size="3" :fill="c.accent" font-weight="bold">FOR</text>
       </g>
+
+      <!-- Signing: pen writing on document -->
+      <g v-if="type === 'signing'" class="sign-anim">
+        <rect x="40" y="4" width="11" height="13" rx="1" fill="white" :stroke="c.accent" stroke-width="0.5" />
+        <line x1="42" y1="7" x2="49" y2="7" :stroke="c.accent" stroke-width="0.4" />
+        <line x1="42" y1="9" x2="49" y2="9" :stroke="c.accent" stroke-width="0.4" />
+        <line x1="42" y1="11" x2="47" y2="11" :stroke="c.accent" stroke-width="0.4" />
+        <path d="M 50 2 L 56 8 L 54 10 L 48 4 Z" fill="#6366f1" />
+        <path d="M 54 10 L 56 8 L 57 9 L 55 11 Z" fill="#4f46e5" />
+      </g>
+
+      <!-- Contract: ERI shield with lock -->
+      <g v-if="type === 'contract'" class="eri-shield">
+        <path d="M 44 3 L 54 3 L 54 11 Q 54 15 49 17 Q 44 15 44 11 Z" fill="#8b5cf6" />
+        <path d="M 47 7 L 51 7 L 51 10 Q 51 12 49 13 Q 47 12 47 10 Z" fill="none" stroke="white" stroke-width="0.8" />
+        <rect x="48" y="8" width="2" height="2" fill="white" rx="0.3" />
+        <circle cx="49" cy="11" r="1" fill="white" />
+      </g>
+
+      <!-- Service: wrench/gear -->
+      <g v-if="type === 'service'" class="gear-spin">
+        <circle cx="48" cy="9" r="4" fill="none" :stroke="c.accent" stroke-width="1" />
+        <circle cx="48" cy="9" r="1.5" :fill="c.accent" />
+        <g v-for="i in 6" :key="'t'+i">
+          <rect :x="47.4" :y="3" width="1.2" height="2.5" :fill="c.accent" :transform="`rotate(${i * 60}, 48, 9)`" />
+        </g>
+      </g>
+
+      <!-- Debt: falling coins with red warning -->
+      <g v-if="type === 'debt'">
+        <circle cx="49" cy="10" r="2.5" fill="#f43f5e" class="warn-pulse" />
+        <text x="49" y="11.5" text-anchor="middle" font-size="3.5" fill="white" font-weight="bold">!</text>
+        <circle cx="55" cy="6" r="2" fill="#fb7185" class="coin c3" opacity="0.6" />
+        <circle cx="45" cy="6" r="1.5" fill="#fda4af" class="coin c1" opacity="0.5" />
+      </g>
     </svg>
   </div>
 </template>
 
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
-  type: 'revenue' | 'occupancy' | 'buildings' | 'units' | 'overdue' | 'applications' | 'paid' | 'inventory'
+  type: 'revenue' | 'occupancy' | 'buildings' | 'units' | 'overdue' | 'applications' | 'paid' | 'inventory' | 'signing' | 'contract' | 'service' | 'debt'
   size?: number
 }>(), { size: 56 })
 
@@ -160,6 +195,30 @@ const palettes: Record<string, any> = {
     topStart: '#fcd34d', topEnd: '#fbbf24',
     accent: '#f59e0b', windowLit: '#fef3c7',
   },
+  signing: {
+    frontTop: '#fbbf24', frontBottom: '#d97706',
+    sideTop: '#f59e0b', sideBottom: '#b45309',
+    topStart: '#fcd34d', topEnd: '#fbbf24',
+    accent: '#f59e0b', windowLit: '#fef3c7',
+  },
+  contract: {
+    frontTop: '#c084fc', frontBottom: '#7c3aed',
+    sideTop: '#a78bfa', sideBottom: '#5b21b6',
+    topStart: '#d8b4fe', topEnd: '#c084fc',
+    accent: '#8b5cf6', windowLit: '#ede9fe',
+  },
+  service: {
+    frontTop: '#22d3ee', frontBottom: '#0891b2',
+    sideTop: '#06b6d4', sideBottom: '#0e7490',
+    topStart: '#67e8f9', topEnd: '#22d3ee',
+    accent: '#06b6d4', windowLit: '#cffafe',
+  },
+  debt: {
+    frontTop: '#fb7185', frontBottom: '#e11d48',
+    sideTop: '#f43f5e', sideBottom: '#be123c',
+    topStart: '#fda4af', topEnd: '#fb7185',
+    accent: '#f43f5e', windowLit: '#ffe4e6',
+  },
 }
 
 const c = computed(() => palettes[props.type])
@@ -180,6 +239,10 @@ const litPatterns: Record<string, number[]> = {
   applications: [1,0,0, 0,1,0, 0,0,1, 1,0,0],
   paid: [1,1,1, 1,1,1, 1,1,1, 1,1,1],
   inventory: [1,1,0, 1,1,1, 0,1,1, 1,0,1],
+  signing: [1,0,1, 0,1,1, 1,0,1, 0,1,0],
+  contract: [1,1,0, 0,1,1, 1,0,1, 1,1,0],
+  service: [0,1,1, 1,0,1, 1,1,0, 0,1,1],
+  debt: [0,1,0, 1,0,0, 0,1,0, 1,0,0],
 }
 
 const winList = computed(() => {

@@ -21,21 +21,21 @@
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Clock :size="16" class="text-amber-500" /></div>
+          <KpiScene3D type="signing" :size="48" />
           <span class="text-xs text-ink-500">Imzolanmoqda</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ signingCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center"><AlertCircle :size="16" class="text-red-500" /></div>
+          <KpiScene3D type="overdue" :size="48" />
           <span class="text-xs text-ink-500">Muddati o'tgan</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ expiredCount }}</div>
       </div>
       <div class="card p-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><ShieldCheck :size="16" class="text-purple-500" /></div>
+          <KpiScene3D type="contract" :size="48" />
           <span class="text-xs text-ink-500">ERI imzolangan</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">{{ eriCount }}</div>

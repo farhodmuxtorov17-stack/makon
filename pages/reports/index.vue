@@ -18,12 +18,16 @@
 
     <!-- KPI row -->
     <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-      <div v-for="kpi in kpis" :key="kpi.label" class="card p-4">
-        <div class="text-xs text-ink-500 mb-1">{{ kpi.label }}</div>
-        <div class="text-xl font-bold" :class="kpi.color">{{ kpi.value }}</div>
-        <div class="text-xs mt-1 flex items-center gap-1" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
-          <component :is="kpi.trend > 0 ? TrendingUp : TrendingDown" :size="11" /> {{ Math.abs(kpi.trend) }}%
+      <div v-for="kpi in kpis" :key="kpi.label" class="card p-4 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" :style="{ background: kpi.barColor }"></div>
+        <div class="flex items-start justify-between mb-2">
+          <KpiScene3D :type="kpi.scene" :size="44" />
+          <span v-if="kpi.trend" class="text-xs font-bold flex items-center gap-0.5" :class="kpi.trend > 0 ? 'text-emerald-500' : 'text-red-500'">
+            <component :is="kpi.trend > 0 ? TrendingUp : TrendingDown" :size="11" /> {{ Math.abs(kpi.trend) }}%
+          </span>
         </div>
+        <div class="text-xl font-bold" :class="kpi.color">{{ kpi.value }}</div>
+        <div class="text-xs text-ink-500 mt-0.5">{{ kpi.label }}</div>
       </div>
     </div>
 
@@ -139,6 +143,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiScene3D from '~/components/KpiScene3D.vue'
 import { Download, FileSpreadsheet, TrendingUp, TrendingDown, FileText, CheckCircle2, AlertCircle, Wrench, Building2, Users } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
