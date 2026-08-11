@@ -368,7 +368,7 @@ const listings = computed<CatalogItem[]>(() => {
     const building = store.buildings.find(b => b.id === l.buildingId)
     if (!building) continue
 
-    const area = unit?.area || 0
+    const area = unit?.area || parseInt((l.titleUz.match(/(\d+)m/) || [])[1] || '0')
     const floor = unit?.floor || 0
     const catType = unit ? (CATEGORY_TO_TYPE[unit.category] || 'OFFICE') : 'OFFICE'
     const priceUZS = l.currency === 'USD' ? l.price * USD_TO_UZS : l.price
