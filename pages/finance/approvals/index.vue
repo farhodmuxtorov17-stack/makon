@@ -26,19 +26,19 @@
     <!-- Stats -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="approval-stat approval-stat--amber">
-        <div class="approval-stat__num">{{ pendingCount }}</div>
+        <div class="approval-stat__num">{{ pendingCount }}</div><KpiScene3D type="applications" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.4;pointer-events:none" />
         <div class="approval-stat__label">Kutilmoqda</div>
       </div>
       <div class="approval-stat approval-stat--green">
-        <div class="approval-stat__num">{{ approvedCount }}</div>
+        <div class="approval-stat__num">{{ approvedCount }}</div><KpiScene3D type="paid" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.4;pointer-events:none" />
         <div class="approval-stat__label">Tasdiqlangan</div>
       </div>
       <div class="approval-stat approval-stat--red">
-        <div class="approval-stat__num">{{ rejectedCount }}</div>
+        <div class="approval-stat__num">{{ rejectedCount }}</div><KpiScene3D type="overdue" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.4;pointer-events:none" />
         <div class="approval-stat__label">Rad etilgan</div>
       </div>
       <div class="approval-stat approval-stat--teal">
-        <div class="approval-stat__num">{{ formatUZSShort(pendingAmount) }}</div>
+        <div class="approval-stat__num">{{ formatUZSShort(pendingAmount) }}</div><KpiScene3D type="revenue" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.4;pointer-events:none" />
         <div class="approval-stat__label">Kutilayotgan summa</div>
       </div>
     </div>
@@ -114,6 +114,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiScene3D from '~/components/KpiScene3D.vue'
 import { FileText, CreditCard, Stamp, CheckCircle, Check, X, Clock, AlertCircle } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
@@ -210,11 +211,11 @@ function formatUZSShort(n: number) {
 .flow__connector--done { background: var(--accent); }
 
 /* Stats */
-.approval-stat {
+.approval-stat { position: relative; overflow: hidden;
   border-radius: 16px; padding: 18px; text-align: center;
   border: 1px solid rgba(0,0,0,0.05); background: white;
 }
-.dark .approval-stat { background: #18181b; border-color: rgba(255,255,255,0.06); }
+.dark .approval-stat { position: relative; overflow: hidden; background: #18181b; border-color: rgba(255,255,255,0.06); }
 .approval-stat--amber { border-top: 3px solid #f59e0b; }
 .approval-stat--green { border-top: 3px solid #10b981; }
 .approval-stat--red { border-top: 3px solid #ef4444; }

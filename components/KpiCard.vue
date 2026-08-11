@@ -1,5 +1,10 @@
 <template>
   <div class="kpi-card group" :class="{ 'kpi-card--clickable': to }" @click="handleClick">
+    <!-- 3D scene in top-right corner -->
+    <div v-if="scene" class="kpi-scene-wrap">
+      <KpiScene3D :type="scene" :size="56" />
+    </div>
+
     <div class="flex items-start justify-between mb-3">
       <div class="kpi-icon" :style="{ background: iconBg, color: iconColor }">
         <component :is="icon" :size="18" :stroke-width="1.75" />
@@ -8,11 +13,16 @@
         <component :is="trend >= 0 ? ArrowUpRight : ArrowDownRight" :size="11" :stroke-width="2.5" />
         {{ Math.abs(trend) }}%
       </div>
-      <ArrowRight v-if="to" :size="14" class="kpi-arrow" :style="{ color: iconColor }" />
+      <ArrowRight v-if="to && !scene" :size="14" class="kpi-arrow" :style="{ color: iconColor }" />
     </div>
     <div class="kpi-value">{{ value }}</div>
     <div class="kpi-label">{{ label }}</div>
     <div v-if="sub" class="kpi-sub">{{ sub }}</div>
+
+    <!-- Sparkline -->
+    <div v-if="sparkData" class="kpi-spark">
+      <Sparkline :data="sparkData" :color="sparkColor || iconColor" :height="32" />
+    </div>
   </div>
 </template>
 
@@ -28,6 +38,9 @@ const props = defineProps<{
   iconBg?: string
   iconColor?: string
   to?: string
+  scene?: 'revenue' | 'occupancy' | 'buildings' | 'units' | 'overdue' | 'applications' | 'paid' | 'inventory' | 'signing' | 'contract' | 'service' | 'debt'
+  sparkData?: number[]
+  sparkColor?: string
 }>()
 
 function handleClick() {
@@ -42,18 +55,26 @@ function handleClick() {
   padding: 20px;
   border: 1px solid var(--border, rgba(0,0,0,0.07));
   box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.03));
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.02) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
 .kpi-card:hover {
   border-color: var(--border-strong, rgba(0,0,0,0.12));
-  box-shadow: var(--shadow-md, 0 2px 8px rgba(0,0,0,0.04));
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08), 0 1px 3px rgba(0,0,0,0.04);
+  transform: translateY(-2px);
 }
+.kpi-card:hover::before { opacity: 1; }
 .kpi-card--clickable { cursor: pointer; }
-.kpi-card--clickable:hover {
-  transform: translateY(-1px);
-}
 .kpi-arrow {
   opacity: 0;
   transition: opacity 0.2s, transform 0.2s;
@@ -62,6 +83,19 @@ function handleClick() {
 .kpi-card--clickable:hover .kpi-arrow {
   opacity: 0.6;
   transform: translateX(0);
+}
+
+.kpi-scene-wrap {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  opacity: 0.85;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+.kpi-card:hover .kpi-scene-wrap {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .kpi-icon {
@@ -94,7 +128,6 @@ function handleClick() {
   line-height: 1.1;
   font-feature-settings: 'tnum';
 }
-
 .kpi-label {
   font-size: 12px;
   font-weight: 500;
@@ -105,5 +138,10 @@ function handleClick() {
   font-size: 11px;
   color: var(--text-muted, #A8A29E);
   margin-top: 2px;
+}
+.kpi-spark {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border, rgba(0,0,0,0.06));
 }
 </style>

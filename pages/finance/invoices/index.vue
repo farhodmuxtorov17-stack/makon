@@ -13,9 +13,9 @@
 
     <!-- KPI cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard :icon="DollarSign" label="Jami summa" :value="formatUZSShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/finance/invoices" />
-      <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatUZSShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/invoices" />
-      <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatUZSShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
+      <KpiCard :icon="DollarSign" label="Jami summa" :value="formatUZSShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/finance/invoices" scene="revenue" :trend="12.5" :sparkData="[40,55,48,70,65,82,90]" sparkColor="#f59e0b" />
+      <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatUZSShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/invoices" scene="paid" :trend="8.2" :sparkData="[30,45,50,42,60,55,68]" sparkColor="#10b981" />
+      <KpiCard :icon="AlertCircle" label="Qoldiq" :value="formatUZSShort(totalBalance)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" scene="overdue" :trend="-4.1" :sparkData="[60,55,48,52,40,35,30]" sparkColor="#ef4444" />
       <KpiCard :icon="Layers" label="To'lanmagan" :value="`${unpaidCount} ta`" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/finance/debts" />
     </div>
 
@@ -175,6 +175,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiScene3D from '~/components/KpiScene3D.vue'
 import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Download, Receipt, CheckCircle2, AlertCircle, Clock, Search, SearchX, Layers, DollarSign, Check } from 'lucide-vue-next'
 

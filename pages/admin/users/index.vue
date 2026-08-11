@@ -12,21 +12,21 @@
     <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><Users :size="18" /></div>
+        <div class="kpi-strip__icon"><Users :size="18" /></div><KpiScene3D type="buildings" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ users.length }}</div>
           <div class="kpi-strip__label">Jami foydalanuvchi</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><UserCheck :size="18" /></div>
+        <div class="kpi-strip__icon"><UserCheck :size="18" /></div><KpiScene3D type="occupancy" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ activeCount }}</div>
           <div class="kpi-strip__label">Faol</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><Clock :size="18" /></div>
+        <div class="kpi-strip__icon"><Clock :size="18" /></div><KpiScene3D type="applications" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ pendingCount }}</div>
           <div class="kpi-strip__label">Taklif kutilmoqda</div>
@@ -173,6 +173,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiScene3D from '~/components/KpiScene3D.vue'
 import KpiCard from '~/components/KpiCard.vue'
 import { UserPlus, Users, UserCheck, Clock, ShieldCheck, Search, MoreHorizontal, Send, Power } from 'lucide-vue-next'
 

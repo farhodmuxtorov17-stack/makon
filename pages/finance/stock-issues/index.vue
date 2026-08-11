@@ -39,21 +39,21 @@
     <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><ArrowDownToLine :size="18" /></div>
+        <div class="kpi-strip__icon"><ArrowDownToLine :size="18" /></div><KpiScene3D type="inventory" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.length }}</div>
           <div class="kpi-strip__label">Jami chiqarish</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
+        <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div><KpiScene3D type="paid" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'COMPLETED').length }}</div>
           <div class="kpi-strip__label">Berilgan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><Clock :size="18" /></div>
+        <div class="kpi-strip__icon"><Clock :size="18" /></div><KpiScene3D type="applications" :size="40" style="position:absolute;top:-2px;right:-2px;opacity:0.3;pointer-events:none" />
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'PENDING').length }}</div>
           <div class="kpi-strip__label">Kutilmoqda</div>
@@ -110,6 +110,7 @@
 </template>
 
 <script setup lang="ts">
+import KpiScene3D from '~/components/KpiScene3D.vue'
 import { Plus, ArrowDownToLine, CheckCircle2, Clock, Wallet, Lightbulb, Droplet, PaintRoller, Boxes, Wrench } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
@@ -167,7 +168,7 @@ function categoryIcon(cat: string) {
 </script>
 
 <style scoped>
-.kpi-strip {
+.kpi-strip { position: relative; overflow: hidden;
   display: flex; align-items: center; gap: 12px; padding: 14px 16px;
   background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
   border-radius: 14px; position: relative; overflow: hidden;
@@ -214,5 +215,5 @@ function categoryIcon(cat: string) {
 .si-note { font-size: 11px; color: var(--ink-400); margin-left: auto; }
 :deep(.dark) .si-card { border-color: rgba(255,255,255,0.06); }
 :deep(.dark) .si-card__foot { border-color: rgba(255,255,255,0.06); }
-:deep(.dark) .kpi-strip { border-color: rgba(255,255,255,0.06); }
+:deep(.dark) .kpi-strip { position: relative; overflow: hidden; border-color: rgba(255,255,255,0.06); }
 </style>
