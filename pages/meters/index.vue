@@ -146,7 +146,7 @@
 <script setup lang="ts">
 import { Gauge, ClipboardList, Plus } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const { formatUZS, formatUZSShort, formatNumber } = useFormat()
 

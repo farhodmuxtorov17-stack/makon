@@ -14,15 +14,31 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  function setToken(t: string | null) {
+    token.value = t
+    if (import.meta.client) {
+      if (t) localStorage.setItem('makon-token', t)
+      else localStorage.removeItem('makon-token')
+    }
+  }
+
+  function setAuth(data: { token: string; user: AuthUser }) {
+    setToken(data.token)
+    setUser(data.user)
+  }
+
   function init() {
     if (import.meta.client) {
       const saved = localStorage.getItem('makon-user')
       if (saved) user.value = JSON.parse(saved)
+      const savedToken = localStorage.getItem('makon-token')
+      if (savedToken) token.value = savedToken
     }
   }
 
   function logout() {
     setUser(null)
+    setToken(null)
     navigateTo('/login')
   }
 
@@ -30,5 +46,5 @@ export const useAuthStore = defineStore('auth', () => {
     return user.value ? roles.includes(user.value.role) : false
   }
 
-  return { user, token, isAuthenticated, setUser, init, logout, hasRole }
+  return { user, token, isAuthenticated, setUser, setToken, setAuth, init, logout, hasRole }
 })

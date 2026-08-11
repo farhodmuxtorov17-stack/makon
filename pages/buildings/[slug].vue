@@ -66,7 +66,7 @@
                 <span class="unit-card__price-l">Oylik</span>
                 <span class="unit-card__price-v">{{ unit.price }} UZS</span>
               </div>
-              <button class="unit-card__btn">Batafsil <ArrowRight :size="14" /></button>
+              <span class="unit-card__btn">Batafsil <ArrowRight :size="14" /></span>
             </div>
           </div>
         </div>

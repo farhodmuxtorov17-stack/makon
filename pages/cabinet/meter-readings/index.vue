@@ -135,6 +135,7 @@
 import { ArrowLeft, Zap, Droplets, Flame, Send, CheckCircle2 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+const { formatDate } = useFormat()
 
 const selectedMonth = ref('2026-08')
 const readings = reactive({ electricity: '', water: '', gas: '' })
@@ -207,5 +208,4 @@ function submitReadings() {
 }
 
 function formatNum(n: number) { return Math.abs(n || 0).toLocaleString('ru-RU') }
-function formatDate(d?: string) { return d ? new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }) : '-' }
 </script>

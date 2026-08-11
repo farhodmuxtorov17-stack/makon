@@ -179,7 +179,8 @@
 import KpiCard from '~/components/KpiCard.vue'
 import { Filter, Plus, X, Clock, CheckCircle2, AlertTriangle, Wrench } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'admin', middleware: 'auth' })
+const { formatDate } = useFormat()
 
 const showNew = ref(false)
 const showFilters = ref(false)
@@ -264,9 +265,5 @@ function priorityLabel(p: string) {
 }
 function priorityClass(p: string) {
   return { URGENT: 'badge-error', HIGH: 'badge-warning', NORMAL: 'badge-info', LOW: 'badge-secondary' }[p] || ''
-}
-function formatDate(d: string) {
-  if (!d) return '—'
-  return new Date(d).toLocaleDateString('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 </script>

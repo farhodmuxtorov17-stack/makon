@@ -67,6 +67,7 @@ import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Calendar, CheckCircle2, Clock, Wallet } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+const { formatUZSShort } = useFormat()
 
 const periods = [
   { id: 'p1', label: 'Avgust', year: 2026, invoiceCount: 42, paidCount: 35, revenue: '295.0M', debt: '85.0M', status: 'OPEN' },

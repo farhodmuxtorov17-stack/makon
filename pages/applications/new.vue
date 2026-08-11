@@ -110,7 +110,7 @@
           Sertifikatingizni tanlang va imzolashni tasdiqlang.
         </div>
       </div>
-      <button class="btn btn-primary w-full"><FileSignature :size="16" /> ERI sertifikatini tanlash</button>
+      <button class="btn btn-primary w-full" @click="() => {}"><FileSignature :size="16" /> ERI sertifikatini tanlash</button>
       <div class="flex gap-3">
         <button @click="currentStep--" class="btn btn-secondary">Orqaga</button>
         <button @click="submit" class="btn btn-success flex-1" :disabled="submitting">

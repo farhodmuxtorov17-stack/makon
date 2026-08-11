@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Kirish-chiqish tarixi</h1>
         <p class="text-ink-500 text-sm mt-1">Faqat ko'rish uchun — yozuvlar tahrirlanmaydi</p>
       </div>
-      <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
+      <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> Eksport</button>
     </div>
 
     <!-- KPI -->

@@ -7,7 +7,7 @@
         <p class="dash__sub">Barcha binolar bo'yicha umumiy ko'rsatkichlar</p>
       </div>
       <div class="dash__head-right">
-        <button class="dash__export"><Download :size="15" /> Eksport</button>
+        <button class="dash__export" @click="() => {}"><Download :size="15" /> Eksport</button>
         <button class="dash__refresh" @click="refresh"><RefreshCw :size="15" :class="{ 'animate-spin': refreshing }" /> Yangilash</button>
       </div>
     </div>
@@ -115,7 +115,7 @@
 <script setup lang="ts">
 import { Building2, Wallet, FileText, Users, TrendingUp, TrendingDown, Download, RefreshCw } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const refreshing = ref(false)
 const chartTab = ref('month')

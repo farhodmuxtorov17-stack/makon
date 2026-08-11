@@ -14,8 +14,8 @@
         </NuxtLink>
         <div class="nav__links">
           <NuxtLink to="/catalog" class="nav__link">Katalog</NuxtLink>
-          <a href="#buildings" class="nav__link">Binolar</a>
-          <a href="#contacts" class="nav__link">Bog'lanish</a>
+          <NuxtLink to="/catalog" class="nav__link">Binolar</NuxtLink>
+          <a href="mailto:info@makon.uz" class="nav__link">Bog'lanish</a>
         </div>
         <div class="nav__right">
           <ThemeToggle />
@@ -85,7 +85,7 @@
               <span class="featured__price-l">Ijaraga</span>
               <span class="featured__price-v">25 000 000 UZS<span class="featured__price-u">/oy</span></span>
             </div>
-            <button class="featured__btn">Batafsil <ArrowRight :size="15" /></button>
+            <NuxtLink to="/buildings/tashkent-city" class="featured__btn">Batafsil <ArrowRight :size="15" /></NuxtLink>
           </div>
         </div>
       </div>

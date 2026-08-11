@@ -103,7 +103,7 @@
 <script setup lang="ts">
 import { Plus } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const showNew = ref(false)
 

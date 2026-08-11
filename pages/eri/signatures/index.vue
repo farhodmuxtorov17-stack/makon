@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">ERI imzo navbati</h1>
         <p class="text-ink-500 text-sm mt-1">{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
       </div>
-      <button class="btn btn-secondary btn-sm"><RefreshCw :size="14" /> Yangilash</button>
+      <button class="btn btn-secondary btn-sm" @click="() => {}"><RefreshCw :size="14" /> Yangilash</button>
     </div>
 
     <!-- KPI -->

@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Bildirishnoma shablonlari</h1>
         <p class="text-ink-500 text-sm mt-1">{{ templates.length }} ta shablon · {{ activeCount }} faol</p>
       </div>
-      <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi shablon</button>
+      <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi shablon</button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

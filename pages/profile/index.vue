@@ -73,7 +73,7 @@
             </div>
           </div>
           <div class="flex justify-end mt-4">
-            <button class="btn btn-primary btn-sm btn-glow"><Save :size="14" /> Saqlash</button>
+            <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Save :size="14" /> Saqlash</button>
           </div>
         </div>
 
