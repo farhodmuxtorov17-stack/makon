@@ -18,7 +18,7 @@
           <label class="label">Material</label>
           <select v-model="newIssue.materialId" class="input">
             <option value="">Tanlang...</option>
-            <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.name }} (qoldiq: {{ m.stock }} {{ m.unit }})</option>
+            <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.name }} (qoldiq: {{ m.quantity }} {{ m.unit }})</option>
           </select>
         </div>
         <div>
@@ -76,12 +76,12 @@
       >
         <div class="si-card__top">
           <div class="si-card__left">
-            <div class="si-card__icon" :style="{ background: categoryColor(iss.category) + '15', color: categoryColor(iss.category) }">
-              <component :is="categoryIcon(iss.category)" :size="16" />
+            <div class="si-card__icon" :style="{ background: categoryColor(materialCategory(iss.materialId)) + '15', color: categoryColor(materialCategory(iss.materialId)) }">
+              <component :is="categoryIcon(materialCategory(iss.materialId))" :size="16" />
             </div>
             <div>
               <div class="si-card__num">{{ iss.number }}</div>
-              <div class="si-card__date">{{ iss.date }}</div>
+              <div class="si-card__date">{{ formatDate(iss.createdAt) }}</div>
             </div>
           </div>
           <span class="si-badge" :class="`si-badge--${iss.status.toLowerCase()}`">{{ statusLabel(iss.status) }}</span>
@@ -96,10 +96,10 @@
         </div>
 
         <div class="si-card__foot">
-          <div class="si-value">{{ formatUZSShort(iss.totalValue) }}</div>
+          <div class="si-value">{{ formatUZSShort(iss.totalAmount) }}</div>
           <div class="si-recipient">
-            <div class="si-recipient__avatar">{{ iss.recipient.charAt(0) }}</div>
-            <span>{{ iss.recipient }}</span>
+            <div class="si-recipient__avatar">{{ iss.issuedTo.charAt(0) }}</div>
+            <span>{{ iss.issuedTo }}</span>
           </div>
           <span class="si-note" v-if="iss.note">{{ iss.note }}</span>
         </div>
@@ -114,54 +114,55 @@ import { Plus, ArrowDownToLine, CheckCircle2, Clock, Wallet, Lightbulb, Droplet,
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const { formatUZS, formatUZSShort } = useFormat()
+const store = useMakonStore()
 
 const showNew = ref(false)
 const newIssue = reactive({ materialId: '', quantity: 0, note: '' })
 
-const materials = [
-  { id: 'm1', name: 'PPR quvur 25mm', stock: 120, unit: 'm', price: 22000 },
-  { id: 'm2', name: 'Kabel 3x2.5', stock: 45, unit: 'm', price: 12000 },
-  { id: 'm3', name: 'Konditsioner filtri', stock: 8, unit: 'dona', price: 85000 },
-  { id: 'm4', name: "Bo'yoq (oq)", stock: 15, unit: 'l', price: 28000 },
-  { id: 'm5', name: 'Lampa LED 12W', stock: 45, unit: 'dona', price: 35000 },
-]
+const materials = computed(() => store.materials)
+const issues = computed(() => store.stockIssues)
 
-const issues = ref([
-  { id: 1, number: 'SI-001', materialName: 'Lampa LED 12W', quantity: 5, unit: 'dona', category: 'ELECTRICAL', recipient: 'Akmal Sodiqov', status: 'COMPLETED', date: '10.08.26', totalValue: 175000, note: 'WO-001 uchun' },
-  { id: 2, number: 'SI-002', materialName: 'Kabel 3x2.5', quantity: 20, unit: 'm', category: 'ELECTRICAL', recipient: 'Bekzod Aliyev', status: 'COMPLETED', date: '09.08.26', totalValue: 240000, note: 'WO-002' },
-  { id: 3, number: 'SI-003', materialName: 'Konditsioner filtri', quantity: 2, unit: 'dona', category: 'PLUMBING', recipient: 'Dilshod Karimov', status: 'PENDING', date: '10.08.26', totalValue: 170000, note: 'WO-005' },
-  { id: 4, number: 'SI-004', materialName: "Bo'yoq (oq)", quantity: 3, unit: 'l', category: 'PAINT', recipient: 'Akmal Sodiqov', status: 'COMPLETED', date: '07.08.26', totalValue: 84000, note: 'Devor bo\'yash' },
-  { id: 5, number: 'SI-005', materialName: 'PPR quvur 25mm', quantity: 8, unit: 'm', category: 'PLUMBING', recipient: 'Bekzod Aliyev', status: 'COMPLETED', date: '05.08.26', totalValue: 176000, note: 'Truba almashtirish' },
-])
-
-const totalValue = computed(() => issues.value.reduce((s, i) => s + i.totalValue, 0))
+const totalValue = computed(() => issues.value.reduce((s, i) => s + i.totalAmount, 0))
 
 function createIssue() {
-  const mat = materials.find(m => m.id === newIssue.materialId)
+  const mat = materials.value.find(m => m.id === newIssue.materialId)
   if (!mat || !newIssue.quantity) return
-  issues.value.unshift({
-    id: Date.now(),
-    number: `SI-${String(issues.value.length + 1).padStart(3, '0')}`,
+  store.addStockIssue({
+    materialId: mat.id,
     materialName: mat.name,
     quantity: newIssue.quantity,
     unit: mat.unit,
-    category: 'ELECTRICAL',
-    recipient: 'Tizim',
-    status: 'PENDING',
-    date: new Date().toLocaleDateString('ru-RU').split('.').slice(0, 2).join('.') + '.26',
-    totalValue: mat.price * newIssue.quantity,
+    unitPrice: mat.unitPrice,
+    totalAmount: mat.unitPrice * newIssue.quantity,
+    buildingId: mat.buildingId || 'b1',
+    buildingName: store.buildings.find(b => b.id === mat.buildingId)?.name || 'Bino',
+    issuedTo: 'Tizim',
     note: newIssue.note,
+    status: 'PENDING',
   })
   showNew.value = false
   newIssue.materialId = ''; newIssue.quantity = 0; newIssue.note = ''
 }
 
-function statusLabel(s: string) { return { PENDING: 'Kutilmoqda', COMPLETED: 'Berilgan', CANCELLED: 'Bekor' }[s] || s }
+function statusLabel(s: string) {
+  return { PENDING: 'Kutilmoqda', APPROVED: 'Tasdiqlangan', COMPLETED: 'Berilgan', REJECTED: 'Bekor' }[s] || s
+}
+
+function materialCategory(materialId: string): string {
+  const mat = materials.value.find(m => m.id === materialId)
+  return mat?.category || 'OTHER'
+}
+
 function categoryColor(cat: string) {
-  return { ELECTRICAL: '#f59e0b', PLUMBING: '#3b82f6', PAINT: '#ec4899' }[cat] || '#71717a'
+  return { ELECTRICAL: '#f59e0b', PLUMBING: '#3b82f6', PAINT: '#ec4899', CONSTRUCTION: '#6b7280', HARDWARE: 'var(--accent)' }[cat] || '#71717a'
 }
 function categoryIcon(cat: string) {
-  return { ELECTRICAL: Lightbulb, PLUMBING: Droplet, PAINT: PaintRoller }[cat] || Boxes
+  return { ELECTRICAL: Lightbulb, PLUMBING: Droplet, PAINT: PaintRoller, CONSTRUCTION: Boxes, HARDWARE: Wrench }[cat] || Boxes
+}
+
+function formatDate(d: string) {
+  const parts = d.split('-')
+  return parts.length === 3 ? `${parts[2]}.${parts[1]}.${parts[0].slice(2)}` : d
 }
 </script>
 

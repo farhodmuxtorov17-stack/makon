@@ -155,6 +155,8 @@
             <option value="BUILDING_MANAGER">Bino Rahbari</option>
             <option value="ACCOUNTANT">Buxgalter</option>
             <option value="FACILITY">Pudratchi</option>
+            <option value="WAREHOUSE_OPERATOR">Omborchi</option>
+            <option value="CONTENT_OPERATOR">Kontent Operator</option>
             <option value="TENANT_OWNER">Ijarachi</option>
           </select>
         </div>
@@ -190,20 +192,29 @@ const roleTabs = [
   { value: 'BUILDING_MANAGER', label: 'Bino rahbari' },
   { value: 'ACCOUNTANT', label: 'Buxgalter' },
   { value: 'FACILITY', label: 'Pudratchi' },
+  { value: 'WAREHOUSE_OPERATOR', label: 'Omborchi' },
+  { value: 'CONTENT_OPERATOR', label: 'Kontent' },
 ]
 
-const users = ref([
-  { id: '1', name: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', role: 'SUPER_HEAD', org: 'MAKON Management', lastLogin: '5 daq oldin', status: 'ACTIVE' },
-  { id: '2', name: 'Sardor Yusupov', email: 's.yusupov@abc.uz', role: 'BUILDING_MANAGER', org: 'Orient Logistika MChJ', lastLogin: '1 soat oldin', status: 'ACTIVE' },
-  { id: '3', name: 'Dilnoza Karimova', email: 'd.karimova@makon.uz', role: 'ACCOUNTANT', org: 'MAKON Management', lastLogin: '2 soat oldin', status: 'ACTIVE' },
-  { id: '4', name: 'Ravshan Keldiyev', email: 'r.keldiyev@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '30 daq oldin', status: 'ACTIVE' },
-  { id: '5', name: 'Jasur Tursunov', email: 'j.tursunov@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '3 soat oldin', status: 'ACTIVE' },
-  { id: '6', name: 'Bekzod Mahmudov', email: 'b.mahmudov@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '1 kun oldin', status: 'ACTIVE' },
-  { id: '7', name: 'Nodira Azizova', email: 'n.azizova@global.uz', role: 'BUILDING_MANAGER', org: 'Ipak Yuli Savdo MChJ', lastLogin: 'Taklif yuborildi', status: 'PENDING' },
-  { id: '8', name: "Otabek Yo'ldoshev", email: 'o.yuldoshev@smart.uz', role: 'BUILDING_MANAGER', org: 'Alfa Biznes MChJ', lastLogin: '2 kun oldin', status: 'ACTIVE' },
-  { id: '9', name: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', role: 'SUPER_HEAD', org: 'MAKON Management', lastLogin: '5 soat oldin', status: 'ACTIVE' },
-  { id: '10', name: 'Shoxrux Aliyev', email: 's.aliyev@logistics.uz', role: 'ACCOUNTANT', org: 'Sergeli Logistika', lastLogin: 'Nofaol', status: 'INACTIVE' },
-])
+const store = useMakonStore()
+function formatLastLogin(iso: string): string {
+  const d = new Date(iso)
+  const diffMs = Date.now() - d.getTime()
+  const diffMin = Math.floor(diffMs / 60000)
+  if (diffMin < 1) return 'hozir'
+  if (diffMin < 60) return diffMin + ' daq oldin'
+  const diffHrs = Math.floor(diffMin / 60)
+  if (diffHrs < 24) return diffHrs + ' soat oldin'
+  const diffDays = Math.floor(diffHrs / 24)
+  return diffDays + ' kun oldin'
+}
+const users = computed(() => store.adminUsers.map(u => ({
+  ...u,
+  name: u.fullName,
+  org: u.organization,
+  lastLogin: u.lastLogin ? formatLastLogin(u.lastLogin) : (u.status === 'INVITED' ? 'Taklif yuborildi' : 'Nofaol'),
+  status: u.status === 'INVITED' ? 'PENDING' : u.status === 'SUSPENDED' ? 'INACTIVE' : 'ACTIVE',
+})))
 
 const activeCount = computed(() => users.value.filter(u => u.status === 'ACTIVE').length)
 const pendingCount = computed(() => users.value.filter(u => u.status === 'PENDING').length)
@@ -224,7 +235,10 @@ function openUser(u: any) {
 }
 
 function toggleUserStatus(u: any) {
-  u.status = u.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE'
+  const storeUser = store.adminUsers.find(su => su.id === u.id)
+  if (storeUser) {
+    storeUser.status = storeUser.status === 'ACTIVE' ? 'SUSPENDED' : 'ACTIVE'
+  }
   selectedUser.value = null
 }
 
@@ -243,9 +257,9 @@ function sendInvite() {
 }
 
 function roleColor(r: string) {
-  return { SUPER_HEAD: 'var(--accent)', BUILDING_MANAGER: 'var(--accent)', ACCOUNTANT: '#10b981', FACILITY: '#f59e0b' }[r] || '#71717a'
+  return { SUPER_HEAD: 'var(--accent)', BUILDING_MANAGER: 'var(--accent)', ACCOUNTANT: '#10b981', FACILITY: '#f59e0b', WAREHOUSE_OPERATOR: '#8b5cf6', CONTENT_OPERATOR: '#ec4899' }[r] || '#71717a'
 }
 function roleLabel(r: string) {
-  return { SUPER_HEAD: 'Rahbar', BUILDING_MANAGER: 'Bino rahbari', ACCOUNTANT: 'Buxgalter', FACILITY: 'Pudratchi' }[r] || r
+  return { SUPER_HEAD: 'Rahbar', BUILDING_MANAGER: 'Bino rahbari', ACCOUNTANT: 'Buxgalter', FACILITY: 'Pudratchi', WAREHOUSE_OPERATOR: 'Omborchi', CONTENT_OPERATOR: 'Kontent' }[r] || r
 }
 </script>

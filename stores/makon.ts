@@ -209,6 +209,67 @@ export interface WorkOrderItem {
   description: string
   createdAt: string
 }
+// ---------------- New interfaces ----------------
+export interface MaterialItem {
+  id: string
+  name: string
+  category: string
+  quantity: number
+  unit: string
+  minStock: number
+  unitPrice: number
+  buildingId?: string
+  lastRestocked?: string
+}
+
+export interface StockIssueItem {
+  id: string
+  number: string
+  materialId: string
+  materialName: string
+  quantity: number
+  unit: string
+  unitPrice: number
+  totalAmount: number
+  buildingId: string
+  buildingName: string
+  workOrderId?: number
+  issuedTo: string
+  note: string
+  status: "PENDING" | "APPROVED" | "COMPLETED" | "REJECTED"
+  createdAt: string
+}
+
+export interface MaterialRequestItem {
+  id: string
+  number: string
+  materialName: string
+  category: string
+  quantity: number
+  unit: string
+  unitPrice: number
+  totalAmount: number
+  buildingId: string
+  buildingName: string
+  requestedBy: string
+  urgency: "LOW" | "NORMAL" | "HIGH" | "URGENT"
+  status: "PENDING" | "APPROVED" | "FULFILLED" | "REJECTED"
+  note: string
+  createdAt: string
+}
+
+export interface AdminUserItem {
+  id: string
+  fullName: string
+  email: string
+  phone: string
+  role: string
+  organization: string
+  status: "ACTIVE" | "SUSPENDED" | "INVITED"
+  lastLogin: string | null
+  createdAt: string
+}
+
 
 export const useMakonStore = defineStore('makon', () => {
   // Buildings Initial Data
@@ -1068,6 +1129,87 @@ export const useMakonStore = defineStore('makon', () => {
     { id: 7, number: 'WO-2026-007', category: 'Konditsioner', buildingId: 'b1', buildingName: 'Trillant Tower A', unitCode: '502', assignedToName: null, priority: 'URGENT', status: 'ASSIGNED', slaDueAt: '2026-08-11', slaBreached: false, description: '502-konditsioner sovimayapti, tezkor tahlil kerak.', createdAt: '2026-08-10' },
   ])
 
+  // ---------------- Materials (Inventory) ----------------
+  const materials = ref<MaterialItem[]>([
+    { id: "m1", name: "Lampa LED 12W", category: "ELECTRICAL", quantity: 45, unit: "dona", minStock: 20, unitPrice: 35000, buildingId: "b1", lastRestocked: "2026-07-15" },
+    { id: "m2", name: "Kabel VG 3x2.5", category: "ELECTRICAL", quantity: 120, unit: "m", minStock: 50, unitPrice: 12000, buildingId: "b1", lastRestocked: "2026-07-10" },
+    { id: "m3", name: "Avtomat 16A", category: "ELECTRICAL", quantity: 8, unit: "dona", minStock: 10, unitPrice: 45000, buildingId: "b2", lastRestocked: "2026-06-20" },
+    { id: "m4", name: "Truba PP 50mm", category: "PLUMBING", quantity: 85, unit: "m", minStock: 30, unitPrice: 22000, buildingId: "b2", lastRestocked: "2026-07-05" },
+    { id: "m5", name: "Kraska oq 20L", category: "PAINT", quantity: 3, unit: "banka", minStock: 5, unitPrice: 280000, buildingId: "b3", lastRestocked: "2026-06-15" },
+    { id: "m6", name: "Gips HP 25kg", category: "PAINT", quantity: 42, unit: "qop", minStock: 15, unitPrice: 95000, buildingId: "b3", lastRestocked: "2026-07-20" },
+    { id: "m7", name: "Sement M400 50kg", category: "CONSTRUCTION", quantity: 28, unit: "qop", minStock: 20, unitPrice: 75000, buildingId: "b4", lastRestocked: "2026-07-18" },
+    { id: "m8", name: "Eshik qulfi", category: "HARDWARE", quantity: 15, unit: "dona", minStock: 8, unitPrice: 65000, buildingId: "b1", lastRestocked: "2026-07-12" },
+    { id: "m9", name: "Pol (linoleum) 3m", category: "PAINT", quantity: 4, unit: "rulon", minStock: 3, unitPrice: 450000, buildingId: "b4", lastRestocked: "2026-06-28" },
+    { id: "m10", name: "Shlang AR 15mm 20m", category: "PLUMBING", quantity: 2, unit: "dona", minStock: 5, unitPrice: 120000, buildingId: "b5", lastRestocked: "2026-06-10" },
+    { id: "m11", name: "Radiator batareyasi", category: "PLUMBING", quantity: 12, unit: "dona", minStock: 5, unitPrice: 380000, buildingId: "b2", lastRestocked: "2026-07-22" },
+    { id: "m12", name: "Beton blok 200x400", category: "CONSTRUCTION", quantity: 6, unit: "dona", minStock: 10, unitPrice: 18000, buildingId: "b5", lastRestocked: "2026-06-05" },
+  ])
+
+  // ---------------- Stock Issues ----------------
+  const stockIssues = ref<StockIssueItem[]>([
+    { id: "si1", number: "SI-2026-001", materialId: "m1", materialName: "Lampa LED 12W", quantity: 5, unit: "dona", unitPrice: 35000, totalAmount: 175000, buildingId: "b2", buildingName: "Tashkent City Financial Hub", workOrderId: 1, issuedTo: "Akmal Sodiqov", note: "303-ofisda lampalar almashtirish", status: "COMPLETED", createdAt: "2026-08-10" },
+    { id: "si2", number: "SI-2026-002", materialId: "m4", materialName: "Truba PP 50mm", quantity: 12, unit: "m", unitPrice: 22000, totalAmount: 264000, buildingId: "b2", buildingName: "Tashkent City Financial Hub", workOrderId: 1, issuedTo: "Akmal Sodiqov", note: "Quvur almashtirish uchun", status: "APPROVED", createdAt: "2026-08-10" },
+    { id: "si3", number: "SI-2026-003", materialId: "m2", materialName: "Kabel VG 3x2.5", quantity: 30, unit: "m", unitPrice: 12000, totalAmount: 360000, buildingId: "b1", buildingName: "Trillant Tower A", workOrderId: 2, issuedTo: "Bekzod Aliyev", note: "501-rozetka uchun kabel", status: "PENDING", createdAt: "2026-08-11" },
+    { id: "si4", number: "SI-2026-004", materialId: "m6", materialName: "Gips HP 25kg", quantity: 8, unit: "qop", unitPrice: 95000, totalAmount: 760000, buildingId: "b3", buildingName: "IT Park Innovation Plaza", issuedTo: "Dilshod Karimov", note: "Devanlarni tekislash", status: "COMPLETED", createdAt: "2026-08-05" },
+    { id: "si5", number: "SI-2026-005", materialId: "m5", materialName: "Kraska oq 20L", quantity: 2, unit: "banka", unitPrice: 280000, totalAmount: 560000, buildingId: "b4", buildingName: "Silk Road Galleria", workOrderId: 4, issuedTo: "Temur Yusupov", note: "G-12 devorlarni boyash", status: "PENDING", createdAt: "2026-08-11" },
+  ])
+
+  // ---------------- Material Requests ----------------
+  const materialRequests = ref<MaterialRequestItem[]>([
+    { id: "mr1", number: "MR-2026-001", materialName: "Avtomat 16A", category: "ELECTRICAL", quantity: 10, unit: "dona", unitPrice: 45000, totalAmount: 450000, buildingId: "b2", buildingName: "Tashkent City Financial Hub", requestedBy: "Akmal Sodiqov", urgency: "URGENT", status: "PENDING", note: "Tezkor kerak, 303-ofisda almashtirish", createdAt: "2026-08-10" },
+    { id: "mr2", number: "MR-2026-002", materialName: "Kraska oq 20L", category: "PAINT", quantity: 5, unit: "banka", unitPrice: 280000, totalAmount: 1400000, buildingId: "b4", buildingName: "Silk Road Galleria", requestedBy: "Temur Yusupov", urgency: "NORMAL", status: "APPROVED", note: "G-12 boyash ishlari", createdAt: "2026-08-08" },
+    { id: "mr3", number: "MR-2026-003", materialName: "Shlang AR 15mm 20m", category: "PLUMBING", quantity: 3, unit: "dona", unitPrice: 120000, totalAmount: 360000, buildingId: "b5", buildingName: "Sergeli Logistics Park", requestedBy: "Rustam Eshmurodov", urgency: "HIGH", status: "PENDING", note: "W-02 suv tizimi uchun", createdAt: "2026-08-09" },
+    { id: "mr4", number: "MR-2026-004", materialName: "Beton blok 200x400", category: "CONSTRUCTION", quantity: 20, unit: "dona", unitPrice: 18000, totalAmount: 360000, buildingId: "b5", buildingName: "Sergeli Logistics Park", requestedBy: "Rustam Eshmurodov", urgency: "LOW", status: "FULFILLED", note: "Devor tiklash uchun", createdAt: "2026-07-25" },
+    { id: "mr5", number: "MR-2026-005", materialName: "Radiator batareyasi", category: "PLUMBING", quantity: 4, unit: "dona", unitPrice: 380000, totalAmount: 1520000, buildingId: "b2", buildingName: "Tashkent City Financial Hub", requestedBy: "Akmal Sodiqov", urgency: "HIGH", status: "REJECTED", note: "Mavjud radiatorlar yetarli", createdAt: "2026-07-20" },
+  ])
+
+  // ---------------- Admin Users ----------------
+  const adminUsers = ref<AdminUserItem[]>([
+    { id: "u1", fullName: "Admin User", email: "admin@makon.uz", phone: "+998901234567", role: "SUPER_HEAD", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-11T08:30:00", createdAt: "2026-01-01" },
+    { id: "u2", fullName: "Akmal Sodiqov", email: "akmal@makon.uz", phone: "+998901112233", role: "FACILITY", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-10T14:20:00", createdAt: "2026-02-15" },
+    { id: "u3", fullName: "Bekzod Aliyev", email: "bekzod@makon.uz", phone: "+998902223344", role: "FACILITY", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-11T07:00:00", createdAt: "2026-02-15" },
+    { id: "u4", fullName: "Dilshod Karimov", email: "dilshod@makon.uz", phone: "+998903334455", role: "BUILDING_MANAGER", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-10T16:45:00", createdAt: "2026-03-01" },
+    { id: "u5", fullName: "Nodira Yusupova", email: "nodira@makon.uz", phone: "+998905556677", role: "ACCOUNTANT", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-11T09:15:00", createdAt: "2026-03-10" },
+    { id: "u6", fullName: "Temur Yusupov", email: "temur@makon.uz", phone: "+998907778899", role: "FACILITY", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-09T11:30:00", createdAt: "2026-04-01" },
+    { id: "u7", fullName: "Rustam Eshmurodov", email: "rustam@makon.uz", phone: "+998909990011", role: "WAREHOUSE_OPERATOR", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-10T13:00:00", createdAt: "2026-04-15" },
+    { id: "u8", fullName: "Zarina Abdullayeva", email: "zarina@makon.uz", phone: "+998901234599", role: "CONTENT_OPERATOR", organization: "MAKON Management", status: "INVITED", lastLogin: null, createdAt: "2026-08-05" },
+  ])
+
+  // ---------------- Inventory helpers ----------------
+  function addMaterial(m: Omit<MaterialItem, "id">) {
+    const id = "m" + (materials.value.length + 1)
+    materials.value.push({ ...m, id })
+    return id
+  }
+
+  function addStockIssue(s: Omit<StockIssueItem, "id" | "number" | "createdAt">) {
+    const id = "si" + (stockIssues.value.length + 1)
+    const num = "SI-2026-" + String(stockIssues.value.length + 1).padStart(3, "0")
+    stockIssues.value.unshift({ ...s, id, number: num, createdAt: new Date().toISOString().split("T")[0] })
+    // Deduct from inventory
+    const mat = materials.value.find(m => m.id === s.materialId)
+    if (mat) mat.quantity = Math.max(0, mat.quantity - s.quantity)
+    return id
+  }
+
+  function addMaterialRequest(r: Omit<MaterialRequestItem, "id" | "number" | "createdAt">) {
+    const id = "mr" + (materialRequests.value.length + 1)
+    const num = "MR-2026-" + String(materialRequests.value.length + 1).padStart(3, "0")
+    materialRequests.value.unshift({ ...r, id, number: num, createdAt: new Date().toISOString().split("T")[0] })
+    return id
+  }
+
+  function updateMaterialRequestStatus(id: string, status: MaterialRequestItem["status"]) {
+    const r = materialRequests.value.find(mr => mr.id === id)
+    if (r) r.status = status
+  }
+
+  function updateStockIssueStatus(id: string, status: StockIssueItem["status"]) {
+    const s = stockIssues.value.find(si => si.id === id)
+    if (s) s.status = status
+  }
+
+
 
   return {
     buildings,
@@ -1080,6 +1222,10 @@ export const useMakonStore = defineStore('makon', () => {
     invoices,
     periods,
     workOrders,
+    materials,
+    stockIssues,
+    materialRequests,
+    adminUsers,
     visualSettings,
     updateBuilding,
 
@@ -1090,6 +1236,11 @@ export const useMakonStore = defineStore('makon', () => {
     addApplication,
     updateApplicationStatus,
     addServiceRequest,
-    activateContract
+    activateContract,
+    addMaterial,
+    addStockIssue,
+    addMaterialRequest,
+    updateMaterialRequestStatus,
+    updateStockIssueStatus,
   }
 })

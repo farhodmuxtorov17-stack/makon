@@ -86,7 +86,7 @@
             </div>
             <div>
               <div class="mr-card__num">{{ r.number }}</div>
-              <div class="mr-card__wo">{{ r.workOrderNumber }}</div>
+              <div class="mr-card__wo">{{ r.number }}</div>
             </div>
           </div>
           <span class="mr-badge" :class="`mr-badge--${r.status.toLowerCase()}`">{{ statusLabel(r.status) }}</span>
@@ -105,10 +105,10 @@
             <div class="mr-requester__avatar">{{ r.requestedBy.charAt(0) }}</div>
             <span>{{ r.requestedBy }}</span>
           </div>
-          <span class="mr-date">{{ r.date }}</span>
+          <span class="mr-date">{{ formatDate(r.createdAt) }}</span>
           <div v-if="r.status === 'PENDING'" class="mr-actions">
-            <button class="mr-btn mr-btn--approve" @click="r.status = 'APPROVED'"><Check :size="12" /> Tasdiqlash</button>
-            <button class="mr-btn mr-btn--reject" @click="r.status = 'REJECTED'"><X :size="12" /> Rad</button>
+            <button class="mr-btn mr-btn--approve" @click="approveReq(r.id)"><Check :size="12" /> Tasdiqlash</button>
+            <button class="mr-btn mr-btn--reject" @click="rejectReq(r.id)"><X :size="12" /> Rad</button>
           </div>
         </div>
       </div>
@@ -121,50 +121,49 @@ import { Plus, Package, CheckCircle2, Clock, XCircle, Check, X } from 'lucide-vu
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const store = useMakonStore()
+
 const showNew = ref(false)
-const newReq = reactive({ workOrderId: '', materialId: '', quantity: 0 })
+const newReq = reactive({ materialName: '', category: 'ELECTRICAL', quantity: 0, unit: 'dona', unitPrice: 0, urgency: 'NORMAL', buildingId: 'b1', note: '' })
 
-const workOrders = [
-  { id: 1, number: 'WO-2026-001' },
-  { id: 2, number: 'WO-2026-002' },
-  { id: 5, number: 'WO-2026-005' },
-]
-
-const materials = [
-  { id: 'm1', name: 'PPR quvur 25mm', stock: 120, unit: 'm' },
-  { id: 'm2', name: 'Kabel 3x2.5', stock: 45, unit: 'm' },
-  { id: 'm3', name: 'Konditsioner filtri', stock: 8, unit: 'dona' },
-  { id: 'm4', name: "Bo'yoq (oq)", stock: 15, unit: 'l' },
-  { id: 'm5', name: 'Cement M400', stock: 3, unit: 'qop' },
-]
-
-const requests = ref([
-  { id: 1, number: 'MR-001', workOrderNumber: 'WO-2026-001', materialName: 'PPR quvur 25mm', quantity: 10, unit: 'm', requestedBy: 'Akmal Sodiqov', status: 'APPROVED', date: '08.08.26' },
-  { id: 2, number: 'MR-002', workOrderNumber: 'WO-2026-002', materialName: 'Kabel 3x2.5', quantity: 15, unit: 'm', requestedBy: 'Bekzod Aliyev', status: 'PENDING', date: '09.08.26' },
-  { id: 3, number: 'MR-003', workOrderNumber: 'WO-2026-005', materialName: 'Konditsioner filtri', quantity: 2, unit: 'dona', requestedBy: 'Dilshod Karimov', status: 'PENDING', date: '10.08.26' },
-  { id: 4, number: 'MR-004', workOrderNumber: 'WO-2026-003', materialName: "Bo'yoq (oq)", quantity: 5, unit: 'l', requestedBy: 'Akmal Sodiqov', status: 'REJECTED', date: '06.08.26' },
-])
+const materials = computed(() => store.materials)
+const requests = computed(() => store.materialRequests)
 
 function createReq() {
-  const wo = workOrders.find(w => w.id == newReq.workOrderId)
-  const mat = materials.find(m => m.id === newReq.materialId)
-  requests.value.unshift({
-    id: Date.now(),
-    number: `MR-${String(requests.value.length + 1).padStart(3, '0')}`,
-    workOrderNumber: wo?.number || '—',
-    materialName: mat?.name || '—',
+  if (!newReq.materialName || !newReq.quantity) return
+  store.addMaterialRequest({
+    materialName: newReq.materialName,
+    category: newReq.category,
     quantity: newReq.quantity,
-    unit: mat?.unit || '',
+    unit: newReq.unit,
+    unitPrice: newReq.unitPrice,
+    totalAmount: newReq.unitPrice * newReq.quantity,
+    buildingId: newReq.buildingId,
+    buildingName: store.buildings.find(b => b.id === newReq.buildingId)?.name || 'Bino',
     requestedBy: 'Tizim',
+    urgency: newReq.urgency,
     status: 'PENDING',
-    date: new Date().toLocaleDateString('ru-RU').split('.').slice(0, 2).join('.') + '.26',
+    note: newReq.note,
   })
   showNew.value = false
-  newReq.workOrderId = ''; newReq.materialId = ''; newReq.quantity = 0
+  newReq.materialName = ''; newReq.category = 'ELECTRICAL'; newReq.quantity = 0; newReq.unitPrice = 0; newReq.note = ''
+}
+
+function approveReq(id: string) {
+  store.updateMaterialRequestStatus(id, 'APPROVED')
+}
+
+function rejectReq(id: string) {
+  store.updateMaterialRequestStatus(id, 'REJECTED')
 }
 
 function statusLabel(s: string) {
   return { PENDING: 'Kutilmoqda', APPROVED: 'Tasdiqlangan', REJECTED: 'Rad etilgan', FULFILLED: 'Berilgan' }[s] || s
+}
+
+function formatDate(d: string) {
+  const parts = d.split('-')
+  return parts.length === 3 ? `${parts[2]}.${parts[1]}.${parts[0].slice(2)}` : d
 }
 </script>
 
