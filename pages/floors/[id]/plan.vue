@@ -4,169 +4,222 @@
       <NuxtLink :to="`/management/buildings/${buildingId}`" class="btn btn-ghost btn-sm"><ArrowLeft :size="16" /> Bino</NuxtLink>
     </div>
 
+    <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
-      <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">2D reja — {{ floor.num }}-qavat</h1>
-        <p class="text-ink-500 text-sm mt-1">Tashkent City · Unit poligonlari va atributlari</p>
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500"><Layers :size="18" /></div>
+        <div>
+          <h1 class="text-xl font-bold text-ink-900 dark:text-white">{{ floor.num }}-qavat sketch-rejasi</h1>
+          <p class="text-ink-500 text-xs mt-0.5">{{ buildingName }} · Unit poligonlari va atributlari</p>
+        </div>
       </div>
       <div class="flex items-center gap-2">
+        <div class="relative">
+          <select v-model="floor.num" class="btn btn-secondary btn-sm pr-8 appearance-none">
+            <option v-for="n in floorOptions" :key="n" :value="n">{{ n }}-qavat</option>
+          </select>
+          <ChevronDown :size="14" class="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-ink-400" />
+        </div>
         <button @click="mode = 'view'" class="btn btn-sm" :class="mode === 'view' ? 'btn-primary' : 'btn-secondary'"><Eye :size="14" /> Ko'rish</button>
         <button @click="mode = 'edit'" class="btn btn-sm" :class="mode === 'edit' ? 'btn-primary' : 'btn-secondary'"><Edit3 :size="14" /> Tahrir</button>
-        <button @click="mode = 'assign'" class="btn btn-sm" :class="mode === 'assign' ? 'btn-primary' : 'btn-secondary'"><MousePointerClick :size="14" /> Unit biriktirish</button>
+        <button @click="mode = 'assign'" class="btn btn-sm" :class="mode === 'assign' ? 'btn-primary' : 'btn-secondary'"><MousePointerClick :size="14" /> Biriktirish</button>
       </div>
     </div>
 
-    <!-- Floor plan canvas with real architectural plan -->
-    <div class="card overflow-hidden relative" style="height: 600px;">
-      <!-- Real floor plan image background -->
-      <div class="absolute inset-0 bg-ink-50 dark:bg-ink-900 flex items-center justify-center overflow-auto">
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/2/24/Chrysler_Building_6th_to_10th_floor_plan.png" 
-          alt="Chrysler Building 6th to 10th floor plan — architectural drawing"
-          class="max-w-full max-h-full object-contain opacity-90 dark:opacity-80"
-          style="filter: contrast(1.05);"
-        />
-        <!-- Dark mode overlay -->
-        <div class="absolute inset-0 bg-ink-950/40 dark:hidden pointer-events-none"></div>
+    <!-- Floor plan canvas -->
+    <div class="card overflow-hidden relative" style="height: 560px;">
+      <!-- Zoom controls -->
+      <div class="absolute top-4 left-4 flex flex-col gap-1.5 z-10">
+        <button @click="zoom = Math.min(zoom + 0.15, 1.8)" class="w-9 h-9 rounded-xl bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 flex items-center justify-center hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors"><Plus :size="16" /></button>
+        <button @click="zoom = Math.max(zoom - 0.15, 0.6)" class="w-9 h-9 rounded-xl bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 flex items-center justify-center hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors"><Minus :size="16" /></button>
+        <button @click="zoom = 1" class="w-9 h-9 rounded-xl bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 flex items-center justify-center hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors"><Maximize :size="15" /></button>
+        <button @click="resetView" class="w-9 h-9 rounded-xl bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 flex items-center justify-center hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors"><RotateCw :size="15" /></button>
       </div>
 
       <!-- Mode badge -->
-      <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-medium z-10" :class="modeBadge">
+      <div class="absolute top-4 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full text-xs font-medium z-10" :class="modeBadge">
         {{ modeLabel }}
       </div>
 
-      <!-- Legend -->
-      <div class="absolute top-4 right-4 flex flex-col gap-1 card p-3 text-xs z-10">
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-emerald-500/30"></span> Band ({{ occupiedCount }})</div>
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-amber-500/30"></span> Bo'sh ({{ vacantCount }})</div>
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-zinc-500/20"></span> Texnik ({{ techCount }})</div>
+      <!-- SVG floor plan -->
+      <div class="absolute inset-0 flex items-center justify-center overflow-auto bg-[#FAFBFF] dark:bg-ink-950 p-8">
+        <svg :viewBox="`0 0 ${planW} ${planH}`" :style="{ width: (zoom * 100) + '%', maxWidth: '95%' }" class="transition-all duration-200">
+          <!-- Outer shell -->
+          <rect :x="6" :y="6" :width="planW - 12" :height="planH - 12" fill="none" stroke="#1E293B" stroke-width="4" rx="4" />
+
+          <!-- Rooms -->
+          <g v-for="room in rooms" :key="room.id" @click="selectUnit(room)" class="cursor-pointer">
+            <rect
+              :x="room.x" :y="room.y" :width="room.w" :height="room.h"
+              :fill="roomFill(room)"
+              :stroke="selectedUnit === room.id ? '#2563EB' : '#94A3B8'"
+              :stroke-width="selectedUnit === room.id ? 3 : 1.5"
+              rx="2"
+              class="transition-all"
+            />
+            <text :x="room.x + room.w / 2" :y="room.y + room.h / 2 + 6" text-anchor="middle" font-size="20" font-weight="700" :fill="roomTextColor(room)">{{ room.name }}</text>
+            <circle v-if="selectedUnit === room.id" :cx="room.x + room.w / 2" :cy="room.y + room.h - 16" r="11" fill="#2563EB" />
+            <path v-if="selectedUnit === room.id" :d="checkPath(room.x + room.w / 2, room.y + room.h - 16)" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+
+          <!-- Core: elevators + stairs -->
+          <g>
+            <rect :x="coreX" :y="coreY" :width="coreW" :height="coreH" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5" rx="2" />
+            <g v-for="i in 5" :key="'st'+i">
+              <line :x1="coreX + 10" :y1="coreY + 10 + i * 12" :x2="coreX + coreW * 0.32" :y2="coreY + 10 + i * 12" stroke="#CBD5E1" stroke-width="2" />
+            </g>
+            <rect :x="coreX + coreW * 0.55" :y="coreY + 8" :width="coreW * 0.18" :height="coreH - 16" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1.2" />
+            <rect :x="coreX + coreW * 0.76" :y="coreY + 8" :width="coreW * 0.18" :height="coreH - 16" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1.2" />
+          </g>
+        </svg>
       </div>
 
-      <!-- Unit markers overlay (positioned on top of real plan) -->
-      <div class="absolute inset-0 z-5 pointer-events-none">
-        <div 
-          v-for="unit in units" 
-          :key="unit.id"
-          class="absolute pointer-events-auto cursor-pointer transition-all rounded-lg flex items-center justify-center text-xs font-medium"
-          :style="{ left: unit.posX + '%', top: unit.posY + '%', width: unit.posW + '%', height: unit.posH + '%' }"
-          :class="selectedUnit === unit.id ? 'ring-2 ring-brand-500 scale-105' : ''"
-          @click.stop="selectUnit(unit)"
-        >
-          <span 
-            class="px-2 py-1 rounded-md backdrop-blur-sm shadow-sm"
-            :class="{
-              'bg-emerald-500/70 text-white': unit.status === 'OCCUPIED',
-              'bg-amber-500/80 text-white': unit.status === 'VACANT',
-              'bg-zinc-500/50 text-white': unit.status === 'TECHNICAL',
-            }"
-          >
-            {{ unit.name }}
-          </span>
-        </div>
+      <!-- Legend -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 rounded-full px-5 py-2.5 text-xs font-medium z-10">
+        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:#10B981"></span> Bo'sh</div>
+        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:#3B82F6"></span> Ijarada</div>
+        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:#EF4444"></span> Sotilgan</div>
+        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:#94A3B8"></span> Rezerv</div>
       </div>
 
       <!-- Edit toolbar -->
-      <div v-if="mode === 'edit'" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 card p-2 z-10">
+      <div v-if="mode === 'edit'" class="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-2 card p-2 z-10">
         <button class="btn btn-ghost btn-sm"><Square :size="14" /> To'rtburchak</button>
         <button class="btn btn-ghost btn-sm"><PenTool :size="14" /> Poligon</button>
         <button class="btn btn-ghost btn-sm"><Trash2 :size="14" /> O'chirish</button>
         <div class="w-px h-6 bg-black/10 dark:bg-white/10"></div>
         <button class="btn btn-primary btn-sm"><Save :size="14" /> Saqlash</button>
       </div>
-
-      <!-- Info banner -->
-      <div class="absolute bottom-4 right-4 card p-3 text-xs z-10 max-w-[200px]">
-        <div class="flex items-center gap-1.5 text-ink-500 mb-1">
-          <MapPin :size="12" />
-          <span class="font-medium">Chrysler Building</span>
-        </div>
-        <p class="text-ink-500 text-[11px] leading-relaxed">42-43 Lexington Ave, NYC. 6-10 qavatlar rejasi. Wikimedia Commons arxividan.</p>
-      </div>
     </div>
 
-    <!-- Unit detail panel -->    <!-- Unit detail panel -->
-    <div v-if="selectedUnitData" class="card p-6">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold dark:text-white">Unit: {{ selectedUnitData.name }}</h3>
-        <button @click="deselectUnit" class="btn btn-ghost btn-sm"><X :size="14" /></button>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Attributes -->
-        <div class="space-y-3">
-          <h4 class="text-sm font-medium text-ink-500">Atributlar</h4>
-          <div class="grid grid-cols-2 gap-3 text-sm">
-            <div><div class="text-xs text-ink-500">Nomi</div><div class="font-medium mt-1">{{ selectedUnitData.name }}</div></div>
-            <div><div class="text-xs text-ink-500">Maydon</div><div class="font-medium mt-1">{{ selectedUnitData.area }} m²</div></div>
-            <div><div class="text-xs text-ink-500">Holat</div><div class="font-medium mt-1" :class="statusColor(selectedUnitData.status)">{{ statusLabel(selectedUnitData.status) }}</div></div>
-            <div><div class="text-xs text-ink-500">Turi</div><div class="font-medium mt-1">{{ selectedUnitData.type }}</div></div>
-            <div><div class="text-xs text-ink-500">Tashqi devor</div><div class="font-medium mt-1">{{ exteriorLabel(selectedUnitData.exterior) }}</div></div>
-            <div><div class="text-xs text-ink-500">Deraza soni</div><div class="font-medium mt-1">{{ selectedUnitData.windows }}</div></div>
+    <!-- Unit detail panel: 3-column premium layout -->
+    <Transition name="fade-up">
+      <div v-if="selectedUnitData" class="card overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr_220px] divide-y lg:divide-y-0 lg:divide-x divide-ink-100 dark:divide-ink-800">
+          <!-- 3D interior render -->
+          <div class="p-4 flex flex-col">
+            <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF] dark:from-ink-800 dark:to-ink-900 aspect-[4/3] flex items-center justify-center">
+              <img src="/buildings/interior-office.png" :alt="selectedUnitData.name" class="w-full h-full object-cover" />
+            </div>
           </div>
-        </div>
 
-        <!-- Occupancy -->
-        <div class="space-y-3">
-          <h4 class="text-sm font-medium text-ink-500">Bandlik</h4>
-          <div v-if="selectedUnitData.status === 'OCCUPIED'" class="space-y-2">
-            <div class="flex items-center gap-3 p-3 rounded-xl bg-emerald-500/5">
-              <Building2 :size="18" class="text-emerald-500" />
-              <div>
-                <div class="text-sm font-medium">{{ selectedUnitData.tenant }}</div>
-                <div class="text-xs text-ink-500">{{ selectedUnitData.contract }} · {{ selectedUnitData.endDate }}</div>
+          <!-- Details -->
+          <div class="p-6 flex flex-col justify-center">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-lg dark:text-white">Unit {{ selectedUnitData.name }} — Batafsil</h3>
+              <button @click="deselectUnit" class="btn btn-ghost btn-sm !p-2"><X :size="14" /></button>
+            </div>
+            <div class="grid grid-cols-2 gap-x-8 gap-y-3.5 text-sm">
+              <div><div class="text-xs text-ink-500 mb-0.5">Maydoni</div><div class="font-semibold">{{ selectedUnitData.area.toFixed(2) }} m²</div></div>
+              <div><div class="text-xs text-ink-500 mb-0.5">Ijarachi / Xaridor</div><div class="font-semibold">{{ selectedUnitData.tenant || '—' }}</div></div>
+              <div><div class="text-xs text-ink-500 mb-0.5">Turi</div><div class="font-semibold">{{ selectedUnitData.type }}</div></div>
+              <div><div class="text-xs text-ink-500 mb-0.5">Shartnoma holati</div><div class="font-semibold" :class="statusColor(selectedUnitData.status)">{{ contractStatusLabel(selectedUnitData.status) }}</div></div>
+              <div><div class="text-xs text-ink-500 mb-0.5">Holati</div>
+                <span class="inline-flex px-2 py-0.5 rounded-md text-xs font-semibold" :class="statusBadge(selectedUnitData.status)">{{ statusLabel(selectedUnitData.status) }}</span>
               </div>
+              <div><div class="text-xs text-ink-500 mb-0.5">Sotib olingan / band sana</div><div class="font-semibold">{{ selectedUnitData.date || '—' }}</div></div>
+            </div>
+            <div v-if="selectedUnitData.status === 'VACANT'" class="mt-4">
+              <button class="btn btn-primary btn-sm"><FileText :size="14" /> Listing yaratish</button>
             </div>
           </div>
-          <div v-else-if="selectedUnitData.status === 'VACANT'">
-            <div class="p-3 rounded-xl bg-amber-500/5 flex items-center gap-3">
-              <Tag :size="18" class="text-amber-500" />
-              <div class="text-sm">Bu unit bo'sh. Listing yoki ariza qabul qilish mumkin.</div>
+
+          <!-- Location -->
+          <div class="p-4 flex flex-col gap-3">
+            <div class="text-xs font-semibold text-ink-500">Joylashuv</div>
+            <div class="rounded-xl bg-ink-50 dark:bg-ink-900 border border-ink-100 dark:border-ink-800 p-2 flex-1 flex items-center justify-center">
+              <svg viewBox="0 0 100 60" class="w-full">
+                <rect x="2" y="2" width="96" height="56" fill="none" stroke="#CBD5E1" stroke-width="1.5" rx="2" />
+                <rect v-for="r in miniRooms" :key="r.id" :x="r.x" :y="r.y" :width="r.w" :height="r.h" :fill="r.id === selectedUnitData.id ? '#EF4444' : '#E2E8F0'" stroke="#CBD5E1" stroke-width="0.6" />
+              </svg>
             </div>
-            <button class="btn btn-primary btn-sm w-full mt-2"><FileText :size="14" /> Listing yaratish</button>
+            <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF] dark:from-ink-800 dark:to-ink-900 h-24 flex items-center justify-center">
+              <img src="/buildings/3d-tower-2.png" alt="Building" class="h-full object-contain py-1" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, Eye, Edit3, MousePointerClick, Square, PenTool, Trash2, Save, X, Building2, Tag, FileText, MapPin } from 'lucide-vue-next'
+import { ArrowLeft, Eye, Edit3, MousePointerClick, Square, PenTool, Trash2, Save, X, FileText, Layers, ChevronDown, Plus, Minus, Maximize, RotateCw } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const route = useRoute()
-const buildingId = route.params.id
-const floor = { num: 3 }
+const buildingId = route.params.id as string
+const buildingName = 'Tashkent City'
+const floor = ref({ num: 7 })
+const floorOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 const mode = ref<'view' | 'edit' | 'assign'>('view')
-const selectedUnit = ref<string | null>(null)
+const selectedUnit = ref<string | null>('u8')
+const zoom = ref(1)
 
-const units = ref([
-  { id: 'u1', name: 'A-301', area: 85, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 4, tenant: 'ABC Logistics MChJ', contract: 'CTR-2026-001', endDate: '15.03.2027', posX: 3, posY: 8, posW: 22, posH: 28 },
-  { id: 'u2', name: 'A-302', area: 72, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 3, tenant: 'Global Trade MChJ', contract: 'CTR-2026-002', endDate: '01.12.2026', posX: 28, posY: 8, posW: 18, posH: 28 },
-  { id: 'u3', name: 'A-303', area: 95, status: 'VACANT', type: 'Ofis', exterior: true, windows: 4, tenant: '', contract: '', endDate: '', posX: 50, posY: 8, posW: 22, posH: 28 },
-  { id: 'u4', name: 'A-304', area: 60, status: 'TECHNICAL', type: 'Texnik', exterior: false, windows: 0, tenant: '', contract: '', endDate: '', posX: 76, posY: 8, posW: 20, posH: 28 },
-  { id: 'u5', name: 'B-301', area: 80, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 3, tenant: 'Smart Solutions MChJ', contract: 'CTR-2026-005', endDate: '01.06.2027', posX: 3, posY: 60, posW: 22, posH: 30 },
-  { id: 'u6', name: 'B-302', area: 68, status: 'VACANT', type: 'Ofis', exterior: true, windows: 2, tenant: '', contract: '', endDate: '', posX: 28, posY: 60, posW: 18, posH: 30 },
-  { id: 'u7', name: 'B-303', area: 92, status: 'OCCUPIED', type: 'Ofis', exterior: true, windows: 4, tenant: 'Export Group MChJ', contract: 'CTR-2025-098', endDate: '01.01.2026', posX: 50, posY: 60, posW: 22, posH: 30 },
-  { id: 'u8', name: 'B-304', area: 55, status: 'TECHNICAL', type: 'Texnik', exterior: false, windows: 0, tenant: '', contract: '', endDate: '', posX: 76, posY: 60, posW: 20, posH: 30 },
-])
+const planW = 1000
+const planH = 380
+const coreX = 400, coreY = 40, coreW = 200, coreH = 300
 
-const selectedUnitData = computed(() => units.value.find(u => u.id === selectedUnit.value))
-const occupiedCount = computed(() => units.value.filter(u => u.status === 'OCCUPIED').length)
-const vacantCount = computed(() => units.value.filter(u => u.status === 'VACANT').length)
-const techCount = computed(() => units.value.filter(u => u.status === 'TECHNICAL').length)
+const layout = [
+  { id: 'u1', name: '701', area: 78.2,  status: 'VACANT',   type: 'Ofis',   tenant: '',                     date: '',           x: 30,  y: 40,  w: 150, h: 145 },
+  { id: 'u6', name: '706', area: 71.0,  status: 'VACANT',   type: 'Ofis',   tenant: '',                     date: '',           x: 30,  y: 195, w: 150, h: 145 },
+  { id: 'u2', name: '702', area: 62.5,  status: 'IJARADA',  type: 'Ofis',   tenant: '"NewTech" MChJ',       date: '2025-03-12', x: 190, y: 40,  w: 130, h: 145 },
+  { id: 'u7', name: '707', area: 55.0,  status: 'IJARADA',  type: 'Ofis',   tenant: '"Aloqa Servis" MChJ',  date: '2024-11-20', x: 190, y: 195, w: 130, h: 145 },
+  { id: 'u3', name: '703', area: 68.0,  status: 'IJARADA',  type: 'Ofis',   tenant: '"Prime Consult" MChJ', date: '2025-06-01', x: 330, y: 40,  w: 130, h: 145 },
+  { id: 'u8', name: '708', area: 125.40, status: 'SOTILGAN', type: 'Ofis',  tenant: '"Grand Trade" MChJ',   date: '2024-05-18', x: 330, y: 195, w: 130, h: 145 },
+  { id: 'u9', name: '709', area: 44.0,  status: 'REZERV',   type: 'Texnik', tenant: '',                     date: '',           x: 630, y: 195, w: 130, h: 145 },
+  { id: 'u4', name: '704', area: 145.6, status: 'REZERV',   type: 'Ofis',   tenant: '',                     date: '',           x: 630, y: 40,  w: 130, h: 145 },
+  { id: 'u5', name: '705', area: 96.4,  status: 'VACANT',   type: 'Ofis',   tenant: '',                     date: '',           x: 790, y: 40,  w: 180, h: 300 },
+]
+
+const rooms = ref(layout)
+const miniRooms = layout.map(l => ({ id: l.id, x: l.x / 10, y: l.y / 6.5, w: l.w / 10, h: l.h / 6.5 }))
+
+const selectedUnitData = computed(() => rooms.value.find(u => u.id === selectedUnit.value))
 
 const modeLabel = computed(() => ({ view: 'Ko\'rish rejimi', edit: 'Tahrir rejimi', assign: 'Unit biriktirish' }[mode.value]))
 const modeBadge = computed(() => ({ view: 'bg-brand-500/10 text-brand-500', edit: 'bg-amber-500/10 text-amber-500', assign: 'bg-purple-500/10 text-purple-500' }[mode.value]))
 
 function selectUnit(unit: any) { selectedUnit.value = unit.id }
 function deselectUnit() { selectedUnit.value = null }
-function unitFill(unit: any) {
-  if (selectedUnit.value === unit.id) return 'rgba(37,99,235,0.15)'
-  return unit.status === 'OCCUPIED' ? 'rgba(16,185,129,0.08)' : unit.status === 'VACANT' ? 'rgba(245,158,11,0.08)' : 'rgba(113,113,122,0.05)'
+function resetView() { zoom.value = 1 }
+
+function roomFill(room: any) {
+  const map: Record<string, string> = {
+    VACANT: 'rgba(16,185,129,0.16)',
+    IJARADA: 'rgba(59,130,246,0.16)',
+    SOTILGAN: 'rgba(239,68,68,0.16)',
+    REZERV: 'rgba(148,163,184,0.16)',
+  }
+  return map[room.status] || 'rgba(148,163,184,0.1)'
 }
-function statusLabel(s: string) { return { OCCUPIED: 'Band', VACANT: 'Bo\'sh', TECHNICAL: 'Texnik' }[s] || s }
-function exteriorLabel(v: boolean) { return v ? 'Bor' : "Yo'q" }
-function statusColor(s: string) { return { OCCUPIED: 'text-emerald-500', VACANT: 'text-amber-500', TECHNICAL: 'text-ink-500' }[s] || '' }
+function roomTextColor(room: any) {
+  const map: Record<string, string> = { VACANT: '#059669', IJARADA: '#2563EB', SOTILGAN: '#DC2626', REZERV: '#64748B' }
+  return map[room.status] || '#334155'
+}
+function statusLabel(s: string) { return { VACANT: "Bo'sh", IJARADA: 'Ijarada', SOTILGAN: 'Sotilgan', REZERV: 'Rezerv' }[s] || s }
+function statusBadge(s: string) {
+  const map: Record<string, string> = {
+    VACANT: 'bg-emerald-500/10 text-emerald-600',
+    IJARADA: 'bg-blue-500/10 text-blue-600',
+    SOTILGAN: 'bg-red-500/10 text-red-600',
+    REZERV: 'bg-zinc-500/10 text-zinc-500',
+  }
+  return map[s] || ''
+}
+function statusColor(s: string) { return { VACANT: 'text-emerald-600', IJARADA: 'text-blue-600', SOTILGAN: 'text-emerald-600', REZERV: 'text-zinc-500' }[s] || '' }
+function contractStatusLabel(s: string) {
+  return { VACANT: "Shartnoma yo'q", IJARADA: 'Shartnoma imzolangan', SOTILGAN: 'Shartnoma imzolangan', REZERV: 'Band qilingan' }[s] || '—'
+}
+function checkPath(cx: number, cy: number) {
+  return `M ${cx - 4} ${cy} L ${cx - 1} ${cy + 3} L ${cx + 4} ${cy - 4}`
+}
 </script>
+
+<style scoped>
+.fade-up-enter-active, .fade-up-leave-active { transition: all 0.25s ease; }
+.fade-up-enter-from { opacity: 0; transform: translateY(12px); }
+.fade-up-leave-to { opacity: 0; transform: translateY(12px); }
+</style>
