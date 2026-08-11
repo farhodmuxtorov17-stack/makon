@@ -57,7 +57,7 @@
         <div class="iso-section">
           <div class="iso-building">
             <div
-              v-for="f in building.floorsData"
+              v-for="f in floorsData"
               :key="f.num"
               class="iso-floor"
               :class="{
@@ -347,7 +347,7 @@ const floorsData = computed(() => building_floors.map(f => ({
   techCount: f.units.filter(u => u.status === 'TECHNICAL').length,
 })))
 
-building.floorsData = floorsData
+
 
 const activeFloorData = computed(() => floorsData.value.find(f => f.num === activeFloor.value) || floorsData.value[0])
 
