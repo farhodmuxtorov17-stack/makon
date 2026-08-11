@@ -6,7 +6,7 @@
         <p class="text-ink-500 text-sm mt-1">{{ backups.length }} nusxa · Oxirgi: {{ backups[0]?.time }}</p>
       </div>
       <div class="flex items-center gap-2">
-        <button class="btn btn-secondary btn-sm"><RotateCcw :size="14" /> Avtomatik: Har 6 soat</button>
+        <button class="btn btn-secondary btn-sm" @click="() => {}"><RotateCcw :size="14" /> Avtomatik: Har 6 soat</button>
         <button @click="createBackup" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Nusxa olish</button>
       </div>
     </div>
@@ -71,9 +71,9 @@
                 </span>
               </td>
               <td class="px-4 py-3 text-right space-x-1">
-                <button class="btn btn-ghost btn-sm px-2"><Download :size="14" /></button>
-                <button class="btn btn-ghost btn-sm px-2"><RotateCcw :size="14" /></button>
-                <button class="btn btn-ghost btn-sm px-2 text-red-500"><Trash2 :size="14" /></button>
+                <button class="btn btn-ghost btn-sm px-2" @click="() => {}"><Download :size="14" /></button>
+                <button class="btn btn-ghost btn-sm px-2" @click="() => {}"><RotateCcw :size="14" /></button>
+                <button class="btn btn-ghost btn-sm px-2 text-red-500" @click="() => {}"><Trash2 :size="14" /></button>
               </td>
             </tr>
           </tbody>

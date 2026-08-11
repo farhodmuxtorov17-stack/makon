@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="flex justify-end mt-4">
-            <button class="btn btn-secondary btn-sm"><Key :size="14" /> Yangilash</button>
+            <button class="btn btn-secondary btn-sm" @click="() => {}"><Key :size="14" /> Yangilash</button>
           </div>
         </div>
 

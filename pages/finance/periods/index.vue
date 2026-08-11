@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Moliya davrlari</h1>
         <p class="text-ink-500 text-sm mt-1">Hisob-kitob davrlari va holati</p>
       </div>
-      <button class="btn btn-primary btn-sm btn-glow"><Plus :size="16" /> Yangi davr</button>
+      <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="16" /> Yangi davr</button>
     </div>
 
     <!-- KPI -->

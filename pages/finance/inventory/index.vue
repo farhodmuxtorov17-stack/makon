@@ -6,8 +6,8 @@
         <p class="text-ink-500 text-sm mt-1">{{ materials.length }} ta material · {{ lowStockCount }} ta kam qoldi</p>
       </div>
       <div class="flex items-center gap-2">
-        <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
-        <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Material qo'shish</button>
+        <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> Eksport</button>
+        <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Material qo'shish</button>
       </div>
     </div>
 
@@ -77,7 +77,7 @@
                 <span v-else class="badge badge-success text-xs">Yetarli</span>
               </td>
               <td class="px-4 py-3 text-center">
-                <button class="btn btn-ghost btn-sm px-2"><MoreHorizontal :size="16" /></button>
+                <button class="btn btn-ghost btn-sm px-2" @click="() => {}"><MoreHorizontal :size="16" /></button>
               </td>
             </tr>
           </tbody>

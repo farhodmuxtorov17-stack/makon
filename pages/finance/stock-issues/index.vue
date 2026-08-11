@@ -49,8 +49,8 @@
               <input type="text" class="input" placeholder="AKT-2026-..." />
             </div>
             <div class="flex gap-2">
-              <button class="btn btn-primary flex-1"><Send :size="14" /> Berish</button>
-              <button class="btn btn-secondary">ERI tasdiq</button>
+              <button class="btn btn-primary flex-1" @click="() => {}"><Send :size="14" /> Berish</button>
+              <button class="btn btn-secondary" @click="() => {}">ERI tasdiq</button>
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@
                 <span v-else class="badge badge-warning text-xs">Kutilmoqda</span>
               </td>
               <td class="px-4 py-3 text-right">
-                <button class="btn btn-ghost btn-sm"><Download :size="14" /></button>
+                <button class="btn btn-ghost btn-sm" @click="() => {}"><Download :size="14" /></button>
               </td>
             </tr>
           </tbody>

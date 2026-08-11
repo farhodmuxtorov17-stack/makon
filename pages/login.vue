@@ -72,6 +72,7 @@
             Hisobingiz yo'qmi?
             <NuxtLink to="/register/eri" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
           </p>
+          <div class="auth__demo-hint">Demo: admin@makon.uz / demo1234</div>
         </form>
       </div>
     </div>
@@ -83,7 +84,7 @@ import { User, Lock, Eye, EyeOff, ArrowRight, KeyRound } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })
 
-const form = reactive({ login: '', password: '', remember: false })
+const form = reactive({ login: 'admin@makon.uz', password: 'demo1234', remember: false })
 const showPassword = ref(false)
 const loading = ref(false)
 const authStore = useAuthStore()
@@ -213,6 +214,7 @@ function handleEriLogin() {
 .auth__signup { text-align: center; margin-top: 28px; font-size: 14px; color: #71717a; }
 .dark .auth__signup { color: #a1a1aa; }
 
+.auth__demo-hint { text-align: center; margin-top: 14px; font-size: 12px; color: #a1a1aa; padding: 8px 12px; border-radius: 8px; background: rgba(99,102,241,0.05); }
 /* Responsive */
 @media (max-width: 900px) {
   .auth__visual { display: none; }

@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Audit jurnali</h1>
         <p class="text-ink-500 text-sm mt-1">{{ entries.length }} ta yozuv · So'nggi 24 soat</p>
       </div>
-      <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
+      <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> Eksport</button>
     </div>
 
     <!-- Filter -->

@@ -59,7 +59,7 @@
             <label class="text-xs font-medium text-ink-500 mb-1.5 block">Sertifikat muddati</label>
             <input type="text" value="15.03.2027" disabled class="settings-input settings-input--disabled" />
           </div>
-          <button class="btn btn-secondary btn-sm w-full"><RefreshCw :size="14" /> Bog'lanishni tekshirish</button>
+          <button class="btn btn-secondary btn-sm w-full" @click="() => {}"><RefreshCw :size="14" /> Bog'lanishni tekshirish</button>
         </div>
       </div>
 
@@ -117,7 +117,7 @@
     </div>
 
     <div class="flex justify-end">
-      <button class="btn btn-primary btn-md"><Save :size="16" /> Sozlamalarni saqlash</button>
+      <button class="btn btn-primary btn-md" @click="() => {}"><Save :size="16" /> Sozlamalarni saqlash</button>
     </div>
   </div>
 </template>

@@ -11,8 +11,8 @@
           <option value="quarter">Choraklik</option>
           <option value="year">Yillik</option>
         </select>
-        <button class="btn btn-secondary btn-sm"><Download :size="14" /> PDF</button>
-        <button class="btn btn-secondary btn-sm"><FileSpreadsheet :size="14" /> Excel</button>
+        <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> PDF</button>
+        <button class="btn btn-secondary btn-sm" @click="() => {}"><FileSpreadsheet :size="14" /> Excel</button>
       </div>
     </div>
 

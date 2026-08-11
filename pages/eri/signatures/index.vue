@@ -73,7 +73,7 @@
           <button v-if="sig.status === 'FAILED'" class="btn btn-secondary btn-sm"><RotateCw :size="14" /> Qayta urinish</button>
           <span v-if="sig.status === 'SIGNED'" class="text-xs text-emerald-500 flex items-center gap-1"><CheckCircle2 :size="14" /> {{ sig.signedDate }} da imzolangan</span>
           <span v-if="sig.status === 'FAILED'" class="text-xs text-red-500 ml-2">Sabab: {{ sig.failReason }}</span>
-          <button class="btn btn-ghost btn-sm ml-auto"><ExternalLink :size="14" /> ERI sayti</button>
+          <a href="https://my.eri.uz" target="_blank" class="btn btn-ghost btn-sm ml-auto"><ExternalLink :size="14" /> ERI sayti</a>
         </div>
       </div>
     </div>

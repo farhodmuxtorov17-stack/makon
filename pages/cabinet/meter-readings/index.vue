@@ -89,7 +89,7 @@
       <!-- Actions -->
       <div class="flex gap-3" v-if="!readonly">
         <button @click="submitReadings" class="btn btn-primary flex-1"><Send :size="16" /> Ko'rsatkich topshirish</button>
-        <button class="btn btn-secondary">Saqlash (qoralama)</button>
+        <button class="btn btn-secondary" @click="() => {}">Saqlash (qoralama)</button>
       </div>
       <div v-else class="p-3 rounded-xl bg-emerald-500/5 text-sm text-emerald-500 flex items-center gap-2">
         <CheckCircle2 :size="16" /> Bu oy uchun ko'rsatkich topshirilgan: {{ formatDate(currentMonthData?.submittedAt) }}

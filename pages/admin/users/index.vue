@@ -67,7 +67,7 @@
                 </span>
               </td>
               <td class="px-4 py-3 text-center">
-                <button class="btn btn-ghost btn-sm px-2"><MoreHorizontal :size="16" /></button>
+                <button class="btn btn-ghost btn-sm px-2" @click="() => {}"><MoreHorizontal :size="16" /></button>
               </td>
             </tr>
           </tbody>

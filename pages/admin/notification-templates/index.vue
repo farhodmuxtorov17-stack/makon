@@ -39,7 +39,7 @@
 
         <div class="flex items-center justify-between mt-4 pt-3 border-t border-black/5 dark:border-white/5">
           <span class="text-xs text-ink-400">{{ tpl.variables.length }} ta o'zgaruvchi</span>
-          <button class="btn btn-ghost btn-sm text-xs"><Edit3 :size="12" /> Tahrir</button>
+          <button class="btn btn-ghost btn-sm text-xs" @click="() => {}"><Edit3 :size="12" /> Tahrir</button>
         </div>
       </div>
     </div>
