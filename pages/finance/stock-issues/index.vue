@@ -6,7 +6,7 @@
     </div>
 
     <!-- Pending issues -->
-    <div class="card p-6">
+    <div class="card-premium p-6">
       <h3 class="font-semibold dark:text-white mb-4">Berishga tayyor so\'rovlar</h3>
       <div class="space-y-3">
         <div v-for="req in approvedRequests" :key="req.id" class="border border-black/5 dark:border-white/5 rounded-2xl p-4">

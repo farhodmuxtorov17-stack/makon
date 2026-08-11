@@ -6,7 +6,7 @@
     </div>
 
     <!-- Approval flow -->
-    <div class="card p-6">
+    <div class="card-premium p-6">
       <h3 class="font-semibold mb-4 text-ink-900 dark:text-white">Tasdiqlash bosqichlari</h3>
       <div class="flex items-center gap-2 flex-wrap">
         <div v-for="(step, i) in approvalSteps" :key="i" class="flex items-center gap-2">
@@ -39,7 +39,7 @@
             <div class="text-xs text-ink-500">{{ a.type }}</div>
           </div>
           <div class="flex gap-2">
-            <button @click="a.status = 'APPROVED'" class="btn btn-primary btn-sm">
+            <button @click="a.status = 'APPROVED'" class="btn btn-primary btn-sm btn-glow">
               <Check :size="14" /> Tasdiqlash
             </button>
             <button @click="a.status = 'REJECTED'" class="btn btn-secondary btn-sm">

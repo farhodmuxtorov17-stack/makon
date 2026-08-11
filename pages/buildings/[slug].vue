@@ -2,21 +2,25 @@
   <div class="min-h-screen">
     <template v-if="building">
       <!-- Hero -->
-      <section class="relative h-[400px] overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center" :style="{ backgroundImage: `url(${building.gallery[0]})` }" />
-        <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/60 to-transparent"></div>
+      <section class="relative h-[480px] overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center scale-105" :style="{ backgroundImage: `url(${building.gallery[0]})` }" />
+        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(9,9,11,0.95) 0%, rgba(9,9,11,0.6) 50%, rgba(9,9,11,0.2) 100%);"></div>
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse at bottom left, rgba(99,102,241,0.1), transparent 60%);"></div>
 
-        <div class="relative max-w-7xl mx-auto px-4 lg:px-6 h-full flex items-end pb-8">
+        <div class="relative max-w-7xl mx-auto px-4 lg:px-6 h-full flex items-end pb-10">
           <div>
-            <NuxtLink to="/catalog" class="inline-flex items-center gap-1.5 text-sm text-ink-400 hover:text-white mb-4 transition-colors">
+            <NuxtLink to="/catalog" class="inline-flex items-center gap-1.5 text-sm text-ink-400 hover:text-white mb-5 transition-all hover:translate-x-[-3px]">
               <ArrowLeft :size="16" /> Katalogga qaytish
             </NuxtLink>
-            <div class="flex items-center gap-3 mb-3">
-              <span class="badge badge-brand">{{ typeLabel(building.type) }}</span>
-              <span v-if="building.vacantUnits > 0" class="badge badge-success">{{ building.vacantUnits }} bo'sh maydon</span>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="badge badge-brand" style="backdrop-filter: blur(8px); background: rgba(99,102,241,0.2); border: 1px solid rgba(99,102,241,0.3);">{{ typeLabel(building.type) }}</span>
+              <span v-if="building.vacantUnits > 0" class="badge badge-success" style="backdrop-filter: blur(8px); background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3);">
+                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1"></div>
+                {{ building.vacantUnits }} bo'sh maydon
+              </span>
             </div>
-            <h1 class="text-4xl font-bold mb-2 text-white">{{ building.name }}</h1>
-            <p class="text-ink-400 flex items-center gap-2">
+            <h1 class="text-5xl font-extrabold mb-3 text-white tracking-tight" style="text-shadow: 0 2px 20px rgba(0,0,0,0.3);">{{ building.name }}</h1>
+            <p class="text-ink-300 flex items-center gap-2 text-base">
               <MapPin :size="16" /> {{ building.address }}
             </p>
           </div>
@@ -26,8 +30,8 @@
       <!-- Gallery -->
       <section class="py-8 px-4 lg:px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div v-for="(img, i) in building.gallery" :key="i" class="aspect-square rounded-xl overflow-hidden bg-ink-900">
-            <img :src="img" :alt="`${building.name} - ${i + 1}`" class="w-full h-full object-cover" loading="lazy" />
+          <div v-for="(img, i) in building.gallery" :key="i" class="aspect-square rounded-2xl overflow-hidden bg-ink-900 group cursor-pointer">
+            <img :src="img" :alt="`${building.name} - ${i + 1}`" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
           </div>
         </div>
       </section>
@@ -37,55 +41,55 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <!-- Description -->
           <div class="lg:col-span-2 space-y-6">
-            <div class="card p-6">
+            <div class="card-premium p-6">
               <h2 class="font-semibold text-ink-900 dark:text-white mb-3">Bino haqida</h2>
               <p class="text-ink-400 leading-relaxed">{{ building.description }}</p>
             </div>
 
             <!-- Specs -->
-            <div class="card p-6">
-              <h2 class="font-semibold text-ink-900 dark:text-white mb-4">Texnik ko'rsatkichlar</h2>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div>
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Qavatlar soni</div>
+            <div class="card-premium p-6">
+              <h2 class="font-semibold text-ink-900 dark:text-white mb-5">Texnik ko'rsatkichlar</h2>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Qavatlar soni</div>
                   <div class="text-2xl font-bold">{{ building.floorsCount }}</div>
                 </div>
-                <div>
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Jami unitlar</div>
+                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Jami unitlar</div>
                   <div class="text-2xl font-bold">{{ building.totalUnits }}</div>
                 </div>
-                <div>
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Band</div>
-                  <div class="text-2xl font-bold text-emerald-400">{{ building.occupiedUnits }}</div>
+                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-emerald-500/5">
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Band</div>
+                  <div class="text-2xl font-bold text-emerald-500">{{ building.occupiedUnits }}</div>
                 </div>
-                <div>
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Bo'sh</div>
-                  <div class="text-2xl font-bold text-brand-400">{{ building.vacantUnits }}</div>
+                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Bo'sh</div>
+                  <div class="text-2xl font-bold text-brand-500">{{ building.vacantUnits }}</div>
                 </div>
-                <div>
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Umumiy maydon</div>
+                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Umumiy maydon</div>
                   <div class="text-2xl font-bold">{{ formatArea(building.totalArea) }} m²</div>
                 </div>
-                <div>
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Bandlik</div>
+                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Bandlik</div>
                   <div class="text-2xl font-bold">{{ occupancyPercent }}%</div>
                 </div>
-                <div>
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Tuman</div>
+                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Tuman</div>
                   <div class="text-lg font-bold">{{ building.district }}</div>
                 </div>
-                <div>
-                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1">Shahar</div>
+                <div class="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] transition-all hover:bg-brand-500/5">
+                  <div class="text-xs text-ink-600 dark:text-ink-300 mb-1.5">Shahar</div>
                   <div class="text-lg font-bold">{{ building.city }}</div>
                 </div>
               </div>
             </div>
 
             <!-- Listings -->
-            <div v-if="buildingListings.length > 0" class="card p-6">
+            <div v-if="buildingListings.length > 0" class="card-premium p-6">
               <h2 class="font-semibold text-ink-900 dark:text-white mb-4">Bo'sh takliflar ({{ buildingListings.length }})</h2>
               <div class="space-y-3">
-                <div v-for="l in buildingListings" :key="l.id" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/20 transition-colors">
+                <div v-for="l in buildingListings" :key="l.id" class="flex items-center gap-4 p-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.04] hover:border-brand-500/20 hover:shadow-md transition-all duration-300 cursor-pointer" @click="navigateTo('/listings/' + l.id)">
                   <div class="w-16 h-16 rounded-lg overflow-hidden bg-ink-900 flex-shrink-0">
                     <img :src="l.photos[0]" :alt="l.titleUz" class="w-full h-full object-cover" loading="lazy" />
                   </div>
@@ -107,14 +111,14 @@
 
           <!-- Sidebar -->
           <div class="space-y-4">
-            <div class="card p-6">
+            <div class="card-premium p-6 glow-brand" style="background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(139,92,246,0.03));">
               <h3 class="font-semibold dark:text-white mb-4">Aloqa va taklif</h3>
-              <p class="text-sm text-ink-400 mb-4">Bu binodagi bo'sh maydonlar haqida taklif olish uchun ariza yuboring.</p>
-              <NuxtLink to="/register/eri" class="btn btn-primary w-full mb-2">Taklif so'rash</NuxtLink>
+              <p class="text-sm text-ink-400 mb-5">Bu binodagi bo'sh maydonlar haqida taklif olish uchun ariza yuboring.</p>
+              <NuxtLink to="/register/eri" class="btn btn-primary w-full mb-2 btn-glow">Taklif so'rash</NuxtLink>
               <NuxtLink to="/login" class="btn btn-secondary w-full">Tizimga kirish</NuxtLink>
             </div>
 
-            <div class="card p-6">
+            <div class="card-premium p-6">
               <h3 class="font-semibold dark:text-white mb-3">Joylashuv</h3>
               <p class="text-sm text-ink-400">{{ building.address }}</p>
               <p class="text-sm text-ink-500 mt-1">{{ building.district }}, {{ building.city }}</p>

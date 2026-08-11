@@ -14,15 +14,15 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button class="btn btn-secondary btn-sm"><Download :size="14" /> PDF</button>
-        <NuxtLink v-if="contract.status !== 'ACTIVE'" :to="`/contracts/${contract.id}/activate`" class="btn btn-primary btn-sm">
+        <button class="btn btn-secondary btn-sm hover-lift"><Download :size="14" /> PDF</button>
+        <NuxtLink v-if="contract.status !== 'ACTIVE'" :to="`/contracts/${contract.id}/activate`" class="btn btn-primary btn-sm btn-glow">
           <CheckCircle :size="14" /> Aktivlashtirish
         </NuxtLink>
       </div>
     </div>
 
     <!-- ERI Timeline -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2">
         <ShieldCheck :size="18" class="text-purple-500" /> ERI imzo jarayoni
       </h3>
@@ -44,7 +44,7 @@
     <!-- Parties + Terms grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <!-- Parties (2 cols) -->
-      <div class="card p-5 md:col-span-2">
+      <div class="card-premium p-5 md:col-span-2">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2">
           <Users :size="18" class="text-brand-500" /> Tomonlar
         </h3>
@@ -73,7 +73,7 @@
       </div>
 
       <!-- Terms (1 col) -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2">
           <FileText :size="18" class="text-brand-500" /> Shartlar
         </h3>
@@ -137,7 +137,7 @@
     </div>
 
     <!-- Invoices linked to this contract -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Shartnomaga bog'langan invoyslar</h3>
       <div class="space-y-2">
         <div v-for="inv in contractInvoices" :key="inv.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">

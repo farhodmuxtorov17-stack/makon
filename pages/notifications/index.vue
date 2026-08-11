@@ -21,7 +21,7 @@
     </div>
 
     <!-- Notifications -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="space-y-2">
         <div v-for="n in filteredNotifications" :key="n.id"
           class="notif-row"

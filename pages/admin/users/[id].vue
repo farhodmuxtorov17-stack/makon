@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="flex gap-2">
-        <button @click="saveUser" class="btn btn-primary btn-sm"><Save :size="14" /> Saqlash</button>
+        <button @click="saveUser" class="btn btn-primary btn-sm btn-glow"><Save :size="14" /> Saqlash</button>
         <button @click="showDelete = true" class="btn btn-ghost btn-sm text-red-500"><Trash2 :size="14" /> O'chirish</button>
       </div>
     </div>
@@ -74,7 +74,7 @@
 
     <!-- Activity tab -->
     <div v-if="activeTab === 'activity'" class="space-y-4">
-      <div class="card p-6">
+      <div class="card-premium p-6">
         <h3 class="font-semibold dark:text-white mb-4">Tizimga kirish tarixi</h3>
         <div class="space-y-2">
           <div v-for="login in logins" :key="login.id" class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
@@ -93,7 +93,7 @@
         </div>
       </div>
 
-      <div class="card p-6">
+      <div class="card-premium p-6">
         <h3 class="font-semibold dark:text-white mb-4">So'nggi amallar</h3>
         <div class="space-y-2">
           <div v-for="act in activities" :key="act.id" class="flex items-center gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5 text-sm">
@@ -106,7 +106,7 @@
     </div>
 
     <!-- Contracts tab -->
-    <div v-if="activeTab === 'contracts'" class="card p-6">
+    <div v-if="activeTab === 'contracts'" class="card-premium p-6">
       <h3 class="font-semibold dark:text-white mb-4">Bog'liq shartnomalar</h3>
       <div class="space-y-2">
         <div v-for="c in userContracts" :key="c.id" class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">

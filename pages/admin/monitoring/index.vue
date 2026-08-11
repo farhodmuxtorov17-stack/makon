@@ -13,7 +13,7 @@
 
     <!-- System health cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><Server :size="16" class="text-emerald-500" /></div>
           <span class="text-xs text-ink-500">Server</span>
@@ -21,7 +21,7 @@
         <div class="text-lg font-bold text-emerald-500">99.98%</div>
         <div class="text-xs text-ink-500 mt-0.5">Uptime (30 kun)</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Gauge :size="16" class="text-blue-500" /></div>
           <span class="text-xs text-ink-500">API kechikish</span>
@@ -29,7 +29,7 @@
         <div class="text-lg font-bold text-ink-900 dark:text-white">42<span class="text-xs text-ink-500 font-normal">ms</span></div>
         <div class="text-xs text-emerald-500 mt-0.5">↓ 8ms</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><Users :size="16" class="text-purple-500" /></div>
           <span class="text-xs text-ink-500">Online foydalanuvchilar</span>
@@ -37,7 +37,7 @@
         <div class="text-lg font-bold text-ink-900 dark:text-white">7</div>
         <div class="text-xs text-ink-500 mt-0.5">/ 24 jami</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Database :size="16" class="text-amber-500" /></div>
           <span class="text-xs text-ink-500">Ma'lumot bazasi</span>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- API response chart -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">API javob vaqti (24 soat)</h3>
         <span class="text-xs text-ink-500">ms</span>
@@ -59,7 +59,7 @@
     <!-- Two columns: Online users + Error log -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <!-- Online users -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Online foydalanuvchilar</h3>
         <div class="space-y-2">
           <div v-for="u in onlineUsers" :key="u.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
@@ -79,7 +79,7 @@
       </div>
 
       <!-- Error log -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">So'nggi xatolar</h3>
         <div class="space-y-2">
           <div v-for="err in errors" :key="err.id" class="p-3 rounded-xl bg-red-500/5 border border-red-500/10">
@@ -101,7 +101,7 @@
     </div>
 
     <!-- System metrics bars -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Resurs sarfi</h3>
       <div class="space-y-4">
         <div v-for="m in metrics" :key="m.label" class="metric-bar">

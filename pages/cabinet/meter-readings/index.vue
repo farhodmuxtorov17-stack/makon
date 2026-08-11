@@ -19,19 +19,19 @@
 
     <!-- Stats -->
     <div class="grid grid-cols-3 gap-4">
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center"><Zap :size="20" class="text-amber-500" /></div>
           <div><div class="text-xs text-ink-500">Elektr</div><div class="font-bold">{{ formatNum(currentMonthData?.electricity || 0) }} kWh</div></div>
         </div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center"><Droplets :size="20" class="text-blue-500" /></div>
           <div><div class="text-xs text-ink-500">Suv</div><div class="font-bold">{{ formatNum(currentMonthData?.water || 0) }} m³</div></div>
         </div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center"><Flame :size="20" class="text-orange-500" /></div>
           <div><div class="text-xs text-ink-500">Gaz</div><div class="font-bold">{{ formatNum(currentMonthData?.gas || 0) }} m³</div></div>
@@ -97,7 +97,7 @@
     </div>
 
     <!-- History -->
-    <div class="card p-6">
+    <div class="card-premium p-6">
       <h3 class="font-semibold dark:text-white mb-4">Tarix</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">

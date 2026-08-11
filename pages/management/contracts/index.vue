@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Shartnomalar boshqaruvi</h1>
         <p class="text-ink-500 text-sm mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} aktiv</p>
       </div>
-      <NuxtLink to="/management/applications" class="btn btn-primary btn-sm">
+      <NuxtLink to="/management/applications" class="btn btn-primary btn-sm btn-glow">
         <Plus :size="14" /> Arizadan shartnoma
       </NuxtLink>
     </div>
@@ -119,7 +119,7 @@
             </div>
           </div>
 
-          <div class="card p-4">
+          <div class="card-premium p-4">
             <div class="text-xs font-semibold text-ink-500 uppercase tracking-wider mb-3">ERI imzolar</div>
             <div class="flex gap-3">
               <div class="flex-1 flex items-center gap-2 p-2.5 rounded-xl" :class="selectedContract.eriTenantSigned ? 'bg-emerald-500/10' : 'bg-amber-500/10'">

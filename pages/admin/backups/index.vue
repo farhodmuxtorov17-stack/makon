@@ -7,34 +7,34 @@
       </div>
       <div class="flex items-center gap-2">
         <button class="btn btn-secondary btn-sm"><RotateCcw :size="14" /> Avtomatik: Har 6 soat</button>
-        <button @click="createBackup" class="btn btn-primary btn-sm"><Plus :size="14" /> Nusxa olish</button>
+        <button @click="createBackup" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Nusxa olish</button>
       </div>
     </div>
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Database :size="16" class="text-blue-500" /></div>
           <span class="text-xs text-ink-500">Jami hajm</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">1.2<span class="text-xs text-ink-500 font-normal"> GB</span></div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><CheckCircle2 :size="16" class="text-emerald-500" /></div>
           <span class="text-xs text-ink-500">Muvaffaqiyatli</span>
         </div>
         <div class="text-xl font-bold text-emerald-500">{{ successCount }}</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><Clock :size="16" class="text-purple-500" /></div>
           <span class="text-xs text-ink-500">Keyingi</span>
         </div>
         <div class="text-xl font-bold text-ink-900 dark:text-white">18:00</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><HardDrive :size="16" class="text-amber-500" /></div>
           <span class="text-xs text-ink-500">Disk</span>

@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Foydalanuvchilar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUsers.length }} foydalanuvchi · {{ activeCount }} faol</p>
       </div>
-      <button @click="showInvite = true" class="btn btn-primary btn-sm"><UserPlus :size="14" /> Taklif yuborish</button>
+      <button @click="showInvite = true" class="btn btn-primary btn-sm btn-glow"><UserPlus :size="14" /> Taklif yuborish</button>
     </div>
 
     <!-- KPI -->
@@ -141,7 +141,7 @@
       </div>
       <template #footer>
         <button @click="showInvite = false" class="btn btn-ghost btn-sm">Bekor qilish</button>
-        <button @click="sendInvite" class="btn btn-primary btn-sm"><Send :size="14" /> Taklif yuborish</button>
+        <button @click="sendInvite" class="btn btn-primary btn-sm btn-glow"><Send :size="14" /> Taklif yuborish</button>
       </template>
     </DrawerModal>
   </div>

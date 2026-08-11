@@ -22,7 +22,7 @@
     </div>
 
     <!-- Audit timeline -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="audit-timeline">
         <div v-for="entry in filteredEntries" :key="entry.id" class="audit-timeline__item">
           <div class="audit-timeline__marker" :style="{ background: actionColor(entry.type) + '15', color: actionColor(entry.type) }">

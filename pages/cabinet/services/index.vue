@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisob va servis</h1>
         <p class="text-ink-500 text-sm mt-1">To'lovlar, invoyslar va servis so'rovlari</p>
       </div>
-      <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm">
+      <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm btn-glow">
         <Plus :size="14" /> Servis so'rov
       </NuxtLink>
     </div>
@@ -28,7 +28,7 @@
         <div class="text-2xl font-bold text-red-500">{{ formatUZS(4200000) }}</div>
         <div class="text-xs text-ink-500 mt-1">Unit B-205 · 5 kun kechikish</div>
       </div>
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <div class="flex items-center gap-2 mb-3">
           <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center"><Receipt :size="20" class="text-blue-500" /></div>
           <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Keyingi to'lov</span>
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Service charges breakdown -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis to'lovlari tarkibi</h3>
       <div class="space-y-3">
         <div v-for="charge in serviceCharges" :key="charge.name" class="flex items-center gap-3">
@@ -65,7 +65,7 @@
     </div>
 
     <!-- Recent invoices -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">So'nggi invoyslar</h3>
         <NuxtLink to="/finance/invoices" class="text-xs text-brand-500">Barchasi →</NuxtLink>
@@ -99,7 +99,7 @@
     </div>
 
     <!-- Service requests -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">Servis so'rovlari</h3>
         <NuxtLink to="/cabinet/service-requests/new" class="btn btn-secondary btn-sm text-xs"><Plus :size="12" /> Yangi</NuxtLink>

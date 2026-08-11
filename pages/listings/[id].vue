@@ -64,14 +64,14 @@
             </div>
 
             <!-- Description -->
-            <div class="card p-6">
+            <div class="card-premium p-6">
               <h3 class="font-semibold dark:text-white mb-3">Tavsif</h3>
               <p class="text-ink-400 leading-relaxed">{{ listing.descriptionUz || listing.descriptionRu || 'Tavsif kiritilmagan' }}</p>
             </div>
 
 
             <!-- Floor Plan (real image from internet) -->
-            <div class="card p-6">
+            <div class="card-premium p-6">
               <div class="flex items-center justify-between mb-4">
                 <h3 class="font-semibold dark:text-white">Planirovka</h3>
                 <div class="flex gap-2">
@@ -197,7 +197,7 @@
             </div>
 
             <!-- Building info -->
-            <div class="card p-6">
+            <div class="card-premium p-6">
               <h3 class="font-semibold dark:text-white mb-4">Bino ma'lumotlari</h3>
               <NuxtLink :to="`/buildings/${data.building.slug}`" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
                 <div class="w-16 h-16 rounded-lg overflow-hidden bg-ink-900 flex-shrink-0">
@@ -213,7 +213,7 @@
             </div>
 
             <!-- Virtual tour -->
-            <div v-if="listing.virtualTourUrl" class="card p-6">
+            <div v-if="listing.virtualTourUrl" class="card-premium p-6">
               <h3 class="font-semibold dark:text-white mb-3">Virtual tur</h3>
               <a :href="listing.virtualTourUrl" target="_blank" class="btn btn-secondary">
                 <ExternalLink :size="16" /> Virtual turni ochish
@@ -223,7 +223,7 @@
 
           <!-- Sidebar — Apply -->
           <div class="lg:sticky lg:top-6 h-fit space-y-4">
-            <div class="card p-6">
+            <div class="card-premium p-6">
               <div class="mb-4">
                 <div class="text-3xl font-bold text-brand-400">{{ formatUZS(listing.price) }}</div>
                 <div class="text-xs text-ink-500 mt-1">{{ listing.offerType === 'RENT' ? 'oyiga' : 'bir martalik to\'lov' }}</div>

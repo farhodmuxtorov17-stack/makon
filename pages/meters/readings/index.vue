@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisoblagich ko'rsatkichlari</h1>
         <p class="text-ink-500 text-sm mt-1">{{ readings.length }} ta yozuv · {{ unreadCount }} o'qilmagan</p>
       </div>
-      <button class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi ko'rsatkich</button>
+      <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ko'rsatkich</button>
     </div>
 
     <!-- KPI -->

@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Ariza va hujjatlar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ apps.length }} ta ariza · {{ activeCount }} faol</p>
       </div>
-      <NuxtLink to="/catalog" class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi ariza</NuxtLink>
+      <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
     </div>
 
     <!-- Status tabs -->
@@ -101,7 +101,7 @@
     <div v-if="filteredApps.length === 0" class="card p-12 text-center">
       <FileText :size="32" class="text-ink-300 mx-auto mb-3" />
       <p class="text-ink-500 text-sm mb-4">Bu statusda arizalar yo'q</p>
-      <NuxtLink to="/catalog" class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi ariza yuborish</NuxtLink>
+      <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza yuborish</NuxtLink>
     </div>
   </div>
 </template>

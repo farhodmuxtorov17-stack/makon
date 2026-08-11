@@ -5,11 +5,11 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Bildirishnoma shablonlari</h1>
         <p class="text-ink-500 text-sm mt-1">{{ templates.length }} ta shablon · {{ activeCount }} faol</p>
       </div>
-      <button class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi shablon</button>
+      <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi shablon</button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div v-for="tpl in templates" :key="tpl.id" class="card p-5">
+      <div v-for="tpl in templates" :key="tpl.id" class="card-premium p-5">
         <div class="flex items-start justify-between mb-3">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center" :class="tpl.active ? 'bg-emerald-500/10' : 'bg-ink-500/10'">

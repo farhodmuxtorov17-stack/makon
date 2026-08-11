@@ -13,7 +13,7 @@
         <button class="btn btn-secondary btn-sm" @click="tab = 'readings'">
           <ClipboardList :size="16" /> Ko'rsatkichlar
         </button>
-        <button class="btn btn-primary btn-sm" @click="showNewReading = !showNewReading">
+        <button class="btn btn-primary btn-sm btn-glow" @click="showNewReading = !showNewReading">
           <Plus :size="16" /> Yangi o'qish
         </button>
       </div>
@@ -44,26 +44,26 @@
         </div>
       </div>
       <div class="flex gap-2">
-        <button class="btn btn-primary btn-sm" @click="addReading">Saqlash</button>
+        <button class="btn btn-primary btn-sm btn-glow" @click="addReading">Saqlash</button>
         <button class="btn btn-secondary btn-sm" @click="showNewReading = false">Bekor qilish</button>
       </div>
     </div>
 
     <!-- Stats -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="text-xs text-ink-500 mb-1">Jami hisoblagichlar</div>
         <div class="text-2xl font-bold">{{ meters.length }}</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="text-xs text-ink-500 mb-1">Elektr</div>
         <div class="text-2xl font-bold text-amber-400">{{ meters.filter(m => m.type === 'ELECTRICITY').length }}</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="text-xs text-ink-500 mb-1">Suv (sovuq/issiq)</div>
         <div class="text-2xl font-bold text-blue-400">{{ meters.filter(m => m.type.startsWith('WATER')).length }}</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="text-xs text-ink-500 mb-1">Gaz</div>
         <div class="text-2xl font-bold text-orange-400">{{ meters.filter(m => m.type === 'GAS').length }}</div>
       </div>

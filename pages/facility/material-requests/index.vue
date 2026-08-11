@@ -6,7 +6,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white tracking-tight">Material so'rovlari</h1>
         <p class="text-sm text-ink-500 mt-1">Work orderlar uchun materiallar zaruriyati</p>
       </div>
-      <button class="btn btn-primary btn-sm" @click="showNew = !showNew">
+      <button class="btn btn-primary btn-sm btn-glow" @click="showNew = !showNew">
         <Plus :size="16" /> Yangi so'rov
       </button>
     </div>
@@ -35,26 +35,26 @@
         </div>
       </div>
       <div class="flex gap-2">
-        <button class="btn btn-primary btn-sm" @click="createReq">Yuborish</button>
+        <button class="btn btn-primary btn-sm btn-glow" @click="createReq">Yuborish</button>
         <button class="btn btn-secondary btn-sm" @click="showNew = false">Bekor qilish</button>
       </div>
     </div>
 
     <!-- Stats -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="text-xs text-ink-500 mb-1">Jami so'rovlar</div>
         <div class="text-2xl font-bold">{{ requests.length }}</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="text-xs text-ink-500 mb-1">Tasdiqlangan</div>
         <div class="text-2xl font-bold text-emerald-400">{{ requests.filter(r => r.status === 'APPROVED').length }}</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="text-xs text-ink-500 mb-1">Kutilmoqda</div>
         <div class="text-2xl font-bold text-amber-400">{{ requests.filter(r => r.status === 'PENDING').length }}</div>
       </div>
-      <div class="card p-4">
+      <div class="card-premium p-4">
         <div class="text-xs text-ink-500 mb-1">Rad etilgan</div>
         <div class="text-2xl font-bold text-red-400">{{ requests.filter(r => r.status === 'REJECTED').length }}</div>
       </div>

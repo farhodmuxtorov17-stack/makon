@@ -7,7 +7,7 @@
       </div>
       <div class="flex items-center gap-2">
         <button class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
-        <button class="btn btn-primary btn-sm"><Plus :size="14" /> Material qo'shish</button>
+        <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Material qo'shish</button>
       </div>
     </div>
 

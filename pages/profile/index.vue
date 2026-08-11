@@ -26,7 +26,7 @@
         </div>
 
         <!-- Quick stats -->
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-3">Statistika</h3>
           <div class="grid grid-cols-2 gap-3">
             <div class="text-center p-3 rounded-xl bg-black/5 dark:bg-white/5">
@@ -52,7 +52,7 @@
       <!-- Right: Settings forms -->
       <div class="lg:col-span-2 space-y-4">
         <!-- Personal info -->
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Shaxsiy ma'lumotlar</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -73,12 +73,12 @@
             </div>
           </div>
           <div class="flex justify-end mt-4">
-            <button class="btn btn-primary btn-sm"><Save :size="14" /> Saqlash</button>
+            <button class="btn btn-primary btn-sm btn-glow"><Save :size="14" /> Saqlash</button>
           </div>
         </div>
 
         <!-- Password change -->
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Parolni o'zgartirish</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -100,7 +100,7 @@
         </div>
 
         <!-- Notifications settings -->
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bildirishnoma sozlamalari</h3>
           <div class="space-y-3">
             <label v-for="s in notifSettings" :key="s.id" class="notif-setting">
@@ -117,7 +117,7 @@
         </div>
 
         <!-- Sessions -->
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Faol seanslar</h3>
           <div class="space-y-2">
             <div v-for="s in sessions" :key="s.id" class="session-row">

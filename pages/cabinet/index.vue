@@ -9,7 +9,7 @@
           <p class="text-ink-500 text-sm mt-0.5">STIR: {{ org.tin }} · {{ units.length }} ta unit · {{ activeContracts }} ta faol shartnoma</p>
         </div>
       </div>
-      <NuxtLink to="/catalog" class="btn btn-primary btn-sm">
+      <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow">
         <Plus :size="14" /> Yangi ariza
       </NuxtLink>
     </div>
@@ -34,7 +34,7 @@
       </div>
 
       <!-- Recent notifications -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-semibold text-ink-900 dark:text-white">Bildirishnomalar</h3>
           <NuxtLink to="/notifications" class="text-xs text-brand-500">Barchasi →</NuxtLink>
@@ -55,7 +55,7 @@
     </div>
 
     <!-- My Units -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">Mening unitlarim</h3>
         <NuxtLink to="/cabinet/units" class="text-xs text-brand-500">Barchasini ko'rish →</NuxtLink>
@@ -83,7 +83,7 @@
 
     <!-- Recent applications + Service requests -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-semibold text-ink-900 dark:text-white">So'nggi arizalar</h3>
           <NuxtLink to="/cabinet/applications" class="text-xs text-brand-500">Barchasi →</NuxtLink>
@@ -102,7 +102,7 @@
         </div>
       </div>
 
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-semibold text-ink-900 dark:text-white">Servis so'rovlari</h3>
           <NuxtLink to="/cabinet/service-requests/new" class="btn btn-secondary btn-sm text-xs">

@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Rollar va huquqlar</h1>
         <p class="text-ink-500 text-sm mt-1">5 ta rol · {{ permissions.length }} ta huquq</p>
       </div>
-      <button class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi rol</button>
+      <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi rol</button>
     </div>
 
     <!-- Role cards -->
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Permission matrix -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">{{ selectedRoleLabel }} — huquqlar matritsasi</h3>
         <button class="btn btn-secondary btn-sm"><Save :size="14" /> Saqlash</button>

@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Moliya davrlari</h1>
         <p class="text-ink-500 text-sm mt-1">Hisob-kitob davrlari va holati</p>
       </div>
-      <button class="btn btn-primary btn-sm"><Plus :size="16" /> Yangi davr</button>
+      <button class="btn btn-primary btn-sm btn-glow"><Plus :size="16" /> Yangi davr</button>
     </div>
 
     <!-- KPI -->
@@ -17,7 +17,7 @@
     </div>
 
     <!-- Revenue chart -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">Daromad dinamikasi (8 oy)</h3>
         <div class="flex items-center gap-3 text-xs text-ink-500">

@@ -11,7 +11,7 @@
       <div class="flex items-center gap-2">
         <NuxtLink :to="`/buildings/${building.slug}`" class="btn btn-secondary btn-sm"><Eye :size="14" /> Public</NuxtLink>
         <NuxtLink :to="`/floors/3/plan`" class="btn btn-secondary btn-sm"><Map :size="14" /> 2D reja</NuxtLink>
-        <button class="btn btn-primary btn-sm"><Edit3 :size="14" /> Tahrir</button>
+        <button class="btn btn-primary btn-sm btn-glow"><Edit3 :size="14" /> Tahrir</button>
       </div>
     </div>
 
@@ -83,7 +83,7 @@
 
       <div class="space-y-4">
         <!-- Status -->
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-3">Holat</h3>
           <div class="space-y-2.5 text-sm">
             <div class="flex items-center justify-between">
@@ -106,7 +106,7 @@
         </div>
 
         <!-- Quick actions -->
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-3">Tezkor amallar</h3>
           <div class="space-y-2">
             <NuxtLink :to="`/management/buildings/${building.id}/units`" class="btn btn-secondary btn-sm w-full justify-start"><Layers :size="14" /> Unitlar boshqaruvi</NuxtLink>
@@ -119,7 +119,7 @@
     </div>
 
     <!-- Floors tab -->
-    <div v-if="activeTab === 'floors'" class="card p-5">
+    <div v-if="activeTab === 'floors'" class="card-premium p-5">
       <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Qavatlar ro'yxati</h3>
       <div class="space-y-2">
         <div v-for="floor in floors" :key="floor.id" class="floor-row">
@@ -145,10 +145,10 @@
     </div>
 
     <!-- Gallery tab -->
-    <div v-if="activeTab === 'gallery'" class="card p-5">
+    <div v-if="activeTab === 'gallery'" class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">Fotogalereya</h3>
-        <button class="btn btn-primary btn-sm"><Plus :size="14" /> Rasm qo'shish</button>
+        <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Rasm qo'shish</button>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div v-for="(photo, i) in gallery" :key="i" class="gallery-item">
@@ -159,10 +159,10 @@
     </div>
 
     <!-- Docs tab -->
-    <div v-if="activeTab === 'docs'" class="card p-5">
+    <div v-if="activeTab === 'docs'" class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">Hujjatlar</h3>
-        <button class="btn btn-primary btn-sm"><Plus :size="14" /> Yuklash</button>
+        <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yuklash</button>
       </div>
       <div class="space-y-2">
         <div v-for="doc in docs" :key="doc.name" class="doc-row">
@@ -178,16 +178,16 @@
 
     <!-- Analytics tab -->
     <div v-if="activeTab === 'analytics'" class="space-y-4">
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Tushum dinamikasi</h3>
         <MakonChart type="area" :series="revenueSeries" :categories="months" :height="240" :colors="['#6366f1']" />
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Unit turlari</h3>
           <MakonChart type="donut" :series="[180, 120, 80, 40]" :donutLabels="['Ofis', 'Savdo', 'Ombor', 'Boshqa']" :height="240" :colors="['#6366f1', '#3b82f6', '#10b981', '#f59e0b']" />
         </div>
-        <div class="card p-5">
+        <div class="card-premium p-5">
           <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis so'rovlari</h3>
           <MakonChart type="bar" :series="serviceSeries" :categories="serviceCats" :height="240" :colors="['#f59e0b']" />
         </div>

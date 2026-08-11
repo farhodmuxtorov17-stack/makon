@@ -210,7 +210,7 @@
       </div>
       <template #footer>
         <button @click="showCreateModal = false" class="btn btn-ghost btn-sm">Bekor qilish</button>
-        <button @click="createBuilding" class="btn btn-primary btn-sm">
+        <button @click="createBuilding" class="btn btn-primary btn-sm btn-glow">
           <Check :size="14" /> Yaratish
         </button>
       </template>
@@ -275,7 +275,7 @@
       </div>
       <template #footer>
         <button @click="selectedBuilding = null" class="btn btn-ghost btn-sm">Yopish</button>
-        <NuxtLink :to="`/management/buildings/${selectedBuilding?.id}`" class="btn btn-primary btn-sm">
+        <NuxtLink :to="`/management/buildings/${selectedBuilding?.id}`" class="btn btn-primary btn-sm btn-glow">
           <Settings :size="14" /> Boshqarish
         </NuxtLink>
       </template>

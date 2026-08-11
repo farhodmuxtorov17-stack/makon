@@ -41,7 +41,7 @@
       </div>
 
       <!-- Conversion donut -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Ariza konversiyasi</h3>
         <MakonChart type="donut" :series="[842, 156, 42, 28]" :donutLabels="['Ko\'rishlar', 'Arizalar', 'Shartnomalar', 'Imzolangan']" :height="280" :colors="['#3b82f6', '#6366f1', '#a855f7', '#10b981']" />
       </div>
@@ -50,13 +50,13 @@
     <!-- Charts row 2 -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <!-- Occupancy trend -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bandlik dinamikasi</h3>
         <MakonChart type="area" :series="occupancySeries" :categories="months" :height="240" :colors="['#10b981']" />
       </div>
 
       <!-- Service SLA -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis SLA holati (kategoriya bo'yicha)</h3>
         <MakonChart type="bar" :series="slaSeries" :categories="slaCategories" :height="240" :colors="['#10b981', '#f59e0b', '#ef4444']" :horizontal="true" :stacked="true" />
       </div>
@@ -109,7 +109,7 @@
 
     <!-- Recent activity feed -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">So'nggi faollik</h3>
         <div class="space-y-2">
           <div v-for="a in activities" :key="a.id" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
@@ -124,7 +124,7 @@
         </div>
       </div>
 
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Top ijarachi (daromad)</h3>
         <div class="space-y-2">
           <div v-for="(t, i) in topTenants" :key="t.name" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">

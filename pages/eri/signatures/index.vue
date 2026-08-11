@@ -69,7 +69,7 @@
 
         <!-- Actions -->
         <div class="flex items-center gap-2 mt-4 pt-3 border-t border-black/5 dark:border-white/5">
-          <button v-if="sig.status === 'PENDING'" class="btn btn-primary btn-sm"><Send :size="14" /> Imzo so'rov yuborish</button>
+          <button v-if="sig.status === 'PENDING'" class="btn btn-primary btn-sm btn-glow"><Send :size="14" /> Imzo so'rov yuborish</button>
           <button v-if="sig.status === 'FAILED'" class="btn btn-secondary btn-sm"><RotateCw :size="14" /> Qayta urinish</button>
           <span v-if="sig.status === 'SIGNED'" class="text-xs text-emerald-500 flex items-center gap-1"><CheckCircle2 :size="14" /> {{ sig.signedDate }} da imzolangan</span>
           <span v-if="sig.status === 'FAILED'" class="text-xs text-red-500 ml-2">Sabab: {{ sig.failReason }}</span>

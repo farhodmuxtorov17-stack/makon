@@ -7,7 +7,7 @@
       </div>
       <div class="flex items-center gap-2">
         <button @click="exportCSV" class="btn btn-secondary btn-sm"><Download :size="14" /> Eksport</button>
-        <button @click="showCreateModal = true" class="btn btn-primary btn-sm"><Plus :size="14" /> Yangi invoys</button>
+        <button @click="showCreateModal = true" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi invoys</button>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
     </div>
 
     <!-- Mini chart -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold text-ink-900 dark:text-white">To'lov dinamikasi (6 oy)</h3>
         <div class="flex items-center gap-3 text-xs text-ink-500">
@@ -168,7 +168,7 @@
       </div>
       <template #footer>
         <button @click="showCreateModal = false" class="btn btn-ghost btn-sm">Bekor qilish</button>
-        <button @click="createInvoice" class="btn btn-primary btn-sm"><Check :size="14" /> Yaratish</button>
+        <button @click="createInvoice" class="btn btn-primary btn-sm btn-glow"><Check :size="14" /> Yaratish</button>
       </template>
     </DrawerModal>
   </div>

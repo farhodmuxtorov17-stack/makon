@@ -10,7 +10,7 @@
     </div>
 
     <!-- Pre-filled listing info -->
-    <div class="card p-5">
+    <div class="card-premium p-5">
       <div class="flex items-center gap-4">
         <div class="w-16 h-16 rounded-xl bg-brand-500/10 flex items-center justify-center">
           <Building2 :size="24" class="text-brand-500" />

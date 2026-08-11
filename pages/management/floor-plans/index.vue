@@ -32,7 +32,7 @@
           <div class="text-sm font-medium">{{ uploadedFile.name }}</div>
           <div class="text-xs text-ink-500">{{ formatSize(uploadedFile.size) }} · Yuklandi</div>
         </div>
-        <button @click="currentStep++" class="btn btn-primary btn-sm">Davom etish</button>
+        <button @click="currentStep++" class="btn btn-primary btn-sm btn-glow">Davom etish</button>
       </div>
     </div>
 

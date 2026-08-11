@@ -10,7 +10,7 @@
         <button class="btn btn-secondary btn-sm" @click="showFilters = !showFilters">
           <Filter :size="16" /> Filtrlar
         </button>
-        <button class="btn btn-primary btn-sm" @click="showNew = !showNew">
+        <button class="btn btn-primary btn-sm btn-glow" @click="showNew = !showNew">
           <Plus :size="16" /> Yangi work order
         </button>
       </div>
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="flex gap-2">
-        <button class="btn btn-primary btn-sm" @click="createOrder">Yaratish</button>
+        <button class="btn btn-primary btn-sm btn-glow" @click="createOrder">Yaratish</button>
         <button class="btn btn-secondary btn-sm" @click="showNew = false">Bekor qilish</button>
       </div>
     </div>

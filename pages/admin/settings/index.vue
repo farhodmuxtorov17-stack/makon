@@ -7,7 +7,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <!-- General -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2"><Settings :size="18" class="text-brand-500" /> Umumiy</h3>
         <div class="space-y-3">
           <div>
@@ -41,7 +41,7 @@
       </div>
 
       <!-- ERI -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2"><ShieldCheck :size="18" class="text-purple-500" /> ERI integratsiyasi</h3>
         <div class="space-y-3">
           <div class="flex items-center justify-between p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
@@ -64,7 +64,7 @@
       </div>
 
       <!-- Notification channels -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2"><Bell :size="18" class="text-amber-500" /> Bildirishnoma kanallari</h3>
         <div class="space-y-3">
           <label v-for="ch in channels" :key="ch.id" class="settings-row">
@@ -84,7 +84,7 @@
       </div>
 
       <!-- Security -->
-      <div class="card p-5">
+      <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4 flex items-center gap-2"><Lock :size="18" class="text-red-500" /> Xavfsizlik</h3>
         <div class="space-y-3">
           <label class="settings-row">
