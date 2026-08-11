@@ -1,9 +1,8 @@
 <template>
   <div class="space-y-6">
     <!-- Hero Header -->
-    <div class="relative overflow-hidden rounded-2xl border border-black/5 dark:border-white/5" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #818cf8 100%);">
-      
-      
+    <div class="relative overflow-hidden rounded-2xl border border-black/5 dark:border-white/5" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #818cf8 100%); box-shadow: 0 8px 32px rgba(99,102,241,0.15);">
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse at top right, rgba(255,255,255,0.1), transparent 50%);"></div>
       <div class="relative p-6 lg:p-8 text-white">
         <div class="flex items-start justify-between flex-wrap gap-4">
           <div>
@@ -25,7 +24,7 @@
 
         <!-- Quick stats inline -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-          <div v-for="qs in quickStats" :key="qs.label" class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
+          <div v-for="qs in quickStats" :key="qs.label" class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 transition-all hover:bg-white/15 hover:scale-105 cursor-pointer">
             <div class="text-white/60 text-xs">{{ qs.label }}</div>
             <div class="text-xl font-bold mt-0.5">{{ qs.value }}</div>
           </div>

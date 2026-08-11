@@ -5,7 +5,7 @@
       <div class="h-full flex flex-col admin-sidebar">
         <!-- Logo -->
         <div class="h-16 flex items-center gap-3 px-5 border-b border-black/5 dark:border-white/5 flex-shrink-0">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/30">M</div>
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/30 transition-transform hover:scale-105">M</div>
           <div>
             <div class="font-bold text-sm tracking-tight text-ink-900 dark:text-white">MAKON</div>
             <div class="text-[10px] text-ink-400 uppercase tracking-widest">{{ currentRoleShort }}</div>
@@ -33,13 +33,13 @@
 
         <!-- User -->
         <div class="p-3 border-t border-black/5 dark:border-white/5 flex-shrink-0">
-          <button @click="handleLogout" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm admin-sidebar-item transition-colors">
-            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-xs font-bold text-white">A</div>
+          <button @click="handleLogout" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm admin-sidebar-item transition-all duration-200 hover:translate-x-1">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-xs font-bold text-white shadow-md shadow-brand-500/20">A</div>
             <div class="flex-1 text-left">
               <div class="text-sm font-medium text-ink-900 dark:text-white">Admin</div>
               <div class="text-[11px] text-ink-500">Tizimdan chiqish</div>
             </div>
-            <LogOut :size="16" class="text-ink-400" />
+            <LogOut :size="16" class="text-ink-400 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
       </div>
@@ -48,7 +48,7 @@
     <div v-if="sidebarOpen" class="fixed inset-0 bg-black/60 z-30 lg:hidden" @click="sidebarOpen = false" />
 
     <div class="flex-1 min-w-0 flex flex-col">
-      <header class="h-16 sticky top-0 z-20 glass border-b border-black/5 dark:border-white/5 flex items-center px-4 lg:px-6 gap-3 flex-shrink-0">
+      <header class="h-16 sticky top-0 z-20 glass border-b border-black/5 dark:border-white/5 flex items-center px-4 lg:px-6 gap-3 flex-shrink-0" style="backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);">
         <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-500">
           <Menu :size="20" />
         </button>
@@ -63,9 +63,9 @@
         <div class="flex-1" />
         <RoleSwitcher />
         <ThemeToggle />
-        <button class="relative p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">
+        <button class="relative p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-ink-500 hover:text-ink-900 dark:hover:text-white transition-all duration-200 hover:scale-105">
           <Bell :size="18" />
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brand-500"></span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
         </button>
       </header>
 

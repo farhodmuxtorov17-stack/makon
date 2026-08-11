@@ -38,34 +38,45 @@ function handleClick() {
 <style scoped>
 .kpi-card {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 18px 20px;
+  border-radius: 18px;
+  padding: 20px 22px;
   border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-  transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.kpi-card:hover::after { opacity: 1; }
 :global(.dark) .kpi-card {
   background: rgba(255,255,255,0.03);
   border-color: rgba(255,255,255,0.06);
 }
 .kpi-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-  border-color: rgba(99,102,241,0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  border-color: rgba(99,102,241,0.15);
 }
 :global(.dark) .kpi-card:hover {
-  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-  border-color: rgba(99,102,241,0.1);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  border-color: rgba(99,102,241,0.15);
 }
 
 .kpi-card--clickable {
   cursor: pointer;
 }
 .kpi-card--clickable:hover {
-  border-color: rgba(99,102,241,0.2);
-  box-shadow: 0 8px 24px rgba(99,102,241,0.08);
+  border-color: rgba(99,102,241,0.25);
+  box-shadow: 0 12px 32px rgba(99,102,241,0.1);
+  transform: translateY(-4px);
 }
 .kpi-arrow {
   opacity: 0;
@@ -78,14 +89,16 @@ function handleClick() {
 }
 
 .kpi-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.3s;
 }
+.kpi-card:hover .kpi-icon { transform: scale(1.08); }
 
 .kpi-trend {
   display: inline-flex;
@@ -101,12 +114,13 @@ function handleClick() {
 .kpi-trend.is-down { color: #dc2626; background: rgba(239,68,68,0.08); }
 
 .kpi-value {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
   color: #18181b;
   letter-spacing: -0.03em;
   line-height: 1.1;
   font-feature-settings: 'tnum';
+  transition: color 0.3s;
 }
 :global(.dark) .kpi-value { color: #fafafa; }
 
