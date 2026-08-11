@@ -64,51 +64,51 @@
       </div>
     </footer>
   
-    <!-- Macon AI Assistant Widget -->
-    <div class="macon-ai-widget">
+    <!-- Support chat -->
+    <div class="macon-chat-widget">
       <!-- Chat Panel -->
-      <Transition name="macon-ai">
-        <div v-if="aiOpen" class="macon-ai-panel">
-          <div class="macon-ai-panel__header">
-            <div class="macon-ai-panel__avatar">
+      <Transition name="macon-chat">
+        <div v-if="chatOpen" class="macon-chat-panel">
+          <div class="macon-chat-panel__header">
+            <div class="macon-chat-panel__avatar">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                 <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
               </svg>
             </div>
-            <div class="macon-ai-panel__info">
-              <div class="macon-ai-panel__name">Macon AI</div>
-              <div class="macon-ai-panel__status">
-                <span class="macon-ai-panel__dot"></span> Onlayn
+            <div class="macon-chat-panel__info">
+              <div class="macon-chat-panel__name">Macon Yordam</div>
+              <div class="macon-chat-panel__status">
+                <span class="macon-chat-panel__dot"></span> Onlayn
               </div>
             </div>
-            <button @click="aiOpen = false" class="macon-ai-panel__close">
+            <button @click="chatOpen = false" class="macon-chat-panel__close">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             </button>
           </div>
-          <div ref="aiBody" class="macon-ai-panel__body">
-            <div class="macon-ai-msg macon-ai-msg--bot">
-              Assalomu alaykum! 👋<br>Men Macon AI — sizga ofis maydoni topishda yordam beraman. Qanday yordam bera olaman?
+          <div ref="chatBody" class="macon-chat-panel__body">
+            <div class="macon-chat-msg macon-chat-msg--bot">
+              Assalomu alaykum! 👋<br>Men Macon Yordam — sizga ofis maydoni topishda yordam beraman. Qanday yordam bera olaman?
             </div>
-            <div v-for="(msg, i) in aiMessages" :key="i" :class="['macon-ai-msg', msg.bot ? 'macon-ai-msg--bot' : 'macon-ai-msg--user']">
+            <div v-for="(msg, i) in chatMessages" :key="i" :class="['macon-chat-msg', msg.bot ? 'macon-chat-msg--bot' : 'macon-chat-msg--user']">
               {{ msg.text }}
             </div>
           </div>
-          <div class="macon-ai-panel__footer">
-            <div class="macon-ai-quick">
-              <button @click="aiInput = 'Bo\'sh ofislar bormi?'" class="macon-ai-quick__btn">Bo'sh ofislar</button>
-              <button @click="aiInput = 'Narxlar qancha?'" class="macon-ai-quick__btn">Narxlar</button>
-              <button @click="aiInput = 'ERI nima?'" class="macon-ai-quick__btn">ERI haqida</button>
+          <div class="macon-chat-panel__footer">
+            <div class="macon-chat-quick">
+              <button @click="chatInput = 'Bo\'sh ofislar bormi?'" class="macon-chat-quick__btn">Bo'sh ofislar</button>
+              <button @click="chatInput = 'Narxlar qancha?'" class="macon-chat-quick__btn">Narxlar</button>
+              <button @click="chatInput = 'ERI nima?'" class="macon-chat-quick__btn">ERI haqida</button>
             </div>
-            <div class="macon-ai-input-wrap">
+            <div class="macon-chat-input-wrap">
               <input
-                v-model="aiInput"
+                v-model="chatInput"
                 type="text"
                 placeholder="Xabar yozing..."
-                @keydown.enter.prevent="sendAiMessage"
-                class="macon-ai-input"
+                @keydown.enter.prevent="sendChatMessage"
+                class="macon-chat-input"
               />
-              <button @click="sendAiMessage" class="macon-ai-send">
+              <button @click="sendChatMessage" class="macon-chat-send">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
               </button>
             </div>
@@ -117,12 +117,12 @@
       </Transition>
 
       <!-- Floating Button -->
-      <button @click="aiOpen = !aiOpen" class="macon-ai-fab" :class="{ 'macon-ai-fab--active': aiOpen }">
-        <svg v-if="!aiOpen" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <button @click="chatOpen = !chatOpen" class="macon-chat-fab" :class="{ 'macon-chat-fab--active': chatOpen }">
+        <svg v-if="!chatOpen" width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <svg v-else width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <span v-if="!aiOpen" class="macon-ai-fab__badge">1</span>
+        <span v-if="!chatOpen" class="macon-chat-fab__badge">1</span>
       </button>
     </div>
   </div>
@@ -131,16 +131,16 @@
 <script setup>
 import { ref, nextTick } from 'vue'
 
-const aiOpen = ref(false)
-const aiMessages = ref([])
-const aiInput = ref('')
-const aiBody = ref(null)
+const chatOpen = ref(false)
+const chatMessages = ref([])
+const chatInput = ref('')
+const chatBody = ref(null)
 
-function sendAiMessage() {
-  if (!aiInput.value.trim()) return
-  const q = aiInput.value.toLowerCase()
-  aiMessages.value.push({ text: aiInput.value, bot: false })
-  aiInput.value = ''
+function sendChatMessage() {
+  if (!chatInput.value.trim()) return
+  const q = chatInput.value.toLowerCase()
+  chatMessages.value.push({ text: chatInput.value, bot: false })
+  chatInput.value = ''
   let reply = ''
   if (q.includes('narx') || q.includes('price')) reply = 'Narxlar oyiga 15-25 mln so\'mdan boshlanadi. Katalog bo\'limida batafsil ko\'rishingiz mumim.'
   else if (q.includes('ofis') || q.includes('office') || q.includes('bo\'sh')) reply = 'Hozirda 47 ta bo\'sh maydon mavjud. Katalogga o\'tib tanlang.'
@@ -148,9 +148,9 @@ function sendAiMessage() {
   else if (q.includes('bino') || q.includes('building')) reply = '12 ta premium bino boshqarilmoqda.'
   else reply = 'Rahmat! So\'rovingiz qabul qilindi.'
   setTimeout(() => {
-    aiMessages.value.push({ text: reply, bot: true })
+    chatMessages.value.push({ text: reply, bot: true })
     nextTick(() => {
-      if (aiBody.value) aiBody.value.scrollTop = aiBody.value.scrollHeight
+      if (chatBody.value) chatBody.value.scrollTop = chatBody.value.scrollHeight
     })
   }, 600)
 }
@@ -158,11 +158,11 @@ function sendAiMessage() {
 
 <style scoped>
 
-/* Macon AI Transition */
-.macon-ai-enter-active, .macon-ai-leave-active {
+/* Macon Yordam Transition */
+.macon-chat-enter-active, .macon-chat-leave-active {
   transition: all 0.3s ease;
 }
-.macon-ai-enter-from, .macon-ai-leave-to {
+.macon-chat-enter-from, .macon-chat-leave-to {
   opacity: 0;
   transform: translateY(20px) scale(0.95);
 }

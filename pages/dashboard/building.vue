@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <!-- KPI cards with sparklines -->
+    <!-- Metrics -->
     <div class="bdash__kpis">
       <div v-for="kpi in kpis" :key="kpi.label" class="bdash__kpi">
         <div class="bdash__kpi-top">

@@ -10,7 +10,7 @@
       <button class="btn btn-primary btn-sm btn-glow"><Plus :size="16" /> Yangi davr</button>
     </div>
 
-    <!-- KPI cards with mini visuals -->
+    <!-- Metrics -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="period-kpi period-kpi--teal">
         <div class="period-kpi__icon"><Layers :size="18" /></div>

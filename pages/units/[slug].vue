@@ -11,7 +11,7 @@
 
     <!-- Unit header -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Left: photos -->
+      <!-- Photos -->
       <div class="lg:col-span-2 space-y-4">
         <div class="card-premium overflow-hidden">
           <div class="h-80 relative flex items-center justify-center" style="background: radial-gradient(ellipse at center, rgba(37,99,235,0.06), transparent 70%);">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <!-- Right: price & actions -->
+      <!-- Price <!-- Right: price & actions --> actions -->
       <div class="space-y-4">
         <div class="card-premium p-6 sticky top-20 glow-brand" style="background: linear-gradient(135deg, rgba(37,99,235,0.04), rgba(255,255,255,1));">
           <div class="mb-4">

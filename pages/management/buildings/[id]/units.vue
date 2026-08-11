@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-6">
-    <!-- Breadcrumb Header -->
+    <!-- Breadcrumb -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div class="flex items-center gap-3">
         <NuxtLink :to="`/management/buildings/${buildingId}`" class="btn btn-ghost btn-sm p-2">
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <!-- Units Table -->
+    <!-- Units -->
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
@@ -86,7 +86,6 @@
                 </select>
               </td>
               <td class="px-4 py-3 text-right space-x-1">
-                <!-- Listing Preparation Button -->
                 <button
                   @click="prepareListing(u)"
                   title="Listing tayyorlash"
@@ -95,7 +94,6 @@
                   <Tag :size="14" />
                 </button>
 
-                <!-- Rental History Button -->
                 <button
                   @click="selectedHistoryUnit = u"
                   title="Ijara tarixi"
@@ -114,7 +112,7 @@
       </div>
     </div>
 
-    <!-- Create Unit Modal -->
+    <!-- New unit -->
     <Teleport to="body">
       <div v-if="showCreateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showCreateModal = false"></div>
@@ -186,7 +184,7 @@
       </div>
     </Teleport>
 
-    <!-- Room-to-Unit CAD Linking Modal -->
+    <!-- CAD linking -->
     <Teleport to="body">
       <div v-if="linkingUnit" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="linkingUnit = null"></div>
@@ -217,7 +215,7 @@
       </div>
     </Teleport>
 
-    <!-- Rental History Modal/Drawer -->
+    <!-- Rental history -->
     <Teleport to="body">
       <div v-if="selectedHistoryUnit" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="selectedHistoryUnit = null"></div>

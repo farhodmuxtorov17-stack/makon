@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <!-- Summary cards with visual -->
+    <!-- Summary -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <!-- Total debt -->
       <div class="debt-card debt-card--red">
@@ -164,12 +164,12 @@ const search = ref('')
 const filterStatus = ref('ALL')
 
 const debtors = ref([
-  { id: 'inv-001', tenantName: 'ABC Logistics MChJ', contract: 'CTR-2026-001', number: 'INV-2026-045', amount: 8500000, balance: 8500000, dueDate: '2026-07-01', paidPct: 0, color: 'bg-red-500/10 text-red-500', initials: 'AL' },
-  { id: 'inv-002', tenantName: 'Global Trade MChJ', contract: 'CTR-2026-002', number: 'INV-2026-046', amount: 6200000, balance: 3100000, dueDate: '2026-07-15', paidPct: 50, color: 'bg-amber-500/10 text-amber-500', initials: 'GT' },
-  { id: 'inv-003', tenantName: 'Smart Solutions MChJ', contract: 'CTR-2026-005', number: 'INV-2026-047', amount: 4800000, balance: 4800000, dueDate: '2026-08-01', paidPct: 0, color: 'bg-teal-500/10 text-teal-500', initials: 'SS' },
-  { id: 'inv-004', tenantName: 'Export Group MChJ', contract: 'CTR-2025-098', number: 'INV-2026-048', amount: 7200000, balance: 1800000, dueDate: '2026-06-15', paidPct: 75, color: 'bg-orange-500/10 text-orange-500', initials: 'EG' },
-  { id: 'inv-005', tenantName: 'Nova Retail MChJ', contract: 'CTR-2026-012', number: 'INV-2026-049', amount: 5500000, balance: 5500000, dueDate: '2026-08-10', paidPct: 0, color: 'bg-purple-500/10 text-purple-500', initials: 'NR' },
-  { id: 'inv-006', tenantName: 'TechHub MChJ', contract: 'CTR-2026-018', number: 'INV-2026-050', amount: 3900000, balance: 980000, dueDate: '2026-07-20', paidPct: 75, color: 'bg-sky-500/10 text-sky-500', initials: 'TH' },
+  { id: 'inv-001', tenantName: 'Orient Logistika MChJ', contract: 'CTR-2026-001', number: 'INV-2026-045', amount: 8500000, balance: 8500000, dueDate: '2026-07-01', paidPct: 0, color: 'bg-red-500/10 text-red-500', initials: 'OL' },
+  { id: 'inv-002', tenantName: 'Ipak Yuli Savdo MChJ', contract: 'CTR-2026-002', number: 'INV-2026-046', amount: 6200000, balance: 3100000, dueDate: '2026-07-15', paidPct: 50, color: 'bg-amber-500/10 text-amber-500', initials: 'IY' },
+  { id: 'inv-003', tenantName: 'Alfa Biznes MChJ', contract: 'CTR-2026-005', number: 'INV-2026-047', amount: 4800000, balance: 4800000, dueDate: '2026-08-01', paidPct: 0, color: 'bg-teal-500/10 text-teal-500', initials: 'AB' },
+  { id: 'inv-004', tenantName: 'Markaz Savdo MChJ', contract: 'CTR-2025-098', number: 'INV-2026-048', amount: 7200000, balance: 1800000, dueDate: '2026-06-15', paidPct: 75, color: 'bg-orange-500/10 text-orange-500', initials: 'MS' },
+  { id: 'inv-005', tenantName: 'Chorsu Retail MChJ', contract: 'CTR-2026-012', number: 'INV-2026-049', amount: 5500000, balance: 5500000, dueDate: '2026-08-10', paidPct: 0, color: 'bg-purple-500/10 text-purple-500', initials: 'NR' },
+  { id: 'inv-006', tenantName: 'Zomin Invest MChJ', contract: 'CTR-2026-018', number: 'INV-2026-050', amount: 3900000, balance: 980000, dueDate: '2026-07-20', paidPct: 75, color: 'bg-sky-500/10 text-sky-500', initials: 'TH' },
 ])
 
 const filteredDebtors = computed(() => {
@@ -185,7 +185,7 @@ const overdueDebt = computed(() => debtors.value.filter(d => isOverdue(d.dueDate
 const overdueCount = computed(() => debtors.value.filter(d => isOverdue(d.dueDate)).length)
 const overduePct = computed(() => totalDebt.value > 0 ? Math.round((overdueDebt.value / totalDebt.value) * 100) : 0)
 
-const agingCategories = ['ABC Logistics', 'Global Trade', 'Smart Solutions', 'Export Group', 'Nova Retail', 'TechHub']
+const agingCategories = ['Orient Logistika', 'Ipak Yuli Savdo', 'Alfa Biznes', 'Markaz Savdo', 'Chorsu Retail', 'Zomin Invest']
 const agingSeries = [
   { name: '30 kungacha', data: [0, 0, 0, 0, 5500000, 0] },
   { name: '30-60 kun', data: [0, 0, 4800000, 0, 0, 980000] },

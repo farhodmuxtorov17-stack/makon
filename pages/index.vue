@@ -1,6 +1,6 @@
 <template>
   <div class="landing">
-    <!-- ════════ NAV ════════ -->
+    <!-- NAV -->
     <nav class="nav" :class="{ 'nav--scrolled': scrolled }">
       <div class="nav__inner">
         <NuxtLink to="/" class="nav__brand">
@@ -24,7 +24,7 @@
       </div>
     </nav>
 
-    <!-- ════════ HERO ════════ -->
+    <!-- HERO -->
     <section class="hero">
       <div class="hero__bg">
         <img src="/buildings/hero-tashkent.jpg" alt="Tashkent City" class="hero__bg-img" />
@@ -38,9 +38,38 @@
           Binolarning raqamli boshqaruvi
         </h1>
         <p class="hero__lead">
-          Premium biznes markazlarida ofis, savdo va ombor maydonlari.<br/>
+          Biznes markazlarida ofis, savdo va ombor maydonlari.<br/>
           ERI orqali xavfsiz shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
         </p>
+        <!-- Hero Search -->
+        <div class="hero-search">
+          <div class="hero-search__inner">
+            <Search :size="18" class="hero-search__icon" />
+            <input
+              v-model="searchQuery"
+              type="text"
+              class="hero-search__input"
+              placeholder="Ofis, savdo, ombor qidirish..."
+              @keyup.enter="doSearch"
+            />
+            <select v-model="searchType" class="hero-search__select">
+              <option value="">Barcha turlari</option>
+              <option value="office">Ofis</option>
+              <option value="retail">Savdo</option>
+              <option value="warehouse">Ombor</option>
+            </select>
+            <button class="hero-search__btn" @click="doSearch">
+              Qidirish <ArrowRight :size="15" />
+            </button>
+          </div>
+          <div class="hero-search__chips">
+            <button class="hero-chip" @click="navigateTo('/catalog?type=office')">Ofis</button>
+            <button class="hero-chip" @click="navigateTo('/catalog?type=retail')">Savdo</button>
+            <button class="hero-chip" @click="navigateTo('/catalog?type=warehouse')">Ombor</button>
+            <button class="hero-chip" @click="navigateTo('/catalog?offer=rent')">Ijaraga</button>
+            <button class="hero-chip" @click="navigateTo('/catalog?offer=sale')">Sotuvda</button>
+          </div>
+        </div>
         <div class="hero__actions">
           <NuxtLink to="/catalog" class="hero__cta">
             Katalogga kirish <ArrowRight :size="16" />
@@ -61,7 +90,7 @@
     </section>
 
 
-    <!-- ════════ TRUST BAR ════════ -->
+    <!-- TRUST BAR -->
     <section class="trust">
       <div class="container">
         <div class="trust__label">Ishonchli hamkorlar</div>
@@ -75,7 +104,7 @@
       </div>
     </section>
 
-    <!-- ════════ BUILDINGS PORTFOLIO ════════ -->
+    <!-- BUILDINGS PORTFOLIO -->
     <section id="buildings" class="portfolio">
       <div class="container">
         <div class="portfolio__head">
@@ -157,7 +186,7 @@
     </section>
 
 
-    <!-- ════════ STATS BAND ════════ -->
+    <!-- STATS BAND -->
     <section class="stats-band">
       <div class="container">
         <div class="stats-band__grid">
@@ -184,7 +213,7 @@
       </div>
     </section>
 
-    <!-- ════════ HOW IT WORKS ════════ -->
+    <!-- HOW IT WORKS -->
     <section id="how" class="how">
       <div class="container">
         <div class="how__head">
@@ -232,7 +261,7 @@
       </div>
     </section>
 
-    <!-- ════════ FEATURES ════════ -->
+    <!-- FEATURES -->
     <section id="features" class="features">
       <div class="container">
         <div class="features__head">
@@ -276,7 +305,7 @@
     </section>
 
 
-    <!-- ════════ TESTIMONIALS ════════ -->
+    <!-- TESTIMONIALS -->
     <section class="testimonials">
       <div class="container">
         <div class="testimonials__head">
@@ -319,7 +348,7 @@
       </div>
     </section>
 
-    <!-- ════════ CTA ════════ -->
+    <!-- CTA -->
     <section class="cta">
       <div class="container">
         <div class="cta__inner">
@@ -335,7 +364,7 @@
       </div>
     </section>
 
-    <!-- ════════ FOOTER ════════ -->
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="container">
         <div class="footer__top">
@@ -389,6 +418,15 @@ import {
 } from 'lucide-vue-next'
 
 const scrolled = ref(false)
+const searchQuery = ref('')
+const searchType = ref('')
+
+function doSearch() {
+  const params = new URLSearchParams()
+  if (searchQuery.value) params.set('q', searchQuery.value)
+  if (searchType.value) params.set('type', searchType.value)
+  navigateTo('/catalog' + (params.toString() ? '?' + params.toString() : ''))
+}
 let ticking = false
 
 function onScroll() {
@@ -429,7 +467,7 @@ onUnmounted(() => {
 })</script>
 
 <style scoped>
-/* ════════ BASE ════════ */
+/*  BASE  */
 .landing {
   scroll-behavior: smooth;
   background: var(--bg);
@@ -466,7 +504,7 @@ onUnmounted(() => {
   margin: 0 auto;
 }
 
-/* ════════ NAV ════════ */
+/*  NAV  */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -548,7 +586,7 @@ onUnmounted(() => {
   box-shadow: 0 4px 16px rgba(0,102,255,0.4);
 }
 
-/* ════════ HERO ════════ */
+/*  HERO  */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -607,6 +645,106 @@ onUnmounted(() => {
   color: rgba(255,255,255,0.85);
   margin-bottom: 36px;
 }
+
+/* HERO SEARCH */
+.hero-search {
+  margin: 28px auto 0;
+  max-width: 580px;
+}
+.hero-search__inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 6px 6px 6px 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.hero-search__icon {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+.hero-search__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  color: #1e293b;
+  min-width: 0;
+}
+.hero-search__input::placeholder {
+  color: #94a3b8;
+}
+.hero-search__select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  padding: 8px 8px;
+  border-left: 1px solid #e2e8f0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.hero-search__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0066FF, #3B82F6);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hero-search__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+}
+.hero-search__chips {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.hero-chip {
+  padding: 7px 16px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.hero-chip:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-1px);
+}
+@media (max-width: 640px) {
+  .hero-search__inner { flex-wrap: wrap; border-radius: 20px; padding: 12px; gap: 8px; }
+  .hero-search__input { width: 100%; flex: none; }
+  .hero-search__select { width: 100%; border-left: none; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+  .hero-search__btn { width: 100%; justify-content: center; }
+}
+
 .hero__actions {
   display: flex;
   align-items: center;
@@ -681,7 +819,7 @@ onUnmounted(() => {
   50% { transform: translateX(-50%) translateY(8px); }
 }
 
-/* ════════ PORTFOLIO ════════ */
+/*  PORTFOLIO  */
 .portfolio {
   padding: 100px 0;
   scroll-margin-top: 80px;
@@ -924,7 +1062,7 @@ onUnmounted(() => {
   transform: translateY(-1px);
 }
 
-/* ════════ HOW ════════ */
+/*  HOW  */
 .how {
   padding: 100px 0;
   background: var(--bg-subtle);
@@ -993,7 +1131,7 @@ onUnmounted(() => {
   margin-top: 24px;
 }
 
-/* ════════ FEATURES ════════ */
+/*  FEATURES  */
 .features {
   padding: 100px 0;
   scroll-margin-top: 80px;
@@ -1049,7 +1187,7 @@ onUnmounted(() => {
   color: var(--text-secondary);
 }
 
-/* ════════ CTA ════════ */
+/*  CTA  */
 .cta {
   padding: 80px 0;
 }
@@ -1117,7 +1255,7 @@ onUnmounted(() => {
 }
 .cta__link:hover { color: white; border-bottom-color: white; }
 
-/* ════════ FOOTER ════════ */
+/*  FOOTER  */
 .footer {
   padding: 64px 0 32px;
   border-top: 1px solid var(--border);
@@ -1190,7 +1328,7 @@ onUnmounted(() => {
   gap: 8px;
 }
 
-/* ════════ RESPONSIVE ════════ */
+/*  RESPONSIVE  */
 @media (max-width: 900px) {
   .hero__title { font-size: 42px; }
   .portfolio__featured { grid-template-columns: 1fr; }
@@ -1206,7 +1344,7 @@ onUnmounted(() => {
   .cta__title { font-size: 26px; }
 }
 
-/* ════════ SCROLL ANIMATIONS ════════ */
+/*  SCROLL ANIMATIONS  */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1235,7 +1373,7 @@ onUnmounted(() => {
 .stats-band__item.reveal { transition-delay: 0.05s; }
 .trust__logo.reveal { transition-delay: 0.05s; }
 
-/* ════════ TRUST BAR ════════ */
+/*  TRUST BAR  */
 .trust {
   padding: 36px 0 28px;
   border-bottom: 1px solid var(--border, rgba(0,0,0,0.06));
@@ -1270,7 +1408,7 @@ onUnmounted(() => {
   color: var(--text-secondary, #475569);
 }
 
-/* ════════ STATS BAND ════════ */
+/*  STATS BAND  */
 .stats-band {
   padding: 56px 0;
   background: var(--bg-subtle, #f8fafc);
@@ -1317,7 +1455,7 @@ onUnmounted(() => {
   .stats-band__num { font-size: 30px; }
 }
 
-/* ════════ TESTIMONIALS ════════ */
+/*  TESTIMONIALS  */
 .testimonials {
   padding: 100px 0;
   background: var(--bg, #fff);

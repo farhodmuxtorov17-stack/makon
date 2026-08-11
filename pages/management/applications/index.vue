@@ -17,10 +17,9 @@
       </div>
     </div>
 
-    <!-- Kanban Board Grid -->
+    <!-- Kanban -->
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 overflow-x-auto pb-4">
       <div v-for="col in kanbanColumns" :key="col.status" class="bg-black/5 dark:bg-white/5 p-3 rounded-2xl border border-black/5 dark:border-white/5 space-y-3 min-w-[240px]">
-        <!-- Column Header -->
         <div class="flex items-center justify-between px-1">
           <span class="text-xs font-bold text-ink-900 dark:text-white flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full" :class="col.color"></span>
@@ -38,7 +37,6 @@
             class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer group bg-white dark:bg-ink-900"
             @click="selectedApp = app"
           >
-            <!-- Card Header -->
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-mono font-bold text-brand-500">{{ app.number }}</span>
               <span class="text-[10px] text-ink-500">{{ app.createdDate }}</span>
@@ -100,7 +98,7 @@
             <button @click="selectedApp = null" class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="18" /></button>
           </div>
 
-          <!-- Application Details Grid -->
+          <!-- Details -->
           <div class="space-y-4 text-sm">
             <div class="grid grid-cols-2 gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5">
               <div>

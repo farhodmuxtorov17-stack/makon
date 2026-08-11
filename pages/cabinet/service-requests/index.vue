@@ -10,7 +10,6 @@
       <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi so'rov</NuxtLink>
     </div>
 
-    <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
         <div class="kpi-strip__icon"><Wrench :size="18" /></div>

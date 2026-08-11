@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <!-- KPI cards -->
+    <!-- Metrics -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <KpiCard :icon="DollarSign" label="Jami summa" :value="formatUZSShort(totalAmount)" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/finance/invoices" :trend="12.5" :sparkData="[40,55,48,70,65,82,90]" sparkColor="#f59e0b" />
       <KpiCard :icon="CheckCircle2" label="To'langan" :value="formatUZSShort(totalPaid)" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/finance/invoices" :trend="8.2" :sparkData="[30,45,50,42,60,55,68]" sparkColor="#10b981" />
@@ -45,7 +45,6 @@
       </div>
     </div>
 
-    <!-- Table -->
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
@@ -85,7 +84,7 @@
       </div>
     </div>
 
-    <!-- Invoice Detail Drawer -->
+    <!-- Detail drawer -->
     <DrawerModal :open="!!selectedInvoice" :title="selectedInvoice?.number || ''" width="480px" @close="selectedInvoice = null">
       <div v-if="selectedInvoice" class="space-y-5">
         <div class="flex items-center gap-2">
@@ -131,18 +130,18 @@
       </div>
     </DrawerModal>
 
-    <!-- Create Invoice Modal -->
+    <!-- New invoice -->
     <DrawerModal :open="showCreateModal" title="Yangi invoys yaratish" width="480px" @close="showCreateModal = false">
       <div class="space-y-4">
         <div>
           <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Ijarachi</label>
           <select v-model="newInvoice.tenantName" class="input w-full">
             <option value="">Tanlang...</option>
-            <option>ABC Logistics MChJ</option>
-            <option>Global Trade MChJ</option>
-            <option>Smart Solutions MChJ</option>
-            <option>Export Group MChJ</option>
-            <option>Logistics Plus</option>
+            <option>Orient Logistika MChJ</option>
+            <option>Ipak Yuli Savdo MChJ</option>
+            <option>Alfa Biznes MChJ</option>
+            <option>Markaz Savdo MChJ</option>
+            <option>Sergeli Logistika</option>
           </select>
         </div>
         <div class="grid grid-cols-2 gap-3">
@@ -195,16 +194,16 @@ interface Invoice {
 }
 
 const invoices = ref<Invoice[]>([
-  { id: 'inv1', number: 'INV-2026-052', contractNumber: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', period: 'Avg 2026', amount: 25000000, paidAmount: 0, balance: 25000000, status: 'UNPAID', dueDate: '2026-08-15', currency: 'UZS' },
-  { id: 'inv2', number: 'INV-2026-051', contractNumber: 'CTR-2026-002', tenantName: 'Global Trade MChJ', period: 'Avg 2026', amount: 21000000, paidAmount: 21000000, balance: 0, status: 'PAID', dueDate: '2026-08-15', currency: 'UZS' },
-  { id: 'inv3', number: 'INV-2026-050', contractNumber: 'CTR-2026-005', tenantName: 'Smart Solutions MChJ', period: 'Avg 2026', amount: 35000000, paidAmount: 35000000, balance: 0, status: 'PAID', dueDate: '2026-08-15', currency: 'UZS' },
-  { id: 'inv4', number: 'INV-2026-049', contractNumber: 'CTR-2025-098', tenantName: 'Export Group MChJ', period: 'Avg 2026', amount: 22000000, paidAmount: 0, balance: 22000000, status: 'OVERDUE', dueDate: '2026-08-05', currency: 'UZS' },
-  { id: 'inv5', number: 'INV-2026-048', contractNumber: 'CTR-2024-045', tenantName: 'Logistics Plus', period: 'Avg 2026', amount: 15000000, paidAmount: 0, balance: 15000000, status: 'OVERDUE', dueDate: '2026-08-05', currency: 'UZS' },
-  { id: 'inv6', number: 'INV-2026-047', contractNumber: 'CTR-2025-098', tenantName: 'Export Group MChJ', period: 'Iyl 2026', amount: 22000000, paidAmount: 22000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
-  { id: 'inv7', number: 'INV-2026-046', contractNumber: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', period: 'Iyl 2026', amount: 25000000, paidAmount: 12500000, balance: 12500000, status: 'PARTIALLY_PAID', dueDate: '2026-07-15', currency: 'UZS' },
-  { id: 'inv8', number: 'INV-2026-045', contractNumber: 'CTR-2026-003', tenantName: 'Tech Hub MChJ', period: 'Iyl 2026', amount: 18000000, paidAmount: 18000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
-  { id: 'inv9', number: 'INV-2026-044', contractNumber: 'CTR-2025-077', tenantName: 'Mega Group MChJ', period: 'Iyl 2026', amount: 32000000, paidAmount: 0, balance: 32000000, status: 'UNPAID', dueDate: '2026-08-15', currency: 'UZS' },
-  { id: 'inv10', number: 'INV-2026-043', contractNumber: 'CTR-2024-045', tenantName: 'Logistics Plus', period: 'Iyl 2026', amount: 15000000, paidAmount: 15000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
+  { id: 'inv1', number: 'INV-2026-052', contractNumber: 'CTR-2026-001', tenantName: 'Orient Logistika MChJ', period: 'Avg 2026', amount: 25000000, paidAmount: 0, balance: 25000000, status: 'UNPAID', dueDate: '2026-08-15', currency: 'UZS' },
+  { id: 'inv2', number: 'INV-2026-051', contractNumber: 'CTR-2026-002', tenantName: 'Ipak Yuli Savdo MChJ', period: 'Avg 2026', amount: 21000000, paidAmount: 21000000, balance: 0, status: 'PAID', dueDate: '2026-08-15', currency: 'UZS' },
+  { id: 'inv3', number: 'INV-2026-050', contractNumber: 'CTR-2026-005', tenantName: 'Alfa Biznes MChJ', period: 'Avg 2026', amount: 35000000, paidAmount: 35000000, balance: 0, status: 'PAID', dueDate: '2026-08-15', currency: 'UZS' },
+  { id: 'inv4', number: 'INV-2026-049', contractNumber: 'CTR-2025-098', tenantName: 'Markaz Savdo MChJ', period: 'Avg 2026', amount: 22000000, paidAmount: 0, balance: 22000000, status: 'OVERDUE', dueDate: '2026-08-05', currency: 'UZS' },
+  { id: 'inv5', number: 'INV-2026-048', contractNumber: 'CTR-2024-045', tenantName: 'Sergeli Logistika', period: 'Avg 2026', amount: 15000000, paidAmount: 0, balance: 15000000, status: 'OVERDUE', dueDate: '2026-08-05', currency: 'UZS' },
+  { id: 'inv6', number: 'INV-2026-047', contractNumber: 'CTR-2025-098', tenantName: 'Markaz Savdo MChJ', period: 'Iyl 2026', amount: 22000000, paidAmount: 22000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
+  { id: 'inv7', number: 'INV-2026-046', contractNumber: 'CTR-2026-001', tenantName: 'Orient Logistika MChJ', period: 'Iyl 2026', amount: 25000000, paidAmount: 12500000, balance: 12500000, status: 'PARTIALLY_PAID', dueDate: '2026-07-15', currency: 'UZS' },
+  { id: 'inv8', number: 'INV-2026-045', contractNumber: 'CTR-2026-003', tenantName: 'Zomin Invest MChJ', period: 'Iyl 2026', amount: 18000000, paidAmount: 18000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
+  { id: 'inv9', number: 'INV-2026-044', contractNumber: 'CTR-2025-077', tenantName: 'Navoiy Trade MChJ', period: 'Iyl 2026', amount: 32000000, paidAmount: 0, balance: 32000000, status: 'UNPAID', dueDate: '2026-08-15', currency: 'UZS' },
+  { id: 'inv10', number: 'INV-2026-043', contractNumber: 'CTR-2024-045', tenantName: 'Sergeli Logistika', period: 'Iyl 2026', amount: 15000000, paidAmount: 15000000, balance: 0, status: 'PAID', dueDate: '2026-07-15', currency: 'UZS' },
 ])
 
 const newInvoice = ref({ tenantName: '', contractNumber: '', period: 'Avg 2026', amount: 0, dueDate: '2026-08-15' })

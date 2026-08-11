@@ -74,7 +74,7 @@
     <div v-if="currentStep === 1" class="card p-6 space-y-4">
       <h3 class="font-semibold dark:text-white">Tashkilot ma\'lumotlari (profile dan olindi)</h3>
       <div class="grid grid-cols-2 gap-4">
-        <div><label class="label">Tashkilot nomi</label><input type="text" class="input" value="ABC Logistics MChJ" disabled /></div>
+        <div><label class="label">Tashkilot nomi</label><input type="text" class="input" value="Orient Logistika MChJ" disabled /></div>
         <div><label class="label">STIR</label><input type="text" class="input" value="308745612" disabled /></div>
         <div><label class="label">Vakil</label><input type="text" class="input" value="Dilshod Ahmedov" disabled /></div>
         <div><label class="label">Email</label><input type="email" class="input" value="info@abclogistics.uz" disabled /></div>

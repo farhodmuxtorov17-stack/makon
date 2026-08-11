@@ -92,7 +92,7 @@
       </div>
     </div>
 
-    <!-- Unit detail panel: 3-column premium layout -->
+    <!-- Unit detail panel -->
     <Transition name="fade-up">
       <div v-if="selectedUnitData" class="card overflow-hidden">
         <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr_220px] divide-y lg:divide-y-0 lg:divide-x divide-ink-100 dark:divide-ink-800">

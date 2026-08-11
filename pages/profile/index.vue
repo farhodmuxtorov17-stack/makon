@@ -9,7 +9,7 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-      <!-- Left: Profile card -->
+      <!-- Profile -->
       <div class="space-y-4">
         <div class="card p-5 text-center">
           <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-2xl mx-auto mb-3 shadow-lg shadow-brand-500/30">A</div>
@@ -49,7 +49,7 @@
         </div>
       </div>
 
-      <!-- Right: Settings forms -->
+      <!-- Settings -->
       <div class="lg:col-span-2 space-y-4">
         <!-- Personal info -->
         <div class="card-premium p-5">

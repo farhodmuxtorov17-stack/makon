@@ -137,7 +137,7 @@ definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
-const org = { name: 'ABC Logistics MChJ', tin: '308745612' }
+const org = { name: 'Orient Logistika MChJ', tin: '308745612' }
 
 const units = ref([
   { id: 'u1', name: 'A-301', building: 'Tashkent City', floor: 3, area: 85, type: 'RENT', contractEnd: '15 Mar 2027' },

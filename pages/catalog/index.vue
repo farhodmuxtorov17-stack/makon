@@ -1,6 +1,6 @@
 <template>
   <div class="catalog-page">
-    <!-- ============ TOP BAR ============ -->
+    <!-- TOP BAR -->
     <header class="catalog-topbar">
       <div class="catalog-topbar__left">
         <NuxtLink to="/" class="catalog-logo">
@@ -31,7 +31,7 @@
       </div>
     </header>
 
-    <!-- ============ TOOLBAR (tabs + chips) ============ -->
+    <!-- TOOLBAR (tabs + chips) -->
     <div class="catalog-toolbar">
       <!-- Category tabs -->
       <div class="catalog-tabs">
@@ -89,12 +89,12 @@
       </button>
     </div>
 
-    <!-- ============ VIP CAROUSEL ============ -->
+    <!-- VIP CAROUSEL -->
     <div v-if="vipListings.length > 0 && !favoritesView" class="catalog-vip">
       <div class="catalog-vip__header">
         <span class="catalog-vip__title">
           <Crown :size="16" class="text-amber-500" />
-          Premium ob'ektlar
+          Tanlangan ob'ektlar
         </span>
         <div class="catalog-vip__nav">
           <button @click="scrollVip(-1)" :disabled="vipScrollPos === 0"><ChevronLeft :size="16" /></button>
@@ -124,7 +124,7 @@
       </div>
     </div>
 
-    <!-- ============ RESULTS HEADER ============ -->
+    <!-- RESULTS HEADER -->
     <div class="catalog-results-header">
       <div class="catalog-results-count">
         Topildi: <b>{{ filteredListings.length }}</b>
@@ -132,7 +132,7 @@
       </div>
     </div>
 
-    <!-- ============ MAIN BODY ============ -->
+    <!-- MAIN BODY -->
     <div class="catalog-body">
       <!-- ---------- SIDEBAR FILTERS (desktop, list/grid view) ---------- -->
       <aside v-if="view !== 'map'" class="catalog-sidebar">
@@ -257,7 +257,7 @@
       </section>
     </div>
 
-    <!-- ============ MOBILE FILTER DRAWER ============ -->
+    <!-- MOBILE FILTER DRAWER -->
     <Transition name="drawer">
       <div v-if="showFilterDrawer" class="catalog-drawer-overlay" @click.self="showFilterDrawer = false">
         <div class="catalog-drawer">
@@ -312,7 +312,7 @@ interface RawListing {
 
 const rawListings: RawListing[] = [
   { id: 'l1', title: "Tashkent City'da A-301 · 85 m² ofis", district: "Mirzo Ulug'bek", address: "Amir Temur shoh ko'chasi 108", area: 85, type: 'OFFICE', offerType: 'RENT', price: 25000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.3111, lng: 69.2797, vip: true },
-  { id: 'l2', title: "Trillant Tower B-501 · 120 m² premium ofis", district: 'Yashnobod', address: "Ziyolilar ko'chasi 6", area: 120, type: 'OFFICE', offerType: 'RENT', price: 35000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2967, lng: 69.3123, vip: true },
+  { id: 'l2', title: "Trillant Tower B-501 · 120 m² ofis", district: 'Yashnobod', address: "Ziyolilar ko'chasi 6", area: 120, type: 'OFFICE', offerType: 'RENT', price: 35000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2967, lng: 69.3123, vip: true },
   { id: 'l3', title: "IT Park C-201 · 65 m² savdo maydoni", district: 'Yakkasaroy', address: "Mirobod ko'chasi 22", area: 65, type: 'SHOPPING', offerType: 'RENT', price: 18000000, photo: '/buildings/bc-city-plaza.jpg', lat: 41.2865, lng: 69.2654, vip: true },
   { id: 'l4', title: "Piramit D-102 · 200 m² ombor", district: 'Shayxontohur', address: "Navoiy ko'chasi 34", area: 200, type: 'WAREHOUSE', offerType: 'RENT', price: 12000000, photo: '/buildings/hero-tashkent.jpg', lat: 41.3267, lng: 69.2389, vip: true },
   { id: 'l5', title: "Savdo Markaz E-301 · 42 m² do'kon", district: 'Sergeli', address: "Qatortol ko'chasi 4", area: 42, type: 'SHOPPING', offerType: 'SALE', price: 450000000, photo: '/buildings/bc-navroz.jpg', lat: 41.2156, lng: 69.2456, vip: true },

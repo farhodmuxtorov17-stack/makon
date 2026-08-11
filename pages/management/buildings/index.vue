@@ -11,7 +11,7 @@
       </button>
     </div>
 
-    <!-- Stat Badges Row -->
+    <!-- Stats -->
     <div class="flex flex-wrap items-center gap-3">
       <div class="stat-pill">
         <div class="stat-pill__icon" style="background: rgba(37,99,235,0.1); color: var(--accent);"><Building2 :size="18" /></div>
@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <!-- Search + Filters + View Toggle -->
+    <!-- Toolbar -->
     <div class="flex flex-wrap items-center justify-between gap-3">
       <div class="flex flex-wrap items-center gap-3 flex-1 min-w-[280px]">
         <div class="relative flex-1 min-w-[220px]">
@@ -192,7 +192,7 @@
       </div>
     </div>
 
-    <!-- Create Modal -->
+    <!-- New -->
     <DrawerModal :open="showCreateModal" title="Yangi bino qo'shish" width="480px" @close="showCreateModal = false">
       <div class="space-y-4">
         <div>
@@ -248,7 +248,7 @@
       </template>
     </DrawerModal>
 
-    <!-- Building Detail Drawer -->
+    <!-- Detail drawer -->
     <DrawerModal :open="!!selectedBuilding" :title="selectedBuilding?.name || ''" width="520px" @close="selectedBuilding = null">
       <div v-if="selectedBuilding" class="space-y-5">
         <div class="rounded-xl overflow-hidden h-48 bg-ink-800">

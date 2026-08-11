@@ -170,7 +170,7 @@ const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, 
 const route = useRoute()
 
 const contract = ref({
-  id: 'c1', number: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', tenantTin: '308745612',
+  id: 'c1', number: 'CTR-2026-001', tenantName: 'Orient Logistika MChJ', tenantTin: '308745612',
   tenantDirector: 'Sardor Yusupov', buildingName: 'Tashkent City', unitNumber: 'A-301',
   unitArea: 85, monthlyRent: 25000000, deposit: 50000000, startDate: '01 Apr 2026',
   endDate: '15 Mar 2027', durationMonths: 12, currency: 'UZS', status: 'ACTIVE',
@@ -180,7 +180,7 @@ const contract = ref({
 
 const eriSteps = computed(() => [
   { title: 'Shartnoma loyihasi', desc: 'Qoralama tayyorlandi', done: true, current: false },
-  { title: 'Ijarachi imzosi', desc: 'ABC Logistics MChJ ERI orqali imzoladi', done: contract.value.eriTenantSigned, current: !contract.value.eriTenantSigned },
+  { title: 'Ijarachi imzosi', desc: 'Orient Logistika MChJ ERI orqali imzoladi', done: contract.value.eriTenantSigned, current: !contract.value.eriTenantSigned },
   { title: 'Bino egasi imzosi', desc: 'MAKON Management ERI orqali imzoladi', done: contract.value.eriLandlordSigned, current: contract.value.eriLandlordSigned && !contract.value.eriTenantSigned ? false : !contract.value.eriLandlordSigned },
   { title: 'Aktivlashtirish', desc: 'Shartnoma faol holatga o\'tdi', done: contract.value.status === 'ACTIVE', current: contract.value.status !== 'ACTIVE' && contract.value.eriTenantSigned && contract.value.eriLandlordSigned },
 ])

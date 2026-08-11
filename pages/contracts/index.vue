@@ -59,7 +59,6 @@
       </div>
     </div>
 
-    <!-- Table -->
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
@@ -128,13 +127,13 @@ interface Contract {
 }
 
 const contracts: Contract[] = [
-  { id: 'c1', number: 'CTR-2026-001', tenantName: 'ABC Logistics MChJ', tenantTin: '308745612', buildingName: 'Tashkent City', unitNumber: 'A-301', monthlyRent: 25000000, startDate: '01 Apr 2026', endDate: '15 Mar 2027', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true },
-  { id: 'c2', number: 'CTR-2026-002', tenantName: 'Global Trade MChJ', tenantTin: '305487291', buildingName: 'Tashkent City', unitNumber: 'B-501', monthlyRent: 35000000, startDate: '15 May 2026', endDate: '14 May 2027', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true },
-  { id: 'c3', number: 'CTR-2026-005', tenantName: 'Smart Solutions MChJ', tenantTin: '309215648', buildingName: 'IT Park', unitNumber: 'C-201', monthlyRent: 18000000, startDate: '01 Jun 2026', endDate: '31 May 2027', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true },
-  { id: 'c4', number: 'CTR-2026-008', tenantName: 'Export Group MChJ', tenantTin: '304561287', buildingName: 'Piramit', unitNumber: 'D-102', monthlyRent: 22000000, startDate: '01 Aug 2026', endDate: '31 Iyl 2027', status: 'PARTIALLY_SIGNED', eriTenantSigned: true, eriLandlordSigned: false },
-  { id: 'c5', number: 'CTR-2026-009', tenantName: 'Mega Group MChJ', tenantTin: '307819234', buildingName: 'Trillant Tower', unitNumber: 'B-302', monthlyRent: 32000000, startDate: '15 Aug 2026', endDate: '14 Aug 2027', status: 'DRAFT_READY', eriTenantSigned: false, eriLandlordSigned: false },
-  { id: 'c6', number: 'CTR-2025-098', tenantName: 'Logistics Plus', tenantTin: '302345678', buildingName: 'Tashkent City', unitNumber: 'A-205', monthlyRent: 15000000, startDate: '01 Sep 2025', endDate: '31 Avg 2026', status: 'EXPIRED', eriTenantSigned: true, eriLandlordSigned: true },
-  { id: 'c7', number: 'CTR-2026-010', tenantName: 'Tech Hub MChJ', tenantTin: '306782345', buildingName: 'IT Park', unitNumber: 'C-205', monthlyRent: 28000000, startDate: '01 Sep 2026', endDate: '31 Avg 2027', status: 'PARTIALLY_SIGNED', eriTenantSigned: false, eriLandlordSigned: true },
+  { id: 'c1', number: 'CTR-2026-001', tenantName: 'Orient Logistika MChJ', tenantTin: '308745612', buildingName: 'Tashkent City', unitNumber: 'A-301', monthlyRent: 25000000, startDate: '01 Apr 2026', endDate: '15 Mar 2027', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true },
+  { id: 'c2', number: 'CTR-2026-002', tenantName: 'Ipak Yuli Savdo MChJ', tenantTin: '305487291', buildingName: 'Tashkent City', unitNumber: 'B-501', monthlyRent: 35000000, startDate: '15 May 2026', endDate: '14 May 2027', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true },
+  { id: 'c3', number: 'CTR-2026-005', tenantName: 'Alfa Biznes MChJ', tenantTin: '309215648', buildingName: 'IT Park', unitNumber: 'C-201', monthlyRent: 18000000, startDate: '01 Jun 2026', endDate: '31 May 2027', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true },
+  { id: 'c4', number: 'CTR-2026-008', tenantName: 'Markaz Savdo MChJ', tenantTin: '304561287', buildingName: 'Piramit', unitNumber: 'D-102', monthlyRent: 22000000, startDate: '01 Aug 2026', endDate: '31 Iyl 2027', status: 'PARTIALLY_SIGNED', eriTenantSigned: true, eriLandlordSigned: false },
+  { id: 'c5', number: 'CTR-2026-009', tenantName: 'Navoiy Trade MChJ', tenantTin: '307819234', buildingName: 'Trillant Tower', unitNumber: 'B-302', monthlyRent: 32000000, startDate: '15 Aug 2026', endDate: '14 Aug 2027', status: 'DRAFT_READY', eriTenantSigned: false, eriLandlordSigned: false },
+  { id: 'c6', number: 'CTR-2025-098', tenantName: 'Sergeli Logistika', tenantTin: '302345678', buildingName: 'Tashkent City', unitNumber: 'A-205', monthlyRent: 15000000, startDate: '01 Sep 2025', endDate: '31 Avg 2026', status: 'EXPIRED', eriTenantSigned: true, eriLandlordSigned: true },
+  { id: 'c7', number: 'CTR-2026-010', tenantName: 'Zomin Invest MChJ', tenantTin: '306782345', buildingName: 'IT Park', unitNumber: 'C-205', monthlyRent: 28000000, startDate: '01 Sep 2026', endDate: '31 Avg 2027', status: 'PARTIALLY_SIGNED', eriTenantSigned: false, eriLandlordSigned: true },
 ]
 
 const statusCounts = computed(() => ({

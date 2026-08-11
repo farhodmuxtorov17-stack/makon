@@ -30,7 +30,6 @@
       </select>
     </div>
 
-    <!-- Table -->
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">

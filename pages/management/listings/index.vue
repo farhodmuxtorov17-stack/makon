@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <!-- Listings Grid -->
+    <!-- Listings -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       <div v-for="l in filteredListings" :key="l.id" class="card overflow-hidden group hover:border-brand-500/40 transition-all">
         <!-- Photo Cover -->
@@ -102,7 +102,7 @@
       </div>
     </div>
 
-    <!-- Create Listing Modal Form -->
+    <!-- New listing -->
     <Teleport to="body">
       <div v-if="showCreateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showCreateModal = false"></div>
@@ -190,7 +190,7 @@
       </div>
     </Teleport>
 
-    <!-- Preview Modal -->
+    <!-- Preview -->
     <Teleport to="body">
       <div v-if="previewListing" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" @click="previewListing = null"></div>

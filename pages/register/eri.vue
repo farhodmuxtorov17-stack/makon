@@ -1,6 +1,6 @@
 <template>
   <div class="auth">
-    <!-- Left: Visual -->
+    <!-- Visual -->
     <div class="auth__visual">
       <img src="/buildings/hero-tashkent.jpg" alt="Tashkent" class="auth__visual-img" />
       <div class="auth__visual-grad"></div>
@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <!-- Right: Form -->
+    <!-- Form -->
     <div class="auth__form-side">
       <div class="auth__form-wrap">
         <div class="auth__form-head">

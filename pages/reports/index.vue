@@ -21,7 +21,6 @@
       </div>
     </div>
 
-    <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--emerald">
         <div class="kpi-strip__icon"><Wallet :size="18" /></div>

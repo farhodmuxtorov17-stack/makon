@@ -68,7 +68,6 @@
         </ul>
       </div>
 
-      <!-- Activate Action Button -->
       <div class="pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-end gap-3">
         <NuxtLink :to="`/contracts/${contract.id}`" class="btn btn-secondary">
           Bekor qilish

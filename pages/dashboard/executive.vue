@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <!-- KPI cards with sparklines -->
+    <!-- Metrics -->
     <div class="dash__kpis">
       <div v-for="kpi in kpis" :key="kpi.label" class="dash__kpi">
         <div class="dash__kpi-top">
@@ -214,7 +214,7 @@ function formatArea(v: number) { return v.toLocaleString('ru-RU') + ' m²' }
 }
 .dark .dash__date { background: #1c1c1e; border-color: rgba(255,255,255,0.08); color: #a1a1aa; }
 
-/* KPIs with sparklines */
+/* KPIs */
 .dash__kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 20px; }
 @media (max-width: 1100px) { .dash__kpis { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 640px) { .dash__kpis { grid-template-columns: repeat(2, 1fr); } }

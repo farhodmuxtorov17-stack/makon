@@ -9,7 +9,6 @@
       <button class="btn btn-secondary btn-sm" @click="() => {}"><RefreshCw :size="14" /> Yangilash</button>
     </div>
 
-    <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--amber">
         <div class="kpi-strip__icon"><Clock :size="18" /></div>
@@ -124,13 +123,13 @@ definePageMeta({ layout: 'admin', middleware: 'auth' })
 const statusFilter = ref('')
 
 const signatures = [
-  { id: '1', documentNumber: 'CTR-2026-008', contractTitle: 'Export Group MChJ · D-102 Piramit', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'PENDING', sentDate: '10 Avg 14:30', expiresIn: 48, signedDate: '', failReason: '' },
-  { id: '2', documentNumber: 'CTR-2026-010', contractTitle: 'Tech Hub MChJ · C-205 IT Park', signerRole: 'Ijarachi', signerName: 'Bekzod Aliyev', signerTin: '306782345', provider: 'UZDPI', status: 'PENDING', sentDate: '10 Avg 12:15', expiresIn: 18, signedDate: '', failReason: '' },
-  { id: '3', documentNumber: 'CTR-2026-005', contractTitle: 'Smart Solutions MChJ · C-201 IT Park', signerRole: 'Ijarachi', signerName: 'Dilnoza Karimova', signerTin: '309215648', provider: 'UZDPI', status: 'SIGNED', sentDate: '01 Iyn 09:00', expiresIn: 0, signedDate: '01 Iyn 14:22', failReason: '' },
-  { id: '4', documentNumber: 'CTR-2026-005', contractTitle: 'Smart Solutions MChJ · C-201 IT Park', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'SIGNED', sentDate: '01 Iyn 14:25', expiresIn: 0, signedDate: '01 Iyn 16:10', failReason: '' },
-  { id: '5', documentNumber: 'CTR-2026-009', contractTitle: 'Mega Group MChJ · B-302 Trillant Tower', signerRole: 'Ijarachi', signerName: 'Otabek Yo\'ldoshev', signerTin: '307819234', provider: 'UZDPI', status: 'FAILED', sentDate: '08 Avg 10:00', expiresIn: 0, signedDate: '', failReason: 'Sertifikat muddati o\'tgan' },
-  { id: '6', documentNumber: 'CTR-2026-001', contractTitle: 'ABC Logistics MChJ · A-301 Tashkent City', signerRole: 'Ijarachi', signerName: 'Sardor Yusupov', signerTin: '304561287', provider: 'UZDPI', status: 'SIGNED', sentDate: '28 Mar 11:00', expiresIn: 0, signedDate: '28 Mar 15:45', failReason: '' },
-  { id: '7', documentNumber: 'CTR-2026-001', contractTitle: 'ABC Logistics MChJ · A-301 Tashkent City', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'SIGNED', sentDate: '28 Mar 15:50', expiresIn: 0, signedDate: '28 Mar 16:20', failReason: '' },
+  { id: '1', documentNumber: 'CTR-2026-008', contractTitle: 'Markaz Savdo MChJ · D-102 Piramit', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'PENDING', sentDate: '10 Avg 14:30', expiresIn: 48, signedDate: '', failReason: '' },
+  { id: '2', documentNumber: 'CTR-2026-010', contractTitle: 'Zomin Invest MChJ · C-205 IT Park', signerRole: 'Ijarachi', signerName: 'Bekzod Aliyev', signerTin: '306782345', provider: 'UZDPI', status: 'PENDING', sentDate: '10 Avg 12:15', expiresIn: 18, signedDate: '', failReason: '' },
+  { id: '3', documentNumber: 'CTR-2026-005', contractTitle: 'Alfa Biznes MChJ · C-201 IT Park', signerRole: 'Ijarachi', signerName: 'Dilnoza Karimova', signerTin: '309215648', provider: 'UZDPI', status: 'SIGNED', sentDate: '01 Iyn 09:00', expiresIn: 0, signedDate: '01 Iyn 14:22', failReason: '' },
+  { id: '4', documentNumber: 'CTR-2026-005', contractTitle: 'Alfa Biznes MChJ · C-201 IT Park', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'SIGNED', sentDate: '01 Iyn 14:25', expiresIn: 0, signedDate: '01 Iyn 16:10', failReason: '' },
+  { id: '5', documentNumber: 'CTR-2026-009', contractTitle: 'Navoiy Trade MChJ · B-302 Trillant Tower', signerRole: 'Ijarachi', signerName: 'Otabek Yo\'ldoshev', signerTin: '307819234', provider: 'UZDPI', status: 'FAILED', sentDate: '08 Avg 10:00', expiresIn: 0, signedDate: '', failReason: 'Sertifikat muddati o\'tgan' },
+  { id: '6', documentNumber: 'CTR-2026-001', contractTitle: 'Orient Logistika MChJ · A-301 Tashkent City', signerRole: 'Ijarachi', signerName: 'Sardor Yusupov', signerTin: '304561287', provider: 'UZDPI', status: 'SIGNED', sentDate: '28 Mar 11:00', expiresIn: 0, signedDate: '28 Mar 15:45', failReason: '' },
+  { id: '7', documentNumber: 'CTR-2026-001', contractTitle: 'Orient Logistika MChJ · A-301 Tashkent City', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'SIGNED', sentDate: '28 Mar 15:50', expiresIn: 0, signedDate: '28 Mar 16:20', failReason: '' },
 ]
 
 const pendingCount = computed(() => signatures.filter(s => s.status === 'PENDING').length)

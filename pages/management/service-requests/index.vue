@@ -20,10 +20,9 @@
       </div>
     </div>
 
-    <!-- Kanban Board Grid -->
+    <!-- Kanban -->
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 overflow-x-auto pb-4">
       <div v-for="col in kanbanColumns" :key="col.status" class="bg-black/5 dark:bg-white/5 p-3 rounded-2xl border border-black/5 dark:border-white/5 space-y-3 min-w-[240px]">
-        <!-- Column Header -->
         <div class="flex items-center justify-between px-1">
           <span class="text-xs font-bold text-ink-900 dark:text-white flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full" :class="col.color"></span>
@@ -56,7 +55,6 @@
               </div>
             </div>
 
-            <!-- SLA Timer Badge -->
             <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-[11px]">
               <span class="flex items-center gap-1 text-amber-500 font-medium">
                 <Clock :size="12" /> SLA: 2-soat qoldi

@@ -9,7 +9,6 @@
       <button @click="showInvite = true" class="btn btn-primary btn-sm btn-glow"><UserPlus :size="14" /> Taklif yuborish</button>
     </div>
 
-    <!-- Premium KPI strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--blue">
         <div class="kpi-strip__icon"><Users :size="18" /></div>
@@ -195,15 +194,15 @@ const roleTabs = [
 
 const users = ref([
   { id: '1', name: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', role: 'SUPER_HEAD', org: 'MAKON Management', lastLogin: '5 daq oldin', status: 'ACTIVE' },
-  { id: '2', name: 'Sardor Yusupov', email: 's.yusupov@abc.uz', role: 'BUILDING_MANAGER', org: 'ABC Logistics MChJ', lastLogin: '1 soat oldin', status: 'ACTIVE' },
+  { id: '2', name: 'Sardor Yusupov', email: 's.yusupov@abc.uz', role: 'BUILDING_MANAGER', org: 'Orient Logistika MChJ', lastLogin: '1 soat oldin', status: 'ACTIVE' },
   { id: '3', name: 'Dilnoza Karimova', email: 'd.karimova@makon.uz', role: 'ACCOUNTANT', org: 'MAKON Management', lastLogin: '2 soat oldin', status: 'ACTIVE' },
   { id: '4', name: 'Ravshan Keldiyev', email: 'r.keldiyev@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '30 daq oldin', status: 'ACTIVE' },
   { id: '5', name: 'Jasur Tursunov', email: 'j.tursunov@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '3 soat oldin', status: 'ACTIVE' },
   { id: '6', name: 'Bekzod Mahmudov', email: 'b.mahmudov@makon.uz', role: 'FACILITY', org: 'MAKON Management', lastLogin: '1 kun oldin', status: 'ACTIVE' },
-  { id: '7', name: 'Nodira Azizova', email: 'n.azizova@global.uz', role: 'BUILDING_MANAGER', org: 'Global Trade MChJ', lastLogin: 'Taklif yuborildi', status: 'PENDING' },
-  { id: '8', name: "Otabek Yo'ldoshev", email: 'o.yuldoshev@smart.uz', role: 'BUILDING_MANAGER', org: 'Smart Solutions MChJ', lastLogin: '2 kun oldin', status: 'ACTIVE' },
+  { id: '7', name: 'Nodira Azizova', email: 'n.azizova@global.uz', role: 'BUILDING_MANAGER', org: 'Ipak Yuli Savdo MChJ', lastLogin: 'Taklif yuborildi', status: 'PENDING' },
+  { id: '8', name: "Otabek Yo'ldoshev", email: 'o.yuldoshev@smart.uz', role: 'BUILDING_MANAGER', org: 'Alfa Biznes MChJ', lastLogin: '2 kun oldin', status: 'ACTIVE' },
   { id: '9', name: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', role: 'SUPER_HEAD', org: 'MAKON Management', lastLogin: '5 soat oldin', status: 'ACTIVE' },
-  { id: '10', name: 'Shoxrux Aliyev', email: 's.aliyev@logistics.uz', role: 'ACCOUNTANT', org: 'Logistics Plus', lastLogin: 'Nofaol', status: 'INACTIVE' },
+  { id: '10', name: 'Shoxrux Aliyev', email: 's.aliyev@logistics.uz', role: 'ACCOUNTANT', org: 'Sergeli Logistika', lastLogin: 'Nofaol', status: 'INACTIVE' },
 ])
 
 const activeCount = computed(() => users.value.filter(u => u.status === 'ACTIVE').length)

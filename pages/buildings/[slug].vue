@@ -1,6 +1,6 @@
 <template>
   <div class="building-page">
-    <!-- ════════ HERO ════════ -->
+    <!--  HERO  -->
     <div class="b-hero">
       <div class="b-hero__bg">
         <img :src="building.image" :alt="building.name" class="b-hero__img" />
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <!-- ════════ INTERACTIVE FLOOR PICKER ════════ -->
+    <!--  INTERACTIVE FLOOR PICKER  -->
     <section class="picker">
       <div class="picker__head">
         <div>
@@ -53,7 +53,7 @@
       </div>
 
       <div class="picker__body">
-        <!-- ═══ Left: Isometric Building ═══ -->
+        <!-- Building view -->
         <div class="iso-section">
           <div class="iso-building">
             <div
@@ -107,7 +107,7 @@
           </div>
         </div>
 
-        <!-- ═══ Right: Floor Detail Panel ═══ -->
+        <!-- Floor detail -->
         <div class="floor-detail">
           <div class="floor-detail__head">
             <div>
@@ -196,7 +196,7 @@
       </div>
     </section>
 
-    <!-- ════════ AVAILABLE UNITS GRID ════════ -->
+    <!--  AVAILABLE UNITS GRID  -->
     <section class="b-units">
       <div class="b-units__head">
         <div>
@@ -235,7 +235,7 @@
       </div>
     </section>
 
-    <!-- ════════ CTA ════════ -->
+    <!--  CTA  -->
     <section class="b-cta">
       <div class="b-cta__card">
         <h2 class="b-cta__title">Bu binoda ofis kerakmi?</h2>
@@ -387,7 +387,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .building-page { overflow-x: hidden; }
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
 
-/* ════════ HERO ════════ */
+/*  HERO  */
 .b-hero { position: relative; height: 520px; overflow: hidden; }
 .b-hero__bg { position: absolute; inset: 0; }
 .b-hero__img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
@@ -416,7 +416,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-hero__spec-l { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 500; }
 .b-hero__spec-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.12); }
 
-/* ════════ FLOOR PICKER ════════ */
+/*  FLOOR PICKER  */
 .picker { max-width: 1400px; margin: 0 auto; padding: 80px 48px; }
 .picker__head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
 .picker__title { font-size: 32px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0; }
@@ -435,7 +435,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 
 .picker__body { display: grid; grid-template-columns: 340px 1fr; gap: 32px; }
 
-/* ═══ Isometric Building ═══ */
+/*  Isometric Building  */
 .iso-section { display: flex; flex-direction: column; gap: 20px; }
 .iso-building {
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
@@ -481,7 +481,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
   box-shadow: 0 2px 6px var(--accent-glow);
 }
 
-/* ═══ Donut ═══ */
+/*  Donut  */
 .iso-donut { position: relative; width: 140px; height: 140px; margin: 0 auto; }
 .donut-svg { width: 100%; height: 100%; }
 .donut-fill { transition: stroke-dasharray 0.8s cubic-bezier(0.4,0,0.2,1); }
@@ -489,7 +489,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .donut-pct { font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
 .donut-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
 
-/* ═══ Floor Detail Panel ═══ */
+/*  Floor Detail Panel  */
 .floor-detail {
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
   box-shadow: var(--shadow-sm); overflow: hidden; display: flex; flex-direction: column;
@@ -573,7 +573,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .slide-up-leave-active { transition: all 0.2s; }
 .slide-up-leave-to { opacity: 0; transform: translateY(20px); }
 
-/* ════════ UNITS GRID ════════ */
+/*  UNITS GRID  */
 .b-units { max-width: 1400px; margin: 0 auto; padding: 0 48px 80px; }
 .b-units__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
 .b-units__title { font-size: 28px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0; }
@@ -609,7 +609,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .dark .unit-card__btn { background: var(--accent); }
 .dark .unit-card__btn:hover { background: var(--accent-hover); }
 
-/* ════════ CTA ════════ */
+/*  CTA  */
 .b-cta { padding: 0 48px 80px; max-width: 1400px; margin: 0 auto; }
 .b-cta__card { position: relative; background: linear-gradient(135deg, #09090b 0%, #18181b 50%, #1c1c1f 100%); border-radius: 28px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.2); }
 .b-cta__glow { display: none; }
@@ -619,7 +619,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .b-cta__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); color: white; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,102,255,0.35), inset 0 1px 0 rgba(255,255,255,0.15); }
 .b-cta__btn:hover { transform: translateY(-2px); background: linear-gradient(135deg, #0052CC 0%, #2563EB 100%); box-shadow: 0 8px 32px rgba(0,102,255,0.5); }
 
-/* ════════ FOOTER ════════ */
+/*  FOOTER  */
 .footer { background: #09090b; padding: 64px 48px 28px; }
 .footer__top { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1.5fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .footer__desc { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-top: 16px; max-width: 360px; }
@@ -631,7 +631,7 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
 .footer__text { font-size: 14px; color: rgba(255,255,255,0.45); margin: 0; }
 .footer__bottom { max-width: 1400px; margin: 0 auto; padding-top: 24px; font-size: 13px; color: rgba(255,255,255,0.3); }
 
-/* ════════ RESPONSIVE ════════ */
+/*  RESPONSIVE  */
 @media (max-width: 1024px) {
   .picker__body { grid-template-columns: 1fr; }
   .iso-building { max-height: 320px; }
