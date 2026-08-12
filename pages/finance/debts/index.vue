@@ -158,7 +158,7 @@
 <script setup lang="ts">
 import { AlertCircle, Clock, Users, Search, Download, Bell, Eye , CreditCard, Home} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const search = ref('')
 const filterStatus = ref('ALL')

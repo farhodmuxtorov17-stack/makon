@@ -6,7 +6,7 @@
         <ArrowLeft :size="18" />
       </NuxtLink>
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Ariza Tarixi va Audit Izlari</h1>
+        <h1 class="page-title">Ariza Tarixi va Audit Izlari</h1>
         <p class="text-xs text-ink-500">Ariza <b>{{ app.number }}</b> bo'yicha barcha harakatlar, ERI va reviewer xulosalari kronologiyasi</p>
       </div>
     </div>
@@ -91,7 +91,7 @@
 <script setup lang="ts">
 import { ArrowLeft, History, Key, Paperclip, ShieldCheck } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const route = useRoute()
 const makonStore = useMakonStore()

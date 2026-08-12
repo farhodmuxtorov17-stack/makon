@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">MANAGEMENT / CONTRACTS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Shartnomalar</h1>
+      <h1 class="page-title">Shartnomalar</h1>
       <p class="page-sub">Barcha shartnomalar, holatlar va muddatlar</p>
         <p class="text-ink-500 text-sm mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} aktiv</p>
       </div>
@@ -170,7 +170,7 @@ import KpiCard from '~/components/KpiCard.vue'
 import DrawerModal from '~/components/DrawerModal.vue'
 import { Plus, Search, CheckCircle2, AlertCircle, ShieldCheck, FileSignature, ChevronRight, FileText, Send, RefreshCw, User, Building2 } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort, formatNumber, formatDate } = useFormat()
 

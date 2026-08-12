@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-2xl mx-auto space-y-6">
     <div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Yangi servis so\'rovi</h1>
+      <h1 class="page-title">Yangi servis so\'rovi</h1>
       <p class="text-ink-500 text-sm mt-1">Muammo yoki jihoz zarurati haqida murojaat yuborish</p>
     </div>
 
@@ -93,7 +93,7 @@
 <script setup lang="ts">
 import { Camera, X, Clock, Send, Zap, Droplet, Flame, Thermometer, Wrench, Wind, Wifi } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['TENANT_OWNER'],  layout: 'admin', middleware: 'role' })
 
 const form = reactive({
   unitId: '', category: '', description: '', priority: '',

@@ -51,7 +51,7 @@ const roleHomePages: Record<string, string> = {
   FACILITY: '/facility/work-orders',
   WAREHOUSE_OPERATOR: '/finance/inventory',
   CONTENT_OPERATOR: '/management/buildings',
-  TENANT_OWNER: '/cabinet',
+  TENANT_OWNER: '/cabinet/units',
 }
 
 const roles = [

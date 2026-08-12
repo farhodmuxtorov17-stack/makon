@@ -6,7 +6,7 @@
         <ArrowLeft :size="18" />
       </NuxtLink>
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Shartnomani Aktivlashtirish</h1>
+        <h1 class="page-title">Shartnomani Aktivlashtirish</h1>
         <p class="text-xs text-ink-500">Shartnoma: <b class="font-mono text-brand-500">{{ contract.number }}</b></p>
       </div>
     </div>
@@ -109,7 +109,7 @@
 <script setup lang="ts">
 import { ArrowLeft, ShieldCheck, CheckCircle, Zap } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const route = useRoute()
 const router = useRouter()

@@ -10,33 +10,37 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ unit.area }}<span class="text-sm">m²</span></div>
-          <div class="kpi-strip__label">Maydon</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Grid3x3 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ unit.area }}<span class="text-sm">m²</span></div>
+          <div class="dash-kpi__label">Maydon</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ unit.price?.toLocaleString('ru-RU') || '—' }}</div>
-          <div class="kpi-strip__label">Narx (so'm/oy)</div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ unit.price?.toLocaleString('ru-RU') || '—' }}</div>
+          <div class="dash-kpi__label">Narx (so'm/oy)</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ unit.floor || '—' }}</div>
-          <div class="kpi-strip__label">Qavat</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ unit.floor || '—' }}</div>
+          <div class="dash-kpi__label">Qavat</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ unit.status === 'VACANT' ? 'Bo\'sh' : 'Band' }}</div>
-          <div class="kpi-strip__label">Holat</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileSignature :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ unit.status === 'VACANT' ? 'Bo\'sh' : 'Band' }}</div>
+          <div class="dash-kpi__label">Holat</div>
         </div>
       </div>
     </div>
@@ -314,9 +318,9 @@ async function submitApplication() {
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 
 
 /* Interactive plan */

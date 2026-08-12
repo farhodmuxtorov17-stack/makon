@@ -5,39 +5,39 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">CABINET / SERVICE</div>
         <div class="eyebrow">CABINET / SERVICE-REQUESTS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Servis so'rovlari</h1>
+      <h1 class="page-title">Servis so'rovlari</h1>
         <p class="text-ink-500 text-sm mt-1">Texnik xizmat so'rovlari tarixi va holati</p>
       </div>
       <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi so'rov</NuxtLink>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Wrench :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ requests.length }}</div>
-          <div class="kpi-strip__label">Jami so'rov</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ requests.length }}</div>
+          <div class="dash-kpi__label">Jami so'rov</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
+      <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><Clock :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ activeCount }}</div>
-          <div class="kpi-strip__label">Faol / Ishlanmoqda</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ activeCount }}</div>
+          <div class="dash-kpi__label">Faol / Ishlanmoqda</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
+      <div class="dash-kpi dash-kpi--emerald">
         <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ resolvedCount }}</div>
-          <div class="kpi-strip__label">Yechilgan</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ resolvedCount }}</div>
+          <div class="dash-kpi__label">Yechilgan</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--violet">
+      <div class="dash-kpi dash-kpi--violet">
         <div class="kpi-strip__icon"><Star :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ avgRating }}<span class="text-sm">★</span></div>
-          <div class="kpi-strip__label">O'rtacha reyting</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ avgRating }}<span class="text-sm">★</span></div>
+          <div class="dash-kpi__label">O'rtacha reyting</div>
         </div>
       </div>
     </div>
@@ -121,7 +121,7 @@
 <script setup lang="ts">
 import { Plus, Wrench, Clock, CheckCircle2, Star, UserCheck, Loader, XCircle, Lightbulb, Droplet, DoorOpen, Thermometer, Snowflake, Zap } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['TENANT_OWNER'],  layout: 'admin', middleware: 'role' })
 
 const makonStore = useMakonStore()
 const activeTab = ref('all')
@@ -180,8 +180,8 @@ function categoryIcon(cat: string) {
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
 .kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); color: #8b5cf6; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
-.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
 
 .sr-card {
   background: var(--card-bg, #fff);

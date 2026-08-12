@@ -5,7 +5,7 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">MANAGEMENT / LISTINGS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Listinglar</h1>
+      <h1 class="page-title">Listinglar</h1>
       <p class="page-sub">Public marketplace listinglari va holatlari</p>
         <p class="text-ink-500 text-sm mt-1">Ommaviy katalogdagi ijara va sotuv e'lonlari</p>
       </div>
@@ -15,34 +15,38 @@
     </div>
 
     <!-- KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><Building2 :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ makonStore.listings.length }}</div>
-          <div class="kpi-strip__label">Jami listinglar</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ makonStore.listings.length }}</div>
+          <div class="dash-kpi__label">Jami listinglar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ publishedCount }}</div>
-          <div class="kpi-strip__label">Nashr qilingan</div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ publishedCount }}</div>
+          <div class="dash-kpi__label">Nashr qilingan</div>
         </div>
         <div v-if="listings.length" class="kpi-strip__pct">{{ Math.round(publishedCount / listings.length * 100) }}%</div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><FileSignature :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ draftCount }}</div>
-          <div class="kpi-strip__label">Qoralamalar</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileSignature :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ draftCount }}</div>
+          <div class="dash-kpi__label">Qoralamalar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><AlertCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ hiddenCount }}</div>
-          <div class="kpi-strip__label">Yashirilgan</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><AlertCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ hiddenCount }}</div>
+          <div class="dash-kpi__label">Yashirilgan</div>
         </div>
       </div>
     </div>
@@ -267,7 +271,7 @@ const { img } = useImg()
 import CreateListingModal from '~/components/CreateListingModal.vue'
 import { Plus, Search, Tag, Power, Eye, X , AlertCircle, Building2, CheckCircle, FileSignature} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
@@ -413,8 +417,8 @@ function handleCreateListing() {
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 .kpi-strip__pct { font-size: 12px; font-weight: 700; color: var(--accent, #2563EB); padding: 2px 8px; border-radius: 8px; background: rgba(37,99,235,0.1); }
 </style>

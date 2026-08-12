@@ -4,40 +4,44 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / ROLES</div>
         <div class="eyebrow">ADMIN / ROLES</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Rollar va huquqlar</h1>
+      <h1 class="page-title">Rollar va huquqlar</h1>
         <p class="text-ink-500 text-sm mt-1">5 ta rol · {{ permissions.length }} ta huquq</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi rol</button>
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ roles.length }}</div>
-          <div class="kpi-strip__label">Rollar soni</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ roles.length }}</div>
+          <div class="dash-kpi__label">Rollar soni</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ permissions.length }}</div>
-          <div class="kpi-strip__label">Huquqlar soni</div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ permissions.length }}</div>
+          <div class="dash-kpi__label">Huquqlar soni</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalUsers }}</div>
-          <div class="kpi-strip__label">Foydalanuvchilar</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Grid3x3 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalUsers }}</div>
+          <div class="dash-kpi__label">Foydalanuvchilar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ activeRoles }}</div>
-          <div class="kpi-strip__label">Aktiv rollar</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileSignature :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ activeRoles }}</div>
+          <div class="dash-kpi__label">Aktiv rollar</div>
         </div>
       </div>
     </div>
@@ -101,7 +105,7 @@
 <script setup lang="ts">
 import { Plus, Save, Check, X, Building2, FileText, Receipt, Wallet, ClipboardList, Package, Gauge, BarChart3, Users, ShieldCheck, Wrench, Database , FileSignature, Grid3x3} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN'],  layout: 'admin', middleware: 'role' })
 
 const selectedRole = ref('SUPER_HEAD')
 
@@ -185,7 +189,7 @@ function getRolePermissions(role: string) {
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 </style>

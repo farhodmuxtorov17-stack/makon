@@ -26,8 +26,8 @@
           <Building2 :size="28" :stroke-width="1.5" class="text-blue-500" />
         </div>
         <div>
-          <div class="kpi-strip__value">9</div>
-          <div class="kpi-strip__label">Binolar</div>
+          <div class="dash-kpi__value">9</div>
+          <div class="dash-kpi__label">Binolar</div>
         </div>
       </div>
       <div class="kpi-strip__card">
@@ -35,8 +35,8 @@
           <TrendingUp :size="28" :stroke-width="1.5" class="text-emerald-500" />
         </div>
         <div>
-          <div class="kpi-strip__value text-emerald-500">82%</div>
-          <div class="kpi-strip__label">Bandlik</div>
+          <div class="dash-kpi__value text-emerald-500">82%</div>
+          <div class="dash-kpi__label">Bandlik</div>
         </div>
       </div>
       <div class="kpi-strip__card">
@@ -44,8 +44,8 @@
           <Wallet :size="28" :stroke-width="1.5" class="text-amber-500" />
         </div>
         <div>
-          <div class="kpi-strip__value text-amber-500">4.2M</div>
-          <div class="kpi-strip__label">Daromad (UZS)</div>
+          <div class="dash-kpi__value text-amber-500">4.2M</div>
+          <div class="dash-kpi__label">Daromad (UZS)</div>
         </div>
       </div>
       <div class="kpi-strip__card">
@@ -53,8 +53,8 @@
           <FileText :size="28" :stroke-width="1.5" class="text-purple-500" />
         </div>
         <div>
-          <div class="kpi-strip__value text-purple-500">12</div>
-          <div class="kpi-strip__label">Arizalar</div>
+          <div class="dash-kpi__value text-purple-500">12</div>
+          <div class="dash-kpi__label">Arizalar</div>
         </div>
       </div>
     </div>
@@ -161,7 +161,7 @@
 <script setup lang="ts">
 import { Building2, TrendingUp, Wallet, FileText, Download } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const period = ref('month')
 

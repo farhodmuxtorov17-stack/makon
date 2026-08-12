@@ -10,7 +10,7 @@
           {{ user.name.charAt(0) }}
         </div>
         <div>
-          <h1 class="text-2xl font-bold text-ink-900 dark:text-white">{{ user.name }}</h1>
+          <h1 class="page-title">{{ user.name }}</h1>
           <p class="text-ink-500 text-sm">{{ user.email }}</p>
         </div>
       </div>
@@ -154,7 +154,7 @@
 <script setup lang="ts">
 import { ArrowLeft, Save, Trash2, CheckCircle2, XCircle, ScrollText, AlertTriangle, FileText, Settings, LogIn, Download, PenLine } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 

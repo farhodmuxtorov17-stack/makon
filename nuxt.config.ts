@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
-  css: ['~/assets/css/aurora.css'],
+  css: ['~/assets/css/aurora.css', '~/assets/css/aurora-v5.css'],
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/color-mode'],
   colorMode: {
     preference: 'light',
@@ -43,8 +43,8 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      crawlLinks: true,
-      routes: ['/', '/catalog', '/login', '/register/eri', '/200.html', '/floors/3/plan', '/cabinet', '/cabinet/applications', '/cabinet/units', '/cabinet/contracts', '/cabinet/service-requests', '/cabinet/services', '/cabinet/meter-readings', '/meters', '/notifications', '/finance/approvals', '/admin/backups', '/admin/settings', '/admin/notification-templates', '/admin/users', '/admin/roles', '/admin/audit', '/admin/monitoring', '/admin/login-history', '/profile', '/reports/executive', '/reports/building', '/finance/inventory', '/finance/stock-issues', '/finance/periods', '/finance/invoices', '/finance/debts', '/facility/material-requests', '/facility/work-orders', '/management/buildings', '/management/listings', '/management/applications', '/management/contracts', '/management/service-requests', '/management/tenants', '/management/floor-plans', '/management/visual-settings', '/dashboard', '/dashboard/executive', '/dashboard/building'],
+      crawlLinks: false,
+      routes: ['/', '/catalog', '/login', '/register/eri', '/200.html'],
       failOnError: false,
     },
   },

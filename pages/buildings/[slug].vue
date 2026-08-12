@@ -40,33 +40,37 @@
     <!--  BUILDING KPI  -->
     <section class="b-kpi">
       <div class="container">
-        <div class="b-kpi__grid">
-          <div class="b-kpi__item">
-            <div class="b-kpi__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-            <div class="b-kpi__body">
-              <div class="b-kpi__value">{{ totalUnits }}</div>
-              <div class="b-kpi__label">Jami unitlar</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="dash-kpi dash-kpi--blue">
+            <div class="dash-kpi__glow"></div>
+            <div class="dash-kpi__icon"><Grid3x3 :size="22" :stroke-width="1.8" /></div>
+            <div class="dash-kpi__body">
+              <div class="dash-kpi__value">{{ totalUnits }}</div>
+              <div class="dash-kpi__label">Jami unitlar</div>
             </div>
           </div>
-          <div class="b-kpi__item">
-            <div class="b-kpi__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-            <div class="b-kpi__body">
-              <div class="b-kpi__value">{{ occupiedUnits }}</div>
-              <div class="b-kpi__label">Band</div>
+          <div class="dash-kpi dash-kpi--emerald">
+            <div class="dash-kpi__glow"></div>
+            <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
+            <div class="dash-kpi__body">
+              <div class="dash-kpi__value">{{ occupiedUnits }}</div>
+              <div class="dash-kpi__label">Band</div>
             </div>
           </div>
-          <div class="b-kpi__item">
-            <div class="b-kpi__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-            <div class="b-kpi__body">
-              <div class="b-kpi__value">{{ vacantUnits }}</div>
-              <div class="b-kpi__label">Bo'sh</div>
+          <div class="dash-kpi dash-kpi--amber">
+            <div class="dash-kpi__glow"></div>
+            <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>
+            <div class="dash-kpi__body">
+              <div class="dash-kpi__value">{{ vacantUnits }}</div>
+              <div class="dash-kpi__label">Bo'sh</div>
             </div>
           </div>
-          <div class="b-kpi__item">
-            <div class="b-kpi__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-            <div class="b-kpi__body">
-              <div class="b-kpi__value">{{ occupancyPct }}<span style="font-size:14px">%</span></div>
-              <div class="b-kpi__label">Bandlik</div>
+          <div class="dash-kpi dash-kpi--violet">
+            <div class="dash-kpi__glow"></div>
+            <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
+            <div class="dash-kpi__body">
+              <div class="dash-kpi__value">{{ occupancyPct }}<span style="font-size:14px">%</span></div>
+              <div class="dash-kpi__label">Bandlik</div>
             </div>
           </div>
         </div>

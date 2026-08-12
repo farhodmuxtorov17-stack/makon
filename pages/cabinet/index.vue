@@ -135,7 +135,7 @@
 import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Layers, ScrollText, FileText, Wallet, Wrench, Receipt, AlertCircle, CheckCircle2, ShieldCheck } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['TENANT_OWNER'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 

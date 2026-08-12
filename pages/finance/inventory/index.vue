@@ -4,7 +4,7 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FINANCE / INVENTORY</div>
         <div class="eyebrow">FINANCE / INVENTORY</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Ombor boshqaruvi</h1>
+      <h1 class="page-title">Ombor boshqaruvi</h1>
         <p class="text-ink-500 text-sm mt-1">{{ materials.length }} ta material · {{ lowStockCount }} ta kam qoldi</p>
       </div>
       <div class="flex items-center gap-2">
@@ -96,7 +96,7 @@ import {
   Search, MoreHorizontal, Wrench, Lightbulb, PaintRoller, Boxes, Droplet,
 } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'WAREHOUSE_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort, formatNumber } = useFormat()
 

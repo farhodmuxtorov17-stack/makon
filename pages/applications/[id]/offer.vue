@@ -8,7 +8,7 @@
         </NuxtLink>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Kommercheskiy Taklif (Commercial Offer)</h1>
+            <h1 class="page-title">Kommercheskiy Taklif (Commercial Offer)</h1>
             <span class="badge badge-brand font-mono">v{{ offerVersion }}</span>
           </div>
           <p class="text-xs text-ink-500 mt-0.5">Ariza: <b>{{ app.number }}</b> | Arizachi: {{ app.applicantName }}</p>
@@ -151,7 +151,7 @@
 <script setup lang="ts">
 import { ArrowLeft, DollarSign, Calendar, History, CheckCircle, X, Edit3, Check } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const route = useRoute()
 const makonStore = useMakonStore()

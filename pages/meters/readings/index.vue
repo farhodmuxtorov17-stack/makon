@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">METERS / READINGS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisoblagich ko'rsatkichlari</h1>
+      <h1 class="page-title">Hisoblagich ko'rsatkichlari</h1>
         <p class="text-ink-500 text-sm mt-1">{{ readings.length }} ta yozuv · {{ unreadCount }} o'qilmagan</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi ko'rsatkich</button>
@@ -72,7 +72,7 @@
 import { Plus, Search, Zap, Droplet, Flame, CheckCircle2 } from 'lucide-vue-next'
 import KpiCard from '~/components/KpiCard.vue'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'],  layout: 'admin', middleware: 'role' })
 
 const search = ref('')
 const typeFilter = ref('')

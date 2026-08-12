@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">MANAGEMENT / BUILDINGS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Binolar</h1>
+      <h1 class="page-title">Binolar</h1>
       <p class="page-sub">Bino ma'lumotlari, unitlar va bandlik</p>
         <p class="text-ink-500 text-sm mt-1">Jami {{ filteredBuildings.length }} ta bino ro'yxati</p>
       </div>
@@ -13,34 +13,38 @@
       </button>
     </div>
 
-    <!-- Stats -->
-    <div class="flex flex-wrap items-center gap-3">
-      <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: transparent;"><Building2 :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div>
-          <div class="stat-pill__val">{{ buildings.length }}</div>
-          <div class="stat-pill__label">Binolar</div>
+    <!-- Premium Stats -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ buildings.length }}</div>
+          <div class="dash-kpi__label">Binolar</div>
         </div>
       </div>
-      <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: transparent;"><Grid3x3 :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div>
-          <div class="stat-pill__val">{{ totalFloors }}</div>
-          <div class="stat-pill__label">Qavatlar</div>
+      <div class="dash-kpi dash-kpi--violet">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Grid3x3 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalFloors }}</div>
+          <div class="dash-kpi__label">Qavatlar</div>
         </div>
       </div>
-      <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: transparent;"><Package :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div>
-          <div class="stat-pill__val">{{ totalUnits }}</div>
-          <div class="stat-pill__label">Jami unit</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Package :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalUnits }}</div>
+          <div class="dash-kpi__label">Jami unit</div>
         </div>
       </div>
-      <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: transparent;"><Home :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div>
-          <div class="stat-pill__val">{{ totalOccupied }}<span class="stat-pill__of">/{{ totalUnits }}</span></div>
-          <div class="stat-pill__label">Band unitlar</div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Home :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalOccupied }}<span class="text-sm text-ink-400">/{{ totalUnits }}</span></div>
+          <div class="dash-kpi__label">Band unitlar</div>
         </div>
       </div>
     </div>
@@ -88,8 +92,8 @@
 
     <!-- CARD VIEW -->
     <div v-if="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <div v-for="b in filteredBuildings" :key="b.id" class="card overflow-hidden group hover:border-brand-500/40 transition-all duration-300 cursor-pointer" @click="openBuilding(b)">
-        <div class="h-44 overflow-hidden bg-ink-900 relative">
+      <div v-for="b in filteredBuildings" :key="b.id" class="building-card group" @click="openBuilding(b)">
+        <div class="building-card__img relative">
           <img v-if="b.gallery && b.gallery[0]" :src="img(b.gallery[0])" :alt="b.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           <div v-else class="w-full h-full flex items-center justify-center text-ink-600"><Building2 :size="48" /></div>
           <div class="absolute top-3 right-3 flex gap-2">
@@ -322,7 +326,7 @@ const { img } = useImg()
 import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Search, Building2, MapPin, Globe, LayoutGrid, List, ArrowRight, Eye, Box, Layers, Check, Settings , Grid3x3, Home, Package} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const makonStore = useMakonStore()
 const buildings = computed(() => makonStore.buildings.filter(b => !b.id.startsWith('_deleted')))

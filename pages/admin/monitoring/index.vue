@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / MONITORING</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Tizim monitoringi</h1>
+        <h1 class="page-title">Tizim monitoringi</h1>
         <p class="text-ink-500 text-sm mt-1">Server holati, API va foydalanuvchilar faolligi</p>
       </div>
       <div class="flex items-center gap-3">
@@ -18,33 +18,37 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">99.98<span class="text-sm">%</span></div>
-          <div class="kpi-strip__label">Server Uptime</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">99.98<span class="text-sm">%</span></div>
+          <div class="dash-kpi__label">Server Uptime</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><DollarSign :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">42<span class="text-sm">ms</span></div>
-          <div class="kpi-strip__label">API kechikish</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><DollarSign :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">42<span class="text-sm">ms</span></div>
+          <div class="dash-kpi__label">API kechikish</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">7<span class="text-sm text-ink-400"> / 24</span></div>
-          <div class="kpi-strip__label">Online foydalanuvchilar</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">7<span class="text-sm text-ink-400"> / 24</span></div>
+          <div class="dash-kpi__label">Online foydalanuvchilar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><Package :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">1.2<span class="text-sm">GB</span></div>
-          <div class="kpi-strip__label">Ma'lumot bazasi</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Package :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">1.2<span class="text-sm">GB</span></div>
+          <div class="dash-kpi__label">Ma'lumot bazasi</div>
         </div>
       </div>
     </div>
@@ -126,7 +130,7 @@
 <script setup lang="ts">
 import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp, AlertCircle, CheckCircle, RefreshCw, X , Building2, DollarSign, Package} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN'],  layout: 'admin', middleware: 'role' })
 
 const makonStore = useMakonStore()
 const isRefreshing = ref(false)
@@ -190,7 +194,7 @@ function roleColor(role: string) {
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 </style>

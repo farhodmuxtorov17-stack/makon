@@ -19,61 +19,67 @@
       </div>
     </div>
 
-    <!-- KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><FileText :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalApps }}</div>
-          <div class="kpi-strip__label">Jami arizalar</div>
+    <!-- Premium KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalApps }}</div>
+          <div class="dash-kpi__label">Jami arizalar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><Wrench :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ submittedCount }}</div>
-          <div class="kpi-strip__label">Yangi (SUBMITTED)</div>
+      <div class="dash-kpi dash-kpi--violet">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Wrench :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ submittedCount }}</div>
+          <div class="dash-kpi__label">Yangi</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><FileSignature :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ inProgressCount }}</div>
-          <div class="kpi-strip__label">Jarayonda</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileSignature :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ inProgressCount }}</div>
+          <div class="dash-kpi__label">Jarayonda</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ activeCount }}</div>
-          <div class="kpi-strip__label">Aktiv shartnomalar</div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ activeCount }}</div>
+          <div class="dash-kpi__label">Aktiv</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><PenTool :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ signingCount }}</div>
-          <div class="kpi-strip__label">Imzolanmoqda</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><PenTool :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ signingCount }}</div>
+          <div class="dash-kpi__label">Imzolanmoqda</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><DollarSign :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalValue }}</div>
-          <div class="kpi-strip__label">Umumiy qiymat (mln)</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><DollarSign :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalValue }}</div>
+          <div class="dash-kpi__label">Umumiy qiymat (mln)</div>
         </div>
       </div>
     </div>
 
     <!-- Kanban -->
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 overflow-x-auto pb-4">
-      <div v-for="col in kanbanColumns" :key="col.status" class="bg-black/5 dark:bg-white/5 p-3 rounded-2xl border border-black/5 dark:border-white/5 space-y-3 min-w-[240px]">
-        <div class="flex items-center justify-between px-1">
-          <span class="text-xs font-bold text-ink-900 dark:text-white flex items-center gap-1.5">
+      <div v-for="col in kanbanColumns" :key="col.status" class="kanban-col">
+        <div class="kanban-col-header">
+          <span class="kanban-col-title">
             <span class="w-2 h-2 rounded-full" :class="col.color"></span>
             {{ col.label }}
           </span>
-          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/10 dark:bg-white/10 text-ink-500">
+          <span class="kanban-col-count">
             {{ getColumnApps(col.status).length }}
           </span>
         </div>
@@ -82,7 +88,7 @@
         <div class="space-y-3">
           <div
             v-for="app in getColumnApps(col.status)" :key="app.id"
-            class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer group bg-white dark:bg-ink-900"
+            class="kanban-card"
             @click="selectedApp = app"
           >
             <div class="flex items-center justify-between">
@@ -256,7 +262,7 @@
 <script setup lang="ts">
 import { ArrowRight, History, X, FileText, Check, RotateCcw, XCircle, RefreshCw , CheckCircle, DollarSign, FileSignature, PenTool, Wrench} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
 
@@ -367,7 +373,7 @@ function confirmDecision() {
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 20px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 10px; color: var(--text-muted, #71717a); margin-top: 3px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 20px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 10px; color: var(--text-muted, #71717a); margin-top: 3px; }
 </style>

@@ -5,7 +5,7 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FINANCE / STOCK ISSUES</div>
         <div class="eyebrow">FINANCE / STOCK-ISSUES</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Ombordan chiqarish</h1>
+      <h1 class="page-title">Ombordan chiqarish</h1>
         <p class="text-ink-500 text-sm mt-1">Materiallarni ombordan chiqarish hujjatlari</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="showNew = !showNew"><Plus :size="14" /> Yangi chiqarish</button>
@@ -37,33 +37,33 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Package :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ issues.length }}</div>
-          <div class="kpi-strip__label">Jami chiqarish</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ issues.length }}</div>
+          <div class="dash-kpi__label">Jami chiqarish</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
+      <div class="dash-kpi dash-kpi--emerald">
         <div class="kpi-strip__icon"><CheckCircle :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'COMPLETED').length }}</div>
-          <div class="kpi-strip__label">Berilgan</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ issues.filter(i => i.status === 'COMPLETED').length }}</div>
+          <div class="dash-kpi__label">Berilgan</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
+      <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ issues.filter(i => i.status === 'PENDING').length }}</div>
-          <div class="kpi-strip__label">Kutilmoqda</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ issues.filter(i => i.status === 'PENDING').length }}</div>
+          <div class="dash-kpi__label">Kutilmoqda</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--violet">
+      <div class="dash-kpi dash-kpi--violet">
         <div class="kpi-strip__icon"><CreditCard :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ formatUZSShort(totalValue) }}</div>
-          <div class="kpi-strip__label">Jami qiymat</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ formatUZSShort(totalValue) }}</div>
+          <div class="dash-kpi__label">Jami qiymat</div>
         </div>
       </div>
     </div>
@@ -112,7 +112,7 @@
 <script setup lang="ts">
 import { Plus, ArrowDownToLine, CheckCircle2, Clock, Wallet, Lightbulb, Droplet, PaintRoller, Boxes, Wrench , CheckCircle, CreditCard, FileText, Package} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'WAREHOUSE_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort } = useFormat()
 const store = useMakonStore()
@@ -183,8 +183,8 @@ function formatDate(d: string) {
 .kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); color: #8b5cf6; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
-.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
 
 .si-card {
   background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);

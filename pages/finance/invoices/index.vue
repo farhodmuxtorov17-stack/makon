@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FINANCE / INVOICES</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Invoyslar</h1>
+        <h1 class="page-title">Invoyslar</h1>
         <p class="text-ink-500 text-sm mt-1">Shartnoma bo'yicha to'lov hujjatlari</p>
       </div>
       <div class="flex items-center gap-2">
@@ -17,33 +17,37 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ invoices.length }}</div>
-          <div class="kpi-strip__label">Jami invoyslar</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ invoices.length }}</div>
+          <div class="dash-kpi__label">Jami invoyslar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value text-emerald-500">{{ paidCount }}</div>
-          <div class="kpi-strip__label">To'langan</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileSignature :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value text-emerald-500">{{ paidCount }}</div>
+          <div class="dash-kpi__label">To'langan</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value text-blue-500">{{ pendingCount }}</div>
-          <div class="kpi-strip__label">Kutilmoqda</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value text-blue-500">{{ pendingCount }}</div>
+          <div class="dash-kpi__label">Kutilmoqda</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value text-red-500">{{ overdueCount }}</div>
-          <div class="kpi-strip__label">Muddati o'tgan</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><AlertCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value text-red-500">{{ overdueCount }}</div>
+          <div class="dash-kpi__label">Muddati o'tgan</div>
         </div>
       </div>
     </div>
@@ -151,7 +155,7 @@
             <div><div class="text-xs text-ink-500 mb-1">Ijarachi</div><div class="font-medium text-ink-900 dark:text-white">{{ selectedInvoice.tenantName }}</div></div>
             <div><div class="text-xs text-ink-500 mb-1">Davr</div><div class="font-medium text-ink-900 dark:text-white">{{ selectedInvoice.date }}</div></div>
             <div><div class="text-xs text-ink-500 mb-1">Status</div><span class="text-xs px-2.5 py-1 rounded-full font-medium" :class="statusClass(selectedInvoice.status)">{{ statusLabel(selectedInvoice.status) }}</span></div>
-            <div class="col-span-2 pt-3 border-t border-black/5 dark:border-white/10"><div class="text-xs text-ink-500 mb-1">Summa</div><div class="text-2xl font-bold text-ink-900 dark:text-white">{{ selectedInvoice.amount.toLocaleString('ru-RU') }} {{ selectedInvoice.currency }}</div></div>
+            <div class="col-span-2 pt-3 border-t border-black/5 dark:border-white/10"><div class="text-xs text-ink-500 mb-1">Summa</div><div class="page-title">{{ selectedInvoice.amount.toLocaleString('ru-RU') }} {{ selectedInvoice.currency }}</div></div>
           </div>
           <div class="flex gap-2 pt-2">
             <button v-if="selectedInvoice.status === 'PENDING'" @click="markPaid(selectedInvoice); selectedInvoice = null" class="btn btn-success btn-sm flex-1">
@@ -170,7 +174,7 @@
 <script setup lang="ts">
 import { Search, Filter, Download, Eye, CheckCircle, FileText, X , AlertCircle, FileSignature} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const store = useMakonStore()
 
@@ -293,9 +297,9 @@ function downloadInvoice(inv: Invoice) {
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 .btn-success { background: #10b981; color: white; }
 .btn-success:hover { background: #059669; }
 </style>

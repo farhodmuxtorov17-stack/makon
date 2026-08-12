@@ -3,39 +3,39 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ERI / SIGNATURES</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">ERI imzo navbati</h1>
+        <h1 class="page-title">ERI imzo navbati</h1>
         <p class="text-ink-500 text-sm mt-1">{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="() => {}"><RefreshCw :size="14" /> Yangilash</button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--amber">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><Clock :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ pendingCount }}</div>
-          <div class="kpi-strip__label">Kutilmoqda</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ pendingCount }}</div>
+          <div class="dash-kpi__label">Kutilmoqda</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
+      <div class="dash-kpi dash-kpi--emerald">
         <div class="kpi-strip__icon"><FileSignature :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ signedCount }}</div>
-          <div class="kpi-strip__label">Imzolangan</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ signedCount }}</div>
+          <div class="dash-kpi__label">Imzolangan</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--rose">
+      <div class="dash-kpi dash-kpi--rose">
         <div class="kpi-strip__icon"><AlertCircle :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ failedCount }}</div>
-          <div class="kpi-strip__label">Xatolik</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ failedCount }}</div>
+          <div class="dash-kpi__label">Xatolik</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--violet">
+      <div class="dash-kpi dash-kpi--violet">
         <div class="kpi-strip__icon"><ShieldCheck :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ signatures.length }}</div>
-          <div class="kpi-strip__label">Jami so'rov</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ signatures.length }}</div>
+          <div class="dash-kpi__label">Jami so'rov</div>
         </div>
       </div>
     </div>
@@ -118,7 +118,7 @@
 <script setup lang="ts">
 import { Clock, ShieldCheck, RefreshCw, Send, RotateCw, ExternalLink, AlertCircle, FileSignature } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const makonStore = useMakonStore()
 const statusFilter = ref('')
@@ -157,8 +157,8 @@ function statusLabel(s: string) { return { PENDING: 'Kutilmoqda', SIGNED: 'Imzol
 .kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
 .kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); color: #f43f5e; }
 .kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); color: #8b5cf6; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
-.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
 
 .sig-card {
   background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);

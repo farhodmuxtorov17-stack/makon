@@ -4,39 +4,39 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">CABINET / UNITS</div>
         <div class="eyebrow">CABINET / UNITS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Mening unitlarim</h1>
+      <h1 class="page-title">Mening unitlarim</h1>
         <p class="text-ink-500 text-sm mt-1">{{ units.length }} ta unit · {{ totalArea }} m² jami maydon</p>
       </div>
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Building2 :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ units.length }}</div>
-          <div class="kpi-strip__label">Mening unitlarim</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ units.length }}</div>
+          <div class="dash-kpi__label">Mening unitlarim</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
+      <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Ruler :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalArea }}<span class="text-sm font-500"> m²</span></div>
-          <div class="kpi-strip__label">Jami maydon</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalArea }}<span class="text-sm font-500"> m²</span></div>
+          <div class="dash-kpi__label">Jami maydon</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
+      <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><Wallet :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ formatUZSShort(totalMonthlyRent) }}</div>
-          <div class="kpi-strip__label">Oylik to'lov</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ formatUZSShort(totalMonthlyRent) }}</div>
+          <div class="dash-kpi__label">Oylik to'lov</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--rose">
+      <div class="dash-kpi dash-kpi--rose">
         <div class="kpi-strip__icon"><AlertCircle :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalDebt > 0 ? formatUZSShort(totalDebt) : "Yo'q" }}</div>
-          <div class="kpi-strip__label">Qarzdorlik</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalDebt > 0 ? formatUZSShort(totalDebt) : "Yo'q" }}</div>
+          <div class="dash-kpi__label">Qarzdorlik</div>
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@ import { Search,  Plus, Building2, Ruler, Wallet, AlertCircle } from 'lucide-vue
 
 const search = ref('')
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['TENANT_OWNER'],  layout: 'admin', middleware: 'role' })
 
 const makonStore = useMakonStore()
 const { formatUZS, formatUZSShort } = useFormat()
@@ -184,7 +184,7 @@ const totalDebt = computed(() => units.value.reduce((s, u) => s + (u.debt || 0),
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); color: #3b82f6; }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); color: #f43f5e; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
-.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
 :deep(.dark) .kpi-strip { border-color: rgba(255,255,255,0.06); }
 </style>

@@ -5,39 +5,39 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">CABINET / CONTRACTS</div>
         <div class="eyebrow">CABINET / CONTRACTS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Mening shartnomalarim</h1>
+      <h1 class="page-title">Mening shartnomalarim</h1>
         <p class="text-ink-500 text-sm mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} faol · {{ signingCount }} imzolanmoqda</p>
       </div>
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--emerald">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--emerald">
         <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ activeCount }}</div>
-          <div class="kpi-strip__label">Faol shartnoma</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ activeCount }}</div>
+          <div class="dash-kpi__label">Faol shartnoma</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
+      <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><Clock :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ signingCount }}</div>
-          <div class="kpi-strip__label">Imzolanmoqda</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ signingCount }}</div>
+          <div class="dash-kpi__label">Imzolanmoqda</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--violet">
+      <div class="dash-kpi dash-kpi--violet">
         <div class="kpi-strip__icon"><ShieldCheck :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ eriCount }}</div>
-          <div class="kpi-strip__label">ERI imzolangan</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ eriCount }}</div>
+          <div class="dash-kpi__label">ERI imzolangan</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--rose">
+      <div class="dash-kpi dash-kpi--rose">
         <div class="kpi-strip__icon"><AlertCircle :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ expiredCount }}</div>
-          <div class="kpi-strip__label">Muddati o'tgan</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ expiredCount }}</div>
+          <div class="dash-kpi__label">Muddati o'tgan</div>
         </div>
       </div>
     </div>
@@ -126,7 +126,7 @@
 <script setup lang="ts">
 import { Plus, FileText, CheckCircle2, Clock, ShieldCheck, AlertCircle, CalendarDays, CalendarX2 } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['TENANT_OWNER'],  layout: 'admin', middleware: 'role' })
 
 const makonStore = useMakonStore()
 const { formatUZS } = useFormat()
@@ -158,8 +158,8 @@ function statusLabel(s: string) { return { ACTIVE: 'Faol', PARTIALLY_SIGNED: 'Qi
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); color: #8b5cf6; }
 .kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); color: #f43f5e; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
-.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
 
 .con-card {
   background: var(--card-bg, #fff);

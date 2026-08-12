@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex admin-bg">
-    <!-- ═══ Premium Collapsible Sidebar ═══ -->
+    <!-- Premium Collapsible Sidebar -->
     <aside
       class="fixed lg:sticky top-0 left-0 h-screen z-40 sidebar-transition overflow-hidden"
       :style="{ width: sidebarCollapsed ? '68px' : '256px' }"
@@ -26,49 +26,22 @@
 
         <!-- Navigation -->
         <nav class="flex-1 overflow-y-auto py-2 px-3 sidebar-nav-scroll">
-          <!-- Main Group -->
-          <div v-if="!sidebarCollapsed" class="sidebar-group-label">Asosiy</div>
-          <NuxtLink
-            v-for="item in navMain" :key="item.to"
-            :to="item.to"
-            class="sidebar-link"
-            :class="isActive(item.to) ? 'sidebar-link--active' : ''"
-            @click="sidebarOpen = false"
-            :title="sidebarCollapsed ? item.label : ''"
-          >
-            <component :is="item.icon" :size="19" class="sidebar-link__icon" />
-            <span v-if="!sidebarCollapsed" class="sidebar-link__label">{{ item.label }}</span>
-            <span v-if="item.badge && !sidebarCollapsed" class="ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-red-500/90 text-white">{{ item.badge }}</span>
-            <span v-if="item.badge && sidebarCollapsed" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 ring-2 ring-[#0E1B33]"></span>
-          </NuxtLink>
-
-          <!-- Management Group -->
-          <div v-if="!sidebarCollapsed" class="sidebar-group-label">Boshqaruv</div>
-          <NuxtLink
-            v-for="item in navManagement" :key="item.to"
-            :to="item.to"
-            class="sidebar-link"
-            :class="isActive(item.to) ? 'sidebar-link--active' : ''"
-            @click="sidebarOpen = false"
-            :title="sidebarCollapsed ? item.label : ''"
-          >
-            <component :is="item.icon" :size="19" class="sidebar-link__icon" />
-            <span v-if="!sidebarCollapsed" class="sidebar-link__label">{{ item.label }}</span>
-          </NuxtLink>
-
-          <!-- System Group -->
-          <div v-if="!sidebarCollapsed" class="sidebar-group-label">Tizim</div>
-          <NuxtLink
-            v-for="item in navSystem" :key="item.to"
-            :to="item.to"
-            class="sidebar-link"
-            :class="isActive(item.to) ? 'sidebar-link--active' : ''"
-            @click="sidebarOpen = false"
-            :title="sidebarCollapsed ? item.label : ''"
-          >
-            <component :is="item.icon" :size="19" class="sidebar-link__icon" />
-            <span v-if="!sidebarCollapsed" class="sidebar-link__label">{{ item.label }}</span>
-          </NuxtLink>
+          <template v-for="(group, gi) in filteredNav" :key="gi">
+            <div v-if="!sidebarCollapsed && group.items.length > 0" class="sidebar-group-label">{{ group.label }}</div>
+            <NuxtLink
+              v-for="item in group.items" :key="item.to"
+              :to="item.to"
+              class="sidebar-link"
+              :class="isActive(item.to) ? 'sidebar-link--active' : ''"
+              @click="sidebarOpen = false"
+              :title="sidebarCollapsed ? item.label : ''"
+            >
+              <component :is="item.icon" :size="19" class="sidebar-link__icon" />
+              <span v-if="!sidebarCollapsed" class="sidebar-link__label">{{ item.label }}</span>
+              <span v-if="item.badge && !sidebarCollapsed" class="ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-red-500/90 text-white">{{ item.badge }}</span>
+              <span v-if="item.badge && sidebarCollapsed" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 ring-2 ring-[#0E1B33]"></span>
+            </NuxtLink>
+          </template>
         </nav>
 
         <!-- User / Logout -->
@@ -138,7 +111,9 @@
 import {
   LayoutDashboard, Building2, FileText, ScrollText, Receipt, Settings,
   Menu, LogOut, ChevronRight, ChevronLeft, Users, Wrench,
-  Wallet, BarChart3, Bell, Shield, Activity, Database, FileSignature
+  Wallet, BarChart3, Bell, Shield, Activity, Database, FileSignature, CheckSquare, Gauge, UserCircle,
+  Package, Boxes, ClipboardList, Boxes as Inventory, Home, CreditCard,
+  FileSpreadsheet, Layers, Eye
 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -158,59 +133,94 @@ function toggleCollapse() {
 }
 
 const roleLabels: Record<string,string> = {
-  SUPER_HEAD: 'Super Rahbar', BUILDING_MANAGER: 'Bino Rahbari', ACCOUNTANT: 'Buxgalter',
-  FACILITY: 'Pudratchi', TENANT_OWNER: 'Ijarachi'
+  ADMIN: 'Administrator', SUPER_HEAD: 'Super Rahbar', BUILDING_MANAGER: 'Bino Rahbari',
+  ACCOUNTANT: 'Buxgalter', FACILITY: 'Pudratchi', TENANT_OWNER: 'Ijarachi',
+  WAREHOUSE_OPERATOR: 'Omborchi', CONTENT_OPERATOR: 'Kontent Operator'
 }
 const roleLabel = computed(() => roleLabels[currentRole.value] || 'Admin')
 
-// ── Nav Groups ──
-const navMain = [
-  { to: '/dashboard/executive', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/management/applications', label: 'Arizalar', icon: FileText, badge: 3 },
-  { to: '/contracts', label: 'Shartnomalar', icon: ScrollText },
-  { to: '/management/tenants', label: 'Ijarachilar', icon: Users },
+// ═══ Role-based navigation ═══
+// Each role sees ONLY their modules
+const allNavGroups = [
+  {
+    label: 'Asosiy',
+    items: [
+      { to: '/dashboard/executive', label: 'Dashboard', icon: LayoutDashboard, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/dashboard/building', label: 'Bino Dashboard', icon: LayoutDashboard, roles: ['BUILDING_MANAGER'] },
+      { to: '/management/applications', label: 'Arizalar', icon: FileText, badge: 3, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'CONTENT_OPERATOR'] },
+      { to: '/contracts', label: 'Shartnomalar', icon: ScrollText, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'] },
+      { to: '/management/tenants', label: 'Ijarachilar', icon: Users, roles: ['SUPER_HEAD', 'BUILDING_MANAGER'] },
+      { to: '/cabinet/units', label: 'Mening unitlarim', icon: Home, roles: ['TENANT_OWNER'] },
+      { to: '/cabinet/applications', label: 'Mening arizalarim', icon: FileText, roles: ['TENANT_OWNER'] },
+      { to: '/cabinet/contracts', label: 'Mening shartnomalarim', icon: ScrollText, roles: ['TENANT_OWNER'] },
+      { to: '/cabinet/services', label: 'Mening xizmatlarim', icon: Wrench, roles: ['TENANT_OWNER'] },
+      { to: '/cabinet/service-requests', label: 'Servis so\'rovlari', icon: ClipboardList, roles: ['TENANT_OWNER'] },
+    ]
+  },
+  {
+    label: 'Boshqaruv',
+    items: [
+      { to: '/management/buildings', label: 'Binolar', icon: Building2, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'CONTENT_OPERATOR'] },
+      { to: '/management/listings', label: 'Listinglar', icon: FileSignature, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'CONTENT_OPERATOR'] },
+      { to: '/management/floor-plans', label: 'Qavat rejalar', icon: Layers, roles: ['SUPER_HEAD', 'CONTENT_OPERATOR'] },
+      { to: '/management/visual-settings', label: 'Vizual sozlamalar', icon: Eye, roles: ['SUPER_HEAD', 'CONTENT_OPERATOR'] },
+      { to: '/finance/invoices', label: 'Invoyslar', icon: CreditCard, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
+      { to: '/finance/periods', label: 'Moliya davrlar', icon: Wallet, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
+      { to: '/finance/debts', label: 'Qarzlar', icon: FileSpreadsheet, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
+      { to: '/facility/work-orders', label: 'Work order', icon: Wrench, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
+      { to: '/management/service-requests', label: 'Servis so\'rovlar', icon: ClipboardList, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
+      { to: '/finance/inventory', label: 'Inventar', icon: Boxes, roles: ['SUPER_HEAD', 'WAREHOUSE_OPERATOR'] },
+      { to: '/finance/stock-issues', label: 'Ombor chiqimlari', icon: Package, roles: ['SUPER_HEAD', 'WAREHOUSE_OPERATOR'] },
+      { to: '/management/contracts', label: 'Boshqaruv shartnomalar', icon: ScrollText, roles: ['SUPER_HEAD', 'BUILDING_MANAGER'] },
+      { to: '/management/units', label: 'Unit boshqaruvi', icon: Grid3x3, roles: ['SUPER_HEAD', 'BUILDING_MANAGER'] },
+      { to: '/finance/approvals', label: 'Tasdiqlar', icon: CheckSquare, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
+      { to: '/facility/material-requests', label: 'Material so\'rovlari', icon: Package, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
+      { to: '/meters', label: 'Sanoqchilar', icon: Gauge, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
+      { to: '/eri/signatures', label: 'ERI imzolar', icon: FileSignature, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'] },
+    ]
+  },
+  {
+    label: 'Tizim',
+    items: [
+      { to: '/reports/index', label: 'Hisobotlar', icon: BarChart3, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
+      { to: '/notifications', label: 'Bildirishnomalar', icon: Bell, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER'] },
+      { to: '/admin/users', label: 'Foydalanuvchilar', icon: Users, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/admin/roles', label: 'Rollar', icon: Shield, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/admin/audit', label: 'Audit', icon: Shield, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/admin/monitoring', label: 'Monitoring', icon: Activity, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/admin/backups', label: 'Rezerv nusxa', icon: Database, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/admin/notification-templates', label: 'Shablonlar', icon: Bell, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/admin/login-history', label: 'Kirish tarixi', icon: Shield, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/admin/settings', label: 'Sozlamalar', icon: Settings, roles: ['SUPER_HEAD', 'ADMIN'] },
+      { to: '/profile', label: 'Profil', icon: UserCircle, roles: ['SUPER_HEAD', 'ADMIN', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'] },
+    ]
+  }
 ]
 
-const navManagement = [
-  { to: '/management/buildings', label: 'Binolar', icon: Building2 },
-  { to: '/management/listings', label: 'Listinglar', icon: FileSignature },
-  { to: '/finance/invoices', label: 'Moliya', icon: Wallet },
-  { to: '/facility/work-orders', label: 'Texnik xizmat', icon: Wrench },
-]
-
-const navSystem = [
-  { to: '/reports/index', label: 'Hisobotlar', icon: BarChart3 },
-  { to: '/notifications', label: 'Bildirishnomalar', icon: Bell },
-  { to: '/admin/audit', label: 'Audit', icon: Shield },
-  { to: '/admin/monitoring', label: 'Monitoring', icon: Activity },
-  { to: '/admin/settings', label: 'Sozlamalar', icon: Settings },
-]
+const filteredNav = computed(() => {
+  return allNavGroups.map(g => ({
+    ...g,
+    items: g.items.filter(item => item.roles.includes(currentRole.value))
+  })).filter(g => g.items.length > 0)
+})
 
 const titles: Record<string,string> = {
-  '/dashboard/executive': 'Dashboard',
-  '/dashboard/building': 'Bino Dashboard',
-  '/management/buildings': 'Binolar',
-  '/management/applications': 'Arizalar',
-  '/contracts': 'Shartnomalar',
-  '/management/tenants': 'Ijarachilar',
-  '/management/listings': 'Listinglar',
-  '/finance/invoices': 'Moliya',
-  '/finance/periods': 'Moliya Davrlar',
-  '/finance/debts': 'Qarzlar',
-  '/facility/work-orders': 'Texnik Xizmat',
-  '/reports/index': 'Hisobotlar',
-  '/reports': 'Hisobotlar',
-  '/notifications': 'Bildirishnomalar',
-  '/admin/audit': 'Audit',
-  '/admin/monitoring': 'Monitoring',
-  '/admin/settings': 'Sozlamalar',
-  '/admin/users': 'Foydalanuvchilar',
-  '/admin/roles': 'Rollar',
-  '/admin/backups': 'Rezerv Nusxalar',
+  '/dashboard/executive': 'Dashboard', '/dashboard/building': 'Bino Dashboard',
+  '/management/buildings': 'Binolar', '/management/applications': 'Arizalar',
+  '/contracts': 'Shartnomalar', '/management/tenants': 'Ijarachilar',
+  '/management/listings': 'Listinglar', '/finance/invoices': 'Invoyslar',
+  '/finance/periods': 'Moliya Davrlar', '/finance/debts': 'Qarzlar',
+  '/finance/inventory': 'Inventar', '/finance/stock-issues': 'Ombor Chiqimlari',
+  '/facility/work-orders': 'Texnik Xizmat', '/reports/index': 'Hisobotlar',
+  '/reports': 'Hisobotlar', '/notifications': 'Bildirishnomalar',
+  '/admin/audit': 'Audit', '/admin/monitoring': 'Monitoring',
+  '/admin/settings': 'Sozlamalar', '/admin/users': 'Foydalanuvchilar',
+  '/admin/roles': 'Rollar', '/admin/backups': 'Rezerv Nusxalar',
+  '/admin/notification-templates': 'Shablonlar', '/admin/login-history': 'Kirish Tarixi',
   '/management/service-requests': 'Servis So\'rovlar',
-  '/management/floor-plans': 'Qavat Rejalar',
-  '/management/visual-settings': 'Vizual Sozlamalar',
-  '/profile': 'Profil',
+  '/management/floor-plans': 'Qavat Rejalar', '/management/visual-settings': 'Vizual Sozlamalar',
+  '/cabinet/units': 'Mening Unitlarim', '/cabinet/applications': 'Mening Arizalarim',
+  '/cabinet/services': 'Mening Servislarim', '/profile': 'Profil',
 }
 const pageTitle = computed(() => {
   for (const [p, t] of Object.entries(titles)) {

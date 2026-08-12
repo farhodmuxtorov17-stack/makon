@@ -120,7 +120,7 @@
 import { Building2, Calendar, ClipboardCheck, CreditCard, FileClock, TrendingDown, TrendingUp, Wrench } from 'lucide-vue-next'
 import Sparkline from '~/components/Sparkline.vue'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['BUILDING_MANAGER'],  layout: 'admin', middleware: 'role' })
 
 const today = '11.08.2026'
 const selectedId = ref('b1')

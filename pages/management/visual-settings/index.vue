@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div>
       <div class="eyebrow">MANAGEMENT / VISUAL-SETTINGS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Vizual sozlamalar</h1>
+      <h1 class="page-title">Vizual sozlamalar</h1>
       <p class="text-ink-500 text-sm mt-1">Bino sahifalari, katalog va listing ko'rinishi</p>
     </div>
 
@@ -16,33 +16,37 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ activeBuildings }}</div>
-          <div class="kpi-strip__label">Aktiv binolar</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ activeBuildings }}</div>
+          <div class="dash-kpi__label">Aktiv binolar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ publishedListings }}</div>
-          <div class="kpi-strip__label">Nashr listinglar</div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Grid3x3 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ publishedListings }}</div>
+          <div class="dash-kpi__label">Nashr listinglar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalViews }}</div>
-          <div class="kpi-strip__label">Jami ko'rishlar</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalViews }}</div>
+          <div class="dash-kpi__label">Jami ko'rishlar</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ activeContracts }}</div>
-          <div class="kpi-strip__label">Aktiv shartnomalar</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileSignature :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ activeContracts }}</div>
+          <div class="dash-kpi__label">Aktiv shartnomalar</div>
         </div>
       </div>
     </div>
@@ -257,7 +261,7 @@
 <script setup lang="ts">
 import { ChevronUp, ChevronDown, Image, Building2, Layers, Map, FileText, Boxes, Settings as SettingsIcon, Palette, Save, CheckCircle2 , FileSignature, Grid3x3} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 const store = useMakonStore()
 
 const activeTab = ref('catalog')
@@ -327,7 +331,7 @@ function moveSection(i: number, dir: number) {
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 </style>

@@ -166,5 +166,5 @@ import {
   Settings, Shield, Plug, Database, FileSignature, Mail, MessageSquare, Check
 } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN'],  layout: 'admin', middleware: 'role' })
 </script>

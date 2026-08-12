@@ -4,39 +4,39 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / USERS</div>
         <div class="eyebrow">ADMIN / USERS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Foydalanuvchilar</h1>
+      <h1 class="page-title">Foydalanuvchilar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUsers.length }} foydalanuvchi · {{ activeCount }} faol</p>
       </div>
       <button @click="showInvite = true" class="btn btn-primary btn-sm btn-glow"><UserPlus :size="14" /> Taklif yuborish</button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--blue">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Building2 :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ users.length }}</div>
-          <div class="kpi-strip__label">Jami foydalanuvchi</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ users.length }}</div>
+          <div class="dash-kpi__label">Jami foydalanuvchi</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
+      <div class="dash-kpi dash-kpi--emerald">
         <div class="kpi-strip__icon"><Home :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ activeCount }}</div>
-          <div class="kpi-strip__label">Faol</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ activeCount }}</div>
+          <div class="dash-kpi__label">Faol</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
+      <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ pendingCount }}</div>
-          <div class="kpi-strip__label">Taklif kutilmoqda</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ pendingCount }}</div>
+          <div class="dash-kpi__label">Taklif kutilmoqda</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--violet">
+      <div class="dash-kpi dash-kpi--violet">
         <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ adminCount }}</div>
-          <div class="kpi-strip__label">Adminlar</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ adminCount }}</div>
+          <div class="dash-kpi__label">Adminlar</div>
         </div>
       </div>
     </div>
@@ -178,7 +178,7 @@
 import KpiCard from '~/components/KpiCard.vue'
 import { UserPlus, Users, UserCheck, Clock, ShieldCheck, Search, MoreHorizontal, Send, Power , Building2, FileSignature, FileText, Home} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN'],  layout: 'admin', middleware: 'role' })
 
 const showInvite = ref(false)
 const selectedUser = ref<any>(null)

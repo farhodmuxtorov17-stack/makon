@@ -4,7 +4,7 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / BACKUPS</div>
         <div class="eyebrow">ADMIN / BACKUPS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Rezerv nusxalar</h1>
+      <h1 class="page-title">Rezerv nusxalar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ backups.length }} nusxa · Oxirgi: {{ backups[0]?.time }}</p>
       </div>
       <div class="flex items-center gap-2">
@@ -14,33 +14,37 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><Package :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">1.2<span class="text-sm">GB</span></div>
-          <div class="kpi-strip__label">Jami hajm</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Package :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">1.2<span class="text-sm">GB</span></div>
+          <div class="dash-kpi__label">Jami hajm</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ successCount }}</div>
-          <div class="kpi-strip__label">Muvaffaqiyatli</div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ successCount }}</div>
+          <div class="dash-kpi__label">Muvaffaqiyatli</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><PenTool :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">18:00</div>
-          <div class="kpi-strip__label">Keyingi nusxa</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><PenTool :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">18:00</div>
+          <div class="dash-kpi__label">Keyingi nusxa</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">12<span class="text-sm">%</span></div>
-          <div class="kpi-strip__label">Disk ishlatish</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><AlertCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">12<span class="text-sm">%</span></div>
+          <div class="dash-kpi__label">Disk ishlatish</div>
         </div>
       </div>
     </div>
@@ -88,7 +92,7 @@
 <script setup lang="ts">
 import { Plus, Download, RotateCcw, Trash2, Database, CheckCircle2, Clock, HardDrive , AlertCircle, CheckCircle, Package, PenTool} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN'],  layout: 'admin', middleware: 'role' })
 
 const store = useMakonStore()
 const backups = computed(() => store.backups)
@@ -120,8 +124,8 @@ function createBackup() { store.createBackup() }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 
 </style>

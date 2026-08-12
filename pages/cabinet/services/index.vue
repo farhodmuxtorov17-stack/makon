@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">CABINET / SERVICES</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisob va servis</h1>
+      <h1 class="page-title">Hisob va servis</h1>
         <p class="text-ink-500 text-sm mt-1">To'lovlar, invoyslar va servis so'rovlari</p>
       </div>
       <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm btn-glow">
@@ -12,33 +12,37 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ formatUZSShort(0) }}</div>
-          <div class="kpi-strip__label">Joriy balans</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ formatUZSShort(0) }}</div>
+          <div class="dash-kpi__label">Joriy balans</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ activeInvoices }}</div>
-          <div class="kpi-strip__label">Aktiv invoys</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileSignature :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ activeInvoices }}</div>
+          <div class="dash-kpi__label">Aktiv invoys</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ openRequests }}</div>
-          <div class="kpi-strip__label">Servis so'rov</div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ openRequests }}</div>
+          <div class="dash-kpi__label">Servis so'rov</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ unitCount }}</div>
-          <div class="kpi-strip__label">Biriktirilgan unit</div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Grid3x3 :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ unitCount }}</div>
+          <div class="dash-kpi__label">Biriktirilgan unit</div>
         </div>
       </div>
     </div>
@@ -66,7 +70,7 @@
           <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center"><Receipt :size="20" class="text-blue-500" /></div>
           <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Keyingi to'lov</span>
         </div>
-        <div class="text-2xl font-bold text-ink-900 dark:text-white">15 Avg</div>
+        <div class="page-title">15 Avg</div>
         <div class="text-xs text-ink-500 mt-1">25.0M UZS · INV-2026-052</div>
       </div>
     </div>
@@ -156,7 +160,7 @@
 <script setup lang="ts">
 import { AlertCircle, CheckCircle, Droplet, FileSignature, FileText, Flame, Grid3x3, Plus, Receipt, Trash2, Wallet, Wrench, Zap } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['TENANT_OWNER'],  layout: 'admin', middleware: 'role' })
 
 const makonStore = useMakonStore()
 const { formatUZS, formatUZSShort } = useFormat()
@@ -216,7 +220,7 @@ const unitCount = computed(() => 2)
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
 .kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.dash-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 </style>

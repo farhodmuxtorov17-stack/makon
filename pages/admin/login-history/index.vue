@@ -3,40 +3,40 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">ADMIN / LOGIN-HISTORY</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Kirish-chiqish tarixi</h1>
+      <h1 class="page-title">Kirish-chiqish tarixi</h1>
         <p class="text-ink-500 text-sm mt-1">Faqat ko'rish uchun — yozuvlar tahrirlanmaydi</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> Eksport</button>
     </div>
 
     <!-- KPI -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--emerald">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--emerald">
         <div class="kpi-strip__icon"><CheckCircle :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ successCount }}</div>
-          <div class="kpi-strip__label">Muvaffaqiyatli</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ successCount }}</div>
+          <div class="dash-kpi__label">Muvaffaqiyatli</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--rose">
+      <div class="dash-kpi dash-kpi--rose">
         <div class="kpi-strip__icon"><CreditCard :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ failedCount }}</div>
-          <div class="kpi-strip__label">Muvaffaqiyatsiz</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ failedCount }}</div>
+          <div class="dash-kpi__label">Muvaffaqiyatsiz</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--violet">
+      <div class="dash-kpi dash-kpi--violet">
         <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ eriCount }}</div>
-          <div class="kpi-strip__label">ERI kirish</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ eriCount }}</div>
+          <div class="dash-kpi__label">ERI kirish</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
+      <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><AlertCircle :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ blockedCount }}</div>
-          <div class="kpi-strip__label">Bloklangan</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ blockedCount }}</div>
+          <div class="dash-kpi__label">Bloklangan</div>
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@
 <script setup lang="ts">
 import { Download, Search, LogIn, XCircle, ShieldCheck, Ban , AlertCircle, CheckCircle, CreditCard, FileSignature} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN'],  layout: 'admin', middleware: 'role' })
 
 const makonStore = useMakonStore()
 const search = ref('')
@@ -150,6 +150,6 @@ function eventLabel(e: string) {
 .kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); }
 .kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
-.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
 </style>

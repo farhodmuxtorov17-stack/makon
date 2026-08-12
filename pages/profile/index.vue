@@ -109,5 +109,5 @@
 <script setup lang="ts">
 import { ShieldCheck, Camera, Smartphone, Check } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 </script>

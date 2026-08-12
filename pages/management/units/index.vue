@@ -4,40 +4,40 @@
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">MANAGEMENT / UNITS</div>
         <div class="eyebrow">MANAGEMENT / UNITS</div>
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Unitlar</h1>
+      <h1 class="page-title">Unitlar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUnits.length }} ta unit · {{ occupiedCount }} band · {{ vacantCount }} bo'sh</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi unit</button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="kpi-strip kpi-strip--teal">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Layers :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ units.length }}</div>
-          <div class="kpi-strip__label">Jami unit</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ units.length }}</div>
+          <div class="dash-kpi__label">Jami unit</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--emerald">
+      <div class="dash-kpi dash-kpi--emerald">
         <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ occupiedCount }}</div>
-          <div class="kpi-strip__label">Band</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ occupiedCount }}</div>
+          <div class="dash-kpi__label">Band</div>
         </div>
         <div class="kpi-strip__pct">{{ Math.round(occupiedCount / units.length * 100) }}%</div>
       </div>
-      <div class="kpi-strip kpi-strip--amber">
+      <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><AlertCircle :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ vacantCount }}</div>
-          <div class="kpi-strip__label">Bo'sh</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ vacantCount }}</div>
+          <div class="dash-kpi__label">Bo'sh</div>
         </div>
       </div>
-      <div class="kpi-strip kpi-strip--blue">
+      <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Ruler :size="18" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalArea }}<span class="text-sm font-500"> m²</span></div>
-          <div class="kpi-strip__label">Jami maydon</div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ totalArea }}<span class="text-sm font-500"> m²</span></div>
+          <div class="dash-kpi__label">Jami maydon</div>
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@
 <script setup lang="ts">
 import { Plus, Layers, CheckCircle2, AlertCircle, Ruler, Search, SearchX, Building2, Store, Warehouse, Blend } from 'lucide-vue-next'
 
-definePageMeta({ layout: 'admin', middleware: 'auth' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort } = useFormat()
 
@@ -186,9 +186,9 @@ function typeIcon(t: string) { return { OFFICE: Building2, RETAIL: Store, WAREHO
 .kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); color: #10b981; }
 .kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
 .kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); color: #3b82f6; }
-.kpi-strip__body { flex: 1; min-width: 0; }
-.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
-.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+.dash-kpi__body { flex: 1; min-width: 0; }
+.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
 .kpi-strip__pct { font-size: 11px; font-weight: 700; color: #10b981; padding: 3px 8px; border-radius: 6px; background: rgba(16,185,129,0.1); }
 
 .unit-card {
