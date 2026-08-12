@@ -57,17 +57,38 @@
       <MakonChart type="bar" :series="chartSeries" :categories="chartMonths" :height="240" :colors="['var(--accent)', '#ef4444']" :stacked="true" />
     </div>
 
+    <!-- Status filter + search -->
+    <div class="flex items-center justify-between gap-3 flex-wrap">
+      <div class="flex gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
+        <button v-for="tab in statusTabs" :key="tab.id" @click="statusFilter = tab.id"
+          class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap"
+          :class="statusFilter === tab.id ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+          {{ tab.label }}
+          <span class="ml-1 text-xs" :class="statusFilter === tab.id ? 'text-brand-500' : 'text-ink-400'">{{ tab.count }}</span>
+        </button>
+      </div>
+      <div class="relative flex-1 max-w-[260px]">
+        <Search :size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
+        <input v-model="search" type="text" placeholder="Davr bo'yicha qidiruv..." class="input pl-9 w-full" />
+      </div>
+    </div>
+
     <!-- Periods grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="p in periods" :key="p.id" class="period-card" :class="{ 'period-card--open': p.status === 'OPEN' }" @click="navigateTo('/finance/invoices')">
+      <div v-for="p in filteredPeriods" :key="p.id" class="period-card" :class="{ 'period-card--open': p.status === 'OPEN' }" @click="navigateTo('/finance/invoices')">
         <div class="period-card__head">
           <div>
             <div class="period-card__month">{{ p.label }}</div>
             <div class="period-card__year">{{ p.year }}</div>
           </div>
-          <span class="badge badge-sm" :class="p.status === 'CLOSED' ? 'badge-success' : 'badge-warning'">
-            {{ p.status === 'CLOSED' ? 'Yopilgan' : 'Faol' }}
-          </span>
+          <div class="flex items-center gap-2">
+            <button v-if="p.status === 'OPEN'" @click.stop="closePeriod(p)" class="btn btn-ghost btn-xs text-amber-500" title="Davrni yopish">
+              <Lock :size="12" /> Yopish
+            </button>
+            <span class="badge badge-sm" :class="p.status === 'CLOSED' ? 'badge-success' : 'badge-warning'">
+              {{ p.status === 'CLOSED' ? 'Yopilgan' : 'Faol' }}
+            </span>
+          </div>
         </div>
         <div class="period-card__revenue">
           <div class="period-card__rev-label">Daromad</div>
@@ -99,12 +120,35 @@
 </template>
 
 <script setup lang="ts">
-import { Plus, Layers, CheckCircle2, AlertCircle, DollarSign, FileText } from 'lucide-vue-next'
+import { Plus, Layers, CheckCircle2, AlertCircle, DollarSign, FileText, Search, Lock } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const store = useMakonStore()
+const search = ref('')
+const statusFilter = ref('ALL')
+
 const periods = computed(() => store.periods)
+
+const statusTabs = computed(() => [
+  { id: 'ALL', label: 'Barchasi', count: periods.value.length },
+  { id: 'OPEN', label: 'Faol', count: periods.value.filter(p => p.status === 'OPEN').length },
+  { id: 'CLOSED', label: 'Yopilgan', count: periods.value.filter(p => p.status === 'CLOSED').length },
+])
+
+const filteredPeriods = computed(() => {
+  let result = periods.value
+  if (statusFilter.value !== 'ALL') result = result.filter(p => p.status === statusFilter.value)
+  if (search.value) {
+    const q = search.value.toLowerCase()
+    result = result.filter(p => p.label?.toLowerCase().includes(q) || String(p.year).includes(q))
+  }
+  return result
+})
+
+function closePeriod(p: any) {
+  p.status = 'CLOSED'
+}
 
 const closedCount = computed(() => periods.value.filter(p => p.status === 'CLOSED').length)
 const openCount = computed(() => periods.value.filter(p => p.status === 'OPEN').length)
