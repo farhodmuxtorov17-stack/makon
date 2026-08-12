@@ -52,6 +52,20 @@
       </div>
     </div>
 
+    <!-- 3D Digital Twin -->
+    <div class="card overflow-hidden twin-card">
+      <div class="twin-card__head">
+        <div>
+          <h3 class="font-semibold text-ink-900 dark:text-white">Raqamli ikiz (3D model)</h3>
+          <p class="text-ink-500 text-xs mt-0.5">Binoning ichki tuzilishi va qavatlar joylashuvi</p>
+        </div>
+        <span class="badge badge-success text-xs">Faol</span>
+      </div>
+      <div class="twin-card__body">
+        <img src="/buildings/render_3d-exterior.png" alt="3D bino modeli" class="twin-card__img" />
+      </div>
+    </div>
+
     <!-- Building units -->
     <div class="card overflow-hidden">
       <div class="px-4 py-3 border-b border-ink-100 dark:border-white/10">
@@ -119,6 +133,12 @@ function statusLabel(s: string) {
 </script>
 
 <style scoped>
+.twin-card__head { display: flex; align-items: flex-start; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border, rgba(0,0,0,0.06)); }
+.dark .twin-card__head { border-color: rgba(255,255,255,0.08); }
+.twin-card__body { padding: 28px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 20%, rgba(37,99,235,0.06), transparent 60%); }
+.dark .twin-card__body { background: radial-gradient(ellipse at 50% 20%, rgba(37,99,235,0.1), transparent 60%); }
+.twin-card__img { max-width: 340px; width: 100%; height: auto; filter: drop-shadow(0 24px 32px rgba(0,0,0,0.12)); }
+
 .kpi-strip {
   display: flex; align-items: center; gap: 14px;
   padding: 16px 18px;
