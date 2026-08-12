@@ -72,7 +72,7 @@
             </button>
           </div>
 
-          <NuxtLink to="/auth/verify" class="auth__back">
+          <NuxtLink to="/auth/telegram" class="auth__back">
             <ArrowLeft :size="15" />
             Raqamni o'zgartirish
           </NuxtLink>
@@ -112,7 +112,7 @@ onMounted(() => {
   }
 
   if (!authStore.pendingRegistration?.phone) {
-    navigateTo('/auth/verify')
+    navigateTo('/auth/telegram')
     return
   }
 

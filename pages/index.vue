@@ -299,7 +299,7 @@
             <h2 class="cta-box__title font-heading">Boshqaruvni boshlang</h2>
             <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring. Demo versiyani bepul sinab ko'ring.</p>
             <div class="cta-box__actions">
-              <NuxtLink to="/register/eri" class="cta-box__btn">
+              <NuxtLink to="/auth/telegram" class="cta-box__btn">
                 Ro'yxatdan o'tish <ArrowRight :size="16" />
               </NuxtLink>
               <a href="mailto:info@makon.uz" class="cta-box__link">Bog'lanish</a>
@@ -331,7 +331,7 @@
             <div class="footer__col">
               <div class="footer__col-title">Tizim</div>
               <NuxtLink to="/login">Kirish</NuxtLink>
-              <NuxtLink to="/register/eri">Ro'yxatdan o'tish</NuxtLink>
+              <NuxtLink to="/auth/telegram">Ro'yxatdan o'tish</NuxtLink>
               <NuxtLink to="/dashboard/executive">Dashboard</NuxtLink>
             </div>
             <div class="footer__col">

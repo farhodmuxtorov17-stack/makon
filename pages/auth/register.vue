@@ -186,7 +186,7 @@ onMounted(() => {
   }
 
   if (!authStore.pendingRegistration?.phoneVerified) {
-    navigateTo('/auth/verify')
+    navigateTo('/auth/telegram')
   }
 
   // Pre-fill phone from phone-verified number

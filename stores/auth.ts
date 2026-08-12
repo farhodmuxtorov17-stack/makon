@@ -142,10 +142,19 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     // Demo/admin credentials
-    if (login === 'admin@makon.uz' && password === 'demo1234') {
+    const demoUsers: Record<string, { name: string; role: UserRole }> = {
+      'admin@makon.uz': { name: 'Admin User', role: 'SUPER_HEAD' as UserRole },
+      'manager@makon.uz': { name: 'Bino Menejeri', role: 'BUILDING_MANAGER' as UserRole },
+      'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole },
+      'tenant@makon.uz': { name: 'Ijarachi', role: 'TENANT_OWNER' as UserRole },
+      'facility@makon.uz': { name: 'Texnik Xodim', role: 'FACILITY' as UserRole },
+    }
+
+    if (demoUsers[login] && password === 'demo1234') {
+      const demo = demoUsers[login]
       setAuth({
         token: 'sess_' + Date.now().toString(36),
-        user: { id: '1', fullName: 'Admin User', email: 'admin@makon.uz', role: 'SUPER_HEAD' as UserRole },
+        user: { id: login.split('@')[0], fullName: demo.name, email: login, role: demo.role },
       })
       return true
     }
