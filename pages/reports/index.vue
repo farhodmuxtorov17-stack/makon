@@ -24,7 +24,7 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="34" /></div>
+        <div class="kpi-strip__icon"><DollarSign :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ formatUZSShort(kpis.totalRevenue) }}</div>
           <div class="kpi-strip__label">Jami daromad (UZS)</div>
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="occupancy" :size="34" /></div>
+        <div class="kpi-strip__icon"><Home :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ kpis.occupancyRate }}<span class="text-sm font-500">%</span></div>
           <div class="kpi-strip__label">Bandlik darajasi</div>
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="34" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ kpis.activeContracts }}</div>
           <div class="kpi-strip__label">Faol shartnoma</div>
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="kpi-strip kpi-strip--rose">
-        <div class="kpi-strip__icon"><KpiScene3D type="debt" :size="34" /></div>
+        <div class="kpi-strip__icon"><CreditCard :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ formatUZSShort(kpis.totalDebt) }}</div>
           <div class="kpi-strip__label">Qarzdorlik (UZS)</div>
@@ -163,7 +163,7 @@
 </template>
 
 <script setup lang="ts">
-import { Download, Wallet, Building2, FileText, AlertCircle, TrendingUp, TrendingDown } from 'lucide-vue-next'
+import { Download, Wallet, Building2, FileText, AlertCircle, TrendingUp, TrendingDown , CreditCard, DollarSign, FileSignature, Home} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

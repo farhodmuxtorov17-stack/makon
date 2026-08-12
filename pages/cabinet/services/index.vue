@@ -14,28 +14,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ formatUZSShort(0) }}</div>
           <div class="kpi-strip__label">Joriy balans</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ activeInvoices }}</div>
           <div class="kpi-strip__label">Aktiv invoys</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ openRequests }}</div>
           <div class="kpi-strip__label">Servis so'rov</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ unitCount }}</div>
           <div class="kpi-strip__label">Biriktirilgan unit</div>
@@ -154,7 +154,7 @@
 </template>
 
 <script setup lang="ts">
-import { Receipt, Zap, Droplet, Flame, Wrench, Trash2 } from 'lucide-vue-next'
+import { Receipt, Zap, Droplet, Flame, Wrench, Trash2 , AlertCircle, CheckCircle, FileSignature, FileText, Grid3x3} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

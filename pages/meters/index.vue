@@ -74,28 +74,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ meters.length }}</div>
           <div class="kpi-strip__label">Hisoblagichlar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ activeMeters }}</div>
           <div class="kpi-strip__label">Faol</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ readings.length }}</div>
           <div class="kpi-strip__label">O'qishlar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ pendingReadings }}</div>
           <div class="kpi-strip__label">Kutilmoqda</div>
@@ -178,7 +178,7 @@
 </template>
 
 <script setup lang="ts">
-import { Gauge, ClipboardList, Plus } from 'lucide-vue-next'
+import { Gauge, ClipboardList, Plus , AlertCircle, CheckCircle, FileText, Grid3x3} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

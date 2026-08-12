@@ -13,28 +13,28 @@
     <!-- Metrics -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="period-kpi period-kpi--teal">
-        <div class="period-kpi__icon"><KpiScene3D type="buildings" :size="36" /></div>
+        <div class="period-kpi__icon"><Building2 :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ periods.length }}</div>
           <div class="period-kpi__label">Jami davrlar</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--green">
-        <div class="period-kpi__icon"><KpiScene3D type="paid" :size="36" /></div>
+        <div class="period-kpi__icon"><CheckCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ closedCount }}</div>
           <div class="period-kpi__label">Yopilgan</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--red">
-        <div class="period-kpi__icon"><KpiScene3D type="overdue" :size="36" /></div>
+        <div class="period-kpi__icon"><AlertCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ openCount }}</div>
           <div class="period-kpi__label">Faol davr</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--amber">
-        <div class="period-kpi__icon"><KpiScene3D type="revenue" :size="36" /></div>
+        <div class="period-kpi__icon"><DollarSign :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ formatUZSShort(totalRevenue) }}</div>
           <div class="period-kpi__label">Jami daromad</div>
@@ -120,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { Plus, Layers, CheckCircle2, AlertCircle, DollarSign, FileText, Search, Lock } from 'lucide-vue-next'
+import { Plus, Layers, CheckCircle2, AlertCircle, DollarSign, FileText, Search, Lock , Building2, CheckCircle} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

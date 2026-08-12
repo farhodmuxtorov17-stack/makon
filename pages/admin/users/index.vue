@@ -12,28 +12,28 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="34" /></div>
+        <div class="kpi-strip__icon"><Building2 :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ users.length }}</div>
           <div class="kpi-strip__label">Jami foydalanuvchi</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="occupancy" :size="34" /></div>
+        <div class="kpi-strip__icon"><Home :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ activeCount }}</div>
           <div class="kpi-strip__label">Faol</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="34" /></div>
+        <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ pendingCount }}</div>
           <div class="kpi-strip__label">Taklif kutilmoqda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--violet">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="34" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ adminCount }}</div>
           <div class="kpi-strip__label">Adminlar</div>
@@ -176,7 +176,7 @@
 
 <script setup lang="ts">
 import KpiCard from '~/components/KpiCard.vue'
-import { UserPlus, Users, UserCheck, Clock, ShieldCheck, Search, MoreHorizontal, Send, Power } from 'lucide-vue-next'
+import { UserPlus, Users, UserCheck, Clock, ShieldCheck, Search, MoreHorizontal, Send, Power , Building2, FileSignature, FileText, Home} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

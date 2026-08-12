@@ -26,28 +26,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ pendingCount }}</div>
           <div class="kpi-strip__label">Kutilmoqda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ approvedCount }}</div>
           <div class="kpi-strip__label">Tasdiqlangan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="debt" :size="38" /></div>
+        <div class="kpi-strip__icon"><CreditCard :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ rejectedCount }}</div>
           <div class="kpi-strip__label">Rad etilgan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="38" /></div>
+        <div class="kpi-strip__icon"><DollarSign :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ formatUZSShort(pendingAmount) }}</div>
           <div class="kpi-strip__label">Kutilayotgan summa</div>
@@ -126,7 +126,7 @@
 </template>
 
 <script setup lang="ts">
-import { FileText, CreditCard, Stamp, CheckCircle, Check, X, Clock, AlertCircle } from 'lucide-vue-next'
+import { FileText, CreditCard, Stamp, CheckCircle, Check, X, Clock, AlertCircle , DollarSign} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

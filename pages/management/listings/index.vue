@@ -16,14 +16,14 @@
     <!-- KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="36" /></div>
+        <div class="kpi-strip__icon"><Building2 :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ listings.length }}</div>
           <div class="kpi-strip__label">Jami listinglar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="36" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ publishedCount }}</div>
           <div class="kpi-strip__label">Nashr qilingan</div>
@@ -31,14 +31,14 @@
         <div v-if="listings.length" class="kpi-strip__pct">{{ Math.round(publishedCount / listings.length * 100) }}%</div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="36" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ draftCount }}</div>
           <div class="kpi-strip__label">Qoralamalar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="36" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ hiddenCount }}</div>
           <div class="kpi-strip__label">Yashirilgan</div>
@@ -263,7 +263,7 @@
 <script setup lang="ts">
 const { img } = useImg()
 import CreateListingModal from '~/components/CreateListingModal.vue'
-import { Plus, Search, Tag, Power, Eye, X } from 'lucide-vue-next'
+import { Plus, Search, Tag, Power, Eye, X , AlertCircle, Building2, CheckCircle, FileSignature} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

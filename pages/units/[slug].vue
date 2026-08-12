@@ -12,28 +12,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ unit.area }}<span class="text-sm">m²</span></div>
           <div class="kpi-strip__label">Maydon</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ unit.price?.toLocaleString('ru-RU') || '—' }}</div>
           <div class="kpi-strip__label">Narx (so'm/oy)</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ unit.floor || '—' }}</div>
           <div class="kpi-strip__label">Qavat</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ unit.status === 'VACANT' ? 'Bo\'sh' : 'Band' }}</div>
           <div class="kpi-strip__label">Holat</div>
@@ -181,7 +181,7 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronRight, Eye, FileText, Maximize, Building2, Layers, Wind, Wifi, Car, Coffee, X, Send, CheckCircle } from 'lucide-vue-next'
+import { ChevronRight, Eye, FileText, Maximize, Building2, Layers, Wind, Wifi, Car, Coffee, X, Send, CheckCircle , FileSignature, Grid3x3} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'public' })
 

@@ -9,28 +9,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ totalPlans }}</div>
           <div class="kpi-strip__label">Yuklangan reja</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ mappedUnits }}</div>
           <div class="kpi-strip__label">Biriktirilgan unit</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ pendingPlans }}</div>
           <div class="kpi-strip__label">Jarayonda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ completedPlans }}</div>
           <div class="kpi-strip__label">Tugatilgan</div>
@@ -190,7 +190,7 @@
 </template>
 
 <script setup lang="ts">
-import { Upload, CheckCircle2, Eye, Unlink } from 'lucide-vue-next'
+import { Upload, CheckCircle2, Eye, Unlink , Building2, CheckCircle, FileText, Grid3x3} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

@@ -8,28 +8,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ statusCounts.ACTIVE }}</div>
           <div class="kpi-strip__label">Faol</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="signing" :size="38" /></div>
+        <div class="kpi-strip__icon"><PenTool :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ statusCounts.PARTIALLY_SIGNED + statusCounts.DRAFT_READY }}</div>
           <div class="kpi-strip__label">Imzolanmoqda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ statusCounts.EXPIRED }}</div>
           <div class="kpi-strip__label">Muddati o'tgan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ eriSignedCount }}</div>
           <div class="kpi-strip__label">Imzolangan</div>

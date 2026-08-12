@@ -1,10 +1,7 @@
 <template>
   <div class="kpi-card group" :class="{ 'kpi-card--clickable': to }" @click="handleClick">
     <div class="flex items-start justify-between mb-4">
-      <div v-if="scene3d" class="kpi-icon kpi-icon--3d" :style="{ background: 'transparent' }">
-        <KpiScene3D :type="scene3d" :size="42" />
-      </div>
-      <div v-else class="kpi-icon" :style="{ background: iconBg, color: iconColor }">
+      <div class="kpi-icon" :style="{ background: iconBg, color: iconColor }">
         <component :is="icon" :size="18" :stroke-width="1.75" />
       </div>
       <div v-if="trend !== undefined" class="kpi-trend" :class="trend >= 0 ? 'is-up' : 'is-down'">
@@ -29,7 +26,6 @@ import { ArrowUpRight, ArrowDownRight, ArrowRight } from 'lucide-vue-next'
 
 const props = defineProps<{
   icon?: any
-  scene3d?: 'revenue' | 'occupancy' | 'buildings' | 'units' | 'overdue' | 'applications' | 'paid' | 'inventory' | 'signing' | 'contract' | 'service' | 'debt'
   label: string
   value: string | number
   trend?: number
@@ -91,11 +87,6 @@ function handleClick() {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-}
-.kpi-icon--3d {
-  width: 42px;
-  height: 42px;
-  padding: 0;
 }
 
 .kpi-trend {

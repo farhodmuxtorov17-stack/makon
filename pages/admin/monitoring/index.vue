@@ -20,28 +20,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">99.98<span class="text-sm">%</span></div>
           <div class="kpi-strip__label">Server Uptime</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="38" /></div>
+        <div class="kpi-strip__icon"><DollarSign :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">42<span class="text-sm">ms</span></div>
           <div class="kpi-strip__label">API kechikish</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">7<span class="text-sm text-ink-400"> / 24</span></div>
           <div class="kpi-strip__label">Online foydalanuvchilar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="inventory" :size="38" /></div>
+        <div class="kpi-strip__icon"><Package :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">1.2<span class="text-sm">GB</span></div>
           <div class="kpi-strip__label">Ma'lumot bazasi</div>
@@ -124,7 +124,7 @@
 </template>
 
 <script setup lang="ts">
-import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp, AlertCircle, CheckCircle, RefreshCw, X } from 'lucide-vue-next'
+import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp, AlertCircle, CheckCircle, RefreshCw, X , Building2, DollarSign, Package} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

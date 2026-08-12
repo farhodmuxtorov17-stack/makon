@@ -18,10 +18,10 @@
 
     <!-- KPI Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard scene3d="buildings" label="Mening unitlarim" :value="units.length" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/cabinet/units" />
-      <KpiCard scene3d="contract" label="Faol shartnomalar" :value="activeContracts" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/cabinet/contracts" />
-      <KpiCard scene3d="applications" label="Kutilayotgan arizalar" :value="pendingApps" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/cabinet/applications" />
-      <KpiCard scene3d="debt" label="Qarzdorlik" :value="formatUZSShort(debt)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
+      <KpiCard icon="Building2" iconBg="rgba(99,102,241,0.1)" iconColor="#6366F1" label="Mening unitlarim" :value="units.length" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/cabinet/units" />
+      <KpiCard icon="FileSignature" iconBg="rgba(99,102,241,0.1)" iconColor="#6366F1" label="Faol shartnomalar" :value="activeContracts" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/cabinet/contracts" />
+      <KpiCard icon="FileText" iconBg="rgba(168,85,247,0.1)" iconColor="#9333EA" label="Kutilayotgan arizalar" :value="pendingApps" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/cabinet/applications" />
+      <KpiCard icon="CreditCard" iconBg="rgba(239,68,68,0.1)" iconColor="#DC2626" label="Qarzdorlik" :value="formatUZSShort(debt)" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/finance/debts" />
     </div>
 
     <!-- Two columns: chart + notifications -->

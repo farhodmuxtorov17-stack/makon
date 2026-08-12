@@ -45,28 +45,28 @@
           <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ listing?.price?.toLocaleString('ru-RU') || '—' }}</div>
           <div class="kpi-strip__label">Narx</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ listing?.area || '—' }}<span class="text-sm">m²</span></div>
           <div class="kpi-strip__label">Maydon</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ listing?.viewsCount || 0 }}</div>
           <div class="kpi-strip__label">Ko'rishlar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ listing?.offerType === 'SALE' ? 'Sotuv' : 'Ijara' }}</div>
           <div class="kpi-strip__label">Turi</div>
@@ -330,7 +330,7 @@
 
 <script setup lang="ts">
 const { img } = useImg()
-import { ArrowLeft, MapPin, Building2, ChevronRight, ExternalLink, Eye, Phone, CheckCircle2 } from 'lucide-vue-next'
+import { ArrowLeft, MapPin, Building2, ChevronRight, ExternalLink, Eye, Phone, CheckCircle2 , CheckCircle, FileSignature, FileText, Grid3x3} from 'lucide-vue-next'
 import { BUILDING_TYPE_LABELS } from '~/types'
 
 definePageMeta({ layout: 'public' })

@@ -25,28 +25,28 @@
     <!-- KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="service" :size="36" /></div>
+        <div class="kpi-strip__icon"><Wrench :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ totalRequests }}</div>
           <div class="kpi-strip__label">Jami so'rovlar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="36" /></div>
+        <div class="kpi-strip__icon"><FileText :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ newCount }}</div>
           <div class="kpi-strip__label">Yangi</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="36" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ inProgressCount }}</div>
           <div class="kpi-strip__label">Jarayonda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="36" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ completedCount }}</div>
           <div class="kpi-strip__label">Tugatilgan</div>
@@ -211,7 +211,7 @@
 </template>
 
 <script setup lang="ts">
-import { Plus, Clock, X } from 'lucide-vue-next'
+import { Plus, Clock, X , CheckCircle, FileSignature, FileText, Wrench} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

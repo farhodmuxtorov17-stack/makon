@@ -25,14 +25,14 @@
     <!-- KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ notifications.length }}</div>
           <div class="kpi-strip__label">Jami bildirishnomalar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ unreadCount }}</div>
           <div class="kpi-strip__label">O'qilmagan</div>
@@ -40,14 +40,14 @@
         <div v-if="notifications.length" class="kpi-strip__pct">{{ Math.round(unreadCount / notifications.length * 100) }}%</div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ readCount }}</div>
           <div class="kpi-strip__label">O'qilgan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="service" :size="38" /></div>
+        <div class="kpi-strip__icon"><Wrench :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ serviceCount }}</div>
           <div class="kpi-strip__label">Servis bildirishnomalari</div>
@@ -90,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckCheck, BellOff, Receipt, AlertCircle, CheckCircle2, Wrench, FileText, ShieldCheck } from 'lucide-vue-next'
+import { CheckCheck, BellOff, Receipt, AlertCircle, CheckCircle2, Wrench, FileText, ShieldCheck , CheckCircle} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

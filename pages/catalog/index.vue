@@ -204,28 +204,28 @@
         <!-- 3D KPI Strip (catalog stats) -->
         <div class="catalog-kpi">
           <div class="kpi-strip kpi-strip--teal">
-            <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+            <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
             <div class="kpi-strip__body">
               <div class="kpi-strip__value">{{ totalBuildings }}</div>
               <div class="kpi-strip__label">Binolar</div>
             </div>
           </div>
           <div class="kpi-strip kpi-strip--emerald">
-            <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+            <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
             <div class="kpi-strip__body">
               <div class="kpi-strip__value">{{ availableUnits }}</div>
               <div class="kpi-strip__label">Mavjud unitlar</div>
             </div>
           </div>
           <div class="kpi-strip kpi-strip--amber">
-            <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+            <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
             <div class="kpi-strip__body">
               <div class="kpi-strip__value">{{ totalViews }}</div>
               <div class="kpi-strip__label">Ko'rishlar</div>
             </div>
           </div>
           <div class="kpi-strip kpi-strip--blue">
-            <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+            <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
             <div class="kpi-strip__body">
               <div class="kpi-strip__value">{{ avgPrice }}<span class="text-sm">mln</span></div>
               <div class="kpi-strip__label">O'rtacha narx</div>
@@ -342,6 +342,7 @@ import {
   SearchX, Ruler, ArrowRight, X, Building2, ShoppingBag, Warehouse,
   Home as HomeIcon, Search, Plus, LayoutGrid, Crown, ChevronLeft, ChevronRight,
   ArrowUpDown, Clock, Factory, Columns3,
+  FileSignature, FileText, Grid3x3
 } from 'lucide-vue-next'
 
 definePageMeta({ layout: false })

@@ -30,28 +30,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ rooms.value.length }}</div>
           <div class="kpi-strip__label">Jami unitlar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ occupiedCount }}</div>
           <div class="kpi-strip__label">Band</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ vacantCount }}</div>
           <div class="kpi-strip__label">Bo'sh</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ totalArea }}<span class="text-sm">m²</span></div>
           <div class="kpi-strip__label">Maydon</div>
@@ -180,7 +180,7 @@
 
 <script setup lang="ts">
 const { img } = useImg()
-import { ArrowLeft, Eye, Edit3, MousePointerClick, Square, PenTool, Trash2, Save, X, FileText, Layers, ChevronDown, Plus, Minus, Maximize, RotateCw } from 'lucide-vue-next'
+import { ArrowLeft, Eye, Edit3, MousePointerClick, Square, PenTool, Trash2, Save, X, FileText, Layers, ChevronDown, Plus, Minus, Maximize, RotateCw , Building2, CheckCircle, Grid3x3} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

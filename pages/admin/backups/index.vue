@@ -16,28 +16,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="inventory" :size="38" /></div>
+        <div class="kpi-strip__icon"><Package :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">1.2<span class="text-sm">GB</span></div>
           <div class="kpi-strip__label">Jami hajm</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ successCount }}</div>
           <div class="kpi-strip__label">Muvaffaqiyatli</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="signing" :size="38" /></div>
+        <div class="kpi-strip__icon"><PenTool :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">18:00</div>
           <div class="kpi-strip__label">Keyingi nusxa</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">12<span class="text-sm">%</span></div>
           <div class="kpi-strip__label">Disk ishlatish</div>
@@ -86,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { Plus, Download, RotateCcw, Trash2, Database, CheckCircle2, Clock, HardDrive } from 'lucide-vue-next'
+import { Plus, Download, RotateCcw, Trash2, Database, CheckCircle2, Clock, HardDrive , AlertCircle, CheckCircle, Package, PenTool} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

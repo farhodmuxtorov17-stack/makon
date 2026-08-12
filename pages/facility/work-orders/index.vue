@@ -78,10 +78,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard scene3d="service" label="Jami work orderlar" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/facility/work-orders" :sparkData="[10,12,8,15,11,14,9]" sparkColor="#f59e0b" />
-      <KpiCard scene3d="applications" label="Jarayonda" :value="inProgressCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/facility/work-orders" :sparkData="[4,5,3,6,4,5,3]" sparkColor="var(--accent)" />
-      <KpiCard scene3d="paid" label="Tugatilgan" :value="completedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/facility/work-orders" :sparkData="[5,6,8,7,9,10,12]" sparkColor="#10b981" />
-      <KpiCard scene3d="overdue" label="SLA buzilgan" :value="slaBreachedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/facility/work-orders" :sparkData="[2,1,3,2,1,2,1]" sparkColor="#ef4444" />
+      <KpiCard icon="Wrench" iconBg="rgba(245,158,11,0.1)" iconColor="#D97706" label="Jami work orderlar" :value="workOrders.length" icon-color="#f59e0b" icon-bg="rgba(245,158,11,0.1)" to="/facility/work-orders" :sparkData="[10,12,8,15,11,14,9]" sparkColor="#f59e0b" />
+      <KpiCard icon="FileText" iconBg="rgba(168,85,247,0.1)" iconColor="#9333EA" label="Jarayonda" :value="inProgressCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/facility/work-orders" :sparkData="[4,5,3,6,4,5,3]" sparkColor="var(--accent)" />
+      <KpiCard icon="CheckCircle" iconBg="rgba(16,185,129,0.1)" iconColor="#059669" label="Tugatilgan" :value="completedCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/facility/work-orders" :sparkData="[5,6,8,7,9,10,12]" sparkColor="#10b981" />
+      <KpiCard icon="AlertCircle" iconBg="rgba(239,68,68,0.1)" iconColor="#DC2626" label="SLA buzilgan" :value="slaBreachedCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/facility/work-orders" :sparkData="[2,1,3,2,1,2,1]" sparkColor="#ef4444" />
     </div>
 
     <!-- Category progress rings -->

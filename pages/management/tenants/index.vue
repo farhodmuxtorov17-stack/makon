@@ -30,28 +30,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ tenantCabinets.length }}</div>
           <div class="kpi-strip__label">Jami kabinetlar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ activeTenants }}</div>
           <div class="kpi-strip__label">Aktiv shartnomalar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="38" /></div>
+        <div class="kpi-strip__icon"><DollarSign :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ totalRent }}</div>
           <div class="kpi-strip__label">Oylik ijra (mln)</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ debtTenants }}</div>
           <div class="kpi-strip__label">Qarzdor ijarachilar</div>
@@ -129,7 +129,7 @@
 </template>
 
 <script setup lang="ts">
-import { UserCheck, UserX, Eye, Building, RefreshCw } from 'lucide-vue-next'
+import { UserCheck, UserX, Eye, Building, RefreshCw , AlertCircle, Building2, DollarSign, FileSignature} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

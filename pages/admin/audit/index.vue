@@ -13,28 +13,28 @@
     <!-- KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ createCount }}</div>
           <div class="kpi-strip__label">Yaratilgan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ updateCount }}</div>
           <div class="kpi-strip__label">Tahrirlangan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ deleteCount }}</div>
           <div class="kpi-strip__label">O'chirilgan</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="signing" :size="38" /></div>
+        <div class="kpi-strip__icon"><PenTool :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ authCount }}</div>
           <div class="kpi-strip__label">Kirish amallari</div>
@@ -85,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { Download, Search, FileText, Edit3, Trash2, CheckCircle, AlertCircle, LogIn, LogOut, FileSignature, Building2, UserPlus } from 'lucide-vue-next'
+import { Download, Search, FileText, Edit3, Trash2, CheckCircle, AlertCircle, LogIn, LogOut, FileSignature, Building2, UserPlus , PenTool} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

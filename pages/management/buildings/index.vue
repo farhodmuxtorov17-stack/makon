@@ -16,28 +16,28 @@
     <!-- Stats -->
     <div class="flex flex-wrap items-center gap-3">
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: transparent;"><KpiScene3D type="buildings" :size="34" /></div>
+        <div class="stat-pill__icon" style="background: transparent;"><Building2 :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div>
           <div class="stat-pill__val">{{ buildings.length }}</div>
           <div class="stat-pill__label">Binolar</div>
         </div>
       </div>
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: transparent;"><KpiScene3D type="units" :size="34" /></div>
+        <div class="stat-pill__icon" style="background: transparent;"><Grid3x3 :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div>
           <div class="stat-pill__val">{{ totalFloors }}</div>
           <div class="stat-pill__label">Qavatlar</div>
         </div>
       </div>
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: transparent;"><KpiScene3D type="inventory" :size="34" /></div>
+        <div class="stat-pill__icon" style="background: transparent;"><Package :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div>
           <div class="stat-pill__val">{{ totalUnits }}</div>
           <div class="stat-pill__label">Jami unit</div>
         </div>
       </div>
       <div class="stat-pill">
-        <div class="stat-pill__icon" style="background: transparent;"><KpiScene3D type="occupancy" :size="34" /></div>
+        <div class="stat-pill__icon" style="background: transparent;"><Home :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div>
           <div class="stat-pill__val">{{ totalOccupied }}<span class="stat-pill__of">/{{ totalUnits }}</span></div>
           <div class="stat-pill__label">Band unitlar</div>
@@ -320,7 +320,7 @@
 <script setup lang="ts">
 const { img } = useImg()
 import KpiCard from '~/components/KpiCard.vue'
-import { Plus, Search, Building2, MapPin, Globe, LayoutGrid, List, ArrowRight, Eye, Box, Layers, Check, Settings } from 'lucide-vue-next'
+import { Plus, Search, Building2, MapPin, Globe, LayoutGrid, List, ArrowRight, Eye, Box, Layers, Check, Settings , Grid3x3, Home, Package} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

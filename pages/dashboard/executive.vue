@@ -11,35 +11,35 @@
     <!-- 3D KPI Cards -->
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
       <div class="card p-4 flex items-center gap-3">
-        <KpiScene3D type="buildings" :size="48" />
+        <Building2 :size="48" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" />
         <div>
           <div class="text-xs text-ink-400 mb-0.5">Jami unitlar</div>
           <div class="text-lg font-bold text-ink-900 dark:text-white">{{ totalUnits }}</div>
         </div>
       </div>
       <div class="card p-4 flex items-center gap-3">
-        <KpiScene3D type="occupancy" :size="48" />
+        <Home :size="48" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" />
         <div>
           <div class="text-xs text-ink-400 mb-0.5">Band</div>
           <div class="text-lg font-bold text-emerald-500">{{ totalOccupied }}</div>
         </div>
       </div>
       <div class="card p-4 flex items-center gap-3">
-        <KpiScene3D type="units" :size="48" />
+        <Grid3x3 :size="48" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" />
         <div>
           <div class="text-xs text-ink-400 mb-0.5">Bo'sh</div>
           <div class="text-lg font-bold text-amber-500">{{ totalVacant }}</div>
         </div>
       </div>
       <div class="card p-4 flex items-center gap-3">
-        <KpiScene3D type="applications" :size="48" />
+        <FileText :size="48" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" />
         <div>
           <div class="text-xs text-ink-400 mb-0.5">Arizalar</div>
           <div class="text-lg font-bold text-blue-500">{{ store.applications.length }}</div>
         </div>
       </div>
       <div class="card p-4 flex items-center gap-3">
-        <KpiScene3D type="contract" :size="48" />
+        <FileSignature :size="48" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" />
         <div>
           <div class="text-xs text-ink-400 mb-0.5">Shartnomalar</div>
           <div class="text-lg font-bold text-ink-900 dark:text-white">{{ activeContracts }}</div>

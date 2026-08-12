@@ -42,28 +42,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ availableUnits }}</div>
           <div class="kpi-strip__label">Mavjud unitlar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ avgPrice }}<span class="text-sm">mln</span></div>
           <div class="kpi-strip__label">O'rtacha narx</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="signing" :size="38" /></div>
+        <div class="kpi-strip__icon"><PenTool :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ pendingApps }}</div>
           <div class="kpi-strip__label">Jarayondagi ariza</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">2-3</div>
           <div class="kpi-strip__label">Kun ichida</div>
@@ -157,7 +157,7 @@
 <script setup lang="ts">
 import { useMakonStore } from '~/stores/makon'
 const store = useMakonStore()
-import { ArrowLeft, Building2, ShoppingBag, Upload, FileSignature } from 'lucide-vue-next'
+import { ArrowLeft, Building2, ShoppingBag, Upload, FileSignature , CheckCircle, FileText, PenTool} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'public' })
 

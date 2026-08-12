@@ -18,7 +18,7 @@
       <!-- Total debt -->
       <div class="debt-card debt-card--red">
         <div class="debt-card__top">
-          <div class="debt-card__icon"><KpiScene3D type="debt" :size="36" /></div>
+          <div class="debt-card__icon"><CreditCard :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
           <div class="debt-card__label">Jami qarzdorlik</div>
         </div>
         <div class="debt-card__value">{{ formatUZSShort(totalDebt) }}</div>
@@ -33,7 +33,7 @@
       <!-- Overdue -->
       <div class="debt-card debt-card--amber">
         <div class="debt-card__top">
-          <div class="debt-card__icon"><KpiScene3D type="overdue" :size="36" /></div>
+          <div class="debt-card__icon"><AlertCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
           <div class="debt-card__label">Muddati o'tgan</div>
         </div>
         <div class="debt-card__value">{{ formatUZSShort(overdueDebt) }}</div>
@@ -48,7 +48,7 @@
       <!-- Debtors -->
       <div class="debt-card debt-card--teal">
         <div class="debt-card__top">
-          <div class="debt-card__icon"><KpiScene3D type="occupancy" :size="36" /></div>
+          <div class="debt-card__icon"><Home :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
           <div class="debt-card__label">Qarzdorlar soni</div>
         </div>
         <div class="debt-card__value">{{ debtors.length }}</div>
@@ -156,7 +156,7 @@
 </template>
 
 <script setup lang="ts">
-import { AlertCircle, Clock, Users, Search, Download, Bell, Eye } from 'lucide-vue-next'
+import { AlertCircle, Clock, Users, Search, Download, Bell, Eye , CreditCard, Home} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

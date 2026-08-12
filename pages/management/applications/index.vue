@@ -22,42 +22,42 @@
     <!-- KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="36" /></div>
+        <div class="kpi-strip__icon"><FileText :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ totalApps }}</div>
           <div class="kpi-strip__label">Jami arizalar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="service" :size="36" /></div>
+        <div class="kpi-strip__icon"><Wrench :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ submittedCount }}</div>
           <div class="kpi-strip__label">Yangi (SUBMITTED)</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="36" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ inProgressCount }}</div>
           <div class="kpi-strip__label">Jarayonda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="36" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ activeCount }}</div>
           <div class="kpi-strip__label">Aktiv shartnomalar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="signing" :size="36" /></div>
+        <div class="kpi-strip__icon"><PenTool :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ signingCount }}</div>
           <div class="kpi-strip__label">Imzolanmoqda</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="36" /></div>
+        <div class="kpi-strip__icon"><DollarSign :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ totalValue }}</div>
           <div class="kpi-strip__label">Umumiy qiymat (mln)</div>
@@ -254,7 +254,7 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowRight, History, X, FileText, Check, RotateCcw, XCircle, RefreshCw } from 'lucide-vue-next'
+import { ArrowRight, History, X, FileText, Check, RotateCcw, XCircle, RefreshCw , CheckCircle, DollarSign, FileSignature, PenTool, Wrench} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

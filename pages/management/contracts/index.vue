@@ -14,10 +14,10 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <KpiCard scene3d="paid" label="Aktiv" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/contracts" :sparkData="[30,32,35,38,40,42,45]" sparkColor="#10b981" />
-      <KpiCard scene3d="signing" label="Imzolanmoqda" :value="signingCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[2,3,4,3,5,4,6]" sparkColor="var(--accent)" />
-      <KpiCard scene3d="overdue" label="Muddati o'tgan" :value="expiredCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/contracts" :sparkData="[5,4,3,4,5,3,2]" sparkColor="#ef4444" />
-      <KpiCard scene3d="contract" label="ERI imzolangan" :value="eriCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[10,12,15,18,20,22,25]" sparkColor="var(--accent)" />
+      <KpiCard icon="CheckCircle" iconBg="rgba(16,185,129,0.1)" iconColor="#059669" label="Aktiv" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/contracts" :sparkData="[30,32,35,38,40,42,45]" sparkColor="#10b981" />
+      <KpiCard icon="PenTool" iconBg="rgba(59,130,246,0.1)" iconColor="#2563EB" label="Imzolanmoqda" :value="signingCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[2,3,4,3,5,4,6]" sparkColor="var(--accent)" />
+      <KpiCard icon="AlertCircle" iconBg="rgba(239,68,68,0.1)" iconColor="#DC2626" label="Muddati o'tgan" :value="expiredCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/contracts" :sparkData="[5,4,3,4,5,3,2]" sparkColor="#ef4444" />
+      <KpiCard icon="FileSignature" iconBg="rgba(99,102,241,0.1)" iconColor="#6366F1" label="ERI imzolangan" :value="eriCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[10,12,15,18,20,22,25]" sparkColor="var(--accent)" />
     </div>
 
     <!-- Search -->

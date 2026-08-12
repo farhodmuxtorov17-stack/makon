@@ -13,28 +13,28 @@
     <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__icon"><Building2 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ roles.length }}</div>
           <div class="kpi-strip__label">Rollar soni</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileText :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ permissions.length }}</div>
           <div class="kpi-strip__label">Huquqlar soni</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ totalUsers }}</div>
           <div class="kpi-strip__label">Foydalanuvchilar</div>
         </div>
       </div>
       <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
           <div class="kpi-strip__value">{{ activeRoles }}</div>
           <div class="kpi-strip__label">Aktiv rollar</div>
@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import { Plus, Save, Check, X, Building2, FileText, Receipt, Wallet, ClipboardList, Package, Gauge, BarChart3, Users, ShieldCheck, Wrench, Database } from 'lucide-vue-next'
+import { Plus, Save, Check, X, Building2, FileText, Receipt, Wallet, ClipboardList, Package, Gauge, BarChart3, Users, ShieldCheck, Wrench, Database , FileSignature, Grid3x3} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

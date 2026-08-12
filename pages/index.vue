@@ -35,12 +35,23 @@
           Binolarning raqamli boshqaruvi
         </h1>
         <p class="hero__lead">
-          Biznes markazlarida ofis, savdo va ombor maydonlari.<br/>
-          Raqamli imzo orqali xavfsiz shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
+          Biznes markazlaringizni boshqaring — ofislar, savdo va ombor maydonlari bir tizimda.
         </p>
-        <!-- Hero Search -->
-        <div class="hero-search">
-          <div class="hero-search__inner">
+        <div class="hero__actions">
+          <NuxtLink to="/login" class="hero__cta-btn">
+            Boshqarishni boshlash <ArrowRight :size="16" />
+          </NuxtLink>
+        </div>
+      </div>
+
+      <!-- Search bar — second goal: find free properties -->
+      <div class="hero-search-section">
+        <div class="hero-search-section__inner">
+          <div class="hero-search-section__label">
+            <Search :size="16" />
+            <span>Bo'sh maydon qidirish</span>
+          </div>
+          <div class="hero-search-section__bar">
             <Search :size="18" class="hero-search__icon" />
             <input
               v-model="searchQuery"
@@ -67,9 +78,6 @@
             <button class="hero-chip" @click="navigateTo('/catalog?offer=sale')">Sotuvda</button>
           </div>
         </div>
-      </div>
-      <div class="hero__scroll">
-        <ChevronDown :size="20" />
       </div>
     </section>
 
@@ -670,8 +678,67 @@ onMounted(() => {
 .hero__center {
   position: relative;
   z-index: 1;
-  max-width: 760px;
+  max-width: 720px;
   padding: 0 24px;
+  text-align: center;
+  margin: 0 auto;
+}
+.hero__actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+.hero__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.95);
+  color: #0F172A;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.hero__cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  background: #fff;
+}
+
+/* SEARCH SECTION — below hero */
+.hero-search-section {
+  position: relative;
+  z-index: 2;
+  padding: 0 24px 48px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.hero-search-section__inner {
+  background: rgba(255,255,255,0.98);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+}
+.hero-search-section__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 12px;
+}
+.hero-search-section__bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #F8FAFC;
+  border-radius: 14px;
+  padding: 6px 6px 6px 16px;
+  border: 1px solid #E2E8F0;
 }
 .hero__badge {
   display: inline-flex;
@@ -688,37 +755,29 @@ onMounted(() => {
   margin-bottom: 24px;
 }
 .hero__title {
-  font-size: 60px;
+  font-size: 56px;
   font-weight: 800;
   letter-spacing: -0.04em;
-  line-height: 1.05;
+  line-height: 1.08;
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   text-shadow: 0 2px 30px rgba(0,0,0,0.2);
 }
 .hero__lead {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.6;
   color: rgba(255,255,255,0.85);
-  margin-bottom: 36px;
+  margin-bottom: 0;
 }
 
 /* HERO SEARCH */
 .hero-search {
-  margin: 28px auto 0;
-  max-width: 580px;
+  margin: 0;
 }
 .hero-search__inner {
   display: flex;
   align-items: center;
   gap: 0;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 6px 6px 6px 16px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
 }
 .hero-search__icon {
   color: #94a3b8;
@@ -862,15 +921,7 @@ onMounted(() => {
   height: 36px;
   background: rgba(255,255,255,0.15);
 }
-.hero__scroll {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  color: rgba(255,255,255,0.4);
-  animation: bounce 2s infinite;
-}
+
 @keyframes bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50% { transform: translateX(-50%) translateY(8px); }
