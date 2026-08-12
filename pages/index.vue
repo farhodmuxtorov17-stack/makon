@@ -321,7 +321,7 @@
           <div class="contact-info">
             <div class="contact-eyebrow">BOGLANISH</div>
             <h2 class="contact-title font-heading">Biz bilan bog'laning</h2>
-            <p class="contact-sub">Savollaringiz bormi? Demo o'tko'rish yoki integratsiya bo'yicha yordam kerakmi — jamoamiz tayyor.</p>
+            <p class="contact-sub">Savollaringiz bormi? Konsultatsiya yoki integratsiya bo'yicha yordam kerakmi — jamoamiz tayyor.</p>
             <div class="contact-items">
               <div class="contact-item">
                 <div class="contact-item__icon"><Mail :size="20" /></div>
@@ -399,7 +399,7 @@
           </div>
           <div class="cta-box__content">
             <h2 class="cta-box__title font-heading">Boshqaruvni boshlang</h2>
-            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring. Bepul sinab ko'ring.</p>
+            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring. Boshlang — birinchi obyektni bepul ulang.</p>
             <div class="cta-box__actions">
               <NuxtLink to="/register" class="cta-box__btn">
                 Ro'yxatdan o'tish <ArrowRight :size="16" />
