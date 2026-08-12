@@ -31,6 +31,19 @@
       </div>
     </header>
 
+    <!-- PREMIUM HERO BANNER -->
+    <div class="catalog-hero">
+      <div class="catalog-hero__bg">
+        <img src="/buildings/hero-tashkent.jpg" alt="Tashkent" class="catalog-hero__img" />
+        <div class="catalog-hero__overlay"></div>
+      </div>
+      <div class="catalog-hero__content">
+        <div class="catalog-hero__tag">PREMIUM OBYEKTLAR</div>
+        <h1 class="catalog-hero__title">Toshkentning eng yaxshi biznes markazlari</h1>
+        <p class="catalog-hero__sub">Ofis, savdo va ombor maydonlari — interaktiv qavat rejasi, raqamli shartnoma va to'liq boshqaruv</p>
+      </div>
+    </div>
+
     <!-- TOOLBAR (tabs + chips) -->
     <div class="catalog-toolbar">
       <!-- Category tabs -->
@@ -188,8 +201,40 @@
           </div>
         </div>
 
+        <!-- 3D KPI Strip (catalog stats) -->
+        <div class="catalog-kpi">
+          <div class="kpi-strip kpi-strip--teal">
+            <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+            <div class="kpi-strip__body">
+              <div class="kpi-strip__value">{{ totalBuildings }}</div>
+              <div class="kpi-strip__label">Binolar</div>
+            </div>
+          </div>
+          <div class="kpi-strip kpi-strip--emerald">
+            <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+            <div class="kpi-strip__body">
+              <div class="kpi-strip__value">{{ availableUnits }}</div>
+              <div class="kpi-strip__label">Mavjud unitlar</div>
+            </div>
+          </div>
+          <div class="kpi-strip kpi-strip--amber">
+            <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+            <div class="kpi-strip__body">
+              <div class="kpi-strip__value">{{ totalViews }}</div>
+              <div class="kpi-strip__label">Ko'rishlar</div>
+            </div>
+          </div>
+          <div class="kpi-strip kpi-strip--blue">
+            <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+            <div class="kpi-strip__body">
+              <div class="kpi-strip__value">{{ avgPrice }}<span class="text-sm">mln</span></div>
+              <div class="kpi-strip__label">O'rtacha narx</div>
+            </div>
+          </div>
+        </div>
+
         <!-- GRID VIEW -->
-        <div v-else class="catalog-grid">
+        <div v-if="view === 'grid'" class="catalog-grid">
           <NuxtLink
             v-for="item in filteredListings"
             :key="item.id"
@@ -198,39 +243,7 @@
             @mouseenter="hoverId = item.id"
             @mouseleave="hoverId = null"
           >
-                <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-      <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalBuildings }}</div>
-          <div class="kpi-strip__label">Binolar</div>
-        </div>
-      </div>
-      <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ availableUnits }}</div>
-          <div class="kpi-strip__label">Mavjud unitlar</div>
-        </div>
-      </div>
-      <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ totalViews }}</div>
-          <div class="kpi-strip__label">Ko'rishlar</div>
-        </div>
-      </div>
-      <div class="kpi-strip kpi-strip--blue">
-        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
-        <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ avgPrice }}<span class="text-sm">mln</span></div>
-          <div class="kpi-strip__label">O'rtacha narx</div>
-        </div>
-      </div>
-    </div>
-
-<div class="grid-card__image">
+            <div class="grid-card__image">
               <img :src="item.photo" :alt="item.title" loading="lazy" />
               <span class="grid-card__badge" :class="`grid-card__badge--${item.typeColor}`">{{ item.typeLabel }}</span>
               <button class="grid-card__fav" @click.prevent="toggleFavorite(item.id)">
@@ -786,13 +799,13 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   scroll-behavior: smooth;
 }
 .catalog-vip__scroll::-webkit-scrollbar { display: none; }
-.vip-card { flex-shrink: 0; width: 300px; cursor: pointer; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-.vip-card:hover { transform: translateY(-4px); }
-.vip-card__image {
+.vip-card { flex-shrink: 0; width: 320px; cursor: pointer; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), filter 0.35s; }
+.vip-card:hover { transform: translateY(-6px); }
+.vip-card__image { border-radius: 18px;
   position: relative; width: 300px; height: 220px; border-radius: 18px; overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
-.vip-card:hover .vip-card__image { box-shadow: 0 12px 36px rgba(0,0,0,0.15); }
+.vip-card:hover .vip-card__image { border-radius: 18px; box-shadow: 0 12px 36px rgba(0,0,0,0.15); }
 .vip-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .vip-card:hover .vip-card__image img { transform: scale(1.06); }
 .vip-card__badge {
@@ -850,7 +863,7 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
 
 /* Listing card (list view) */
 .listing-card {
-  display: flex; gap: 14px; padding: 12px; border-radius: 16px;
+  display: flex; gap: 16px; padding: 14px; border-radius: 18px;
   border: 1px solid rgba(0,0,0,0.06); background: #ffffff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
 }
@@ -909,10 +922,10 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
 }
 .dark .grid-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
-.grid-card:hover { border-color: rgba(37,99,235,0.3); box-shadow: none; transform: translateY(-4px); }
+.grid-card:hover { border-color: rgba(37,99,235,0.2); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
 .grid-card__image img { transition: transform 0.5s; }
 .grid-card:hover .grid-card__image img { transform: scale(1.06); }
-.grid-card__image { position: relative; width: 100%; height: 160px; overflow: hidden; }
+.grid-card__image { position: relative; width: 100%; height: 180px; overflow: hidden; }
 .grid-card__image img { width: 100%; height: 100%; object-fit: cover; }
 .grid-card__badge {
   position: absolute; top: 8px; left: 8px; font-size: 10px; font-weight: 700;
@@ -926,12 +939,12 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   border-radius: 50%; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
   display: flex; align-items: center; justify-content: center;
 }
-.grid-card__body { padding: 12px; }
-.grid-card__title { font-size: 13px; font-weight: 700; color: #18181b; margin-bottom: 4px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.grid-card__body { padding: 14px 16px 16px; }
+.grid-card__title { font-size: 14px; font-weight: 700; color: #18181b; margin-bottom: 5px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; letter-spacing: -0.01em; }
 .dark .grid-card__title { color: #fff; }
 .grid-card__address { display: flex; align-items: center; gap: 3px; font-size: 11px; color: #a1a1aa; margin-bottom: 6px; }
 .grid-card__specs { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #71717a; margin-bottom: 8px; }
-.grid-card__price { font-size: 15px; font-weight: 800; color: #ea580c; }
+.grid-card__price { font-size: 16px; font-weight: 800; color: #ea580c; letter-spacing: -0.02em; }
 
 /* ============ MAP ============ */
 .catalog-map-col { flex: 1; position: relative; min-height: 500px; }
@@ -980,7 +993,7 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   .catalog-tabs { justify-content: center; }
   .catalog-toolbar__actions { justify-content: center; }
   .vip-card { width: 240px; }
-  .vip-card__image { width: 240px; height: 170px; }
+  .vip-card__image { border-radius: 18px; width: 240px; height: 170px; }
   .catalog-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
 }
 .kpi-strip {
@@ -1006,5 +1019,21 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
 .kpi-strip__body { flex: 1; min-width: 0; }
 .kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
 .kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+
+
+.catalog-kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+@media (max-width: 768px) { .catalog-kpi { grid-template-columns: repeat(2, 1fr); } }
+
+
+/* CATALOG HERO */
+.catalog-hero { position: relative; height: 220px; overflow: hidden; }
+.catalog-hero__bg { position: absolute; inset: 0; }
+.catalog-hero__img { width: 100%; height: 100%; object-fit: cover; }
+.catalog-hero__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,26,0.5) 0%, rgba(10,10,26,0.75) 100%); }
+.catalog-hero__content { position: relative; z-index: 1; max-width: 720px; padding: 40px 24px; }
+.catalog-hero__tag { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: #60a5fa; text-transform: uppercase; margin-bottom: 10px; }
+.catalog-hero__title { font-size: 28px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 8px; }
+.catalog-hero__sub { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; max-width: 560px; }
+@media (max-width: 768px) { .catalog-hero { height: 180px; } .catalog-hero__title { font-size: 22px; } .catalog-hero__sub { display: none; } }
 
 </style>
