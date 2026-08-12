@@ -48,6 +48,10 @@
             <span class="badge text-xs shadow-md" :class="statusBadgeClass(l.status)">
               {{ statusLabel(l.status) }}
             </span>
+            <span v-if="getUnitStatus(l.unitId)" class="badge text-[10px] shadow-sm"
+              :class="getUnitStatus(l.unitId) === 'OCCUPIED' ? 'badge-error' : getUnitStatus(l.unitId) === 'RESERVED' ? 'badge-warning' : 'badge-success'">
+              {{ getUnitStatusLabel(l.unitId) }}
+            </span>
           </div>
 
           <!-- Quick Toggle Publish / Pause -->
@@ -298,7 +302,28 @@ function statusLabel(status: string) {
   return 'Arxiv'
 }
 
+function getUnitStatus(unitId?: string) {
+  if (!unitId) return ''
+  const u = makonStore.units.find(item => item.id === unitId)
+  return u?.status || ''
+}
+function getUnitStatusLabel(unitId?: string) {
+  const s = getUnitStatus(unitId)
+  if (s === 'OCCUPIED') return 'Band'
+  if (s === 'RESERVED') return 'Rezerv'
+  if (s === 'VACANT') return "Bo'sh"
+  return ''
+}
+
 function togglePublish(l: any) {
+  // Check if linked unit is occupied — if so, prevent publishing
+  if (l.unitId) {
+    const unit = makonStore.units.find(u => u.id === l.unitId)
+    if (unit && unit.status === 'OCCUPIED') {
+      alert("Unit band (OCCUPIED) — listingni marketplace'da ko'rsatib bo'lmaydi.")
+      return
+    }
+  }
   l.status = l.status === 'PUBLISHED' ? 'HIDDEN' : 'PUBLISHED'
 }
 

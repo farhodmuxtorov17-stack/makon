@@ -272,6 +272,20 @@ export interface AdminUserItem {
 
 
 
+
+export interface TenantCabinetItem {
+  id: string
+  tenantName: string
+  tenantTin: string
+  tenantPhone: string
+  tenantEmail: string
+  contractId: string
+  unitId: string
+  buildingId: string
+  createdAt: string
+  status: 'ACTIVE' | 'SUSPENDED' | 'CLOSED'
+}
+
 interface MeterItem {
   id: string
   buildingName: string
@@ -1085,8 +1099,48 @@ export const useMakonStore = defineStore('makon', () => {
 
   function updateUnitStatus(unitId: string, status: 'VACANT' | 'RESERVED' | 'OCCUPIED') {
     const u = units.value.find(item => item.id === unitId)
-    if (u) {
-      u.status = status
+    if (!u) return
+
+    const oldStatus = u.status
+    u.status = status
+
+    // ─── Status sync: internal → public marketplace ───
+    // Auto-update the related listing's visibility based on unit status
+    const listing = listings.value.find(l => l.unitId === unitId)
+    if (listing) {
+      if (status === 'OCCUPIED') {
+        listing.status = 'HIDDEN'  // Remove from public catalog
+      } else if (status === 'VACANT') {
+        listing.status = 'PUBLISHED'  // Show on public catalog
+      } else if (status === 'RESERVED') {
+        listing.status = 'PUBLISHED'  // Still visible but marked as reserved
+      }
+    }
+
+    // Recalculate building stats
+    recalcBuildingStats(u.buildingId)
+  }
+
+  // Auto-sync unit status → listing → building stats → public catalog
+  function recalcBuildingStats(buildingId: string) {
+    const b = buildings.value.find(item => item.id === buildingId)
+    if (!b) return
+    const bldgUnits = units.value.filter(u => u.buildingId === buildingId)
+    b.occupiedUnits = bldgUnits.filter(u => u.status === 'OCCUPIED').length
+    b.reservedUnits = bldgUnits.filter(u => u.status === 'RESERVED').length
+    b.vacantUnits = bldgUnits.filter(u => u.status === 'VACANT').length
+    b.totalUnits = bldgUnits.length
+  }
+
+  // Sync listing status to match unit status (called when listing is toggled in management)
+  function syncListingStatus(listingId: string) {
+    const l = listings.value.find(item => item.id === listingId)
+    if (!l || !l.unitId) return
+    const u = units.value.find(item => item.id === l.unitId)
+    if (!u) return
+    // If unit is occupied, listing should be hidden
+    if (u.status === 'OCCUPIED') {
+      l.status = 'HIDDEN'
     }
   }
 
@@ -1119,9 +1173,24 @@ export const useMakonStore = defineStore('makon', () => {
 
   function updateApplicationStatus(appId: string, status: ApplicationItem['status'], reason?: string) {
     const app = applications.value.find(a => a.id === appId)
-    if (app) {
-      app.status = status
-      if (reason) app.rejectionReason = reason
+    if (!app) return
+    app.status = status
+    if (reason) app.rejectionReason = reason
+
+    // ─── Auto-reserve unit when application reaches operation approval ───
+    if (status === 'OPERATION_APPROVED' || status === 'FINANCE_APPROVED' || status === 'DRAFT_READY') {
+      const u = units.value.find(item => item.id === app.unitId)
+      if (u && u.status === 'VACANT') {
+        updateUnitStatus(app.unitId, 'RESERVED')
+      }
+    }
+
+    // ─── Free unit if application is rejected ───
+    if (status === 'REJECTED') {
+      const u = units.value.find(item => item.id === app.unitId)
+      if (u && u.status === 'RESERVED') {
+        updateUnitStatus(app.unitId, 'VACANT')
+      }
     }
   }
 
@@ -1140,22 +1209,45 @@ export const useMakonStore = defineStore('makon', () => {
 
   function activateContract(contractId: string) {
     const cnt = contracts.value.find(c => c.id === contractId)
-    if (cnt) {
-      cnt.status = 'ACTIVE'
-      cnt.eriLandlordSigned = true
-      cnt.eriTenantSigned = true
-      cnt.signedDate = new Date().toISOString().split('T')[0]
+    if (!cnt) return
 
-      // Update unit status to OCCUPIED
-      const u = units.value.find(unit => unit.id === cnt.unitId)
-      if (u) {
-        u.status = 'OCCUPIED'
+    cnt.status = 'ACTIVE'
+    cnt.eriLandlordSigned = true
+    cnt.eriTenantSigned = true
+    cnt.signedDate = new Date().toISOString().split('T')[0]
+
+    // ─── Status sync: unit → OCCUPIED ───
+    updateUnitStatus(cnt.unitId, 'OCCUPIED')
+
+    // ─── Auto-create tenant cabinet ───
+    // Check if cabinet already exists for this contract
+    const existing = tenantCabinets.value.find(tc => tc.contractId === contractId)
+    if (!existing) {
+      const newCabinet: TenantCabinetItem = {
+        id: 'tc-' + Date.now(),
+        tenantName: cnt.tenantName,
+        tenantTin: cnt.tenantTin,
+        tenantPhone: '',
+        tenantEmail: '',
+        contractId: contractId,
+        unitId: cnt.unitId,
+        buildingId: cnt.buildingId,
+        createdAt: new Date().toISOString().split('T')[0],
+        status: 'ACTIVE'
       }
-      // Pause/hide related listing
-      const l = listings.value.find(list => list.unitId === cnt.unitId)
-      if (l) {
-        l.status = 'HIDDEN'
-      }
+      tenantCabinets.value.unshift(newCabinet)
+    }
+
+    // ─── Add to unit rental history ───
+    const u = units.value.find(unit => unit.id === cnt.unitId)
+    if (u) {
+      u.rentalHistory.push({
+        contractId: contractId,
+        tenantName: cnt.tenantName,
+        startDate: cnt.startDate,
+        endDate: cnt.endDate,
+        monthlyRent: cnt.monthlyRent
+      })
     }
   }
 
@@ -1236,6 +1328,23 @@ export const useMakonStore = defineStore('makon', () => {
     { id: "u6", fullName: "Temur Yusupov", email: "temur@makon.uz", phone: "+998907778899", role: "FACILITY", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-09T11:30:00", createdAt: "2026-04-01" },
     { id: "u7", fullName: "Rustam Eshmurodov", email: "rustam@makon.uz", phone: "+998909990011", role: "WAREHOUSE_OPERATOR", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-10T13:00:00", createdAt: "2026-04-15" },
     { id: "u8", fullName: "Zarina Abdullayeva", email: "zarina@makon.uz", phone: "+998901234599", role: "CONTENT_OPERATOR", organization: "MAKON Management", status: "INVITED", lastLogin: null, createdAt: "2026-08-05" },
+  ])
+
+
+  // ─── Tenant Cabinets (auto-created on contract activation) ───
+  const tenantCabinets = ref<TenantCabinetItem[]>([
+    {
+      id: 'tc1', tenantName: 'Digital Tashkent LLC', tenantTin: '302334455',
+      tenantPhone: '+998901234567', tenantEmail: 'info@digital-tashkent.uz',
+      contractId: 'c1', unitId: 'u101', buildingId: 'b1',
+      createdAt: '2026-01-15', status: 'ACTIVE'
+    },
+    {
+      id: 'tc2', tenantName: 'UzAuto Commercial JV', tenantTin: '201998877',
+      tenantPhone: '+998902223344', tenantEmail: 'office@uzauto-jv.uz',
+      contractId: 'c2', unitId: 'u201', buildingId: 'b2',
+      createdAt: '2026-02-01', status: 'ACTIVE'
+    },
   ])
 
   // ---------------- Inventory helpers ----------------
@@ -1689,5 +1798,8 @@ export const useMakonStore = defineStore('makon', () => {
     tenantMeterHistory,
     tenantInvoices,
     tenantServiceCharges,
+    tenantCabinets,
+    syncListingStatus,
+    recalcBuildingStats,
   }
 })

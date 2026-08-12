@@ -192,10 +192,21 @@
       </div>
     </Teleport>
   </div>
+
+    <!-- Status Sync Toast -->
+    <Teleport to="body">
+      <Transition name="slide-up">
+        <div v-if="syncToast.show" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs font-medium"
+          :class="syncToast.type === 'success' ? 'bg-emerald-500 text-white' : syncToast.type === 'warning' ? 'bg-amber-500 text-white' : 'bg-brand-500 text-white'">
+          <RefreshCw :size="14" class="animate-spin" />
+          {{ syncToast.msg }}
+        </div>
+      </Transition>
+    </Teleport>
 </template>
 
 <script setup lang="ts">
-import { ArrowRight, History, X, FileText, Check, RotateCcw, XCircle } from 'lucide-vue-next'
+import { ArrowRight, History, X, FileText, Check, RotateCcw, XCircle, RefreshCw } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
@@ -229,8 +240,22 @@ function getColumnApps(status: string) {
 }
 
 
+// Status sync feedback toast
+const syncToast = ref<{ show: boolean; msg: string; type: string }>({ show: false, msg: '', type: 'success' })
+
 function advanceStatus(appId: string, nextStatus: any) {
+  const app = makonStore.applications.find(a => a.id === appId)
   makonStore.updateApplicationStatus(appId, nextStatus)
+
+  // Show sync feedback
+  if (nextStatus === 'OPERATION_APPROVED' || nextStatus === 'FINANCE_APPROVED' || nextStatus === 'DRAFT_READY') {
+    syncToast.value = { show: true, msg: `Unit ${app?.unitNumber || ''} → RESERVED. Marketplace yangilandi.`, type: 'warning' }
+  } else if (nextStatus === 'SIGNED' || nextStatus === 'ACTIVE') {
+    syncToast.value = { show: true, msg: `Shartnoma aktivlashdi. Unit OCCUPIED, listing yashirildi, tenant cabinet yaratildi.`, type: 'success' }
+  } else {
+    syncToast.value = { show: true, msg: `Ariza statusi yangilandi.`, type: 'success' }
+  }
+  setTimeout(() => syncToast.value.show = false, 4000)
 }
 
 function openReasonModal(type: 'APPROVE' | 'RETURN' | 'REJECT') {
@@ -242,14 +267,19 @@ function confirmDecision() {
   if (selectedApp.value) {
     if (actionType.value === 'APPROVE') {
       makonStore.updateApplicationStatus(selectedApp.value.id, 'OPERATION_APPROVED', decisionReason.value)
+      syncToast.value = { show: true, msg: `Unit ${selectedApp.value.unitNumber} → RESERVED. Marketplace avtomatik yangilandi.`, type: 'warning' }
+      setTimeout(() => syncToast.value.show = false, 4000)
     } else if (actionType.value === 'RETURN') {
       makonStore.updateApplicationStatus(selectedApp.value.id, 'NEED_INFO', decisionReason.value)
     } else {
       makonStore.updateApplicationStatus(selectedApp.value.id, 'REJECTED', decisionReason.value)
+      syncToast.value = { show: true, msg: `Ariza rad etildi. Unit ${selectedApp.value.unitNumber} → VACANT.`, type: 'success' }
+      setTimeout(() => syncToast.value.show = false, 4000)
     }
   }
   showReasonModal.value = false
   selectedApp.value = null
   decisionReason.value = ''
 }
+
 </script>

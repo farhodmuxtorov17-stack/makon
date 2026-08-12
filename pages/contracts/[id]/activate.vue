@@ -61,10 +61,12 @@
           <Zap :size="14" /> Aktivlashtirish natijasida avtomatik bajariladigan amallar:
         </div>
         <ul class="list-disc pl-4 space-y-1 text-ink-700 dark:text-ink-300 text-[11px]">
-          <li>Unit statusi <b>OCCUPIED (Band)</b> ga o'zgartiriladi.</li>
-          <li>Ushbu unitga bog'langan ommaviy listing <b>Yashiriladi (Pause/Hidden)</b>.</li>
-          <li>Ijarachi uchun <b>Shaxsiy Kabinet</b> va kirish hisobi yaratiladi.</li>
-          <li>Moliya tizimida oylik ijara va depozit billing grafigi ishga tushadi.</li>
+          <li>Unit statusi <b>OCCUPIED (Band)</b> ga o'zgartiriladi — public katalogdan avtomatik olib tashlanadi.</li>
+          <li>Ushbu unitga bog'langan listing <b>avtomatik yashiriladi (Hidden)</b> — marketplace sinxron.</li>
+          <li>Bino statistikasi (vacant/occupied) <b>avtomatik qayta hisoblanadi</b>.</li>
+          <li>Ijarachi uchun <b>Shaxsiy Kabinet</b> avtomatik yaratiladi (tenant cabinet).</li>
+          <li>Unit rental historyga shartnoma <b>avtomatik qo'shiladi</b>.</li>
+          <li>Moliya tizimida oylik ijara billing grafigi ishga tushadi.</li>
         </ul>
       </div>
 
@@ -90,7 +92,7 @@
           <h3 class="text-xl font-bold text-ink-900 dark:text-white">Shartnoma Muvaffaqiyatli Aktivlashtirildi!</h3>
 
           <p class="text-xs text-ink-500 leading-relaxed">
-            Unit statusi <b>OCCUPIED</b> holatiga o'tkazildi. Ijarachi shaxsiy kabineti faollashtirildi.
+            Unit statusi <b>OCCUPIED</b> ga o'tdi. Marketplace listing yashirildi. Bino statistikasi yangilandi. Ijarachi shaxsiy kabineti avtomatik yaratildi.
           </p>
 
           <div class="pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-center gap-3">

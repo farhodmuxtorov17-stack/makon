@@ -114,6 +114,7 @@ const navItems = [
   { to: '/management/buildings', label: 'Binolar', icon: Building2 },
   { to: '/management/applications', label: 'Arizalar', icon: FileText, badge: 3 },
   { to: '/contracts', label: 'Shartnomalar', icon: ScrollText },
+  { to: '/management/tenants', label: 'Ijarachilar', icon: Users },
   { to: '/finance/invoices', label: 'Moliya', icon: Receipt },
   { to: '/admin/settings', label: 'Sozlamalar', icon: Settings },
 ]
@@ -123,6 +124,7 @@ const titles: Record<string,string> = {
   '/management/buildings': 'Binolar',
   '/management/applications': 'Arizalar',
   '/contracts': 'Shartnomalar',
+  '/management/tenants': 'Ijarachilar',
   '/finance/invoices': 'Moliya',
   '/admin/settings': 'Sozlamalar',
 }
