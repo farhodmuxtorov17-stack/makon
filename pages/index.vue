@@ -17,8 +17,8 @@
         <div class="nav__right">
           <ThemeToggle />
           <NuxtLink to="/login" class="nav__link">Kirish</NuxtLink>
-          <NuxtLink to="/register/eri" class="nav__btn">
-            Ro'yxatdan o'tish <ArrowRight :size="14" />
+          <NuxtLink to="/dashboard/executive" class="nav__btn-try">
+            Попробовать <ArrowRight :size="14" />
           </NuxtLink>
         </div>
       </div>
@@ -69,6 +69,13 @@
           <button class="hero__search-btn" @click="doSearch">
             <Search :size="18" />
           </button>
+        </div>
+
+        <div class="hero__try">
+          <NuxtLink to="/dashboard/executive" class="hero__try-btn">
+            Попробовать <ArrowRight :size="16" />
+          </NuxtLink>
+          <span class="hero__try-hint">Demo rejim — bir necha soniya ichida</span>
         </div>
 
         <div class="hero__chips">
@@ -509,6 +516,26 @@ onUnmounted(() => {
   background: rgba(255,255,255,0.18);
   border-color: rgba(255,255,255,0.25);
 }
+.nav__btn-try {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+  border: none;
+}
+.nav__btn-try:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37,99,235,0.45);
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+}
 
 /* ═══ HERO ═══ */
 .hero {
@@ -665,6 +692,42 @@ onUnmounted(() => {
 }
 .hero__search-btn:hover {
   background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+}
+
+/* ═══ HERO TRY BUTTON ═══ */
+.hero__try {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+.hero__try-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 36px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 8px 28px rgba(37,99,235,0.4), 0 2px 8px rgba(37,99,235,0.2);
+  border: none;
+  font-family: 'Sora', sans-serif;
+  letter-spacing: -0.01em;
+}
+.hero__try-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(37,99,235,0.5), 0 4px 12px rgba(37,99,235,0.3);
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+}
+.hero__try-hint {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
 }
 
 /* ═══ HERO CHIPS ═══ */
