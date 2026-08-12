@@ -953,3 +953,10 @@ a { transition: color 0.2s ease, opacity 0.2s ease; }
 .empty-state__icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; background: var(--bg-subtle); }
 .empty-state__title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .empty-state__desc { font-size: 14px; color: var(--text-muted); }
+
+/* ═══ kpi-strip__icon color variants (for pages using kpi-strip__icon inside dash-kpi) ═══ */
+.dash-kpi--blue .kpi-strip__icon { background: rgba(59,130,246,0.08); color: #3B82F6; }
+.dash-kpi--emerald .kpi-strip__icon { background: rgba(16,185,129,0.08); color: #10B981; }
+.dash-kpi--amber .kpi-strip__icon { background: rgba(245,158,11,0.08); color: #F59E0B; }
+.dash-kpi--violet .kpi-strip__icon { background: rgba(139,92,246,0.08); color: #8B5CF6; }
+.dash-kpi--rose .kpi-strip__icon { background: rgba(244,63,94,0.08); color: #F43F5E; }

@@ -59,7 +59,7 @@
         </div>
         <div class="mt-10 pt-6 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs text-ink-500">
           <p>© 2026 MAKON. Barcha huquqlar himoyalangan.</p>
-          <p>Telegram orqali xavfsiz identifikatsiya</p>
+          <p>Xavfsiz identifikatsiya tizimi</p>
         </div>
       </div>
     </footer>

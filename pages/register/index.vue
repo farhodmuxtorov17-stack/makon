@@ -29,7 +29,7 @@
       <div class="auth__form-wrap">
         <div class="auth__form-head">
           <h1 class="auth__form-title">Ro'yxatdan o'tish</h1>
-          <p class="auth__form-sub">Telefon raqamingizni kiriting — kod Telegram orqali yuboriladi</p>
+          <p class="auth__form-sub">Telefon raqamingizni kiriting — tasdiqlash kodi yuboriladi</p>
         </div>
 
         <div class="auth__steps">
@@ -65,7 +65,7 @@
 
           <div class="auth__info-notice">
             <Send :size="15" />
-            <span>Tasdiqlash kodi Telegram orqali yuboriladi</span>
+            <span>Tasdiqlash kodi yuboriladi</span>
           </div>
 
           <button type="submit" class="auth__submit" :disabled="loading || phone.length < 17">
