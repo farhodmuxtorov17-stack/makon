@@ -6,6 +6,38 @@
       <p class="text-ink-500 text-sm mt-1">Platforma konfiguratsiyasi va integratsiyalar</p>
     </div>
 
+    <!-- 3D KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ totalUsers }}</div>
+          <div class="kpi-strip__label">Foydalanuvchilar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">99.9<span class="text-sm">%</span></div>
+          <div class="kpi-strip__label">Uptime</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">2</div>
+          <div class="kpi-strip__label">Integratsiyalar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">v2.1</div>
+          <div class="kpi-strip__label">Versiya</div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <!-- General -->
       <div class="card-premium p-5">
@@ -134,6 +166,8 @@ const channels = ref([
   { id: '3', label: 'Push', desc: 'Brauzer va mobil push', icon: Send, color: 'text-purple-500', enabled: true },
   { id: '4', label: 'Telegram', desc: 'Telegram bot orqali', icon: MessageSquare, color: 'text-blue-500', enabled: false },
 ])
+const totalUsers = computed(() => 24)
+
 </script>
 
 <style scoped>
@@ -160,4 +194,30 @@ const channels = ref([
 .toggle__slider::before { position: absolute; content: ''; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
 .toggle input:checked + .toggle__slider { background: var(--accent); }
 .toggle input:checked + .toggle__slider::before { transform: translateX(18px); }
+</style>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 </style>

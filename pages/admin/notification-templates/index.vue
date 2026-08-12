@@ -8,6 +8,38 @@
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi shablon</button>
     </div>
 
+    <!-- 3D KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ templates.length }}</div>
+          <div class="kpi-strip__label">Jami shablonlar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ activeCount }}</div>
+          <div class="kpi-strip__label">Faol</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ inactiveCount }}</div>
+          <div class="kpi-strip__label">Faol emas</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ channels }}</div>
+          <div class="kpi-strip__label">Kanallar</div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div v-for="tpl in templates" :key="tpl.id" class="card-premium p-5">
         <div class="flex items-start justify-between mb-3">
@@ -60,6 +92,9 @@ const templates = computed(() =>
 )
 
 const activeCount = computed(() => templates.value.filter(t => t.active).length)
+const inactiveCount = computed(() => templates.value.filter(t => !t.active).length)
+const channels = computed(() => 3)
+
 </script>
 <style scoped>
 .toggle { position: relative; display: inline-block; width: 40px; height: 22px; }
@@ -77,4 +112,30 @@ const activeCount = computed(() => templates.value.filter(t => t.active).length)
 .toggle input:checked + .toggle__slider::before { transform: translateX(18px); }
 .template-lang { padding: 8px; border-radius: 10px; background: rgba(0,0,0,0.02); }
 .dark .template-lang { background: rgba(255,255,255,0.02); }
+</style>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 </style>
