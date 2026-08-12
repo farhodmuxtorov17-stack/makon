@@ -49,9 +49,10 @@
 
         <div class="hero__try">
           <NuxtLink to="/dashboard/executive" class="hero__try-btn">
-            Попробовать <ArrowRight :size="16" />
+            <span>Tizimni sinab ko'rish</span>
+            <ArrowRight :size="20" />
           </NuxtLink>
-          <span class="hero__try-hint">Demo rejim — bir necha soniya ichida</span>
+          <span class="hero__try-hint">Demo rejim — ro'yxatdan o'tmasdan</span>
         </div>
 
 
