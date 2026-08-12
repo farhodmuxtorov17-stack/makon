@@ -493,6 +493,50 @@ export const useMakonStore = defineStore('makon', () => {
       lng: 69.2200,
       documents: [],
       amenities: ['Cross-Docking', 'Muzlatgich Kameralar', 'TIR Rampa', 'Xavfsizlik 24/7', 'Bojxona Zonasi']
+    },
+    {
+      id: 'b6', name: 'Tashkent City Business Center', slug: 'tashkent-city-business-center',
+      type: 'OFFICE', address: 'Tashkent City 8-bino', city: 'Toshkent', district: 'Yashnobod',
+      floorsCount: 12, totalUnits: 96, occupiedUnits: 78, reservedUnits: 6, vacantUnits: 12,
+      totalArea: 18500, gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      publicDescription: 'Tashkent City majmuasidagi eng zamonaviy biznes markaz. Panoramali ofislar.',
+      publicDescriptionRu: 'Современный бизнес-центр в комплексе Tashkent City.',
+      isPublished: true, cadastralNumber: '10:10:8877665:06', buildYear: 2024,
+      has3dModel: true, has2dPlan: true, lat: 41.285, lng: 69.215,
+      documents: [], amenities: ['Underground Parking', '24/7 Security', 'Central AC', 'Café', 'Gym']
+    },
+    {
+      id: 'b7', name: 'Amir Tower', slug: 'amir-tower',
+      type: 'OFFICE', address: 'Amir Temur kochasi 45', city: 'Toshkent', district: 'Mirzo Ulugbek',
+      floorsCount: 18, totalUnits: 144, occupiedUnits: 120, reservedUnits: 8, vacantUnits: 16,
+      totalArea: 22000, gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      publicDescription: 'Shahar markazidagi A-klass biznes minorasi. Premium ofislar.',
+      publicDescriptionRu: 'Башня класса А в центре города. Премиум офисы.',
+      isPublished: true, cadastralNumber: '10:10:7766554:07', buildYear: 2023,
+      has3dModel: true, has2dPlan: true, lat: 41.312, lng: 69.278,
+      documents: [], amenities: ['Underground Parking', '24/7 Security', 'Central AC', 'Conference Hall', 'Restaurant']
+    },
+    {
+      id: 'b8', name: 'Center Point Plaza', slug: 'center-point-plaza',
+      type: 'SHOPPING', address: 'Buyuk Ipak Yoli 12', city: 'Toshkent', district: 'Yakkasaray',
+      floorsCount: 5, totalUnits: 60, occupiedUnits: 45, reservedUnits: 5, vacantUnits: 10,
+      totalArea: 12000, gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      publicDescription: 'Savdo va kongilochar markaz. Food court, kinoteatr, bolalar zonasi.',
+      publicDescriptionRu: 'Торгово-развлекательный центр. Фуд-корт, кинотеатр.',
+      isPublished: true, cadastralNumber: '10:10:6655443:08', buildYear: 2022,
+      has3dModel: false, has2dPlan: true, lat: 41.295, lng: 69.245,
+      documents: [], amenities: ['Parking 500', 'Food Court', 'Cinema', 'Kids Zone', 'Supermarket']
+    },
+    {
+      id: 'b9', name: 'Novza Business Park', slug: 'novza-business-park',
+      type: 'OFFICE', address: 'Novza kochasi 8', city: 'Toshkent', district: 'Yakkasaray',
+      floorsCount: 8, totalUnits: 64, occupiedUnits: 52, reservedUnits: 4, vacantUnits: 8,
+      totalArea: 14000, gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      publicDescription: 'B-klass biznes markaz. Kichik va orta biznes uchun ideal.',
+      publicDescriptionRu: 'Бизнес-центр класса B. Идеально для малого и среднего бизнеса.',
+      isPublished: true, cadastralNumber: '10:10:5544332:09', buildYear: 2021,
+      has3dModel: false, has2dPlan: true, lat: 41.285, lng: 69.235,
+      documents: [], amenities: ['Parking 200', '24/7 Security', 'Central AC', 'Café']
     }
   ])
 
@@ -589,7 +633,33 @@ export const useMakonStore = defineStore('makon', () => {
     {
       id: 'u604b', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-04', floor: 2, area: 450, status: 'VACANT', monthlyRent: 2250, currency: 'USD', category: 'WAREHOUSE', roomId: 'ROOM-W04',
       rentalHistory: []
-    }
+    },
+    { id: 'u105', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '105', floor: 1, area: 75, status: 'OCCUPIED', monthlyRent: 2250, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-105', rentalHistory: [] },
+    { id: 'u106', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '106', floor: 1, area: 110, status: 'VACANT', monthlyRent: 3300, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-106', rentalHistory: [] },
+    { id: 'u203', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '203', floor: 2, area: 160, status: 'OCCUPIED', monthlyRent: 4800, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-203', rentalHistory: [] },
+    { id: 'u204', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '204', floor: 2, area: 90, status: 'RESERVED', monthlyRent: 2700, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-204', rentalHistory: [] },
+    { id: 'u301b', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '301', floor: 3, area: 220, status: 'OCCUPIED', monthlyRent: 6600, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-301A', rentalHistory: [] },
+    { id: 'u302b', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '302', floor: 3, area: 140, status: 'VACANT', monthlyRent: 4200, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-302A', rentalHistory: [] },
+    { id: 'u401b', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '401', floor: 4, area: 175, status: 'OCCUPIED', monthlyRent: 5250, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-401A', rentalHistory: [] },
+    { id: 'u402b', buildingId: 'b1', buildingName: 'Trillant Tower A', unitNumber: '402', floor: 4, area: 130, status: 'VACANT', monthlyRent: 3900, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-402A', rentalHistory: [] },
+    { id: 'u305', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitNumber: '305', floor: 3, area: 110, status: 'OCCUPIED', monthlyRent: 3300, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-305', rentalHistory: [] },
+    { id: 'u401c', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitNumber: '401', floor: 4, area: 200, status: 'VACANT', monthlyRent: 6000, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-401B', rentalHistory: [] },
+    { id: 'u402c', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitNumber: '402', floor: 4, area: 145, status: 'RESERVED', monthlyRent: 4350, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-402B', rentalHistory: [] },
+    { id: 'u501c', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitNumber: '501', floor: 5, area: 320, status: 'OCCUPIED', monthlyRent: 9600, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-501C', rentalHistory: [] },
+    { id: 'u402', buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitNumber: '402', floor: 4, area: 140, status: 'OCCUPIED', monthlyRent: 2800, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-402', rentalHistory: [] },
+    { id: 'u405', buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitNumber: '405', floor: 4, area: 95, status: 'VACANT', monthlyRent: 1900, currency: 'USD', category: 'COWORKING', roomId: 'ROOM-405', rentalHistory: [] },
+    { id: 'u501d', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitNumber: '2-08', floor: 2, area: 55, status: 'OCCUPIED', monthlyRent: 1650, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-208', rentalHistory: [] },
+    { id: 'u502d', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitNumber: '2-12', floor: 2, area: 90, status: 'VACANT', monthlyRent: 2700, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-212', rentalHistory: [] },
+    { id: 'u605b', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-05', floor: 1, area: 680, status: 'OCCUPIED', monthlyRent: 3400, currency: 'USD', category: 'WAREHOUSE', roomId: 'ROOM-W05', rentalHistory: [] },
+    { id: 'u606b', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitNumber: 'W-06', floor: 2, area: 380, status: 'RESERVED', monthlyRent: 1900, currency: 'USD', category: 'WAREHOUSE', roomId: 'ROOM-W06', rentalHistory: [] },
+    { id: 'u607b', buildingId: 'b6', buildingName: 'Tashkent City Business Center', unitNumber: '801', floor: 8, area: 260, status: 'VACANT', monthlyRent: 7800, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-801', rentalHistory: [] },
+    { id: 'u608b', buildingId: 'b6', buildingName: 'Tashkent City Business Center', unitNumber: '802', floor: 8, area: 180, status: 'OCCUPIED', monthlyRent: 5400, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-802', rentalHistory: [] },
+    { id: 'u701b', buildingId: 'b7', buildingName: 'Amir Tower', unitNumber: '601', floor: 6, area: 145, status: 'VACANT', monthlyRent: 4350, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-601', rentalHistory: [] },
+    { id: 'u702b', buildingId: 'b7', buildingName: 'Amir Tower', unitNumber: '602', floor: 6, area: 210, status: 'OCCUPIED', monthlyRent: 6300, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-602', rentalHistory: [] },
+    { id: 'u801b', buildingId: 'b8', buildingName: 'Center Point Plaza', unitNumber: '301', floor: 3, area: 95, status: 'VACANT', monthlyRent: 2850, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-301D', rentalHistory: [] },
+    { id: 'u802b', buildingId: 'b8', buildingName: 'Center Point Plaza', unitNumber: '302', floor: 3, area: 130, status: 'OCCUPIED', monthlyRent: 3900, currency: 'USD', category: 'RETAIL', roomId: 'ROOM-302D', rentalHistory: [] },
+    { id: 'u901b', buildingId: 'b9', buildingName: 'Novza Business Park', unitNumber: '201', floor: 2, area: 160, status: 'VACANT', monthlyRent: 4800, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-201E', rentalHistory: [] },
+    { id: 'u902b', buildingId: 'b9', buildingName: 'Novza Business Park', unitNumber: '202', floor: 2, area: 110, status: 'RESERVED', monthlyRent: 3300, currency: 'USD', category: 'OFFICE', roomId: 'ROOM-202E', rentalHistory: [] }
   ])
 
   // Listings Initial Data
@@ -661,6 +731,166 @@ export const useMakonStore = defineStore('makon', () => {
       status: 'DRAFT',
       virtualTourUrl: '',
       createdAt: '2026-08-05'
+    },
+    {
+      id: 'l5', buildingId: 'b1', unitId: 'u104',
+      titleUz: 'Trillant Tower 210m² savdo maydoni (ground floor)',
+      titleRu: 'Торговое помещение 210м² на первом этаже Trillant Tower',
+      descriptionUz: 'Baland oqimli joyda, yirik derazalar va alohida kirish bilan savdo maydoni.',
+      descriptionRu: 'Торговое помещение в месте с высоким трафиком, с большими окнами и отдельным входом.',
+      offerType: 'RENT', price: 6300, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 278, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-07-20'
+    },
+    {
+      id: 'l6', buildingId: 'b1', unitId: 'u501',
+      titleUz: 'Trillant Tower 5-qavat 180m² premium ofis',
+      titleRu: 'Премиум офис 180м² на 5-м этаже Trillant Tower',
+      descriptionUz: 'Shahar panoramasi bilan, mebel bilan tamirlangan, tezkor internet.',
+      descriptionRu: 'С панорамой города, с мебелью, быстрый интернет.',
+      offerType: 'RENT', price: 5400, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 421, status: 'PUBLISHED',
+      virtualTourUrl: 'https://my.matterport.com/show/?m=sample2', createdAt: '2026-07-25'
+    },
+    {
+      id: 'l7', buildingId: 'b1', unitId: 'u502',
+      titleUz: 'Trillant Tower 5-qavat 120m² arzon ofis',
+      titleRu: 'Доступный офис 120м² на 5-м этаже Trillant Tower',
+      descriptionUz: 'Kichik biznes uchun ideal. Ochiq reja, konditsioner, 2 WC.',
+      descriptionRu: 'Идеально для малого бизнеса. Открытый план, кондиционер, 2 санузла.',
+      offerType: 'RENT', price: 3600, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 156, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-07-28'
+    },
+    {
+      id: 'l8', buildingId: 'b2', unitId: 'u303',
+      titleUz: 'Tashkent City 95m² savdo paviloni',
+      titleRu: 'Торговый павильон 95м² в Tashkent City',
+      descriptionUz: 'Mollarda bolgan aylanma yuqori. 2 qavatli, podval bilan.',
+      descriptionRu: 'Высокий трафик в молле. 2 этажа, с подвалом.',
+      offerType: 'RENT', price: 2850, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 389, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-08-01'
+    },
+    {
+      id: 'l9', buildingId: 'b2', unitId: 'u304',
+      titleUz: 'Tashkent City 65m² kichik savdo maydoni',
+      titleRu: 'Малое торговое помещение 65м² в Tashkent City',
+      descriptionUz: 'Kiosk uchun ideal. Markaziy havo aylantirish, elektr 15kW.',
+      descriptionRu: 'Идеально для киоска. Центральная вентиляция, электричество 15кВт.',
+      offerType: 'RENT', price: 1950, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 198, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-08-03'
+    },
+    {
+      id: 'l10', buildingId: 'b3', unitId: 'u401',
+      titleUz: 'IT Park 85m² coworking maydoni',
+      titleRu: 'Коворкинг 85м² в IT Park',
+      descriptionUz: 'IT Park rezidenti uchun soliq imtiyozlari. Zamonaviy dizayn.',
+      descriptionRu: 'Налоговые льготы для резидента IT Park. Современный дизайн.',
+      offerType: 'RENT', price: 1700, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 567, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-07-30'
+    },
+    {
+      id: 'l11', buildingId: 'b3', unitId: 'u403',
+      titleUz: 'IT Park 60m² mini ofis (coworking)',
+      titleRu: 'Мини-офис 60м² в IT Park (коворкинг)',
+      descriptionUz: 'Startup uchun ideal. Mebellangan, internet, ofis texnika.',
+      descriptionRu: 'Идеально для стартапа. С мебелью, интернет, офисная техника.',
+      offerType: 'RENT', price: 1200, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 412, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-08-02'
+    },
+    {
+      id: 'l12', buildingId: 'b3', unitId: 'u404',
+      titleUz: 'IT Park 200m² zamonaviy IT ofis',
+      titleRu: 'Современный IT-офис 200м² в IT Park',
+      descriptionUz: 'Server xonasi bilan, 2 majlis xonasi, open-space 40 orin.',
+      descriptionRu: 'С серверной, 2 переговорные, open-space на 40 мест.',
+      offerType: 'RENT', price: 4000, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 234, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-07-22'
+    },
+    {
+      id: 'l13', buildingId: 'b4', unitId: 'u501b',
+      titleUz: 'Silk Road Galleria 42m² savdo maydoni (ground floor)',
+      titleRu: 'Торговое помещение 42м² в Silk Road Galleria',
+      descriptionUz: 'Food court yonida, yuqori aylanma. Ideal kafe uchun.',
+      descriptionRu: 'Рядом с фуд-кортом, высокий трафик. Идеально под кафе.',
+      offerType: 'RENT', price: 1500, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 178, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-07-18'
+    },
+    {
+      id: 'l14', buildingId: 'b4', unitId: 'u503b',
+      titleUz: 'Silk Road Galleria 120m² savdo maydoni',
+      titleRu: 'Торговое помещение 120м² в Silk Road Galleria',
+      descriptionUz: 'Markaziy atrium yonida, 2 qavatli, alohida sklad.',
+      descriptionRu: 'Рядом с центральным атриумом, 2 этажа, отдельный склад.',
+      offerType: 'RENT', price: 3600, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 345, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-07-24'
+    },
+    {
+      id: 'l15', buildingId: 'b4', unitId: 'u504b',
+      titleUz: 'Silk Road Galleria 65m² savdo paviloni (2-qavat)',
+      titleRu: 'Торговый павильон 65м² на 2-м этаже Silk Road Galleria',
+      descriptionUz: 'Bolalar zonasi yonida. Ideal oyin lar uchun.',
+      descriptionRu: 'Рядом с детской зоной. Идеально под игровые.',
+      offerType: 'RENT', price: 1950, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 123, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-08-04'
+    },
+    {
+      id: 'l16', buildingId: 'b5', unitId: 'u601b',
+      titleUz: 'Sergeli Logistics 560m² ombor maydoni',
+      titleRu: 'Склад 560м² в Sergeli Logistics Park',
+      descriptionUz: 'Yuk porti 4 ta, shift balandligi 8m, issiqlik bilan.',
+      descriptionRu: '4 погрузочных докa, высота потолков 8м, с отоплением.',
+      offerType: 'RENT', price: 2800, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 267, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-07-15'
+    },
+    {
+      id: 'l17', buildingId: 'b5', unitId: 'u602b',
+      titleUz: 'Sergeli Logistics 340m² ombor (arzon)',
+      titleRu: 'Склад 340м² в Sergeli Logistics (доступный)',
+      descriptionUz: 'Kichik logistika uchun. Shift 6m, 2 dock.',
+      descriptionRu: 'Для малой логистики. Потолок 6м, 2 дока.',
+      offerType: 'RENT', price: 1700, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 189, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-07-26'
+    },
+    {
+      id: 'l18', buildingId: 'b5', unitId: 'u604b',
+      titleUz: 'Sergeli Logistics 450m² ombor (2-qavat)',
+      titleRu: 'Склад 450м² на 2-м этаже Sergeli Logistics',
+      descriptionUz: 'Mezzanine bilan, ofis zonasi bilan, yuk lifti.',
+      descriptionRu: 'С мезонином, с офисной зоной, грузовой лифт.',
+      offerType: 'SALE', price: 320000, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 145, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-08-06'
+    },
+    {
+      id: 'l19', buildingId: 'b1', unitId: 'u201',
+      titleUz: 'Trillant Tower 350m² korporativ ofis (sotiladi)',
+      titleRu: 'Корпоративный офис 350м² в Trillant Tower (продажа)',
+      descriptionUz: 'Investitsiya uchun, hozir ijarada (12% daromad). Toliq tamirlangan.',
+      descriptionRu: 'Для инвестиций, сейчас в аренде (12% доход). С полным ремонтом.',
+      offerType: 'SALE', price: 980000, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 56, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-08-07'
+    },
+    {
+      id: 'l20', buildingId: 'b4', unitId: 'u502b',
+      titleUz: 'Silk Road Galleria 85m² savdo (sotiladi)',
+      titleRu: 'Торговое помещение 85м² в Silk Road Galleria (продажа)',
+      descriptionUz: 'Investitsiya uchun ideal. Hozir ijarada. 10% yillik daromad.',
+      descriptionRu: 'Идеально для инвестиций. Сейчас в аренде. 10% годовой доход.',
+      offerType: 'SALE', price: 240000, currency: 'USD',
+      photos: ['/buildings/3d-tower-2.png'], viewsCount: 78, status: 'PUBLISHED',
+      virtualTourUrl: '', createdAt: '2026-08-08'
     }
   ])
 
@@ -808,6 +1038,66 @@ export const useMakonStore = defineStore('makon', () => {
       status: 'ACTIVE',
       notes: 'Aktiv ijara shartnomasi rasmiylashtirilgan.',
       documents: []
+    },
+    {
+      id: 'app-007', number: 'APP-2026-007',
+      buildingId: 'b1', buildingName: 'Trillant Tower A', unitId: 'u502', unitNumber: '502',
+      applicantName: 'Nodira Karimova', applicantPhone: '+998 90 234 56 78',
+      applicantEmail: 'nodira.k@gmail.com', applicantType: 'INDIVIDUAL', tin: '1234567890',
+      type: 'RENT', offeredPrice: 3500, depositAmount: 7000, currency: 'USD',
+      durationMonths: 12, startDate: '2026-09-01', createdDate: '2026-08-08',
+      status: 'SUBMITTED', notes: 'Kichik biznes uchun, faqat ofis sifatida.',
+      documents: [{ title: 'Pasport.pdf', fileUrl: '#', uploadedAt: '2026-08-08 09:30' }]
+    },
+    {
+      id: 'app-008', number: 'APP-2026-008',
+      buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitId: 'u401', unitNumber: '401',
+      applicantName: 'TechHub MChJ', applicantPhone: '+998 99 876 54 32',
+      applicantEmail: 'info@techhub.uz', applicantType: 'LEGAL', tin: '306789123',
+      type: 'RENT', offeredPrice: 1650, depositAmount: 3300, currency: 'USD',
+      durationMonths: 6, startDate: '2026-09-01', createdDate: '2026-08-09',
+      status: 'OPERATION_APPROVED', notes: 'Startup uchun coworking. Tezkor tasdiq soralgan.',
+      documents: [{ title: 'Guvohnama.pdf', fileUrl: '#', uploadedAt: '2026-08-09 11:00' }]
+    },
+    {
+      id: 'app-009', number: 'APP-2026-009',
+      buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitId: 'u601b', unitNumber: 'W-01',
+      applicantName: 'FastDelivery LLC', applicantPhone: '+998 91 234 56 78',
+      applicantEmail: 'logistics@fastdelivery.uz', applicantType: 'LEGAL', tin: '304567890',
+      type: 'RENT', offeredPrice: 2700, depositAmount: 5400, currency: 'USD',
+      durationMonths: 24, startDate: '2026-10-01', createdDate: '2026-08-10',
+      status: 'FINANCE_APPROVED', notes: 'Moliyaviy tekshiruvdan otdi. Shartnoma tayyor.',
+      documents: [{ title: 'Moliyaviy_hisobot.pdf', fileUrl: '#', uploadedAt: '2026-08-10 14:00' }]
+    },
+    {
+      id: 'app-010', number: 'APP-2026-010',
+      buildingId: 'b4', buildingName: 'Silk Road Galleria', unitId: 'u501b', unitNumber: 'G-01',
+      applicantName: 'Coffee House Tashkent', applicantPhone: '+998 90 345 67 89',
+      applicantEmail: 'coffee@ch.uz', applicantType: 'LEGAL', tin: '305678901',
+      type: 'RENT', offeredPrice: 1450, depositAmount: 2900, currency: 'USD',
+      durationMonths: 36, startDate: '2026-09-15', createdDate: '2026-08-11',
+      status: 'SUBMITTED', notes: 'Kafe uchun. Food court yonida joy soralgan.',
+      documents: [{ title: 'Sanitariya.pdf', fileUrl: '#', uploadedAt: '2026-08-11 10:00' }]
+    },
+    {
+      id: 'app-011', number: 'APP-2026-011',
+      buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitId: 'u303', unitNumber: '303',
+      applicantName: 'Bekzod Rahimov', applicantPhone: '+998 97 456 78 90',
+      applicantEmail: 'bekzod.r@mail.ru', applicantType: 'INDIVIDUAL', tin: '5678901234',
+      type: 'RENT', offeredPrice: 2800, depositAmount: 5600, currency: 'USD',
+      durationMonths: 12, startDate: '2026-09-01', createdDate: '2026-08-11',
+      status: 'SUBMITTED', notes: 'Shaxsiyan savdo maydoni uchun.',
+      documents: [{ title: 'Pasport.pdf', fileUrl: '#', uploadedAt: '2026-08-11 15:30' }]
+    },
+    {
+      id: 'app-012', number: 'APP-2026-012',
+      buildingId: 'b7', buildingName: 'Amir Tower', unitId: 'u701b', unitNumber: '601',
+      applicantName: 'Global Consulting Group', applicantPhone: '+998 99 567 89 01',
+      applicantEmail: 'office@globalconsulting.uz', applicantType: 'LEGAL', tin: '307890123',
+      type: 'RENT', offeredPrice: 4200, depositAmount: 8400, currency: 'USD',
+      durationMonths: 36, startDate: '2026-10-01', createdDate: '2026-08-11',
+      status: 'DRAFT_READY', notes: 'Shartnoma loyihasi tayyor, imzolanish kutilmoqda.',
+      documents: [{ title: 'Ustav.pdf', fileUrl: '#', uploadedAt: '2026-08-11 12:00' }]
     }
   ])
 
@@ -1105,7 +1395,7 @@ export const useMakonStore = defineStore('makon', () => {
     u.status = status
 
     // ─── Status sync: internal → public marketplace ───
-    // Auto-update the related listing's visibility based on unit status
+    // Auto-update the related listings visibility based on unit status
     const listing = listings.value.find(l => l.unitId === unitId)
     if (listing) {
       if (status === 'OCCUPIED') {
@@ -1282,6 +1572,11 @@ export const useMakonStore = defineStore('makon', () => {
     { id: 5, number: 'WO-2026-005', category: 'Santexnika', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitCode: '304', assignedToName: 'Akmal Sodiqov', priority: 'HIGH', status: 'IN_PROGRESS', slaDueAt: '2026-08-09', slaBreached: true, description: '304-dush kabina shikastlangan.', createdAt: '2026-08-08' },
     { id: 6, number: 'WO-2026-006', category: 'Elektr', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitCode: 'W-02', assignedToName: 'Bekzod Aliyev', priority: 'NORMAL', status: 'COMPLETED', slaDueAt: '2026-08-07', slaBreached: false, description: 'W-02 yoritish lampalarini almashtirish.', createdAt: '2026-08-06' },
     { id: 7, number: 'WO-2026-007', category: 'Konditsioner', buildingId: 'b1', buildingName: 'Trillant Tower A', unitCode: '502', assignedToName: null, priority: 'URGENT', status: 'ASSIGNED', slaDueAt: '2026-08-11', slaBreached: false, description: '502-konditsioner sovimayapti, tezkor tahlil kerak.', createdAt: '2026-08-10' },
+    { id: 8, number: 'WO-2026-008', category: 'Santexnika', buildingId: 'b3', buildingName: 'IT Park Innovation Plaza', unitCode: '401', assignedToName: 'Dilshod Karimov', priority: 'NORMAL', status: 'IN_PROGRESS', slaDueAt: '2026-08-13', slaBreached: false, description: '401-da hojatxonada kran oqmoqda.', createdAt: '2026-08-11' },
+    { id: 9, number: 'WO-2026-009', category: 'Elektr', buildingId: 'b4', buildingName: 'Silk Road Galleria', unitCode: '2-05', assignedToName: 'Temur Yusupov', priority: 'HIGH', status: 'ASSIGNED', slaDueAt: '2026-08-14', slaBreached: false, description: '2-05 yoritish paneli ishlamayapti.', createdAt: '2026-08-11' },
+    { id: 10, number: 'WO-2026-010', category: 'Umumiy toza', buildingId: 'b5', buildingName: 'Sergeli Logistics Park', unitCode: 'W-01', assignedToName: 'Rustam Eshmurodov', priority: 'LOW', status: 'COMPLETED', slaDueAt: '2026-08-09', slaBreached: false, description: 'W-01 umumiy tozalash, pol yuvish.', createdAt: '2026-08-07' },
+    { id: 11, number: 'WO-2026-011', category: 'Konditsioner', buildingId: 'b2', buildingName: 'Tashkent City Financial Hub', unitCode: '501', assignedToName: 'Akmal Sodiqov', priority: 'URGENT', status: 'IN_PROGRESS', slaDueAt: '2026-08-11', slaBreached: true, description: '501-markaziy konditsioner toxtab qoldi.', createdAt: '2026-08-09' },
+    { id: 12, number: 'WO-2026-012', category: 'Santexnika', buildingId: 'b1', buildingName: 'Trillant Tower A', unitCode: '301', assignedToName: null, priority: 'NORMAL', status: 'ASSIGNED', slaDueAt: '2026-08-16', slaBreached: false, description: '301-kanalizatsiya tiqilgan.', createdAt: '2026-08-11' },
   ])
 
   // ---------------- Materials (Inventory) ----------------
@@ -1385,48 +1680,84 @@ export const useMakonStore = defineStore('makon', () => {
 
 
   const meters = ref<MeterItem[]>([
-    { id: 'mt1', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'ELECTRICITY', serialNumber: 'EL-001', currentReading: 15820, previousReading: 14500, tariff: 450, lastReadingDate: '2026-08-01' },
-    { id: 'mt2', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'WATER_COLD', serialNumber: 'WC-001', currentReading: 342, previousReading: 298, tariff: 3500, lastReadingDate: '2026-08-01' },
-    { id: 'mt3', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'WATER_HOT', serialNumber: 'WH-001', currentReading: 185, previousReading: 162, tariff: 8500, lastReadingDate: '2026-08-01' },
-    { id: 'mt4', buildingName: 'Tashkent City', unitCode: 'A-301', type: 'GAS', serialNumber: 'GS-001', currentReading: 1240, previousReading: 1150, tariff: 1200, lastReadingDate: '2026-08-01' },
-    { id: 'mt5', buildingName: 'Trillant Tower', unitCode: 'B-501', type: 'ELECTRICITY', serialNumber: 'EL-002', currentReading: 22450, previousReading: 20100, tariff: 450, lastReadingDate: '2026-08-01' },
-    { id: 'mt6', buildingName: 'Trillant Tower', unitCode: 'B-501', type: 'WATER_COLD', serialNumber: 'WC-002', currentReading: 512, previousReading: 478, tariff: 3500, lastReadingDate: '2026-08-01' },
-    { id: 'mt7', buildingName: 'IT Park', unitCode: 'C-201', type: 'ELECTRICITY', serialNumber: 'EL-003', currentReading: 8720, previousReading: 8100, tariff: 450, lastReadingDate: '2026-08-01' },
-    { id: 'mt8', buildingName: 'IT Park', unitCode: 'C-201', type: 'WATER_COLD', serialNumber: 'WC-003', currentReading: 198, previousReading: 175, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt1', buildingName: 'Trillant Tower A', unitCode: '101', type: 'ELECTRICITY', serialNumber: 'EL-001', currentReading: 15820, previousReading: 14500, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt2', buildingName: 'Trillant Tower A', unitCode: '101', type: 'WATER_COLD', serialNumber: 'WC-001', currentReading: 342, previousReading: 298, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt3', buildingName: 'Trillant Tower A', unitCode: '101', type: 'WATER_HOT', serialNumber: 'WH-001', currentReading: 185, previousReading: 162, tariff: 8500, lastReadingDate: '2026-08-01' },
+    { id: 'mt4', buildingName: 'Trillant Tower A', unitCode: '101', type: 'GAS', serialNumber: 'GS-001', currentReading: 1240, previousReading: 1150, tariff: 1200, lastReadingDate: '2026-08-01' },
+    { id: 'mt5', buildingName: 'Trillant Tower A', unitCode: '201', type: 'ELECTRICITY', serialNumber: 'EL-002', currentReading: 22450, previousReading: 20100, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt6', buildingName: 'Trillant Tower A', unitCode: '201', type: 'WATER_COLD', serialNumber: 'WC-002', currentReading: 512, previousReading: 478, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt7', buildingName: 'Trillant Tower A', unitCode: '201', type: 'WATER_HOT', serialNumber: 'WH-002', currentReading: 298, previousReading: 265, tariff: 8500, lastReadingDate: '2026-08-01' },
+    { id: 'mt8', buildingName: 'Trillant Tower A', unitCode: '501', type: 'ELECTRICITY', serialNumber: 'EL-003', currentReading: 8720, previousReading: 8100, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt9', buildingName: 'Trillant Tower A', unitCode: '501', type: 'WATER_COLD', serialNumber: 'WC-003', currentReading: 198, previousReading: 175, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt10', buildingName: 'Tashkent City Financial Hub', unitCode: '301', type: 'ELECTRICITY', serialNumber: 'EL-004', currentReading: 32100, previousReading: 28900, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt11', buildingName: 'Tashkent City Financial Hub', unitCode: '301', type: 'WATER_COLD', serialNumber: 'WC-004', currentReading: 678, previousReading: 612, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt12', buildingName: 'Tashkent City Financial Hub', unitCode: '301', type: 'WATER_HOT', serialNumber: 'WH-003', currentReading: 412, previousReading: 378, tariff: 8500, lastReadingDate: '2026-08-01' },
+    { id: 'mt13', buildingName: 'Tashkent City Financial Hub', unitCode: '302', type: 'ELECTRICITY', serialNumber: 'EL-005', currentReading: 18900, previousReading: 17200, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt14', buildingName: 'Tashkent City Financial Hub', unitCode: '303', type: 'ELECTRICITY', serialNumber: 'EL-006', currentReading: 6500, previousReading: 5800, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt15', buildingName: 'Tashkent City Financial Hub', unitCode: '303', type: 'WATER_COLD', serialNumber: 'WC-005', currentReading: 145, previousReading: 128, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt16', buildingName: 'IT Park Innovation Plaza', unitCode: '401', type: 'ELECTRICITY', serialNumber: 'EL-007', currentReading: 4200, previousReading: 3800, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt17', buildingName: 'IT Park Innovation Plaza', unitCode: '401', type: 'WATER_COLD', serialNumber: 'WC-006', currentReading: 89, previousReading: 76, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt18', buildingName: 'IT Park Innovation Plaza', unitCode: '404', type: 'ELECTRICITY', serialNumber: 'EL-008', currentReading: 15600, previousReading: 14100, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt19', buildingName: 'Silk Road Galleria', unitCode: 'G-02', type: 'ELECTRICITY', serialNumber: 'EL-009', currentReading: 9800, previousReading: 8900, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt20', buildingName: 'Silk Road Galleria', unitCode: 'G-02', type: 'WATER_COLD', serialNumber: 'WC-007', currentReading: 234, previousReading: 201, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt21', buildingName: 'Sergeli Logistics Park', unitCode: 'W-03', type: 'ELECTRICITY', serialNumber: 'EL-010', currentReading: 45600, previousReading: 42100, tariff: 450, lastReadingDate: '2026-08-01' },
+    { id: 'mt22', buildingName: 'Sergeli Logistics Park', unitCode: 'W-03', type: 'WATER_COLD', serialNumber: 'WC-008', currentReading: 567, previousReading: 498, tariff: 3500, lastReadingDate: '2026-08-01' },
+    { id: 'mt23', buildingName: 'Sergeli Logistics Park', unitCode: 'W-01', type: 'ELECTRICITY', serialNumber: 'EL-011', currentReading: 200, previousReading: 0, tariff: 450, lastReadingDate: '2026-07-15' },
+    { id: 'mt24', buildingName: 'Silk Road Galleria', unitCode: 'G-12', type: 'ELECTRICITY', serialNumber: 'EL-012', currentReading: 3200, previousReading: 2800, tariff: 450, lastReadingDate: '2026-08-01' },
   ])
 
   const readings = ref<ReadingItem[]>([
-    { id: 1, date: '2026-08-01', serialNumber: 'EL-001', unitCode: 'A-301', type: 'ELECTRICITY', value: 15820, consumption: 1320, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-    { id: 2, date: '2026-08-01', serialNumber: 'WC-001', unitCode: 'A-301', type: 'WATER_COLD', value: 342, consumption: 44, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-    { id: 3, date: '2026-08-01', serialNumber: 'WH-001', unitCode: 'A-301', type: 'WATER_HOT', value: 185, consumption: 23, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-    { id: 4, date: '2026-08-01', serialNumber: 'GS-001', unitCode: 'A-301', type: 'GAS', value: 1240, consumption: 90, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-    { id: 5, date: '2026-08-01', serialNumber: 'EL-002', unitCode: 'B-501', type: 'ELECTRICITY', value: 22450, consumption: 2350, readBy: 'Bino menejeri', note: 'Iyul oyi' },
-    { id: 6, date: '2026-07-01', serialNumber: 'EL-001', unitCode: 'A-301', type: 'ELECTRICITY', value: 14500, consumption: 1180, readBy: 'Bino menejeri', note: 'Iyun oyi' },
+    { id: 1, date: '2026-08-01', serialNumber: 'EL-001', unitCode: '101', type: 'ELECTRICITY', value: 15820, consumption: 1320, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 2, date: '2026-08-01', serialNumber: 'WC-001', unitCode: '101', type: 'WATER_COLD', value: 342, consumption: 44, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 3, date: '2026-08-01', serialNumber: 'WH-001', unitCode: '101', type: 'WATER_HOT', value: 185, consumption: 23, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 4, date: '2026-08-01', serialNumber: 'GS-001', unitCode: '101', type: 'GAS', value: 1240, consumption: 90, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 5, date: '2026-08-01', serialNumber: 'EL-002', unitCode: '201', type: 'ELECTRICITY', value: 22450, consumption: 2350, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 6, date: '2026-08-01', serialNumber: 'WC-002', unitCode: '201', type: 'WATER_COLD', value: 512, consumption: 34, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 7, date: '2026-08-01', serialNumber: 'WH-002', unitCode: '201', type: 'WATER_HOT', value: 298, consumption: 33, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 8, date: '2026-08-01', serialNumber: 'EL-003', unitCode: '501', type: 'ELECTRICITY', value: 8720, consumption: 620, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 9, date: '2026-08-01', serialNumber: 'WC-003', unitCode: '501', type: 'WATER_COLD', value: 198, consumption: 23, readBy: 'Dilshod Karimov', note: 'Iyul oyi' },
+    { id: 10, date: '2026-08-01', serialNumber: 'EL-004', unitCode: '301', type: 'ELECTRICITY', value: 32100, consumption: 3200, readBy: 'Akmal Sodiqov', note: 'Iyul oyi' },
+    { id: 11, date: '2026-08-01', serialNumber: 'WC-004', unitCode: '301', type: 'WATER_COLD', value: 678, consumption: 66, readBy: 'Akmal Sodiqov', note: 'Iyul oyi' },
+    { id: 12, date: '2026-08-01', serialNumber: 'WH-003', unitCode: '301', type: 'WATER_HOT', value: 412, consumption: 34, readBy: 'Akmal Sodiqov', note: 'Iyul oyi' },
+    { id: 13, date: '2026-08-01', serialNumber: 'EL-005', unitCode: '302', type: 'ELECTRICITY', value: 18900, consumption: 1700, readBy: 'Akmal Sodiqov', note: 'Iyul oyi' },
+    { id: 14, date: '2026-08-01', serialNumber: 'EL-006', unitCode: '303', type: 'ELECTRICITY', value: 6500, consumption: 700, readBy: 'Akmal Sodiqov', note: 'Iyul oyi' },
+    { id: 15, date: '2026-08-01', serialNumber: 'WC-005', unitCode: '303', type: 'WATER_COLD', value: 145, consumption: 17, readBy: 'Akmal Sodiqov', note: 'Iyul oyi' },
+    { id: 16, date: '2026-08-01', serialNumber: 'EL-007', unitCode: '401', type: 'ELECTRICITY', value: 4200, consumption: 400, readBy: 'Temur Yusupov', note: 'Iyul oyi' },
+    { id: 17, date: '2026-08-01', serialNumber: 'WC-006', unitCode: '401', type: 'WATER_COLD', value: 89, consumption: 13, readBy: 'Temur Yusupov', note: 'Iyul oyi' },
+    { id: 18, date: '2026-08-01', serialNumber: 'EL-008', unitCode: '404', type: 'ELECTRICITY', value: 15600, consumption: 1500, readBy: 'Temur Yusupov', note: 'Iyul oyi' },
+    { id: 19, date: '2026-08-01', serialNumber: 'EL-009', unitCode: 'G-02', type: 'ELECTRICITY', value: 9800, consumption: 900, readBy: 'Temur Yusupov', note: 'Iyul oyi' },
+    { id: 20, date: '2026-08-01', serialNumber: 'WC-007', unitCode: 'G-02', type: 'WATER_COLD', value: 234, consumption: 33, readBy: 'Temur Yusupov', note: 'Iyul oyi' },
+    { id: 21, date: '2026-08-01', serialNumber: 'EL-010', unitCode: 'W-03', type: 'ELECTRICITY', value: 45600, consumption: 3500, readBy: 'Rustam Eshmurodov', note: 'Iyul oyi' },
+    { id: 22, date: '2026-08-01', serialNumber: 'WC-008', unitCode: 'W-03', type: 'WATER_COLD', value: 567, consumption: 69, readBy: 'Rustam Eshmurodov', note: 'Iyul oyi' },
+    { id: 23, date: '2026-07-01', serialNumber: 'EL-001', unitCode: '101', type: 'ELECTRICITY', value: 14500, consumption: 1180, readBy: 'Dilshod Karimov', note: 'Iyun oyi' },
+    { id: 24, date: '2026-07-01', serialNumber: 'WC-001', unitCode: '101', type: 'WATER_COLD', value: 298, consumption: 38, readBy: 'Dilshod Karimov', note: 'Iyun oyi' },
+    { id: 25, date: '2026-07-01', serialNumber: 'EL-004', unitCode: '301', type: 'ELECTRICITY', value: 28900, consumption: 2800, readBy: 'Akmal Sodiqov', note: 'Iyun oyi' },
+    { id: 26, date: '2026-07-01', serialNumber: 'WC-004', unitCode: '301', type: 'WATER_COLD', value: 612, consumption: 58, readBy: 'Akmal Sodiqov', note: 'Iyun oyi' },
   ])
 
   const notifications = ref<NotificationItem[]>([
-    { id: '1', type: 'invoice', title: 'Invoys INV-2026-052 tasdiqlandi', desc: "25.0M so'm | Unit A-301 Tashkent City", time: '5 daq oldin', read: false },
+    { id: '1', type: 'invoice', title: 'Invoys INV-2026-052 tasdiqlandi', desc: "25.0M som | Unit A-301 Tashkent City", time: '5 daq oldin', read: false },
     { id: '2', type: 'eri', title: "Shartnoma CTR-2026-010 imzolash kutilmoqda", desc: 'Bino egasi ERI imzosi kutilmoqda', time: '20 daq oldin', read: false },
-    { id: '3', type: 'service', title: "Servis so'rov SR-2026-004 qabul qilindi", desc: "Elektr ta'miri | A-301", time: '1 soat oldin', read: false },
-    { id: '4', type: 'contract', title: "Shartnoma CTR-2026-002 faol holatga o'tdi", desc: 'Ipak Yuli Savdo MChJ | 12 oylik ijara', time: '2 soat oldin', read: false },
+    { id: '3', type: 'service', title: "Servis sorov SR-2026-004 qabul qilindi", desc: "Elektr tamiri | A-301", time: '1 soat oldin', read: false },
+    { id: '4', type: 'contract', title: "Shartnoma CTR-2026-002 faol holatga otdi", desc: 'Ipak Yuli Savdo MChJ | 12 oylik ijara', time: '2 soat oldin', read: false },
     { id: '5', type: 'application', title: 'Yangi ariza APP-2026-003 yuborildi', desc: 'E-102 Trillant Tower | Ijara', time: '3 soat oldin', read: true },
-    { id: '6', type: 'invoice', title: "Invoys INV-2026-046 muddati o'tdi", desc: "35.0M so'm | Unit B-205", time: '5 soat oldin', read: true },
+    { id: '6', type: 'invoice', title: "Invoys INV-2026-046 muddati otdi", desc: "35.0M som | Unit B-205", time: '5 soat oldin', read: true },
     { id: '7', type: 'eri', title: 'ERI sertifikati muddati yaqinlashmoqda', desc: 'Orient Logistika MChJ | 30 kun qoldi', time: '1 kun oldin', read: true },
-    { id: '8', type: 'service', title: 'Work order WO-2026-038 yakunlandi', desc: "Konditsioner ta'miri | A-301", time: '1 kun oldin', read: true },
+    { id: '8', type: 'service', title: 'Work order WO-2026-038 yakunlandi', desc: "Konditsioner tamiri | A-301", time: '1 kun oldin', read: true },
     { id: '9', type: 'contract', title: 'Shartnoma CTR-2025-098 muddati tugadi', desc: 'Sergeli Logistika | A-205 Tashkent City', time: '2 kun oldin', read: true },
-    { id: '10', type: 'application', title: "Ariza APP-2026-002 moliyaviy ko'rikdan o'tdi", desc: 'D-401 Piramit | Sotib olish', time: '3 kun oldin', read: true },
+    { id: '10', type: 'application', title: "Ariza APP-2026-002 moliyaviy korikdan otdi", desc: 'D-401 Piramit | Sotib olish', time: '3 kun oldin', read: true },
   ])
 
   const pendingApprovals = ref<ApprovalItem[]>([
     { id: 'a1', title: 'Invoys INV-2026-051', submitter: 'Dilshod Karimov (Buxgalter)', date: '11 Avg 2026', contract: 'CTR-2026-001', amount: 8500000, type: 'Invoys', currentStep: 1 },
-    { id: 'a2', title: "To'lov TM-2026-089", submitter: 'Aziza Yusupova (Operator)', date: '10 Avg 2026', contract: 'CTR-2026-005', amount: 4800000, type: "To'lov", currentStep: 2 },
+    { id: 'a2', title: "Tolov TM-2026-089", submitter: 'Aziza Yusupova (Operator)', date: '10 Avg 2026', contract: 'CTR-2026-005', amount: 4800000, type: "Tolov", currentStep: 2 },
     { id: 'a3', title: 'Invoys INV-2026-052', submitter: 'Sardor Rahimov (Buxgalter)', date: '09 Avg 2026', contract: 'CTR-2026-012', amount: 5500000, type: 'Invoys', currentStep: 0 },
     { id: 'a4', title: 'Depozit DP-2026-015', submitter: 'Dilshod Karimov (Buxgalter)', date: '08 Avg 2026', contract: 'CTR-2026-018', amount: 3900000, type: 'Depozit', currentStep: 1 },
   ])
 
   const approvalHistory = ref<ApprovalHistoryItem[]>([
     { id: 'h1', title: 'Invoys INV-2026-048', submitter: 'Dilshod Karimov', amount: 7200000, date: '05 Avg 2026', status: 'APPROVED' },
-    { id: 'h2', title: "To'lov TM-2026-085", submitter: 'Aziza Yusupova', amount: 6200000, date: '03 Avg 2026', status: 'APPROVED' },
+    { id: 'h2', title: "Tolov TM-2026-085", submitter: 'Aziza Yusupova', amount: 6200000, date: '03 Avg 2026', status: 'APPROVED' },
     { id: 'h3', title: 'Invoys INV-2026-046', submitter: 'Sardor Rahimov', amount: 5500000, date: '01 Avg 2026', status: 'REJECTED' },
     { id: 'h4', title: 'Invoys INV-2026-044', submitter: 'Dilshod Karimov', amount: 8500000, date: '28 Iyl 2026', status: 'APPROVED' },
   ])
@@ -1622,26 +1953,26 @@ export const useMakonStore = defineStore('makon', () => {
     { id: '8', user: 'Jasur Tursunov', email: 'j.tursunov@makon.uz', event: 'LOGIN', ip: '85.17.12.37', device: 'Desktop', browser: 'Edge 126', time: '12:00:18' },
     { id: '9', user: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', event: 'ERI_LOGIN', ip: '85.17.12.38', device: 'Desktop', browser: 'Chrome 126', time: '11:30:55' },
     { id: '10', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGOUT', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '10:45:30' },
-    { id: "11", user: "Otabek Yo'ldoshev", email: 'o.yuldoshev@smart.uz', event: 'LOGIN', ip: '94.158.21.20', device: 'Mobile', browser: 'Chrome 126', time: '09:15:42' },
+    { id: "11", user: "Otabek Yoldoshev", email: 'o.yuldoshev@smart.uz', event: 'LOGIN', ip: '94.158.21.20', device: 'Mobile', browser: 'Chrome 126', time: '09:15:42' },
     { id: '12', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '08:30:12' },
   ])
 
   // ─── Notification Templates ───
   const notificationTemplates = ref([
     { id: '1', event: 'Yangi ariza yuborildi', channel: 'Email + Push', iconName: 'FileText', active: true,
-      textUz: "Yangi ariza {{number}} qabul qilindi. Unit: {{unit}}, summa: {{price}} so'm.",
+      textUz: "Yangi ariza {{number}} qabul qilindi. Unit: {{unit}}, summa: {{price}} som.",
       textRu: 'Новая заявка {{number}} принята. Юнит: {{unit}}, сумма: {{price}} сум.',
       variables: ['number', 'unit', 'price'] },
     { id: '2', event: 'Invoys yaratildi', channel: 'Email + SMS', iconName: 'Receipt', active: true,
-      textUz: "Invoys {{number}} yaratildi. Summa: {{amount}} so'm. Muddat: {{dueDate}}.",
+      textUz: "Invoys {{number}} yaratildi. Summa: {{amount}} som. Muddat: {{dueDate}}.",
       textRu: 'Счет {{number}} создан. Сумма: {{amount}} сум. Срок: {{dueDate}}.',
       variables: ['number', 'amount', 'dueDate'] },
     { id: '3', event: 'ERI imzo talab qilinadi', channel: 'Email + Push', iconName: 'ShieldCheck', active: true,
       textUz: "Shartnoma {{number}} uchun ERI imzosi kutilmoqda. Iltimos, imzolang.",
       textRu: 'Для договора {{number}} ожидается ЭРИ подпись. Пожалуйста, подпишите.',
       variables: ['number'] },
-    { id: '4', event: "Servis so'rov yangilandi", channel: 'Push', iconName: 'Wrench', active: true,
-      textUz: "Servis so'rov {{number}} statusi: {{status}}. Unit: {{unit}}.",
+    { id: '4', event: "Servis sorov yangilandi", channel: 'Push', iconName: 'Wrench', active: true,
+      textUz: "Servis sorov {{number}} statusi: {{status}}. Unit: {{unit}}.",
       textRu: 'Статус сервисной заявки {{number}}: {{status}}. Юнит: {{unit}}.',
       variables: ['number', 'status', 'unit'] },
     { id: '5', event: 'Shartnoma imzolandi', channel: 'Email + SMS', iconName: 'FileSignature', active: true,
@@ -1649,7 +1980,7 @@ export const useMakonStore = defineStore('makon', () => {
       textRu: 'Договор {{number}} подписан сторонами. Дата активации: {{startDate}}.',
       variables: ['number', 'startDate'] },
     { id: '6', event: "Qarzdorlik eslatmasi", channel: 'SMS', iconName: 'Bell', active: false,
-      textUz: "Sizning qarzdorligingiz: {{debt}} so'm. Iltimos, to'lovni amalga oshiring.",
+      textUz: "Sizning qarzdorligingiz: {{debt}} som. Iltimos, tolovni amalga oshiring.",
       textRu: 'Ваша задолженность: {{debt}} сум. Пожалуйста, произведите оплату.',
       variables: ['debt'] },
   ])
@@ -1731,10 +2062,10 @@ export const useMakonStore = defineStore('makon', () => {
   )
 
   const tenantServiceCharges = ref([
-    { name: "Ijara to'lovi", iconName: 'Receipt', color: 'var(--accent)', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
-    { name: 'Elektr energiyasi', iconName: 'Zap', color: '#f59e0b', amount: 1320000, details: "440 kWh × 3000 so'm", unit: 'oylik', percent: 4 },
-    { name: "Suv ta'minoti", iconName: 'Droplet', color: '#3b82f6', amount: 182000, details: "130 m³ × 1400 so'm", unit: 'oylik', percent: 1 },
-    { name: 'Gaz', iconName: 'Flame', color: '#ef4444', amount: 225000, details: "150 m³ × 1500 so'm", unit: 'oylik', percent: 1 },
+    { name: "Ijara tolovi", iconName: 'Receipt', color: 'var(--accent)', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
+    { name: 'Elektr energiyasi', iconName: 'Zap', color: '#f59e0b', amount: 1320000, details: "440 kWh × 3000 som", unit: 'oylik', percent: 4 },
+    { name: "Suv taminoti", iconName: 'Droplet', color: '#3b82f6', amount: 182000, details: "130 m³ × 1400 som", unit: 'oylik', percent: 1 },
+    { name: 'Gaz', iconName: 'Flame', color: '#ef4444', amount: 225000, details: "150 m³ × 1500 som", unit: 'oylik', percent: 1 },
     { name: 'Faqat texnik xizmat', iconName: 'Wrench', color: 'var(--accent)', amount: 500000, details: 'A-301 · oylik', unit: 'oylik', percent: 2 },
     { name: 'Axlat olib ketish', iconName: 'Trash2', color: '#10b981', amount: 120000, details: 'A-301 · oylik', unit: 'oylik', percent: 1 },
   ])
