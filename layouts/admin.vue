@@ -89,13 +89,13 @@ import {
 const route = useRoute()
 const authStore = useAuthStore()
 const sidebarOpen = ref(false)
-const sidebarCollapsed = ref(false)
+const sidebarCollapsed = ref(true)
 const currentRole = useState('currentRole', () => 'SUPER_HEAD')
 
 // Persist collapse state
 onMounted(() => {
   const saved = localStorage.getItem('makon-sidebar-collapsed')
-  if (saved === 'true') sidebarCollapsed.value = true
+  if (saved !== null) sidebarCollapsed.value = saved === 'true'
 })
 
 function toggleCollapse() {
@@ -143,93 +143,3 @@ function handleLogout() {
 }
 </script>
 
-<style scoped>
-.sidebar-transition {
-  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease;
-}
-
-/* Premium dark navy sidebar matching reference */
-.admin-sidebar-premium {
-  background: linear-gradient(180deg, #0c1429 0%, #0f172a 40%, #111d38 100%);
-  border-right: 1px solid rgba(37, 99, 235, 0.12);
-  position: relative;
-}
-.admin-sidebar-premium::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at top, rgba(37, 99, 235, 0.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-.admin-sidebar-premium > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Nav links */
-.sidebar-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 9px 12px;
-  border-radius: 10px;
-  font-size: 13px;
-  color: rgba(148, 163, 184, 0.85);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  margin-bottom: 2px;
-  text-decoration: none;
-}
-.sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #e2e8f0;
-}
-.sidebar-link--active {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.18) 0%, rgba(59, 130, 246, 0.12) 100%);
-  color: #60a5fa;
-  font-weight: 600;
-  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.2);
-}
-.sidebar-link--active::before {
-  content: '';
-  position: absolute;
-  left: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 20px;
-  border-radius: 0 3px 3px 0;
-  background: #3b82f6;
-}
-.sidebar-link__icon {
-  flex-shrink: 0;
-  opacity: 0.7;
-}
-.sidebar-link--active .sidebar-link__icon {
-  opacity: 1;
-  color: #60a5fa;
-}
-
-/* User button */
-.sidebar-user-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 9px 12px;
-  border-radius: 10px;
-  color: rgba(148, 163, 184, 0.85);
-  transition: all 0.2s;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.sidebar-user-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Scrollbar */
-.sidebar-nav-scroll::-webkit-scrollbar { width: 4px; }
-.sidebar-nav-scroll::-webkit-scrollbar-track { background: transparent; }
-.sidebar-nav-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 4px; }
-</style>
