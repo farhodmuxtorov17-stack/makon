@@ -1,0 +1,18 @@
+/* Aurora v5 Additions */
+.kpi-strip{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:24px}
+.kpi-strip__card{align-items:center;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);display:flex;gap:14px;overflow:hidden;padding:20px 22px;position:relative;transition:all var(--duration-normal) var(--ease-out)}
+.kpi-strip__card:hover{border-color:var(--accent-border);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.kpi-strip__icon{align-items:center;background:var(--accent-subtle);border-radius:var(--radius-md);display:flex;flex-shrink:0;height:48px;justify-content:center;transition:all var(--duration-normal) var(--ease-out);width:48px}
+.kpi-strip__card:hover .kpi-strip__icon{background:var(--accent-subtle);transform:scale(1.05)}
+.kpi-strip{gap:10px;grid-template-columns:repeat(2,1fr)!important}
+.kpi-strip{grid-template-columns:1fr!important}
+.stat-pill{align-items:center;background:var(--bg-subtle);border:1px solid var(--border);border-radius:var(--radius-full);color:var(--text-secondary);display:inline-flex;font-size:13px;font-weight:600;gap:8px;padding:6px 14px;transition:all var(--duration-fast)}
+.stat-pill:hover{border-color:var(--accent-border);box-shadow:var(--shadow-sm)}
+.stat-pill--success{background:var(--success-bg);border-color:var(--success-border);color:var(--success)}
+.stat-pill--brand{background:var(--accent-subtle);border-color:var(--accent-border);color:var(--accent)}
+.auth__demo-creds{background:var(--accent-subtle);border:1px solid var(--accent-border);border-radius:var(--radius-md);margin-bottom:20px;padding:12px 14px}
+.auth__demo-creds-head{align-items:center;color:var(--accent);display:flex;font-size:12px;font-weight:600;gap:6px;margin-bottom:8px}
+.auth__demo-creds-body{display:grid;gap:6px;grid-template-columns:1fr 1fr}
+.auth__demo-cred{align-items:center;border-radius:var(--radius-sm);cursor:pointer;display:flex;gap:6px;padding:6px 8px;transition:background var(--duration-fast)}
+.auth__demo-cred:hover{background:#2563eb0f}
+.auth__demo-label{color:var(--text-muted);font-size:11px;font-weight:500}
