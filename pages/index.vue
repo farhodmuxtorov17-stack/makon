@@ -533,7 +533,7 @@ onUnmounted(() => {
   margin-bottom: 12px;
 }
 .section-title {
-  font-size: 44px;
+  font-size: 48px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 14px;
@@ -542,9 +542,9 @@ onUnmounted(() => {
   font-family: 'Sora', sans-serif;
 }
 .section-sub {
-  font-size: 16px;
+  font-size: 17px;
   color: var(--text-secondary);
-  max-width: 540px;
+  max-width: 560px;
   line-height: 1.6;
 }
 
@@ -727,7 +727,7 @@ onUnmounted(() => {
   box-shadow: 0 0 8px rgba(74,222,128,0.6);
 }
 .hero__title {
-  font-size: 64px;
+  font-size: 72px;
   font-weight: 800;
   color: white;
   line-height: 1.05;
@@ -741,10 +741,10 @@ onUnmounted(() => {
   -webkit-text-fill-color: transparent;
 }
 .hero__lead {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6;
   color: rgba(255,255,255,0.7);
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 
 /* ═══ HERO SEARCH ═══ */
@@ -1049,7 +1049,7 @@ onUnmounted(() => {
 
 /* ═══ PORTFOLIO ═══ */
 .portfolio {
-  padding: 100px 0;
+  padding: 96px 0;
 }
 .portfolio__head {
   text-align: center;
@@ -1276,12 +1276,12 @@ onUnmounted(() => {
 
 /* ═══ HOW IT WORKS ═══ */
 .how {
-  padding: 100px 0;
+  padding: 96px 0;
   background: var(--bg-subtle);
 }
 .how__head {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 .how__head .section-title,
 .how__head .section-sub {
@@ -1349,11 +1349,11 @@ onUnmounted(() => {
 
 /* ═══ FEATURES ═══ */
 .features {
-  padding: 100px 0;
+  padding: 96px 0;
 }
 .features__head {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 .features__head .section-title,
 .features__head .section-sub {
@@ -1682,7 +1682,7 @@ a.contact-item__value:hover { color: var(--accent); }
 
 
 /* ═══ STATS BAND ═══ */
-.stats-band { padding: 80px 0; background: var(--bg-subtle); }
+.stats-band { padding: 96px 0; background: var(--bg-subtle); }
 .stats-band__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .stats-band__item { text-align: center; padding: 28px 16px; background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
 .stats-band__item:hover { transform: translateY(-4px); box-shadow: 0 16px 48px -8px rgba(15,23,42,0.1); border-color: var(--border-accent); }
