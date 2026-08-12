@@ -68,7 +68,7 @@
             </button>
           </div>
 
-          <NuxtLink to="/register/eri" class="auth__back">
+          <NuxtLink to="/register" class="auth__back">
             <ArrowLeft :size="15" />
             Raqamni o'zgartirish
           </NuxtLink>
@@ -107,7 +107,7 @@ onMounted(() => {
   }
 
   if (!authStore.pendingRegistration?.phone) {
-    navigateTo('/register/eri')
+    navigateTo('/register')
     return
   }
 

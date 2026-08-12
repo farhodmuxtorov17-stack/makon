@@ -998,7 +998,7 @@ export const useMakonStore = defineStore('makon', () => {
       startDate: '2026-09-01',
       createdDate: '2026-08-06',
       status: 'DRAFT_READY',
-      notes: 'Shartnoma qoralamasi tayyorlandi, ERI imzolash jarayonida.',
+      notes: 'Shartnoma qoralamasi tayyorlandi, raqamli imzolash jarayonida.',
       documents: []
     },
     {
@@ -1021,7 +1021,7 @@ export const useMakonStore = defineStore('makon', () => {
       startDate: '2026-08-15',
       createdDate: '2026-08-01',
       status: 'PARTIALLY_SIGNED',
-      notes: 'Ijarachi tomonidan ERI kaliti bilan imzolandi.',
+      notes: 'Ijarachi tomonidan raqamli imzo bilan imzolandi.',
       documents: []
     },
     {
@@ -1277,7 +1277,7 @@ export const useMakonStore = defineStore('makon', () => {
     }
   ])
 
-  // ERI Signatures Initial Queue
+  // Digital Signatures Queue
   const eriSignatures = ref<EriSignatureItem[]>([
     {
       id: 'eri-001',
@@ -1746,12 +1746,12 @@ export const useMakonStore = defineStore('makon', () => {
 
   const notifications = ref<NotificationItem[]>([
     { id: '1', type: 'invoice', title: 'Invoys INV-2026-052 tasdiqlandi', desc: "25.0M som | Unit A-301 Tashkent City", time: '5 daq oldin', read: false },
-    { id: '2', type: 'eri', title: "Shartnoma CTR-2026-010 imzolash kutilmoqda", desc: 'Bino egasi ERI imzosi kutilmoqda', time: '20 daq oldin', read: false },
+    { id: '2', type: 'signature', title: "Shartnoma CTR-2026-010 imzolash kutilmoqda", desc: 'Bino egasi imzosi kutilmoqda', time: '20 daq oldin', read: false },
     { id: '3', type: 'service', title: "Servis sorov SR-2026-004 qabul qilindi", desc: "Elektr tamiri | A-301", time: '1 soat oldin', read: false },
     { id: '4', type: 'contract', title: "Shartnoma CTR-2026-002 faol holatga otdi", desc: 'Ipak Yuli Savdo MChJ | 12 oylik ijara', time: '2 soat oldin', read: false },
     { id: '5', type: 'application', title: 'Yangi ariza APP-2026-003 yuborildi', desc: 'E-102 Trillant Tower | Ijara', time: '3 soat oldin', read: true },
     { id: '6', type: 'invoice', title: "Invoys INV-2026-046 muddati otdi", desc: "35.0M som | Unit B-205", time: '5 soat oldin', read: true },
-    { id: '7', type: 'eri', title: 'ERI sertifikati muddati yaqinlashmoqda', desc: 'Orient Logistika MChJ | 30 kun qoldi', time: '1 kun oldin', read: true },
+    { id: '7', type: 'signature', title: 'Imzo sertifikati muddati yaqinlashmoqda', desc: 'Orient Logistika MChJ | 30 kun qoldi', time: '1 kun oldin', read: true },
     { id: '8', type: 'service', title: 'Work order WO-2026-038 yakunlandi', desc: "Konditsioner tamiri | A-301", time: '1 kun oldin', read: true },
     { id: '9', type: 'contract', title: 'Shartnoma CTR-2025-098 muddati tugadi', desc: 'Sergeli Logistika | A-205 Tashkent City', time: '2 kun oldin', read: true },
     { id: '10', type: 'application', title: "Ariza APP-2026-002 moliyaviy korikdan otdi", desc: 'D-401 Piramit | Sotib olish', time: '3 kun oldin', read: true },
@@ -1850,7 +1850,7 @@ export const useMakonStore = defineStore('makon', () => {
 
   // ─── Audit Log ───
   const auditLogs = ref([
-    { id: '1', user: 'Alisher Qodirov', action: 'CONTRACT.SIGN', type: 'APPROVE', description: 'CTR-2026-010 shartnomasini ERI orqali imzoladi', time: '14:32', ip: '85.17.12.34' },
+    { id: '1', user: 'Alisher Qodirov', action: 'CONTRACT.SIGN', type: 'APPROVE', description: 'CTR-2026-010 shartnomasini raqamli imzo orqali imzoladi', time: '14:32', ip: '85.17.12.34' },
     { id: '2', user: 'Dilnoza Karimova', action: 'INVOICE.CREATE', type: 'CREATE', description: 'INV-2026-052 invoysini yaratdi (25.0M so\'m)', time: '14:28', ip: '85.17.12.35' },
     { id: '3', user: 'Sardor Yusupov', action: 'BUILDING.UPDATE', type: 'UPDATE', description: 'Tashkent City binosi ma\'lumotlarini yangiladi', time: '14:15', ip: '94.158.21.10' },
     { id: '4', user: 'Ravshan Keldiyev', action: 'WORK_ORDER.CREATE', type: 'CREATE', description: 'WO-2026-038 work order yaratdi (A-301 konditsioner)', time: '13:45', ip: '85.17.12.36' },
@@ -1895,7 +1895,7 @@ export const useMakonStore = defineStore('makon', () => {
   ])
 
   const monitoringErrors = ref([
-    { id: '1', time: '14:25', endpoint: '/api/contracts/sign', status: 500, message: 'ERI service timeout', count: 2 },
+    { id: '1', time: '14:25', endpoint: '/api/contracts/sign', status: 500, message: 'Imzo xizmati taymaut', count: 2 },
     { id: '2', time: '13:10', endpoint: '/api/invoices/export', status: 404, message: 'File not found', count: 1 },
     { id: '3', time: '11:45', endpoint: '/api/buildings/3/units', status: 403, message: 'Permission denied', count: 3 },
     { id: '4', time: '10:20', endpoint: '/api/auth/verify', status: 401, message: 'Token expired', count: 5 },
@@ -1976,8 +1976,8 @@ export const useMakonStore = defineStore('makon', () => {
       textUz: "Invoys {{number}} yaratildi. Summa: {{amount}} som. Muddat: {{dueDate}}.",
       textRu: 'Счет {{number}} создан. Сумма: {{amount}} сум. Срок: {{dueDate}}.',
       variables: ['number', 'amount', 'dueDate'] },
-    { id: '3', event: 'ERI imzo talab qilinadi', channel: 'Email + Push', iconName: 'ShieldCheck', active: true,
-      textUz: "Shartnoma {{number}} uchun ERI imzosi kutilmoqda. Iltimos, imzolang.",
+    { id: '3', event: 'Raqamli imzo talab qilinadi', channel: 'Email + Push', iconName: 'ShieldCheck', active: true,
+      textUz: "Shartnoma {{number}} uchun raqamli imzosi kutilmoqda. Iltimos, imzolang.",
       textRu: 'Для договора {{number}} ожидается ЭРИ подпись. Пожалуйста, подпишите.',
       variables: ['number'] },
     { id: '4', event: "Servis sorov yangilandi", channel: 'Push', iconName: 'Wrench', active: true,

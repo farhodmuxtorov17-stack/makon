@@ -55,7 +55,7 @@
           <select v-model="user.status" class="input">
             <option value="ACTIVE">Faol</option>
             <option value="SUSPENDED">To'xtatilgan</option>
-            <option value="PENDING_ERI">ERI kutilmoqda</option>
+            <option value="PENDING_VRaqamli imzoFICATION">Tasdiqlash kutilmoqda</option>
           </select>
         </div>
       </div>

@@ -18,7 +18,7 @@
         <div class="b-nav__right">
           <ThemeToggle />
           <NuxtLink to="/login" class="b-nav__link">Kirish</NuxtLink>
-          <NuxtLink to="/register/eri" class="b-nav__btn">Ro'yxatdan o'tish <ArrowRight :size="14" /></NuxtLink>
+          <NuxtLink to="/register" class="b-nav__btn">Ro'yxatdan o'tish <ArrowRight :size="14" /></NuxtLink>
         </div>
       </nav>
       <div class="b-hero__content">
@@ -292,7 +292,7 @@
           <p class="footer__desc">Toshkentdagi premium ko'chmas mulk obyektlarini boshqarish platformasi.</p>
         </div>
         <div class="footer__cols">
-          <div class="footer__col"><h5 class="footer__h">PLATFORMA</h5><NuxtLink to="/catalog" class="footer__link">Katalog</NuxtLink><NuxtLink to="/login" class="footer__link">Kirish</NuxtLink><NuxtLink to="/register/eri" class="footer__link">Ro'yxatdan o'tish</NuxtLink></div>
+          <div class="footer__col"><h5 class="footer__h">PLATFORMA</h5><NuxtLink to="/catalog" class="footer__link">Katalog</NuxtLink><NuxtLink to="/login" class="footer__link">Kirish</NuxtLink><NuxtLink to="/register" class="footer__link">Ro'yxatdan o'tish</NuxtLink></div>
           <div class="footer__col"><h5 class="footer__h">BOG'LANISH</h5><p class="footer__text">Toshkent, O'zbekiston</p><p class="footer__text">+998 71 200 00 00</p><p class="footer__text">info@makon.uz</p></div>
         </div>
       </div>

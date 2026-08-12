@@ -2,9 +2,9 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ERI / SIGNATURES</div>
-        <div class="eyebrow">ERI / SIGNATURES</div>
-      <h1 class="page-title">ERI imzo navbati</h1>
+        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">Raqamli imzolar</div>
+        <div class="eyebrow">Raqamli imzolar</div>
+      <h1 class="page-title">Raqamli imzo navbati</h1>
         <p class="text-ink-500 text-sm mt-1">{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="() => {}"><RefreshCw :size="14" /> Yangilash</button>
@@ -104,7 +104,7 @@
         <div class="sig-card__foot">
           <button v-if="sig.status === 'PENDING'" class="btn btn-primary btn-sm btn-glow"><Send :size="13" /> Imzo so'rov yuborish</button>
           <button v-if="sig.status === 'FAILED'" class="btn btn-secondary btn-sm"><RotateCw :size="13" /> Qayta urinish</button>
-          <a href="https://my.eri.uz" target="_blank" class="btn btn-ghost btn-sm ml-auto"><ExternalLink :size="13" /> ERI sayti</a>
+          <a href="https://didox.uz" target="_blank" class="btn btn-ghost btn-sm ml-auto"><ExternalLink :size="13" /> Imzo platformasi</a>
         </div>
       </div>
     </div>

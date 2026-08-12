@@ -8,7 +8,7 @@
       <div>
         <div class="eyebrow">APPLICATIONS / HISTORY</div>
       <h1 class="page-title">Ariza Tarixi va Audit Izlari</h1>
-        <p class="text-xs text-ink-500">Ariza <b>{{ app.number }}</b> bo'yicha barcha harakatlar, ERI va reviewer xulosalari kronologiyasi</p>
+        <p class="text-xs text-ink-500">Ariza <b>{{ app.number }}</b> bo'yicha barcha harakatlar, Raqamli imzo va reviewer xulosalari kronologiyasi</p>
       </div>
     </div>
 
@@ -48,9 +48,9 @@
                   "{{ event.comment }}"
                 </div>
 
-                <!-- ERI Key Info -->
+                <!-- Imzo ma.lumotlari -->
                 <div v-if="event.eriDetails" class="p-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs text-purple-300 mt-2 space-y-1">
-                  <div class="font-bold flex items-center gap-1.5"><Key :size="12" /> ERI Tamg'a Tasdiqlandi:</div>
+                  <div class="font-bold flex items-center gap-1.5"><Key :size="12" /> Raqamli imzo Tamg'a Tasdiqlandi:</div>
                   <div class="font-mono text-[10px]">Sertifikat: {{ event.eriDetails.serial }} | INN: {{ event.eriDetails.inn }}</div>
                   <div class="font-mono text-[10px]">SHA-256: {{ event.eriDetails.hash }}</div>
                 </div>
@@ -118,7 +118,7 @@ const timelineEvents = ref([
     dotClass: 'bg-purple-500'
   },
   {
-    title: 'Ariza ERI kalit bilan imzolandi (SUBMITTED)',
+    title: 'Ariza Raqamli imzo kalit bilan imzolandi (SUBMITTED)',
     timestamp: '2026-08-02 10:15',
     actor: app.value?.applicantName || 'Grand Logistics LLC',
     role: 'Arizachi (Tenant)',
@@ -135,6 +135,6 @@ const timelineEvents = ref([
 const auditTrace = [
   { action: 'FINANCE_DECISION_APPROVE', time: '2026-08-05 16:30:11', ip: '185.139.137.10', userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' },
   { action: 'OPERATIONAL_CHECK_PASS', time: '2026-08-04 11:15:04', ip: '185.139.137.12', userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
-  { action: 'APPLICATION_SUBMIT_ERI', time: '2026-08-02 10:15:44', ip: '213.230.101.45', userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' },
+  { action: 'APPLICATION_SUBMIT_Raqamli imzo', time: '2026-08-02 10:15:44', ip: '213.230.101.45', userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' },
 ]
 </script>

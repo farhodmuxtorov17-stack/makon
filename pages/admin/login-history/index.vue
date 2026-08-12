@@ -29,7 +29,7 @@
         <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ eriCount }}</div>
-          <div class="dash-kpi__label">ERI kirish</div>
+          <div class="dash-kpi__label">Raqamli kirish</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--amber">
@@ -51,7 +51,7 @@
         <option value="">Barcha hodisalar</option>
         <option value="LOGIN">Kirish</option>
         <option value="LOGOUT">Chiqish</option>
-        <option value="ERI_LOGIN">ERI kirish</option>
+        <option value="DIGITAL_LOGIN">Raqamli kirish</option>
         <option value="FAILED">Muvaffaqiyatsiz</option>
         <option value="BLOCK">Blok</option>
       </select>
@@ -109,9 +109,9 @@ const dateFilter = ref('')
 
 const entries = computed(() => makonStore.loginHistory)
 
-const successCount = computed(() => entries.value.filter(e => e.event === 'LOGIN' || e.event === 'ERI_LOGIN').length)
+const successCount = computed(() => entries.value.filter(e => e.event === 'LOGIN' || e.event === 'DIGITAL_LOGIN').length)
 const failedCount = computed(() => entries.value.filter(e => e.event === 'FAILED').length)
-const eriCount = computed(() => entries.value.filter(e => e.event === 'ERI_LOGIN').length)
+const eriCount = computed(() => entries.value.filter(e => e.event === 'DIGITAL_LOGIN').length)
 const blockedCount = computed(() => entries.value.filter(e => e.event === 'BLOCK').length)
 
 const filteredEntries = computed(() => {
@@ -125,13 +125,13 @@ const filteredEntries = computed(() => {
 })
 
 function eventDot(e: string) {
-  return { LOGIN: 'bg-emerald-500', ERI_LOGIN: 'bg-purple-500', LOGOUT: 'bg-ink-400', FAILED: 'bg-red-500', BLOCK: 'bg-amber-500' }[e] || 'bg-ink-400'
+  return { LOGIN: 'bg-emerald-500', DIGITAL_LOGIN: 'bg-purple-500', LOGOUT: 'bg-ink-400', FAILED: 'bg-red-500', BLOCK: 'bg-amber-500' }[e] || 'bg-ink-400'
 }
 function eventBadge(e: string) {
-  return { LOGIN: 'badge-success', ERI_LOGIN: 'badge-brand', LOGOUT: 'badge-neutral', FAILED: 'badge-danger', BLOCK: 'badge-warning' }[e] || 'badge-neutral'
+  return { LOGIN: 'badge-success', DIGITAL_LOGIN: 'badge-brand', LOGOUT: 'badge-neutral', FAILED: 'badge-danger', BLOCK: 'badge-warning' }[e] || 'badge-neutral'
 }
 function eventLabel(e: string) {
-  return { LOGIN: 'Kirish', ERI_LOGIN: 'ERI', LOGOUT: 'Chiqish', FAILED: 'Muvaffaqiyatsiz', BLOCK: 'Blok' }[e] || e
+  return { LOGIN: 'Kirish', DIGITAL_LOGIN: 'Imzo', LOGOUT: 'Chiqish', FAILED: 'Muvaffaqiyatsiz', BLOCK: 'Blok' }[e] || e
 }
 </script>
 <style scoped>

@@ -19,7 +19,7 @@
         <div class="flex items-center gap-3">
           <ThemeToggle />
           <NuxtLink to="/login" class="btn btn-ghost btn-sm hidden sm:flex">Kirish</NuxtLink>
-          <NuxtLink to="/register/eri" class="btn btn-primary btn-sm">Ro'yxatdan o'tish</NuxtLink>
+          <NuxtLink to="/register" class="btn btn-primary btn-sm">Ro'yxatdan o'tish</NuxtLink>
         </div>
       </div>
     </header>
@@ -45,7 +45,7 @@
             <div class="space-y-2">
               <NuxtLink to="/catalog" class="block text-sm text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">Katalog</NuxtLink>
               <NuxtLink to="/login" class="block text-sm text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">Tizimga kirish</NuxtLink>
-              <NuxtLink to="/register/eri" class="block text-sm text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">Ro'yxatdan o'tish</NuxtLink>
+              <NuxtLink to="/register" class="block text-sm text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">Ro'yxatdan o'tish</NuxtLink>
             </div>
           </div>
           <div>
@@ -59,7 +59,7 @@
         </div>
         <div class="mt-10 pt-6 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs text-ink-500">
           <p>© 2026 MAKON. Barcha huquqlar himoyalangan.</p>
-          <p>ERI orqali xavfsiz identifikatsiya</p>
+          <p>Telegram orqali xavfsiz identifikatsiya</p>
         </div>
       </div>
     </footer>
@@ -98,7 +98,7 @@
             <div class="macon-chat-quick">
               <button @click="chatInput = 'Bo\'sh ofislar bormi?'" class="macon-chat-quick__btn">Bo'sh ofislar</button>
               <button @click="chatInput = 'Narxlar qancha?'" class="macon-chat-quick__btn">Narxlar</button>
-              <button @click="chatInput = 'ERI nima?'" class="macon-chat-quick__btn">ERI haqida</button>
+              <button @click="chatInput = 'Shartnoma qanday?'" class="macon-chat-quick__btn">Shartnoma haqida</button>
             </div>
             <div class="macon-chat-input-wrap">
               <input
@@ -144,7 +144,7 @@ function sendChatMessage() {
   let reply = ''
   if (q.includes('narx') || q.includes('price')) reply = 'Narxlar oyiga 15-25 mln so\'mdan boshlanadi. Katalog bo\'limida batafsil ko\'rishingiz mumim.'
   else if (q.includes('ofis') || q.includes('office') || q.includes('bo\'sh')) reply = 'Hozirda 47 ta bo\'sh maydon mavjud. Katalogga o\'tib tanlang.'
-  else if (q.includes('eri')) reply = 'ERI — Elektron Raqamli Imzo. Shartnomalarni onlayn xavfsiz imzolash uchun.'
+    else if (q.includes('shartnoma') || q.includes('contract')) reply = `Shartnomalar raqamli tarzda imzolanadi — tez va xavfsiz, qog'oz kerak emas.`
   else if (q.includes('bino') || q.includes('building')) reply = '12 ta premium bino boshqarilmoqda.'
   else reply = 'Rahmat! So\'rovingiz qabul qilindi.'
   setTimeout(() => {

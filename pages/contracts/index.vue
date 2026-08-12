@@ -64,7 +64,7 @@
             <th class="text-right text-xs text-ink-400 px-4 py-3">Ijara/oy</th>
             <th class="text-left text-xs text-ink-400 px-4 py-3">Muddat</th>
             <th class="text-right text-xs text-ink-400 px-4 py-3">Status</th>
-            <th class="text-right text-xs text-ink-400 px-4 py-3">ERI</th>
+            <th class="text-right text-xs text-ink-400 px-4 py-3">Raqamli imzo</th>
           </tr>
         </thead>
         <tbody>

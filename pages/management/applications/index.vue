@@ -293,7 +293,7 @@ const kanbanColumns = [
   { status: 'OPERATION_APPROVED', label: '2. OPERATSIYA TASDIQLADI', color: 'bg-purple-500', nextStatus: 'FINANCE_APPROVED' },
   { status: 'FINANCE_APPROVED', label: '3. MOLIYA TASDIQLADI', color: 'bg-amber-500', nextStatus: 'DRAFT_READY' },
   { status: 'DRAFT_READY', label: '4. QORALAMA TAYYOR', color: 'bg-indigo-500', nextStatus: 'PARTIALLY_SIGNED' },
-  { status: 'PARTIALLY_SIGNED', label: '5. IMZOLANMOQDA (ERI)', color: 'bg-emerald-400', nextStatus: 'SIGNED' },
+  { status: 'PARTIALLY_SIGNED', label: '5. IMZOLANMOQDA', color: 'bg-emerald-400', nextStatus: 'SIGNED' },
   { status: 'ACTIVE', label: '6. AKTIV', color: 'bg-emerald-600', nextStatus: null }
 ]
 

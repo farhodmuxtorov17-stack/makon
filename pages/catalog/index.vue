@@ -24,7 +24,7 @@
         <button class="catalog-lang-btn" @click="toggleLang">{{ lang.toUpperCase() }}</button>
         <ThemeToggle />
         <NuxtLink to="/login" class="catalog-login-btn">Tizimga kirish</NuxtLink>
-        <NuxtLink to="/register/eri" class="catalog-cta-btn">
+        <NuxtLink to="/register" class="catalog-cta-btn">
           <Plus :size="14" />
           E'lon joylash
         </NuxtLink>

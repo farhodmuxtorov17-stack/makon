@@ -176,7 +176,7 @@ const allNavGroups = [
       { to: '/finance/approvals', label: 'Tasdiqlar', icon: CheckSquare, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
       { to: '/facility/material-requests', label: 'Material so\'rovlari', icon: Package, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
       { to: '/meters', label: 'Sanoqchilar', icon: Gauge, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
-      { to: '/eri/signatures', label: 'ERI imzolar', icon: FileSignature, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'] },
+      { to: '/eri/signatures', label: 'Raqamli imzolar', icon: FileSignature, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'] },
     ]
   },
   {

@@ -35,14 +35,14 @@
       <div class="hero__content">
         <div class="hero__badge animate-fade-up" style="animation-delay: 0.1s;">
           <span class="hero__badge-dot"></span>
-          Davlat standartlariga muvofiq · ERI integratsiyasi
+          Davlat standartlariga muvofiq · Raqamli shartnoma
         </div>
         <h1 class="hero__title font-heading animate-fade-up" style="animation-delay: 0.2s;">
           Binolarning<br/><span class="hero__title-accent">raqamli boshqaruvi</span>
         </h1>
         <p class="hero__lead">
           Premium biznes markazlarida ofis, savdo va ombor maydonlari.<br/>
-          ERI orqali xavfsiz shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
+          Raqamli shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
         </p>
 
 
@@ -202,7 +202,7 @@
         <div class="how__head">
           <div class="eyebrow">JARAYON</div>
           <h2 class="section-title font-heading">To'rt qadam — ofisdan shartnomagacha</h2>
-          <p class="section-sub">Qidirishdan boshlab, ERI orqali shartnoma imzolashgacha — barchasi onlayn.</p>
+          <p class="section-sub">Qidirishdan boshlab, shartnoma imzolashgacha — barchasi onlayn.</p>
         </div>
         <div class="how__steps">
           <div class="step">
@@ -228,7 +228,7 @@
               <div class="step__num">03</div>
               <div class="step__icon"><ShieldCheck :size="22" /></div>
             </div>
-            <h4 class="step__title font-heading">ERI imzo</h4>
+            <h4 class="step__title font-heading">Raqamli imzo</h4>
             <p class="step__text">Shartnoma elektron raqamli imzo orqali xavfsiz imzolanadi. Qog'oz hujjatlar kerak emas.</p>
           </div>
           <div class="step__connector"></div>
@@ -260,7 +260,7 @@
           </div>
           <div class="feat">
             <div class="feat__icon feat__icon--blue"><FileText :size="20" /></div>
-            <h4 class="feat__title font-heading">ERI shartnoma</h4>
+            <h4 class="feat__title font-heading">Raqamli shartnoma</h4>
             <p class="feat__text">Elektron raqamli imzo orqali qonuniy kuchga ega shartnomalar — qog'azsiz va xavfsiz.</p>
           </div>
           <div class="feat">
@@ -299,7 +299,7 @@
             <h2 class="cta-box__title font-heading">Boshqaruvni boshlang</h2>
             <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring. Bepul sinab ko'ring.</p>
             <div class="cta-box__actions">
-              <NuxtLink to="/register/eri" class="cta-box__btn">
+              <NuxtLink to="/register" class="cta-box__btn">
                 Ro'yxatdan o'tish <ArrowRight :size="16" />
               </NuxtLink>
               <a href="mailto:info@makon.uz" class="cta-box__link">Bog'lanish</a>
@@ -331,7 +331,7 @@
             <div class="footer__col">
               <div class="footer__col-title">Tizim</div>
               <NuxtLink to="/login">Kirish</NuxtLink>
-              <NuxtLink to="/register/eri">Ro'yxatdan o'tish</NuxtLink>
+              <NuxtLink to="/register">Ro'yxatdan o'tish</NuxtLink>
               <NuxtLink to="/dashboard/executive">Dashboard</NuxtLink>
             </div>
             <div class="footer__col">

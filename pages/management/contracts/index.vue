@@ -17,7 +17,7 @@
       <KpiCard icon="CheckCircle" iconBg="rgba(16,185,129,0.1)" iconColor="#059669" label="Aktiv" :value="activeCount" icon-color="#10b981" icon-bg="rgba(16,185,129,0.1)" to="/contracts" :sparkData="[30,32,35,38,40,42,45]" sparkColor="#10b981" />
       <KpiCard icon="PenTool" iconBg="rgba(59,130,246,0.1)" iconColor="#2563EB" label="Imzolanmoqda" :value="signingCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[2,3,4,3,5,4,6]" sparkColor="var(--accent)" />
       <KpiCard icon="AlertCircle" iconBg="rgba(239,68,68,0.1)" iconColor="#DC2626" label="Muddati o'tgan" :value="expiredCount" icon-color="#ef4444" icon-bg="rgba(239,68,68,0.1)" to="/contracts" :sparkData="[5,4,3,4,5,3,2]" sparkColor="#ef4444" />
-      <KpiCard icon="FileSignature" iconBg="rgba(99,102,241,0.1)" iconColor="#6366F1" label="ERI imzolangan" :value="eriCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[10,12,15,18,20,22,25]" sparkColor="var(--accent)" />
+      <KpiCard icon="FileSignature" iconBg="rgba(99,102,241,0.1)" iconColor="#6366F1" label="Imzolangan" :value="eriCount" icon-color="var(--accent)" icon-bg="rgba(37,99,235,0.1)" to="/eri/signatures" :sparkData="[10,12,15,18,20,22,25]" sparkColor="var(--accent)" />
     </div>
 
     <!-- Search -->
@@ -45,7 +45,7 @@
               <th class="hidden md:table-cell">Bino / Unit</th>
               <th class="text-right">Oylik</th>
               <th class="hidden lg:table-cell text-center">Davr</th>
-              <th class="text-center">ERI</th>
+              <th class="text-center">Imzo</th>
               <th class="text-center">Status</th>
               <th></th>
             </tr>
@@ -121,7 +121,7 @@
           </div>
 
           <div class="card-premium p-4">
-            <div class="text-xs font-semibold text-ink-500 uppercase tracking-wider mb-3">ERI imzolar</div>
+            <div class="text-xs font-semibold text-ink-500 uppercase tracking-wider mb-3">Raqamli imzolar</div>
             <div class="flex gap-3">
               <div class="flex-1 flex items-center gap-2 p-2.5 rounded-xl" :class="selectedContract.eriTenantSigned ? 'bg-emerald-500/10' : 'bg-amber-500/10'">
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="selectedContract.eriTenantSigned ? 'bg-emerald-500/15 text-emerald-600' : 'bg-amber-500/15 text-amber-600'">
@@ -153,7 +153,7 @@
               <FileText :size="15" /> To'liq ko'rish
             </NuxtLink>
             <button v-if="!selectedContract.eriTenantSigned || !selectedContract.eriLandlordSigned" class="btn btn-secondary btn-md">
-              <Send :size="15" /> ERI eslatma
+              <Send :size="15" /> Imzo eslatma
             </button>
             <button v-if="selectedContract.status === 'EXPIRED'" class="btn btn-secondary btn-md">
               <RefreshCw :size="15" /> Uzaytirish

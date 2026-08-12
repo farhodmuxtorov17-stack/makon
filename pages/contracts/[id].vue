@@ -71,9 +71,9 @@
       </div>
     </div>
 
-    <!-- ERI status -->
+    <!-- Raqamli imzo holati -->
     <div class="card p-5">
-      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">ERI imzo holati</h3>
+      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Raqamli imzo holati</h3>
       <div class="grid grid-cols-2 gap-4">
         <div class="flex items-center gap-3 p-3 rounded-xl bg-ink-50 dark:bg-white/5">
           <div class="w-10 h-10 rounded-full flex items-center justify-center" :class="contract.eriLandlordSigned ? 'bg-emerald-500/10' : 'bg-amber-500/10'">

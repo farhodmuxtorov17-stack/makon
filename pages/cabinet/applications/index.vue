@@ -108,7 +108,7 @@
             <div class="font-medium text-ink-900 dark:text-white">{{ app.startDate }}</div>
           </div>
           <div>
-            <div class="text-ink-500 mb-0.5">ERI imzo</div>
+            <div class="text-ink-500 mb-0.5">Raqamli imzo</div>
             <div class="font-medium" :class="app.eriSigned ? 'text-emerald-500' : 'text-amber-500'">{{ app.eriSigned ? 'Imzolangan' : 'Kutilmoqda' }}</div>
           </div>
         </div>
@@ -122,7 +122,7 @@
             <History :size="14" /> Tarix
           </NuxtLink>
           <button v-if="app.status === 'DRAFT_READY' && !app.eriSigned" class="btn btn-primary btn-sm ml-auto">
-            <FileSignature :size="14" /> ERI imzolash
+            <FileSignature :size="14" /> Raqamli imzolash
           </button>
           <NuxtLink v-if="app.status === 'SIGNED' || app.status === 'ACTIVE'" :to="`/contracts/${app.contractId}`" class="btn btn-primary btn-sm ml-auto">
             <ScrollText :size="14" /> Shartnomani ko'rish
@@ -165,7 +165,7 @@ const store = useMakonStore()
 
 function buildTimeline(status: string) {
   const steps = ['SUBMITTED', 'OPERATION_REVIEW', 'FINANCE_REVIEW', 'DRAFT_READY', 'SIGNED', 'ACTIVE']
-  const labels = ['Ariza', 'Operatsion', 'Moliyaviy', 'Loyiha', 'ERI imzo', 'Faol']
+  const labels = ['Ariza', 'Operatsion', 'Moliyaviy', 'Loyiha', 'Raqamli imzo', 'Faol']
   const idx = steps.indexOf(status)
   return labels.map((label, i) => ({
     label,

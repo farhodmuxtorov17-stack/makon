@@ -186,7 +186,7 @@ onMounted(() => {
   }
 
   if (!authStore.pendingRegistration?.phoneVerified) {
-    navigateTo('/register/eri')
+    navigateTo('/register')
   }
 
   // Pre-fill phone from phone-verified number

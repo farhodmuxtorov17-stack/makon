@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">FINANCE / PERIODS</div>
+        <div class="eyebrow">FINANCE / PRaqamli imzoODS</div>
         <h1 class="page-title">Moliya davrlari</h1>
         <p class="page-sub">Hisob-kitob davrlarini boshqaring — oylik daromad va qarz dinamikasi</p>
       </div>

@@ -106,19 +106,12 @@
             <ArrowRight v-if="!loading" :size="17" />
           </button>
 
-          <!-- Divider -->
-          <div class="auth__divider"><span>YOKI</span></div>
 
-          <!-- SMS Registration -->
-          <NuxtLink to="/register/eri" class="auth__sms-btn">
-            <Smartphone :size="20" />
-            <span>Telefon raqami orqali ro'yxatdan o'tish</span>
-          </NuxtLink>
 
           <!-- Signup Link -->
           <p class="auth__signup">
             Yangi foydalanuvchi?
-            <NuxtLink to="/register/eri" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
+            <NuxtLink to="/register" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
           </p>
         </form>
       </div>
@@ -129,7 +122,7 @@
 <script setup lang="ts">
 import {
   AlertCircle, Eye, EyeOff, ArrowRight, ArrowLeft,
-  Smartphone, Info, Phone, Lock, UserRound,
+  Info, Phone, Lock, UserRound,
   ShieldCheck, Zap
 } from 'lucide-vue-next'
 
@@ -165,7 +158,7 @@ async function handleLogin() {
 function sendRecovery() {
   if (recoveryPhone.value.length > 0) {
     showRecovery.value = false
-    navigateTo('/register/eri')
+    navigateTo('/register')
   }
 }
 </script>

@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">FACILITY / MATERIAL-REQUESTS</div>
+        <div class="eyebrow">FACILITY / MATRaqamli imzoAL-REQUESTS</div>
       <h1 class="page-title">Material so'rovlari</h1>
         <p class="text-ink-500 text-sm mt-1">Work orderlar uchun materiallar zaruriyati</p>
       </div>

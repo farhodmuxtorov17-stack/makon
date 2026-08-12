@@ -138,17 +138,17 @@
       </div>
     </div>
 
-    <!-- Step 4: ERI confirm -->
+    <!-- Step 4: Raqamli imzo confirm -->
     <div v-if="currentStep === 3" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">ERI orqali tasdiqlash</h3>
+      <h3 class="font-semibold dark:text-white">Raqamli imzo orqali tasdiqlash</h3>
       <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10 flex items-start gap-3">
         <FileSignature :size="20" class="text-brand-500 flex-shrink-0" />
         <div class="text-sm text-ink-500">
-          Ariza yuborish uchun ERI orqali tasdiqlash talab qilinadi.
+          Ariza yuborish uchun Raqamli imzo orqali tasdiqlash talab qilinadi.
           Sertifikatingizni tanlang va imzolashni tasdiqlang.
         </div>
       </div>
-      <button class="btn btn-primary w-full" @click="() => {}"><FileSignature :size="16" /> ERI sertifikatini tanlash</button>
+      <button class="btn btn-primary w-full" @click="() => {}"><FileSignature :size="16" /> Raqamli imzo sertifikatini tanlash</button>
       <div class="flex gap-3">
         <button @click="currentStep--" class="btn btn-secondary">Orqaga</button>
         <button @click="submit" class="btn btn-success flex-1" :disabled="submitting">
@@ -170,7 +170,7 @@ const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, 
 
 const currentStep = ref(0)
 const submitting = ref(false)
-const steps = ['Ariza turi', 'Tashkilot', 'Hujjatlar', 'ERI tasdiq']
+const steps = ['Ariza turi', 'Tashkilot', 'Hujjatlar', 'Raqamli imzo tasdiq']
 
 const form = reactive({
   type: 'RENT',

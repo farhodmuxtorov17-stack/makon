@@ -29,7 +29,7 @@
         <div class="kpi-strip__icon"><ShieldCheck :size="18" /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ eriCount }}</div>
-          <div class="dash-kpi__label">ERI imzolangan</div>
+          <div class="dash-kpi__label">Raqamli imzolangan</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--rose">
@@ -96,11 +96,11 @@
           </div>
         </div>
 
-        <!-- ERI signing flow -->
+        <!-- Raqamli imzo signing flow -->
         <div class="con-eri">
           <div class="con-eri__title">
             <ShieldCheck :size="13" />
-            <span>ERI imzolar</span>
+            <span>Raqamli imzolar</span>
           </div>
           <div class="con-eri__flow">
             <div class="eri-step" :class="{ 'eri-step--done': c.eriTenantSigned }">

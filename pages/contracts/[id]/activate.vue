@@ -19,24 +19,24 @@
       </h3>
 
       <div class="space-y-3 text-xs">
-        <!-- Check 1: Tenant ERI -->
+        <!-- Check 1: Tenant imzo -->
         <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
           <div class="flex items-center gap-2.5">
             <CheckCircle :size="18" class="text-emerald-500" />
             <div>
-              <div class="font-bold text-ink-900 dark:text-white">Ijarachi ERI Imzosi</div>
+              <div class="font-bold text-ink-900 dark:text-white">Ijarachi raqamli imzosi</div>
               <div class="text-[10px] text-ink-500">{{ contract.tenantName }} (STIR: {{ contract.tenantTin }})</div>
             </div>
           </div>
           <span class="badge badge-success text-[10px]">TASDIQLANGAN</span>
         </div>
 
-        <!-- Check 2: Landlord ERI -->
+        <!-- Check 2: Landlord imzo -->
         <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
           <div class="flex items-center gap-2.5">
             <CheckCircle :size="18" class="text-emerald-500" />
             <div>
-              <div class="font-bold text-ink-900 dark:text-white">Bino Egasi ERI Imzosi</div>
+              <div class="font-bold text-ink-900 dark:text-white">Bino egasi raqamli imzosi</div>
               <div class="text-[10px] text-ink-500">MAKON Management MChJ</div>
             </div>
           </div>
