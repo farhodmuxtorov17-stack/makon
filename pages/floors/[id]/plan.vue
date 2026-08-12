@@ -134,7 +134,7 @@
           <!-- 3D interior render -->
           <div class="p-4 flex flex-col">
             <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF] dark:from-ink-800 dark:to-ink-900 aspect-[4/3] flex items-center justify-center">
-              <img :src="img('/buildings/v2_office-interior-2.jpg')" :alt="selectedUnitData.name" class="w-full h-full object-cover" />
+              <img :src="img('/buildings/real_nest-one2.jpg')" :alt="selectedUnitData.name" class="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -169,7 +169,7 @@
               </svg>
             </div>
             <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF] dark:from-ink-800 dark:to-ink-900 h-24 flex items-center justify-center">
-              <img :src="img('/buildings/v2_commercial-tower-1.jpg')" alt="Building" class="h-full object-contain py-1" />
+              <img :src="img('/buildings/real_finance-center.jpg')" alt="Building" class="h-full object-contain py-1" />
             </div>
           </div>
         </div>

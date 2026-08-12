@@ -34,7 +34,7 @@
     <!-- PREMIUM HERO BANNER -->
     <div class="catalog-hero">
       <div class="catalog-hero__bg">
-        <img :src="img('/buildings/v2_aerial-city-1.jpg')" alt="Tashkent" class="catalog-hero__img" />
+        <img :src="img('/buildings/real_tashkent-skyline.jpg')" alt="Tashkent" class="catalog-hero__img" />
         <div class="catalog-hero__overlay"></div>
       </div>
       <div class="catalog-hero__content">
@@ -354,15 +354,15 @@ const store = useMakonStore()
 
 // Photo rotation per building
 const BUILDING_PHOTOS: Record<string, string[]> = {
-  b1: ['/buildings/v2_commercial-tower-1.jpg', '/buildings/v2_office-building-1.jpg', '/buildings/v2_modern-facade-1.jpg'],
-  b2: ['/buildings/v2_office-building-2.jpg', '/buildings/v2_business-center-1.jpg', '/buildings/v2_office-space-1.jpg'],
-  b3: ['/buildings/v2_commercial-tower-2.jpg', '/buildings/v2_business-center-2.jpg', '/buildings/v2_office-space-2.jpg'],
-  b4: ['/buildings/v2_modern-facade-2.jpg', '/buildings/v2_reception-area.jpg', '/buildings/v2_meeting-room.jpg'],
-  b5: ['/buildings/v2_shopping-center-2.jpg', '/buildings/v2_business-center-1.jpg', '/buildings/v2_reception-area.jpg'],
-  b6: ['/buildings/v2_office-building-1.jpg', '/buildings/v2_modern-facade-1.jpg', '/buildings/v2_commercial-tower-1.jpg'],
-  b7: ['/buildings/v2_office-interior-2.jpg', '/buildings/v2_coworking-space.jpg', '/buildings/v2_meeting-room.jpg'],
-  b8: ['/buildings/v2_shopping-center-1.jpg', '/buildings/v2_business-center-2.jpg', '/buildings/v2_reception-area.jpg'],
-  b9: ['/buildings/v2_aerial-city-1.jpg', '/buildings/v2_night-skyline.jpg', '/buildings/v2_commercial-tower-1.jpg'],
+  b1: ['/buildings/real_tashkent-night.jpg', '/buildings/real_tashkent-skyline.jpg', '/buildings/real_tashkent-city.jpg'],
+  b2: ['/buildings/real_nest-one.jpg', '/buildings/real_tashkent-skyline2.jpg', '/buildings/real_tashkent-street.jpg'],
+  b3: ['/buildings/real_finance-center.jpg', '/buildings/real_tashkent-skyline3.jpg', '/buildings/real_tashkent-city.jpg'],
+  b4: ['/buildings/real_tashkent-skyline.jpg', '/buildings/real_nest-one2.jpg', '/buildings/real_tashkent-night.jpg'],
+  b5: ['/buildings/real_tashkent-skyline3.jpg', '/buildings/real_finance-center.jpg', '/buildings/real_tashkent-street.jpg'],
+  b6: ['/buildings/real_tashkent-street.jpg', '/buildings/real_finance-center.jpg', '/buildings/real_tashkent-skyline.jpg'],
+  b7: ['/buildings/real_nest-one2.jpg', '/buildings/real_nest-one2.jpg', '/buildings/real_tashkent-city.jpg'],
+  b8: ['/buildings/real_tashkent-city.jpg', '/buildings/real_tashkent-skyline2.jpg', '/buildings/real_tashkent-street.jpg'],
+  b9: ['/buildings/real_tashkent-city.jpg', '/buildings/real_tashkent-skyline.jpg', '/buildings/real_finance-center.jpg'],
 }
 
 // Map store categories to catalog types
@@ -422,7 +422,7 @@ const listings = computed<CatalogItem[]>(() => {
     const floor = unit?.floor || 0
     const catType = unit ? (CATEGORY_TO_TYPE[unit.category] || 'OFFICE') : 'OFFICE'
     const priceUZS = l.currency === 'USD' ? l.price * USD_TO_UZS : l.price
-    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/v2_aerial-city-1.jpg'])[0]
+    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/real_tashkent-skyline.jpg'])[0]
 
     items.push({
       id: l.id,
@@ -458,7 +458,7 @@ const listings = computed<CatalogItem[]>(() => {
 
     const catType = CATEGORY_TO_TYPE[u.category] || 'OFFICE'
     const priceUZS = u.currency === 'USD' ? u.monthlyRent * USD_TO_UZS : u.monthlyRent
-    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/v2_aerial-city-1.jpg'])[0]
+    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/real_tashkent-skyline.jpg'])[0]
     const title = `${building.name} · ${u.unitNumber} · ${u.area} m²`
 
     items.push({

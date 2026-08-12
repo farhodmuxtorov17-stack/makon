@@ -307,7 +307,7 @@ const building = reactive({
   name: 'Tashkent City',
   district: 'Mirzo Ulug\'bek tumani',
   floors: 12, units: 240, area: '32 000', vacant: 47,
-  image: '/buildings/v2_commercial-tower-1.jpg'
+  image: '/buildings/real_finance-center.jpg'
 })
 
 const activeFloor = ref(3)
@@ -410,12 +410,12 @@ function formatNum(n: number) {
 
 const unitFilter = ref('ALL')
 const units = [
-  { id: 1, slug: 'tashkent-city-office-101', name: 'Ofis 101', floor: 1, area: 45, type: 'OFFICE', price: '3 500 000', image: '/buildings/v2_office-space-1.jpg' },
-  { id: 2, slug: 'tashkent-city-office-205', name: 'Ofis 205', floor: 2, area: 78, type: 'OFFICE', price: '6 200 000', image: '/buildings/v2_office-space-2.jpg' },
-  { id: 3, slug: 'tashkent-city-retail-gf', name: 'Savdo maydoni GF', floor: 1, area: 120, type: 'RETAIL', price: '9 800 000', image: '/buildings/v2_commercial-tower-1.jpg' },
-  { id: 4, slug: 'tashkent-city-office-312', name: 'Ofis 312', floor: 3, area: 55, type: 'OFFICE', price: '4 300 000', image: '/buildings/v2_office-space-1.jpg' },
-  { id: 5, slug: 'tashkent-city-office-408', name: 'Ofis 408', floor: 4, area: 92, type: 'OFFICE', price: '7 400 000', image: '/buildings/v2_office-space-2.jpg' },
-  { id: 6, slug: 'tashkent-city-retail-1f', name: 'Savdo maydoni 1F', floor: 2, area: 85, type: 'RETAIL', price: '6 800 000', image: '/buildings/v2_commercial-tower-1.jpg' },
+  { id: 1, slug: 'tashkent-city-office-101', name: 'Ofis 101', floor: 1, area: 45, type: 'OFFICE', price: '3 500 000', image: '/buildings/real_tashkent-skyline.jpg' },
+  { id: 2, slug: 'tashkent-city-office-205', name: 'Ofis 205', floor: 2, area: 78, type: 'OFFICE', price: '6 200 000', image: '/buildings/real_finance-center.jpg' },
+  { id: 3, slug: 'tashkent-city-retail-gf', name: 'Savdo maydoni GF', floor: 1, area: 120, type: 'RETAIL', price: '9 800 000', image: '/buildings/real_finance-center.jpg' },
+  { id: 4, slug: 'tashkent-city-office-312', name: 'Ofis 312', floor: 3, area: 55, type: 'OFFICE', price: '4 300 000', image: '/buildings/real_tashkent-skyline.jpg' },
+  { id: 5, slug: 'tashkent-city-office-408', name: 'Ofis 408', floor: 4, area: 92, type: 'OFFICE', price: '7 400 000', image: '/buildings/real_finance-center.jpg' },
+  { id: 6, slug: 'tashkent-city-retail-1f', name: 'Savdo maydoni 1F', floor: 2, area: 85, type: 'RETAIL', price: '6 800 000', image: '/buildings/real_finance-center.jpg' },
 ]
 const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.filter(u => u.type === unitFilter.value))
 const vacantUnits = computed(() => building_floors.reduce((s, f) => s + f.units.filter(u => u.status === "VACANT").length, 0))

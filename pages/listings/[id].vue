@@ -122,7 +122,7 @@
               <div v-if="planView === 'photo'" class="floor-plan-container">
                 <div class="relative rounded-xl overflow-hidden bg-ink-900">
                   <img
-                    :src="img('/buildings/v2_office-space-1.jpg')"
+                    :src="img('/buildings/real_tashkent-skyline.jpg')"
                     alt="Ofis planirovkasi"
                     class="w-full"
                     style="max-height: 500px; object-fit: contain;"

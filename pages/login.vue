@@ -1,7 +1,7 @@
 <template>
   <div class="auth">
     <div class="auth__visual">
-      <img :src="img('/buildings/v2_tashkent-tower.jpg')" alt="Tashkent City" class="auth__visual-img" />
+      <img :src="img('/buildings/real_tashkent-night.jpg')" alt="Tashkent City" class="auth__visual-img" />
       <div class="auth__visual-grad"></div>
       <div class="auth__visual-content">
         <NuxtLink to="/" class="auth__logo">
