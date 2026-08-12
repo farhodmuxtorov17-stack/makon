@@ -1,11 +1,11 @@
 <template>
   <div class="landing">
-    <!-- NAV -->
+    <!-- ═══ NAV ═══ -->
     <nav class="nav" :class="{ 'nav--scrolled': scrolled }">
       <div class="nav__inner">
         <NuxtLink to="/" class="nav__brand">
           <div class="nav__logo">M</div>
-          <span>MAKON</span>
+          <span class="nav__brand-text">MAKON</span>
         </NuxtLink>
         <div class="nav__links">
           <NuxtLink to="/catalog" class="nav__link">Katalog</NuxtLink>
@@ -24,137 +24,104 @@
       </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- ═══ HERO ═══ -->
     <section class="hero">
       <div class="hero__bg">
         <img :src="img('/buildings/real_tashkent-night.jpg')" alt="Tashkent City" class="hero__bg-img" />
         <div class="hero__overlay"></div>
+        <div class="hero__grain"></div>
       </div>
-      <div class="hero__center">
+
+      <div class="hero__content">
         <div class="hero__badge">
-          <ShieldCheck :size="13" /> Davlat standartlariga muvofiq · ERI integratsiyasi
+          <span class="hero__badge-dot"></span>
+          Davlat standartlariga muvofiq · ERI integratsiyasi
         </div>
-        <h1 class="hero__title">
-          Binolarning raqamli boshqaruvi
+        <h1 class="hero__title font-heading">
+          Binolarning<br/><span class="hero__title-accent">raqamli boshqaruvi</span>
         </h1>
         <p class="hero__lead">
           Premium biznes markazlarida ofis, savdo va ombor maydonlari.<br/>
           ERI orqali xavfsiz shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
         </p>
-        <div class="hero__actions">
-          <NuxtLink to="/catalog" class="hero__cta">
-            Katalogga kirish <ArrowRight :size="16" />
-          </NuxtLink>
-          <a href="#how" class="hero__link">Jarayonni ko'rish</a>
-        </div>
-        <div class="hero__trust">
-          <div class="hero__trust-item"><div class="hero__trust-n">12K+</div><div class="hero__trust-l">Boshqariladigan maydon</div></div>
-          <div class="hero__trust-line"></div>
-          <div class="hero__trust-item"><div class="hero__trust-n">98%</div><div class="hero__trust-l">O'rtacha bandlik</div></div>
-          <div class="hero__trust-line"></div>
-          <div class="hero__trust-item"><div class="hero__trust-n">240+</div><div class="hero__trust-l">Faol shartnoma</div></div>
-        </div>
-      </div>
 
-      <!-- Search bar — anchored at bottom of hero -->
-      <div class="hero-search-bar">
-        <div class="hero-search-bar__inner">
-          <div class="hero-search-bar__field">
-            <Search :size="18" class="hero-search-bar__icon" />
+        <div class="hero__search">
+          <div class="hero__search-field">
+            <Search :size="18" class="hero__search-icon" />
             <input
               v-model="searchQuery"
               type="text"
-              class="hero-search-bar__input"
+              class="hero__search-input"
               placeholder="Ofis, savdo, ombor qidirish..."
               @keyup.enter="doSearch"
             />
           </div>
-          <div class="hero-search-bar__divider"></div>
-          <div class="hero-search-bar__field hero-search-bar__field--select">
-            <select v-model="searchType" class="hero-search-bar__select">
+          <div class="hero__search-sep"></div>
+          <div class="hero__search-field hero__search-field--type">
+            <Building2 :size="18" class="hero__search-icon" />
+            <select v-model="searchType" class="hero__search-select">
               <option value="">Barcha turlari</option>
               <option value="office">Ofis</option>
               <option value="retail">Savdo</option>
               <option value="warehouse">Ombor</option>
             </select>
           </div>
-          <button class="hero-search-bar__btn" @click="doSearch">
+          <button class="hero__search-btn" @click="doSearch">
             <Search :size="18" />
-            <span>Qidirish</span>
+          </button>
+        </div>
+
+        <div class="hero__chips">
+          <button class="hero__chip" @click="navigateTo('/catalog?type=office')">Ofis</button>
+          <button class="hero__chip" @click="navigateTo('/catalog?type=retail')">Savdo</button>
+          <button class="hero__chip" @click="navigateTo('/catalog?type=warehouse')">Ombor</button>
+          <button class="hero__chip hero__chip--accent" @click="navigateTo('/catalog?offer=rent')">
+            Ijaraga <ArrowRight :size="12" />
           </button>
         </div>
       </div>
-    </section>
 
-
-    <!-- PREMIUM STATS -->
-    <section class="lp-stats">
-      <div class="container">
-        <div class="lp-stats__grid">
-          <div class="lp-stat" data-reveal>
-            <div class="lp-stat__icon"><Building2 :size="22" /></div>
-            <div class="lp-stat__num" data-count="48">0</div>
-            <div class="lp-stat__label">Boshqariladigan binolar</div>
-          </div>
-          <div class="lp-stat__divider"></div>
-          <div class="lp-stat" data-reveal>
-            <div class="lp-stat__icon"><Layers :size="22" /></div>
-            <div class="lp-stat__num" data-count="3200">0</div>
-            <div class="lp-stat__label">Unitlar reyestrda</div>
-          </div>
-          <div class="lp-stat__divider"></div>
-          <div class="lp-stat" data-reveal>
-            <div class="lp-stat__icon"><FileText :size="22" /></div>
-            <div class="lp-stat__num" data-count="1850">0</div>
-            <div class="lp-stat__label">Shartnomalar yiliga</div>
-          </div>
-          <div class="lp-stat__divider"></div>
-          <div class="lp-stat" data-reveal>
-            <div class="lp-stat__icon"><TrendingUp :size="22" /></div>
-            <div class="lp-stat__num" data-count="98" data-suffix="%">0</div>
-            <div class="lp-stat__label">Mijoz mamnunligi</div>
-          </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <div class="hero__stat-n">12K+</div>
+          <div class="hero__stat-l">m² Boshqariladigan</div>
+        </div>
+        <div class="hero__stat-sep"></div>
+        <div class="hero__stat">
+          <div class="hero__stat-n">98%</div>
+          <div class="hero__stat-l">O'rtacha bandlik</div>
+        </div>
+        <div class="hero__stat-sep"></div>
+        <div class="hero__stat">
+          <div class="hero__stat-n">240+</div>
+          <div class="hero__stat-l">Faol shartnoma</div>
         </div>
       </div>
     </section>
 
-    <!-- TRUST BAR -->
-    <section class="trust">
-      <div class="container">
-        <div class="trust__label">Ishonchli hamkorlar</div>
-        <div class="trust__logos">
-          <div class="trust__logo">TASHKENT CITY</div>
-          <div class="trust__logo">TRILLANT</div>
-          <div class="trust__logo">CITY PLAZA</div>
-          <div class="trust__logo">GREEN PARK</div>
-          <div class="trust__logo">SERGELI HUB</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BUILDINGS PORTFOLIO -->
+    <!-- ═══ PORTFOLIO ═══ -->
     <section id="buildings" class="portfolio">
       <div class="container">
         <div class="portfolio__head">
           <div class="eyebrow">PORTFEL</div>
-          <h2 class="section-title">Premium obyektlar portfeli</h2>
-          <p class="section-sub">Toshkentning yetakchi biznes markazlari, savdo obyektlari va logistika markazlari — bitta platformada boshqariladi.</p>
+          <h2 class="section-title font-heading">Premium obyektlar portfeli</h2>
+          <p class="section-sub">Toshkentning yetakchi biznes markazlari — bitta platformada boshqariladi.</p>
         </div>
 
         <div class="portfolio__featured" @click="navigateTo('/buildings/tashkent-city')">
           <div class="portfolio__featured-media">
-            <img :src="img('/buildings/real_tashkent-night.jpg')" alt="Tashkent City" />
+            <img src="/buildings/hero-tashkent.jpg" alt="Tashkent City" />
             <div class="portfolio__featured-overlay"></div>
             <div class="portfolio__featured-badge">PREMIUM</div>
           </div>
           <div class="portfolio__featured-info">
             <div class="portfolio__featured-num">01</div>
-            <h3 class="portfolio__featured-name">Tashkent City</h3>
+            <h3 class="portfolio__featured-name font-heading">Tashkent City</h3>
             <p class="portfolio__featured-addr"><MapPin :size="14" /> Mirzo Ulug'bek tumani, Toshkent</p>
             <div class="portfolio__featured-specs">
               <div class="portfolio__featured-spec"><span class="n">12</span><span class="l">Qavat</span></div>
               <div class="portfolio__featured-spec"><span class="n">240</span><span class="l">Unit</span></div>
-              <div class="portfolio__featured-spec"><span class="n">32K</span><span class="l">m² maydon</span></div>
+              <div class="portfolio__featured-spec"><span class="n">32K</span><span class="l">m²</span></div>
             </div>
             <div class="portfolio__featured-price">
               <span class="l">Ijaraga</span>
@@ -169,36 +136,36 @@
         <div class="portfolio__grid">
           <div class="b-card" @click="navigateTo('/buildings/trillant-tower')">
             <div class="b-card__media">
-              <img :src="img('/buildings/real_nest-one.jpg')" alt="Trillant Tower" />
+              <img src="/buildings/bc-finance.jpg" alt="Trillant Tower" />
               <div class="b-card__overlay"></div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">02</div>
-              <h4 class="b-card__name">Trillant Tower</h4>
+              <h4 class="b-card__name font-heading">Trillant Tower</h4>
               <p class="b-card__addr"><MapPin :size="12" /> Yashnabad</p>
               <div class="b-card__price">18 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
           <div class="b-card" @click="navigateTo('/buildings/city-plaza')">
             <div class="b-card__media">
-              <img :src="img('/buildings/real_finance-center.jpg')" alt="City Plaza" />
+              <img src="/buildings/bc-city-plaza.jpg" alt="City Plaza" />
               <div class="b-card__overlay"></div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">03</div>
-              <h4 class="b-card__name">City Plaza</h4>
+              <h4 class="b-card__name font-heading">City Plaza</h4>
               <p class="b-card__addr"><MapPin :size="12" /> Yakkasaray</p>
               <div class="b-card__price">12 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
           <div class="b-card" @click="navigateTo('/buildings/green-park-office')">
             <div class="b-card__media">
-              <img :src="img('/buildings/real_tashkent-street.jpg')" alt="Logistics Center" />
+              <img src="/buildings/bc-logistics.jpg" alt="Logistics Center" />
               <div class="b-card__overlay"></div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">04</div>
-              <h4 class="b-card__name">Logistika Markaz</h4>
+              <h4 class="b-card__name font-heading">Logistika Markaz</h4>
               <p class="b-card__addr"><MapPin :size="12" /> Sergeli</p>
               <div class="b-card__price">8 000 000 UZS<span>/oy</span></div>
             </div>
@@ -213,14 +180,13 @@
       </div>
     </section>
 
-
-    <!-- HOW IT WORKS -->
+    <!-- ═══ HOW IT WORKS ═══ -->
     <section id="how" class="how">
       <div class="container">
         <div class="how__head">
           <div class="eyebrow">JARAYON</div>
-          <h2 class="section-title">To'rt qadam — ofisdan shartnomagacha</h2>
-          <p class="section-sub">Qidirishdan boshlab, raqamli imzo orqali shartnoma imzolashgacha — barchasi onlayn.</p>
+          <h2 class="section-title font-heading">To'rt qadam — ofisdan shartnomagacha</h2>
+          <p class="section-sub">Qidirishdan boshlab, ERI orqali shartnoma imzolashgacha — barchasi onlayn.</p>
         </div>
         <div class="how__steps">
           <div class="step">
@@ -228,7 +194,7 @@
               <div class="step__num">01</div>
               <div class="step__icon"><Search :size="22" /></div>
             </div>
-            <h4 class="step__title">Qidirish</h4>
+            <h4 class="step__title font-heading">Qidirish</h4>
             <p class="step__text">Katalogda binoni, qavatni va maydonni tanlang. Interaktiv qavat rejasi orqali bo'sh unitlarni ko'ring.</p>
           </div>
           <div class="step__connector"></div>
@@ -237,7 +203,7 @@
               <div class="step__num">02</div>
               <div class="step__icon"><FileText :size="22" /></div>
             </div>
-            <h4 class="step__title">Ariza</h4>
+            <h4 class="step__title font-heading">Ariza</h4>
             <p class="step__text">Maydon turini, muddatni va boshlang'ich sanani ko'rsating. Operator 24 soat ichida javob beradi.</p>
           </div>
           <div class="step__connector"></div>
@@ -246,7 +212,7 @@
               <div class="step__num">03</div>
               <div class="step__icon"><ShieldCheck :size="22" /></div>
             </div>
-            <h4 class="step__title">Raqamli imzo</h4>
+            <h4 class="step__title font-heading">ERI imzo</h4>
             <p class="step__text">Shartnoma elektron raqamli imzo orqali xavfsiz imzolanadi. Qog'oz hujjatlar kerak emas.</p>
           </div>
           <div class="step__connector"></div>
@@ -255,165 +221,90 @@
               <div class="step__num">04</div>
               <div class="step__icon"><KeyRound :size="22" /></div>
             </div>
-            <h4 class="step__title">Boshqaruv</h4>
+            <h4 class="step__title font-heading">Boshqaruv</h4>
             <p class="step__text">Shaxsiy kabinetingizdan invoyslar, xizmat so'rovlari va hisoblagichlarni boshqaring.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FEATURES -->
+    <!-- ═══ FEATURES ═══ -->
     <section id="features" class="features">
       <div class="container">
         <div class="features__head">
           <div class="eyebrow">PLATFORMA</div>
-          <h2 class="section-title">Binolar uchun yagona ekotizim</h2>
+          <h2 class="section-title font-heading">Binolar uchun yagona ekotizim</h2>
           <p class="section-sub">Boshqaruv, moliya, texnik xizmat va hisobotlar — bitta platformada.</p>
         </div>
         <div class="features__grid">
           <div class="feat">
-            <div class="feat__icon"><Building2 :size="20" /></div>
-            <h4 class="feat__title">Bino boshqaruvi</h4>
+            <div class="feat__icon feat__icon--navy"><Building2 :size="20" /></div>
+            <h4 class="feat__title font-heading">Bino boshqaruvi</h4>
             <p class="feat__text">Binolar, qavatlar va unitlarning to'liq katalogi. Interaktiv rejalar va gallereyalar.</p>
           </div>
           <div class="feat">
-            <div class="feat__icon"><FileText :size="20" /></div>
-            <h4 class="feat__title">Raqamli shartnoma</h4>
+            <div class="feat__icon feat__icon--blue"><FileText :size="20" /></div>
+            <h4 class="feat__title font-heading">ERI shartnoma</h4>
             <p class="feat__text">Elektron raqamli imzo orqali qonuniy kuchga ega shartnomalar — qog'azsiz va xavfsiz.</p>
           </div>
           <div class="feat">
-            <div class="feat__icon"><Wallet :size="20" /></div>
-            <h4 class="feat__title">Moliyaviy boshqaruv</h4>
+            <div class="feat__icon feat__icon--green"><Wallet :size="20" /></div>
+            <h4 class="feat__title font-heading">Moliyaviy boshqaruv</h4>
             <p class="feat__text">Invoyslar, to'lovlar, qarzdorlik va moliyaviy davrlarni avtomatlashtirilgan boshqaruv.</p>
           </div>
           <div class="feat">
-            <div class="feat__icon"><Wrench :size="20" /></div>
-            <h4 class="feat__title">Texnik xizmat</h4>
-            <p class="feat__text">Xizmat so'rovlari, ish buyruqlari va materiallar bilan to'liq ekspluatatsiya sikli.</p>
+            <div class="feat__icon feat__icon--amber"><Wrench :size="20" /></div>
+            <h4 class="feat__title font-heading">Texnik xizmat</h4>
+            <p class="feat__text">Xizmat so'rovlari, ish buyruqlari va materiallar boshqaruvi — SLA nazorati bilan.</p>
           </div>
           <div class="feat">
-            <div class="feat__icon"><BarChart3 :size="20" /></div>
-            <h4 class="feat__title">Analitika</h4>
-            <p class="feat__text">Ijrochi va bino darajasidagi dashbordlar. Bandlik, daromad va qarzdorlik monitoringi.</p>
+            <div class="feat__icon feat__icon--purple"><BarChart3 :size="20" /></div>
+            <h4 class="feat__title font-heading">Hisobotlar</h4>
+            <p class="feat__text">Ish stoli, moliyaviy va operatsion hisobotlar — real vaqtda tahlil.</p>
           </div>
           <div class="feat">
-            <div class="feat__icon"><Bell :size="20" /></div>
-            <h4 class="feat__title">Bildirishnomalar</h4>
-            <p class="feat__text">Avtomatik xabarnoma tizimi — ariza holati, to'lov muddati va xizmat yangiliklari.</p>
+            <div class="feat__icon feat__icon--rose"><Bell :size="20" /></div>
+            <h4 class="feat__title font-heading">Bildirishnomalar</h4>
+            <p class="feat__text">Avtomatik eslatmalar, push-xabarnomalar va SLA monitoringi.</p>
           </div>
         </div>
       </div>
     </section>
 
-
-    <!-- WHY MAKON -->
-    <section class="why">
+    <!-- ═══ CTA ═══ -->
+    <section class="cta-section">
       <div class="container">
-        <div class="why__head">
-          <div class="eyebrow">AFZALLIK</div>
-          <h2 class="section-title">Nima uchun MAKON?</h2>
-          <p class="section-sub">An'anaviy boshqaruvdan farqli o'laroq — bizning platformamiz barcha jarayonlarni avtomatlashtiradi.</p>
-        </div>
-        <div class="why__grid">
-          <div class="why__card" data-reveal>
-            <div class="why__num">01</div>
-            <div class="why__icon"><Zap :size="22" /></div>
-            <h4 class="why__title">Avtomatlashtirish</h4>
-            <p class="why__text">Status o'zgarishi avtomatik marketplace'ga sinxronlashadi. Qo'lda hech narsa qilish shart emas.</p>
+        <div class="cta-box">
+          <div class="cta-box__bg">
+            <img :src="img('/buildings/real_tashkent-night.jpg')" alt="" class="cta-box__img" />
+            <div class="cta-box__overlay"></div>
           </div>
-          <div class="why__card" data-reveal>
-            <div class="why__num">02</div>
-            <div class="why__icon"><Shield :size="22" /></div>
-            <h4 class="why__title">Xavfsizlik</h4>
-            <p class="why__text">Raqamli imzo orqali qonuniy kuchga ega shartnomalar. Ma'lumotlar himoyasi — eng yuqori darajada.</p>
-          </div>
-          <div class="why__card" data-reveal>
-            <div class="why__num">03</div>
-            <div class="why__icon"><Globe :size="22" /></div>
-            <h4 class="why__title">Hammasi bir joyda</h4>
-            <p class="why__text">Bino, moliya, texnik xizmat, hisobotlar — 51 sahifa, 18 modul, bitta platforma.</p>
-          </div>
-          <div class="why__card" data-reveal>
-            <div class="why__num">04</div>
-            <div class="why__icon"><Users :size="22" /></div>
-            <h4 class="why__title">Rol asosida</h4>
-            <p class="why__text">5 rol: super admin, bino menejeri, buxgalter, texnik xizmat, ijarachi. Har kim faqat o'ziga tegishli ma'lumotni ko'radi.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section class="testimonials">
-      <div class="container">
-        <div class="testimonials__head">
-          <div class="eyebrow">FIKRLAR</div>
-          <h2 class="section-title">Biznes rahbarlarining fikrlari</h2>
-          <p class="section-sub">MAKON platformasidan foydalanayotgan mijozlarimiz tajribasi.</p>
-        </div>
-        <div class="testimonials__grid">
-          <div class="testimonial">
-            <div class="testimonial__quote">"MAKON platformasiga o'tganimizdan beri boshqaruv jarayonlari 3 baravar tezlashdi. Raqamli shartnoma imzolash endi soniyalar ichida."</div>
-            <div class="testimonial__author">
-              <div class="testimonial__avatar">AJ</div>
-              <div>
-                <div class="testimonial__name">Akmal Jumayev</div>
-                <div class="testimonial__role">Bosh direktor, Tashkent City Management</div>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial__quote">"Invoyslar va to'lovlarni avtomatlashtirish bizga oyiga 40 soat vaqtni tejadi. Qarzdorlik monitoringi — ajoyib funksiya."</div>
-            <div class="testimonial__author">
-              <div class="testimonial__avatar">SR</div>
-              <div>
-                <div class="testimonial__name">Saida Rahimova</div>
-                <div class="testimonial__role">Bosh buxgalter, Trillant Tower</div>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial">
-            <div class="testimonial__quote">"Xizmat so'rovlari va ish buyruqlari endi bir tizimda. Texnik xizmat ko'rsatish samaradorligi sezilarli oshdi."</div>
-            <div class="testimonial__author">
-              <div class="testimonial__avatar">BK</div>
-              <div>
-                <div class="testimonial__name">Bekzod Karimov</div>
-                <div class="testimonial__role">Texnik direktor, City Plaza</div>
-              </div>
+          <div class="cta-box__content">
+            <h2 class="cta-box__title font-heading">Boshqaruvni boshlang</h2>
+            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring. Demo versiyani bepul sinab ko'ring.</p>
+            <div class="cta-box__actions">
+              <NuxtLink to="/register/eri" class="cta-box__btn">
+                Ro'yxatdan o'tish <ArrowRight :size="16" />
+              </NuxtLink>
+              <a href="mailto:info@makon.uz" class="cta-box__link">Bog'lanish</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta">
-      <div class="container">
-        <div class="cta__inner">
-          <h2 class="cta__title">Obyektingizni MAKON ga qo'shing</h2>
-          <p class="cta__sub">Binolaringizni raqamli boshqaruvga o'tkazing — onboarding, integratsiya va qo'llab-quvvatlash bizdan.</p>
-          <div class="cta__actions">
-            <NuxtLink to="/register/eri" class="cta__btn">
-              Ro'yxatdan o'tish <ArrowRight :size="16" />
-            </NuxtLink>
-            <a href="mailto:info@makon.uz" class="cta__link">Biz bilan bog'lanish</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
+    <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
       <div class="container">
         <div class="footer__top">
           <div class="footer__brand">
-            <div class="footer__logo">M</div>
-            <div>
-              <div class="footer__name">MAKON</div>
-              <div class="footer__tag">Binolarning raqamli boshqaruvi</div>
+            <div class="footer__logo">
+              <div class="nav__logo">M</div>
+              <span>MAKON</span>
             </div>
+            <p class="footer__tag">Toshkentning premium ko'chmas mulk boshqaruv platformasi.</p>
           </div>
-          <div class="footer__links">
+          <div class="footer__cols">
             <div class="footer__col">
               <div class="footer__col-title">Platforma</div>
               <NuxtLink to="/catalog">Katalog</NuxtLink>
@@ -452,9 +343,8 @@ const { img } = useImg()
 import { ref, onMounted, onUnmounted } from 'vue'
 import {
   ArrowRight, MapPin, Search, FileText, ShieldCheck, KeyRound,
-  Building2, Wallet, Wrench, BarChart3, Bell, ChevronDown,
-  Star, Quote
-, Layers, TrendingUp } from 'lucide-vue-next'
+  Building2, Wallet, Wrench, BarChart3, Bell
+} from 'lucide-vue-next'
 
 const scrolled = ref(false)
 const searchQuery = ref('')
@@ -466,8 +356,8 @@ function doSearch() {
   if (searchType.value) params.set('type', searchType.value)
   navigateTo('/catalog' + (params.toString() ? '?' + params.toString() : ''))
 }
-let ticking = false
 
+let ticking = false
 function onScroll() {
   if (!ticking) {
     requestAnimationFrame(() => {
@@ -478,66 +368,17 @@ function onScroll() {
   }
 }
 
-// Scroll-triggered animations
-let observer: IntersectionObserver | null = null
-
 onMounted(() => {
   window.addEventListener('scroll', onScroll, { passive: true })
-  
-  observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('reveal-in')
-        observer?.unobserve(e.target)
-      }
-    })
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' })
-  
-  // Observe all section children
-  document.querySelectorAll('.portfolio__head, .portfolio__featured, .b-card, .step, .feat, .stats-band__item, .testimonial, .trust__logo').forEach(el => {
-    el.classList.add('reveal')
-    observer?.observe(el)
-  })
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
-  observer?.disconnect()
 })
-// Animated counters
-onMounted(() => {
-  const counters = document.querySelectorAll('[data-count]')
-  const animateCounter = (el: Element) => {
-    const target = parseInt((el as HTMLElement).dataset.count || '0')
-    const suffix = (el as HTMLElement).dataset.suffix || ''
-    const duration = 1500
-    const start = performance.now()
-    const step = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      const value = Math.round(eased * target)
-      ;(el as HTMLElement).textContent = value.toLocaleString('ru-RU') + suffix
-      if (progress < 1) requestAnimationFrame(step)
-    }
-    requestAnimationFrame(step)
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target)
-        observer.unobserve(entry.target)
-      }
-    })
-  }, { threshold: 0.5 })
-
-  counters.forEach(c => observer.observe(c))
-})
-
 </script>
 
 <style scoped>
-/*  BASE  */
+/* ═══ BASE ═══ */
 .landing {
   scroll-behavior: smooth;
   background: var(--bg);
@@ -548,53 +389,53 @@ onMounted(() => {
   margin: 0 auto;
   padding: 0 24px;
 }
+.font-heading {
+  font-family: 'Sora', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
 .eyebrow {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--accent);
   text-transform: uppercase;
   margin-bottom: 12px;
 }
 .section-title {
-  font-size: 38px;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-size: 40px;
+  font-weight: 700;
   color: var(--text);
-  line-height: 1.15;
-  margin-bottom: 14px;
-  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.1;
 }
 .section-sub {
   font-size: 16px;
   color: var(--text-secondary);
+  max-width: 540px;
   line-height: 1.6;
-  text-align: center;
-  max-width: 560px;
-  margin: 0 auto;
 }
 
-/*  NAV  */
+/* ═══ NAV ═══ */
 .nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  transition: all 0.3s;
+  padding: 18px 0;
+  transition: all 0.3s ease;
 }
 .nav--scrolled {
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-.dark .nav--scrolled {
-  background: rgba(10,15,30,0.92);
+  padding: 12px 0;
+  background: rgba(8, 12, 24, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .nav__inner {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 18px 24px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -604,59 +445,72 @@ onMounted(() => {
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: white;
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: -0.02em;
 }
-.nav--scrolled .nav__brand { color: var(--text); }
 .nav__logo {
-  width: 32px; height: 32px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%);
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-weight: 800; font-size: 16px;
-  box-shadow: 0 2px 8px rgba(0,102,255,0.3);
+  background: linear-gradient(135deg, #2563EB, #60A5FA);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: white;
+  font-family: 'Sora', sans-serif;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+.nav__brand-text {
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  font-family: 'Sora', sans-serif;
 }
 .nav__links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
 }
 .nav__link {
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  transition: opacity 0.2s;
+  transition: color 0.2s;
 }
-.nav--scrolled .nav__link { color: var(--text-secondary); }
-.nav__link:hover { opacity: 0.7; }
+.nav__link:hover {
+  color: white;
+}
+.nav--scrolled .nav__link {
+  color: rgba(255,255,255,0.7);
+}
 .nav__right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 .nav__btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 9px 18px;
+  padding: 8px 18px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
   color: white;
-  text-decoration: none;
   font-size: 13px;
   font-weight: 600;
-  box-shadow: 0 2px 12px rgba(0,102,255,0.3);
+  text-decoration: none;
   transition: all 0.2s;
 }
 .nav__btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0,102,255,0.4);
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.25);
 }
 
-/*  HERO  */
+/* ═══ HERO ═══ */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -664,149 +518,123 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 100px 24px 40px;
   text-align: center;
-  padding-top: 80px;
 }
 .hero__bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 .hero__bg-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.05);
 }
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,12,30,0.55) 0%, rgba(0,12,30,0.35) 50%, rgba(0,12,30,0.7) 100%);
+  background: linear-gradient(180deg, rgba(8,12,24,0.65) 0%, rgba(8,12,24,0.45) 40%, rgba(8,12,24,0.75) 100%);
 }
-.hero__center {
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.hero__content {
   position: relative;
   z-index: 1;
-  max-width: 720px;
-  padding: 0 24px 40px;
-  text-align: center;
-  margin: 0 auto;
+  max-width: 760px;
+  width: 100%;
 }
-.hero__cta {
+.hero__badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 14px 32px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.95);
-  color: #0F172A;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.25s;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-}
-.hero__cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-  background: #fff;
-}
-.hero__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 14px 24px;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
   color: rgba(255,255,255,0.9);
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
-  text-decoration: none;
-  transition: color 0.2s;
+  margin-bottom: 28px;
 }
-.hero__link:hover {
-  color: white;
+.hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ADE80;
+  box-shadow: 0 0 8px rgba(74,222,128,0.6);
 }
-.hero__actions {
-  margin-top: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-}
-.hero__trust {
-  margin-top: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-}
-.hero__trust-item {
-  text-align: center;
-}
-.hero__trust-n {
-  font-size: 24px;
+.hero__title {
+  font-size: 64px;
   font-weight: 800;
   color: white;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
 }
-.hero__trust-l {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  margin-top: 2px;
+.hero__title-accent {
+  background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.hero__trust-line {
-  width: 1px;
-  height: 32px;
-  background: rgba(255,255,255,0.15);
+.hero__lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 36px;
 }
 
-/* SEARCH SECTION — below hero */
-/* SEARCH BAR — bottom of hero, Zillow/Airbnb style */
-.hero-search-bar {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 860px;
-  padding: 0 24px 60px;
-  margin: 0 auto;
-}
-.hero-search-bar__inner {
+/* ═══ HERO SEARCH ═══ */
+.hero__search {
   display: flex;
   align-items: stretch;
-  background: rgba(255,255,255,0.98);
+  background: rgba(255,255,255,0.96);
   border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
-  backdrop-filter: blur(12px);
   overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25), 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
 }
-.hero-search-bar__field {
+.hero__search-field {
   display: flex;
   align-items: center;
   flex: 1;
-  padding: 0 16px;
+  padding: 0 18px;
   min-width: 0;
 }
-.hero-search-bar__field--select {
-  max-width: 180px;
+.hero__search-field--type {
+  max-width: 200px;
 }
-.hero-search-bar__icon {
-  color: #64748b;
+.hero__search-icon {
+  color: #94A3B8;
   flex-shrink: 0;
 }
-.hero-search-bar__input {
+.hero__search-input {
   flex: 1;
   border: none;
   outline: none;
-  padding: 16px 12px;
+  padding: 18px 14px;
   font-size: 15px;
   background: transparent;
   color: #0F172A;
   min-width: 0;
+  font-family: 'Inter', sans-serif;
 }
-.hero-search-bar__input::placeholder {
-  color: #94a3b8;
+.hero__search-input::placeholder {
+  color: #94A3B8;
 }
-.hero-search-bar__select {
+.hero__search-select {
   border: none;
   outline: none;
-  padding: 16px 8px;
+  padding: 18px 28px 18px 8px;
   font-size: 15px;
   background: transparent;
   color: #0F172A;
@@ -814,240 +642,268 @@ onMounted(() => {
   width: 100%;
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 28px;
+  background-position: right 6px center;
+  font-family: 'Inter', sans-serif;
 }
-.hero-search-bar__divider {
+.hero__search-sep {
   width: 1px;
   background: #E2E8F0;
   flex-shrink: 0;
 }
-.hero-search-bar__btn {
+.hero__search-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 28px;
-  background: #2563EB;
+  justify-content: center;
+  padding: 0 24px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
   color: white;
   border: none;
-  font-size: 15px;
-  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
-.hero-search-bar__btn:hover {
-  background: #1D4ED8;
+.hero__search-btn:hover {
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
 }
-.hero__badge {
+
+/* ═══ HERO CHIPS ═══ */
+.hero__chips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.hero__chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 4px;
+  padding: 8px 16px;
   border-radius: 100px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.9);
-  font-size: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
   font-weight: 500;
-  margin-bottom: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.hero__title {
-  font-size: 56px;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.08;
+.hero__chip:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.2);
   color: white;
-  margin-bottom: 18px;
-  text-shadow: 0 2px 30px rgba(0,0,0,0.2);
 }
-.hero__lead {
-  font-size: 17px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 0;
+.hero__chip--accent {
+  background: rgba(96,165,250,0.15);
+  border-color: rgba(96,165,250,0.3);
+  color: #93C5FD;
+}
+.hero__chip--accent:hover {
+  background: rgba(96,165,250,0.25);
+  color: #BFDBFE;
 }
 
+/* ═══ HERO STATS ═══ */
+.hero__stats {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 48px;
+}
+.hero__stat-n {
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+  font-family: 'Sora', sans-serif;
+  letter-spacing: -0.02em;
+}
+.hero__stat-l {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+  font-weight: 500;
+}
+.hero__stat-sep {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.12);
+}
 
-
-/*  PORTFOLIO  */
+/* ═══ PORTFOLIO ═══ */
 .portfolio {
   padding: 100px 0;
-  scroll-margin-top: 80px;
 }
 .portfolio__head {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
+}
+.portfolio__head .eyebrow,
+.portfolio__head .section-title,
+.portfolio__head .section-sub {
+  margin-left: auto;
+  margin-right: auto;
 }
 .portfolio__featured {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 0;
+  display: flex;
   border-radius: 24px;
   overflow: hidden;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   cursor: pointer;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   transition: all 0.3s;
 }
 .portfolio__featured:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
 }
 .portfolio__featured-media {
+  width: 55%;
   position: relative;
-  height: 420px;
   overflow: hidden;
 }
 .portfolio__featured-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s;
+  transition: transform 0.4s;
 }
 .portfolio__featured:hover .portfolio__featured-media img {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 .portfolio__featured-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 60%, rgba(0,0,0,0.1) 100%);
+  background: linear-gradient(135deg, rgba(8,12,24,0.1) 0%, transparent 50%);
 }
 .portfolio__featured-badge {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 16px;
+  left: 16px;
   padding: 5px 12px;
-  border-radius: 6px;
-  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%);
-  color: white;
-  font-size: 10px;
+  border-radius: 100px;
+  background: rgba(8,12,24,0.8);
+  backdrop-filter: blur(8px);
+  color: #FCD34D;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
 .portfolio__featured-info {
-  padding: 40px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: none;
-  border-radius: 0 24px 24px 0;
+  width: 45%;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .portfolio__featured-num {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--text-muted);
   letter-spacing: 0.1em;
-  margin-bottom: 8px;
 }
 .portfolio__featured-name {
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: 28px;
+  font-weight: 700;
   color: var(--text);
-  margin-bottom: 8px;
+  margin: 8px 0 6px;
 }
 .portfolio__featured-addr {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   font-size: 14px;
   color: var(--text-secondary);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .portfolio__featured-specs {
   display: flex;
-  gap: 28px;
-  margin-bottom: 24px;
-  padding: 16px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  gap: 24px;
+  margin-bottom: 20px;
 }
 .portfolio__featured-spec .n {
   display: block;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text);
+  font-family: 'Sora', sans-serif;
 }
 .portfolio__featured-spec .l {
   font-size: 12px;
   color: var(--text-muted);
 }
 .portfolio__featured-price {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
   margin-bottom: 20px;
 }
 .portfolio__featured-price .l {
+  display: block;
   font-size: 12px;
   color: var(--text-muted);
+  margin-bottom: 4px;
 }
 .portfolio__featured-price .v {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--text);
+  font-family: 'Sora', sans-serif;
 }
 .portfolio__featured-price .u {
   font-size: 13px;
+  font-weight: 500;
   color: var(--text-muted);
-  font-weight: 400;
 }
 .portfolio__featured-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 12px 22px;
+  padding: 10px 20px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%);
+  background: var(--accent);
   color: white;
-  border: none;
   font-size: 14px;
   font-weight: 600;
+  border: none;
   cursor: pointer;
-  align-self: flex-start;
-  box-shadow: 0 2px 12px rgba(0,102,255,0.25);
   transition: all 0.2s;
+  width: fit-content;
 }
 .portfolio__featured-btn:hover {
+  background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0,102,255,0.35);
 }
-
 .portfolio__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-bottom: 48px;
 }
 .b-card {
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
-  background: var(--bg-card);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
   transition: all 0.3s;
 }
 .b-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
-  border-color: var(--accent-border);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  transform: translateY(-3px);
 }
 .b-card__media {
   position: relative;
-  height: 240px;
+  height: 200px;
   overflow: hidden;
 }
 .b-card__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s;
+  transition: transform 0.4s;
 }
 .b-card:hover .b-card__media img {
   transform: scale(1.06);
@@ -1055,24 +911,22 @@ onMounted(() => {
 .b-card__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3) 100%);
+  background: linear-gradient(180deg, transparent 60%, rgba(8,12,24,0.4) 100%);
 }
 .b-card__info {
-  padding: 20px 24px 24px;
+  padding: 20px;
 }
 .b-card__num {
   font-size: 11px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--text-muted);
   letter-spacing: 0.1em;
-  margin-bottom: 6px;
 }
 .b-card__name {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 4px;
-  letter-spacing: -0.02em;
+  margin: 4px 0 4px;
 }
 .b-card__addr {
   display: flex;
@@ -1083,17 +937,19 @@ onMounted(() => {
   margin-bottom: 12px;
 }
 .b-card__price {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--accent);
+  font-family: 'Sora', sans-serif;
 }
 .b-card__price span {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--text-muted);
 }
 .portfolio__all {
   text-align: center;
+  margin-top: 40px;
 }
 .btn-all {
   display: inline-flex;
@@ -1101,214 +957,231 @@ onMounted(() => {
   gap: 8px;
   padding: 14px 32px;
   border-radius: 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-strong);
-  color: var(--text);
-  text-decoration: none;
-  font-size: 14px;
+  background: var(--text);
+  color: white;
+  font-size: 15px;
   font-weight: 600;
+  text-decoration: none;
   transition: all 0.2s;
 }
 .btn-all:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
-/*  HOW  */
+/* ═══ HOW IT WORKS ═══ */
 .how {
   padding: 100px 0;
   background: var(--bg-subtle);
-  scroll-margin-top: 80px;
 }
 .how__head {
   text-align: center;
   margin-bottom: 56px;
 }
+.how__head .section-title,
+.how__head .section-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
 .how__steps {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: stretch;
   gap: 0;
 }
 .step {
   flex: 1;
-  max-width: 240px;
-  text-align: center;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 .step__top {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 .step__num {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-subtle);
-  padding: 4px 10px;
-  border-radius: 6px;
-  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  font-family: 'Sora', sans-serif;
 }
 .step__icon {
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+  border: 1px solid var(--border-accent);
 }
 .step__title {
   font-size: 18px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 8px;
-  letter-spacing: -0.02em;
 }
 .step__text {
   font-size: 14px;
-  line-height: 1.55;
   color: var(--text-secondary);
+  line-height: 1.6;
 }
 .step__connector {
-  flex: 0 0 40px;
+  width: 40px;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 24px;
+  flex-shrink: 0;
+}
+.step__connector::after {
+  content: '';
+  width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-border), transparent);
-  margin-top: 24px;
+  background: linear-gradient(90deg, var(--border-strong), var(--border));
 }
 
-/*  FEATURES  */
+/* ═══ FEATURES ═══ */
 .features {
   padding: 100px 0;
-  scroll-margin-top: 80px;
 }
 .features__head {
   text-align: center;
   margin-bottom: 56px;
 }
+.features__head .section-title,
+.features__head .section-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
 .features__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
 .feat {
-  padding: 32px 28px;
+  padding: 28px;
   border-radius: 20px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   transition: all 0.3s;
 }
 .feat:hover {
-  border-color: var(--accent-border, rgba(37,99,235,0.2));
-  box-shadow: 0 8px 32px rgba(37,99,235,0.08), 0 2px 8px rgba(0,0,0,0.04);
-  transform: translateY(-4px);
-}
-.feat:hover .feat__icon {
-  transform: scale(1.1) rotate(-4deg);
-}
-.feat__icon {
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border-color: var(--border-accent);
+  box-shadow: 0 8px 32px rgba(37,99,235,0.06);
+  transform: translateY(-2px);
 }
 .feat__icon {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: var(--accent-subtle);
-  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
 }
+.feat__icon--navy { background: rgba(37,99,235,0.08); color: #2563EB; }
+.feat__icon--blue { background: rgba(59,130,246,0.08); color: #3B82F6; }
+.feat__icon--green { background: rgba(5,150,105,0.08); color: #059669; }
+.feat__icon--amber { background: rgba(217,119,6,0.08); color: #D97706; }
+.feat__icon--purple { background: rgba(139,92,246,0.08); color: #8B5CF6; }
+.feat__icon--rose { background: rgba(244,63,94,0.08); color: #F43F5E; }
 .feat__title {
   font-size: 17px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 8px;
-  letter-spacing: -0.02em;
 }
 .feat__text {
   font-size: 14px;
-  line-height: 1.6;
   color: var(--text-secondary);
+  line-height: 1.6;
 }
 
-/*  CTA  */
-.cta {
-  padding: 80px 0;
+/* ═══ CTA ═══ */
+.cta-section {
+  padding: 60px 0 100px;
 }
-.cta__inner {
-  text-align: center;
-  padding: 64px 40px;
-  border-radius: 28px;
-  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%);
-  border-radius: 28px;
+.cta-box {
   position: relative;
+  border-radius: 28px;
   overflow: hidden;
-}
-.cta__inner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 50%);
-}
-.cta__title {
-  font-size: 36px;
-  font-weight: 800;
-  color: white;
-  letter-spacing: -0.03em;
-  margin-bottom: 12px;
-  position: relative;
-}
-.cta__sub {
-  font-size: 17px;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 32px;
-  position: relative;
-}
-.cta__actions {
+  min-height: 340px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
 }
-.cta__btn {
+.cta-box__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.cta-box__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cta-box__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(8,12,24,0.85) 0%, rgba(8,12,24,0.65) 100%);
+}
+.cta-box__content {
+  position: relative;
+  z-index: 1;
+  padding: 48px;
+  max-width: 560px;
+}
+.cta-box__title {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.cta-box__text {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+.cta-box__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.cta-box__btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 14px 28px;
   border-radius: 12px;
   background: white;
-  color: #0066FF;
-  text-decoration: none;
+  color: #0F172A;
   font-size: 15px;
-  font-weight: 700;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  font-weight: 600;
+  text-decoration: none;
   transition: all 0.2s;
 }
-.cta__btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(37,99,235,0.5);
+.cta-box__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255,255,255,0.2);
 }
-.cta__link {
-  color: rgba(255,255,255,0.9);
-  text-decoration: none;
+.cta-box__link {
+  color: rgba(255,255,255,0.7);
   font-size: 14px;
   font-weight: 500;
+  text-decoration: none;
   border-bottom: 1px solid rgba(255,255,255,0.3);
   padding-bottom: 2px;
+  transition: all 0.2s;
 }
-.cta__link:hover { color: white; border-bottom-color: white; }
+.cta-box__link:hover {
+  color: white;
+  border-bottom-color: white;
+}
 
-/*  FOOTER  */
+/* ═══ FOOTER ═══ */
 .footer {
   padding: 64px 0 32px;
   border-top: 1px solid var(--border);
@@ -1317,32 +1190,29 @@ onMounted(() => {
 .footer__top {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
 }
 .footer__brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  max-width: 280px;
 }
 .footer__logo {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%);
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-weight: 800; font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
 }
-.footer__name {
-  font-weight: 800;
+.footer__logo span {
+  font-weight: 700;
   font-size: 18px;
   color: var(--text);
-  letter-spacing: -0.02em;
+  font-family: 'Sora', sans-serif;
 }
 .footer__tag {
-  font-size: 13px;
-  color: var(--text-muted);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
-.footer__links {
+.footer__cols {
   display: flex;
   gap: 64px;
 }
@@ -1355,8 +1225,8 @@ onMounted(() => {
   font-size: 12px;
   font-weight: 700;
   color: var(--text);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
+  letter-spacing: 0.1em;
   margin-bottom: 4px;
 }
 .footer__col a {
@@ -1365,12 +1235,14 @@ onMounted(() => {
   text-decoration: none;
   transition: color 0.2s;
 }
-.footer__col a:hover { color: var(--accent); }
+.footer__col a:hover {
+  color: var(--accent);
+}
 .footer__bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 24px;
+  padding-top: 28px;
   border-top: 1px solid var(--border);
   font-size: 13px;
   color: var(--text-muted);
@@ -1381,239 +1253,27 @@ onMounted(() => {
   gap: 8px;
 }
 
-/*  RESPONSIVE  */
-@media (max-width: 900px) {
-  .hero__title { font-size: 42px; }
-  .portfolio__featured { grid-template-columns: 1fr; }
-  .portfolio__featured-info { border-radius: 0 0 24px 24px; border: 1px solid var(--border); }
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .hero__title { font-size: 38px; }
+  .hero__lead { font-size: 16px; }
+  .hero__search { flex-direction: column; border-radius: 20px; }
+  .hero__search-sep { width: 100%; height: 1px; }
+  .hero__search-field--type { max-width: 100%; }
+  .hero__search-btn { padding: 16px; }
+  .hero__stats { flex-wrap: wrap; gap: 16px; }
+  .hero__stat-sep { display: none; }
+  .section-title { font-size: 28px; }
+  .portfolio__featured { flex-direction: column; }
+  .portfolio__featured-media, .portfolio__featured-info { width: 100%; }
   .portfolio__grid { grid-template-columns: 1fr; }
   .features__grid { grid-template-columns: 1fr; }
-  .how__steps { flex-direction: column; gap: 32px; }
+  .how__steps { flex-direction: column; gap: 24px; }
   .step__connector { display: none; }
   .footer__top { flex-direction: column; gap: 32px; }
-  .footer__links { flex-wrap: wrap; gap: 32px; }
+  .footer__cols { flex-wrap: wrap; gap: 32px; }
   .nav__links { display: none; }
-  .section-title { font-size: 28px; }
-  .cta__title { font-size: 26px; }
+  .cta-box__content { padding: 32px; }
+  .cta-box__title { font-size: 26px; }
 }
-
-/*  SCROLL ANIMATIONS  */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.reveal-in {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-.b-card.reveal { transition-delay: 0.05s; }
-.b-card:nth-child(2).reveal { transition-delay: 0.12s; }
-.b-card:nth-child(3).reveal { transition-delay: 0.2s; }
-.step.reveal { transition-delay: 0.05s; }
-.step:nth-child(3).reveal { transition-delay: 0.1s; }
-.step:nth-child(5).reveal { transition-delay: 0.15s; }
-.step:nth-child(7).reveal { transition-delay: 0.2s; }
-.feat.reveal { transition-delay: 0.05s; }
-.feat:nth-child(2).reveal { transition-delay: 0.1s; }
-.feat:nth-child(3).reveal { transition-delay: 0.15s; }
-.feat:nth-child(4).reveal { transition-delay: 0.05s; }
-.feat:nth-child(5).reveal { transition-delay: 0.1s; }
-.feat:nth-child(6).reveal { transition-delay: 0.15s; }
-.testimonial.reveal { transition-delay: 0.05s; }
-.testimonial:nth-child(2).reveal { transition-delay: 0.12s; }
-.testimonial:nth-child(3).reveal { transition-delay: 0.2s; }
-.stats-band__item.reveal { transition-delay: 0.05s; }
-.trust__logo.reveal { transition-delay: 0.05s; }
-
-/*  TRUST BAR  */
-.trust {
-  padding: 36px 0 28px;
-  border-bottom: 1px solid var(--border, rgba(0,0,0,0.06));
-}
-.trust__label {
-  text-align: center;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted, #94a3b8);
-  margin-bottom: 20px;
-}
-.trust__logos {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 48px;
-  flex-wrap: wrap;
-}
-.trust__logo {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--text-muted, #94a3b8);
-  opacity: 0.6;
-  transition: opacity 0.3s, color 0.3s;
-  cursor: default;
-}
-.trust__logo:hover {
-  opacity: 1;
-  color: var(--text-secondary, #475569);
-}
-
-/*  STATS BAND  */
-.stats-band {
-  padding: 56px 0;
-  background: var(--bg-subtle, #f8fafc);
-}
-.stats-band__grid {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
-  align-items: center;
-  gap: 0;
-}
-.stats-band__item {
-  text-align: center;
-}
-.stats-band__num {
-  font-size: 40px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text, #18181b);
-  line-height: 1;
-}
-.stats-band__num span {
-  font-size: 22px;
-  color: var(--accent, #2563eb);
-  font-weight: 700;
-}
-.stats-band__label {
-  font-size: 13px;
-  color: var(--text-muted, #94a3b8);
-  margin-top: 8px;
-  font-weight: 500;
-}
-.stats-band__divider {
-  width: 1px;
-  height: 48px;
-  background: var(--border, rgba(0,0,0,0.08));
-  margin: 0 16px;
-}
-@media (max-width: 768px) {
-  .stats-band__grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-  .stats-band__divider { display: none; }
-  .stats-band__num { font-size: 30px; }
-}
-
-/*  TESTIMONIALS  */
-.testimonials {
-  padding: 100px 0;
-  background: var(--bg, #fff);
-}
-.testimonials__head {
-  text-align: center;
-  margin-bottom: 48px;
-}
-.testimonials__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.testimonial {
-  background: var(--bg-card, #fff);
-  border: 1px solid var(--border, rgba(0,0,0,0.06));
-  border-radius: 18px;
-  padding: 32px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-.testimonial:hover {
-  border-color: var(--accent-border, rgba(37,99,235,0.15));
-  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-  transform: translateY(-2px);
-}
-.testimonial::before {
-  content: '"';
-  position: absolute;
-  top: 20px;
-  left: 24px;
-  font-size: 48px;
-  font-weight: 800;
-  color: var(--accent, #2563eb);
-  opacity: 0.08;
-  line-height: 1;
-}
-.testimonial__quote {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-secondary, #52525b);
-  margin-bottom: 24px;
-  position: relative;
-  z-index: 1;
-}
-.testimonial__author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.testimonial__avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent, #2563eb), var(--accent-light, #3b82f6));
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-}
-.testimonial__name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text, #18181b);
-}
-.testimonial__role {
-  font-size: 12px;
-  color: var(--text-muted, #94a3b8);
-  margin-top: 2px;
-}
-@media (max-width: 768px) {
-  .testimonials__grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* PREMIUM STATS */
-.lp-stats { padding: 48px 0; background: var(--bg, #fafafa); border-top: 1px solid rgba(0,0,0,0.04); }
-.dark .lp-stats { background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.04); }
-.lp-stats__grid { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; }
-.lp-stat { flex: 1; min-width: 180px; text-align: center; padding: 16px 24px; }
-.lp-stat__icon { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: rgba(37,99,235,0.08); color: var(--accent, #2563EB); }
-.lp-stat__num { font-size: 36px; font-weight: 800; color: var(--text, #1a1a2e); line-height: 1; letter-spacing: -0.02em; }
-.lp-stat__label { font-size: 13px; color: var(--text-muted, #71717a); margin-top: 8px; }
-.lp-stat__divider { width: 1px; height: 60px; background: rgba(0,0,0,0.06); }
-.dark .lp-stat__divider { background: rgba(255,255,255,0.06); }
-@media (max-width: 768px) { .lp-stat__divider { display: none; } .lp-stats__grid { gap: 24px; } }
-
-
-/* WHY MAKON */
-.why { padding: 96px 0; }
-.why__head { text-align: center; margin-bottom: 56px; }
-.why__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.why__card { position: relative; padding: 32px 24px; border-radius: 20px; background: var(--card-bg, rgba(255,255,255,0.9)); border: 1px solid rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; overflow: hidden; }
-.why__card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent, #2563EB), transparent); opacity: 0; transition: opacity 0.3s; }
-.why__card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
-.why__card:hover::before { opacity: 1; }
-.why__num { position: absolute; top: 20px; right: 24px; font-size: 40px; font-weight: 900; color: rgba(37,99,235,0.06); line-height: 1; }
-.why__icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: rgba(37,99,235,0.08); color: var(--accent, #2563EB); margin-bottom: 18px; }
-.why__title { font-size: 17px; font-weight: 700; color: var(--text, #1a1a2e); margin-bottom: 10px; }
-.why__text { font-size: 13px; line-height: 1.6; color: var(--text-muted, #71717a); }
-@media (max-width: 768px) { .why__grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 480px) { .why__grid { grid-template-columns: 1fr; } }
-
 </style>
