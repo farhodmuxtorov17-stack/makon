@@ -293,6 +293,43 @@
     </section>
 
 
+    <!-- WHY MAKON -->
+    <section class="why">
+      <div class="container">
+        <div class="why__head">
+          <div class="eyebrow">AFZALLIK</div>
+          <h2 class="section-title">Nima uchun MAKON?</h2>
+          <p class="section-sub">An'anaviy boshqaruvdan farqli o'laroq — bizning platformamiz barcha jarayonlarni avtomatlashtiradi.</p>
+        </div>
+        <div class="why__grid">
+          <div class="why__card" data-reveal>
+            <div class="why__num">01</div>
+            <div class="why__icon"><Zap :size="22" /></div>
+            <h4 class="why__title">Avtomatlashtirish</h4>
+            <p class="why__text">Status o'zgarishi avtomatik marketplace'ga sinxronlashadi. Qo'lda hech narsa qilish shart emas.</p>
+          </div>
+          <div class="why__card" data-reveal>
+            <div class="why__num">02</div>
+            <div class="why__icon"><Shield :size="22" /></div>
+            <h4 class="why__title">Xavfsizlik</h4>
+            <p class="why__text">Raqamli imzo orqali qonuniy kuchga ega shartnomalar. Ma'lumotlar himoyasi — eng yuqori darajada.</p>
+          </div>
+          <div class="why__card" data-reveal>
+            <div class="why__num">03</div>
+            <div class="why__icon"><Globe :size="22" /></div>
+            <h4 class="why__title">Hammasi bir joyda</h4>
+            <p class="why__text">Bino, moliya, texnik xizmat, hisobotlar — 51 sahifa, 18 modul, bitta platforma.</p>
+          </div>
+          <div class="why__card" data-reveal>
+            <div class="why__num">04</div>
+            <div class="why__icon"><Users :size="22" /></div>
+            <h4 class="why__title">Rol asosida</h4>
+            <p class="why__text">5 rol: super admin, bino menejeri, buxgalter, texnik xizmat, ijarachi. Har kim faqat o'ziga tegishli ma'lumotni ko'radi.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- TESTIMONIALS -->
     <section class="testimonials">
       <div class="container">
@@ -1565,5 +1602,21 @@ onMounted(() => {
 .lp-stat__divider { width: 1px; height: 60px; background: rgba(0,0,0,0.06); }
 .dark .lp-stat__divider { background: rgba(255,255,255,0.06); }
 @media (max-width: 768px) { .lp-stat__divider { display: none; } .lp-stats__grid { gap: 24px; } }
+
+
+/* WHY MAKON */
+.why { padding: 96px 0; }
+.why__head { text-align: center; margin-bottom: 56px; }
+.why__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.why__card { position: relative; padding: 32px 24px; border-radius: 20px; background: var(--card-bg, rgba(255,255,255,0.9)); border: 1px solid rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; overflow: hidden; }
+.why__card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent, #2563EB), transparent); opacity: 0; transition: opacity 0.3s; }
+.why__card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.why__card:hover::before { opacity: 1; }
+.why__num { position: absolute; top: 20px; right: 24px; font-size: 40px; font-weight: 900; color: rgba(37,99,235,0.06); line-height: 1; }
+.why__icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: rgba(37,99,235,0.08); color: var(--accent, #2563EB); margin-bottom: 18px; }
+.why__title { font-size: 17px; font-weight: 700; color: var(--text, #1a1a2e); margin-bottom: 10px; }
+.why__text { font-size: 13px; line-height: 1.6; color: var(--text-muted, #71717a); }
+@media (max-width: 768px) { .why__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .why__grid { grid-template-columns: 1fr; } }
 
 </style>
