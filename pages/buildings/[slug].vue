@@ -77,6 +77,23 @@
       </div>
     </section>
 
+    <!--  3D CUTAWAY SHOWCASE  -->
+    <section class="showcase3d">
+      <div class="showcase3d__text">
+        <div class="eyebrow">RAQAMLI MODEL</div>
+        <h2 class="showcase3d__title">Bino ichki tuzilishini<br>to'liq ko'ring</h2>
+        <p class="showcase3d__sub">Har bir qavat, har bir xona — raqamli ikizda aniq aks etadi. Band va bo'sh maydonlarni bir qarashda aniqlang.</p>
+        <div class="showcase3d__stats">
+          <div class="showcase3d__stat"><span>{{ building.floors }}</span>Qavat</div>
+          <div class="showcase3d__stat"><span>{{ totalUnits }}</span>Xona/unit</div>
+          <div class="showcase3d__stat"><span>{{ occupancyPct }}%</span>Bandlik</div>
+        </div>
+      </div>
+      <div class="showcase3d__visual">
+        <img :src="img('/buildings/render_3d-cutaway.png')" alt="3D bino modeli" class="showcase3d__img" />
+      </div>
+    </section>
+
     <!--  INTERACTIVE FLOOR PICKER  -->
     <section class="picker">
       <div class="picker__head">
@@ -459,6 +476,21 @@ const vacantUnits = computed(() => building_floors.reduce((s, f) => s + f.units.
 .b-hero__spec-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.12); }
 
 /*  FLOOR PICKER  */
+.showcase3d { max-width: 1400px; margin: 0 auto; padding: 80px 48px 20px; display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: center; }
+.showcase3d__title { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1.18; margin: 8px 0 14px; font-family: 'Sora', sans-serif; }
+.showcase3d__sub { font-size: 15px; color: var(--text-muted); line-height: 1.6; max-width: 400px; }
+.showcase3d__stats { display: flex; gap: 28px; margin-top: 28px; }
+.showcase3d__stat { display: flex; flex-direction: column; font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.showcase3d__stat span { font-size: 26px; font-weight: 800; color: var(--text); letter-spacing: -0.03em; margin-bottom: 2px; font-family: 'Sora', sans-serif; }
+.showcase3d__visual { position: relative; border-radius: 28px; overflow: hidden; background: radial-gradient(ellipse at 50% 30%, rgba(37,99,235,0.08), transparent 60%), var(--bg-subtle); padding: 32px; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.18), 0 0 0 1px var(--border); }
+.showcase3d__img { width: 100%; height: auto; display: block; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.15)); }
+@media (max-width: 900px) {
+  .showcase3d { grid-template-columns: 1fr; padding: 56px 20px 0; gap: 32px; text-align: center; }
+  .showcase3d__sub { margin: 0 auto; }
+  .showcase3d__stats { justify-content: center; }
+  .showcase3d__title { font-size: 26px; }
+}
+
 .picker { max-width: 1400px; margin: 0 auto; padding: 80px 48px; }
 .picker__head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
 .picker__title { font-size: 32px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0; }

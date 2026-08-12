@@ -1,5 +1,9 @@
 <template>
-  <div class="auth">
+  <div class="auth-page">
+    <div class="auth-page__glow auth-page__glow--1"></div>
+    <div class="auth-page__glow auth-page__glow--2"></div>
+
+    <div class="auth">
     <div class="auth__visual">
       <img :src="img('/buildings/real_tashkent-night.jpg')" alt="Tashkent City" class="auth__visual-img" />
       <div class="auth__visual-grad"></div>
@@ -16,6 +20,10 @@
     </div>
 
     <div class="auth__form-side">
+      <NuxtLink to="/register" class="auth__form-back">
+        <ArrowLeft :size="14" /> Raqamni o'zgartirish
+      </NuxtLink>
+
       <div class="auth__form-wrap">
         <div class="auth__form-head">
           <div class="auth__step-badge">
@@ -68,19 +76,22 @@
             </button>
           </div>
 
-          <NuxtLink to="/register" class="auth__back">
-            <ArrowLeft :size="15" />
-            Raqamni o'zgartirish
-          </NuxtLink>
         </form>
+      </div>
+
+      <div class="auth__form-foot">
+        <div class="auth__form-foot-item"><ShieldCheck :size="13" /> Bank darajasidagi xavfsizlik</div>
+        <span class="auth__form-foot-dot">·</span>
+        <div class="auth__form-foot-item">Davlat standartiga muvofiq</div>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script setup lang="ts">
 const { img } = useImg()
-import { CheckCircle, AlertCircle, ArrowLeft } from 'lucide-vue-next'
+import { CheckCircle, AlertCircle, ArrowLeft, ShieldCheck } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })
 
