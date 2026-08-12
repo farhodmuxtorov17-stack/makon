@@ -149,16 +149,20 @@
           </div>
         </div>
 
-        <div class="portfolio__grid">
+        <div class="portfolio__grid portfolio__grid--wide">
           <div class="b-card" @click="navigateTo('/buildings/trillant-tower')">
             <div class="b-card__media">
               <img src="/buildings/bc-finance.jpg" alt="Trillant Tower" />
               <div class="b-card__overlay"></div>
+              <div class="b-card__badge">A-CLASS</div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">02</div>
               <h4 class="b-card__name font-heading">Trillant Tower</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Yashnabad</p>
+              <p class="b-card__addr"><MapPin :size="12" /> Yashnabad, Toshkent</p>
+              <div class="b-card__specs">
+                <span>14 qavat</span><span class="dot">·</span><span>180 unit</span><span class="dot">·</span><span>24K m²</span>
+              </div>
               <div class="b-card__price">18 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
@@ -166,24 +170,112 @@
             <div class="b-card__media">
               <img src="/buildings/bc-city-plaza.jpg" alt="City Plaza" />
               <div class="b-card__overlay"></div>
+              <div class="b-card__badge">B-CLASS</div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">03</div>
               <h4 class="b-card__name font-heading">City Plaza</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Yakkasaray</p>
+              <p class="b-card__addr"><MapPin :size="12" /> Yakkasaray, Toshkent</p>
+              <div class="b-card__specs">
+                <span>9 qavat</span><span class="dot">·</span><span>120 unit</span><span class="dot">·</span><span>15K m²</span>
+              </div>
               <div class="b-card__price">12 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
           <div class="b-card" @click="navigateTo('/buildings/green-park-office')">
             <div class="b-card__media">
-              <img src="/buildings/bc-logistics.jpg" alt="Logistics Center" />
+              <img src="/buildings/bc-logistics.jpg" alt="Logistika Markaz" />
               <div class="b-card__overlay"></div>
+              <div class="b-card__badge">LOGISTICS</div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">04</div>
               <h4 class="b-card__name font-heading">Logistika Markaz</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Sergeli</p>
+              <p class="b-card__addr"><MapPin :size="12" /> Sergeli, Toshkent</p>
+              <div class="b-card__specs">
+                <span>2 qavat</span><span class="dot">·</span><span>60 unit</span><span class="dot">·</span><span>18K m²</span>
+              </div>
               <div class="b-card__price">8 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/hero-tashkent.jpg" alt="Business Tower" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">A-CLASS</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">05</div>
+              <h4 class="b-card__name font-heading">Business Tower</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Yunusobod, Toshkent</p>
+              <div class="b-card__specs">
+                <span>16 qavat</span><span class="dot">·</span><span>200 unit</span><span class="dot">·</span><span>28K m²</span>
+              </div>
+              <div class="b-card__price">22 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/bc-finance.jpg" alt="Finance Center" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">PREMIUM</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">06</div>
+              <h4 class="b-card__name font-heading">Finance Center</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Shayxontohur, Toshkent</p>
+              <div class="b-card__specs">
+                <span>11 qavat</span><span class="dot">·</span><span>150 unit</span><span class="dot">·</span><span>19K m²</span>
+              </div>
+              <div class="b-card__price">15 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/bc-city-plaza.jpg" alt="Olympus Plaza" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">B-CLASS</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">07</div>
+              <h4 class="b-card__name font-heading">Olympus Plaza</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Chilonzor, Toshkent</p>
+              <div class="b-card__specs">
+                <span>8 qavat</span><span class="dot">·</span><span>96 unit</span><span class="dot">·</span><span>12K m²</span>
+              </div>
+              <div class="b-card__price">10 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/bc-logistics.jpg" alt="Eco Business Park" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">ECO</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">08</div>
+              <h4 class="b-card__name font-heading">Eco Business Park</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Bektemir, Toshkent</p>
+              <div class="b-card__specs">
+                <span>5 qavat</span><span class="dot">·</span><span>80 unit</span><span class="dot">·</span><span>14K m²</span>
+              </div>
+              <div class="b-card__price">7 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/hero-tashkent.jpg" alt="Grand Avenue" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">A-CLASS</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">09</div>
+              <h4 class="b-card__name font-heading">Grand Avenue</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Mirobod, Toshkent</p>
+              <div class="b-card__specs">
+                <span>13 qavat</span><span class="dot">·</span><span>165 unit</span><span class="dot">·</span><span>22K m²</span>
+              </div>
+              <div class="b-card__price">19 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
         </div>
@@ -1195,9 +1287,44 @@ onUnmounted(() => {
 }
 .portfolio__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+.portfolio__grid--wide {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1280px) {
+  .portfolio__grid--wide { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .portfolio__grid--wide { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .portfolio__grid--wide { grid-template-columns: 1fr; }
+}
+.b-card__badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: rgba(37,99,235,0.9);
+  color: white;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+}
+.b-card__specs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.b-card__specs .dot { opacity: 0.4; }
 .b-card { position: relative; border-radius: 18px; overflow: hidden; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
 .b-card:hover {
   box-shadow: 0 12px 40px rgba(0,0,0,0.08);
@@ -1299,7 +1426,16 @@ onUnmounted(() => {
 }
 .step {
   flex: 1;
-  padding: 0 20px;
+  padding: 32px 24px;
+  border-radius: 20px;
+  background: var(--bg-card, rgba(255,255,255,0.03));
+  border: 1px solid var(--border);
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  border-color: var(--border-accent);
 }
 .step__top {
   display: flex;
@@ -1315,16 +1451,17 @@ onUnmounted(() => {
   font-family: 'Sora', sans-serif;
 }
 .step__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: white;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(37,99,235,0.02));
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent);
   box-shadow: 0 4px 16px rgba(37,99,235,0.08);
   border: 1px solid var(--border-accent);
+  transition: all 0.3s;
 }
 .step__title {
   font-size: 18px;
@@ -1369,13 +1506,15 @@ onUnmounted(() => {
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
-.feat { position: relative; padding: 28px 24px; border-radius: 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); overflow: hidden; backdrop-filter: blur(8px); }
+.feat { position: relative; padding: 32px 28px; border-radius: 20px; background: var(--bg-card, rgba(255,255,255,0.03)); border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); overflow: hidden; }
+.feat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
+.feat:hover::before { opacity: 1; }
 .feat:hover {
   border-color: var(--border-accent);
   box-shadow: 0 8px 32px rgba(37,99,235,0.06);
   transform: translateY(-2px);
 }
-.feat__icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
+.feat__icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
 .feat__icon--navy { background: rgba(37,99,235,0.08); color: #2563EB; }
 .feat__icon--blue { background: rgba(59,130,246,0.08); color: #3B82F6; }
 .feat__icon--green { background: rgba(5,150,105,0.08); color: #059669; }
@@ -1635,6 +1774,7 @@ a.contact-item__value:hover { color: var(--accent); }
   .portfolio__featured-num { font-size: 28px; }
   .portfolio__featured-name { font-size: 20px; }
   .b-card__name { font-size: 15px; }
+  .portfolio__grid, .portfolio__grid--wide { grid-template-columns: repeat(2, 1fr) !important; }
   .feat__title { font-size: 14px; }
   .nav__brand-text { font-size: 14px; }
   .search-band__chips { gap: 6px; }

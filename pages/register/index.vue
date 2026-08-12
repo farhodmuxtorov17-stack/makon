@@ -82,6 +82,18 @@
               <ArrowRight v-if="!loading" :size="17" />
             </button>
           </form>
+
+          <!-- Login with password option -->
+          <div class="auth__alt">
+            <div class="auth__alt-line"></div>
+            <span class="auth__alt-text">yoki</span>
+            <div class="auth__alt-line"></div>
+          </div>
+          <NuxtLink to="/login" class="auth__alt-btn">
+            <Lock :size="16" />
+            <span>Login va parol bilan kirish</span>
+            <ArrowRight :size="15" />
+          </NuxtLink>
         </div>
 
         <div class="auth__form-foot">
@@ -95,7 +107,7 @@
 </template>
 
 <script setup lang="ts">
-import { AlertCircle, ArrowRight, ArrowLeft, Phone, Send, ShieldCheck, Zap } from 'lucide-vue-next'
+import { AlertCircle, ArrowRight, ArrowLeft, Phone, Send, ShieldCheck, Zap, Lock } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })
 
@@ -233,4 +245,18 @@ async function handleSendOtp() {
   .auth__form-back { display: none; }
   .auth__form-wrap { max-width: 380px; }
 }
+
+.auth__alt { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
+.auth__alt-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+.dark .auth__alt-line { background: rgba(255,255,255,0.06); }
+.auth__alt-text { font-size: 12px; color: #a1a1aa; font-weight: 500; }
+.auth__alt-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 13px; border-radius: 12px;
+  border: 1.5px solid rgba(0,0,0,0.08); background: transparent;
+  font-size: 14px; font-weight: 600; color: #18181b;
+  text-decoration: none; transition: all 0.2s;
+}
+.dark .auth__alt-btn { border-color: rgba(255,255,255,0.1); color: white; }
+.auth__alt-btn:hover { border-color: var(--accent); background: rgba(37,99,235,0.04); color: var(--accent); }
 </style>

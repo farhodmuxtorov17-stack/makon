@@ -1,0 +1,1 @@
+import{a6 as n,m as r,X as s}from"./Dn71e_5E.js";import{u}from"./C6mmfA1L.js";const d=n(a=>{{const o=u();if(o.init(),!o.isAuthenticated)return r("/login");const e=a.meta?.roles;if(e&&e.length>0){const t=s("currentRole").value;if(t==="SUPER_HEAD"||t==="ADMIN")return;if(!e.includes(t))return r("/dashboard")}}});export{d as default};

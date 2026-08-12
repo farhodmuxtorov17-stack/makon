@@ -123,6 +123,33 @@
               <NuxtLink to="/register" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
             </p>
           </form>
+
+          <!-- Demo accounts -->
+          <div class="auth__demo">
+            <div class="auth__demo-title">
+              <KeyRound :size="14" />
+              <span>Demo akkauntlar</span>
+            </div>
+            <div class="auth__demo-list">
+              <button type="button" class="auth__demo-item" @click="fillDemo('super@makon.uz', 'Makon2026!')">
+                <div class="auth__demo-role">Bosh admin</div>
+                <div class="auth__demo-cred">super@makon.uz</div>
+              </button>
+              <button type="button" class="auth__demo-item" @click="fillDemo('manager@makon.uz', 'Makon2026!')">
+                <div class="auth__demo-role">Bino menejeri</div>
+                <div class="auth__demo-cred">manager@makon.uz</div>
+              </button>
+              <button type="button" class="auth__demo-item" @click="fillDemo('accountant@makon.uz', 'Makon2026!')">
+                <div class="auth__demo-role">Buxgalter</div>
+                <div class="auth__demo-cred">accountant@makon.uz</div>
+              </button>
+              <button type="button" class="auth__demo-item" @click="fillDemo('operator@makon.uz', 'Makon2026!')">
+                <div class="auth__demo-role">Operator</div>
+                <div class="auth__demo-cred">operator@makon.uz</div>
+              </button>
+            </div>
+            <p class="auth__demo-hint">Parol barchasi: Makon2026!</p>
+          </div>
         </div>
 
         <div class="auth__form-foot">
@@ -139,7 +166,7 @@
 import {
   AlertCircle, Eye, EyeOff, ArrowRight, ArrowLeft,
   Info, Phone, Lock, UserRound,
-  ShieldCheck, Zap
+  ShieldCheck, Zap, KeyRound
 } from 'lucide-vue-next'
 
 const { img } = useImg()
@@ -169,6 +196,11 @@ async function handleLogin() {
   } else {
     loginError.value = true
   }
+}
+
+function fillDemo(login: string, password: string) {
+  form.login = login
+  form.password = password
 }
 
 function sendRecovery() {
@@ -289,4 +321,48 @@ function sendRecovery() {
   .auth__form-side { padding: 24px 18px 32px; }
   .auth__form-title { font-size: 24px; }
 }
+
+.auth__demo {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.dark .auth__demo { border-top-color: rgba(255,255,255,0.06); }
+.auth__demo-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #71717a;
+  margin-bottom: 12px;
+}
+.dark .auth__demo-title { color: #a1a1aa; }
+.auth__demo-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.auth__demo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: rgba(0,0,0,0.02);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+.dark .auth__demo-item { border-color: rgba(255,255,255,0.06); background: rgba(255,255,255,0.03); }
+.auth__demo-item:hover {
+  border-color: var(--accent);
+  background: rgba(37,99,235,0.06);
+}
+.auth__demo-role { font-size: 12px; font-weight: 600; color: #18181b; }
+.dark .auth__demo-role { color: white; }
+.auth__demo-cred { font-size: 11px; color: #71717a; font-family: monospace; }
+.dark .auth__demo-cred { color: #a1a1aa; }
+.auth__demo-hint { font-size: 11px; color: #a1a1aa; margin-top: 8px; text-align: center; }
 </style>
