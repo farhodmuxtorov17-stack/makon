@@ -18,7 +18,7 @@
           <ThemeToggle />
           <NuxtLink to="/login" class="nav__link">Kirish</NuxtLink>
           <NuxtLink to="/dashboard/executive" class="nav__btn-try">
-            Попробовать <ArrowRight :size="14" />
+            Tizimni sinab ko'rish <ArrowRight :size="14" />
           </NuxtLink>
         </div>
       </div>
@@ -45,31 +45,7 @@
           ERI orqali xavfsiz shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
         </p>
 
-        <div class="hero__search">
-          <div class="hero__search-field">
-            <Search :size="18" class="hero__search-icon" />
-            <input
-              v-model="searchQuery"
-              type="text"
-              class="hero__search-input"
-              placeholder="Ofis, savdo, ombor qidirish..."
-              @keyup.enter="doSearch"
-            />
-          </div>
-          <div class="hero__search-sep"></div>
-          <div class="hero__search-field hero__search-field--type">
-            <Building2 :size="18" class="hero__search-icon" />
-            <select v-model="searchType" class="hero__search-select">
-              <option value="">Barcha turlari</option>
-              <option value="office">Ofis</option>
-              <option value="retail">Savdo</option>
-              <option value="warehouse">Ombor</option>
-            </select>
-          </div>
-          <button class="hero__search-btn" @click="doSearch">
-            <Search :size="18" />
-          </button>
-        </div>
+
 
         <div class="hero__try">
           <NuxtLink to="/dashboard/executive" class="hero__try-btn">
@@ -78,14 +54,7 @@
           <span class="hero__try-hint">Demo rejim — bir necha soniya ichida</span>
         </div>
 
-        <div class="hero__chips">
-          <button class="hero__chip" @click="navigateTo('/catalog?type=office')">Ofis</button>
-          <button class="hero__chip" @click="navigateTo('/catalog?type=retail')">Savdo</button>
-          <button class="hero__chip" @click="navigateTo('/catalog?type=warehouse')">Ombor</button>
-          <button class="hero__chip hero__chip--accent" @click="navigateTo('/catalog?offer=rent')">
-            Ijaraga <ArrowRight :size="12" />
-          </button>
-        </div>
+
       </div>
 
       <div class="hero__stats">
@@ -102,6 +71,45 @@
         <div class="hero__stat">
           <div class="hero__stat-n">240+</div>
           <div class="hero__stat-l">Faol shartnoma</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SEARCH BAND ═══ -->
+    <section class="search-band">
+      <div class="container">
+        <div class="search-band__inner">
+          <div class="search-band__field">
+            <Search :size="18" class="search-band__icon" />
+            <input
+              v-model="searchQuery"
+              type="text"
+              class="search-band__input"
+              placeholder="Ofis, savdo, ombor qidirish..."
+              @keyup.enter="doSearch"
+            />
+          </div>
+          <div class="search-band__sep"></div>
+          <div class="search-band__field search-band__field--type">
+            <Building2 :size="18" class="search-band__icon" />
+            <select v-model="searchType" class="search-band__select">
+              <option value="">Barcha turlari</option>
+              <option value="office">Ofis</option>
+              <option value="retail">Savdo</option>
+              <option value="warehouse">Ombor</option>
+            </select>
+          </div>
+          <button class="search-band__btn" @click="doSearch">
+            Qidirish <Search :size="16" />
+          </button>
+        </div>
+        <div class="search-band__chips">
+          <button class="search-band__chip" @click="navigateTo('/catalog?type=office')">Ofis</button>
+          <button class="search-band__chip" @click="navigateTo('/catalog?type=retail')">Savdo</button>
+          <button class="search-band__chip" @click="navigateTo('/catalog?type=warehouse')">Ombor</button>
+          <button class="search-band__chip search-band__chip--accent" @click="navigateTo('/catalog?offer=rent')">
+            Ijaraga <ArrowRight :size="12" />
+          </button>
         </div>
       </div>
     </section>
@@ -694,6 +702,128 @@ onUnmounted(() => {
   background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
 }
 
+/* ═══ SEARCH BAND ═══ */
+.search-band {
+  padding: 0 24px 48px;
+  position: relative;
+  z-index: 5;
+  margin-top: -20px;
+}
+.search-band__inner {
+  display: flex;
+  align-items: stretch;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid var(--border);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.search-band__field {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0 18px;
+  min-width: 0;
+}
+.search-band__field--type {
+  max-width: 200px;
+}
+.search-band__icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.search-band__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 18px 14px;
+  font-size: 15px;
+  background: transparent;
+  color: var(--text);
+  min-width: 0;
+  font-family: 'Inter', sans-serif;
+}
+.search-band__input::placeholder {
+  color: var(--text-muted);
+}
+.search-band__select {
+  border: none;
+  outline: none;
+  padding: 18px 28px 18px 8px;
+  font-size: 15px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  font-family: 'Inter', sans-serif;
+}
+.search-band__sep {
+  width: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.search-band__btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 24px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 600;
+}
+.search-band__btn:hover {
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+}
+.search-band__chips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.search-band__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.search-band__chip:hover {
+  background: var(--accent-subtle);
+  border-color: var(--border-accent);
+  color: var(--accent);
+}
+.search-band__chip--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.search-band__chip--accent:hover {
+  background: var(--accent-hover);
+}
+
 /* ═══ HERO TRY BUTTON ═══ */
 .hero__try {
   display: flex;
@@ -705,23 +835,23 @@ onUnmounted(() => {
 .hero__try-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 15px 36px;
-  border-radius: 14px;
+  gap: 10px;
+  padding: 18px 48px;
+  border-radius: 16px;
   background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.25s;
-  box-shadow: 0 8px 28px rgba(37,99,235,0.4), 0 2px 8px rgba(37,99,235,0.2);
+  transition: all 0.3s;
+  box-shadow: 0 12px 36px rgba(37,99,235,0.45), 0 4px 12px rgba(37,99,235,0.25);
   border: none;
   font-family: 'Sora', sans-serif;
   letter-spacing: -0.01em;
 }
 .hero__try-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 36px rgba(37,99,235,0.5), 0 4px 12px rgba(37,99,235,0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 48px rgba(37,99,235,0.55), 0 6px 18px rgba(37,99,235,0.35);
   background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
 }
 .hero__try-hint {
