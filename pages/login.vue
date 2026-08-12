@@ -159,7 +159,7 @@ import {
   ShieldCheck, Zap
 } from 'lucide-vue-next'
 
-const { img } = useUtils()
+const { img } = useImg()
 const form = reactive({ login: '', password: '', remember: false })
 const loading = ref(false)
 const loginError = ref(false)
