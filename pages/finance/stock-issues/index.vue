@@ -111,7 +111,7 @@
 <script setup lang="ts">
 import { Plus, ArrowDownToLine, CheckCircle2, Clock, Wallet, Lightbulb, Droplet, PaintRoller, Boxes, Wrench , CheckCircle, CreditCard, FileText, Package} from 'lucide-vue-next'
 
-definePageMeta({ roles: ['SUPER_HEAD', 'WAREHOUSE_OPERATOR'],  layout: 'admin', middleware: 'role' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN', 'WAREHOUSE_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort } = useFormat()
 const store = useMakonStore()

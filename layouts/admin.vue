@@ -172,7 +172,7 @@ const allNavGroups = [
       { to: '/finance/inventory', label: 'Inventar', icon: Boxes, roles: ['SUPER_HEAD', 'ADMIN', 'WAREHOUSE_OPERATOR'] },
       { to: '/finance/stock-issues', label: 'Ombor chiqimlari', icon: Package, roles: ['SUPER_HEAD', 'ADMIN', 'WAREHOUSE_OPERATOR'] },
       { to: '/management/contracts', label: 'Boshqaruv shartnomalar', icon: ScrollText, roles: ['SUPER_HEAD', 'BUILDING_MANAGER'] },
-      { to: '/management/units', label: 'Unit boshqaruvi', icon: Grid3x3, roles: ['SUPER_HEAD', 'BUILDING_MANAGER'] },
+      { to: '/management/units', label: 'Unit boshqaruvi', icon: Grid3x3, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'CONTENT_OPERATOR'] },
       { to: '/finance/approvals', label: 'Tasdiqlar', icon: CheckSquare, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
       { to: '/facility/material-requests', label: 'Material so\'rovlari', icon: Package, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
       { to: '/meters', label: 'Sanoqchilar', icon: Gauge, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },

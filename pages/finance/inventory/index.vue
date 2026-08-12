@@ -95,7 +95,7 @@ import {
   Search, MoreHorizontal, Wrench, Lightbulb, PaintRoller, Boxes, Droplet,
 } from 'lucide-vue-next'
 
-definePageMeta({ roles: ['SUPER_HEAD', 'WAREHOUSE_OPERATOR'],  layout: 'admin', middleware: 'role' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN', 'WAREHOUSE_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort, formatNumber } = useFormat()
 

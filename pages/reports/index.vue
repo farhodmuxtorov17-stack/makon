@@ -161,7 +161,7 @@
 <script setup lang="ts">
 import { Building2, TrendingUp, Wallet, FileText, Download } from 'lucide-vue-next'
 
-definePageMeta({ roles: ['SUPER_HEAD', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const period = ref('month')
 

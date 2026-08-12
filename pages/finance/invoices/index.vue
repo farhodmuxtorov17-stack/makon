@@ -174,7 +174,7 @@
 <script setup lang="ts">
 import { Search, Filter, Download, Eye, CheckCircle, FileText, X , AlertCircle, FileSignature} from 'lucide-vue-next'
 
-definePageMeta({ roles: ['SUPER_HEAD', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const store = useMakonStore()
 

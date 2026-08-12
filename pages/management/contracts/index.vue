@@ -170,7 +170,7 @@ import KpiCard from '~/components/KpiCard.vue'
 import DrawerModal from '~/components/DrawerModal.vue'
 import { Plus, Search, CheckCircle2, AlertCircle, ShieldCheck, FileSignature, ChevronRight, FileText, Send, RefreshCw, User, Building2 } from 'lucide-vue-next'
 
-definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
+definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER'],  layout: 'admin', middleware: 'role' })
 
 const { formatUZS, formatUZSShort, formatNumber, formatDate } = useFormat()
 

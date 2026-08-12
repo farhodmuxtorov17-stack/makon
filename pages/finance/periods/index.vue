@@ -122,7 +122,7 @@
 <script setup lang="ts">
 import { Plus, Layers, CheckCircle2, AlertCircle, DollarSign, FileText, Search, Lock , Building2, CheckCircle} from 'lucide-vue-next'
 
-definePageMeta({ roles: ['SUPER_HEAD', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
 const store = useMakonStore()
 const search = ref('')
