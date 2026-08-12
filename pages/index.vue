@@ -230,118 +230,6 @@
               <div class="b-card__price">15 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
-          <div class="b-card" @click="navigateTo('/buildings/sergeli-logistics-park')">
-            <div class="b-card__media">
-              <img src="/buildings/bc-city-plaza.jpg" alt="Sergeli Logistics Park" />
-              <div class="b-card__overlay"></div>
-              <div class="b-card__badge">B-CLASS</div>
-            </div>
-            <div class="b-card__info">
-              <div class="b-card__num">07</div>
-              <h4 class="b-card__name font-heading">Sergeli Logistics Park</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Sergeli, Toshkent</p>
-              <div class="b-card__specs">
-                <span>2 qavat</span><span class="dot">·</span><span>30 unit</span><span class="dot">·</span><span>35K m²</span>
-              </div>
-              <div class="b-card__price">10 000 000 UZS<span>/oy</span></div>
-            </div>
-          </div>
-          <div class="b-card" @click="navigateTo('/buildings/tashkent-city-business-center')">
-            <div class="b-card__media">
-              <img src="/buildings/bc-logistics.jpg" alt="Tashkent City Business Center" />
-              <div class="b-card__overlay"></div>
-              <div class="b-card__badge">ECO</div>
-            </div>
-            <div class="b-card__info">
-              <div class="b-card__num">08</div>
-              <h4 class="b-card__name font-heading">Tashkent City Business Center</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Yashnobod, Toshkent</p>
-              <div class="b-card__specs">
-                <span>12 qavat</span><span class="dot">·</span><span>96 unit</span><span class="dot">·</span><span>15K m²</span>
-              </div>
-              <div class="b-card__price">7 000 000 UZS<span>/oy</span></div>
-            </div>
-          </div>
-          <div class="b-card" @click="navigateTo('/buildings/amir-tower')">
-            <div class="b-card__media">
-              <img src="/buildings/hero-tashkent.jpg" alt="Amir Tower" />
-              <div class="b-card__overlay"></div>
-              <div class="b-card__badge">A-CLASS</div>
-            </div>
-            <div class="b-card__info">
-              <div class="b-card__num">09</div>
-              <h4 class="b-card__name font-heading">Amir Tower</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Mirzo Ulug'bek, Toshkent</p>
-              <div class="b-card__specs">
-                <span>18 qavat</span><span class="dot">·</span><span>144 unit</span><span class="dot">·</span><span>24K m²</span>
-              </div>
-              <div class="b-card__price">19 000 000 UZS<span>/oy</span></div>
-            </div>
-          </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
-            <div class="b-card__media">
-              <img src="/buildings/v2_commercial-tower-1.jpg" alt="Navroz Plaza" />
-              <div class="b-card__overlay"></div>
-              <div class="b-card__badge">A-CLASS</div>
-            </div>
-            <div class="b-card__info">
-              <div class="b-card__num">10</div>
-              <h4 class="b-card__name font-heading">Navroz Plaza</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Mirobod, Toshkent</p>
-              <div class="b-card__specs">
-                <span>15 qavat</span><span class="dot">·</span><span>120 unit</span><span class="dot">·</span><span>20K m²</span>
-              </div>
-              <div class="b-card__price">17 000 000 UZS<span>/oy</span></div>
-            </div>
-          </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
-            <div class="b-card__media">
-              <img src="/buildings/v2_modern-facade-1.jpg" alt="Crystal Tower" />
-              <div class="b-card__overlay"></div>
-              <div class="b-card__badge">PREMIUM</div>
-            </div>
-            <div class="b-card__info">
-              <div class="b-card__num">11</div>
-              <h4 class="b-card__name font-heading">Crystal Tower</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Shayxontohur, Toshkent</p>
-              <div class="b-card__specs">
-                <span>20 qavat</span><span class="dot">·</span><span>180 unit</span><span class="dot">·</span><span>30K m²</span>
-              </div>
-              <div class="b-card__price">24 000 000 UZS<span>/oy</span></div>
-            </div>
-          </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
-            <div class="b-card__media">
-              <img src="/buildings/v2_shopping-center-1.jpg" alt="Grand Bazaar" />
-              <div class="b-card__overlay"></div>
-              <div class="b-card__badge">RETAIL</div>
-            </div>
-            <div class="b-card__info">
-              <div class="b-card__num">12</div>
-              <h4 class="b-card__name font-heading">Grand Bazaar</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Chilonzor, Toshkent</p>
-              <div class="b-card__specs">
-                <span>4 qavat</span><span class="dot">·</span><span>110 unit</span><span class="dot">·</span><span>16K m²</span>
-              </div>
-              <div class="b-card__price">9 000 000 UZS<span>/oy</span></div>
-            </div>
-          </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
-            <div class="b-card__media">
-              <img src="/buildings/v2_office-building-1.jpg" alt="Business Point" />
-              <div class="b-card__overlay"></div>
-              <div class="b-card__badge">B-CLASS</div>
-            </div>
-            <div class="b-card__info">
-              <div class="b-card__num">13</div>
-              <h4 class="b-card__name font-heading">Business Point</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Yunusobod, Toshkent</p>
-              <div class="b-card__specs">
-                <span>10 qavat</span><span class="dot">·</span><span>80 unit</span><span class="dot">·</span><span>13K m²</span>
-              </div>
-              <div class="b-card__price">13 000 000 UZS<span>/oy</span></div>
-            </div>
-          </div>
         </div>
 
         <div class="portfolio__all">
@@ -352,55 +240,79 @@
       </div>
     </section>
 
-    <!-- ═══ HOW IT WORKS ═══ -->
+    <!-- ═══ HOW IT WORKS — Premium Timeline ═══ -->
     <section id="how" class="how reveal">
       <div class="container">
         <div class="how__head">
           <div class="eyebrow">JARAYON</div>
-          <h2 class="section-title font-heading">To'rt qadam — ofisdan shartnomagacha</h2>
-          <p class="section-sub">Qidirishdan boshlab, shartnoma imzolashgacha — barchasi onlayn.</p>
+          <h2 class="section-title font-heading">Ofisdan shartnomagacha — to'rt qadamda</h2>
+          <p class="section-sub">Qidirishdan boshlab, shartnoma imzolashgacha — barchasi onlayn, qog'azsiz.</p>
         </div>
-        <div class="how__steps">
-          <div class="step">
-            <div class="step__top">
-              <div class="step__num">01</div>
-              <div class="step__icon"><Search :size="22" /></div>
+        <div class="how__timeline">
+          <div class="tl-item">
+            <div class="tl-item__marker">
+              <div class="tl-item__num">01</div>
+              <div class="tl-item__icon"><Search :size="20" /></div>
             </div>
-            <h4 class="step__title font-heading">Qidirish</h4>
-            <p class="step__text">Katalogda binoni, qavatni va maydonni tanlang. Interaktiv qavat rejasi orqali bo'sh unitlarni ko'ring.</p>
+            <div class="tl-item__body">
+              <h4 class="tl-item__title font-heading">Qidirish va tanlash</h4>
+              <p class="tl-item__text">Katalogda binoni, qavatni va maydonni tanlang. Interaktiv qavat rejasi orqali bo'sh unitlarni real vaqtda ko'ring — maydon, narx va holat bir nigohda.</p>
+              <div class="tl-item__meta">
+                <span class="tl-item__tag">Interaktiv qavat rejasi</span>
+                <span class="tl-item__tag">Real-time holat</span>
+              </div>
+            </div>
           </div>
-          <div class="step__connector"></div>
-          <div class="step">
-            <div class="step__top">
-              <div class="step__num">02</div>
-              <div class="step__icon"><FileText :size="22" /></div>
+          <div class="tl-line"></div>
+          <div class="tl-item">
+            <div class="tl-item__marker">
+              <div class="tl-item__num">02</div>
+              <div class="tl-item__icon"><FileText :size="20" /></div>
             </div>
-            <h4 class="step__title font-heading">Ariza</h4>
-            <p class="step__text">Maydon turini, muddatni va boshlang'ich sanani ko'rsating. Operator 24 soat ichida javob beradi.</p>
+            <div class="tl-item__body">
+              <h4 class="tl-item__title font-heading">Ariza topshirish</h4>
+              <p class="tl-item__text">Maydon turini, ijaraga muddatini va boshlang'ich sanani ko'rsating. Operator 24 soat ichida ko'rib chiqadi va javob beradi.</p>
+              <div class="tl-item__meta">
+                <span class="tl-item__tag">24 soat KPI</span>
+                <span class="tl-item__tag">Avtomatik bildirishnoma</span>
+              </div>
+            </div>
           </div>
-          <div class="step__connector"></div>
-          <div class="step">
-            <div class="step__top">
-              <div class="step__num">03</div>
-              <div class="step__icon"><ShieldCheck :size="22" /></div>
+          <div class="tl-line"></div>
+          <div class="tl-item">
+            <div class="tl-item__marker">
+              <div class="tl-item__num">03</div>
+              <div class="tl-item__icon"><ShieldCheck :size="20" /></div>
             </div>
-            <h4 class="step__title font-heading">Raqamli imzo</h4>
-            <p class="step__text">Shartnoma elektron raqamli imzo orqali xavfsiz imzolanadi. Qog'oz hujjatlar kerak emas.</p>
+            <div class="tl-item__body">
+              <h4 class="tl-item__title font-heading">Raqamli shartnoma</h4>
+              <p class="tl-item__text">Shartnoma avtomatik generatsiyalanadi va Didox orqali elektron imzo bilan xavfsiz imzolanadi. Qog'oz hujjatlar kerak emas.</p>
+              <div class="tl-item__meta">
+                <span class="tl-item__tag">Didox integratsiyasi</span>
+                <span class="tl-item__tag">DOCX avtomatik</span>
+              </div>
+            </div>
           </div>
-          <div class="step__connector"></div>
-          <div class="step">
-            <div class="step__top">
-              <div class="step__num">04</div>
-              <div class="step__icon"><KeyRound :size="22" /></div>
+          <div class="tl-line"></div>
+          <div class="tl-item">
+            <div class="tl-item__marker">
+              <div class="tl-item__num">04</div>
+              <div class="tl-item__icon"><KeyRound :size="20" /></div>
             </div>
-            <h4 class="step__title font-heading">Boshqaruv</h4>
-            <p class="step__text">Shaxsiy kabinetingizdan invoyslar, xizmat so'rovlari va hisoblagichlarni boshqaring.</p>
+            <div class="tl-item__body">
+              <h4 class="tl-item__title font-heading">Shaxsiy kabinet</h4>
+              <p class="tl-item__text">Shartnoma aktivlashuvi bilan ijarachi kabineti avtomatik yaratiladi. Invoyslar, xizmat so'rovlari va hisoblagichlarni boshqaring.</p>
+              <div class="tl-item__meta">
+                <span class="tl-item__tag">Avtomatik onboarding</span>
+                <span class="tl-item__tag">To'liq nazorat</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══ FEATURES ═══ -->
+    <!-- ═══ FEATURES — Bento Grid ═══ -->
     <section id="features" class="features reveal">
       <div class="container">
         <div class="features__head">
@@ -408,36 +320,41 @@
           <h2 class="section-title font-heading">Binolar uchun yagona ekotizim</h2>
           <p class="section-sub">Boshqaruv, moliya, texnik xizmat va hisobotlar — bitta platformada.</p>
         </div>
-        <div class="features__grid">
-          <div class="feat">
-            <div class="feat__icon feat__icon--navy"><Building2 :size="20" /></div>
-            <h4 class="feat__title font-heading">Bino boshqaruvi</h4>
-            <p class="feat__text">Binolar, qavatlar va unitlarning to'liq katalogi. Interaktiv rejalar va gallereyalar.</p>
+        <div class="bento">
+          <div class="bento__card bento__card--lg">
+            <div class="bento__icon bento__icon--navy"><Building2 :size="24" /></div>
+            <h4 class="bento__title font-heading">Bino boshqaruvi</h4>
+            <p class="bento__text">Binolar, qavatlar va unitlarning to'liq katalogi. Interaktiv 3D-rejalar, gallereyalar va digital matryoshka kabi hierarchy.</p>
+            <div class="bento__stats">
+              <div class="bento__stat"><span class="n">9</span><span class="l">Bino</span></div>
+              <div class="bento__stat"><span class="n">919</span><span class="l">Unit</span></div>
+              <div class="bento__stat"><span class="n">42K</span><span class="l">m²</span></div>
+            </div>
           </div>
-          <div class="feat">
-            <div class="feat__icon feat__icon--blue"><FileText :size="20" /></div>
-            <h4 class="feat__title font-heading">Raqamli shartnoma</h4>
-            <p class="feat__text">Elektron raqamli imzo orqali qonuniy kuchga ega shartnomalar — qog'azsiz va xavfsiz.</p>
+          <div class="bento__card">
+            <div class="bento__icon bento__icon--blue"><FileText :size="22" /></div>
+            <h4 class="bento__title font-heading">Raqamli shartnoma</h4>
+            <p class="bento__text">Didox orqali qonuniy kuchga ega shartnomalar — qog'azsiz va xavfsiz.</p>
           </div>
-          <div class="feat">
-            <div class="feat__icon feat__icon--green"><Wallet :size="20" /></div>
-            <h4 class="feat__title font-heading">Moliyaviy boshqaruv</h4>
-            <p class="feat__text">Invoyslar, to'lovlar, qarzdorlik va moliyaviy davrlarni avtomatlashtirilgan boshqaruv.</p>
+          <div class="bento__card">
+            <div class="bento__icon bento__icon--green"><Wallet :size="22" /></div>
+            <h4 class="bento__title font-heading">Moliyaviy boshqaruv</h4>
+            <p class="bento__text">Invoyslar, to'lovlar, qarzdorlik va davrlar — avtomatlashtirilgan.</p>
           </div>
-          <div class="feat">
-            <div class="feat__icon feat__icon--amber"><Wrench :size="20" /></div>
-            <h4 class="feat__title font-heading">Texnik xizmat</h4>
-            <p class="feat__text">Xizmat so'rovlari, ish buyruqlari va materiallar boshqaruvi — SLA nazorati bilan.</p>
+          <div class="bento__card bento__card--wide">
+            <div class="bento__icon bento__icon--amber"><Wrench :size="22" /></div>
+            <h4 class="bento__title font-heading">Texnik xizmat</h4>
+            <p class="bento__text">Xizmat so'rovlari, ish buyruqlari va materiallar boshqaruvi — SLA nazorati bilan. Work order lifecycle — dan yopilishgacha.</p>
           </div>
-          <div class="feat">
-            <div class="feat__icon feat__icon--purple"><BarChart3 :size="20" /></div>
-            <h4 class="feat__title font-heading">Hisobotlar</h4>
-            <p class="feat__text">Ish stoli, moliyaviy va operatsion hisobotlar — real vaqtda tahlil.</p>
+          <div class="bento__card">
+            <div class="bento__icon bento__icon--purple"><BarChart3 :size="22" /></div>
+            <h4 class="bento__title font-heading">Hisobotlar</h4>
+            <p class="bento__text">Ish stoli, moliyaviy va operatsion hisobotlar — real vaqtda.</p>
           </div>
-          <div class="feat">
-            <div class="feat__icon feat__icon--rose"><Bell :size="20" /></div>
-            <h4 class="feat__title font-heading">Bildirishnomalar</h4>
-            <p class="feat__text">Avtomatik eslatmalar, push-xabarnomalar va SLA monitoringi.</p>
+          <div class="bento__card">
+            <div class="bento__icon bento__icon--rose"><Bell :size="22" /></div>
+            <h4 class="bento__title font-heading">Bildirishnomalar</h4>
+            <p class="bento__text">Avtomatik eslatmalar, push-xabarnomalar va SLA monitoringi.</p>
           </div>
         </div>
       </div>
@@ -1182,10 +1099,17 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
-  margin-top: 48px;
+  gap: 48px;
+  margin-top: 56px;
+  padding: 24px 48px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
 }
 .hero__stat-n {
+  font-size: 42px !important;
   font-size: 28px;
   font-weight: 800;
   color: white;
@@ -1193,7 +1117,7 @@ onUnmounted(() => {
   letter-spacing: -0.02em;
 }
 .hero__stat-l {
-  font-size: 12px;
+  font-size: 13px;
   color: rgba(255,255,255,0.5);
   margin-top: 2px;
   font-weight: 500;
@@ -1424,7 +1348,7 @@ onUnmounted(() => {
   letter-spacing: 0.1em;
 }
 .b-card__name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text);
   margin: 4px 0 4px;
@@ -1470,426 +1394,192 @@ onUnmounted(() => {
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
-/* ═══ HOW IT WORKS ═══ */
+/* ═══ HOW IT WORKS — Timeline ═══ */
 .how {
-  padding: 96px 0;
-  background: var(--bg-subtle);
+  padding: 120px 0;
+  background: var(--bg);
 }
 .how__head {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 64px;
 }
-.how__head .section-title,
-.how__head .section-sub {
-  margin-left: auto;
-  margin-right: auto;
-}
-.how__steps {
+.how__timeline {
+  max-width: 760px;
+  margin: 0 auto;
   display: flex;
+  flex-direction: column;
   align-items: stretch;
-  gap: 0;
 }
-.step {
-  flex: 1;
-  padding: 32px 24px;
-  border-radius: 20px;
-  background: var(--bg-card, rgba(255,255,255,0.03));
-  border: 1px solid var(--border);
-  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-}
-.step:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 48px -8px rgba(15,23,42,0.08), 0 0 0 1px rgba(37,99,235,0.06);
-  border-color: var(--border-accent);
-}
-.step__top {
+.tl-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 24px 0;
 }
-.step__num {
+.tl-item__marker {
+  flex-shrink: 0;
+  width: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.tl-item__num {
   font-size: 13px;
   font-weight: 700;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
+  color: var(--accent);
+  letter-spacing: 0.06em;
   font-family: 'Sora', sans-serif;
 }
-.step__icon {
-  width: 52px;
-  height: 52px;
+.tl-item__icon {
+  width: 48px;
+  height: 48px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(37,99,235,0.02));
+  background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent);
-  box-shadow: 0 4px 16px rgba(37,99,235,0.08);
-  border: 1px solid var(--border-accent);
-  transition: all 0.3s;
+  color: #2563EB;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.12);
+  border: 1px solid rgba(37,99,235,0.1);
 }
-.step__title {
-  font-size: 18px;
+.tl-item__body {
+  flex: 1;
+  padding-top: 4px;
+}
+.tl-item__title {
+  font-size: 22px;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
 }
-.step__text {
-  font-size: 14px;
+.tl-item__text {
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--text-secondary);
-  line-height: 1.6;
+  margin-bottom: 14px;
 }
-.step__connector {
-  width: 40px;
+.tl-item__meta {
   display: flex;
-  align-items: flex-start;
-  padding-top: 24px;
-  flex-shrink: 0;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-.step__connector::after {
-  content: '';
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--border-strong), var(--border));
+.tl-item__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 100px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.tl-line {
+  width: 2px;
+  height: 32px;
+  background: linear-gradient(180deg, var(--border), transparent);
+  margin-left: 31px;
 }
 
-/* ═══ FEATURES ═══ */
+/* ═══ FEATURES — Bento Grid ═══ */
 .features {
-  padding: 96px 0;
+  padding: 120px 0;
+  background: var(--bg-subtle);
 }
 .features__head {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 64px;
 }
-.features__head .section-title,
-.features__head .section-sub {
-  margin-left: auto;
-  margin-right: auto;
-}
-.features__grid {
+.bento {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.feat { position: relative; padding: 32px 28px; border-radius: 20px; background: var(--bg-card, rgba(255,255,255,0.03)); border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); overflow: hidden; }
-.feat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
-.feat:hover::before { opacity: 1; }
-.feat:hover .feat__icon { transform: scale(1.08) rotate(-2deg); }
-.feat:hover {
-  border-color: var(--border-accent);
-  box-shadow: 0 12px 40px -8px rgba(37,99,235,0.08), 0 0 0 1px rgba(37,99,235,0.06);
-  transform: translateY(-4px);
-}
-.feat__icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); }
-.feat__icon--navy { background: rgba(37,99,235,0.08); color: #2563EB; }
-.feat__icon--blue { background: rgba(59,130,246,0.08); color: #3B82F6; }
-.feat__icon--green { background: rgba(5,150,105,0.08); color: #059669; }
-.feat__icon--amber { background: rgba(217,119,6,0.08); color: #D97706; }
-.feat__icon--purple { background: rgba(139,92,246,0.08); color: #8B5CF6; }
-.feat__icon--rose { background: rgba(244,63,94,0.08); color: #F43F5E; }
-.feat__title {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-.feat__text {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-/* ═══ CTA ═══ */
-/* ═══ Contact Section ═══ */
-.contact-section { padding: 96px 0 64px; background: var(--bg-subtle); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-@media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
-
-.contact-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
-.contact-title { font-size: clamp(28px, 3.5vw, 38px); font-weight: 800; letter-spacing: -0.03em; color: var(--text); margin-bottom: 12px; }
-.contact-sub { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; max-width: 420px; }
-
-.contact-items { display: flex; flex-direction: column; gap: 20px; }
-.contact-item { display: flex; align-items: flex-start; gap: 16px; transition: transform 0.2s ease; }
-.contact-item:hover { transform: translateX(4px); }
-.contact-item__icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--accent-subtle); color: var(--accent); border: 1px solid rgba(37,99,235,0.15); }
-.contact-item__label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
-.contact-item__value { font-size: 16px; font-weight: 500; color: var(--text); text-decoration: none; }
-a.contact-item__value:hover { color: var(--accent); }
-
-.contact-form-wrap { position: relative; }
-.contact-form-card { border-radius: 24px; padding: 40px; box-shadow: 0 20px 60px -12px rgba(15,23,42,0.12); border: 1px solid var(--border); }
-@media (max-width: 880px) { .contact-form-card { padding: 28px; } }
-.contact-form-head { margin-bottom: 28px; }
-.contact-form-title { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-.contact-form-sub { font-size: 14px; color: var(--text-secondary); }
-
-.contact-form { display: flex; flex-direction: column; gap: 18px; }
-.contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 560px) { .contact-form-row { grid-template-columns: 1fr; } }
-.contact-field { display: flex; flex-direction: column; }
-.contact-field__label { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px; }
-.contact-field__input, .contact-field__textarea { width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--bg-card); color: var(--text); font-size: 15px; font-family: inherit; transition: all 0.2s ease; outline: none; }
-.contact-field__input:focus, .contact-field__textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
-.contact-field__textarea { resize: vertical; min-height: 100px; }
-.contact-field__input::placeholder, .contact-field__textarea::placeholder { color: var(--text-faint); }
-
-.contact-form__btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 15px 24px; border-radius: 14px; border: none; background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); color: white; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 8px 24px -6px rgba(37,99,235,0.4); }
-.contact-form__btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px -6px rgba(37,99,235,0.5); }
-.contact-form__btn--sent { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important; box-shadow: 0 8px 24px -6px rgba(34,197,94,0.4) !important; }
-
-
-.cta-section {
-  padding: 60px 0 100px;
-}
-.cta-box {
-  position: relative;
-  border-radius: 28px;
-  overflow: hidden;
-  min-height: 340px;
-  display: flex;
-  align-items: center;
-}
-.cta-box__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.cta-box__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.cta-box__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(8,12,24,0.85) 0%, rgba(8,12,24,0.65) 100%);
-}
-.cta-box__content {
-  position: relative;
-  z-index: 1;
-  padding: 48px;
-  max-width: 560px;
-}
-.cta-box__title {
-  font-size: 36px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 12px;
-  line-height: 1.1;
-}
-.cta-box__text {
-  font-size: 16px;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 28px;
-  line-height: 1.6;
-}
-.cta-box__actions {
-  display: flex;
-  align-items: center;
+  grid-auto-rows: 1fr;
   gap: 20px;
 }
-.cta-box__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: 12px;
+.bento__card {
   background: white;
-  color: #0F172A;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.cta-box__btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(255,255,255,0.2);
-}
-.cta-box__link {
-  color: rgba(255,255,255,0.7);
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-  padding-bottom: 2px;
-  transition: all 0.2s;
-}
-.cta-box__link:hover {
-  color: white;
-  border-bottom-color: white;
-}
-
-/* ═══ FOOTER ═══ */
-.footer {
-  padding: 64px 0 32px;
-  border-top: 1px solid var(--border);
-  background: var(--bg-subtle);
-}
-.footer__top {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 48px;
-}
-.footer__brand {
-  max-width: 280px;
-}
-.footer__logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.footer__logo span {
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--text);
-  font-family: 'Sora', sans-serif;
-}
-.footer__tag {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-.footer__cols {
-  display: flex;
-  gap: 64px;
-}
-.footer__col {
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
-.footer__col-title {
-  font-size: 12px;
+.bento__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.03);
+  border-color: rgba(37,99,235,0.2);
+}
+.bento__card--lg {
+  grid-row: span 2;
+  grid-column: span 1;
+  background: linear-gradient(135deg, #0F172A, #1E293B);
+  border-color: transparent;
+  color: white;
+}
+.bento__card--lg:hover {
+  border-color: rgba(96,165,250,0.3);
+}
+.bento__card--wide {
+  grid-column: span 2;
+}
+.bento__card--lg .bento__title { color: white; }
+.bento__card--lg .bento__text { color: rgba(255,255,255,0.65); }
+.bento__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.bento__icon--navy { background: rgba(96,165,250,0.15); color: #60A5FA; }
+.bento__icon--blue { background: #EFF6FF; color: #2563EB; }
+.bento__icon--green { background: #ECFDF5; color: #059669; }
+.bento__icon--amber { background: #FFFBEB; color: #D97706; }
+.bento__icon--purple { background: #FAF5FF; color: #7C3AED; }
+.bento__icon--rose { background: #FFF1F2; color: #E11D48; }
+.bento__card--lg .bento__icon--navy { background: rgba(96,165,250,0.2); }
+.bento__title {
+  font-size: 20px;
   font-weight: 700;
   color: var(--text);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
 }
-.footer__col a {
-  font-size: 14px;
+.bento__text {
+  font-size: 15px;
+  line-height: 1.6;
   color: var(--text-secondary);
-  text-decoration: none;
-  transition: color 0.2s;
+  flex: 1;
 }
-.footer__col a:hover {
-  color: var(--accent);
-}
-.footer__bottom {
+.bento__stats {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 28px;
-  border-top: 1px solid var(--border);
-  font-size: 13px;
-  color: var(--text-muted);
+  gap: 24px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
-.footer__badges {
+.bento__stat {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
 }
-
-/* ═══ RESPONSIVE ═══ */
-@media (max-width: 768px) {
-  .hero__title { font-size: 38px; }
-  .hero__lead { font-size: 16px; }
-  .hero__search { flex-direction: column; border-radius: 20px; }
-  .hero__search-sep { width: 100%; height: 1px; }
-  .hero__search-field--type { max-width: 100%; }
-  .hero__search-btn { padding: 16px; }
-  .hero__stats { flex-wrap: wrap; gap: 16px; }
-  .hero__stat-sep { display: none; }
-  .section-title { font-size: 28px; }
-  .portfolio__featured { flex-direction: column; }
-  .portfolio__featured-media, .portfolio__featured-info { width: 100%; }
-  .portfolio__grid { grid-template-columns: 1fr; }
-  .features__grid { grid-template-columns: 1fr; }
-  .how__steps { flex-direction: column; gap: 24px; }
-  .step__connector { display: none; }
-  .footer__top { flex-direction: column; gap: 32px; }
-  .footer__cols { flex-wrap: wrap; gap: 32px; }
-  .nav__links { display: none; }
-  .cta-box__content { padding: 32px; }
-  .cta-box__title { font-size: 26px; }
+.bento__stat .n {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  font-family: 'Sora', sans-serif;
 }
-
-/* Tablet */
-@media (max-width: 1024px) {
-  .portfolio__grid { grid-template-columns: 1fr 1fr; }
-  .features__grid { grid-template-columns: 1fr 1fr; }
-  .how__steps { gap: 20px; }
-  .hero__title { font-size: 44px; }
-  .search-band__inner { flex-direction: column; }
-  .search-band__field { width: 100%; }
-  .search-band__sep { width: 100%; height: 1px; }
-  .search-band__field--type { max-width: 100%; }
+.bento__stat .l {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-
-/* Small mobile */
-@media (max-width: 480px) {
-  .hero__title { font-size: 30px; }
-  .hero__lead { font-size: 14px; }
-  .hero__badge { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 11px; padding: 6px 12px; }
-  .hero__stat-n { font-size: 22px; }
-  .hero__stat-l { font-size: 10px; }
-  .section-title { font-size: 22px; }
-  .section-sub { font-size: 13px; }
-  .portfolio__featured-num { font-size: 28px; }
-  .portfolio__featured-name { font-size: 20px; }
-  .b-card__name { font-size: 15px; }
-  .portfolio__grid, .portfolio__grid--wide { grid-template-columns: repeat(2, 1fr) !important; }
-  .feat__title { font-size: 14px; }
-  .nav__brand-text { font-size: 14px; }
-  .search-band__chips { gap: 6px; }
-  .search-band__chip { font-size: 12px; padding: 7px 12px; }
-  .cta-box__title { font-size: 20px; }
-  .cta-box__content { padding: 24px; }
-  .footer__col { width: 100%; }
-  .step__title { font-size: 15px; }
-  .step__desc { font-size: 13px; }
-}
-
-
-/* ═══ REVEAL ANIMATION ═══ */
-.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1); }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
-
-/* ═══ PREMIUM REFINEMENTS ═══ */
-.hero__badge { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); animation-duration: 0.8s; animation-fill-mode: both; }
-.hero__title { animation-duration: 0.8s; animation-fill-mode: both; }
-.hero__sub { animation-duration: 0.8s; animation-fill-mode: both; }
-.hero__try { animation-duration: 0.8s; animation-fill-mode: both; }
-.hero__stats { animation-duration: 0.8s; animation-fill-mode: both; }
-
-/* Premium glass cards */
-.b-card:hover .b-card__media img { transform: scale(1.08); }
-.b-card__media { overflow: hidden; }
-
-/* Premium step connectors */
-.step__icon { transition: transform 0.3s, box-shadow 0.3s; }
-.step:hover .step__icon { transform: scale(1.08) rotate(-3deg); box-shadow: 0 8px 24px rgba(37,99,235,0.18); }
-.step__num { transition: all 0.3s; }
-.step:hover .step__num { color: var(--accent); }
-
-/* Premium feature cards */
-.feat { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
-.feat:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.06); border-color: var(--border-accent); }
-.feat__icon { transition: transform 0.3s; }
-.feat:hover .feat__icon { transform: scale(1.12) rotate(-5deg); }
-
-/* Premium search band */
-.search-band__inner { transition: box-shadow 0.3s, transform 0.3s; }
-.search-band__inner:focus-within { box-shadow: 0 16px 48px rgba(37,99,235,0.12), 0 4px 16px rgba(0,0,0,0.04); transform: translateY(-1px); }
-.search-band__btn { transition: transform 0.2s, box-shadow 0.2s; }
-.search-band__btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,0.25); }
-
-/* Premium CTA */
-.cta-box { transition: transform 0.4s, box-shadow 0.4s; }
-.cta-box:hover { transform: translateY(-3px); box-shadow: 0 24px 64px rgba(0,0,0,0.12); }
-
 
 /* ═══ STATS BAND ═══ */
 .stats-band { padding: 100px 0; background: linear-gradient(135deg, #0a1128 0%, #111b3a 50%, #0a1128 100%); position: relative; overflow: hidden; }
