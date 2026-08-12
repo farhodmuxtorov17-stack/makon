@@ -509,8 +509,8 @@
   }
   .tooltip:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .tg-hide-scrollbar::-webkit-scrollbar { display: none; }
-  .tg-hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .app-hide-scrollbar::-webkit-scrollbar { display: none; }
+  .app-hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
 @layer utilities {
@@ -581,16 +581,16 @@
   .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
   @supports (padding: max(0px)) {
-    .tg-safe-top { padding-top: max(0px, env(safe-area-inset-top, 0px)); }
-    .tg-safe-bottom { padding-bottom: max(0px, env(safe-area-inset-bottom, 0px)); }
-    .tg-safe-left { padding-left: max(0px, env(safe-area-inset-left, 0px)); }
-    .tg-safe-right { padding-right: max(0px, env(safe-area-inset-right, 0px)); }
+    .app-safe-top { padding-top: max(0px, env(safe-area-inset-top, 0px)); }
+    .app-safe-bottom { padding-bottom: max(0px, env(safe-area-inset-bottom, 0px)); }
+    .app-safe-left { padding-left: max(0px, env(safe-area-inset-left, 0px)); }
+    .app-safe-right { padding-right: max(0px, env(safe-area-inset-right, 0px)); }
   }
-  .tg-viewport { height: 100vh; height: 100dvh; }
-  .tg-no-select { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
-  .tg-scroll { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
-  .tg-tap { transition: transform var(--duration-fast), background var(--duration-fast); cursor: pointer; }
-  .tg-tap:active { transform: scale(0.97); }
+  .app-viewport { height: 100vh; height: 100dvh; }
+  .app-no-select { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  .app-scroll { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+  .app-tap { transition: transform var(--duration-fast), background var(--duration-fast); cursor: pointer; }
+  .app-tap:active { transform: scale(0.97); }
 
   .btn-glow { transition: all var(--duration-fast); }
   .btn-glow:hover { transform: translateY(-1px); }

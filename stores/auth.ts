@@ -155,7 +155,8 @@ export const useAuthStore = defineStore('auth', () => {
       'manager@makon.uz': { name: 'Bino menejeri', role: 'BUILDING_MANAGER' as UserRole, password: 'Makon2026!' },
       'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole, password: 'Makon2026!' },
       'facility@makon.uz': { name: 'Texnik xodim', role: 'FACILITY' as UserRole, password: 'Makon2026!' },
-      'operator@makon.uz': { name: 'Operator', role: 'OPERATOR' as UserRole, password: 'Makon2026!' },
+      'operator@makon.uz': { name: 'Kontent operator', role: 'CONTENT_OPERATOR' as UserRole, password: 'Makon2026!' },
+      'warehouse@makon.uz': { name: 'Omborchi', role: 'WAREHOUSE_OPERATOR' as UserRole, password: 'Makon2026!' },
     }
 
     if (staffAccounts[login] && password === staffAccounts[login].password) {

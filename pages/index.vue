@@ -33,11 +33,11 @@
       </div>
 
       <div class="hero__content">
-        <div class="hero__badge">
+        <div class="hero__badge animate-fade-up" style="animation-delay: 0.1s;">
           <span class="hero__badge-dot"></span>
           Davlat standartlariga muvofiq · ERI integratsiyasi
         </div>
-        <h1 class="hero__title font-heading">
+        <h1 class="hero__title font-heading animate-fade-up" style="animation-delay: 0.2s;">
           Binolarning<br/><span class="hero__title-accent">raqamli boshqaruvi</span>
         </h1>
         <p class="hero__lead">
@@ -47,7 +47,7 @@
 
 
 
-        <div class="hero__try">
+        <div class="hero__try animate-fade-up" style="animation-delay: 0.4s;">
           <NuxtLink to="/login" class="hero__try-btn">
             <span>Tizimni sinab ko'rish</span>
             <ArrowRight :size="20" />
@@ -58,7 +58,7 @@
 
       </div>
 
-      <div class="hero__stats">
+      <div class="hero__stats animate-fade-up" style="animation-delay: 0.5s;">
         <div class="hero__stat">
           <div class="hero__stat-n">12K+</div>
           <div class="hero__stat-l">m² Boshqariladigan</div>
@@ -116,7 +116,7 @@
     </section>
 
     <!-- ═══ PORTFOLIO ═══ -->
-    <section id="buildings" class="portfolio">
+    <section id="buildings" class="portfolio reveal">
       <div class="container">
         <div class="portfolio__head">
           <div class="eyebrow">PORTFEL</div>
@@ -197,7 +197,7 @@
     </section>
 
     <!-- ═══ HOW IT WORKS ═══ -->
-    <section id="how" class="how">
+    <section id="how" class="how reveal">
       <div class="container">
         <div class="how__head">
           <div class="eyebrow">JARAYON</div>
@@ -245,7 +245,7 @@
     </section>
 
     <!-- ═══ FEATURES ═══ -->
-    <section id="features" class="features">
+    <section id="features" class="features reveal">
       <div class="container">
         <div class="features__head">
           <div class="eyebrow">PLATFORMA</div>
@@ -288,7 +288,7 @@
     </section>
 
     <!-- ═══ CTA ═══ -->
-    <section class="cta-section">
+    <section class="cta-section reveal">
       <div class="container">
         <div class="cta-box">
           <div class="cta-box__bg">
@@ -386,6 +386,16 @@ function onScroll() {
 
 onMounted(() => {
   window.addEventListener('scroll', onScroll, { passive: true })
+  // Scroll reveal observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible')
+        observer.unobserve(entry.target)
+      }
+    })
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' })
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
 })
 
 onUnmounted(() => {
@@ -589,7 +599,7 @@ onUnmounted(() => {
   max-width: 760px;
   width: 100%;
 }
-.hero__badge {
+.hero__badge { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -618,7 +628,7 @@ onUnmounted(() => {
   letter-spacing: -0.03em;
   margin-bottom: 24px;
 }
-.hero__title-accent {
+.hero__title-accent { background: linear-gradient(135deg, #60A5FA 0%, #818CF8 50%, #A78BFA 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1468,7 +1478,7 @@ onUnmounted(() => {
 @media (max-width: 480px) {
   .hero__title { font-size: 30px; }
   .hero__lead { font-size: 14px; }
-  .hero__badge { font-size: 11px; padding: 6px 12px; }
+  .hero__badge { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 11px; padding: 6px 12px; }
   .hero__stat-n { font-size: 22px; }
   .hero__stat-l { font-size: 10px; }
   .section-title { font-size: 22px; }
@@ -1486,6 +1496,44 @@ onUnmounted(() => {
   .step__title { font-size: 15px; }
   .step__desc { font-size: 13px; }
 }
+
+
+/* ═══ REVEAL ANIMATION ═══ */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ═══ PREMIUM REFINEMENTS ═══ */
+.hero__badge { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); animation-duration: 0.8s; animation-fill-mode: both; }
+.hero__title { animation-duration: 0.8s; animation-fill-mode: both; }
+.hero__sub { animation-duration: 0.8s; animation-fill-mode: both; }
+.hero__try { animation-duration: 0.8s; animation-fill-mode: both; }
+.hero__stats { animation-duration: 0.8s; animation-fill-mode: both; }
+
+/* Premium glass cards */
+.b-card:hover .b-card__media img { transform: scale(1.08); }
+.b-card__media { overflow: hidden; }
+
+/* Premium step connectors */
+.step__icon { transition: transform 0.3s, box-shadow 0.3s; }
+.step:hover .step__icon { transform: scale(1.08) rotate(-3deg); box-shadow: 0 8px 24px rgba(37,99,235,0.18); }
+.step__num { transition: all 0.3s; }
+.step:hover .step__num { color: var(--accent); }
+
+/* Premium feature cards */
+.feat { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+.feat:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.06); border-color: var(--border-accent); }
+.feat__icon { transition: transform 0.3s; }
+.feat:hover .feat__icon { transform: scale(1.12) rotate(-5deg); }
+
+/* Premium search band */
+.search-band__inner { transition: box-shadow 0.3s, transform 0.3s; }
+.search-band__inner:focus-within { box-shadow: 0 16px 48px rgba(37,99,235,0.12), 0 4px 16px rgba(0,0,0,0.04); transform: translateY(-1px); }
+.search-band__btn { transition: transform 0.2s, box-shadow 0.2s; }
+.search-band__btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,0.25); }
+
+/* Premium CTA */
+.cta-box { transition: transform 0.4s, box-shadow 0.4s; }
+.cta-box:hover { transform: translateY(-3px); box-shadow: 0 24px 64px rgba(0,0,0,0.12); }
 
 </style>
 

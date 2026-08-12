@@ -95,7 +95,7 @@
           </div>
         </div>
 
-        <RoleSwitcher />
+        <RoleSwitcher v-if="currentRole === 'SUPER_HEAD' || currentRole === 'ADMIN'" />
         <ThemeToggle />
       </header>
 
@@ -164,13 +164,13 @@ const allNavGroups = [
       { to: '/management/listings', label: 'Listinglar', icon: FileSignature, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'CONTENT_OPERATOR'] },
       { to: '/management/floor-plans', label: 'Qavat rejalar', icon: Layers, roles: ['SUPER_HEAD', 'CONTENT_OPERATOR'] },
       { to: '/management/visual-settings', label: 'Vizual sozlamalar', icon: Eye, roles: ['SUPER_HEAD', 'CONTENT_OPERATOR'] },
-      { to: '/finance/invoices', label: 'Invoyslar', icon: CreditCard, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
-      { to: '/finance/periods', label: 'Moliya davrlar', icon: Wallet, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
+      { to: '/finance/invoices', label: 'Invoyslar', icon: CreditCard, roles: ['SUPER_HEAD', 'ADMIN', 'ACCOUNTANT'] },
+      { to: '/finance/periods', label: 'Moliya davrlar', icon: Wallet, roles: ['SUPER_HEAD', 'ADMIN', 'ACCOUNTANT'] },
       { to: '/finance/debts', label: 'Qarzlar', icon: FileSpreadsheet, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
       { to: '/facility/work-orders', label: 'Work order', icon: Wrench, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
       { to: '/management/service-requests', label: 'Servis so\'rovlar', icon: ClipboardList, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'] },
-      { to: '/finance/inventory', label: 'Inventar', icon: Boxes, roles: ['SUPER_HEAD', 'WAREHOUSE_OPERATOR'] },
-      { to: '/finance/stock-issues', label: 'Ombor chiqimlari', icon: Package, roles: ['SUPER_HEAD', 'WAREHOUSE_OPERATOR'] },
+      { to: '/finance/inventory', label: 'Inventar', icon: Boxes, roles: ['SUPER_HEAD', 'ADMIN', 'WAREHOUSE_OPERATOR'] },
+      { to: '/finance/stock-issues', label: 'Ombor chiqimlari', icon: Package, roles: ['SUPER_HEAD', 'ADMIN', 'WAREHOUSE_OPERATOR'] },
       { to: '/management/contracts', label: 'Boshqaruv shartnomalar', icon: ScrollText, roles: ['SUPER_HEAD', 'BUILDING_MANAGER'] },
       { to: '/management/units', label: 'Unit boshqaruvi', icon: Grid3x3, roles: ['SUPER_HEAD', 'BUILDING_MANAGER'] },
       { to: '/finance/approvals', label: 'Tasdiqlar', icon: CheckSquare, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
@@ -182,7 +182,7 @@ const allNavGroups = [
   {
     label: 'Tizim',
     items: [
-      { to: '/reports', label: 'Hisobotlar', icon: BarChart3, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
+      { to: '/reports', label: 'Hisobotlar', icon: BarChart3, roles: ['SUPER_HEAD', 'ADMIN', 'ACCOUNTANT'] },
       { to: '/notifications', label: 'Bildirishnomalar', icon: Bell, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'] },
       { to: '/admin/users', label: 'Foydalanuvchilar', icon: Users, roles: ['SUPER_HEAD', 'ADMIN'] },
       { to: '/admin/roles', label: 'Rollar', icon: Shield, roles: ['SUPER_HEAD', 'ADMIN'] },
