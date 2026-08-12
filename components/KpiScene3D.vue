@@ -55,18 +55,18 @@ const props = withDefaults(defineProps<{
 }>(), { size: 56 })
 
 const photoMap: Record<string, string> = {
-  revenue: '/buildings/v2_commercial-tower-1.jpg',
-  occupancy: '/buildings/v2_office-building-1.jpg',
-  buildings: '/buildings/v2_business-center-1.jpg',
-  units: '/buildings/v2_office-building-2.jpg',
-  overdue: '/buildings/v2_office-space-2.jpg',
-  applications: '/buildings/v2_modern-facade-1.jpg',
-  paid: '/buildings/v2_commercial-tower-2.jpg',
-  inventory: '/buildings/v2_warehouse-1.jpg',
-  signing: '/buildings/v2_reception-area.jpg',
-  contract: '/buildings/v2_business-center-2.jpg',
-  service: '/buildings/v2_office-interior-2.jpg',
-  debt: '/buildings/v2_modern-facade-2.jpg',
+  revenue: '/buildings/real_tashkent-skyline.jpg',
+  occupancy: '/buildings/real_tashkent-night.jpg',
+  buildings: '/buildings/real_finance-center.jpg',
+  units: '/buildings/real_nest-one.jpg',
+  overdue: '/buildings/real_tashkent-street.jpg',
+  applications: '/buildings/real_tashkent-skyline2.jpg',
+  paid: '/buildings/real_tashkent-skyline3.jpg',
+  inventory: '/buildings/real_tashkent-city.jpg',
+  signing: '/buildings/real_nest-one2.jpg',
+  contract: '/buildings/real_tashkent-skyline.jpg',
+  service: '/buildings/real_tashkent-night.jpg',
+  debt: '/buildings/real_finance-center.jpg',
 }
 
 const photoUrl = computed(() => photoMap[props.type] || photoMap.buildings)

@@ -343,7 +343,7 @@ const config = useRuntimeConfig()
 // First fetch the catalog to find the listing by id
 const catalogData = ref({
   buildings: [
-    { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', gallery: ['/buildings/hero-tashkent.jpg'], address: 'Mirzo Ulug\'bek, Tashkent', floorsCount: 12, totalArea: 45000, totalUnits: 420, vacantUnits: 42, type: 'BUSINESS_CENTER' },
+    { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', gallery: ['/buildings/real_tashkent-night.jpg'], address: 'Mirzo Ulug\'bek, Tashkent', floorsCount: 12, totalArea: 45000, totalUnits: 420, vacantUnits: 42, type: 'BUSINESS_CENTER' },
   ],
   listings: [
     { id: 'l1', buildingId: 'b1', titleUz: 'A-301 · 85 m² ofis', titleRu: 'A-301 · 85 м² офис', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['/buildings/bc-navroz.jpg'], viewsCount: 234, status: 'PUBLISHED', virtualTourUrl: '', descriptionUz: 'Tashkent City 3-qavatda 85 m² ofis maydoni. Tashqi devor, 4 deraza, konditsioner.', descriptionRu: 'Офис 85 м² на 3 этаже Tashkent City. Окна, кондиционер.', floorPlanType: 'office', area: 85, rooms: [

@@ -675,7 +675,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'RENT',
       price: 2850,
       currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'],
+      photos: ['/buildings/real_tashkent-night.jpg'],
       viewsCount: 342,
       status: 'PUBLISHED',
       virtualTourUrl: 'https://my.matterport.com/show/?m=sample',
@@ -789,7 +789,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'IT Park rezidenti uchun soliq imtiyozlari. Zamonaviy dizayn.',
       descriptionRu: 'Налоговые льготы для резидента IT Park. Современный дизайн.',
       offerType: 'RENT', price: 1700, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 567, status: 'PUBLISHED',
+      photos: ['/buildings/real_tashkent-skyline2.jpg'], viewsCount: 567, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-30'
     },
     {
@@ -799,7 +799,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Startup uchun ideal. Mebellangan, internet, ofis texnika.',
       descriptionRu: 'Идеально для стартапа. С мебелью, интернет, офисная техника.',
       offerType: 'RENT', price: 1200, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 412, status: 'PUBLISHED',
+      photos: ['/buildings/real_tashkent-skyline3.jpg'], viewsCount: 412, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-02'
     },
     {
@@ -809,7 +809,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Server xonasi bilan, 2 majlis xonasi, open-space 40 orin.',
       descriptionRu: 'С серверной, 2 переговорные, open-space на 40 мест.',
       offerType: 'RENT', price: 4000, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 234, status: 'PUBLISHED',
+      photos: ['/buildings/real_tashkent-city.jpg'], viewsCount: 234, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-22'
     },
     {
@@ -819,7 +819,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Food court yonida, yuqori aylanma. Ideal kafe uchun.',
       descriptionRu: 'Рядом с фуд-кортом, высокий трафик. Идеально под кафе.',
       offerType: 'RENT', price: 1500, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 178, status: 'PUBLISHED',
+      photos: ['/buildings/real_tashkent-street.jpg'], viewsCount: 178, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-18'
     },
     {
@@ -829,7 +829,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Markaziy atrium yonida, 2 qavatli, alohida sklad.',
       descriptionRu: 'Рядом с центральным атриумом, 2 этажа, отдельный склад.',
       offerType: 'RENT', price: 3600, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 345, status: 'PUBLISHED',
+      photos: ['/buildings/real_finance-center.jpg'], viewsCount: 345, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-24'
     },
     {
@@ -839,7 +839,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Bolalar zonasi yonida. Ideal oyin lar uchun.',
       descriptionRu: 'Рядом с детской зоной. Идеально под игровые.',
       offerType: 'RENT', price: 1950, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 123, status: 'PUBLISHED',
+      photos: ['/buildings/real_nest-one.jpg'], viewsCount: 123, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-04'
     },
     {
@@ -849,7 +849,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Yuk porti 4 ta, shift balandligi 8m, issiqlik bilan.',
       descriptionRu: '4 погрузочных докa, высота потолков 8м, с отоплением.',
       offerType: 'RENT', price: 2800, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 267, status: 'PUBLISHED',
+      photos: ['/buildings/real_nest-one2.jpg'], viewsCount: 267, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-15'
     },
     {
@@ -859,7 +859,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Kichik logistika uchun. Shift 6m, 2 dock.',
       descriptionRu: 'Для малой логистики. Потолок 6м, 2 дока.',
       offerType: 'RENT', price: 1700, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 189, status: 'PUBLISHED',
+      photos: ['/buildings/real_tashkent-night.jpg'], viewsCount: 189, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-26'
     },
     {
@@ -879,7 +879,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Investitsiya uchun, hozir ijarada (12% daromad). Toliq tamirlangan.',
       descriptionRu: 'Для инвестиций, сейчас в аренде (12% доход). С полным ремонтом.',
       offerType: 'SALE', price: 980000, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 56, status: 'PUBLISHED',
+      photos: ['/buildings/real_tashkent-skyline2.jpg'], viewsCount: 56, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-07'
     },
     {
@@ -889,7 +889,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Investitsiya uchun ideal. Hozir ijarada. 10% yillik daromad.',
       descriptionRu: 'Идеально для инвестиций. Сейчас в аренде. 10% годовой доход.',
       offerType: 'SALE', price: 240000, currency: 'USD',
-      photos: ['/buildings/real_tashkent-skyline.jpg'], viewsCount: 78, status: 'PUBLISHED',
+      photos: ['/buildings/real_tashkent-skyline3.jpg'], viewsCount: 78, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-08'
     }
   ])
@@ -2030,7 +2030,7 @@ export const useMakonStore = defineStore('makon', () => {
           rooms: b.id === 'b1' ? 3 : b.id === 'b2' ? 4 : 2,
           type: 'RENT',
           rent: b.id === 'b1' ? '25.0M' : b.id === 'b2' ? '35.0M' : '18.0M',
-          photo: b.image || '/buildings/hero-tashkent.jpg',
+          photo: b.image || '/buildings/real_tashkent-night.jpg',
           contractNumber: 'CTR-2026-00' + (b.id === 'b1' ? '1' : b.id === 'b2' ? '2' : '5'),
           contractEnd: b.id === 'b1' ? '15 Mar 2027' : b.id === 'b2' ? '01 Dek 2026' : '31 May 2027',
           debt: b.id === 'b2' ? 4200000 : 0,
