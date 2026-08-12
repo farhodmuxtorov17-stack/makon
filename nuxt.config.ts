@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'https://solene-7d68319d.base44.app/functions',
+      apiBase: 'https://api.makon.uz/v1',
     },
   },
   nitro: {

@@ -49,10 +49,10 @@
 
         <div class="hero__try animate-fade-up" style="animation-delay: 0.4s;">
           <NuxtLink to="/login" class="hero__try-btn">
-            <span>Boshlash — bepul</span>
+            <span>Boshlash</span>
             <ArrowRight :size="20" />
           </NuxtLink>
-          <span class="hero__try-hint">Ro'yxatdan o'tmasdan ko'rish — majburiyat yo'q</span>
+          <span class="hero__try-hint">Premium platforma — to'liq boshqaruv</span>
         </div>
 
 
@@ -124,7 +124,7 @@
           <p class="section-sub">Toshkentning yetakchi biznes markazlari — bitta platformada boshqariladi.</p>
         </div>
 
-        <div class="portfolio__featured" @click="navigateTo('/buildings/tashkent-city')">
+        <div class="portfolio__featured" @click="navigateTo('/buildings/tashkent-city-financial-hub')">
           <div class="portfolio__featured-media">
             <img src="/buildings/hero-tashkent.jpg" alt="Tashkent City" />
             <div class="portfolio__featured-overlay"></div>
@@ -150,7 +150,7 @@
         </div>
 
         <div class="portfolio__grid portfolio__grid--wide">
-          <div class="b-card" @click="navigateTo('/buildings/trillant-tower')">
+          <div class="b-card" @click="navigateTo('/buildings/trillant-tower-a')">
             <div class="b-card__media">
               <img src="/buildings/bc-finance.jpg" alt="Trillant Tower" />
               <div class="b-card__overlay"></div>
@@ -166,7 +166,7 @@
               <div class="b-card__price">18 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
-          <div class="b-card" @click="navigateTo('/buildings/city-plaza')">
+          <div class="b-card" @click="navigateTo('/buildings/center-point-plaza')">
             <div class="b-card__media">
               <img src="/buildings/bc-city-plaza.jpg" alt="City Plaza" />
               <div class="b-card__overlay"></div>
@@ -182,7 +182,7 @@
               <div class="b-card__price">12 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
-          <div class="b-card" @click="navigateTo('/buildings/green-park-office')">
+          <div class="b-card" @click="navigateTo('/buildings/novza-business-park')">
             <div class="b-card__media">
               <img src="/buildings/bc-logistics.jpg" alt="Logistika Markaz" />
               <div class="b-card__overlay"></div>
@@ -491,7 +491,7 @@
           </div>
           <div class="cta-box__content">
             <h2 class="cta-box__title font-heading">Boshqaruvni boshlang</h2>
-            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring — birinchi obyektni bepul ulang.</p>
+            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring — birinchi obyektni ulang.</p>
             <div class="cta-box__actions">
               <NuxtLink to="/register" class="cta-box__btn">
                 Ro'yxatdan o'tish <ArrowRight :size="16" />

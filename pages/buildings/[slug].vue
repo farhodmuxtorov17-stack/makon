@@ -306,12 +306,33 @@ const { img } = useImg()
 import { ArrowRight, MapPin, ChevronRight , Building2, CheckCircle, FileText, Grid3x3} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })
+import { useMakonStore } from '~/stores/makon'
 
+const route = useRoute()
+const makonStore = useMakonStore()
+const buildingData = computed(() => {
+  const found = makonStore.buildings.find(b => b.slug === route.params.slug)
+  if (!found) return null
+  return found
+})
 const building = reactive({
   name: 'Tashkent City',
   district: 'Mirzo Ulug\'bek tumani',
   floors: 12, units: 240, area: '32 000', vacant: 47,
   image: '/buildings/real_finance-center.jpg'
+})
+// Override with store data if available
+watchEffect(() => {
+  if (buildingData.value) {
+    const b = buildingData.value
+    building.name = b.name
+    building.district = b.district
+    building.floors = b.floorsCount
+    building.units = b.totalUnits
+    building.area = b.totalArea.toLocaleString('ru-RU')
+    building.vacant = b.vacantUnits
+    building.image = b.gallery[0] || '/buildings/real_finance-center.jpg'
+  }
 })
 
 const activeFloor = ref(3)
