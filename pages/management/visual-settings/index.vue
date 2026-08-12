@@ -258,6 +258,7 @@
 import { ChevronUp, ChevronDown, Image, Building2, Layers, Map, FileText, Boxes, Settings as SettingsIcon, Palette, Save, CheckCircle2 , FileSignature, Grid3x3} from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+const store = useMakonStore()
 
 const activeTab = ref('catalog')
 const showSaved = ref(false)

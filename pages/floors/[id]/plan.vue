@@ -32,7 +32,7 @@
       <div class="kpi-strip kpi-strip--teal">
         <div class="kpi-strip__icon"><Grid3x3 :size="38" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="kpi-strip__body">
-          <div class="kpi-strip__value">{{ rooms.value.length }}</div>
+          <div class="kpi-strip__value">{{ rooms.length }}</div>
           <div class="kpi-strip__label">Jami unitlar</div>
         </div>
       </div>

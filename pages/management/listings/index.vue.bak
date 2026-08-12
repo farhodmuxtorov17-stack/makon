@@ -1,5 +1,4 @@
 <template>
-  <ClientOnly>
   <div class="space-y-6">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
@@ -259,7 +258,6 @@
 
     <CreateListingModal :show="showCreateModal" :buildings="makonStore.buildings" @close="showCreateModal = false" @created="handleCreateListing" />
 </div>
-  </ClientOnly>
 </template>
 
 <script setup lang="ts">

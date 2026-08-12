@@ -129,6 +129,12 @@ import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp,
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const makonStore = useMakonStore()
+const isRefreshing = ref(false)
+
+function refreshData() {
+  isRefreshing.value = true
+  setTimeout(() => isRefreshing.value = false, 1200)
+}
 
 const metrics = computed(() => [
   { label: 'API Latency', value: makonStore.monitoringMetrics.apiLatency + 'ms', icon: Zap, color: '#10b981', status: 'healthy' },
@@ -143,6 +149,11 @@ const apiHours = ['00', '02', '04', '06', '08', '10', '12', '14', '16']
 const apiSeries = [45, 38, 42, 68, 120, 185, 210, 165, 142]
 
 const onlineUsers = computed(() => makonStore.onlineUsers)
+const visibleErrors = computed(() => makonStore.monitoringErrors.slice(0, 5))
+
+function viewUserProfile(id: string) {
+  navigateTo(`/admin/users/${id}`)
+}
 const errors = computed(() => makonStore.monitoringErrors)
 
 function roleColor(role: string) {
