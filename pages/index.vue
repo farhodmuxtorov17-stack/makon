@@ -287,6 +287,34 @@
       </div>
     </section>
 
+    <!-- ═══ STATS BAND ═══ -->
+    <section class="stats-band reveal">
+      <div class="container">
+        <div class="stats-band__grid">
+          <div class="stats-band__item">
+            <div class="stats-band__icon"><Building2 :size="20" /></div>
+            <div class="stats-band__num">12</div>
+            <div class="stats-band__label">Boshqariladigan bino</div>
+          </div>
+          <div class="stats-band__item">
+            <div class="stats-band__icon"><Home :size="20" /></div>
+            <div class="stats-band__num">340+</div>
+            <div class="stats-band__label">Faol unitlar</div>
+          </div>
+          <div class="stats-band__item">
+            <div class="stats-band__icon"><Users :size="20" /></div>
+            <div class="stats-band__num">280+</div>
+            <div class="stats-band__label">Ijarachilar</div>
+          </div>
+          <div class="stats-band__item">
+            <div class="stats-band__icon"><TrendingUp :size="20" /></div>
+            <div class="stats-band__num">98.5%</div>
+            <div class="stats-band__label">Bandlik darajasi</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══ CTA ═══ -->
     <section class="cta-section reveal">
       <div class="container">
@@ -359,7 +387,7 @@ const { img } = useImg()
 import { ref, onMounted, onUnmounted } from 'vue'
 import {
   ArrowRight, MapPin, Search, FileText, ShieldCheck, KeyRound,
-  Building2, Wallet, Wrench, BarChart3, Bell
+  Building2, Wallet, Wrench, BarChart3, Bell, Home, Users, TrendingUp
 } from 'lucide-vue-next'
 
 const scrolled = ref(false)
@@ -1534,6 +1562,63 @@ onUnmounted(() => {
 /* Premium CTA */
 .cta-box { transition: transform 0.4s, box-shadow 0.4s; }
 .cta-box:hover { transform: translateY(-3px); box-shadow: 0 24px 64px rgba(0,0,0,0.12); }
+
+
+/* ═══ STATS BAND ═══ */
+.stats-band { padding: 80px 0; background: var(--bg-subtle); }
+.stats-band__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.stats-band__item { text-align: center; padding: 28px 16px; background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.stats-band__item:hover { transform: translateY(-4px); box-shadow: 0 16px 48px -8px rgba(15,23,42,0.1); border-color: var(--border-accent); }
+.stats-band__icon { width: 48px; height: 48px; margin: 0 auto 14px; border-radius: 16px; background: var(--accent-subtle); display: flex; align-items: center; justify-content: center; color: var(--accent); }
+.stats-band__num { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); margin-bottom: 4px; }
+.stats-band__label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+@media (max-width: 768px) {
+  .stats-band__grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-band__item { padding: 20px 12px; }
+  .stats-band__num { font-size: 26px; }
+}
+
+/* ═══ ENHANCED HERO ═══ */
+.hero__content { max-width: 720px; padding: 0 24px; }
+.hero__lead { font-size: clamp(16px, 2vw, 19px) !important; line-height: 1.65 !important; max-width: 560px; margin: 0 auto 36px !important; }
+.hero__try { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.hero__try-btn { padding: 16px 36px !important; border-radius: 16px !important; font-size: 16px !important; font-weight: 600 !important; }
+
+/* ═══ ENHANCED NAV ═══ */
+.nav--scrolled { box-shadow: 0 4px 24px -4px rgba(0,0,0,0.08) !important; }
+.nav__btn-try { padding: 9px 18px !important; border-radius: 12px !important; font-size: 13.5px !important; font-weight: 600 !important; transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important; }
+.nav__btn-try:hover { transform: translateY(-1px) !important; box-shadow: 0 8px 20px -4px rgba(37,99,235,0.4) !important; }
+
+/* ═══ ENHANCED SEARCH BAND ═══ */
+.search-band { margin-top: -40px; position: relative; z-index: 10; padding: 0 0 40px; }
+.search-band__inner { background: var(--bg-card) !important; border-radius: 20px !important; box-shadow: 0 16px 48px -8px rgba(15,23,42,0.12) !important; border: 1px solid var(--border) !important; padding: 8px !important; }
+.search-band__btn { padding: 12px 28px !important; border-radius: 14px !important; font-weight: 600 !important; font-size: 14px !important; }
+.search-band__chip { padding: 7px 16px !important; border-radius: 100px !important; font-size: 13px !important; font-weight: 500 !important; transition: all 0.25s ease !important; }
+.search-band__chip:hover { transform: translateY(-1px) !important; }
+
+/* ═══ ENHANCED PORTFOLIO ═══ */
+.portfolio__featured { border-radius: 28px !important; overflow: hidden; border: 1px solid var(--border) !important; box-shadow: 0 16px 48px -8px rgba(15,23,42,0.1) !important; transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1) !important; }
+.portfolio__featured:hover { box-shadow: 0 24px 64px -12px rgba(15,23,42,0.15) !important; transform: translateY(-3px) !important; }
+.portfolio__featured-btn { padding: 12px 24px !important; border-radius: 14px !important; font-weight: 600 !important; font-size: 14px !important; transition: all 0.3s ease !important; }
+.portfolio__featured-btn:hover { transform: translateX(4px) !important; }
+
+/* ═══ ENHANCED HOW IT WORKS ═══ */
+.step { transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important; }
+.step:hover { transform: translateY(-4px) !important; }
+.step__icon { transition: all 0.3s ease !important; }
+.step:hover .step__icon { transform: scale(1.1) !important; }
+
+/* ═══ ENHANCED FEATURES ═══ */
+.feat { transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important; }
+.feat:hover { transform: translateY(-4px) !important; }
+.feat__icon { transition: all 0.3s ease !important; }
+.feat:hover .feat__icon { transform: scale(1.1) rotate(-5deg) !important; }
+
+/* ═══ ENHANCED FOOTER ═══ */
+.footer { padding: 64px 0 32px !important; }
+.footer__col a { transition: all 0.2s ease !important; }
+.footer__col a:hover { color: var(--accent) !important; padding-left: 4px !important; }
 
 </style>
 

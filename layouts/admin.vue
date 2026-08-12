@@ -70,28 +70,28 @@
     <!-- Main Content -->
     <div class="flex-1 min-w-0 flex flex-col">
       <!-- Header -->
-      <header class="h-[60px] sticky top-0 z-20 glass border-b border-black/5 dark:border-white/5 flex items-center px-4 lg:px-6 gap-3">
-        <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-ink-500 transition-colors">
+      <header class="h-[64px] sticky top-0 z-20 glass border-b border-black/5 dark:border-white/5 flex items-center px-4 lg:px-6 gap-3">
+        <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-ink-500 transition-all active:scale-95">
           <Menu :size="20" />
         </button>
 
-        <!-- Breadcrumb -->
-        <div class="hidden md:flex items-center gap-2.5 text-sm">
-          <span class="text-ink-400 font-medium">{{ roleLabel }}</span>
+        <!-- Premium Breadcrumb -->
+        <div class="hidden md:flex items-center gap-2 text-sm">
+          <span class="px-2.5 py-1 rounded-lg bg-black/5 dark:bg-white/5 text-ink-400 font-medium text-[12px] tracking-wide">{{ roleLabel }}</span>
           <ChevronRight :size="14" class="text-ink-300" />
-          <span class="text-ink-900 dark:text-white font-semibold">{{ pageTitle }}</span>
+          <span class="text-ink-900 dark:text-white font-semibold text-[14px]">{{ pageTitle }}</span>
         </div>
 
         <!-- Mobile title -->
-        <div class="md:hidden font-semibold text-ink-900 dark:text-white">{{ pageTitle }}</div>
+        <div class="md:hidden font-semibold text-ink-900 dark:text-white text-[15px]">{{ pageTitle }}</div>
 
         <div class="flex-1" />
 
         <!-- Quick Stats -->
-        <div class="hidden lg:flex items-center gap-3 mr-2">
-          <div class="stat-pill stat-pill--success">
-            <div class="stat-pill__dot bg-emerald-500"></div>
-            <span>Tizim faol</span>
+        <div class="hidden lg:flex items-center gap-2 mr-2">
+          <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/15">
+            <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span class="text-[12px] font-semibold text-emerald-600 dark:text-emerald-400">Tizim faol</span>
           </div>
         </div>
 
@@ -100,7 +100,7 @@
       </header>
 
       <!-- Page Content -->
-      <main class="flex-1 p-4 lg:p-6 page-enter-active">
+      <main class="flex-1 p-4 lg:p-8 page-enter-active" style="animation: pageEnter 0.4s cubic-bezier(0.22, 1, 0.36, 1);">
         <slot />
       </main>
     </div>

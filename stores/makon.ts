@@ -682,7 +682,7 @@ export const useMakonStore = defineStore('makon', () => {
       photos: ['/buildings/real_tashkent-night.jpg'],
       viewsCount: 342,
       status: 'PUBLISHED',
-      virtualTourUrl: 'https://my.matterport.com/show/?m=sample',
+      virtualTourUrl: 'https://my.matterport.com/show/?m=MaKon01',
       createdAt: '2026-07-01'
     },
     {
@@ -756,7 +756,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'RENT', price: 5400, currency: 'USD',
       photos: ['/buildings/real_tashkent-skyline2.jpg'],
       viewsCount: 234, status: 'PUBLISHED',
-      virtualTourUrl: 'https://my.matterport.com/show/?m=sample2', createdAt: '2026-07-25'
+      virtualTourUrl: 'https://my.matterport.com/show/?m=MaKon012', createdAt: '2026-07-25'
     },
     {
       id: 'l7', buildingId: 'b1', unitId: 'u502',
@@ -1033,7 +1033,7 @@ export const useMakonStore = defineStore('makon', () => {
       unitNumber: '101',
       applicantName: 'Digital Tashkent LLC',
       applicantPhone: '+998 90 999 11 22',
-      applicantEmail: 'admin@digitaltashkent.uz',
+      applicantEmail: 'digital@makon.uz',
       applicantType: 'LEGAL',
       tin: '302334455',
       type: 'RENT',
@@ -1051,7 +1051,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'app-007', number: 'APP-2026-007',
       buildingId: 'b1', buildingName: 'Trillant Tower A', unitId: 'u502', unitNumber: '502',
       applicantName: 'Nodira Karimova', applicantPhone: '+998 90 234 56 78',
-      applicantEmail: 'nodira.k@gmail.com', applicantType: 'INDIVIDUAL', tin: '1234567890',
+      applicantEmail: 'nodira.k@makon.uz', applicantType: 'INDIVIDUAL', tin: '1234567890',
       type: 'RENT', offeredPrice: 3500, depositAmount: 7000, currency: 'USD',
       durationMonths: 12, startDate: '2026-09-01', createdDate: '2026-08-08',
       status: 'SUBMITTED', notes: 'Kichik biznes uchun, faqat ofis sifatida.',
@@ -1622,9 +1622,9 @@ export const useMakonStore = defineStore('makon', () => {
     { id: "mr5", number: "MR-2026-005", materialName: "Radiator batareyasi", category: "PLUMBING", quantity: 4, unit: "dona", unitPrice: 380000, totalAmount: 1520000, buildingId: "b2", buildingName: "Tashkent City Financial Hub", requestedBy: "Akmal Sodiqov", urgency: "HIGH", status: "REJECTED", note: "Mavjud radiatorlar yetarli", createdAt: "2026-07-20" },
   ])
 
-  // ---------------- Admin Users ----------------
+  // ---------------- Akmal Rashidovs ----------------
   const adminUsers = ref<AdminUserItem[]>([
-    { id: "u1", fullName: "Admin User", email: "admin@makon.uz", phone: "+998901234567", role: "SUPER_HEAD", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-11T08:30:00", createdAt: "2026-01-01" },
+    { id: "u1", fullName: "Akmal Rashidov", email: "manager@makon.uz", phone: "+998901234567", role: "SUPER_HEAD", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-11T08:30:00", createdAt: "2026-01-01" },
     { id: "u2", fullName: "Akmal Sodiqov", email: "akmal@makon.uz", phone: "+998901112233", role: "FACILITY", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-10T14:20:00", createdAt: "2026-02-15" },
     { id: "u3", fullName: "Bekzod Aliyev", email: "bekzod@makon.uz", phone: "+998902223344", role: "FACILITY", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-11T07:00:00", createdAt: "2026-02-15" },
     { id: "u4", fullName: "Dilshod Karimov", email: "dilshod@makon.uz", phone: "+998903334455", role: "BUILDING_MANAGER", organization: "MAKON Management", status: "ACTIVE", lastLogin: "2026-08-10T16:45:00", createdAt: "2026-03-01" },
@@ -1954,16 +1954,16 @@ export const useMakonStore = defineStore('makon', () => {
   const loginHistory = ref([
     { id: '1', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGIN', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '14:32:15' },
     { id: '2', user: 'Dilnoza Karimova', email: 'd.karimova@makon.uz', event: 'LOGIN', ip: '85.17.12.35', device: 'Desktop', browser: 'Firefox 125', time: '14:28:42' },
-    { id: '3', user: 'Sardor Yusupov', email: 's.yusupov@abc.uz', event: 'ERI_LOGIN', ip: '94.158.21.10', device: 'Desktop', browser: 'Chrome 126', time: '14:15:08' },
-    { id: '4', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '13:55:30' },
+    { id: '3', user: 'Sardor Yusupov', email: 's.yusupov@abc.uz', event: 'DIGITAL_LOGIN', ip: '94.158.21.10', device: 'Desktop', browser: 'Chrome 126', time: '14:15:08' },
+    { id: '4', user: 'Tizim', email: 'manager@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '13:55:30' },
     { id: '5', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGIN', ip: '85.17.12.34', device: 'Mobile', browser: 'Safari 17', time: '13:30:12' },
     { id: '6', user: 'Ravshan Keldiyev', email: 'r.keldiyev@makon.uz', event: 'LOGIN', ip: '85.17.12.36', device: 'Desktop', browser: 'Chrome 126', time: '12:50:45' },
-    { id: '7', user: 'Unknown', email: 'n.umarov@makon.uz', event: 'BLOCK', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '12:15:22' },
+    { id: '7', user: 'Tizim', email: 'n.umarov@makon.uz', event: 'BLOCK', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '12:15:22' },
     { id: '8', user: 'Jasur Tursunov', email: 'j.tursunov@makon.uz', event: 'LOGIN', ip: '85.17.12.37', device: 'Desktop', browser: 'Edge 126', time: '12:00:18' },
-    { id: '9', user: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', event: 'ERI_LOGIN', ip: '85.17.12.38', device: 'Desktop', browser: 'Chrome 126', time: '11:30:55' },
+    { id: '9', user: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', event: 'DIGITAL_LOGIN', ip: '85.17.12.38', device: 'Desktop', browser: 'Chrome 126', time: '11:30:55' },
     { id: '10', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGOUT', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '10:45:30' },
     { id: "11", user: "Otabek Yoldoshev", email: 'o.yuldoshev@smart.uz', event: 'LOGIN', ip: '94.158.21.20', device: 'Mobile', browser: 'Chrome 126', time: '09:15:42' },
-    { id: '12', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '08:30:12' },
+    { id: '12', user: 'Tizim', email: 'manager@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '08:30:12' },
   ])
 
   // ─── Notification Templates ───
