@@ -25,13 +25,14 @@
     <div class="bdash__kpis">
       <div v-for="kpi in kpis" :key="kpi.label" class="bdash__kpi">
         <div class="bdash__kpi-top">
-          <span class="bdash__kpi-label">{{ kpi.label }}</span>
+          <div class="bdash__kpi-icon"><KpiScene3D :type="kpi.scene3d" :size="36" /></div>
           <span class="bdash__kpi-trend" :class="kpi.trend > 0 ? 'bdash__kpi-trend--up' : 'bdash__kpi-trend--down'">
             <TrendingUp v-if="kpi.trend > 0" :size="11" />
             <TrendingDown v-else :size="11" />
             {{ Math.abs(kpi.trend) }}%
           </span>
         </div>
+        <div class="bdash__kpi-label">{{ kpi.label }}</div>
         <div class="bdash__kpi-val">{{ kpi.value }}</div>
         <div class="bdash__kpi-spark"><Sparkline :data="kpi.spark" :color="kpi.color" :height="30" /></div>
       </div>
@@ -132,11 +133,11 @@ const buildings = [
 const selectedBuilding = computed(() => buildings.find(b => b.id === selectedId.value) || buildings[0])
 
 const kpis = [
-  { label: 'Bandlik', value: '92%', trend: 3.1, color: '#2563EB', spark: [86, 87, 88, 89, 90, 89, 91, 90, 92, 92] },
-  { label: 'Vacancy', value: '8%', trend: -1.4, color: '#F59E0B', spark: [14, 13, 12, 12, 11, 12, 10, 10, 9, 8] },
-  { label: "Bugungi to'lovlar", value: '128.4 mln', trend: 9.2, color: '#3B82F6', spark: [95, 100, 98, 105, 110, 108, 115, 118, 122, 128] },
-  { label: 'Qarzdorlik', value: '18.2 mln', trend: 4.8, color: '#EF4444', spark: [14, 15, 14.5, 15.5, 16, 16.5, 17, 17.5, 17.8, 18.2] },
-  { label: 'Servis arizalari', value: '14', trend: -12.0, color: '#8B5CF6', spark: [22, 21, 20, 19, 18, 17, 16, 15, 15, 14] },
+  { label: 'Bandlik', value: '92%', trend: 3.1, color: '#2563EB', scene3d: 'occupancy' as const, spark: [86, 87, 88, 89, 90, 89, 91, 90, 92, 92] },
+  { label: 'Vacancy', value: '8%', trend: -1.4, color: '#F59E0B', scene3d: 'units' as const, spark: [14, 13, 12, 12, 11, 12, 10, 10, 9, 8] },
+  { label: "Bugungi to'lovlar", value: '128.4 mln', trend: 9.2, color: '#3B82F6', scene3d: 'paid' as const, spark: [95, 100, 98, 105, 110, 108, 115, 118, 122, 128] },
+  { label: 'Qarzdorlik', value: '18.2 mln', trend: 4.8, color: '#EF4444', scene3d: 'debt' as const, spark: [14, 15, 14.5, 15.5, 16, 16.5, 17, 17.5, 17.8, 18.2] },
+  { label: 'Servis arizalari', value: '14', trend: -12.0, color: '#8B5CF6', scene3d: 'service' as const, spark: [22, 21, 20, 19, 18, 17, 16, 15, 15, 14] },
 ]
 
 const issues = [
@@ -210,6 +211,8 @@ const approvals = [
 .dark .bdash__kpi { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
 .bdash__kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.06); }
 .bdash__kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.bdash__kpi-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.bdash__kpi-label { font-size: 11px; color: var(--text-muted, #71717a); margin-bottom: 4px; }
 .bdash__kpi-label { font-size: 11.5px; color: #71717a; font-weight: 500; }
 .dark .bdash__kpi-label { color: #a1a1aa; }
 .bdash__kpi-trend { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 6px; }

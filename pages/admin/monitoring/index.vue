@@ -12,39 +12,35 @@
       </div>
     </div>
 
-    <!-- System health cards -->
+    <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card-premium p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><Server :size="16" class="text-emerald-500" /></div>
-          <span class="text-xs text-ink-500">Server</span>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">99.98<span class="text-sm">%</span></div>
+          <div class="kpi-strip__label">Server Uptime</div>
         </div>
-        <div class="text-lg font-bold text-emerald-500">99.98%</div>
-        <div class="text-xs text-ink-500 mt-0.5">Uptime (30 kun)</div>
       </div>
-      <div class="card-premium p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center"><Gauge :size="16" class="text-blue-500" /></div>
-          <span class="text-xs text-ink-500">API kechikish</span>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">42<span class="text-sm">ms</span></div>
+          <div class="kpi-strip__label">API kechikish</div>
         </div>
-        <div class="text-lg font-bold text-ink-900 dark:text-white">42<span class="text-xs text-ink-500 font-normal">ms</span></div>
-        <div class="text-xs text-emerald-500 mt-0.5">↓ 8ms</div>
       </div>
-      <div class="card-premium p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><Users :size="16" class="text-purple-500" /></div>
-          <span class="text-xs text-ink-500">Online foydalanuvchilar</span>
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">7<span class="text-sm text-ink-400"> / 24</span></div>
+          <div class="kpi-strip__label">Online foydalanuvchilar</div>
         </div>
-        <div class="text-lg font-bold text-ink-900 dark:text-white">7</div>
-        <div class="text-xs text-ink-500 mt-0.5">/ 24 jami</div>
       </div>
-      <div class="card-premium p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Database :size="16" class="text-amber-500" /></div>
-          <span class="text-xs text-ink-500">Ma'lumot bazasi</span>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="inventory" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">1.2<span class="text-sm">GB</span></div>
+          <div class="kpi-strip__label">Ma'lumot bazasi</div>
         </div>
-        <div class="text-lg font-bold text-ink-900 dark:text-white">1.2<span class="text-xs text-ink-500 font-normal">GB</span></div>
-        <div class="text-xs text-ink-500 mt-0.5">/ 10GB limit</div>
       </div>
     </div>
 
@@ -123,7 +119,7 @@
 </template>
 
 <script setup lang="ts">
-import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp } from 'lucide-vue-next'
+import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp, AlertCircle, CheckCircle } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
@@ -143,7 +139,42 @@ const apiSeries = [45, 38, 42, 68, 120, 185, 210, 165, 142]
 
 const onlineUsers = computed(() => makonStore.onlineUsers)
 const errors = computed(() => makonStore.monitoringErrors)
+
+function roleColor(role: string) {
+  const colors: Record<string, string> = {
+    SUPER_HEAD: '#2563EB',
+    BUILDING_MANAGER: '#10b981',
+    ACCOUNTANT: '#f59e0b',
+    FACILITY: '#8b5cf6',
+    TENANT_OWNER: '#ec4899',
+  }
+  return colors[role] || '#71717a'
+}
 </script>
 <style scoped>
 .metric-bar { padding: 4px 0; }
+
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 </style>

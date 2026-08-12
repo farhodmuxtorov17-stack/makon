@@ -21,6 +21,39 @@
       </div>
     </div>
 
+    <!-- KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ notifications.length }}</div>
+          <div class="kpi-strip__label">Jami bildirishnomalar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ unreadCount }}</div>
+          <div class="kpi-strip__label">O'qilmagan</div>
+        </div>
+        <div v-if="notifications.length" class="kpi-strip__pct">{{ Math.round(unreadCount / notifications.length * 100) }}%</div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ readCount }}</div>
+          <div class="kpi-strip__label">O'qilgan</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="service" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ serviceCount }}</div>
+          <div class="kpi-strip__label">Servis bildirishnomalari</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Notifications -->
     <div class="card-premium p-5">
       <div class="space-y-2">
@@ -60,50 +93,74 @@ import { CheckCheck, BellOff, Receipt, AlertCircle, CheckCircle2, Wrench, FileTe
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const makonStore = useMakonStore()
 const typeFilter = ref('')
 
-const store = useMakonStore()
-const notifications = computed(() => store.notifications)
-
+const notifications = computed(() => makonStore.notifications)
 const unreadCount = computed(() => notifications.value.filter(n => !n.read).length)
+const readCount = computed(() => notifications.value.filter(n => n.read).length)
+const serviceCount = computed(() => notifications.value.filter(n => n.type === 'service').length)
+
 const filteredNotifications = computed(() => {
   if (!typeFilter.value) return notifications.value
   return notifications.value.filter(n => n.type === typeFilter.value)
 })
 
-function markAllRead() { store.markAllNotificationsRead() }
-
-function iconComp(type: string) {
-  return { invoice: Receipt, eri: ShieldCheck, service: Wrench, contract: FileText, application: FileText }[type] || AlertCircle
+function markAllRead() {
+  notifications.value.forEach(n => n.read = true)
 }
+
 function iconBg(type: string) {
   return {
-    invoice: 'bg-emerald-500/10', eri: 'bg-purple-500/10', service: 'bg-amber-500/10',
-    contract: 'bg-blue-500/10', application: 'bg-indigo-500/10',
+    application: 'bg-blue-500/10',
+    eri: 'bg-purple-500/10',
+    invoice: 'bg-amber-500/10',
+    service: 'bg-emerald-500/10',
+    contract: 'bg-brand-500/10',
   }[type] || 'bg-ink-500/10'
 }
 function iconColor(type: string) {
   return {
-    invoice: 'text-emerald-500', eri: 'text-purple-500', service: 'text-amber-500',
-    contract: 'text-blue-500', application: 'text-indigo-500',
+    application: 'text-blue-500',
+    eri: 'text-purple-500',
+    invoice: 'text-amber-500',
+    service: 'text-emerald-500',
+    contract: 'text-brand-500',
   }[type] || 'text-ink-500'
 }
+function iconComp(type: string) {
+  return {
+    application: FileText,
+    eri: ShieldCheck,
+    invoice: Receipt,
+    service: Wrench,
+    contract: FileText,
+  }[type] || AlertCircle
+}
 </script>
-
 <style scoped>
-.notif-row {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 14px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.15s;
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.notif-row:hover { background: rgba(0,0,0,0.03); }
-.dark .notif-row:hover { background: rgba(255,255,255,0.03); }
-.notif-row--unread { background: rgba(37,99,235,0.04); }
-.notif-row__icon {
-  width: 36px; height: 36px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.kpi-strip__pct { font-size: 12px; font-weight: 700; color: var(--accent, #2563EB); padding: 2px 8px; border-radius: 8px; background: rgba(37,99,235,0.1); }
 </style>
