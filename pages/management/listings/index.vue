@@ -11,6 +11,39 @@
       </button>
     </div>
 
+    <!-- KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ listings.length }}</div>
+          <div class="kpi-strip__label">Jami listinglar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ publishedCount }}</div>
+          <div class="kpi-strip__label">Nashr qilingan</div>
+        </div>
+        <div v-if="listings.length" class="kpi-strip__pct">{{ Math.round(publishedCount / listings.length * 100) }}%</div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ draftCount }}</div>
+          <div class="kpi-strip__label">Qoralamalar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ hiddenCount }}</div>
+          <div class="kpi-strip__label">Yashirilgan</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Search & Filters -->
     <div class="flex flex-wrap items-center justify-between gap-3">
       <div class="flex flex-wrap items-center gap-3 flex-1 min-w-[280px]">
@@ -270,6 +303,10 @@ const availableUnits = computed(() => {
   return makonStore.units.filter(u => u.buildingId === newListing.value.buildingId)
 })
 
+const publishedCount = computed(() => listings.value.filter(l => l.status === 'PUBLISHED').length)
+const draftCount = computed(() => listings.value.filter(l => l.status === 'DRAFT').length)
+const hiddenCount = computed(() => listings.value.filter(l => l.status === 'HIDDEN' || l.status === 'ARCHIVED').length)
+
 const filteredListings = computed(() => {
   let result = [...makonStore.listings]
 
@@ -349,3 +386,30 @@ function handleCreateListing() {
   showCreateModal.value = false
 }
 </script>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+.kpi-strip__pct { font-size: 12px; font-weight: 700; color: var(--accent, #2563EB); padding: 2px 8px; border-radius: 8px; background: rgba(37,99,235,0.1); }
+</style>

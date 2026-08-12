@@ -17,6 +17,52 @@
       </div>
     </div>
 
+    <!-- KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ totalApps }}</div>
+          <div class="kpi-strip__label">Jami arizalar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="service" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ submittedCount }}</div>
+          <div class="kpi-strip__label">Yangi (SUBMITTED)</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ inProgressCount }}</div>
+          <div class="kpi-strip__label">Jarayonda</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ activeCount }}</div>
+          <div class="kpi-strip__label">Aktiv shartnomalar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="signing" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ signingCount }}</div>
+          <div class="kpi-strip__label">Imzolanmoqda</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="36" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ totalValue }}</div>
+          <div class="kpi-strip__label">Umumiy qiymat (mln)</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Kanban -->
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 overflow-x-auto pb-4">
       <div v-for="col in kanbanColumns" :key="col.status" class="bg-black/5 dark:bg-white/5 p-3 rounded-2xl border border-black/5 dark:border-white/5 space-y-3 min-w-[240px]">
@@ -220,6 +266,20 @@ const showReasonModal = ref(false)
 const actionType = ref<'APPROVE' | 'RETURN' | 'REJECT'>('APPROVE')
 const decisionReason = ref('')
 
+const totalApps = computed(() => {
+  const apps = buildingFilter.value ? makonStore.applications.filter(a => a.buildingId === buildingFilter.value) : makonStore.applications
+  return apps.length
+})
+const submittedCount = computed(() => getColumnApps('SUBMITTED').length)
+const inProgressCount = computed(() => getColumnApps('OPERATION_APPROVED').length + getColumnApps('FINANCE_APPROVED').length + getColumnApps('DRAFT_READY').length)
+const activeCount = computed(() => getColumnApps('ACTIVE').length)
+const signingCount = computed(() => getColumnApps('PARTIALLY_SIGNED').length)
+const totalValue = computed(() => {
+  const apps = buildingFilter.value ? makonStore.applications.filter(a => a.buildingId === buildingFilter.value) : makonStore.applications
+  const sum = apps.reduce((s, a) => s + (a.offeredPrice || 0), 0)
+  return (sum / 1000000).toFixed(1)
+})
+
 const kanbanColumns = [
   { status: 'SUBMITTED', label: '1. YUBORILGAN', color: 'bg-blue-500', nextStatus: 'OPERATION_APPROVED' },
   { status: 'OPERATION_APPROVED', label: '2. OPERATSIYA TASDIQLADI', color: 'bg-purple-500', nextStatus: 'FINANCE_APPROVED' },
@@ -283,3 +343,29 @@ function confirmDecision() {
 }
 
 </script>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 20px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 10px; color: var(--text-muted, #71717a); margin-top: 3px; }
+</style>
