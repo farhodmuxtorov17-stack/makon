@@ -656,9 +656,12 @@ onMounted(() => {
   position: relative;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding-top: 80px;
+  gap: 36px;
 }
 .hero__bg {
   position: absolute;
@@ -681,7 +684,6 @@ onMounted(() => {
   max-width: 720px;
   padding: 0 24px;
   text-align: center;
-  margin: 0 auto;
 }
 .hero__actions {
   margin-top: 32px;
@@ -712,9 +714,9 @@ onMounted(() => {
 .hero-search-section {
   position: relative;
   z-index: 2;
-  padding: 0 24px 48px;
-  max-width: 680px;
-  margin: 0 auto;
+  padding: 0 24px;
+  max-width: 720px;
+  width: 100%;
 }
 .hero-search-section__inner {
   background: rgba(255,255,255,0.98);
