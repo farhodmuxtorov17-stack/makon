@@ -23,23 +23,35 @@
       </div>
     </div>
 
-    <!-- Stats -->
+    <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="approval-stat approval-stat--amber">
-        <div class="approval-stat__num">{{ pendingCount }}</div>
-        <div class="approval-stat__label">Kutilmoqda</div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ pendingCount }}</div>
+          <div class="kpi-strip__label">Kutilmoqda</div>
+        </div>
       </div>
-      <div class="approval-stat approval-stat--green">
-        <div class="approval-stat__num">{{ approvedCount }}</div>
-        <div class="approval-stat__label">Tasdiqlangan</div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ approvedCount }}</div>
+          <div class="kpi-strip__label">Tasdiqlangan</div>
+        </div>
       </div>
-      <div class="approval-stat approval-stat--red">
-        <div class="approval-stat__num">{{ rejectedCount }}</div>
-        <div class="approval-stat__label">Rad etilgan</div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="debt" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ rejectedCount }}</div>
+          <div class="kpi-strip__label">Rad etilgan</div>
+        </div>
       </div>
-      <div class="approval-stat approval-stat--teal">
-        <div class="approval-stat__num">{{ formatUZSShort(pendingAmount) }}</div>
-        <div class="approval-stat__label">Kutilayotgan summa</div>
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ formatUZSShort(pendingAmount) }}</div>
+          <div class="kpi-strip__label">Kutilayotgan summa</div>
+        </div>
       </div>
     </div>
 
@@ -229,4 +241,28 @@ function formatUZSShort(n: number) {
   .approval-card__amount { width: 100%; text-align: left; }
   .approval-card__actions { width: 100%; }
 }
+
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 </style>

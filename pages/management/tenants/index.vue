@@ -25,6 +25,38 @@
       </div>
     </div>
 
+    <!-- 3D KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ tenantCabinets.length }}</div>
+          <div class="kpi-strip__label">Jami kabinetlar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ activeTenants }}</div>
+          <div class="kpi-strip__label">Aktiv shartnomalar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ totalRent }}</div>
+          <div class="kpi-strip__label">Oylik ijra (mln)</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ debtTenants }}</div>
+          <div class="kpi-strip__label">Qarzdor ijarachilar</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Cabinets Table -->
     <div class="card overflow-hidden">
       <!-- Table Header -->
@@ -101,6 +133,12 @@ definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const makonStore = useMakonStore()
 const tenantCabinets = computed(() => makonStore.tenantCabinets)
+const activeTenants = computed(() => tenantCabinets.value.filter(t => t.contractStatus === 'ACTIVE').length)
+const totalRent = computed(() => {
+  const sum = tenantCabinets.value.reduce((s, t) => s + (t.monthlyRent || 0), 0)
+  return (sum / 1000000).toFixed(1)
+})
+const debtTenants = computed(() => tenantCabinets.value.filter(t => t.balance < 0).length)
 
 function getContractNumber(contractId: string) {
   const c = makonStore.contracts.find(c => c.id === contractId)
@@ -114,4 +152,31 @@ function getUnitNumber(unitId: string) {
   const u = makonStore.units.find(u => u.id === unitId)
   return u?.unitNumber || unitId
 }
+
 </script>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+</style>
