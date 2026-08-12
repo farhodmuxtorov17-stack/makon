@@ -46,9 +46,9 @@ If you discover a security vulnerability in MAKON, please report it responsibly.
 
 This security policy covers:
 - The MAKON frontend application
-- Base44 backend functions
+- Backend functions
 - ERI integration flow
 
 It does **not** cover:
-- Third-party services (Base44 platform, ERI provider)
+- Third-party services (Platform, ERI provider)
 - Infrastructure security (GitHub Pages CDN)

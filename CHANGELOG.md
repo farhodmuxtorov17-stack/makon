@@ -95,7 +95,7 @@
 ## [Unreleased]
 
 ### Запланировано
-- Backend API (Base44 backend functions)
+- Backend API (Backend functions)
 - Реальная ERI интеграция
 - PWA (Service Worker, offline support)
 - Банковская интеграция и автоплатежи

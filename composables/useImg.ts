@@ -1,25 +1,6 @@
-// CDN-hosted real Tashkent building photos (from Wikimedia Commons)
-const CDN_MAP: Record<string, string> = {
-  // Real Tashkent photos
-  '/buildings/real_tashkent-night.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/84256e140_real_tashkent-night.jpg',
-  '/buildings/real_tashkent-skyline.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/1e637e66b_real_tashkent-skyline.jpg',
-  '/buildings/real_tashkent-skyline2.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/43ec3adf9_real_tashkent-skyline2.jpg',
-  '/buildings/real_tashkent-skyline3.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/93f25f75d_real_tashkent-skyline3.jpg',
-  '/buildings/real_tashkent-city.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/bef8b32ab_real_tashkent-city.jpg',
-  '/buildings/real_tashkent-street.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/90efe961a_real_tashkent-street.jpg',
-  '/buildings/real_finance-center.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/44238051c_real_finance-center.jpg',
-  '/buildings/real_nest-one.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/c22e9aac2_real_nest-one.jpg',
-  '/buildings/real_nest-one2.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/c88b995fa_real_nest-one2.jpg',
-  // Legacy CDN entries (old v2_ images)
-  '/buildings/v2_tashkent-tower.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/e64cd03c1_v2_tashkent-tower.jpg',
-  '/buildings/v2_commercial-tower-1.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/355ea320f_v2_commercial-tower-1.jpg',
-  '/buildings/v2_commercial-tower-2.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/25ab4be09_v2_commercial-tower-2.jpg',
-  '/buildings/hero-tashkent.jpg': 'https://base44.app/api/apps/6a78058ed735adc07d68319d/files/mp/public/6a78058ed735adc07d68319d/32dbb5ed7_hero-tashkent.jpg',
-}
-
+// All images are served locally from /buildings/
 export function useImg() {
   const img = (path: string): string => {
-    if (CDN_MAP[path]) return CDN_MAP[path]
     return path
   }
   return { img }

@@ -130,7 +130,7 @@ Platforma quyidagi jarayonlarni avtomatlashtiradi:
 │  └──────────────────────┬──────────────────────────────┘     │
 │                         │                                    │
 │  ┌──────────────────────▼──────────────────────────────┐     │
-│  │              Base44 Backend (API)                    │     │
+│  │              Backend API                    │     │
 │  │  Entities: Building, Listing, Application,           │     │
 │  │  Contract, Invoice, ServiceRequest                    │     │
 │  └─────────────────────────────────────────────────────┘     │
@@ -311,7 +311,7 @@ makon/
 ├── composables/
 │   ├── useFormat.ts            # Formatting utilities
 │   └── useMakonApi.ts          # API composable
-├── functions/                  # Backend functions (Base44)
+├── functions/                  # Backend functions
 │   ├── getDashboardData.ts
 │   ├── getFinanceReport.ts
 │   ├── getBuildingAnalytics.ts

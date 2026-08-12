@@ -89,7 +89,7 @@ middleware/
 └── auth.ts    → Redirects to /login if not authenticated
 ```
 
-### 6. Backend Functions (Base44)
+### 6. Backend Functions 
 
 ```
 functions/
@@ -104,16 +104,16 @@ functions/
 ```
 User Action → Page (Vue) → Composable → Store (Pinia)
                                       ↓
-                              Base44 Entity API
+                              Entity API
                                       ↓
-                              Base44 Database
+                              Database
 ```
 
 ### Example: Creating an Invoice
 1. User clicks "Yangi invoys" on `/finance/invoices`
 2. Modal opens with form
 3. On submit → `createEntityRecords('Invoice', data)`
-4. Invoice record created in Base44 database
+4. Invoice record created in database
 5. Store updates with new invoice
 6. UI re-renders with updated list
 
