@@ -1,4 +1,7 @@
 export default defineNuxtRouteMiddleware((to) => {
+  // Skip during SSR/prerender — no auth state available
+  if (import.meta.server) return
+  
   if (import.meta.client) {
     const authStore = useAuthStore()
     authStore.init()

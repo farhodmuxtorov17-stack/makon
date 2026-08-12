@@ -109,6 +109,7 @@
 <script setup lang="ts">
 import { ShieldCheck, Camera, Smartphone, Check } from 'lucide-vue-next'
 
+const authStore = useAuthStore()
 const editing = ref(false)
 
 function saveProfile() {

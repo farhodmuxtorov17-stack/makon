@@ -113,7 +113,7 @@ import {
   Menu, LogOut, ChevronRight, ChevronLeft, Users, Wrench,
   Wallet, BarChart3, Bell, Shield, Activity, Database, FileSignature, CheckSquare, Gauge, UserCircle,
   Package, Boxes, ClipboardList, Boxes as Inventory, Home, CreditCard,
-  FileSpreadsheet, Layers, Eye
+  FileSpreadsheet, Layers, Eye, Grid3x3
 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -212,7 +212,7 @@ const titles: Record<string,string> = {
   '/finance/periods': 'Moliya Davrlar', '/finance/debts': 'Qarzlar',
   '/finance/inventory': 'Inventar', '/finance/stock-issues': 'Ombor Chiqimlari',
   '/facility/work-orders': 'Texnik Xizmat', '/reports': 'Hisobotlar',
-  '/reports': 'Hisobotlar', '/notifications': 'Bildirishnomalar',
+  '/notifications': 'Bildirishnomalar',
   '/admin/audit': 'Audit', '/admin/monitoring': 'Monitoring',
   '/admin/settings': 'Sozlamalar', '/admin/users': 'Foydalanuvchilar',
   '/admin/roles': 'Rollar', '/admin/backups': 'Rezerv Nusxalar',
