@@ -223,7 +223,7 @@ async function handleSendOtp() {
 .auth__info-notice { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); margin-bottom: 18px; font-size: 13px; color: #52525b; }
 .dark .auth__info-notice { color: #a1a1aa; }
 .auth__info-notice svg { flex-shrink: 0; color: #2563eb; }
-.auth__submit { width: 100%; padding: 14px; border-radius: 12px; border: none; background: var(--accent); color: white; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+.auth__submit { width: 100%; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); color: white; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: 0 4px 14px rgba(37,99,235,0.25); }
 .auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,0.3); }
 .auth__submit:disabled { opacity: 0.5; cursor: not-allowed; }
 

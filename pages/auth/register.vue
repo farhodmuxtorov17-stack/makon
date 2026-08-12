@@ -243,7 +243,7 @@ async function handleRegister() {
 
 .auth__step-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 100px; background: rgba(37,99,235,0.08); margin-bottom: 8px; }
 .auth__step-badge--active { background: rgba(37,99,235,0.12); }
-.auth__step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.auth__step-num { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .auth__step-num--done { background: #10b981; }
 .auth__step-text { font-size: 12px; font-weight: 600; color: var(--accent); }
 .auth__step-text--done { color: #10b981; }
