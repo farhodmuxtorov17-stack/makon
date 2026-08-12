@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <div>
-      <div class="eyebrow">MANAGEMENT / FLOOR-PLANS</div>
+      <div class="eyebrow">Qavat rejalar</div>
       <h1 class="page-title">2D reja importi</h1>
       <p class="text-ink-500 text-sm mt-1">DWG/DXF fayllarini yuklash, poligon biriktirish va unit mapping</p>
     </div>

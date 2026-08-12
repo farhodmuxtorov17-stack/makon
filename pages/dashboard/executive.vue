@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">DASHBOARD / EXECUTIVE</div>
+        <div class="eyebrow">Boshqaruv paneli</div>
         <h1 class="page-title">Ish stoli</h1>
         <p class="text-sm text-ink-400 mt-1">{{ store.buildings.length }} ta biznes markaz · {{ totalUnits }} ta unit</p>
       </div>

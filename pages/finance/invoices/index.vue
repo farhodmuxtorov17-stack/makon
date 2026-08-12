@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">FINANCE / INVOICES</div>
+        <div class="eyebrow">Invoyslar</div>
       <h1 class="page-title">Invoyslar</h1>
         <p class="text-ink-500 text-sm mt-1">Shartnoma bo'yicha to'lov hujjatlari</p>
       </div>

@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">MANAGEMENT / TENANTS</div>
+        <div class="eyebrow">Ijarachilar</div>
       <h1 class="page-title">Ijarachi kabinetlari</h1>
       <p class="page-sub">Shartnoma imzolangan ijarachilar va ularning kabinetlari</p>
         <p class="text-ink-500 text-sm mt-1">Shartnoma aktivlashuvi bilan avtomatik yaratilgan tenant kabinetlar</p>

@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">FINANCE / STOCK-ISSUES</div>
+        <div class="eyebrow">Ombor chiqimlari</div>
       <h1 class="page-title">Ombordan chiqarish</h1>
         <p class="text-ink-500 text-sm mt-1">Materiallarni ombordan chiqarish hujjatlari</p>
       </div>

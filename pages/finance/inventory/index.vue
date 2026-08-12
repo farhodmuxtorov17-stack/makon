@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">FINANCE / INVENTORY</div>
+        <div class="eyebrow">Inventar</div>
         <h1 class="page-title">Ombor boshqaruvi</h1>
         <p class="text-ink-500 text-sm mt-1">{{ materials.length }} ta material · {{ lowStockCount }} ta kam qoldi</p>
       </div>

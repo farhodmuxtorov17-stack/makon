@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">CABINET / CONTRACTS</div>
+        <div class="eyebrow">Shartnomalar</div>
       <h1 class="page-title">Mening shartnomalarim</h1>
         <p class="text-ink-500 text-sm mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} faol · {{ signingCount }} imzolanmoqda</p>
       </div>

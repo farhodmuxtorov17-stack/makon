@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">MANAGEMENT / UNITS</div>
+        <div class="eyebrow">Unitlar</div>
       <h1 class="page-title">Unitlar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUnits.length }} ta unit · {{ occupiedCount }} band · {{ vacantCount }} bo'sh</p>
       </div>

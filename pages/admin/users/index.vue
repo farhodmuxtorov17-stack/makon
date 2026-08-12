@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">ADMIN / USERS</div>
+        <div class="eyebrow">Foydalanuvchilar</div>
       <h1 class="page-title">Foydalanuvchilar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUsers.length }} foydalanuvchi · {{ activeCount }} faol</p>
       </div>

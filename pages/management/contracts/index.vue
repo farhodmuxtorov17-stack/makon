@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">MANAGEMENT / CONTRACTS</div>
+        <div class="eyebrow">Shartnomalar</div>
       <h1 class="page-title">Shartnomalar</h1>
       <p class="page-sub">Barcha shartnomalar, holatlar va muddatlar</p>
         <p class="text-ink-500 text-sm mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} aktiv</p>

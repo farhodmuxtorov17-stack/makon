@@ -4,7 +4,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">MANAGEMENT / LISTINGS</div>
+        <div class="eyebrow">Listinglar</div>
       <h1 class="page-title">Listinglar</h1>
       <p class="page-sub">Public marketplace listinglari va holatlari</p>
         <p class="text-ink-500 text-sm mt-1">Ommaviy katalogdagi ijara va sotuv e'lonlari</p>

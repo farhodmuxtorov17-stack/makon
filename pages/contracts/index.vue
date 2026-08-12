@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-5">
     <div class="flex items-center justify-between mb-6">
-      <div class="eyebrow">CABINET / CONTRACTS</div>
+      <div class="eyebrow">Shartnomalar</div>
       <h1 class="page-title">Shartnomalar</h1>
     </div>
 

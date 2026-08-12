@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">MONITORING</div>
+        <div class="eyebrow">Monitoring</div>
       <h1 class="page-title">Tizim monitoringi</h1>
         <p class="text-ink-500 text-sm mt-1">Server holati, API va foydalanuvchilar faolligi</p>
       </div>

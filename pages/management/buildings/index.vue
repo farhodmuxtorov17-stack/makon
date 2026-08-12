@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">MANAGEMENT / BUILDINGS</div>
+        <div class="eyebrow">Binolar</div>
       <h1 class="page-title">Binolar</h1>
       <p class="page-sub">Jami {{ filteredBuildings.length }} ta bino · bino ma'lumotlari, unitlar va bandlik</p>
       </div>

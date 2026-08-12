@@ -7,7 +7,7 @@
           <ArrowLeft :size="18" />
         </NuxtLink>
         <div>
-          <div class="eyebrow">MANAGEMENT / BUILDINGS / UNITS</div>
+          <div class="eyebrow">Bino unitlari</div>
       <h1 class="page-title">{{ building?.name || 'Bino' }} — Unitlar reyestri</h1>
           <p class="text-xs text-ink-500 mt-0.5">Xonalar, qavatlar va ijara holati boshqaruvi</p>
         </div>

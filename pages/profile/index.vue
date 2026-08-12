@@ -3,7 +3,7 @@
     <!-- ═══ Header ═══ -->
     <div class="flex items-center justify-between">
       <div>
-        <div class="eyebrow">PROFILE / SETTINGS</div>
+        <div class="eyebrow">Profil sozlamalari</div>
         <h1 class="page-title">Profil sozlamalari</h1>
         <p class="text-sm text-ink-400 mt-1">Shaxsiy ma'lumotlaringizni boshqaring</p>
       </div>

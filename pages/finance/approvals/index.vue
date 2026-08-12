@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <!-- Header -->
     <div>
-      <div class="eyebrow">FINANCE / APPROVALS</div>
+      <div class="eyebrow">Tasdiqlar</div>
       <h1 class="page-title">Tasdiqlash jarayoni</h1>
       <p class="page-sub">Invoys va to'lov tasdiqlarini bosqichma-bosqich boshqaring</p>
     </div>

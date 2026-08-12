@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">ADMIN / BACKUPS</div>
+        <div class="eyebrow">Rezerv nusxa</div>
       <h1 class="page-title">Rezerv nusxalar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ backups.length }} nusxa · Oxirgi: {{ backups[0]?.time }}</p>
       </div>

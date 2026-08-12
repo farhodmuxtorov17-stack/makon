@@ -95,7 +95,7 @@
           </div>
         </div>
 
-        <RoleSwitcher v-if="currentRole === 'SUPER_HEAD' || currentRole === 'ADMIN'" />
+
         <ThemeToggle />
       </header>
 

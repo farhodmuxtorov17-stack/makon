@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">ADMIN / AUDIT</div>
+        <div class="eyebrow">Audit</div>
       <h1 class="page-title">Audit jurnali</h1>
         <p class="text-ink-500 text-sm mt-1">{{ entries.length }} ta yozuv · So'nggi 24 soat</p>
       </div>

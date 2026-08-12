@@ -3,7 +3,7 @@
     <!-- ═══ Header ═══ -->
     <div class="flex items-center justify-between">
       <div>
-        <div class="eyebrow">SYSTEM / SETTINGS</div>
+        <div class="eyebrow">Tizim sozlamalari</div>
         <h1 class="page-title">Tizim sozlamalari</h1>
         <p class="text-sm text-ink-400 mt-1">MAKON platformasi konfiguratsiyasi</p>
       </div>

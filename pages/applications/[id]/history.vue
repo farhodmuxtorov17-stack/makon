@@ -6,7 +6,7 @@
         <ArrowLeft :size="18" />
       </NuxtLink>
       <div>
-        <div class="eyebrow">APPLICATIONS / HISTORY</div>
+        <div class="eyebrow">Ariza tarixi</div>
       <h1 class="page-title">Ariza Tarixi va Audit Izlari</h1>
         <p class="text-xs text-ink-500">Ariza <b>{{ app.number }}</b> bo'yicha barcha harakatlar, Raqamli imzo va reviewer xulosalari kronologiyasi</p>
       </div>

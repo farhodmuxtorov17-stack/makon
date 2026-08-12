@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">ADMIN / ROLES</div>
+        <div class="eyebrow">Rollar</div>
       <h1 class="page-title">Rollar va huquqlar</h1>
         <p class="text-ink-500 text-sm mt-1">5 ta rol · {{ permissions.length }} ta huquq</p>
       </div>

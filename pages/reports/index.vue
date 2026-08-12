@@ -3,7 +3,7 @@
     <!-- ═══ Header ═══ -->
     <div class="flex items-center justify-between">
       <div>
-        <div class="eyebrow">REPORTS / ANALYTICS</div>
+        <div class="eyebrow">Hisobotlar</div>
         <h1 class="page-title">Hisobotlar</h1>
         <p class="text-sm text-ink-400 mt-1">Tizim analitikasi va statistika</p>
       </div>

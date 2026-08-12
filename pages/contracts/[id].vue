@@ -5,7 +5,7 @@
         <button @click="navigateTo('/contracts')" class="btn btn-ghost btn-sm p-2"><ArrowLeft :size="18" /></button>
         <div>
           <div class="flex items-center gap-2 flex-wrap">
-            <div class="eyebrow">CONTRACTS</div>
+            <div class="eyebrow">Shartnomalar</div>
       <h1 class="page-title">{{ contract.number }}</h1>
             <span class="text-xs px-2 py-1 rounded-full" :class="statusClass(contract.status)">{{ statusLabel(contract.status) }}</span>
             <span class="text-xs px-2 py-1 rounded-full bg-ink-100 dark:bg-white/10 text-ink-500">v{{ contract.version }}</span>

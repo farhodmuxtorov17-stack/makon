@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">FINANCE / DEBTS</div>
+        <div class="eyebrow">Qarzlar</div>
         <h1 class="page-title">Qarzdorlik boshqaruvi</h1>
         <p class="page-sub">To'lanmagan invoyslar bo'yicha qoldiqlar va muddati o'tgan to'lovlarni boshqaring</p>
       </div>

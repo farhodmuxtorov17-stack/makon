@@ -6,7 +6,7 @@
         <ArrowLeft :size="18" />
       </NuxtLink>
       <div>
-        <div class="eyebrow">CONTRACTS / ACTIVATE</div>
+        <div class="eyebrow">Shartnoma aktivlashtirish</div>
       <h1 class="page-title">Shartnomani Aktivlashtirish</h1>
         <p class="text-xs text-ink-500">Shartnoma: <b class="font-mono text-brand-500">{{ contract.number }}</b></p>
       </div>

@@ -3,7 +3,7 @@
     <!-- ═══ Header ═══ -->
     <div class="flex items-center justify-between">
       <div>
-        <div class="eyebrow">SYSTEM / NOTIFICATIONS</div>
+        <div class="eyebrow">Bildirishnomalar</div>
         <h1 class="page-title">Bildirishnomalar</h1>
         <p class="text-sm text-ink-400 mt-1">Jami {{ notifications.length }} ta bildirishnoma · {{ unreadCount }} o'qilmagan</p>
       </div>
