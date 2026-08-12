@@ -14,6 +14,42 @@
       </div>
     </div>
 
+    <!-- 3D KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Bell :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ notifications.length }}</div>
+          <div class="dash-kpi__label">Jami</div>
+        </div>
+      </div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><AlertCircle :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ unreadCount }}</div>
+          <div class="dash-kpi__label">O'qilmagan</div>
+        </div>
+      </div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ notifications.filter(n => n.type === 'APPLICATION').length }}</div>
+          <div class="dash-kpi__label">Arizalar</div>
+        </div>
+      </div>
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Wallet :size="22" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ notifications.filter(n => n.type === 'INVOICE').length }}</div>
+          <div class="dash-kpi__label">Invoyslar</div>
+        </div>
+      </div>
+    </div>
+
     <!-- ═══ Filter Tabs ═══ -->
     <div class="flex gap-1 overflow-x-auto pb-1">
       <button
