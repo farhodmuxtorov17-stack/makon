@@ -108,6 +108,7 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+import { Building2, Home, Grid3x3, FileText, FileSignature } from 'lucide-vue-next'
 
 const store = useMakonStore()
 

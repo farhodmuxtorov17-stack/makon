@@ -154,7 +154,7 @@
 </template>
 
 <script setup lang="ts">
-import { Receipt, Zap, Droplet, Flame, Wrench, Trash2 , AlertCircle, CheckCircle, FileSignature, FileText, Grid3x3} from 'lucide-vue-next'
+import { AlertCircle, CheckCircle, Droplet, FileSignature, FileText, Flame, Grid3x3, Plus, Receipt, Trash2, Wallet, Wrench, Zap } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

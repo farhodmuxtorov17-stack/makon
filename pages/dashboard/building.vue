@@ -117,7 +117,7 @@
 </template>
 
 <script setup lang="ts">
-import { Building2, TrendingUp, TrendingDown, Calendar, CreditCard, Wrench, ClipboardCheck, FileClock } from 'lucide-vue-next'
+import { Building2, Calendar, ClipboardCheck, CreditCard, FileClock, TrendingDown, TrendingUp, Wrench } from 'lucide-vue-next'
 import Sparkline from '~/components/Sparkline.vue'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
