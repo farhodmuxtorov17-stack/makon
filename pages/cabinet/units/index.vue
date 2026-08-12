@@ -46,7 +46,7 @@
       <div v-for="unit in filteredUnits" :key="unit.id" class="unit-detail-card">
         <!-- Photo -->
         <div class="unit-detail-card__photo">
-          <img :src="unit.photo" :alt="unit.name" loading="lazy" />
+          <img :src="img(unit.photo)" :alt="unit.name" loading="lazy" />
           <span class="unit-detail-card__badge" :class="unit.type === 'RENT' ? 'unit-detail-card__badge--rent' : 'unit-detail-card__badge--owned'">
             {{ unit.type === 'RENT' ? 'Ijara' : 'Mulk' }}
           </span>
@@ -108,6 +108,7 @@
 </template>
 
 <script setup lang="ts">
+const { img } = useImg()
 import { Search,  Plus, Building2, Ruler, Wallet, AlertCircle } from 'lucide-vue-next'
 
 const search = ref('')

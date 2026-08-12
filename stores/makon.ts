@@ -365,7 +365,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 10,
       vacantUnits: 15,
       totalArea: 28500,
-      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_commercial-tower-1.jpg', '/buildings/v2_office-building-1.jpg', '/buildings/v2_modern-facade-1.jpg'],
       publicDescription: 'A-klassdagi zamonaviy biznes markazi. Markaziy panorama, aqlli binolar boshqaruvi (BMS) va premium ofislar.',
       publicDescriptionRu: 'Современный бизнес-центр класса А. Панорамный вид, умная система управления зданием (BMS) и премиум офисы.',
       isPublished: true,
@@ -397,7 +397,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 15,
       vacantUnits: 10,
       totalArea: 42000,
-      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_office-building-2.jpg', '/buildings/v2_business-center-1.jpg', '/buildings/v2_office-space-1.jpg'],
       publicDescription: 'Tashkent City parkining qoq markazida joylashgan moliya markazi. Xalqaro banklar va moliyaviy kompaniyalar qarorgohi.',
       publicDescriptionRu: 'Финансовый хаб в самом центре Ташкент Сити. Штаб-квартира международных банков и финансовый институтов.',
       isPublished: true,
@@ -427,7 +427,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 10,
       vacantUnits: 20,
       totalArea: 18000,
-      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_commercial-tower-2.jpg', '/buildings/v2_business-center-2.jpg', '/buildings/v2_office-space-2.jpg'],
       publicDescription: 'IT va venchur kompaniyalar uchun maxsus loyihalashtirilgan innovatsion ekotizim.',
       publicDescriptionRu: 'Инновационная экосистема, специально спроектированная для IT и венчурных компаний.',
       isPublished: true,
@@ -454,7 +454,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 2,
       vacantUnits: 2,
       totalArea: 22000,
-      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_modern-facade-2.jpg', '/buildings/v2_reception-area.jpg', '/buildings/v2_meeting-room.jpg'],
       publicDescription: 'Premial kiyim brendlari va savdo shoxobchalari uchun 5 qavatli savdo majmuasi.',
       publicDescriptionRu: '5-этажный торговый комплекс для премиальных брендов и ритейла.',
       isPublished: true,
@@ -481,7 +481,7 @@ export const useMakonStore = defineStore('makon', () => {
       reservedUnits: 4,
       vacantUnits: 8,
       totalArea: 35000,
-      gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_office-building-1.jpg', '/buildings/v2_modern-facade-1.jpg', '/buildings/v2_commercial-tower-1.jpg'],
       publicDescription: 'A-klassdagi quruq va muzlatgichli ombor maydonlari. Temir yo\'l shaxobchasi va fura rampalari mavjud.',
       publicDescriptionRu: 'Складские площади класса А. Сухие и холодильные склады с ж/д веткой и рампой.',
       isPublished: false,
@@ -498,7 +498,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'b6', name: 'Tashkent City Business Center', slug: 'tashkent-city-business-center',
       type: 'OFFICE', address: 'Tashkent City 8-bino', city: 'Toshkent', district: 'Yashnobod',
       floorsCount: 12, totalUnits: 96, occupiedUnits: 78, reservedUnits: 6, vacantUnits: 12,
-      totalArea: 18500, gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_shopping-center-2.jpg', '/buildings/v2_business-center-1.jpg', '/buildings/v2_reception-area.jpg'],
       publicDescription: 'Tashkent City majmuasidagi eng zamonaviy biznes markaz. Panoramali ofislar.',
       publicDescriptionRu: 'Современный бизнес-центр в комплексе Tashkent City.',
       isPublished: true, cadastralNumber: '10:10:8877665:06', buildYear: 2024,
@@ -509,7 +509,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'b7', name: 'Amir Tower', slug: 'amir-tower',
       type: 'OFFICE', address: 'Amir Temur kochasi 45', city: 'Toshkent', district: 'Mirzo Ulugbek',
       floorsCount: 18, totalUnits: 144, occupiedUnits: 120, reservedUnits: 8, vacantUnits: 16,
-      totalArea: 22000, gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_warehouse-1.jpg', '/buildings/v2_warehouse-2.jpg', '/buildings/v2_business-center-2.jpg'],
       publicDescription: 'Shahar markazidagi A-klass biznes minorasi. Premium ofislar.',
       publicDescriptionRu: 'Башня класса А в центре города. Премиум офисы.',
       isPublished: true, cadastralNumber: '10:10:7766554:07', buildYear: 2023,
@@ -520,7 +520,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'b8', name: 'Center Point Plaza', slug: 'center-point-plaza',
       type: 'SHOPPING', address: 'Buyuk Ipak Yoli 12', city: 'Toshkent', district: 'Yakkasaray',
       floorsCount: 5, totalUnits: 60, occupiedUnits: 45, reservedUnits: 5, vacantUnits: 10,
-      totalArea: 12000, gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_office-interior-2.jpg', '/buildings/v2_coworking-space.jpg', '/buildings/v2_meeting-room.jpg'],
       publicDescription: 'Savdo va kongilochar markaz. Food court, kinoteatr, bolalar zonasi.',
       publicDescriptionRu: 'Торгово-развлекательный центр. Фуд-корт, кинотеатр.',
       isPublished: true, cadastralNumber: '10:10:6655443:08', buildYear: 2022,
@@ -531,7 +531,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'b9', name: 'Novza Business Park', slug: 'novza-business-park',
       type: 'OFFICE', address: 'Novza kochasi 8', city: 'Toshkent', district: 'Yakkasaray',
       floorsCount: 8, totalUnits: 64, occupiedUnits: 52, reservedUnits: 4, vacantUnits: 8,
-      totalArea: 14000, gallery: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
+      gallery: ['/buildings/v2_aerial-city-1.jpg', '/buildings/v2_night-skyline.jpg', '/buildings/v2_commercial-tower-1.jpg'],
       publicDescription: 'B-klass biznes markaz. Kichik va orta biznes uchun ideal.',
       publicDescriptionRu: 'Бизнес-центр класса B. Идеально для малого и среднего бизнеса.',
       isPublished: true, cadastralNumber: '10:10:5544332:09', buildYear: 2021,
@@ -675,7 +675,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'RENT',
       price: 2850,
       currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'],
+      photos: ['/buildings/v2_office-space-1.jpg'],
       viewsCount: 342,
       status: 'PUBLISHED',
       virtualTourUrl: 'https://my.matterport.com/show/?m=sample',
@@ -692,7 +692,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'RENT',
       price: 7200,
       currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'],
+      photos: ['/buildings/v2_office-space-2.jpg'],
       viewsCount: 189,
       status: 'PUBLISHED',
       virtualTourUrl: '',
@@ -709,7 +709,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'RENT',
       price: 2800,
       currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'],
+      photos: ['/buildings/v2_office-interior-2.jpg'],
       viewsCount: 512,
       status: 'PUBLISHED',
       virtualTourUrl: '',
@@ -726,7 +726,7 @@ export const useMakonStore = defineStore('makon', () => {
       offerType: 'SALE',
       price: 850000,
       currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'],
+      photos: ['/buildings/v2_reception-area.jpg'],
       viewsCount: 92,
       status: 'DRAFT',
       virtualTourUrl: '',
@@ -739,7 +739,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Baland oqimli joyda, yirik derazalar va alohida kirish bilan savdo maydoni.',
       descriptionRu: 'Торговое помещение в месте с высоким трафиком, с большими окнами и отдельным входом.',
       offerType: 'RENT', price: 6300, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 278, status: 'PUBLISHED',
+      photos: ['/buildings/v2_meeting-room.jpg'],
       virtualTourUrl: '', createdAt: '2026-07-20'
     },
     {
@@ -749,7 +749,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Shahar panoramasi bilan, mebel bilan tamirlangan, tezkor internet.',
       descriptionRu: 'С панорамой города, с мебелью, быстрый интернет.',
       offerType: 'RENT', price: 5400, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 421, status: 'PUBLISHED',
+      photos: ['/buildings/v2_coworking-space.jpg'],
       virtualTourUrl: 'https://my.matterport.com/show/?m=sample2', createdAt: '2026-07-25'
     },
     {
@@ -759,7 +759,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Kichik biznes uchun ideal. Ochiq reja, konditsioner, 2 WC.',
       descriptionRu: 'Идеально для малого бизнеса. Открытый план, кондиционер, 2 санузла.',
       offerType: 'RENT', price: 3600, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 156, status: 'PUBLISHED',
+      photos: ['/buildings/v2_commercial-tower-1.jpg'],
       virtualTourUrl: '', createdAt: '2026-07-28'
     },
     {
@@ -769,7 +769,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Mollarda bolgan aylanma yuqori. 2 qavatli, podval bilan.',
       descriptionRu: 'Высокий трафик в молле. 2 этажа, с подвалом.',
       offerType: 'RENT', price: 2850, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 389, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-building-1.jpg'],
       virtualTourUrl: '', createdAt: '2026-08-01'
     },
     {
@@ -779,7 +779,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Kiosk uchun ideal. Markaziy havo aylantirish, elektr 15kW.',
       descriptionRu: 'Идеально для киоска. Центральная вентиляция, электричество 15кВт.',
       offerType: 'RENT', price: 1950, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 198, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 198, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-03'
     },
     {
@@ -789,7 +789,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'IT Park rezidenti uchun soliq imtiyozlari. Zamonaviy dizayn.',
       descriptionRu: 'Налоговые льготы для резидента IT Park. Современный дизайн.',
       offerType: 'RENT', price: 1700, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 567, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 567, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-30'
     },
     {
@@ -799,7 +799,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Startup uchun ideal. Mebellangan, internet, ofis texnika.',
       descriptionRu: 'Идеально для стартапа. С мебелью, интернет, офисная техника.',
       offerType: 'RENT', price: 1200, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 412, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 412, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-02'
     },
     {
@@ -809,7 +809,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Server xonasi bilan, 2 majlis xonasi, open-space 40 orin.',
       descriptionRu: 'С серверной, 2 переговорные, open-space на 40 мест.',
       offerType: 'RENT', price: 4000, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 234, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 234, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-22'
     },
     {
@@ -819,7 +819,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Food court yonida, yuqori aylanma. Ideal kafe uchun.',
       descriptionRu: 'Рядом с фуд-кортом, высокий трафик. Идеально под кафе.',
       offerType: 'RENT', price: 1500, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 178, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 178, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-18'
     },
     {
@@ -829,7 +829,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Markaziy atrium yonida, 2 qavatli, alohida sklad.',
       descriptionRu: 'Рядом с центральным атриумом, 2 этажа, отдельный склад.',
       offerType: 'RENT', price: 3600, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 345, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 345, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-24'
     },
     {
@@ -839,7 +839,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Bolalar zonasi yonida. Ideal oyin lar uchun.',
       descriptionRu: 'Рядом с детской зоной. Идеально под игровые.',
       offerType: 'RENT', price: 1950, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 123, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 123, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-04'
     },
     {
@@ -849,7 +849,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Yuk porti 4 ta, shift balandligi 8m, issiqlik bilan.',
       descriptionRu: '4 погрузочных докa, высота потолков 8м, с отоплением.',
       offerType: 'RENT', price: 2800, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 267, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 267, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-15'
     },
     {
@@ -859,7 +859,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Kichik logistika uchun. Shift 6m, 2 dock.',
       descriptionRu: 'Для малой логистики. Потолок 6м, 2 дока.',
       offerType: 'RENT', price: 1700, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 189, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 189, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-26'
     },
     {
@@ -869,7 +869,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Mezzanine bilan, ofis zonasi bilan, yuk lifti.',
       descriptionRu: 'С мезонином, с офисной зоной, грузовой лифт.',
       offerType: 'SALE', price: 320000, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 145, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 145, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-06'
     },
     {
@@ -879,7 +879,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Investitsiya uchun, hozir ijarada (12% daromad). Toliq tamirlangan.',
       descriptionRu: 'Для инвестиций, сейчас в аренде (12% доход). С полным ремонтом.',
       offerType: 'SALE', price: 980000, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 56, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 56, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-07'
     },
     {
@@ -889,7 +889,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionUz: 'Investitsiya uchun ideal. Hozir ijarada. 10% yillik daromad.',
       descriptionRu: 'Идеально для инвестиций. Сейчас в аренде. 10% годовой доход.',
       offerType: 'SALE', price: 240000, currency: 'USD',
-      photos: ['/buildings/3d-tower-2.png'], viewsCount: 78, status: 'PUBLISHED',
+      photos: ['/buildings/v2_office-space-1.jpg'], viewsCount: 78, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-08'
     }
   ])

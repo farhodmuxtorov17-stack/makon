@@ -90,7 +90,7 @@
     <div v-if="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       <div v-for="b in filteredBuildings" :key="b.id" class="card overflow-hidden group hover:border-brand-500/40 transition-all duration-300 cursor-pointer" @click="openBuilding(b)">
         <div class="h-44 overflow-hidden bg-ink-900 relative">
-          <img v-if="b.gallery && b.gallery[0]" :src="b.gallery[0]" :alt="b.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img v-if="b.gallery && b.gallery[0]" :src="img(b.gallery[0])" :alt="b.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           <div v-else class="w-full h-full flex items-center justify-center text-ink-600"><Building2 :size="48" /></div>
           <div class="absolute top-3 right-3 flex gap-2">
             <span class="badge badge-brand text-xs font-semibold shadow-md">{{ typeLabel(b.type) }}</span>
@@ -155,7 +155,7 @@
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-lg bg-ink-800 overflow-hidden flex-shrink-0">
-                    <img v-if="b.gallery && b.gallery[0]" :src="b.gallery[0]" class="w-full h-full object-cover" />
+                    <img v-if="b.gallery && b.gallery[0]" :src="img(b.gallery[0])" class="w-full h-full object-cover" />
                     <div v-else class="w-full h-full flex items-center justify-center text-ink-500"><Building2 :size="18" /></div>
                   </div>
                   <div>
@@ -318,6 +318,7 @@
 </template>
 
 <script setup lang="ts">
+const { img } = useImg()
 import KpiCard from '~/components/KpiCard.vue'
 import { Plus, Search, Building2, MapPin, Globe, LayoutGrid, List, ArrowRight, Eye, Box, Layers, Check, Settings } from 'lucide-vue-next'
 

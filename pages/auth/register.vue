@@ -1,7 +1,7 @@
 <template>
   <div class="auth">
     <div class="auth__visual">
-      <img src="/buildings/hero-tashkent.jpg" alt="Tashkent City" class="auth__visual-img" />
+      <img :src="img('/buildings/v2_tashkent-tower.jpg')" alt="Tashkent City" class="auth__visual-img" />
       <div class="auth__visual-grad"></div>
       <div class="auth__visual-content">
         <NuxtLink to="/" class="auth__logo">
@@ -130,6 +130,7 @@
 </template>
 
 <script setup lang="ts">
+const { img } = useImg()
 import { User, Building2, Phone, Mail, FileText, Lock, Eye, EyeOff, UserPlus, Check } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })

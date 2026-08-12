@@ -36,7 +36,7 @@
               @click="currentPhotoIdx = i"
               class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer transition-all"
               :class="currentPhotoIdx === i ? 'ring-2 ring-brand-500' : 'opacity-50 hover:opacity-100'">
-              <img :src="p" class="w-full h-full object-cover" loading="lazy" />
+              <img :src="img(p)" class="w-full h-full object-cover" loading="lazy" />
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@
               <div v-if="planView === 'photo'" class="floor-plan-container">
                 <div class="relative rounded-xl overflow-hidden bg-ink-900">
                   <img
-                    :src="floorPlanImage"
+                    :src="img('/buildings/v2_office-space-1.jpg')"
                     alt="Ofis planirovkasi"
                     class="w-full"
                     style="max-height: 500px; object-fit: contain;"
@@ -233,7 +233,7 @@
               <h3 class="font-semibold dark:text-white mb-4">Bino ma'lumotlari</h3>
               <NuxtLink :to="`/buildings/${data.building.slug}`" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
                 <div class="w-16 h-16 rounded-lg overflow-hidden bg-ink-900 flex-shrink-0">
-                  <img v-if="data.building.gallery[0]" :src="data.building.gallery[0]" class="w-full h-full object-cover" />
+                  <img v-if="data.building.gallery[0]" :src="img(data.building.gallery[0])" class="w-full h-full object-cover" />
                   <div v-else class="w-full h-full flex items-center justify-center"><Building2 :size="24" class="text-ink-600" /></div>
                 </div>
                 <div class="flex-1">
@@ -329,6 +329,7 @@
 </template>
 
 <script setup lang="ts">
+const { img } = useImg()
 import { ArrowLeft, MapPin, Building2, ChevronRight, ExternalLink, Eye, Phone, CheckCircle2 } from 'lucide-vue-next'
 import { BUILDING_TYPE_LABELS } from '~/types'
 
@@ -387,7 +388,7 @@ const defaultRooms = [
 ]
 const currentPhotoIdx = ref(0)
 const currentPhoto = computed(() => {
-  return listing.value?.photos?.[currentPhotoIdx.value] || '/buildings/bc-city-plaza.jpg'
+  return img(listing.value?.photos?.[currentPhotoIdx.value] || '/buildings/bc-city-plaza.jpg')
 })
 
 // Application form

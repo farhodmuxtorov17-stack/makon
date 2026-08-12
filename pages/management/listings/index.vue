@@ -73,7 +73,7 @@
       <div v-for="l in filteredListings" :key="l.id" class="card overflow-hidden group hover:border-brand-500/40 transition-all">
         <!-- Photo Cover -->
         <div class="h-48 overflow-hidden bg-ink-900 relative">
-          <img v-if="l.photos && l.photos[0]" :src="l.photos[0]" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img v-if="l.photos && l.photos[0]" :src="img(l.photos[0])" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           <div v-else class="w-full h-full flex items-center justify-center text-ink-600"><Tag :size="48" /></div>
 
           <div class="absolute top-3 right-3 flex gap-2">
@@ -240,7 +240,7 @@
           </div>
 
           <div class="h-48 rounded-xl overflow-hidden bg-ink-800">
-            <img v-if="previewListing.photos && previewListing.photos[0]" :src="previewListing.photos[0]" class="w-full h-full object-cover" />
+            <img v-if="previewListing.photos && previewListing.photos[0]" :src="img(previewListing.photos[0])" class="w-full h-full object-cover" />
           </div>
 
           <div>
@@ -261,6 +261,7 @@
 </template>
 
 <script setup lang="ts">
+const { img } = useImg()
 import CreateListingModal from '~/components/CreateListingModal.vue'
 import { Plus, Search, Tag, Power, Eye, X } from 'lucide-vue-next'
 

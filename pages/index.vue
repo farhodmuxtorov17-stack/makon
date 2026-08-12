@@ -27,7 +27,7 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero__bg">
-        <img src="/buildings/hero-tashkent.jpg" alt="Tashkent City" class="hero__bg-img" />
+        <img :src="img('/buildings/v2_tashkent-tower.jpg')" alt="Tashkent City" class="hero__bg-img" />
         <div class="hero__overlay"></div>
       </div>
       <div class="hero__center">
@@ -130,7 +130,7 @@
 
         <div class="portfolio__featured" @click="navigateTo('/buildings/tashkent-city')">
           <div class="portfolio__featured-media">
-            <img src="/buildings/hero-tashkent.jpg" alt="Tashkent City" />
+            <img :src="img('/buildings/v2_tashkent-tower.jpg')" alt="Tashkent City" />
             <div class="portfolio__featured-overlay"></div>
             <div class="portfolio__featured-badge">PREMIUM</div>
           </div>
@@ -156,7 +156,7 @@
         <div class="portfolio__grid">
           <div class="b-card" @click="navigateTo('/buildings/trillant-tower')">
             <div class="b-card__media">
-              <img src="/buildings/bc-finance.jpg" alt="Trillant Tower" />
+              <img :src="img('/buildings/v2_office-building-2.jpg')" alt="Trillant Tower" />
               <div class="b-card__overlay"></div>
             </div>
             <div class="b-card__info">
@@ -168,7 +168,7 @@
           </div>
           <div class="b-card" @click="navigateTo('/buildings/city-plaza')">
             <div class="b-card__media">
-              <img src="/buildings/bc-city-plaza.jpg" alt="City Plaza" />
+              <img :src="img('/buildings/v2_commercial-tower-2.jpg')" alt="City Plaza" />
               <div class="b-card__overlay"></div>
             </div>
             <div class="b-card__info">
@@ -180,7 +180,7 @@
           </div>
           <div class="b-card" @click="navigateTo('/buildings/green-park-office')">
             <div class="b-card__media">
-              <img src="/buildings/bc-logistics.jpg" alt="Logistics Center" />
+              <img :src="img('/buildings/v2_warehouse-1.jpg')" alt="Logistics Center" />
               <div class="b-card__overlay"></div>
             </div>
             <div class="b-card__info">
@@ -435,6 +435,7 @@
 </template>
 
 <script setup lang="ts">
+const { img } = useImg()
 import { ref, onMounted, onUnmounted } from 'vue'
 import {
   ArrowRight, MapPin, Search, FileText, ShieldCheck, KeyRound,

@@ -34,7 +34,7 @@
     <!-- PREMIUM HERO BANNER -->
     <div class="catalog-hero">
       <div class="catalog-hero__bg">
-        <img src="/buildings/hero-tashkent.jpg" alt="Tashkent" class="catalog-hero__img" />
+        <img :src="img('/buildings/v2_aerial-city-1.jpg')" alt="Tashkent" class="catalog-hero__img" />
         <div class="catalog-hero__overlay"></div>
       </div>
       <div class="catalog-hero__content">
@@ -122,7 +122,7 @@
           @click="navigateTo(`${item.link}`)"
         >
           <div class="vip-card__image">
-            <img :src="item.photo" :alt="item.title" loading="lazy" />
+            <img :src="img(item.photo)" :alt="item.title" loading="lazy" />
             <span class="vip-card__badge">PREMIUM</span>
             <button class="vip-card__fav" @click.stop="toggleFavorite(item.id)">
               <Heart :size="15" :fill="favorites.has(item.id) ? '#ef4444' : 'none'" :class="favorites.has(item.id) ? 'text-red-500' : 'text-white'" />
@@ -178,7 +178,7 @@
             @mouseleave="hoverId = null"
           >
             <div class="listing-card__photo" @click="view === 'split' ? selectOnMap(item.id) : null">
-              <img :src="item.photo" :alt="item.title" loading="lazy" />
+              <img :src="img(item.photo)" :alt="item.title" loading="lazy" />
               <button class="listing-card__fav" @click.stop="toggleFavorite(item.id)">
                 <Heart :size="15" :fill="favorites.has(item.id) ? '#ef4444' : 'none'" :class="favorites.has(item.id) ? 'text-red-500' : 'text-ink-400'" />
               </button>
@@ -244,7 +244,7 @@
             @mouseleave="hoverId = null"
           >
             <div class="grid-card__image">
-              <img :src="item.photo" :alt="item.title" loading="lazy" />
+              <img :src="img(item.photo)" :alt="item.title" loading="lazy" />
               <span class="grid-card__badge" :class="`grid-card__badge--${item.typeColor}`">{{ item.typeLabel }}</span>
               <button class="grid-card__fav" @click.prevent="toggleFavorite(item.id)">
                 <Heart :size="16" :fill="favorites.has(item.id) ? '#ef4444' : 'none'" :class="favorites.has(item.id) ? 'text-red-500' : 'text-white'" />
@@ -336,6 +336,7 @@
 </template>
 
 <script setup lang="ts">
+const { img } = useImg()
 import {
   Heart, GitCompareArrows, ChevronDown, List, MapPin, SlidersHorizontal,
   SearchX, Ruler, ArrowRight, X, Building2, ShoppingBag, Warehouse,
@@ -353,11 +354,15 @@ const store = useMakonStore()
 
 // Photo rotation per building
 const BUILDING_PHOTOS: Record<string, string[]> = {
-  b1: ['/buildings/3d-tower-1.png', '/buildings/3d-tower-2.png', '/buildings/3d-tower-3.png'],
-  b2: ['/buildings/bc-finance.jpg', '/buildings/hero-tashkent.jpg', '/buildings/3d-tower-1.png'],
-  b3: ['/buildings/bc-city-plaza.jpg', '/buildings/bc-navroz.jpg', '/buildings/3d-tower-2.png'],
-  b4: ['/buildings/bc-navroz.jpg', '/buildings/bc-city-plaza.jpg', '/buildings/interior-office.png'],
-  b5: ['/buildings/bc-logistics.jpg', '/buildings/3d-tower-3.png', '/buildings/hero-tashkent.jpg'],
+  b1: ['/buildings/v2_commercial-tower-1.jpg', '/buildings/v2_office-building-1.jpg', '/buildings/v2_modern-facade-1.jpg'],
+  b2: ['/buildings/v2_office-building-2.jpg', '/buildings/v2_business-center-1.jpg', '/buildings/v2_office-space-1.jpg'],
+  b3: ['/buildings/v2_commercial-tower-2.jpg', '/buildings/v2_business-center-2.jpg', '/buildings/v2_office-space-2.jpg'],
+  b4: ['/buildings/v2_modern-facade-2.jpg', '/buildings/v2_reception-area.jpg', '/buildings/v2_meeting-room.jpg'],
+  b5: ['/buildings/v2_shopping-center-2.jpg', '/buildings/v2_business-center-1.jpg', '/buildings/v2_reception-area.jpg'],
+  b6: ['/buildings/v2_office-building-1.jpg', '/buildings/v2_modern-facade-1.jpg', '/buildings/v2_commercial-tower-1.jpg'],
+  b7: ['/buildings/v2_office-interior-2.jpg', '/buildings/v2_coworking-space.jpg', '/buildings/v2_meeting-room.jpg'],
+  b8: ['/buildings/v2_shopping-center-1.jpg', '/buildings/v2_business-center-2.jpg', '/buildings/v2_reception-area.jpg'],
+  b9: ['/buildings/v2_aerial-city-1.jpg', '/buildings/v2_night-skyline.jpg', '/buildings/v2_commercial-tower-1.jpg'],
 }
 
 // Map store categories to catalog types
@@ -417,7 +422,7 @@ const listings = computed<CatalogItem[]>(() => {
     const floor = unit?.floor || 0
     const catType = unit ? (CATEGORY_TO_TYPE[unit.category] || 'OFFICE') : 'OFFICE'
     const priceUZS = l.currency === 'USD' ? l.price * USD_TO_UZS : l.price
-    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/hero-tashkent.jpg'])[0]
+    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/v2_aerial-city-1.jpg'])[0]
 
     items.push({
       id: l.id,
@@ -453,7 +458,7 @@ const listings = computed<CatalogItem[]>(() => {
 
     const catType = CATEGORY_TO_TYPE[u.category] || 'OFFICE'
     const priceUZS = u.currency === 'USD' ? u.monthlyRent * USD_TO_UZS : u.monthlyRent
-    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/hero-tashkent.jpg'])[0]
+    const photo = (BUILDING_PHOTOS[building.id] || building.gallery || ['/buildings/v2_aerial-city-1.jpg'])[0]
     const title = `${building.name} · ${u.unitNumber} · ${u.area} m²`
 
     items.push({
