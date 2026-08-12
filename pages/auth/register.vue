@@ -24,28 +24,56 @@
           </div>
           <div class="auth__step-badge auth__step-badge--active" style="margin-top: 8px;">
             <span class="auth__step-num">3</span>
-            <span class="auth__step-text">Ro'yxatdan o'tish</span>
+            <span class="auth__step-text">Avtorizatsiya</span>
           </div>
           <h1 class="auth__form-title">Hisob yarating</h1>
-          <p class="auth__form-sub">Tizimga kirish uchun login va parol o'rnating</p>
+          <p class="auth__form-sub">Tizimga kirish uchun ma'lumotlaringizni to'ldiring</p>
         </div>
 
         <form @submit.prevent="handleRegister" class="auth__form">
+          <!-- Account type toggle -->
+          <div class="auth__type-toggle">
+            <button type="button" class="auth__type-btn" :class="{ 'auth__type-btn--active': accountType === 'individual' }" @click="accountType = 'individual'">
+              <User :size="16" />
+              Jismoniy shaxs
+            </button>
+            <button type="button" class="auth__type-btn" :class="{ 'auth__type-btn--active': accountType === 'company' }" @click="accountType = 'company'">
+              <Building2 :size="16" />
+              Yuridik shaxs
+            </button>
+          </div>
+
           <div class="auth__field">
-            <label class="auth__label">Ism familiya</label>
+            <label class="auth__label">{{ accountType === 'company' ? 'Firma nomi' : 'Ism familiya' }}</label>
             <div class="auth__input-wrap">
-              <User :size="17" class="auth__input-icon" />
-              <input v-model="form.fullName" type="text" placeholder="Akmal Karimov" class="auth__input" />
+              <component :is="accountType === 'company' ? Building2 : User" :size="17" class="auth__input-icon" />
+              <input v-model="form.fullName" type="text" :placeholder="accountType === 'company' ? 'MChJ «MAKON Invest»' : 'Akmal Karimov'" class="auth__input" />
             </div>
           </div>
 
           <div class="auth__field">
-            <label class="auth__label">Login</label>
+            <label class="auth__label">Telefon raqami</label>
             <div class="auth__input-wrap">
-              <AtSign :size="17" class="auth__input-icon" />
-              <input v-model="form.login" type="text" placeholder="akmal@makon.uz" class="auth__input" @blur="checkLogin" />
+              <Phone :size="17" class="auth__input-icon" />
+              <span class="auth__phone-prefix--inline">+998</span>
+              <input v-model="form.phone" type="tel" placeholder="90 123 45 67" class="auth__input auth__input--phone-inline" maxlength="9" @input="formatPhoneField" />
             </div>
-            <p v-if="loginTaken" class="auth__field-error">Bu login band. Boshqa tanlang.</p>
+          </div>
+
+          <div class="auth__field">
+            <label class="auth__label">Email (ixtiyoriy)</label>
+            <div class="auth__input-wrap">
+              <Mail :size="17" class="auth__input-icon" />
+              <input v-model="form.email" type="email" placeholder="info@makon.uz" class="auth__input" />
+            </div>
+          </div>
+
+          <div v-if="accountType === 'company'" class="auth__field">
+            <label class="auth__label">INN / STIR</label>
+            <div class="auth__input-wrap">
+              <FileText :size="17" class="auth__input-icon" />
+              <input v-model="form.inn" type="text" placeholder="123456789" class="auth__input" maxlength="9" />
+            </div>
           </div>
 
           <div class="auth__field">
@@ -102,16 +130,23 @@
 </template>
 
 <script setup lang="ts">
-import { User, AtSign, Lock, Eye, EyeOff, UserPlus, Check } from 'lucide-vue-next'
+import { User, Building2, Phone, Mail, FileText, Lock, Eye, EyeOff, UserPlus, Check } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })
 
 const authStore = useAuthStore()
-const form = reactive({ fullName: '', login: '', password: '', confirmPassword: '' })
+const accountType = ref<'individual' | 'company'>('individual')
+const form = reactive({
+  fullName: '',
+  phone: '',
+  email: '',
+  inn: '',
+  password: '',
+  confirmPassword: '',
+})
 const showPassword = ref(false)
 const showConfirm = ref(false)
 const loading = ref(false)
-const loginTaken = ref(false)
 
 const strength = computed(() => {
   const p = form.password
@@ -131,14 +166,17 @@ const strength = computed(() => {
 
 const canSubmit = computed(() => {
   return form.fullName.length >= 3 &&
-    form.login.length >= 4 &&
+    form.phone.length >= 9 &&
     form.password.length >= 6 &&
     form.password === form.confirmPassword &&
-    !loginTaken.value
+    (accountType.value !== 'company' || form.inn.length >= 7)
 })
 
+function formatPhoneField() {
+  form.phone = form.phone.replace(/\D/g, '').slice(0, 9)
+}
+
 onMounted(() => {
-  // Restore pending registration from localStorage
   if (!authStore.pendingRegistration && import.meta.client) {
     const saved = localStorage.getItem('makon-pending-reg')
     if (saved) {
@@ -150,19 +188,14 @@ onMounted(() => {
     navigateTo('/auth/telegram')
   }
 
-  // Pre-fill name from phone (demo)
+  // Pre-fill phone from Telegram-verified number
   if (authStore.pendingRegistration?.phone) {
-    form.login = authStore.pendingRegistration.phone.replace('+', '')
+    const raw = authStore.pendingRegistration.phone.replace('+998', '').replace(/\D/g, '')
+    form.phone = raw.slice(0, 9)
   }
 })
 
-function checkLogin() {
-  const found = authStore.registeredUsers.find(u => u.login === form.login)
-  loginTaken.value = !!found
-}
-
 function checkPasswordStrength() {
-  // Trigger reactivity for strength computed
   form.password = form.password
 }
 
@@ -172,15 +205,19 @@ async function handleRegister() {
   await new Promise(r => setTimeout(r, 800))
   loading.value = false
 
+  const login = '+998' + form.phone
   const success = authStore.register({
-    login: form.login,
+    login,
     password: form.password,
     fullName: form.fullName,
+    phone: '+998' + form.phone,
+    email: form.email,
+    accountType: accountType.value,
+    inn: form.inn,
   })
 
   if (success) {
-    // Auto-login after registration
-    authStore.loginWithCredentials(form.login, form.password)
+    authStore.loginWithCredentials(login, form.password)
     navigateTo('/dashboard/executive')
   }
 }
@@ -210,13 +247,21 @@ async function handleRegister() {
 .auth__step-text { font-size: 12px; font-weight: 600; color: var(--accent); }
 .auth__step-text--done { color: #10b981; }
 
-.auth__form-head { margin-bottom: 28px; }
+.auth__form-head { margin-bottom: 24px; }
 .auth__form-title { font-size: 28px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0 0 6px; }
 .dark .auth__form-title { color: white; }
 .auth__form-sub { font-size: 14px; color: #71717a; margin: 0; }
 .dark .auth__form-sub { color: #a1a1aa; }
 
-.auth__field { margin-bottom: 16px; }
+/* Account type toggle */
+.auth__type-toggle { display: flex; gap: 8px; margin-bottom: 20px; padding: 4px; border-radius: 12px; background: rgba(0,0,0,0.04); }
+.dark .auth__type-toggle { background: rgba(255,255,255,0.04); }
+.auth__type-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; border-radius: 9px; border: none; background: transparent; font-size: 13px; font-weight: 600; color: #71717a; cursor: pointer; transition: all 0.2s; }
+.dark .auth__type-btn { color: #a1a1aa; }
+.auth__type-btn--active { background: white; color: var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.dark .auth__type-btn--active { background: rgba(255,255,255,0.08); color: #60a5fa; }
+
+.auth__field { margin-bottom: 14px; }
 .auth__label { display: block; font-size: 12px; font-weight: 600; color: #52525b; margin-bottom: 7px; }
 .dark .auth__label { color: #a1a1aa; }
 .auth__input-wrap { position: relative; display: flex; align-items: center; }
@@ -228,6 +273,9 @@ async function handleRegister() {
 .auth__input::placeholder { color: #a1a1aa; }
 .auth__input-toggle { position: absolute; right: 14px; background: none; border: none; cursor: pointer; color: #a1a1aa; padding: 4px; }
 .auth__input-toggle:hover { color: #71717a; }
+
+.auth__phone-prefix--inline { position: absolute; left: 42px; font-size: 14px; color: #71717a; font-weight: 600; z-index: 1; pointer-events: none; }
+.auth__input--phone-inline { padding-left: 78px; }
 
 .auth__field-error { font-size: 12px; color: #ef4444; margin-top: 5px; }
 .auth__field-success { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #10b981; margin-top: 5px; }

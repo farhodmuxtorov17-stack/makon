@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
   const pendingRegistration = ref<PendingRegistration | null>(null)
   const otpSent = ref(false)
   const otpVerified = ref(false)
-  const registeredUsers = ref<{ login: string; password: string; fullName: string; phone: string }[]>([])
+  const registeredUsers = ref<{ login: string; password: string; fullName: string; phone: string; email?: string; accountType?: string; inn?: string }[]>([])
 
   function setUser(u: AuthUser | null) {
     user.value = u
@@ -94,7 +94,7 @@ export const useAuthStore = defineStore('auth', () => {
     return false
   }
 
-  function register(data: { login: string; password: string; fullName: string }): boolean {
+  function register(data: { login: string; password: string; fullName: string; phone?: string; email?: string; accountType?: string; inn?: string }): boolean {
     if (!pendingRegistration.value?.telegramVerified) return false
 
     const exists = registeredUsers.value.find(u => u.login === data.login)
@@ -104,7 +104,10 @@ export const useAuthStore = defineStore('auth', () => {
       login: data.login,
       password: data.password,
       fullName: data.fullName,
-      phone: pendingRegistration.value.phone,
+      phone: data.phone || pendingRegistration.value.phone,
+      email: data.email || '',
+      accountType: data.accountType || 'individual',
+      inn: data.inn || '',
     }
     registeredUsers.value.push(newUser)
     if (import.meta.client) {
