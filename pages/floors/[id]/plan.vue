@@ -26,6 +26,38 @@
       </div>
     </div>
 
+    <!-- 3D KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ rooms.value.length }}</div>
+          <div class="kpi-strip__label">Jami unitlar</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ occupiedCount }}</div>
+          <div class="kpi-strip__label">Band</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ vacantCount }}</div>
+          <div class="kpi-strip__label">Bo'sh</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ totalArea }}<span class="text-sm">m²</span></div>
+          <div class="kpi-strip__label">Maydon</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Floor plan canvas -->
     <div class="card overflow-hidden relative" style="height: 560px;">
       <!-- Zoom controls -->
@@ -216,10 +248,38 @@ function contractStatusLabel(s: string) {
 function checkPath(cx: number, cy: number) {
   return `M ${cx - 4} ${cy} L ${cx - 1} ${cy + 3} L ${cx + 4} ${cy - 4}`
 }
+const occupiedCount = computed(() => rooms.value.filter((u: any) => u.status === "OCCUPIED" || u.status === "RENTED").length)
+const vacantCount = computed(() => rooms.value.filter((u: any) => u.status === "VACANT").length)
+const totalArea = computed(() => rooms.value.reduce((s: number, u: any) => s + (u.area || 0), 0))
+
 </script>
 
 <style scoped>
 .fade-up-enter-active, .fade-up-leave-active { transition: all 0.25s ease; }
 .fade-up-enter-from { opacity: 0; transform: translateY(12px); }
 .fade-up-leave-to { opacity: 0; transform: translateY(12px); }
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+
 </style>
