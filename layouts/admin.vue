@@ -8,7 +8,7 @@
     >
       <div class="h-full flex flex-col admin-sidebar-premium">
         <!-- Logo -->
-        <div class="h-[60px] flex items-center gap-3 flex-shrink-0 px-4">
+        <div class="h-[64px] flex items-center gap-3 flex-shrink-0 px-4">
           <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2563EB] to-[#1d4ed8] flex items-center justify-center font-bold text-white text-base flex-shrink-0 shadow-lg shadow-blue-500/20">M</div>
           <div v-if="!sidebarCollapsed" class="overflow-hidden">
             <div class="font-bold text-[15px] text-white leading-none tracking-tight">MAKON</div>
@@ -36,9 +36,9 @@
               @click="sidebarOpen = false"
               :title="sidebarCollapsed ? item.label : ''"
             >
-              <component :is="item.icon" :size="19" class="sidebar-link__icon" />
+              <component :is="item.icon" :size="20" class="sidebar-link__icon" />
               <span v-if="!sidebarCollapsed" class="sidebar-link__label">{{ item.label }}</span>
-              <span v-if="item.badge && !sidebarCollapsed" class="ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-red-500/90 text-white">{{ item.badge }}</span>
+              <span v-if="item.badge && !sidebarCollapsed" class="ml-auto px-2 py-0.5 text-[11px] font-bold rounded-full bg-red-500/90 text-white">{{ item.badge }}</span>
               <span v-if="item.badge && sidebarCollapsed" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 ring-2 ring-[#0E1B33]"></span>
             </NuxtLink>
           </template>
@@ -100,7 +100,7 @@
       </header>
 
       <!-- Page Content -->
-      <main class="flex-1 p-4 lg:p-8 page-enter-active" style="animation: pageEnter 0.4s cubic-bezier(0.22, 1, 0.36, 1);">
+      <main class="flex-1 p-4 lg:p-6 page-enter-active" style="animation: pageEnter 0.4s cubic-bezier(0.22, 1, 0.36, 1);">
         <slot />
       </main>
     </div>

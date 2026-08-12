@@ -516,7 +516,7 @@ onUnmounted(() => {
   overflow-x: hidden;
 }
 .container {
-  max-width: 1120px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -565,8 +565,9 @@ onUnmounted(() => {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.nav__inner {
-  max-width: 1120px;
+  .nav { height: 64px; }
+  .nav__inner {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
@@ -671,7 +672,7 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 24px 40px;
+  padding: 96px 24px 48px;
   text-align: center;
 }
 .hero__bg {
@@ -1391,7 +1392,7 @@ onUnmounted(() => {
 
 /* ═══ CTA ═══ */
 /* ═══ Contact Section ═══ */
-.contact-section { padding: 100px 0 80px; background: var(--bg-subtle); }
+.contact-section { padding: 96px 0 64px; background: var(--bg-subtle); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
 @media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
 
