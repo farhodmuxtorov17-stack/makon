@@ -86,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { AlertCircle, CheckCircle, FileSignature } from 'lucide-vue-next'
+import { AlertCircle, CheckCircle, FileSignature, PenTool } from 'lucide-vue-next'
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const store = useMakonStore()

@@ -1,46 +1,63 @@
 <template>
   <div class="auth">
+    <!-- ═══ Visual Side ═══ -->
     <div class="auth__visual">
       <img :src="img('/buildings/real_tashkent-night.jpg')" alt="Tashkent City" class="auth__visual-img" />
       <div class="auth__visual-grad"></div>
       <div class="auth__visual-content">
         <NuxtLink to="/" class="auth__logo">
           <div class="auth__logo-icon">M</div>
-          <span>MAKON</span>
+          <span class="text-white font-bold text-lg tracking-tight">MAKON</span>
         </NuxtLink>
         <div class="auth__visual-bottom">
-          <h2 class="auth__visual-title">Toshkentning premium obyektlari boshqaruvi</h2>
+          <h2 class="auth__visual-title">Toshkentning premium<br>obyektlari boshqaruvi</h2>
           <p class="auth__visual-text">MAKON platformasi orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
+          <div class="flex items-center gap-4 mt-6">
+            <div class="flex items-center gap-2">
+              <ShieldCheck :size="18" class="text-blue-400" />
+              <span class="text-xs text-blue-200/60">Bank darajasidagi xavfsizlik</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <Zap :size="18" class="text-blue-400" />
+              <span class="text-xs text-blue-200/60">Real vaqt rejimida</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- ═══ Form Side ═══ -->
     <div class="auth__form-side">
       <div class="auth__form-wrap">
-        <!-- Forgot Password Modal -->
-        <div v-if="showForgot" class="auth__forgot-overlay" @click.self="showForgot = false">
-          <div class="auth__forgot-box">
-            <h3 class="auth__forgot-title">Parolni tiklash</h3>
-            <p class="auth__forgot-text">Telefon raqamingizni kiriting — yangi parol yuboriladi.</p>
-            <div class="auth__input-wrap" style="margin-bottom: 16px;">
-              <Phone :size="17" class="auth__input-icon" />
-              <input v-model="forgotPhone" type="tel" placeholder="+998 90 123 45 67" class="auth__input" />
+        <!-- Password Recovery Overlay -->
+        <transition name="scale">
+          <div v-if="showRecovery" class="auth__forgot-overlay" @click.self="showRecovery = false">
+            <div class="auth__forgot-box">
+              <h3 class="auth__forgot-title">Parolni tiklash</h3>
+              <p class="auth__forgot-text">Telefon raqamingizni kiriting — yangi parol yuboriladi.</p>
+              <div class="auth__field" style="margin-bottom: 16px">
+                <div class="auth__input-wrap">
+                  <Phone :size="17" class="auth__input-icon" />
+                  <input v-model="recoveryPhone" type="tel" placeholder="+998 90 123 45 67" class="auth__input" />
+                </div>
+              </div>
+              <button class="auth__submit" @click="sendRecovery">
+                Yuborish <ArrowRight :size="16" />
+              </button>
+              <button class="auth__back" @click="showRecovery = false" style="margin-top: 12px; justify-content: center">
+                <ArrowLeft :size="15" /> Bekor qilish
+              </button>
             </div>
-            <button class="auth__submit" @click="handleForgot">
-              Yuborish <Send :size="16" />
-            </button>
-            <button class="auth__back" @click="showForgot = false" style="margin-top: 12px; justify-content: center;">
-              <ArrowLeft :size="15" /> Bekor qilish
-            </button>
           </div>
-        </div>
+        </transition>
 
+        <!-- Form Header -->
         <div class="auth__form-head">
           <h1 class="auth__form-title">Xush kelibsiz</h1>
           <p class="auth__form-sub">Tizimga kirish uchun login va parolingizni kiriting</p>
         </div>
 
-        <!-- Demo creds hint -->
+        <!-- Demo Credentials -->
         <div class="auth__demo-creds">
           <div class="auth__demo-creds-head">
             <Info :size="14" />
@@ -66,11 +83,12 @@
           </div>
         </div>
 
+        <!-- Login Form -->
         <form @submit.prevent="handleLogin" class="auth__form">
           <div class="auth__field">
             <label class="auth__label">Login</label>
             <div class="auth__input-wrap">
-              <User :size="17" class="auth__input-icon" />
+              <UserRound :size="17" class="auth__input-icon" />
               <input v-model="form.login" type="text" placeholder="admin@makon.uz" class="auth__input" />
             </div>
           </div>
@@ -79,7 +97,12 @@
             <label class="auth__label">Parol</label>
             <div class="auth__input-wrap">
               <Lock :size="17" class="auth__input-icon" />
-              <input v-model="form.password" :type="showPassword ? 'text' : 'password'" placeholder="••••••••" class="auth__input" />
+              <input
+                v-model="form.password"
+                :type="showPassword ? 'text' : 'password'"
+                placeholder="••••••••"
+                class="auth__input"
+              />
               <button type="button" @click="showPassword = !showPassword" class="auth__input-toggle">
                 <Eye v-if="!showPassword" :size="17" />
                 <EyeOff v-else :size="17" />
@@ -87,34 +110,38 @@
             </div>
           </div>
 
+          <!-- Error -->
           <div v-if="loginError" class="auth__error">
             <AlertCircle :size="15" />
             <span>Login yoki parol noto'g'ri</span>
           </div>
 
+          <!-- Options -->
           <div class="auth__row">
             <label class="auth__check">
-              <input type="checkbox" v-model="form.remember" class="auth__checkbox" />
+              <input v-model="form.remember" type="checkbox" class="auth__checkbox" />
               <span>Eslab qolish</span>
             </label>
-            <button type="button" class="auth__link" @click="showForgot = true">Parolni unutdingizmi?</button>
+            <button type="button" class="auth__link" @click="showRecovery = true">Parolni unutdingizmi?</button>
           </div>
 
+          <!-- Submit -->
           <button type="submit" class="auth__submit" :disabled="loading">
-            <span v-if="!loading">Tizimga kirish</span>
-            <span v-else>Kirilmoqda...</span>
+            <span v-if="loading">Kirilmoqda...</span>
+            <span v-else>Tizimga kirish</span>
             <ArrowRight v-if="!loading" :size="17" />
           </button>
 
-          <div class="auth__divider">
-            <span>YOKI</span>
-          </div>
+          <!-- Divider -->
+          <div class="auth__divider"><span>YOKI</span></div>
 
+          <!-- SMS Registration -->
           <NuxtLink to="/auth/telegram" class="auth__sms-btn">
             <Smartphone :size="20" />
-            Telefon raqami orqali ro'yxatdan o'tish
+            <span>Telefon raqami orqali ro'yxatdan o'tish</span>
           </NuxtLink>
 
+          <!-- Signup Link -->
           <p class="auth__signup">
             Yangi foydalanuvchi?
             <NuxtLink to="/auth/telegram" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
@@ -126,28 +153,24 @@
 </template>
 
 <script setup lang="ts">
-const { img } = useImg()
-import { User, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, AlertCircle, Smartphone, Info, Phone, Send } from 'lucide-vue-next'
+import {
+  AlertCircle, Eye, EyeOff, ArrowRight, ArrowLeft,
+  Smartphone, Info, Phone, Lock, UserRound,
+  ShieldCheck, Zap
+} from 'lucide-vue-next'
 
-definePageMeta({ layout: 'blank' })
-
+const { img } = useUtils()
 const form = reactive({ login: '', password: '', remember: false })
-const showPassword = ref(false)
 const loading = ref(false)
 const loginError = ref(false)
-const showForgot = ref(false)
-const forgotPhone = ref('')
+const showPassword = ref(false)
+const showRecovery = ref(false)
+const recoveryPhone = ref('')
 const authStore = useAuthStore()
 
 onMounted(() => {
-  // Restore remembered login
-  if (import.meta.client) {
-    const saved = localStorage.getItem('makon-remembered-login')
-    if (saved) {
-      form.login = saved
-      form.remember = true
-    }
-  }
+  const saved = localStorage.getItem('makon-remembered-login')
+  if (saved) { form.login = saved; form.remember = true }
 })
 
 function fillDemo(login: string) {
@@ -160,118 +183,19 @@ async function handleLogin() {
   loginError.value = false
   await new Promise(r => setTimeout(r, 600))
   loading.value = false
-
-  const success = authStore.loginWithCredentials(form.login, form.password)
-  if (success) {
-    if (form.remember && import.meta.client) {
-      localStorage.setItem('makon-remembered-login', form.login)
-    } else if (import.meta.client) {
-      localStorage.removeItem('makon-remembered-login')
-    }
+  if (authStore.loginWithCredentials(form.login, form.password)) {
+    if (form.remember) localStorage.setItem('makon-remembered-login', form.login)
+    else localStorage.removeItem('makon-remembered-login')
     navigateTo('/dashboard/executive')
   } else {
     loginError.value = true
   }
 }
 
-function handleForgot() {
-  // Demo: just show a message and go to phone registration
-  if (forgotPhone.value.length > 0) {
-    showForgot.value = false
+function sendRecovery() {
+  if (recoveryPhone.value.length > 0) {
+    showRecovery.value = false
     navigateTo('/auth/telegram')
   }
 }
 </script>
-
-<style scoped>
-.auth { display: flex; min-height: 100vh; }
-.auth__visual { position: relative; width: 48%; overflow: hidden; }
-.auth__visual-img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-.auth__visual-grad {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(9,9,11,0.4) 0%, rgba(9,9,11,0.2) 40%, rgba(9,9,11,0.85) 100%),
-              radial-gradient(ellipse at 30% 70%, rgba(37,99,235,0.08), transparent 50%);
-}
-.auth__visual-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 40px 48px; }
-.auth__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.auth__logo-icon { width: 38px; height: 38px; border-radius: 11px; background: linear-gradient(135deg, #2563EB, #60A5FA); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: white; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
-.auth__logo span { font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; font-family: 'Sora', sans-serif; }
-.auth__visual-bottom { max-width: 400px; }
-.auth__visual-title { font-size: 28px; font-weight: 800; color: white; letter-spacing: -0.03em; line-height: 1.15; margin: 0 0 10px; font-family: 'Sora', sans-serif; }
-.auth__visual-text { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.5; margin: 0; }
-
-.auth__form-side { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; background: #ffffff; position: relative; }
-.dark .auth__form-side { background: #09090b; }
-.auth__form-wrap { width: 100%; max-width: 380px; position: relative; }
-.auth__form-head { margin-bottom: 24px; }
-.auth__form-title { font-size: 28px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0 0 6px; font-family: 'Sora', sans-serif; }
-.dark .auth__form-title { color: white; }
-.auth__form-sub { font-size: 14px; color: #71717a; margin: 0; }
-.dark .auth__form-sub { color: #a1a1aa; }
-
-/* Demo creds */
-.auth__demo-creds { padding: 14px 16px; border-radius: 12px; background: rgba(37,99,235,0.04); border: 1px solid rgba(37,99,235,0.12); margin-bottom: 24px; }
-.dark .auth__demo-creds { background: rgba(37,99,235,0.08); border-color: rgba(37,99,235,0.15); }
-.auth__demo-creds-head { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #2563EB; margin-bottom: 8px; }
-.auth__demo-creds-body { display: flex; flex-direction: column; gap: 6px; }
-.auth__demo-cred { display: flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer; padding: 6px 8px; border-radius: 8px; transition: background 0.15s; }
-.auth__demo-cred:hover { background: rgba(37,99,235,0.06); }
-.auth__demo-label { font-weight: 600; color: #52525b; }
-.dark .auth__demo-label { color: #a1a1aa; }
-.auth__demo-cred code { font-size: 12px; color: #2563EB; font-weight: 600; }
-
-.auth__field { margin-bottom: 18px; }
-.auth__label { display: block; font-size: 12px; font-weight: 600; color: #52525b; margin-bottom: 7px; }
-.dark .auth__label { color: #a1a1aa; }
-.auth__input-wrap { position: relative; display: flex; align-items: center; }
-.auth__input-icon { position: absolute; left: 14px; color: #a1a1aa; z-index: 1; }
-.auth__input { width: 100%; padding: 13px 14px 13px 42px; border-radius: 12px; border: 1.5px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.02); font-size: 14px; color: #18181b; transition: all 0.25s; outline: none; }
-.dark .auth__input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
-.auth__input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
-.dark .auth__input:focus { background: rgba(255,255,255,0.06); }
-.auth__input::placeholder { color: #a1a1aa; }
-.auth__input-toggle { position: absolute; right: 14px; background: none; border: none; cursor: pointer; color: #a1a1aa; padding: 4px; }
-.auth__input-toggle:hover { color: #71717a; }
-
-.auth__error { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); margin-bottom: 18px; font-size: 13px; color: #ef4444; }
-
-.auth__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-.auth__check { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #52525b; cursor: pointer; }
-.dark .auth__check { color: #a1a1aa; }
-.auth__checkbox { width: 16px; height: 16px; border-radius: 5px; accent-color: var(--accent); }
-.auth__link { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500; background: none; border: none; cursor: pointer; padding: 0; }
-.auth__link:hover { text-decoration: underline; }
-.auth__link--bold { font-weight: 600; }
-
-.auth__submit { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); color: white; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(37,99,235,0.25); }
-.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
-.auth__submit:disabled { opacity: 0.6; cursor: not- allowed; }
-
-.auth__divider { text-align: center; margin: 22px 0; position: relative; }
-.auth__divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(0,0,0,0.06); }
-.dark .auth__divider::before { background: rgba(255,255,255,0.06); }
-.auth__divider span { position: relative; background: #ffffff; padding: 0 14px; font-size: 11px; font-weight: 700; color: #a1a1aa; letter-spacing: 0.1em; }
-.dark .auth__divider span { background: #09090b; }
-
-.auth__sms-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px; padding: 14px; border-radius: 12px; background: rgba(37,99,235,0.06); border: 1.5px solid rgba(37,99,235,0.15); color: #2563EB; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
-.auth__sms-btn:hover { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); transform: translateY(-1px); }
-
-.auth__signup { text-align: center; margin-top: 28px; font-size: 14px; color: #71717a; }
-.dark .auth__signup { color: #a1a1aa; }
-
-/* Forgot password modal */
-.auth__forgot-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; }
-.auth__forgot-box { background: white; border-radius: 20px; padding: 32px; max-width: 360px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
-.dark .auth__forgot-box { background: #18181b; }
-.auth__forgot-title { font-size: 20px; font-weight: 700; color: #18181b; margin: 0 0 8px; font-family: 'Sora', sans-serif; }
-.dark .auth__forgot-title { color: white; }
-.auth__forgot-text { font-size: 14px; color: #71717a; margin: 0 0 20px; }
-.dark .auth__forgot-text { color: #a1a1aa; }
-.auth__back { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #71717a; background: none; border: none; cursor: pointer; transition: color 0.15s; }
-.auth__back:hover { color: #2563EB; }
-
-@media (max-width: 900px) {
-  .auth__visual { display: none; }
-  .auth__form-side { padding: 24px; }
-}
-</style>
