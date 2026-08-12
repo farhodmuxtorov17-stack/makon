@@ -31,52 +31,57 @@
         <div class="hero__overlay"></div>
       </div>
       <div class="hero__center">
+        <div class="hero__badge">
+          <ShieldCheck :size="13" /> Davlat standartlariga muvofiq · ERI integratsiyasi
+        </div>
         <h1 class="hero__title">
           Binolarning raqamli boshqaruvi
         </h1>
         <p class="hero__lead">
-          Biznes markazlaringizni boshqaring — ofislar, savdo va ombor maydonlari bir tizimda.
+          Premium biznes markazlarida ofis, savdo va ombor maydonlari.<br/>
+          ERI orqali xavfsiz shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
         </p>
         <div class="hero__actions">
-          <NuxtLink to="/login" class="hero__cta-btn">
-            Boshqarishni boshlash <ArrowRight :size="16" />
+          <NuxtLink to="/catalog" class="hero__cta">
+            Katalogga kirish <ArrowRight :size="16" />
           </NuxtLink>
+          <a href="#how" class="hero__link">Jarayonni ko'rish</a>
+        </div>
+        <div class="hero__trust">
+          <div class="hero__trust-item"><div class="hero__trust-n">12K+</div><div class="hero__trust-l">Boshqariladigan maydon</div></div>
+          <div class="hero__trust-line"></div>
+          <div class="hero__trust-item"><div class="hero__trust-n">98%</div><div class="hero__trust-l">O'rtacha bandlik</div></div>
+          <div class="hero__trust-line"></div>
+          <div class="hero__trust-item"><div class="hero__trust-n">240+</div><div class="hero__trust-l">Faol shartnoma</div></div>
         </div>
       </div>
 
-      <!-- Search bar — second goal: find free properties -->
-      <div class="hero-search-section">
-        <div class="hero-search-section__inner">
-          <div class="hero-search-section__label">
-            <Search :size="16" />
-            <span>Bo'sh maydon qidirish</span>
-          </div>
-          <div class="hero-search-section__bar">
-            <Search :size="18" class="hero-search__icon" />
+      <!-- Search bar — anchored at bottom of hero -->
+      <div class="hero-search-bar">
+        <div class="hero-search-bar__inner">
+          <div class="hero-search-bar__field">
+            <Search :size="18" class="hero-search-bar__icon" />
             <input
               v-model="searchQuery"
               type="text"
-              class="hero-search__input"
+              class="hero-search-bar__input"
               placeholder="Ofis, savdo, ombor qidirish..."
               @keyup.enter="doSearch"
             />
-            <select v-model="searchType" class="hero-search__select">
+          </div>
+          <div class="hero-search-bar__divider"></div>
+          <div class="hero-search-bar__field hero-search-bar__field--select">
+            <select v-model="searchType" class="hero-search-bar__select">
               <option value="">Barcha turlari</option>
               <option value="office">Ofis</option>
               <option value="retail">Savdo</option>
               <option value="warehouse">Ombor</option>
             </select>
-            <button class="hero-search__btn" @click="doSearch">
-              Qidirish <ArrowRight :size="15" />
-            </button>
           </div>
-          <div class="hero-search__chips">
-            <button class="hero-chip" @click="navigateTo('/catalog?type=office')">Ofis</button>
-            <button class="hero-chip" @click="navigateTo('/catalog?type=retail')">Savdo</button>
-            <button class="hero-chip" @click="navigateTo('/catalog?type=warehouse')">Ombor</button>
-            <button class="hero-chip" @click="navigateTo('/catalog?offer=rent')">Ijaraga</button>
-            <button class="hero-chip" @click="navigateTo('/catalog?offer=sale')">Sotuvda</button>
-          </div>
+          <button class="hero-search-bar__btn" @click="doSearch">
+            <Search :size="18" />
+            <span>Qidirish</span>
+          </button>
         </div>
       </div>
     </section>
@@ -661,7 +666,6 @@ onMounted(() => {
   justify-content: center;
   text-align: center;
   padding-top: 80px;
-  gap: 36px;
 }
 .hero__bg {
   position: absolute;
@@ -682,15 +686,11 @@ onMounted(() => {
   position: relative;
   z-index: 1;
   max-width: 720px;
-  padding: 0 24px;
+  padding: 0 24px 40px;
   text-align: center;
+  margin: 0 auto;
 }
-.hero__actions {
-  margin-top: 32px;
-  display: flex;
-  justify-content: center;
-}
-.hero__cta-btn {
+.hero__cta {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -704,43 +704,141 @@ onMounted(() => {
   transition: all 0.25s;
   box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
-.hero__cta-btn:hover {
+.hero__cta:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(0,0,0,0.25);
   background: #fff;
 }
+.hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 24px;
+  color: rgba(255,255,255,0.9);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.hero__link:hover {
+  color: white;
+}
+.hero__actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.hero__trust {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.hero__trust-item {
+  text-align: center;
+}
+.hero__trust-n {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.02em;
+}
+.hero__trust-l {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+}
+.hero__trust-line {
+  width: 1px;
+  height: 32px;
+  background: rgba(255,255,255,0.15);
+}
 
 /* SEARCH SECTION — below hero */
-.hero-search-section {
+/* SEARCH BAR — bottom of hero, Zillow/Airbnb style */
+.hero-search-bar {
   position: relative;
   z-index: 2;
-  padding: 0 24px;
-  max-width: 720px;
   width: 100%;
+  max-width: 860px;
+  padding: 0 24px 60px;
+  margin: 0 auto;
 }
-.hero-search-section__inner {
+.hero-search-bar__inner {
+  display: flex;
+  align-items: stretch;
   background: rgba(255,255,255,0.98);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
 }
-.hero-search-section__label {
+.hero-search-bar__field {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0 16px;
+  min-width: 0;
+}
+.hero-search-bar__field--select {
+  max-width: 180px;
+}
+.hero-search-bar__icon {
+  color: #64748b;
+  flex-shrink: 0;
+}
+.hero-search-bar__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 16px 12px;
+  font-size: 15px;
+  background: transparent;
+  color: #0F172A;
+  min-width: 0;
+}
+.hero-search-bar__input::placeholder {
+  color: #94a3b8;
+}
+.hero-search-bar__select {
+  border: none;
+  outline: none;
+  padding: 16px 8px;
+  font-size: 15px;
+  background: transparent;
+  color: #0F172A;
+  cursor: pointer;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+}
+.hero-search-bar__divider {
+  width: 1px;
+  background: #E2E8F0;
+  flex-shrink: 0;
+}
+.hero-search-bar__btn {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  padding: 0 28px;
+  background: #2563EB;
+  color: white;
+  border: none;
+  font-size: 15px;
   font-weight: 600;
-  color: #475569;
-  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-.hero-search-section__bar {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  background: #F8FAFC;
-  border-radius: 14px;
-  padding: 6px 6px 6px 16px;
-  border: 1px solid #E2E8F0;
+.hero-search-bar__btn:hover {
+  background: #1D4ED8;
 }
 .hero__badge {
   display: inline-flex;
@@ -772,162 +870,7 @@ onMounted(() => {
   margin-bottom: 0;
 }
 
-/* HERO SEARCH */
-.hero-search {
-  margin: 0;
-}
-.hero-search__inner {
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-.hero-search__icon {
-  color: #94a3b8;
-  flex-shrink: 0;
-}
-.hero-search__input {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 12px 12px;
-  font-size: 14px;
-  font-weight: 500;
-  background: transparent;
-  color: #1e293b;
-  min-width: 0;
-}
-.hero-search__input::placeholder {
-  color: #94a3b8;
-}
-.hero-search__select {
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 13px;
-  font-weight: 500;
-  color: #475569;
-  padding: 8px 8px;
-  border-left: 1px solid #e2e8f0;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.hero-search__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 11px 20px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #0066FF, #3B82F6);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.hero-search__btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37,99,235,0.4);
-}
-.hero-search__chips {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 14px;
-  flex-wrap: wrap;
-}
-.hero-chip {
-  padding: 7px 16px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.9);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.hero-chip:hover {
-  background: rgba(255,255,255,0.2);
-  border-color: rgba(255,255,255,0.3);
-  transform: translateY(-1px);
-}
-@media (max-width: 640px) {
-  .hero-search__inner { flex-wrap: wrap; border-radius: 20px; padding: 12px; gap: 8px; }
-  .hero-search__input { width: 100%; flex: none; }
-  .hero-search__select { width: 100%; border-left: none; border-top: 1px solid #e2e8f0; padding-top: 10px; }
-  .hero-search__btn { width: 100%; justify-content: center; }
-}
 
-.hero__actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 48px;
-}
-.hero__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%);
-  color: white;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 600;
-  box-shadow: 0 4px 20px rgba(0,102,255,0.35);
-  transition: all 0.2s;
-}
-.hero__cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0,102,255,0.45);
-}
-.hero__link {
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-  padding-bottom: 2px;
-  transition: all 0.2s;
-}
-.hero__link:hover { color: white; border-bottom-color: white; }
-.hero__trust {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-}
-.hero__trust-item {
-  text-align: center;
-}
-.hero__trust-n {
-  font-size: 28px;
-  font-weight: 800;
-  color: white;
-  letter-spacing: -0.03em;
-}
-.hero__trust-l {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  margin-top: 2px;
-}
-.hero__trust-line {
-  width: 1px;
-  height: 36px;
-  background: rgba(255,255,255,0.15);
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
-}
 
 /*  PORTFOLIO  */
 .portfolio {
