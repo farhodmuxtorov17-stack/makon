@@ -36,7 +36,7 @@
         </h1>
         <p class="hero__lead">
           Biznes markazlarida ofis, savdo va ombor maydonlari.<br/>
-          ERI orqali xavfsiz shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
+          Raqamli imzo orqali xavfsiz shartnoma, to'lovlarga to'liq nazorat — bitta tizimda.
         </p>
         <!-- Hero Search -->
         <div class="hero-search">
@@ -73,6 +73,37 @@
       </div>
     </section>
 
+
+    <!-- PREMIUM STATS -->
+    <section class="lp-stats">
+      <div class="container">
+        <div class="lp-stats__grid">
+          <div class="lp-stat" data-reveal>
+            <div class="lp-stat__icon"><Building2 :size="22" /></div>
+            <div class="lp-stat__num" data-count="48">0</div>
+            <div class="lp-stat__label">Boshqariladigan binolar</div>
+          </div>
+          <div class="lp-stat__divider"></div>
+          <div class="lp-stat" data-reveal>
+            <div class="lp-stat__icon"><Layers :size="22" /></div>
+            <div class="lp-stat__num" data-count="3200">0</div>
+            <div class="lp-stat__label">Unitlar reyestrda</div>
+          </div>
+          <div class="lp-stat__divider"></div>
+          <div class="lp-stat" data-reveal>
+            <div class="lp-stat__icon"><FileText :size="22" /></div>
+            <div class="lp-stat__num" data-count="1850">0</div>
+            <div class="lp-stat__label">Shartnomalar yiliga</div>
+          </div>
+          <div class="lp-stat__divider"></div>
+          <div class="lp-stat" data-reveal>
+            <div class="lp-stat__icon"><TrendingUp :size="22" /></div>
+            <div class="lp-stat__num" data-count="98" data-suffix="%">0</div>
+            <div class="lp-stat__label">Mijoz mamnunligi</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- TRUST BAR -->
     <section class="trust">
@@ -176,7 +207,7 @@
         <div class="how__head">
           <div class="eyebrow">JARAYON</div>
           <h2 class="section-title">To'rt qadam — ofisdan shartnomagacha</h2>
-          <p class="section-sub">Qidirishdan boshlab, ERI orqali shartnoma imzolashgacha — barchasi onlayn.</p>
+          <p class="section-sub">Qidirishdan boshlab, raqamli imzo orqali shartnoma imzolashgacha — barchasi onlayn.</p>
         </div>
         <div class="how__steps">
           <div class="step">
@@ -202,7 +233,7 @@
               <div class="step__num">03</div>
               <div class="step__icon"><ShieldCheck :size="22" /></div>
             </div>
-            <h4 class="step__title">ERI imzo</h4>
+            <h4 class="step__title">Raqamli imzo</h4>
             <p class="step__text">Shartnoma elektron raqamli imzo orqali xavfsiz imzolanadi. Qog'oz hujjatlar kerak emas.</p>
           </div>
           <div class="step__connector"></div>
@@ -234,7 +265,7 @@
           </div>
           <div class="feat">
             <div class="feat__icon"><FileText :size="20" /></div>
-            <h4 class="feat__title">ERI shartnoma</h4>
+            <h4 class="feat__title">Raqamli shartnoma</h4>
             <p class="feat__text">Elektron raqamli imzo orqali qonuniy kuchga ega shartnomalar — qog'azsiz va xavfsiz.</p>
           </div>
           <div class="feat">
@@ -272,7 +303,7 @@
         </div>
         <div class="testimonials__grid">
           <div class="testimonial">
-            <div class="testimonial__quote">"MAKON platformasiga o'tganimizdan beri boshqaruv jarayonlari 3 baravar tezlashdi. ERI shartnoma imzolash endi soniyalar ichida."</div>
+            <div class="testimonial__quote">"MAKON platformasiga o'tganimizdan beri boshqaruv jarayonlari 3 baravar tezlashdi. Raqamli shartnoma imzolash endi soniyalar ichida."</div>
             <div class="testimonial__author">
               <div class="testimonial__avatar">AJ</div>
               <div>
@@ -356,7 +387,7 @@
         <div class="footer__bottom">
           <div>© 2026 MAKON. Barcha huquqlar himoyalangan.</div>
           <div class="footer__badges">
-            <span>ERI integratsiyasi</span>
+            <span>Raqamli imzo integratsiyasi</span>
             <span>·</span>
             <span>Davlat standarti</span>
           </div>
@@ -372,7 +403,7 @@ import {
   ArrowRight, MapPin, Search, FileText, ShieldCheck, KeyRound,
   Building2, Wallet, Wrench, BarChart3, Bell, ChevronDown,
   Star, Quote
-} from 'lucide-vue-next'
+, Layers, TrendingUp } from 'lucide-vue-next'
 
 const scrolled = ref(false)
 const searchQuery = ref('')
@@ -421,7 +452,38 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
   observer?.disconnect()
-})</script>
+})
+// Animated counters
+onMounted(() => {
+  const counters = document.querySelectorAll('[data-count]')
+  const animateCounter = (el: Element) => {
+    const target = parseInt((el as HTMLElement).dataset.count || '0')
+    const suffix = (el as HTMLElement).dataset.suffix || ''
+    const duration = 1500
+    const start = performance.now()
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      const value = Math.round(eased * target)
+      ;(el as HTMLElement).textContent = value.toLocaleString('ru-RU') + suffix
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target)
+        observer.unobserve(entry.target)
+      }
+    })
+  }, { threshold: 0.5 })
+
+  counters.forEach(c => observer.observe(c))
+})
+
+</script>
 
 <style scoped>
 /*  BASE  */
@@ -1490,5 +1552,18 @@ onUnmounted(() => {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* PREMIUM STATS */
+.lp-stats { padding: 48px 0; background: var(--bg, #fafafa); border-top: 1px solid rgba(0,0,0,0.04); }
+.dark .lp-stats { background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.04); }
+.lp-stats__grid { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; }
+.lp-stat { flex: 1; min-width: 180px; text-align: center; padding: 16px 24px; }
+.lp-stat__icon { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: rgba(37,99,235,0.08); color: var(--accent, #2563EB); }
+.lp-stat__num { font-size: 36px; font-weight: 800; color: var(--text, #1a1a2e); line-height: 1; letter-spacing: -0.02em; }
+.lp-stat__label { font-size: 13px; color: var(--text-muted, #71717a); margin-top: 8px; }
+.lp-stat__divider { width: 1px; height: 60px; background: rgba(0,0,0,0.06); }
+.dark .lp-stat__divider { background: rgba(255,255,255,0.06); }
+@media (max-width: 768px) { .lp-stat__divider { display: none; } .lp-stats__grid { gap: 24px; } }
 
 </style>

@@ -37,6 +37,42 @@
       </div>
     </div>
 
+    <!--  BUILDING KPI  -->
+    <section class="b-kpi">
+      <div class="container">
+        <div class="b-kpi__grid">
+          <div class="b-kpi__item">
+            <div class="b-kpi__icon"><KpiScene3D type="units" :size="38" /></div>
+            <div class="b-kpi__body">
+              <div class="b-kpi__value">{{ totalUnits }}</div>
+              <div class="b-kpi__label">Jami unitlar</div>
+            </div>
+          </div>
+          <div class="b-kpi__item">
+            <div class="b-kpi__icon"><KpiScene3D type="paid" :size="38" /></div>
+            <div class="b-kpi__body">
+              <div class="b-kpi__value">{{ occupiedUnits }}</div>
+              <div class="b-kpi__label">Band</div>
+            </div>
+          </div>
+          <div class="b-kpi__item">
+            <div class="b-kpi__icon"><KpiScene3D type="applications" :size="38" /></div>
+            <div class="b-kpi__body">
+              <div class="b-kpi__value">{{ vacantUnits }}</div>
+              <div class="b-kpi__label">Bo'sh</div>
+            </div>
+          </div>
+          <div class="b-kpi__item">
+            <div class="b-kpi__icon"><KpiScene3D type="buildings" :size="38" /></div>
+            <div class="b-kpi__body">
+              <div class="b-kpi__value">{{ occupancyPct }}<span style="font-size:14px">%</span></div>
+              <div class="b-kpi__label">Bandlik</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!--  INTERACTIVE FLOOR PICKER  -->
     <section class="picker">
       <div class="picker__head">
@@ -256,7 +292,7 @@
           <div class="footer__col"><h5 class="footer__h">BOG'LANISH</h5><p class="footer__text">Toshkent, O'zbekiston</p><p class="footer__text">+998 71 200 00 00</p><p class="footer__text">info@makon.uz</p></div>
         </div>
       </div>
-      <div class="footer__bottom">© 2026 MAKON — ERI orqali xavfsiz platforma</div>
+      <div class="footer__bottom">© 2026 MAKON — raqamli imzo orqali xavfsiz platforma</div>
     </footer>
   </div>
 </template>
@@ -381,6 +417,7 @@ const units = [
   { id: 6, slug: 'tashkent-city-retail-1f', name: 'Savdo maydoni 1F', floor: 2, area: 85, type: 'RETAIL', price: '6 800 000', image: '/buildings/hero-tashkent.jpg' },
 ]
 const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.filter(u => u.type === unitFilter.value))
+const vacantUnits = computed(() => building_floors.reduce((s, f) => s + f.units.filter(u => u.status === "VACANT").length, 0))
 </script>
 
 <style scoped>
@@ -657,4 +694,21 @@ const filteredUnits = computed(() => unitFilter.value === 'ALL' ? units : units.
   .footer__top { grid-template-columns: 1fr; gap: 32px; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
 }
+
+/* BUILDING KPI */
+.b-kpi { padding: 32px 0; }
+.b-kpi__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.b-kpi__item { display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: 16px; background: var(--card-bg, rgba(255,255,255,0.9)); border: 1px solid rgba(0,0,0,0.06); position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.b-kpi__item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.b-kpi__item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.b-kpi__item:nth-child(1)::before { background: #2563EB; }
+.b-kpi__item:nth-child(2)::before { background: #10b981; }
+.b-kpi__item:nth-child(3)::before { background: #f59e0b; }
+.b-kpi__item:nth-child(4)::before { background: #3b82f6; }
+.b-kpi__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.b-kpi__body { flex: 1; min-width: 0; }
+.b-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.b-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+@media (max-width: 768px) { .b-kpi__grid { grid-template-columns: repeat(2, 1fr); } }
+
 </style>
