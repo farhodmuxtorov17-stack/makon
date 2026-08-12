@@ -17,7 +17,7 @@
         <div class="nav__right">
           <ThemeToggle />
           <NuxtLink to="/login" class="nav__link">Kirish</NuxtLink>
-          <NuxtLink to="/dashboard/executive" class="nav__btn-try">
+          <NuxtLink to="/login" class="nav__btn-try">
             Tizimni sinab ko'rish <ArrowRight :size="14" />
           </NuxtLink>
         </div>
@@ -48,7 +48,7 @@
 
 
         <div class="hero__try">
-          <NuxtLink to="/dashboard/executive" class="hero__try-btn">
+          <NuxtLink to="/login" class="hero__try-btn">
             <span>Tizimni sinab ko'rish</span>
             <ArrowRight :size="20" />
           </NuxtLink>
