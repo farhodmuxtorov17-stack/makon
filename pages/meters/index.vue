@@ -4,7 +4,8 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">METERS</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Hisoblagichlar</h1>
+        <div class="eyebrow">METERS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Hisoblagichlar</h1>
         <p class="text-sm text-ink-500 mt-1">Elektr, suv, gaz ko'rsatkichlari va avtomatik hisob-kitob</p>
       </div>
       <div class="flex gap-2">

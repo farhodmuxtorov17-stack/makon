@@ -3,7 +3,8 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / AUDIT</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Audit jurnali</h1>
+        <div class="eyebrow">ADMIN / AUDIT</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Audit jurnali</h1>
         <p class="text-ink-500 text-sm mt-1">{{ entries.length }} ta yozuv · So'nggi 24 soat</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> Eksport</button>

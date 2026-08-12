@@ -3,7 +3,9 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Listinglar boshqaruvi</h1>
+        <div class="eyebrow">MANAGEMENT / LISTINGS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Listinglar</h1>
+      <p class="page-sub">Public marketplace listinglari va holatlari</p>
         <p class="text-ink-500 text-sm mt-1">Ommaviy katalogdagi ijara va sotuv e'lonlari</p>
       </div>
       <button @click="openCreateModal()" class="btn btn-primary btn-sm flex items-center gap-2">

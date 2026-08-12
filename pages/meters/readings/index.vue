@@ -2,7 +2,8 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisoblagich ko'rsatkichlari</h1>
+        <div class="eyebrow">METERS / READINGS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisoblagich ko'rsatkichlari</h1>
         <p class="text-ink-500 text-sm mt-1">{{ readings.length }} ta yozuv · {{ unreadCount }} o'qilmagan</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi ko'rsatkich</button>

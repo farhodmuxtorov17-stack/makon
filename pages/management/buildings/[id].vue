@@ -4,7 +4,8 @@
       <div class="flex items-center gap-3">
         <button @click="navigateTo('/management/buildings')" class="btn btn-ghost btn-sm p-2"><ArrowLeft :size="18" /></button>
         <div>
-          <h1 class="text-2xl font-bold text-ink-900 dark:text-white">{{ building?.name || 'Bino' }}</h1>
+          <div class="eyebrow">MANAGEMENT / BUILDINGS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">{{ building?.name || 'Bino' }}</h1>
           <p class="text-ink-500 text-sm mt-0.5">{{ building?.address }} · {{ building?.floorsCount }} qavat · {{ building?.totalUnits }} unit</p>
         </div>
       </div>

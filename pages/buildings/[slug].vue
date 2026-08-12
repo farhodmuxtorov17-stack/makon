@@ -144,7 +144,7 @@
         </div>
 
         <!-- Floor detail -->
-        <div class="floor-detail">
+        <div class="floor-detail" :key="`floor-${activeFloor}`">
           <div class="floor-detail__head">
             <div>
               <div class="floor-detail__label">{{ activeFloorData.num }}-QAVAT</div>
@@ -479,6 +479,8 @@ const vacantUnits = computed(() => building_floors.reduce((s, f) => s + f.units.
   padding: 16px; box-shadow: var(--shadow-sm);
   display: flex; flex-direction: column; gap: 3px;
   max-height: 520px; overflow-y: auto;
+  perspective: 800px;
+  transform-style: preserve-3d;
 }
 .iso-building::-webkit-scrollbar { width: 4px; }
 .iso-building::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
@@ -503,13 +505,15 @@ const vacantUnits = computed(() => building_floors.reduce((s, f) => s + f.units.
 .iso-floor--active .iso-floor__num { background: var(--accent); color: white; }
 
 .iso-floor__bars { flex: 1; display: flex; gap: 3px; height: 24px; align-items: flex-end; }
-.iso-bar { height: 100%; border-radius: 3px; transition: all 0.3s; opacity: 0.7; }
+.iso-bar { height: 100%; border-radius: 3px 3px 1px 1px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); opacity: 0.7; transform-origin: bottom; }
 .iso-bar--occupied { background: #d4d4d8; }
 .dark .iso-bar--occupied { background: #3f3f46; }
 .iso-bar--vacant { background: var(--accent); opacity: 1; }
 .iso-bar--technical { background: #e4e4e7; }
 .dark .iso-bar--technical { background: #27272a; }
-.iso-floor--active .iso-bar { opacity: 1; }
+.iso-floor--active .iso-bar { opacity: 1; transform: scaleY(1.08); }
+.iso-floor:hover .iso-bar { opacity: 0.85; }
+.iso-bar:hover { transform: scaleY(1.12) !important; opacity: 1 !important; }
 
 .iso-floor__count { position: absolute; top: -2px; right: -2px; }
 .iso-vacant-badge {
@@ -711,4 +715,30 @@ const vacantUnits = computed(() => building_floors.reduce((s, f) => s + f.units.
 .b-kpi__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 @media (max-width: 768px) { .b-kpi__grid { grid-template-columns: repeat(2, 1fr); } }
 
+
+/* Floor switch animation */
+.floor-switch-enter-active { transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
+.floor-switch-leave-active { transition: all 0.2s ease; }
+.floor-switch-enter-from { opacity: 0; transform: translateX(20px); }
+.floor-switch-leave-to { opacity: 0; transform: translateX(-10px); }
+
+/* Smooth active floor transition */
+.floor-detail { animation: floorEnter 0.4s cubic-bezier(0.4,0,0.2,1); }
+@keyframes floorEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mini unit hover pulse */
+@keyframes miniUnitPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { box-shadow: 0 0 0 6px transparent; }
+}
+.mini-unit--selected {
+  animation: miniUnitPulse 1.5s ease-in-out infinite;
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+.mini-unit--selected .mini-unit__name,
+.mini-unit--selected .mini-unit__area { color: white !important; }
 </style>

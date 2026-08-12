@@ -3,7 +3,9 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Binolar boshqaruvi</h1>
+        <div class="eyebrow">MANAGEMENT / BUILDINGS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Binolar</h1>
+      <p class="page-sub">Bino ma'lumotlari, unitlar va bandlik</p>
         <p class="text-ink-500 text-sm mt-1">Jami {{ filteredBuildings.length }} ta bino ro'yxati</p>
       </div>
       <button @click="showCreateModal = true" class="btn btn-primary btn-sm flex items-center gap-2">

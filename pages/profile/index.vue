@@ -3,7 +3,8 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Profil</h1>
+        <div class="eyebrow">PROFILE</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Profil</h1>
         <p class="text-ink-500 text-sm mt-1">Shaxsiy ma'lumotlar va sozlamalar</p>
       </div>
     </div>

@@ -3,7 +3,8 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / USERS</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Foydalanuvchilar</h1>
+        <div class="eyebrow">ADMIN / USERS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Foydalanuvchilar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUsers.length }} foydalanuvchi · {{ activeCount }} faol</p>
       </div>
       <button @click="showInvite = true" class="btn btn-primary btn-sm btn-glow"><UserPlus :size="14" /> Taklif yuborish</button>

@@ -4,7 +4,8 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FACILITY / MATERIALS</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Material so'rovlari</h1>
+        <div class="eyebrow">FACILITY / MATERIAL-REQUESTS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Material so'rovlari</h1>
         <p class="text-ink-500 text-sm mt-1">Work orderlar uchun materiallar zaruriyati</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="showNew = !showNew">

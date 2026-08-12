@@ -9,7 +9,8 @@
       <div class="flex items-center gap-3">
         <div class="w-9 h-9 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500"><Layers :size="18" /></div>
         <div>
-          <h1 class="text-xl font-bold text-ink-900 dark:text-white">{{ floor.num }}-qavat sketch-rejasi</h1>
+          <div class="eyebrow">FLOOR PLAN / {{ floor.num }}-QAVAT</div>
+        <h1 class="page-title">{{ floor.num }}-qavat sketch-rejasi</h1>
           <p class="text-ink-500 text-xs mt-0.5">{{ buildingName }} · Unit poligonlari va atributlari</p>
         </div>
       </div>
@@ -75,7 +76,8 @@
 
       <!-- SVG floor plan -->
       <div class="absolute inset-0 flex items-center justify-center overflow-auto bg-[#FAFBFF] dark:bg-ink-950 p-8">
-        <svg :viewBox="`0 0 ${planW} ${planH}`" :style="{ width: (zoom * 100) + '%', maxWidth: '95%' }" class="transition-all duration-200">
+        <Transition name="floor-fade" mode="out-in" appear>
+        <svg :key="floor.num" :viewBox="`0 0 ${planW} ${planH}`" :style="{ width: (zoom * 100) + '%', maxWidth: '95%' }" class="transition-all duration-200">
           <!-- Outer shell -->
           <rect :x="6" :y="6" :width="planW - 12" :height="planH - 12" fill="none" stroke="#1E293B" stroke-width="4" rx="4" />
 
@@ -104,6 +106,7 @@
             <rect :x="coreX + coreW * 0.76" :y="coreY + 8" :width="coreW * 0.18" :height="coreH - 16" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1.2" />
           </g>
         </svg>
+        </Transition>
       </div>
 
       <!-- Legend -->
@@ -282,4 +285,10 @@ const totalArea = computed(() => rooms.value.reduce((s: number, u: any) => s + (
 .kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
 .kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 
+
+/* Floor fade transition */
+.floor-fade-enter-active { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+.floor-fade-leave-active { transition: all 0.15s ease; }
+.floor-fade-enter-from { opacity: 0; transform: scale(0.97); }
+.floor-fade-leave-to { opacity: 0; transform: scale(1.02); }
 </style>

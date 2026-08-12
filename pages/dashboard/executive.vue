@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="space-y-5">
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-xl font-bold text-ink-900 dark:text-white">Ish stoli</h1>
+        <div class="eyebrow">DASHBOARD / EXECUTIVE</div>
+        <h1 class="page-title">Ish stoli</h1>
         <p class="text-sm text-ink-400 mt-0.5">{{ store.buildings.length }} ta biznes markaz</p>
       </div>
     </div>

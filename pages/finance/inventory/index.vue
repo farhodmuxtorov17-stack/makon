@@ -3,7 +3,8 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FINANCE / INVENTORY</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Ombor boshqaruvi</h1>
+        <div class="eyebrow">FINANCE / INVENTORY</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Ombor boshqaruvi</h1>
         <p class="text-ink-500 text-sm mt-1">{{ materials.length }} ta material · {{ lowStockCount }} ta kam qoldi</p>
       </div>
       <div class="flex items-center gap-2">

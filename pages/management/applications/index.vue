@@ -3,7 +3,9 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Arizalar oqimi (Kanban)</h1>
+        <div class="eyebrow">MANAGEMENT / APPLICATIONS</div>
+      <h1 class="page-title">Arizalar oqimi (Kanban)</h1>
+      <p class="page-sub">Arizalarni bosqichma-bosqich ko'rib chiqish va boshqarish</p>
         <p class="text-ink-500 text-sm mt-1">SUBMITTED → OPERATION → FINANCE → DRAFT_READY → SIGNED → ACTIVE</p>
       </div>
 

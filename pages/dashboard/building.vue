@@ -1,5 +1,5 @@
 <template>
-  <div class="bdash">
+  <div class="bdash space-y-5">
     <!-- Header -->
     <div class="bdash__head">
       <div class="bdash__head-left">

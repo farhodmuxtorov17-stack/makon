@@ -47,10 +47,24 @@
       <div class="lg:col-span-2 space-y-4">
         <div class="card-premium overflow-hidden">
           <div class="h-80 relative flex items-center justify-center" style="background: radial-gradient(ellipse at center, rgba(37,99,235,0.06), transparent 70%);">
-            <svg viewBox="0 0 400 200" class="w-full h-full p-8">
-              <polygon :points="unit.planPoints" fill="rgba(37,99,235,0.08)" stroke="var(--accent)" stroke-width="2" />
-              <text :x="200" :y="100" text-anchor="middle" class="text-lg fill-current text-brand-500 font-bold">{{ unit.name }}</text>
-              <text :x="200" :y="120" text-anchor="middle" class="text-xs fill-current text-ink-500">{{ unit.area }} m²</text>
+            <svg viewBox="0 0 400 200" class="w-full h-full p-8 interactive-plan">
+              <defs>
+                <linearGradient :id="'grad-' + unit.name" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:rgba(37,99,235,0.12)" />
+                  <stop offset="100%" style="stop-color:rgba(59,130,246,0.04)" />
+                </linearGradient>
+                <filter id="plan-shadow">
+                  <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.08"/>
+                </filter>
+              </defs>
+              <polygon :points="unit.planPoints" :fill="'url(#grad-' + unit.name + ')'" stroke="var(--accent)" stroke-width="2" filter="url(#plan-shadow)" class="plan-poly" />
+              <text :x="200" :y="95" text-anchor="middle" class="text-lg fill-current text-brand-500 font-bold" style="font-size: 22px;">{{ unit.name }}</text>
+              <text :x="200" :y="118" text-anchor="middle" class="text-xs fill-current text-ink-500" style="font-size: 13px;">{{ unit.area }} m²</text>
+              <text :x="200" :y="140" text-anchor="middle" class="text-xs fill-current text-ink-400" style="font-size: 11px;">{{ unit.offerType === 'RENT' ? 'Ijaraga' : 'Sotuv' }}</text>
+              <!-- Room markers -->
+              <circle cx="120" cy="60" r="3" fill="var(--accent)" opacity="0.4" />
+              <circle cx="280" cy="60" r="3" fill="var(--accent)" opacity="0.4" />
+              <circle cx="280" cy="140" r="3" fill="var(--accent)" opacity="0.4" />
             </svg>
           </div>
         </div>
@@ -304,4 +318,8 @@ async function submitApplication() {
 .kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
 .kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
 
+
+/* Interactive plan */
+.interactive-plan .plan-poly { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); transform-origin: center; }
+.interactive-plan:hover .plan-poly { transform: scale(1.02); stroke-width: 2.5; }
 </style>

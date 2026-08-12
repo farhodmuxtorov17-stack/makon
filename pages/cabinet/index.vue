@@ -5,7 +5,9 @@
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-500/30">A</div>
         <div>
-          <h1 class="text-2xl font-bold text-ink-900 dark:text-white">{{ org.name }}</h1>
+          <div class="eyebrow">CABINET / OVERVIEW</div>
+        <h1 class="page-title">{{ org.name }}</h1>
+        <p class="page-sub">Shartnomalaringiz, invoyslar va xizmat so'rovlari</p>
           <p class="text-ink-500 text-sm mt-0.5">STIR: {{ org.tin }} · {{ units.length }} ta unit · {{ activeContracts }} ta faol shartnoma</p>
         </div>
       </div>

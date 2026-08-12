@@ -1,6 +1,7 @@
 <template>
   <div class="space-y-6">
     <div>
+      <div class="eyebrow">MANAGEMENT / FLOOR-PLANS</div>
       <h1 class="text-2xl font-bold text-ink-900 dark:text-white">2D reja importi</h1>
       <p class="text-ink-500 text-sm mt-1">DWG/DXF fayllarini yuklash, poligon biriktirish va unit mapping</p>
     </div>

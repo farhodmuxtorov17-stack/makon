@@ -1,6 +1,7 @@
 <template>
   <div class="space-y-6">
     <div>
+      <div class="eyebrow">MANAGEMENT / VISUAL-SETTINGS</div>
       <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Vizual sozlamalar</h1>
       <p class="text-ink-500 text-sm mt-1">Bino sahifalari, katalog va listing ko'rinishi</p>
     </div>

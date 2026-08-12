@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="space-y-5">
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-xl font-bold text-ink-900 dark:text-white">Shartnomalar</h1>
+      <div class="eyebrow">CABINET / CONTRACTS</div>
+      <h1 class="page-title">Shartnomalar</h1>
     </div>
 
     <!-- 3D KPI Strip -->

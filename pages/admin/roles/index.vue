@@ -3,7 +3,8 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / ROLES</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Rollar va huquqlar</h1>
+        <div class="eyebrow">ADMIN / ROLES</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Rollar va huquqlar</h1>
         <p class="text-ink-500 text-sm mt-1">5 ta rol · {{ permissions.length }} ta huquq</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi rol</button>

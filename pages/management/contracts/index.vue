@@ -2,7 +2,9 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Shartnomalar boshqaruvi</h1>
+        <div class="eyebrow">MANAGEMENT / CONTRACTS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Shartnomalar</h1>
+      <p class="page-sub">Barcha shartnomalar, holatlar va muddatlar</p>
         <p class="text-ink-500 text-sm mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} aktiv</p>
       </div>
       <NuxtLink to="/management/applications" class="btn btn-primary btn-sm btn-glow">

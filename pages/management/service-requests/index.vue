@@ -3,7 +3,9 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Xizmat va Ta'mirlash So'rovlari (Facility Requests)</h1>
+        <div class="eyebrow">MANAGEMENT / SERVICE REQUESTS</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Xizmat so'rovlari</h1>
+      <p class="page-sub">Ijarachilardan kelgan so'rovlar va ularning holati</p>
         <p class="text-ink-500 text-sm mt-1">Xizmat ko'rsatish so'rovlari oqimi va SLA ijro nazorati</p>
       </div>
 

@@ -2,7 +2,8 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisob va servis</h1>
+        <div class="eyebrow">CABINET / SERVICES</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white">Hisob va servis</h1>
         <p class="text-ink-500 text-sm mt-1">To'lovlar, invoyslar va servis so'rovlari</p>
       </div>
       <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm btn-glow">

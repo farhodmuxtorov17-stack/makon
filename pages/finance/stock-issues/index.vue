@@ -4,7 +4,8 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FINANCE / STOCK ISSUES</div>
-        <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Ombordan chiqarish</h1>
+        <div class="eyebrow">FINANCE / STOCK-ISSUES</div>
+      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Ombordan chiqarish</h1>
         <p class="text-ink-500 text-sm mt-1">Materiallarni ombordan chiqarish hujjatlari</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="showNew = !showNew"><Plus :size="14" /> Yangi chiqarish</button>
