@@ -201,7 +201,7 @@ function resendCode() {
 
 <style scoped>
 .auth { display: flex; min-height: 100vh; }
-.auth__visual { position: relative; width: 48%; overflow: hidden; }
+.auth__visual { position: relative; flex: 1.15; overflow: hidden; display: block; }
 .auth__visual-img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .auth__visual-grad { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,9,11,0.4) 0%, rgba(9,9,11,0.2) 40%, rgba(9,9,11,0.85) 100%), radial-gradient(ellipse at 30% 70%, rgba(37,99,235,0.08), transparent 50%); }
 .auth__visual-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 40px 48px; }
@@ -245,8 +245,8 @@ function resendCode() {
 
 .dark .auth__info-notice svg { color: var(--accent); flex-shrink: 0; }
 
-.auth__submit { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); color: white; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25), inset 0 1px 0 rgba(255,255,255,0.15); }
-.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,102,255,0.35); }
+.auth__submit { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); color: white; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 14px rgba(37,99,235,0.3); }
+.auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
 .auth__submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .auth__resend { text-align: center; margin-top: 18px; font-size: 13px; color: #71717a; }
@@ -258,8 +258,8 @@ function resendCode() {
 .dark .auth__back { color: #a1a1aa; }
 .auth__back:hover { color: var(--accent); }
 
-@media (max-width: 900px) {
-  .auth__visual { display: none; }
+@media (max-width: 640px) {
+  .auth__visual { flex: none; min-height: 220px; }
   .auth__form-side { padding: 24px; }
   .otp-box { width: 44px; height: 52px; font-size: 18px; }
 }
