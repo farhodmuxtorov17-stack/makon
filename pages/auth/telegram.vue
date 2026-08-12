@@ -62,23 +62,10 @@
             Login va parol bilan kirish
           </NuxtLink>
 
-          <p class="auth__signup">
-            Yangimi?
-            <NuxtLink to="/auth/telegram" class="auth__link auth__link--bold">Telegram orqali ro'yxatdan o'ting</NuxtLink>
-          </p>
+
         </form>
 
-        <div class="auth__bot-hint">
-          <div class="auth__bot-icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-              <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="auth__bot-title">@makon_realestate_bot</p>
-            <p class="auth__bot-text">Kod shu bot orqali yuboriladi</p>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -172,16 +159,8 @@ async function handleSendOtp() {
 .dark .auth__eri { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
 .auth__eri:hover { border-color: var(--accent); background: var(--accent-subtle); }
 
-.auth__signup { text-align: center; margin-top: 28px; font-size: 14px; color: #71717a; }
-.dark .auth__signup { color: #a1a1aa; }
 .auth__link { color: var(--accent); text-decoration: none; font-weight: 500; }
 .auth__link:hover { text-decoration: underline; }
-.auth__link--bold { font-weight: 600; }
-
-.auth__bot-hint { margin-top: 32px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; background: rgba(37,99,235,0.04); border: 1px solid rgba(37,99,235,0.1); }
-.auth__bot-icon { width: 40px; height: 40px; border-radius: 12px; background: #0088cc; color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.auth__bot-title { font-size: 13px; font-weight: 700; color: #18181b; margin: 0; }
-.dark .auth__bot-title { color: white; }
 .auth__bot-text { font-size: 11px; color: #71717a; margin: 2px 0 0; }
 .dark .auth__bot-text { color: #a1a1aa; }
 
