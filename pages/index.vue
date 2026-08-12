@@ -12,7 +12,7 @@
           <a href="#buildings" class="nav__link">Binolar</a>
           <a href="#how" class="nav__link">Jarayon</a>
           <a href="#features" class="nav__link">Imkoniyatlar</a>
-          <a href="mailto:info@makon.uz" class="nav__link">Bog'lanish</a>
+          <a href="#contact" class="nav__link">Bog'lanish</a>
         </div>
         <div class="nav__right">
           <ThemeToggle />
@@ -314,6 +314,80 @@
         </div>
       </div>
     </section>
+    <!-- ═══ CONTACT ═══ -->
+    <section id="contact" class="contact-section reveal">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-eyebrow">BOGLANISH</div>
+            <h2 class="contact-title font-heading">Biz bilan bog'laning</h2>
+            <p class="contact-sub">Savollaringiz bormi? Demo o'tko'rish yoki integratsiya bo'yicha yordam kerakmi — jamoamiz tayyor.</p>
+            <div class="contact-items">
+              <div class="contact-item">
+                <div class="contact-item__icon"><Mail :size="20" /></div>
+                <div class="contact-item__body">
+                  <div class="contact-item__label">Email</div>
+                  <a href="mailto:info@makon.uz" class="contact-item__value">info@makon.uz</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item__icon"><Phone :size="20" /></div>
+                <div class="contact-item__body">
+                  <div class="contact-item__label">Telefon</div>
+                  <a href="tel:+998712008090" class="contact-item__value">+998 71 200 80 90</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item__icon"><MapPin :size="20" /></div>
+                <div class="contact-item__body">
+                  <div class="contact-item__label">Manzil</div>
+                  <div class="contact-item__value">Tashkent City, Amir Temur ko'chasi 108, Toshkent</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item__icon"><Clock :size="20" /></div>
+                <div class="contact-item__body">
+                  <div class="contact-item__label">Ish vaqti</div>
+                  <div class="contact-item__value">Dushanba — Juma, 09:00 — 18:00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="contact-form-wrap">
+            <div class="contact-form-card glass">
+              <div class="contact-form-head">
+                <h3 class="contact-form-title font-heading">Xabar qoldiring</h3>
+                <p class="contact-form-sub">Tez orada jamoamiz siz bilan bog'lanadi.</p>
+              </div>
+              <form class="contact-form" @submit.prevent="submitContact">
+                <div class="contact-form-row">
+                  <div class="contact-field">
+                    <label class="contact-field__label">Ismingiz</label>
+                    <input v-model="contactForm.name" type="text" class="contact-field__input" placeholder="Ism Familiya" />
+                  </div>
+                  <div class="contact-field">
+                    <label class="contact-field__label">Telefon</label>
+                    <input v-model="contactForm.phone" type="tel" class="contact-field__input" placeholder="+998 90 123 45 67" />
+                  </div>
+                </div>
+                <div class="contact-field">
+                  <label class="contact-field__label">Email</label>
+                  <input v-model="contactForm.email" type="email" class="contact-field__input" placeholder="email@example.com" />
+                </div>
+                <div class="contact-field">
+                  <label class="contact-field__label">Xabar</label>
+                  <textarea v-model="contactForm.message" rows="4" class="contact-field__textarea" placeholder="Savolingizni yozing..."></textarea>
+                </div>
+                <button type="submit" class="contact-form__btn" :class="{ 'contact-form__btn--sent': contactSent }">
+                  <template v-if="!contactSent">Yuborish <Send :size="16" /></template>
+                  <template v-else>Yuborildi ✓</template>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ═══ CTA ═══ -->
     <section class="cta-section reveal">
@@ -330,7 +404,7 @@
               <NuxtLink to="/register" class="cta-box__btn">
                 Ro'yxatdan o'tish <ArrowRight :size="16" />
               </NuxtLink>
-              <a href="mailto:info@makon.uz" class="cta-box__link">Bog'lanish</a>
+              <a href="#contact" class="cta-box__link">Bog'lanish</a>
             </div>
           </div>
         </div>
@@ -386,12 +460,15 @@
 const { img } = useImg()
 import { ref, onMounted, onUnmounted } from 'vue'
 import {
-  ArrowRight, MapPin, Search, FileText, ShieldCheck, KeyRound,
+  ArrowRight, MapPin, Search, FileText, ShieldCheck, KeyRound, Mail, Phone, Clock, Send,
   Building2, Wallet, Wrench, BarChart3, Bell, Home, Users, TrendingUp
 } from 'lucide-vue-next'
 
 const scrolled = ref(false)
 const searchQuery = ref('')
+const contactForm = ref({ name: "", phone: "", email: "", message: "" })
+const contactSent = ref(false)
+function submitContact() { contactSent.value = true; setTimeout(() => { contactSent.value = false; contactForm.value = { name: "", phone: "", email: "", message: "" } }, 3000) }
 const searchType = ref('')
 
 function doSearch() {
@@ -1313,6 +1390,45 @@ onUnmounted(() => {
 }
 
 /* ═══ CTA ═══ */
+/* ═══ Contact Section ═══ */
+.contact-section { padding: 100px 0 80px; background: var(--bg-subtle); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+@media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.contact-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+.contact-title { font-size: clamp(28px, 3.5vw, 38px); font-weight: 800; letter-spacing: -0.03em; color: var(--text); margin-bottom: 12px; }
+.contact-sub { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; max-width: 420px; }
+
+.contact-items { display: flex; flex-direction: column; gap: 20px; }
+.contact-item { display: flex; align-items: flex-start; gap: 16px; transition: transform 0.2s ease; }
+.contact-item:hover { transform: translateX(4px); }
+.contact-item__icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--accent-subtle); color: var(--accent); border: 1px solid rgba(37,99,235,0.15); }
+.contact-item__label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.contact-item__value { font-size: 16px; font-weight: 500; color: var(--text); text-decoration: none; }
+a.contact-item__value:hover { color: var(--accent); }
+
+.contact-form-wrap { position: relative; }
+.contact-form-card { border-radius: 24px; padding: 40px; box-shadow: 0 20px 60px -12px rgba(15,23,42,0.12); border: 1px solid var(--border); }
+@media (max-width: 880px) { .contact-form-card { padding: 28px; } }
+.contact-form-head { margin-bottom: 28px; }
+.contact-form-title { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.contact-form-sub { font-size: 14px; color: var(--text-secondary); }
+
+.contact-form { display: flex; flex-direction: column; gap: 18px; }
+.contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .contact-form-row { grid-template-columns: 1fr; } }
+.contact-field { display: flex; flex-direction: column; }
+.contact-field__label { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px; }
+.contact-field__input, .contact-field__textarea { width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--bg-card); color: var(--text); font-size: 15px; font-family: inherit; transition: all 0.2s ease; outline: none; }
+.contact-field__input:focus, .contact-field__textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
+.contact-field__textarea { resize: vertical; min-height: 100px; }
+.contact-field__input::placeholder, .contact-field__textarea::placeholder { color: var(--text-faint); }
+
+.contact-form__btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 15px 24px; border-radius: 14px; border: none; background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); color: white; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 8px 24px -6px rgba(37,99,235,0.4); }
+.contact-form__btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px -6px rgba(37,99,235,0.5); }
+.contact-form__btn--sent { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important; box-shadow: 0 8px 24px -6px rgba(34,197,94,0.4) !important; }
+
+
 .cta-section {
   padding: 60px 0 100px;
 }
