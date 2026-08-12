@@ -6,9 +6,14 @@
         <h1 class="text-2xl font-bold text-ink-900 dark:text-white mt-1">Tizim monitoringi</h1>
         <p class="text-ink-500 text-sm mt-1">Server holati, API va foydalanuvchilar faolligi</p>
       </div>
-      <div class="flex items-center gap-2 text-sm">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span class="text-emerald-500 font-medium">Barcha tizimlar faol</span>
+      <div class="flex items-center gap-3">
+        <button @click="refreshData" class="btn btn-secondary btn-sm" :class="{ 'animate-spin': isRefreshing }">
+          <RefreshCw :size="14" /> Yangilash
+        </button>
+        <div class="flex items-center gap-2 text-sm px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-emerald-500 font-medium">Barcha tizimlar faol</span>
+        </div>
       </div>
     </div>
 
@@ -59,7 +64,7 @@
       <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Online foydalanuvchilar</h3>
         <div class="space-y-2">
-          <div v-for="u in onlineUsers" :key="u.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+          <div v-for="u in onlineUsers" :key="u.id" @click="viewUserProfile(u.id)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-500/5 cursor-pointer transition-colors">
             <div class="relative">
               <div class="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold text-white flex-shrink-0" :style="{ background: roleColor(u.role) }">
                 {{ u.name.charAt(0) }}
@@ -79,7 +84,7 @@
       <div class="card-premium p-5">
         <h3 class="font-semibold text-ink-900 dark:text-white mb-4">So'nggi xatolar</h3>
         <div class="space-y-2">
-          <div v-for="err in errors" :key="err.id" class="p-3 rounded-xl bg-red-500/5 border border-red-500/10">
+          <div v-for="err in visibleErrors" :key="err.id" class="p-3 rounded-xl bg-red-500/5 border border-red-500/10">
             <div class="flex items-start gap-3">
               <AlertCircle :size="16" class="text-red-500 mt-0.5 flex-shrink-0" />
               <div class="flex-1">
@@ -89,7 +94,7 @@
               <span class="text-xs text-ink-400 flex-shrink-0">{{ err.time }}</span>
             </div>
           </div>
-          <div v-if="errors.length === 0" class="text-center py-8">
+          <div v-if="visibleErrors.length === 0" class="text-center py-8">
             <CheckCircle :size="32" class="text-emerald-500 mx-auto mb-2" />
             <p class="text-ink-500 text-sm">Xatolar yo'q 🎉</p>
           </div>
@@ -119,7 +124,7 @@
 </template>
 
 <script setup lang="ts">
-import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp, AlertCircle, CheckCircle } from 'lucide-vue-next'
+import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp, AlertCircle, CheckCircle, RefreshCw, X } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 

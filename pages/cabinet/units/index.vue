@@ -42,7 +42,7 @@
 
     <!-- Unit cards grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="unit in units" :key="unit.id" class="unit-detail-card">
+      <div v-for="unit in filteredUnits" :key="unit.id" class="unit-detail-card">
         <!-- Photo -->
         <div class="unit-detail-card__photo">
           <img :src="unit.photo" :alt="unit.name" loading="lazy" />
@@ -107,7 +107,9 @@
 </template>
 
 <script setup lang="ts">
-import { Plus, Building2, Ruler, Wallet, AlertCircle } from 'lucide-vue-next'
+import { Search,  Plus, Building2, Ruler, Wallet, AlertCircle } from 'lucide-vue-next'
+
+const search = ref('')
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
@@ -115,6 +117,15 @@ const makonStore = useMakonStore()
 const { formatUZS, formatUZSShort } = useFormat()
 
 const units = computed(() => makonStore.tenantUnits)
+const filteredUnits = computed(() => {
+  if (!search.value) return units.value
+  const q = search.value.toLowerCase()
+  return units.value.filter(u =>
+    u.name?.toLowerCase().includes(q) ||
+    u.building?.toLowerCase().includes(q) ||
+    String(u.floor).includes(q)
+  )
+})
 const totalArea = computed(() => units.value.reduce((s, u) => s + u.area, 0))
 const totalMonthlyRent = computed(() => units.value.reduce((s, u) => {
   const m = String(u.rent || '').match(/([\d.]+)M/)
