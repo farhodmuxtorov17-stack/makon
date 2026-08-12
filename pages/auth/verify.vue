@@ -28,7 +28,7 @@
           </div>
           <h1 class="auth__form-title">Tasdiqlash kodini kiriting</h1>
           <p class="auth__form-sub">
-            Kod <strong>{{ maskedPhone }}</strong> raqamiga bog'langan Telegram botga yuborildi
+            Kod <strong>{{ maskedPhone }}</strong> raqamiga yuborildi
           </p>
         </div>
 

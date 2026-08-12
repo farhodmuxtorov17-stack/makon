@@ -23,7 +23,7 @@
             <span class="auth__step-text">Telegram orqali identifikatsiya</span>
           </div>
           <h1 class="auth__form-title">Telefon raqamingizni kiriting</h1>
-          <p class="auth__form-sub">Tasdiqlash kodi Telegram bot orqali yuboriladi</p>
+          <p class="auth__form-sub">Tasdiqlash kodi raqamingizga yuboriladi</p>
         </div>
 
         <form @submit.prevent="handleSendOtp" class="auth__form">
