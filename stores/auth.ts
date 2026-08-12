@@ -23,6 +23,9 @@ export const useAuthStore = defineStore('auth', () => {
     if (import.meta.client) {
       if (u) localStorage.setItem('makon-user', JSON.stringify(u))
       else localStorage.removeItem('makon-user')
+      // Sync currentRole useState for middleware
+      const roleState = useState('currentRole')
+      if (u && u.role) roleState.value = u.role
     }
   }
 
@@ -42,7 +45,12 @@ export const useAuthStore = defineStore('auth', () => {
   function init() {
     if (import.meta.client) {
       const saved = localStorage.getItem('makon-user')
-      if (saved) user.value = JSON.parse(saved)
+      if (saved) {
+        user.value = JSON.parse(saved)
+        // Restore currentRole from saved user
+        const roleState = useState('currentRole')
+        if (user.value?.role) roleState.value = user.value.role
+      }
       const savedToken = localStorage.getItem('makon-token')
       if (savedToken) token.value = savedToken
       const savedUsers = localStorage.getItem('makon-registered-users')
@@ -141,20 +149,20 @@ export const useAuthStore = defineStore('auth', () => {
       return true
     }
 
-    // Demo/admin credentials
-    const demoUsers: Record<string, { name: string; role: UserRole }> = {
-      'admin@makon.uz': { name: 'Admin User', role: 'SUPER_HEAD' as UserRole },
-      'manager@makon.uz': { name: 'Bino Menejeri', role: 'BUILDING_MANAGER' as UserRole },
-      'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole },
-      'tenant@makon.uz': { name: 'Ijarachi', role: 'TENANT_OWNER' as UserRole },
-      'facility@makon.uz': { name: 'Texnik Xodim', role: 'FACILITY' as UserRole },
+    // Staff accounts (created by SUPER_HEAD via admin panel)
+    const staffAccounts: Record<string, { name: string; role: UserRole; password: string }> = {
+      'super@makon.uz': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole, password: 'Makon2026!' },
+      'manager@makon.uz': { name: 'Bino menejeri', role: 'BUILDING_MANAGER' as UserRole, password: 'Makon2026!' },
+      'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole, password: 'Makon2026!' },
+      'facility@makon.uz': { name: 'Texnik xodim', role: 'FACILITY' as UserRole, password: 'Makon2026!' },
+      'operator@makon.uz': { name: 'Operator', role: 'OPERATOR' as UserRole, password: 'Makon2026!' },
     }
 
-    if (demoUsers[login] && password === 'demo1234') {
-      const demo = demoUsers[login]
+    if (staffAccounts[login] && password === staffAccounts[login].password) {
+      const staff = staffAccounts[login]
       setAuth({
         token: 'sess_' + Date.now().toString(36),
-        user: { id: login.split('@')[0], fullName: demo.name, email: login, role: demo.role },
+        user: { id: login.split('@')[0], fullName: staff.name, email: login, role: staff.role },
       })
       return true
     }

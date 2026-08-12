@@ -42,9 +42,9 @@
             </div>
           </div>
 
-          <div v-if="demoCode" class="auth__demo-notice">
+          <div v-if="otpDisplay" class="auth__info-notice">
             <Info :size="15" />
-            <span>Demo rejim: kodingiz — <strong>{{ demoCode }}</strong></span>
+            <span>Kodni kiriting</span>
           </div>
 
           <button type="submit" class="auth__submit" :disabled="loading || phone.length < 9">
@@ -80,7 +80,7 @@ definePageMeta({ layout: 'blank' })
 const authStore = useAuthStore()
 const phone = ref('')
 const loading = ref(false)
-const demoCode = ref('')
+const otpDisplay = ref('')
 
 function formatPhone() {
   phone.value = phone.value.replace(/\D/g, '').slice(0, 9)
@@ -92,7 +92,7 @@ async function handleSendOtp() {
   await new Promise(r => setTimeout(r, 1000))
   const fullPhone = '+998' + phone.value
   const code = authStore.sendOtp(fullPhone)
-  demoCode.value = code
+  otpDisplay.value = code
   loading.value = false
   navigateTo('/auth/verify')
 }
@@ -142,9 +142,9 @@ async function handleSendOtp() {
 .auth__input::placeholder { color: #a1a1aa; }
 .auth__input--phone { padding-left: 56px; letter-spacing: 0.02em; font-weight: 500; }
 
-.auth__demo-notice { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); margin-bottom: 18px; font-size: 13px; color: #52525b; }
-.dark .auth__demo-notice { color: #a1a1aa; }
-.auth__demo-notice svg { color: var(--accent); flex-shrink: 0; }
+.auth__info-notice { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); margin-bottom: 18px; font-size: 13px; color: #52525b; }
+.dark .auth__info-notice { color: #a1a1aa; }
+.auth__info-notice svg { color: var(--accent); flex-shrink: 0; }
 
 .auth__submit { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); color: white; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25), inset 0 1px 0 rgba(255,255,255,0.15); }
 .auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,102,255,0.35); }

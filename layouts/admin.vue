@@ -182,8 +182,8 @@ const allNavGroups = [
   {
     label: 'Tizim',
     items: [
-      { to: '/reports/index', label: 'Hisobotlar', icon: BarChart3, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
-      { to: '/notifications', label: 'Bildirishnomalar', icon: Bell, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER'] },
+      { to: '/reports', label: 'Hisobotlar', icon: BarChart3, roles: ['SUPER_HEAD', 'ACCOUNTANT'] },
+      { to: '/notifications', label: 'Bildirishnomalar', icon: Bell, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'] },
       { to: '/admin/users', label: 'Foydalanuvchilar', icon: Users, roles: ['SUPER_HEAD', 'ADMIN'] },
       { to: '/admin/roles', label: 'Rollar', icon: Shield, roles: ['SUPER_HEAD', 'ADMIN'] },
       { to: '/admin/audit', label: 'Audit', icon: Shield, roles: ['SUPER_HEAD', 'ADMIN'] },
@@ -211,7 +211,7 @@ const titles: Record<string,string> = {
   '/management/listings': 'Listinglar', '/finance/invoices': 'Invoyslar',
   '/finance/periods': 'Moliya Davrlar', '/finance/debts': 'Qarzlar',
   '/finance/inventory': 'Inventar', '/finance/stock-issues': 'Ombor Chiqimlari',
-  '/facility/work-orders': 'Texnik Xizmat', '/reports/index': 'Hisobotlar',
+  '/facility/work-orders': 'Texnik Xizmat', '/reports': 'Hisobotlar',
   '/reports': 'Hisobotlar', '/notifications': 'Bildirishnomalar',
   '/admin/audit': 'Audit', '/admin/monitoring': 'Monitoring',
   '/admin/settings': 'Sozlamalar', '/admin/users': 'Foydalanuvchilar',

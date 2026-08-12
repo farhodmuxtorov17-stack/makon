@@ -3,7 +3,6 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">CABINET / CONTRACTS</div>
         <div class="eyebrow">CABINET / CONTRACTS</div>
       <h1 class="page-title">Mening shartnomalarim</h1>
         <p class="text-ink-500 text-sm mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} faol · {{ signingCount }} imzolanmoqda</p>
@@ -11,7 +10,7 @@
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--emerald">
         <div class="kpi-strip__icon"><CheckCircle2 :size="18" /></div>
         <div class="dash-kpi__body">

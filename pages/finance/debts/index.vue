@@ -232,8 +232,6 @@ function formatUZSShort(n: number) {
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
 .page-title { font-size: 24px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0; }
 .dark .page-title { color: white; }
-.page-sub { font-size: 14px; color: #71717a; margin: 4px 0 0; }
-.dark .page-sub { color: #a1a1aa; }
 
 .debt-card {
   border-radius: 18px; padding: 20px; border: 1px solid rgba(0,0,0,0.05);

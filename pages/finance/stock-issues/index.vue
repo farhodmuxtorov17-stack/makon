@@ -3,7 +3,6 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FINANCE / STOCK ISSUES</div>
         <div class="eyebrow">FINANCE / STOCK-ISSUES</div>
       <h1 class="page-title">Ombordan chiqarish</h1>
         <p class="text-ink-500 text-sm mt-1">Materiallarni ombordan chiqarish hujjatlari</p>
@@ -37,7 +36,7 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Package :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="dash-kpi__body">

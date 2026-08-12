@@ -2,7 +2,6 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / USERS</div>
         <div class="eyebrow">ADMIN / USERS</div>
       <h1 class="page-title">Foydalanuvchilar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUsers.length }} foydalanuvchi · {{ activeCount }} faol</p>
@@ -10,7 +9,7 @@
       <button @click="showInvite = true" class="btn btn-primary btn-sm btn-glow"><UserPlus :size="14" /> Taklif yuborish</button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Building2 :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
         <div class="dash-kpi__body">

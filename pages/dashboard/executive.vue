@@ -8,17 +8,17 @@
         <p class="text-sm text-ink-400 mt-1">{{ store.buildings.length }} ta biznes markaz · {{ totalUnits }} ta unit</p>
       </div>
       <div class="flex items-center gap-3">
-        <button class="btn btn-secondary btn-md">
+        <button class="btn btn-secondary btn-md" @click="() => {}">
           <Download :size="16" /> Eksport
         </button>
-        <button class="btn btn-primary btn-md">
+        <button class="btn btn-primary btn-md" @click="navigateTo('/management/buildings')">
           <Plus :size="16" /> Yangi obyekt
         </button>
       </div>
     </div>
 
     <!-- Premium KPI Strip -->
-    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Building2 :size="24" :stroke-width="1.8" /></div>

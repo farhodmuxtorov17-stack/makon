@@ -2,7 +2,6 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">CABINET / UNITS</div>
         <div class="eyebrow">CABINET / UNITS</div>
       <h1 class="page-title">Mening unitlarim</h1>
         <p class="text-ink-500 text-sm mt-1">{{ units.length }} ta unit · {{ totalArea }} m² jami maydon</p>
@@ -10,7 +9,7 @@
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Building2 :size="18" /></div>
         <div class="dash-kpi__body">

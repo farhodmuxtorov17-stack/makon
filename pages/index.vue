@@ -52,7 +52,7 @@
             <span>Tizimni sinab ko'rish</span>
             <ArrowRight :size="20" />
           </NuxtLink>
-          <span class="hero__try-hint">Demo rejim — ro'yxatdan o'tmasdan</span>
+          <span class="hero__try-hint">Ro'yxatdan o'tmasdan ko'rish</span>
         </div>
 
 
@@ -297,9 +297,9 @@
           </div>
           <div class="cta-box__content">
             <h2 class="cta-box__title font-heading">Boshqaruvni boshlang</h2>
-            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring. Demo versiyani bepul sinab ko'ring.</p>
+            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring. Bepul sinab ko'ring.</p>
             <div class="cta-box__actions">
-              <NuxtLink to="/auth/telegram" class="cta-box__btn">
+              <NuxtLink to="/register/eri" class="cta-box__btn">
                 Ro'yxatdan o'tish <ArrowRight :size="16" />
               </NuxtLink>
               <a href="mailto:info@makon.uz" class="cta-box__link">Bog'lanish</a>
@@ -331,7 +331,7 @@
             <div class="footer__col">
               <div class="footer__col-title">Tizim</div>
               <NuxtLink to="/login">Kirish</NuxtLink>
-              <NuxtLink to="/auth/telegram">Ro'yxatdan o'tish</NuxtLink>
+              <NuxtLink to="/register/eri">Ro'yxatdan o'tish</NuxtLink>
               <NuxtLink to="/dashboard/executive">Dashboard</NuxtLink>
             </div>
             <div class="footer__col">
@@ -418,11 +418,13 @@ onUnmounted(() => {
   margin-bottom: 12px;
 }
 .section-title {
-  font-size: 40px;
+  font-size: 44px;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-family: 'Sora', sans-serif;
 }
 .section-sub {
   font-size: 16px;
@@ -1076,14 +1078,7 @@ onUnmounted(() => {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
-.b-card {
-  border-radius: 20px;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  border: 1px solid var(--border);
-  transition: all 0.3s;
-}
+.b-card { position: relative; border-radius: 18px; overflow: hidden; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
 .b-card:hover {
   box-shadow: 0 12px 40px rgba(0,0,0,0.08);
   transform: translateY(-3px);
@@ -1254,27 +1249,13 @@ onUnmounted(() => {
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
-.feat {
-  padding: 28px;
-  border-radius: 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  transition: all 0.3s;
-}
+.feat { position: relative; padding: 28px 24px; border-radius: 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); overflow: hidden; backdrop-filter: blur(8px); }
 .feat:hover {
   border-color: var(--border-accent);
   box-shadow: 0 8px 32px rgba(37,99,235,0.06);
   transform: translateY(-2px);
 }
-.feat__icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-}
+.feat__icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
 .feat__icon--navy { background: rgba(37,99,235,0.08); color: #2563EB; }
 .feat__icon--blue { background: rgba(59,130,246,0.08); color: #3B82F6; }
 .feat__icon--green { background: rgba(5,150,105,0.08); color: #059669; }
@@ -1470,4 +1451,46 @@ onUnmounted(() => {
   .cta-box__content { padding: 32px; }
   .cta-box__title { font-size: 26px; }
 }
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .portfolio__grid { grid-template-columns: 1fr 1fr; }
+  .features__grid { grid-template-columns: 1fr 1fr; }
+  .how__steps { gap: 20px; }
+  .hero__title { font-size: 44px; }
+  .search-band__inner { flex-direction: column; }
+  .search-band__field { width: 100%; }
+  .search-band__sep { width: 100%; height: 1px; }
+  .search-band__field--type { max-width: 100%; }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .hero__title { font-size: 30px; }
+  .hero__lead { font-size: 14px; }
+  .hero__badge { font-size: 11px; padding: 6px 12px; }
+  .hero__stat-n { font-size: 22px; }
+  .hero__stat-l { font-size: 10px; }
+  .section-title { font-size: 22px; }
+  .section-sub { font-size: 13px; }
+  .portfolio__featured-num { font-size: 28px; }
+  .portfolio__featured-name { font-size: 20px; }
+  .b-card__name { font-size: 15px; }
+  .feat__title { font-size: 14px; }
+  .nav__brand-text { font-size: 14px; }
+  .search-band__chips { gap: 6px; }
+  .search-band__chip { font-size: 12px; padding: 7px 12px; }
+  .cta-box__title { font-size: 20px; }
+  .cta-box__content { padding: 24px; }
+  .footer__col { width: 100%; }
+  .step__title { font-size: 15px; }
+  .step__desc { font-size: 13px; }
+}
+
 </style>
+
+.feat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(37,99,235,0.4), transparent); transform: translateX(-100%); transition: transform 0.6s; }
+.feat:hover { border-color: rgba(37,99,235,0.12); background: rgba(255,255,255,0.05); transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.3); }
+.feat:hover::before { transform: translateX(100%); }
+
+.feat:hover .feat__icon { transform: scale(1.1) rotate(-3deg); }

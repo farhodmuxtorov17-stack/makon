@@ -10,7 +10,8 @@
           {{ user.name.charAt(0) }}
         </div>
         <div>
-          <h1 class="page-title">{{ user.name }}</h1>
+          <div class="eyebrow">ADMIN / USERS</div>
+      <h1 class="page-title">{{ user.name }}</h1>
           <p class="text-ink-500 text-sm">{{ user.email }}</p>
         </div>
       </div>

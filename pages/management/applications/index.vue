@@ -20,7 +20,7 @@
     </div>
 
     <!-- Premium KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>

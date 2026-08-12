@@ -2,8 +2,8 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FINANCE / INVOICES</div>
-        <h1 class="page-title">Invoyslar</h1>
+        <div class="eyebrow">FINANCE / INVOICES</div>
+      <h1 class="page-title">Invoyslar</h1>
         <p class="text-ink-500 text-sm mt-1">Shartnoma bo'yicha to'lov hujjatlari</p>
       </div>
       <div class="flex items-center gap-2">
@@ -17,7 +17,7 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--emerald">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>

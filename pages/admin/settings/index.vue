@@ -153,8 +153,8 @@
 
     <!-- ═══ Save ═══ -->
     <div class="flex justify-end gap-3">
-      <button class="btn btn-secondary btn-md">Bekor qilish</button>
-      <button class="btn btn-primary btn-md">
+      <button class="btn btn-secondary btn-md" @click="() => {}">Bekor qilish</button>
+      <button class="btn btn-primary btn-md" @click="() => {}">
         <Check :size="16" /> Saqlash
       </button>
     </div>

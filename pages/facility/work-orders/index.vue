@@ -3,8 +3,8 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">FACILITY / WORK ORDERS</div>
-        <h1 class="page-title">Work orderlar</h1>
+        <div class="eyebrow">FACILITY / WORK ORDERS</div>
+      <h1 class="page-title">Work orderlar</h1>
         <p class="text-sm text-ink-500 mt-1">Servis so'rovlari asosida yaratilgan ish buyruqlari</p>
       </div>
       <div class="flex items-center gap-2">
@@ -54,6 +54,42 @@
       <div class="flex gap-2">
         <button class="btn btn-primary btn-sm btn-glow" @click="createOrder">Yaratish</button>
         <button class="btn btn-secondary btn-sm" @click="showNew = false">Bekor qilish</button>
+      </div>
+    </div>
+
+        <!-- KPI Strip -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 stagger">
+      <div class="dash-kpi dash-kpi--blue">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Wrench :size="24" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ orders.length }}</div>
+          <div class="dash-kpi__label">Jami work order</div>
+        </div>
+      </div>
+      <div class="dash-kpi dash-kpi--amber">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><Clock :size="24" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ orders.filter(o => o.status === 'IN_PROGRESS').length }}</div>
+          <div class="dash-kpi__label">Ishlanmoqda</div>
+        </div>
+      </div>
+      <div class="dash-kpi dash-kpi--emerald">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><CheckCircle :size="24" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ orders.filter(o => o.status === 'COMPLETED').length }}</div>
+          <div class="dash-kpi__label">Tugatilgan</div>
+        </div>
+      </div>
+      <div class="dash-kpi dash-kpi--rose">
+        <div class="dash-kpi__glow"></div>
+        <div class="dash-kpi__icon"><AlertCircle :size="24" :stroke-width="1.8" /></div>
+        <div class="dash-kpi__body">
+          <div class="dash-kpi__value">{{ orders.filter(o => o.status === 'OVERDUE').length }}</div>
+          <div class="dash-kpi__label">Muddati o'tgan</div>
+        </div>
       </div>
     </div>
 
@@ -192,7 +228,7 @@
 
 <script setup lang="ts">
 import KpiCard from '~/components/KpiCard.vue'
-import { Filter, Plus, X, Clock, CheckCircle2, AlertTriangle, Wrench, Droplets, Zap, Wind, Sparkles } from 'lucide-vue-next'
+import { Filter, Plus, X, Clock, CheckCircle2, AlertTriangle, Wrench, Droplets, Zap, Wind, Sparkles, CheckCircle, AlertCircle } from 'lucide-vue-next'
 import CategoryProgressCard from '~/components/CategoryProgressCard.vue'
 
 definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'FACILITY'],  layout: 'admin', middleware: 'role' })

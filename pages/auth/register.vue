@@ -120,7 +120,7 @@
 
           <p class="auth__terms">
             Ro'yxatdan o'tish orqali siz
-            <a href="#" class="auth__link">foydalanish shartlari</a>
+            <a href="mailto:info@makon.uz" class="auth__link">foydalanish shartlari</a>
             ga rozilik bildirasiz
           </p>
         </form>
@@ -186,7 +186,7 @@ onMounted(() => {
   }
 
   if (!authStore.pendingRegistration?.phoneVerified) {
-    navigateTo('/auth/telegram')
+    navigateTo('/register/eri')
   }
 
   // Pre-fill phone from phone-verified number

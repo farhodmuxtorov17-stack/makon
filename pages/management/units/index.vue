@@ -2,15 +2,14 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">MANAGEMENT / UNITS</div>
         <div class="eyebrow">MANAGEMENT / UNITS</div>
       <h1 class="page-title">Unitlar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ filteredUnits.length }} ta unit · {{ occupiedCount }} band · {{ vacantCount }} bo'sh</p>
       </div>
-      <button class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi unit</button>
+      <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi unit</button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Layers :size="18" /></div>
         <div class="dash-kpi__body">

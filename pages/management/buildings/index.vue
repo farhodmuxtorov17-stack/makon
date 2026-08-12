@@ -5,8 +5,7 @@
       <div>
         <div class="eyebrow">MANAGEMENT / BUILDINGS</div>
       <h1 class="page-title">Binolar</h1>
-      <p class="page-sub">Bino ma'lumotlari, unitlar va bandlik</p>
-        <p class="text-ink-500 text-sm mt-1">Jami {{ filteredBuildings.length }} ta bino ro'yxati</p>
+      <p class="page-sub">Jami {{ filteredBuildings.length }} ta bino · bino ma'lumotlari, unitlar va bandlik</p>
       </div>
       <button @click="showCreateModal = true" class="btn btn-primary btn-sm flex items-center gap-2">
         <Plus :size="16" /> Yangi bino qo'shish
@@ -14,7 +13,7 @@
     </div>
 
     <!-- Premium Stats -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>

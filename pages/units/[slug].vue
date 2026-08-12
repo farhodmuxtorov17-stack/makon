@@ -10,7 +10,7 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Grid3x3 :size="22" :stroke-width="1.8" /></div>
@@ -201,6 +201,7 @@ const unit = {
   price: 25000000,
   pricePerM2: 294118,
   offerType: 'RENT',
+  status: 'VACANT',
   planPoints: '50,30 350,30 350,170 150,170 150,100 50,100',
   features: [
     { label: 'Maydon', value: '85 m²', icon: Maximize },

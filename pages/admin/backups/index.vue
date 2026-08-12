@@ -2,7 +2,6 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / BACKUPS</div>
         <div class="eyebrow">ADMIN / BACKUPS</div>
       <h1 class="page-title">Rezerv nusxalar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ backups.length }} nusxa · Oxirgi: {{ backups[0]?.time }}</p>
@@ -14,7 +13,7 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Package :size="22" :stroke-width="1.8" /></div>

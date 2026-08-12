@@ -2,7 +2,6 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / AUDIT</div>
         <div class="eyebrow">ADMIN / AUDIT</div>
       <h1 class="page-title">Audit jurnali</h1>
         <p class="text-ink-500 text-sm mt-1">{{ entries.length }} ta yozuv · So'nggi 24 soat</p>
@@ -11,7 +10,7 @@
     </div>
 
     <!-- KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--emerald">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><FileText :size="22" :stroke-width="1.8" /></div>

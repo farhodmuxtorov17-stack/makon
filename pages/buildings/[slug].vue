@@ -40,7 +40,7 @@
     <!--  BUILDING KPI  -->
     <section class="b-kpi">
       <div class="container">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
           <div class="dash-kpi dash-kpi--blue">
             <div class="dash-kpi__glow"></div>
             <div class="dash-kpi__icon"><Grid3x3 :size="22" :stroke-width="1.8" /></div>

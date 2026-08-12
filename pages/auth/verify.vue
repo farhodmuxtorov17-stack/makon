@@ -54,9 +54,9 @@
             <span>Kod noto'g'ri. Qaytadan urinib ko'ring.</span>
           </div>
 
-          <div v-if="demoCode" class="auth__demo-notice">
+          <div v-if="otpDisplay" class="auth__info-notice">
             <Info :size="15" />
-            <span>Demo rejim: kodingiz — <strong>{{ demoCode }}</strong></span>
+            <span>Kodni kiriting</span>
           </div>
 
           <button type="submit" class="auth__submit" :disabled="loading || otpDigits.join('').length < 6">
@@ -72,7 +72,7 @@
             </button>
           </div>
 
-          <NuxtLink to="/auth/telegram" class="auth__back">
+          <NuxtLink to="/register/eri" class="auth__back">
             <ArrowLeft :size="15" />
             Raqamni o'zgartirish
           </NuxtLink>
@@ -94,7 +94,7 @@ const otpRefs = ref<HTMLInputElement[]>([])
 const loading = ref(false)
 const error = ref(false)
 const resendTimer = ref(60)
-const demoCode = ref('')
+const otpDisplay = ref('')
 
 const maskedPhone = computed(() => {
   const p = authStore.pendingRegistration?.phone || ''
@@ -112,12 +112,12 @@ onMounted(() => {
   }
 
   if (!authStore.pendingRegistration?.phone) {
-    navigateTo('/auth/telegram')
+    navigateTo('/register/eri')
     return
   }
 
-  // Show demo code
-  demoCode.value = authStore.pendingRegistration.otpCode || ''
+  // Auto-fill OTP for testing
+  otpDisplay.value = authStore.pendingRegistration.otpCode || ''
 
   // Focus first input
   setTimeout(() => otpRefs.value[0]?.focus(), 100)
@@ -187,7 +187,7 @@ function resendCode() {
   if (!authStore.pendingRegistration) return
   const phone = authStore.pendingRegistration.phone
   const code = authStore.sendOtp(phone)
-  demoCode.value = code
+  otpDisplay.value = code
   otpDigits.value = ['', '', '', '', '', '']
   error.value = false
   startTimer()
@@ -239,9 +239,9 @@ function resendCode() {
 .auth__error { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); margin-bottom: 18px; font-size: 13px; color: #ef4444; }
 .auth__error svg { flex-shrink: 0; }
 
-.auth__demo-notice { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); margin-bottom: 18px; font-size: 13px; color: #52525b; }
-.dark .auth__demo-notice { color: #a1a1aa; }
-.auth__demo-notice svg { color: var(--accent); flex-shrink: 0; }
+.auth__info-notice { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); margin-bottom: 18px; font-size: 13px; color: #52525b; }
+.dark .auth__info-notice { color: #a1a1aa; }
+.auth__info-notice svg { color: var(--accent); flex-shrink: 0; }
 
 .auth__submit { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); color: white; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25), inset 0 1px 0 rgba(255,255,255,0.15); }
 .auth__submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,102,255,0.35); }

@@ -696,13 +696,11 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
 .catalog-login-btn:hover { background: rgba(0,0,0,0.05); }
 .dark .catalog-login-btn { color: #d4d4d8; }
 .dark .catalog-login-btn:hover { background: rgba(255,255,255,0.06); }
-.catalog-cta-btn {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 13px; font-weight: 700; color: white;
-  background: linear-gradient(135deg, #0066FF 0%, #3B82F6 100%); padding: 8px 16px; border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,102,255,0.25), inset 0 1px 0 rgba(255,255,255,0.15); transition: all 0.2s;
-}
-.catalog-cta-btn:hover { background: linear-gradient(135deg, #0052CC 0%, #2563EB 100%); box-shadow: 0 4px 16px rgba(0,102,255,0.35); transform: translateY(-1px); }
+.catalog-cta-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; background: linear-gradient(135deg, #2563EB, #1D4ED8); color: white; font-size: 13px; font-weight: 600; border-radius: 10px; transition: all 0.35s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 4px 12px -2px rgba(37,99,235,0.3); position: relative; overflow: hidden; text-decoration: none; }
+.catalog-cta-btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.6s; }
+.catalog-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 20px -4px rgba(37,99,235,0.4); }
+.catalog-cta-btn:hover::after { transform: translateX(100%); }
+.catalog-cta-btn-hover { background: linear-gradient(135deg, #0052CC 0%, #2563EB 100%); box-shadow: 0 4px 16px rgba(0,102,255,0.35); transform: translateY(-1px); }
 
 /* ============ TOOLBAR ============ */
 .catalog-toolbar {
@@ -809,7 +807,7 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   scroll-behavior: smooth;
 }
 .catalog-vip__scroll::-webkit-scrollbar { display: none; }
-.vip-card { flex-shrink: 0; width: 320px; cursor: pointer; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), filter 0.35s; }
+.vip-card { position: relative; border-radius: 20px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
 .vip-card:hover { transform: translateY(-6px); }
 .vip-card__image { border-radius: 18px;
   position: relative; width: 300px; height: 220px; border-radius: 18px; overflow: hidden;
@@ -872,20 +870,16 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
 .catalog-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; }
 
 /* Listing card (list view) */
-.listing-card {
-  display: flex; gap: 16px; padding: 14px; border-radius: 18px;
-  border: 1px solid rgba(0,0,0,0.06); background: #ffffff;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
-}
+.listing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
 .listing-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, rgba(37,99,235,0.4), transparent);
   opacity: 0; transition: opacity 0.3s;
 }
 .listing-card:hover::before { opacity: 1; }
-.dark .listing-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
+.dark .listing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
 .listing-card:hover, .listing-card--active { border-color: rgba(37,99,235,0.4); box-shadow: none; transform: translateY(-2px); }
-.listing-card { cursor: pointer; }
+.listing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
 .listing-card--active { border-color: var(--accent); background: rgba(37,99,235,0.05); box-shadow: 0 6px 20px rgba(37,99,235,0.18), 0 0 0 1px rgba(37,99,235,0.3); }
 .dark .listing-card--active { background: rgba(37,99,235,0.08); }
 .listing-card__photo {
@@ -926,12 +920,8 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
 
 /* Grid view */
 .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
-.grid-card {
-  border-radius: 16px; overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.06); background: #ffffff;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
-}
-.dark .grid-card { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); }
+.grid-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; position: relative; }
+.dark .grid-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; position: relative; }
 .grid-card:hover { border-color: rgba(37,99,235,0.2); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
 .grid-card__image img { transition: transform 0.5s; }
 .grid-card:hover .grid-card__image img { transform: scale(1.06); }
@@ -1002,7 +992,7 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   .catalog-toolbar { flex-direction: column; gap: 8px; align-items: stretch; }
   .catalog-tabs { justify-content: center; }
   .catalog-toolbar__actions { justify-content: center; }
-  .vip-card { width: 240px; }
+  .vip-card { position: relative; border-radius: 20px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
   .vip-card__image { border-radius: 18px; width: 240px; height: 170px; }
   .catalog-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
 }
@@ -1042,8 +1032,10 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
 .catalog-hero__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,26,0.5) 0%, rgba(10,10,26,0.75) 100%); }
 .catalog-hero__content { position: relative; z-index: 1; max-width: 720px; padding: 40px 24px; }
 .catalog-hero__tag { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: #60a5fa; text-transform: uppercase; margin-bottom: 10px; }
-.catalog-hero__title { font-size: 28px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 8px; }
+.catalog-hero__title { font-size: 34px; font-weight: 800; color: #fff; line-height: 1.15; letter-spacing: -0.04em; font-family: 'Sora', sans-serif; animation: fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) both; }
 .catalog-hero__sub { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; max-width: 560px; }
-@media (max-width: 768px) { .catalog-hero { height: 180px; } .catalog-hero__title { font-size: 22px; } .catalog-hero__sub { display: none; } }
+@media (max-width: 768px) { .catalog-hero { height: 180px; } .catalog-hero__title { font-size: 34px; font-weight: 800; color: #fff; line-height: 1.15; letter-spacing: -0.04em; font-family: 'Sora', sans-serif; animation: fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) both; } .catalog-hero__sub { display: none; } }
 
 </style>
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }

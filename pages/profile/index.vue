@@ -19,13 +19,13 @@
         <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-blue-500/20 flex-shrink-0">A</div>
         <div class="flex-1">
           <h2 class="text-xl font-bold text-ink-900 dark:text-white">Admin User</h2>
-          <p class="text-sm text-ink-400 mt-1">admin@makon.uz</p>
+          <p class="text-sm text-ink-400 mt-1">{{ authStore.user?.email || "user@makon.uz" }}</p>
           <div class="flex items-center gap-3 mt-3">
             <span class="badge badge-brand">SUPER_HEAD</span>
             <span class="badge badge-success">Faol</span>
           </div>
         </div>
-        <button class="btn btn-secondary btn-md">
+        <button class="btn btn-secondary btn-md" @click="() => {}">
           <Camera :size="16" /> Rasm o'zgartirish
         </button>
       </div>
@@ -46,7 +46,7 @@
         </div>
         <div>
           <label class="label">Email</label>
-          <input type="email" value="admin@makon.uz" class="input" />
+          <input type="email" :value="authStore.user?.email || ''" class="input" />
         </div>
         <div>
           <label class="label">Telefon</label>
@@ -92,14 +92,14 @@
             <div class="text-xs text-ink-400">+998 90 *** ** 67</div>
           </div>
         </div>
-        <button class="btn btn-ghost btn-sm">O'zgartirish</button>
+        <button class="btn btn-ghost btn-sm" @click="editing = true">O'zgartirish</button>
       </div>
     </div>
 
     <!-- ═══ Save ═══ -->
     <div class="flex justify-end gap-3">
-      <button class="btn btn-secondary btn-md">Bekor qilish</button>
-      <button class="btn btn-primary btn-md">
+      <button class="btn btn-secondary btn-md" @click="editing = false">Bekor qilish</button>
+      <button class="btn btn-primary btn-md" @click="saveProfile">
         <Check :size="16" /> Saqlash
       </button>
     </div>
@@ -108,6 +108,12 @@
 
 <script setup lang="ts">
 import { ShieldCheck, Camera, Smartphone, Check } from 'lucide-vue-next'
+
+const editing = ref(false)
+
+function saveProfile() {
+  editing.value = false
+}
 
 definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 </script>

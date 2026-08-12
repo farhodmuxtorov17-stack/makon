@@ -3,7 +3,6 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">CABINET / SERVICE</div>
         <div class="eyebrow">CABINET / SERVICE-REQUESTS</div>
       <h1 class="page-title">Servis so'rovlari</h1>
         <p class="text-ink-500 text-sm mt-1">Texnik xizmat so'rovlari tarixi va holati</p>
@@ -11,7 +10,7 @@
       <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi so'rov</NuxtLink>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Wrench :size="18" /></div>
         <div class="dash-kpi__body">

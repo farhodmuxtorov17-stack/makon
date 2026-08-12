@@ -16,7 +16,7 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
@@ -243,7 +243,7 @@
 
     <!-- Save bar -->
     <div class="flex justify-end gap-3 pb-4">
-      <button class="btn btn-secondary">Bekor qilish</button>
+      <button class="btn btn-secondary" @click="() => {}">Bekor qilish</button>
       <button @click="showSaved = true; setTimeout(() => showSaved = false, 2000)" class="btn btn-primary">
         <Save :size="16" /> Saqlash
       </button>

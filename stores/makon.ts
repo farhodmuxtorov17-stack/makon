@@ -498,6 +498,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'b6', name: 'Tashkent City Business Center', slug: 'tashkent-city-business-center',
       type: 'OFFICE', address: 'Tashkent City 8-bino', city: 'Toshkent', district: 'Yashnobod',
       floorsCount: 12, totalUnits: 96, occupiedUnits: 78, reservedUnits: 6, vacantUnits: 12,
+      totalArea: 0,
       gallery: ['/buildings/real_tashkent-street.jpg', '/buildings/real_finance-center.jpg', '/buildings/real_tashkent-skyline.jpg'],
       publicDescription: 'Tashkent City majmuasidagi eng zamonaviy biznes markaz. Panoramali ofislar.',
       publicDescriptionRu: 'Современный бизнес-центр в комплексе Tashkent City.',
@@ -509,6 +510,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'b7', name: 'Amir Tower', slug: 'amir-tower',
       type: 'OFFICE', address: 'Amir Temur kochasi 45', city: 'Toshkent', district: 'Mirzo Ulugbek',
       floorsCount: 18, totalUnits: 144, occupiedUnits: 120, reservedUnits: 8, vacantUnits: 16,
+      totalArea: 0,
       gallery: ['/buildings/real_tashkent-skyline2.jpg', '/buildings/real_nest-one.jpg', '/buildings/real_tashkent-skyline.jpg'],
       publicDescription: 'Shahar markazidagi A-klass biznes minorasi. Premium ofislar.',
       publicDescriptionRu: 'Башня класса А в центре города. Премиум офисы.',
@@ -520,6 +522,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'b8', name: 'Center Point Plaza', slug: 'center-point-plaza',
       type: 'SHOPPING', address: 'Buyuk Ipak Yoli 12', city: 'Toshkent', district: 'Yakkasaray',
       floorsCount: 5, totalUnits: 60, occupiedUnits: 45, reservedUnits: 5, vacantUnits: 10,
+      totalArea: 0,
       gallery: ['/buildings/real_nest-one2.jpg', '/buildings/real_tashkent-street.jpg', '/buildings/real_tashkent-night.jpg'],
       publicDescription: 'Savdo va kongilochar markaz. Food court, kinoteatr, bolalar zonasi.',
       publicDescriptionRu: 'Торгово-развлекательный центр. Фуд-корт, кинотеатр.',
@@ -531,6 +534,7 @@ export const useMakonStore = defineStore('makon', () => {
       id: 'b9', name: 'Novza Business Park', slug: 'novza-business-park',
       type: 'OFFICE', address: 'Novza kochasi 8', city: 'Toshkent', district: 'Yakkasaray',
       floorsCount: 8, totalUnits: 64, occupiedUnits: 52, reservedUnits: 4, vacantUnits: 8,
+      totalArea: 0,
       gallery: ['/buildings/real_tashkent-city.jpg', '/buildings/real_tashkent-skyline.jpg', '/buildings/real_finance-center.jpg'],
       publicDescription: 'B-klass biznes markaz. Kichik va orta biznes uchun ideal.',
       publicDescriptionRu: 'Бизнес-центр класса B. Идеально для малого и среднего бизнеса.',
@@ -740,6 +744,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionRu: 'Торговое помещение в месте с высоким трафиком, с большими окнами и отдельным входом.',
       offerType: 'RENT', price: 6300, currency: 'USD',
       photos: ['/buildings/real_tashkent-city.jpg'],
+      viewsCount: 156, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-20'
     },
     {
@@ -750,6 +755,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionRu: 'С панорамой города, с мебелью, быстрый интернет.',
       offerType: 'RENT', price: 5400, currency: 'USD',
       photos: ['/buildings/real_tashkent-skyline2.jpg'],
+      viewsCount: 234, status: 'PUBLISHED',
       virtualTourUrl: 'https://my.matterport.com/show/?m=sample2', createdAt: '2026-07-25'
     },
     {
@@ -760,6 +766,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionRu: 'Идеально для малого бизнеса. Открытый план, кондиционер, 2 санузла.',
       offerType: 'RENT', price: 3600, currency: 'USD',
       photos: ['/buildings/real_tashkent-night.jpg'],
+      viewsCount: 89, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-07-28'
     },
     {
@@ -770,6 +777,7 @@ export const useMakonStore = defineStore('makon', () => {
       descriptionRu: 'Высокий трафик в молле. 2 этажа, с подвалом.',
       offerType: 'RENT', price: 2850, currency: 'USD',
       photos: ['/buildings/real_nest-one2.jpg'],
+      viewsCount: 67, status: 'PUBLISHED',
       virtualTourUrl: '', createdAt: '2026-08-01'
     },
     {
@@ -1154,7 +1162,7 @@ export const useMakonStore = defineStore('makon', () => {
       buildingName: 'Trillant Tower A',
       unitNumber: '201',
       category: 'Electrical',
-      priority: 'IN_PROGRESS',
+      priority: 'HIGH',
       status: 'IN_PROGRESS',
       title: 'Lobby chiroqlarini almashtirish',
       description: '2-qavat lift oldidagi LED lampochkalarni almashtirish.',
@@ -1369,6 +1377,7 @@ export const useMakonStore = defineStore('makon', () => {
       occupiedUnits: 0,
       reservedUnits: 0,
       vacantUnits: b.totalUnits,
+      totalArea: 0,
     }
     buildings.value.unshift(newB)
     return newB

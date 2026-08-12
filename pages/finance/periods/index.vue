@@ -171,8 +171,6 @@ function formatUZSShort(n: number) {
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
 .page-title { font-size: 24px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0; }
 .dark .page-title { color: white; }
-.page-sub { font-size: 14px; color: #71717a; margin: 4px 0 0; }
-.dark .page-sub { color: #a1a1aa; }
 
 .period-kpi { position: relative; overflow: hidden;
   display: flex; align-items: center; gap: 12px; padding: 16px;

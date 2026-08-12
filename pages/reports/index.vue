@@ -13,7 +13,7 @@
           <option value="quarter">Chorak</option>
           <option value="year">Yil</option>
         </select>
-        <button class="btn btn-secondary btn-sm">
+        <button class="btn btn-secondary btn-sm" @click="() => {}">
           <Download :size="14" /> Eksport
         </button>
       </div>

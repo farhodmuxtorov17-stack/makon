@@ -57,39 +57,13 @@
           <p class="auth__form-sub">Tizimga kirish uchun login va parolingizni kiriting</p>
         </div>
 
-        <!-- Demo Credentials -->
-        <div class="auth__demo-creds">
-          <div class="auth__demo-creds-head">
-            <Info :size="14" />
-            <span>Demo kirish (parol: demo1234):</span>
-          </div>
-          <div class="auth__demo-creds-body">
-            <div class="auth__demo-cred" @click="fillDemo('admin@makon.uz')">
-              <span class="auth__demo-label">Admin</span>
-              <code>admin@makon.uz</code>
-            </div>
-            <div class="auth__demo-cred" @click="fillDemo('manager@makon.uz')">
-              <span class="auth__demo-label">Menejer</span>
-              <code>manager@makon.uz</code>
-            </div>
-            <div class="auth__demo-cred" @click="fillDemo('accountant@makon.uz')">
-              <span class="auth__demo-label">Buxgalter</span>
-              <code>accountant@makon.uz</code>
-            </div>
-            <div class="auth__demo-cred" @click="fillDemo('tenant@makon.uz')">
-              <span class="auth__demo-label">Ijarachi</span>
-              <code>tenant@makon.uz</code>
-            </div>
-          </div>
-        </div>
-
         <!-- Login Form -->
         <form @submit.prevent="handleLogin" class="auth__form">
           <div class="auth__field">
             <label class="auth__label">Login</label>
             <div class="auth__input-wrap">
               <UserRound :size="17" class="auth__input-icon" />
-              <input v-model="form.login" type="text" placeholder="admin@makon.uz" class="auth__input" />
+              <input v-model="form.login" type="text" placeholder="login@makon.uz" class="auth__input" />
             </div>
           </div>
 
@@ -136,7 +110,7 @@
           <div class="auth__divider"><span>YOKI</span></div>
 
           <!-- SMS Registration -->
-          <NuxtLink to="/auth/telegram" class="auth__sms-btn">
+          <NuxtLink to="/register/eri" class="auth__sms-btn">
             <Smartphone :size="20" />
             <span>Telefon raqami orqali ro'yxatdan o'tish</span>
           </NuxtLink>
@@ -144,7 +118,7 @@
           <!-- Signup Link -->
           <p class="auth__signup">
             Yangi foydalanuvchi?
-            <NuxtLink to="/auth/telegram" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
+            <NuxtLink to="/register/eri" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
           </p>
         </form>
       </div>
@@ -173,10 +147,6 @@ onMounted(() => {
   if (saved) { form.login = saved; form.remember = true }
 })
 
-function fillDemo(login: string) {
-  form.login = login
-  form.password = 'demo1234'
-}
 
 async function handleLogin() {
   loading.value = true
@@ -186,7 +156,7 @@ async function handleLogin() {
   if (authStore.loginWithCredentials(form.login, form.password)) {
     if (form.remember) localStorage.setItem('makon-remembered-login', form.login)
     else localStorage.removeItem('makon-remembered-login')
-    navigateTo('/dashboard/executive')
+    navigateTo('/dashboard')
   } else {
     loginError.value = true
   }
@@ -195,7 +165,7 @@ async function handleLogin() {
 function sendRecovery() {
   if (recoveryPhone.value.length > 0) {
     showRecovery.value = false
-    navigateTo('/auth/telegram')
+    navigateTo('/register/eri')
   }
 }
 </script>

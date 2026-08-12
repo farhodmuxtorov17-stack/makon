@@ -8,7 +8,8 @@
         </NuxtLink>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="page-title">Kommercheskiy Taklif (Commercial Offer)</h1>
+            <div class="eyebrow">APPLICATIONS / OFFER</div>
+      <h1 class="page-title">Kommercheskiy Taklif (Commercial Offer)</h1>
             <span class="badge badge-brand font-mono">v{{ offerVersion }}</span>
           </div>
           <p class="text-xs text-ink-500 mt-0.5">Ariza: <b>{{ app.number }}</b> | Arizachi: {{ app.applicantName }}</p>

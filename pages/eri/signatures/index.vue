@@ -3,13 +3,14 @@
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ERI / SIGNATURES</div>
-        <h1 class="page-title">ERI imzo navbati</h1>
+        <div class="eyebrow">ERI / SIGNATURES</div>
+      <h1 class="page-title">ERI imzo navbati</h1>
         <p class="text-ink-500 text-sm mt-1">{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="() => {}"><RefreshCw :size="14" /> Yangilash</button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--amber">
         <div class="kpi-strip__icon"><Clock :size="18" /></div>
         <div class="dash-kpi__body">

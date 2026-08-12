@@ -24,7 +24,7 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--amber">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><AlertCircle :size="22" :stroke-width="1.8" /></div>
@@ -184,8 +184,6 @@ function formatUZSShort(n: number) {
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
 .page-title { font-size: 24px; font-weight: 800; color: #18181b; letter-spacing: -0.03em; margin: 0; }
 .dark .page-title { color: white; }
-.page-sub { font-size: 14px; color: #71717a; margin: 4px 0 0; }
-.dark .page-sub { color: #a1a1aa; }
 
 /* Flow */
 .flow { display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: 4px; }

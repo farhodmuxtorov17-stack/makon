@@ -2,7 +2,6 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">ADMIN / ROLES</div>
         <div class="eyebrow">ADMIN / ROLES</div>
       <h1 class="page-title">Rollar va huquqlar</h1>
         <p class="text-ink-500 text-sm mt-1">5 ta rol · {{ permissions.length }} ta huquq</p>
@@ -11,7 +10,7 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
