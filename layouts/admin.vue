@@ -150,11 +150,13 @@ const allNavGroups = [
       { to: '/management/applications', label: 'Arizalar', icon: FileText, badge: 3, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'CONTENT_OPERATOR'] },
       { to: '/contracts', label: 'Shartnomalar', icon: ScrollText, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'] },
       { to: '/management/tenants', label: 'Ijarachilar', icon: Users, roles: ['SUPER_HEAD', 'BUILDING_MANAGER'] },
+      { to: '/cabinet', label: 'Mening kabinetim', icon: LayoutDashboard, roles: ['TENANT_OWNER'] },
       { to: '/cabinet/units', label: 'Mening unitlarim', icon: Home, roles: ['TENANT_OWNER'] },
       { to: '/cabinet/applications', label: 'Mening arizalarim', icon: FileText, roles: ['TENANT_OWNER'] },
       { to: '/cabinet/contracts', label: 'Mening shartnomalarim', icon: ScrollText, roles: ['TENANT_OWNER'] },
       { to: '/cabinet/services', label: 'Mening xizmatlarim', icon: Wrench, roles: ['TENANT_OWNER'] },
       { to: '/cabinet/service-requests', label: 'Servis so\'rovlari', icon: ClipboardList, roles: ['TENANT_OWNER'] },
+      { to: '/cabinet/meter-readings', label: 'Sanoqchilar', icon: Gauge, roles: ['TENANT_OWNER'] },
     ]
   },
   {
@@ -183,7 +185,7 @@ const allNavGroups = [
     label: 'Tizim',
     items: [
       { to: '/reports', label: 'Hisobotlar', icon: BarChart3, roles: ['SUPER_HEAD', 'ADMIN', 'ACCOUNTANT'] },
-      { to: '/notifications', label: 'Bildirishnomalar', icon: Bell, roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'] },
+      { to: '/notifications', label: 'Bildirishnomalar', icon: Bell, roles: ['SUPER_HEAD', 'ADMIN', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'] },
       { to: '/admin/users', label: 'Foydalanuvchilar', icon: Users, roles: ['SUPER_HEAD', 'ADMIN'] },
       { to: '/admin/roles', label: 'Rollar', icon: Shield, roles: ['SUPER_HEAD', 'ADMIN'] },
       { to: '/admin/audit', label: 'Audit', icon: Shield, roles: ['SUPER_HEAD', 'ADMIN'] },
@@ -217,8 +219,10 @@ const titles: Record<string,string> = {
   '/admin/settings': 'Sozlamalar', '/admin/users': 'Foydalanuvchilar',
   '/admin/roles': 'Rollar', '/admin/backups': 'Rezerv Nusxalar',
   '/admin/notification-templates': 'Shablonlar', '/admin/login-history': 'Kirish Tarixi',
+  '/cabinet/meter-readings': 'Sanoqchilar',
   '/management/service-requests': 'Servis So\'rovlar',
   '/management/floor-plans': 'Qavat Rejalar', '/management/visual-settings': 'Vizual Sozlamalar',
+  '/cabinet': 'Mening Kabinetim',
   '/cabinet/units': 'Mening Unitlarim', '/cabinet/applications': 'Mening Arizalarim',
   '/cabinet/services': 'Mening Servislarim', '/profile': 'Profil',
 }

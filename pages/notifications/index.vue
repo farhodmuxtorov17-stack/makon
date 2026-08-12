@@ -107,7 +107,7 @@ import {
   Bell, FileText, Wallet, Wrench, Users, AlertCircle, CheckCheck, CheckCircle, Info
 } from 'lucide-vue-next'
 
-definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
+definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN', 'BUILDING_MANAGER', 'ACCOUNTANT', 'FACILITY', 'TENANT_OWNER', 'WAREHOUSE_OPERATOR', 'CONTENT_OPERATOR'],  layout: 'admin', middleware: 'role' })
 
 interface Notification {
   id: string; type: 'APPLICATION' | 'INVOICE' | 'SERVICE' | 'CONTRACT' | 'SYSTEM'; title: string; message: string; time: string; read: boolean

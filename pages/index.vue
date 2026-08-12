@@ -18,7 +18,7 @@
           <ThemeToggle />
           <NuxtLink to="/login" class="nav__link">Kirish</NuxtLink>
           <NuxtLink to="/login" class="nav__btn-try">
-            Tizimni sinab ko'rish <ArrowRight :size="14" />
+            Kabinetga kirish <ArrowRight :size="14" />
           </NuxtLink>
         </div>
       </div>
@@ -49,10 +49,10 @@
 
         <div class="hero__try animate-fade-up" style="animation-delay: 0.4s;">
           <NuxtLink to="/login" class="hero__try-btn">
-            <span>Tizimni sinab ko'rish</span>
+            <span>Boshlash — bepul</span>
             <ArrowRight :size="20" />
           </NuxtLink>
-          <span class="hero__try-hint">Ro'yxatdan o'tmasdan ko'rish</span>
+          <span class="hero__try-hint">Ro'yxatdan o'tmasdan ko'rish — majburiyat yo'q</span>
         </div>
 
 
@@ -399,7 +399,7 @@
           </div>
           <div class="cta-box__content">
             <h2 class="cta-box__title font-heading">Boshqaruvni boshlang</h2>
-            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring. Boshlang — birinchi obyektni bepul ulang.</p>
+            <p class="cta-box__text">Binolaringizni MAKON platformasida birlashtiring — birinchi obyektni bepul ulang.</p>
             <div class="cta-box__actions">
               <NuxtLink to="/register" class="cta-box__btn">
                 Ro'yxatdan o'tish <ArrowRight :size="16" />
@@ -533,19 +533,20 @@ onUnmounted(() => {
   margin-bottom: 12px;
 }
 .section-title {
-  font-size: 48px;
-  font-weight: 700;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
   color: var(--text);
-  margin-bottom: 14px;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
   font-family: 'Sora', sans-serif;
 }
 .section-sub {
-  font-size: 17px;
+  font-size: 18px;
   color: var(--text-secondary);
-  max-width: 560px;
-  line-height: 1.6;
+  max-width: 620px;
+  line-height: 1.65;
+  margin: 0 auto;
 }
 
 /* ═══ NAV ═══ */
@@ -1087,7 +1088,10 @@ onUnmounted(() => {
   transition: transform 0.4s;
 }
 .portfolio__featured:hover .portfolio__featured-media img {
-  transform: scale(1.04);
+  transform: scale(1.06);
+}
+.portfolio__featured:hover {
+  box-shadow: 0 32px 80px -20px rgba(0,0,0,0.15);
 }
 .portfolio__featured-overlay {
   position: absolute;
