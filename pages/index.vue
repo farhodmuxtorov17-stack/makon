@@ -132,12 +132,12 @@
           </div>
           <div class="portfolio__featured-info">
             <div class="portfolio__featured-num">01</div>
-            <h3 class="portfolio__featured-name font-heading">Tashkent City</h3>
-            <p class="portfolio__featured-addr"><MapPin :size="14" /> Mirzo Ulug'bek tumani, Toshkent</p>
+            <h3 class="portfolio__featured-name font-heading">Tashkent City Financial Hub</h3>
+            <p class="portfolio__featured-addr"><MapPin :size="14" /> Shayxontohur, Toshkent</p>
             <div class="portfolio__featured-specs">
-              <div class="portfolio__featured-spec"><span class="n">12</span><span class="l">Qavat</span></div>
-              <div class="portfolio__featured-spec"><span class="n">240</span><span class="l">Unit</span></div>
-              <div class="portfolio__featured-spec"><span class="n">32K</span><span class="l">m²</span></div>
+              <div class="portfolio__featured-spec"><span class="n">24</span><span class="l">Qavat</span></div>
+              <div class="portfolio__featured-spec"><span class="n">210</span><span class="l">Unit</span></div>
+              <div class="portfolio__featured-spec"><span class="n">42K</span><span class="l">m²</span></div>
             </div>
             <div class="portfolio__featured-price">
               <span class="l">Ijaraga</span>
@@ -159,9 +159,9 @@
             <div class="b-card__info">
               <div class="b-card__num">02</div>
               <h4 class="b-card__name font-heading">Trillant Tower</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Yashnabad, Toshkent</p>
+              <p class="b-card__addr"><MapPin :size="12" /> Mirobod, Toshkent</p>
               <div class="b-card__specs">
-                <span>14 qavat</span><span class="dot">·</span><span>180 unit</span><span class="dot">·</span><span>24K m²</span>
+                <span>18 qavat</span><span class="dot">·</span><span>140 unit</span><span class="dot">·</span><span>28K m²</span>
               </div>
               <div class="b-card__price">18 000 000 UZS<span>/oy</span></div>
             </div>
@@ -177,7 +177,7 @@
               <h4 class="b-card__name font-heading">City Plaza</h4>
               <p class="b-card__addr"><MapPin :size="12" /> Yakkasaray, Toshkent</p>
               <div class="b-card__specs">
-                <span>9 qavat</span><span class="dot">·</span><span>120 unit</span><span class="dot">·</span><span>15K m²</span>
+                <span>5 qavat</span><span class="dot">·</span><span>60 unit</span><span class="dot">·</span><span>12K m²</span>
               </div>
               <div class="b-card__price">12 000 000 UZS<span>/oy</span></div>
             </div>
@@ -190,92 +190,156 @@
             </div>
             <div class="b-card__info">
               <div class="b-card__num">04</div>
-              <h4 class="b-card__name font-heading">Logistika Markaz</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Sergeli, Toshkent</p>
+              <h4 class="b-card__name font-heading">Novza Business Park</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Yakkasaray, Toshkent</p>
               <div class="b-card__specs">
-                <span>2 qavat</span><span class="dot">·</span><span>60 unit</span><span class="dot">·</span><span>18K m²</span>
+                <span>8 qavat</span><span class="dot">·</span><span>64 unit</span><span class="dot">·</span><span>14K m²</span>
               </div>
               <div class="b-card__price">8 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
+          <div class="b-card" @click="navigateTo('/buildings/silk-road-galleria')">
             <div class="b-card__media">
-              <img src="/buildings/hero-tashkent.jpg" alt="Business Tower" />
+              <img src="/buildings/hero-tashkent.jpg" alt="Silk Road Galleria" />
               <div class="b-card__overlay"></div>
               <div class="b-card__badge">A-CLASS</div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">05</div>
-              <h4 class="b-card__name font-heading">Business Tower</h4>
+              <h4 class="b-card__name font-heading">Silk Road Galleria</h4>
               <p class="b-card__addr"><MapPin :size="12" /> Yunusobod, Toshkent</p>
               <div class="b-card__specs">
-                <span>16 qavat</span><span class="dot">·</span><span>200 unit</span><span class="dot">·</span><span>28K m²</span>
+                <span>5 qavat</span><span class="dot">·</span><span>80 unit</span><span class="dot">·</span><span>22K m²</span>
               </div>
               <div class="b-card__price">22 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
+          <div class="b-card" @click="navigateTo('/buildings/it-park-innovation-plaza')">
             <div class="b-card__media">
-              <img src="/buildings/bc-finance.jpg" alt="Finance Center" />
+              <img src="/buildings/bc-finance.jpg" alt="IT Park Innovation Plaza" />
               <div class="b-card__overlay"></div>
               <div class="b-card__badge">PREMIUM</div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">06</div>
-              <h4 class="b-card__name font-heading">Finance Center</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Shayxontohur, Toshkent</p>
+              <h4 class="b-card__name font-heading">IT Park Innovation Plaza</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Yakkasaray, Toshkent</p>
               <div class="b-card__specs">
-                <span>11 qavat</span><span class="dot">·</span><span>150 unit</span><span class="dot">·</span><span>19K m²</span>
+                <span>12 qavat</span><span class="dot">·</span><span>95 unit</span><span class="dot">·</span><span>18K m²</span>
               </div>
               <div class="b-card__price">15 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
+          <div class="b-card" @click="navigateTo('/buildings/sergeli-logistics-park')">
             <div class="b-card__media">
-              <img src="/buildings/bc-city-plaza.jpg" alt="Olympus Plaza" />
+              <img src="/buildings/bc-city-plaza.jpg" alt="Sergeli Logistics Park" />
               <div class="b-card__overlay"></div>
               <div class="b-card__badge">B-CLASS</div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">07</div>
-              <h4 class="b-card__name font-heading">Olympus Plaza</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Chilonzor, Toshkent</p>
+              <h4 class="b-card__name font-heading">Sergeli Logistics Park</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Sergeli, Toshkent</p>
               <div class="b-card__specs">
-                <span>8 qavat</span><span class="dot">·</span><span>96 unit</span><span class="dot">·</span><span>12K m²</span>
+                <span>2 qavat</span><span class="dot">·</span><span>30 unit</span><span class="dot">·</span><span>35K m²</span>
               </div>
               <div class="b-card__price">10 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
+          <div class="b-card" @click="navigateTo('/buildings/tashkent-city-business-center')">
             <div class="b-card__media">
-              <img src="/buildings/bc-logistics.jpg" alt="Eco Business Park" />
+              <img src="/buildings/bc-logistics.jpg" alt="Tashkent City Business Center" />
               <div class="b-card__overlay"></div>
               <div class="b-card__badge">ECO</div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">08</div>
-              <h4 class="b-card__name font-heading">Eco Business Park</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Bektemir, Toshkent</p>
+              <h4 class="b-card__name font-heading">Tashkent City Business Center</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Yashnobod, Toshkent</p>
               <div class="b-card__specs">
-                <span>5 qavat</span><span class="dot">·</span><span>80 unit</span><span class="dot">·</span><span>14K m²</span>
+                <span>12 qavat</span><span class="dot">·</span><span>96 unit</span><span class="dot">·</span><span>15K m²</span>
               </div>
               <div class="b-card__price">7 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
-          <div class="b-card" @click="navigateTo('/catalog')">
+          <div class="b-card" @click="navigateTo('/buildings/amir-tower')">
             <div class="b-card__media">
-              <img src="/buildings/hero-tashkent.jpg" alt="Grand Avenue" />
+              <img src="/buildings/hero-tashkent.jpg" alt="Amir Tower" />
               <div class="b-card__overlay"></div>
               <div class="b-card__badge">A-CLASS</div>
             </div>
             <div class="b-card__info">
               <div class="b-card__num">09</div>
-              <h4 class="b-card__name font-heading">Grand Avenue</h4>
-              <p class="b-card__addr"><MapPin :size="12" /> Mirobod, Toshkent</p>
+              <h4 class="b-card__name font-heading">Amir Tower</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Mirzo Ulug'bek, Toshkent</p>
               <div class="b-card__specs">
-                <span>13 qavat</span><span class="dot">·</span><span>165 unit</span><span class="dot">·</span><span>22K m²</span>
+                <span>18 qavat</span><span class="dot">·</span><span>144 unit</span><span class="dot">·</span><span>24K m²</span>
               </div>
               <div class="b-card__price">19 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/v2_commercial-tower-1.jpg" alt="Navroz Plaza" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">A-CLASS</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">10</div>
+              <h4 class="b-card__name font-heading">Navroz Plaza</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Mirobod, Toshkent</p>
+              <div class="b-card__specs">
+                <span>15 qavat</span><span class="dot">·</span><span>120 unit</span><span class="dot">·</span><span>20K m²</span>
+              </div>
+              <div class="b-card__price">17 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/v2_modern-facade-1.jpg" alt="Crystal Tower" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">PREMIUM</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">11</div>
+              <h4 class="b-card__name font-heading">Crystal Tower</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Shayxontohur, Toshkent</p>
+              <div class="b-card__specs">
+                <span>20 qavat</span><span class="dot">·</span><span>180 unit</span><span class="dot">·</span><span>30K m²</span>
+              </div>
+              <div class="b-card__price">24 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/v2_shopping-center-1.jpg" alt="Grand Bazaar" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">RETAIL</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">12</div>
+              <h4 class="b-card__name font-heading">Grand Bazaar</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Chilonzor, Toshkent</p>
+              <div class="b-card__specs">
+                <span>4 qavat</span><span class="dot">·</span><span>110 unit</span><span class="dot">·</span><span>16K m²</span>
+              </div>
+              <div class="b-card__price">9 000 000 UZS<span>/oy</span></div>
+            </div>
+          </div>
+          <div class="b-card" @click="navigateTo('/catalog')">
+            <div class="b-card__media">
+              <img src="/buildings/v2_office-building-1.jpg" alt="Business Point" />
+              <div class="b-card__overlay"></div>
+              <div class="b-card__badge">B-CLASS</div>
+            </div>
+            <div class="b-card__info">
+              <div class="b-card__num">13</div>
+              <h4 class="b-card__name font-heading">Business Point</h4>
+              <p class="b-card__addr"><MapPin :size="12" /> Yunusobod, Toshkent</p>
+              <div class="b-card__specs">
+                <span>10 qavat</span><span class="dot">·</span><span>80 unit</span><span class="dot">·</span><span>13K m²</span>
+              </div>
+              <div class="b-card__price">13 000 000 UZS<span>/oy</span></div>
             </div>
           </div>
         </div>
@@ -1327,12 +1391,13 @@ onUnmounted(() => {
 .b-card__specs .dot { opacity: 0.4; }
 .b-card { position: relative; border-radius: 18px; overflow: hidden; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
 .b-card:hover {
-  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-  transform: translateY(-3px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(37,99,235,0.15);
+  transform: translateY(-4px);
+  border-color: rgba(37,99,235,0.2);
 }
 .b-card__media {
   position: relative;
-  height: 200px;
+  height: 220px;
   overflow: hidden;
 }
 .b-card__media img {
@@ -1350,7 +1415,7 @@ onUnmounted(() => {
   background: linear-gradient(180deg, transparent 60%, rgba(8,12,24,0.4) 100%);
 }
 .b-card__info {
-  padding: 20px;
+  padding: 22px 20px 24px;
 }
 .b-card__num {
   font-size: 11px;
