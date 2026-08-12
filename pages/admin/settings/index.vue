@@ -164,7 +164,7 @@ const channels = ref([
   { id: '1', label: 'Email', desc: 'SMTP orqali xatlar', icon: Mail, color: 'text-blue-500', enabled: true },
   { id: '2', label: 'SMS', desc: 'SMS provayder orqali', icon: Smartphone, color: 'text-emerald-500', enabled: true },
   { id: '3', label: 'Push', desc: 'Brauzer va mobil push', icon: Send, color: 'text-purple-500', enabled: true },
-  { id: '4', label: 'Telegram', desc: 'Telegram bot orqali', icon: MessageSquare, color: 'text-blue-500', enabled: false },
+  { id: '4', label: 'SMS', desc: 'SMS orqali xabarlar', icon: MessageSquare, color: 'text-blue-500', enabled: false },
 ])
 const totalUsers = computed(() => 24)
 
