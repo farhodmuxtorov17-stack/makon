@@ -137,6 +137,9 @@ import { ArrowLeft, Zap, Droplets, Flame, Send, CheckCircle2 } from 'lucide-vue-
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const makonStore = useMakonStore()
+function formatNum(n: number): string {
+  return new Intl.NumberFormat('ru-RU').format(Math.round(n))
+}
 const { formatUZS } = useFormat()
 
 const selectedMonth = ref('2026-08')

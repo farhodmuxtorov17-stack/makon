@@ -152,4 +152,7 @@ const pendingAmount = computed(() => pendingInvoices.value.reduce((s, i) => s + 
 function srBadgeClass(s: string) {
   return { IN_PROGRESS: 'badge-warning', ASSIGNED: 'badge-brand', COMPLETED: 'badge-success' }[s] || 'badge-neutral'
 }
+function srStatusLabel(s: string) {
+  return { IN_PROGRESS: 'Jarayonda', ASSIGNED: 'Tayinlandi', COMPLETED: 'Bajarildi', CANCELLED: 'Bekor qilindi', PENDING: 'Kutilmoqda' }[s] || s
+}
 </script>

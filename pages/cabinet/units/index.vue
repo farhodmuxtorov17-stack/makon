@@ -112,9 +112,15 @@ import { Plus, Building2, Ruler, Wallet, AlertCircle } from 'lucide-vue-next'
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const makonStore = useMakonStore()
-const { formatUZS } = useFormat()
+const { formatUZS, formatUZSShort } = useFormat()
 
 const units = computed(() => makonStore.tenantUnits)
+const totalArea = computed(() => units.value.reduce((s, u) => s + u.area, 0))
+const totalMonthlyRent = computed(() => units.value.reduce((s, u) => {
+  const m = String(u.rent || '').match(/([\d.]+)M/)
+  return s + (m ? parseFloat(m[1]) * 1_000_000 : 0)
+}, 0))
+const totalDebt = computed(() => units.value.reduce((s, u) => s + (u.debt || 0), 0))
 </script>
 <style scoped>
 .unit-detail-card {

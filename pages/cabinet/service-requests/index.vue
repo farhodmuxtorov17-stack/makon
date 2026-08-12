@@ -135,6 +135,13 @@ const avgRating = computed(() => {
   return rated.length > 0 ? (rated.reduce((sum, r) => sum + (r.rating || 0), 0) / rated.length).toFixed(1) : '—'
 })
 
+const tabs = computed(() => [
+  { value: 'all', label: 'Barchasi', count: requests.value.length },
+  { value: 'IN_PROGRESS', label: 'Faol', count: activeCount.value },
+  { value: 'COMPLETED', label: 'Yechilgan', count: resolvedCount.value },
+  { value: 'CANCELLED', label: 'Bekor', count: requests.value.filter(r => r.status === 'CANCELLED').length },
+])
+
 const filteredRequests = computed(() => {
   if (activeTab.value === 'all') return requests.value
   return requests.value.filter(r => r.status === activeTab.value)
@@ -145,6 +152,13 @@ function statusBadge(s: string) {
 }
 function statusLabel(s: string) {
   return { IN_PROGRESS: 'Jarayonda', COMPLETED: 'Bajarildi', CANCELLED: 'Bekor qilindi', ASSIGNED: 'Tayinlandi' }[s] || s
+}
+function categoryColor(cat: string) {
+  return { 'Elektr': '#f59e0b', 'Sanitariya': '#3b82f6', 'Konditsioner': '#06b6d4', 'Eshik-qulf': '#8b5cf6' }[cat] || '#71717a'
+}
+function categoryLabel(cat: string) { return cat }
+function categoryIcon(cat: string) {
+  return { 'Elektr': Zap, 'Sanitariya': Droplet, 'Konditsioner': Snowflake, 'Eshik-qulf': DoorOpen }[cat] || Wrench
 }
 </script>
 <style scoped>
