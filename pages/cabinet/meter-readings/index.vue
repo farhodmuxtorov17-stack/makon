@@ -135,10 +135,11 @@
 import { ArrowLeft, Zap, Droplets, Flame, Send, CheckCircle2 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
-const { formatDate } = useFormat()
+
+const makonStore = useMakonStore()
+const { formatUZS } = useFormat()
 
 const selectedMonth = ref('2026-08')
-const readings = reactive({ electricity: '', water: '', gas: '' })
 const readonly = ref(false)
 
 const months = [
@@ -158,13 +159,9 @@ const allMonthData: Record<string, any> = {
   '2026-03': { electricity: 11200, water: 275, gas: 65, total: 471000, status: 'PAID', submittedAt: '2026-03-30' },
 }
 
-const history = [
-  { month: 'Iyul 2026', electricity: 14200, water: 345, gas: 112, total: 637500, status: 'PAID' },
-  { month: 'Iyun 2026', electricity: 13500, water: 320, gas: 98, total: 595000, status: 'PAID' },
-  { month: 'May 2026', electricity: 12800, water: 305, gas: 85, total: 552000, status: 'PAID' },
-  { month: 'Aprel 2026', electricity: 11900, water: 290, gas: 72, total: 508000, status: 'PAID' },
-  { month: 'Mart 2026', electricity: 11200, water: 275, gas: 65, total: 471000, status: 'PAID' },
-]
+const history = computed(() => makonStore.tenantMeterHistory)
+
+const readings = reactive({ electricity: 15420, water: 360, gas: 118 })
 
 const currentMonthData = computed(() => allMonthData[selectedMonth.value])
 const lastMonthData = computed(() => {
@@ -180,32 +177,7 @@ const totalAmount = computed(() => {
   return el + wa + ga
 })
 
-watch(selectedMonth, (v) => {
-  const data = allMonthData[v]
-  if (data) {
-    readings.electricity = String(data.electricity)
-    readings.water = String(data.water)
-    readings.gas = String(data.gas)
-    readonly.value = true
-  } else {
-    readings.electricity = ''
-    readings.water = ''
-    readings.gas = ''
-    readonly.value = false
-  }
-}, { immediate: true })
-
-function submitReadings() {
-  allMonthData[selectedMonth.value] = {
-    electricity: Number(readings.electricity),
-    water: Number(readings.water),
-    gas: Number(readings.gas),
-    total: totalAmount.value,
-    status: 'SUBMITTED',
-    submittedAt: new Date().toISOString(),
-  }
-  readonly.value = true
-}
-
-function formatNum(n: number) { return Math.abs(n || 0).toLocaleString('ru-RU') }
+const elDiff = computed(() => Math.max(0, Number(readings.electricity) - (lastMonthData.value?.electricity || 0)))
+const waDiff = computed(() => Math.max(0, Number(readings.water) - (lastMonthData.value?.water || 0)))
+const gaDiff = computed(() => Math.max(0, Number(readings.gas) - (lastMonthData.value?.gas || 0)))
 </script>

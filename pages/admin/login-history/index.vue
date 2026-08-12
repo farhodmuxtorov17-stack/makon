@@ -10,33 +10,33 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card-premium p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center"><LogIn :size="16" class="text-emerald-500" /></div>
-          <span class="text-xs text-ink-500">Muvaffaqiyatli</span>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="34" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ successCount }}</div>
+          <div class="kpi-strip__label">Muvaffaqiyatli</div>
         </div>
-        <div class="text-xl font-bold text-emerald-500">{{ successCount }}</div>
       </div>
-      <div class="card-premium p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center"><XCircle :size="16" class="text-red-500" /></div>
-          <span class="text-xs text-ink-500">Muvaffaqiyatsiz</span>
+      <div class="kpi-strip kpi-strip--rose">
+        <div class="kpi-strip__icon"><KpiScene3D type="debt" :size="34" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ failedCount }}</div>
+          <div class="kpi-strip__label">Muvaffaqiyatsiz</div>
         </div>
-        <div class="text-xl font-bold text-red-500">{{ failedCount }}</div>
       </div>
-      <div class="card-premium p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center"><ShieldCheck :size="16" class="text-purple-500" /></div>
-          <span class="text-xs text-ink-500">ERI kirish</span>
+      <div class="kpi-strip kpi-strip--violet">
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="34" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ eriCount }}</div>
+          <div class="kpi-strip__label">ERI kirish</div>
         </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ eriCount }}</div>
       </div>
-      <div class="card-premium p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center"><Ban :size="16" class="text-amber-500" /></div>
-          <span class="text-xs text-ink-500">Bloklangan</span>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="34" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ blockedCount }}</div>
+          <div class="kpi-strip__label">Bloklangan</div>
         </div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ blockedCount }}</div>
       </div>
     </div>
 
@@ -101,32 +101,20 @@ import { Download, Search, LogIn, XCircle, ShieldCheck, Ban } from 'lucide-vue-n
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const makonStore = useMakonStore()
 const search = ref('')
 const eventFilter = ref('')
 const dateFilter = ref('')
 
-const entries = [
-  { id: '1', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGIN', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '14:32:15' },
-  { id: '2', user: 'Dilnoza Karimova', email: 'd.karimova@makon.uz', event: 'LOGIN', ip: '85.17.12.35', device: 'Desktop', browser: 'Firefox 125', time: '14:28:42' },
-  { id: '3', user: 'Sardor Yusupov', email: 's.yusupov@abc.uz', event: 'ERI_LOGIN', ip: '94.158.21.10', device: 'Desktop', browser: 'Chrome 126', time: '14:15:08' },
-  { id: '4', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '13:55:30' },
-  { id: '5', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGIN', ip: '85.17.12.34', device: 'Mobile', browser: 'Safari 17', time: '13:30:12' },
-  { id: '6', user: 'Ravshan Keldiyev', email: 'r.keldiyev@makon.uz', event: 'LOGIN', ip: '85.17.12.36', device: 'Desktop', browser: 'Chrome 126', time: '12:50:45' },
-  { id: '7', user: 'Unknown', email: 'n.umarov@makon.uz', event: 'BLOCK', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '12:15:22' },
-  { id: '8', user: 'Jasur Tursunov', email: 'j.tursunov@makon.uz', event: 'LOGIN', ip: '85.17.12.37', device: 'Desktop', browser: 'Edge 126', time: '12:00:18' },
-  { id: '9', user: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', event: 'ERI_LOGIN', ip: '85.17.12.38', device: 'Desktop', browser: 'Chrome 126', time: '11:30:55' },
-  { id: '10', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGOUT', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '10:45:30' },
-  { id: '11', user: 'Otabek Yo\'ldoshev', email: 'o.yuldoshev@smart.uz', event: 'LOGIN', ip: '94.158.21.20', device: 'Mobile', browser: 'Chrome 126', time: '09:15:42' },
-  { id: '12', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '08:30:12' },
-]
+const entries = computed(() => makonStore.loginHistory)
 
-const successCount = computed(() => entries.filter(e => e.event === 'LOGIN' || e.event === 'ERI_LOGIN').length)
-const failedCount = computed(() => entries.filter(e => e.event === 'FAILED').length)
-const eriCount = computed(() => entries.filter(e => e.event === 'ERI_LOGIN').length)
-const blockedCount = computed(() => entries.filter(e => e.event === 'BLOCK').length)
+const successCount = computed(() => entries.value.filter(e => e.event === 'LOGIN' || e.event === 'ERI_LOGIN').length)
+const failedCount = computed(() => entries.value.filter(e => e.event === 'FAILED').length)
+const eriCount = computed(() => entries.value.filter(e => e.event === 'ERI_LOGIN').length)
+const blockedCount = computed(() => entries.value.filter(e => e.event === 'BLOCK').length)
 
 const filteredEntries = computed(() => {
-  let r = [...entries]
+  let r = [...entries.value]
   if (search.value) {
     const q = search.value.toLowerCase()
     r = r.filter(e => e.user.toLowerCase().includes(q) || e.email.toLowerCase().includes(q))
@@ -145,3 +133,22 @@ function eventLabel(e: string) {
   return { LOGIN: 'Kirish', ERI_LOGIN: 'ERI', LOGOUT: 'Chiqish', FAILED: 'Muvaffaqiyatsiz', BLOCK: 'Blok' }[e] || e
 }
 </script>
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px; position: relative; overflow: hidden; flex-wrap: wrap;
+}
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--rose::before { background: #f43f5e; }
+.kpi-strip--violet::before { background: #8b5cf6; }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); }
+.kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; }
+.kpi-strip__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
+</style>

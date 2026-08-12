@@ -111,36 +111,11 @@ import { Plus, Building2, Ruler, Wallet, AlertCircle } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+const makonStore = useMakonStore()
+const { formatUZS } = useFormat()
 
-const units = [
-  {
-    id: 'u1', name: 'A-301', building: 'Tashkent City', floor: 3, area: 85, rooms: 3,
-    type: 'RENT', rent: '25.0M', photo: '/buildings/hero-tashkent.jpg',
-    contractNumber: 'CTR-2026-001', contractEnd: '15 Mar 2027', debt: 0,
-    statusBadge: 'badge-success', statusLabel: 'Faol',
-  },
-  {
-    id: 'u2', name: 'B-205', building: 'Trillant Tower', floor: 2, area: 120, rooms: 4,
-    type: 'RENT', rent: '35.0M', photo: '/buildings/bc-navroz.jpg',
-    contractNumber: 'CTR-2026-002', contractEnd: '01 Dek 2026', debt: 4200000,
-    statusBadge: 'badge-warning', statusLabel: 'Qarz bor',
-  },
-  {
-    id: 'u3', name: 'C-101', building: 'IT Park', floor: 1, area: 45, rooms: 2,
-    type: 'OWNED', rent: null, photo: '/buildings/bc-city-plaza.jpg',
-    contractNumber: null, contractEnd: '—', debt: 0,
-    statusBadge: 'badge-success', statusLabel: 'Mulk',
-  },
-]
-
-const totalArea = computed(() => units.reduce((s, u) => s + u.area, 0))
-const totalMonthlyRent = computed(() => units.filter(u => u.type === 'RENT').reduce((s, u) => s + (u.rent ? parseInt(u.rent) * 1000000 : 0), 0))
-const totalDebt = computed(() => units.reduce((s, u) => s + u.debt, 0))
-
-
+const units = computed(() => makonStore.tenantUnits)
 </script>
-
 <style scoped>
 .unit-detail-card {
   border-radius: 16px;

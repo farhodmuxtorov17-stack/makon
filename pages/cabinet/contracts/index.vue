@@ -127,24 +127,18 @@ import { Plus, FileText, CheckCircle2, Clock, ShieldCheck, AlertCircle, Calendar
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const makonStore = useMakonStore()
 const { formatUZS } = useFormat()
 
-const contracts = [
-  { id: 'c1', number: 'CTR-2026-001', unit: 'A-301', buildingName: 'Tashkent City', monthlyRent: 25000000, startDate: '01.04.26', endDate: '15.03.27', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true, daysLeft: 218, progressPct: 42 },
-  { id: 'c2', number: 'CTR-2026-002', unit: 'B-205', buildingName: 'Trillant Tower', monthlyRent: 35000000, startDate: '15.05.26', endDate: '14.05.27', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true, daysLeft: 278, progressPct: 28 },
-  { id: 'c3', number: 'CTR-2026-005', unit: 'C-101', buildingName: 'IT Park', monthlyRent: 18000000, startDate: '01.06.26', endDate: '31.05.27', status: 'ACTIVE', eriTenantSigned: true, eriLandlordSigned: true, daysLeft: 295, progressPct: 19 },
-  { id: 'c4', number: 'CTR-2026-008', unit: 'D-102', buildingName: 'Piramit', monthlyRent: 22000000, startDate: '01.08.26', endDate: '31.07.27', status: 'PARTIALLY_SIGNED', eriTenantSigned: true, eriLandlordSigned: false, daysLeft: 0, progressPct: 0 },
-  { id: 'c5', number: 'CTR-2025-098', unit: 'A-205', buildingName: 'Tashkent City', monthlyRent: 15000000, startDate: '01.09.25', endDate: '31.08.26', status: 'EXPIRED', eriTenantSigned: true, eriLandlordSigned: true, daysLeft: 0, progressPct: 100 },
-]
+const contracts = computed(() => makonStore.tenantContracts)
 
-const activeCount = computed(() => contracts.filter(c => c.status === 'ACTIVE').length)
-const signingCount = computed(() => contracts.filter(c => c.status === 'PARTIALLY_SIGNED').length)
-const eriCount = computed(() => contracts.filter(c => c.eriTenantSigned && c.eriLandlordSigned).length)
-const expiredCount = computed(() => contracts.filter(c => c.status === 'EXPIRED').length)
+const activeCount = computed(() => contracts.value.filter(c => c.status === 'ACTIVE').length)
+const signingCount = computed(() => contracts.value.filter(c => c.status === 'PARTIALLY_SIGNED').length)
+const eriCount = computed(() => contracts.value.filter(c => c.eriTenantSigned && c.eriLandlordSigned).length)
+const expiredCount = computed(() => contracts.value.filter(c => c.status === 'EXPIRED').length)
 
 function statusLabel(s: string) { return { ACTIVE: 'Faol', PARTIALLY_SIGNED: 'Qisman imzo', EXPIRED: "Muddati o'tgan" }[s] || s }
 </script>
-
 <style scoped>
 .kpi-strip {
   display: flex; align-items: center; gap: 12px;

@@ -47,40 +47,20 @@
 </template>
 
 <script setup lang="ts">
-import { Plus, Edit3, Bell, FileText, Receipt, ShieldCheck, Wrench, FileSignature } from 'lucide-vue-next'
+import { Plus, FileText, Receipt, ShieldCheck, Wrench, FileSignature, Bell } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const templates = ref([
-  { id: '1', event: 'Yangi ariza yuborildi', channel: 'Email + Push', icon: FileText, active: true,
-    textUz: 'Yangi ariza {{number}} qabul qilindi. Unit: {{unit}}, summa: {{price}} so\'m.',
-    textRu: 'Новая заявка {{number}} принята. Юнит: {{unit}}, сумма: {{price}} сум.',
-    variables: ['number', 'unit', 'price'] },
-  { id: '2', event: 'Invoys yaratildi', channel: 'Email + SMS', icon: Receipt, active: true,
-    textUz: 'Invoys {{number}} yaratildi. Summa: {{amount}} so\'m. Muddat: {{dueDate}}.',
-    textRu: 'Счет {{number}} создан. Сумма: {{amount}} сум. Срок: {{dueDate}}.',
-    variables: ['number', 'amount', 'dueDate'] },
-  { id: '3', event: 'ERI imzo talab qilinadi', channel: 'Email + Push', icon: ShieldCheck, active: true,
-    textUz: 'Shartnoma {{number}} uchun ERI imzosi kutilmoqda. Iltimos, imzolang.',
-    textRu: 'Для договора {{number}} ожидается ЭРИ подпись. Пожалуйста, подпишите.',
-    variables: ['number'] },
-  { id: '4', event: 'Servis so\'rov yangilandi', channel: 'Push', icon: Wrench, active: true,
-    textUz: 'Servis so\'rov {{number}} statusi: {{status}}. Unit: {{unit}}.',
-    textRu: 'Статус сервисной заявки {{number}}: {{status}}. Юнит: {{unit}}.',
-    variables: ['number', 'status', 'unit'] },
-  { id: '5', event: 'Shartnoma imzolandi', channel: 'Email + SMS', icon: FileSignature, active: true,
-    textUz: 'Shartnoma {{number}} tomonlar tomonidan imzolandi. Faol sanasi: {{startDate}}.',
-    textRu: 'Договор {{number}} подписан сторонами. Дата активации: {{startDate}}.',
-    variables: ['number', 'startDate'] },
-  { id: '6', event: 'Qarzdorlik eslatmasi', channel: 'SMS', icon: Bell, active: false,
-    textUz: 'Sizning qarzdorligingiz: {{debt}} so\'m. Iltimos, to\'lovni amalga oshiring.',
-    textRu: 'Ваша задолженность: {{debt}} сум. Пожалуйста, произведите оплату.',
-    variables: ['debt'] },
-])
+const makonStore = useMakonStore()
+
+const iconMap: Record<string, any> = { FileText, Receipt, ShieldCheck, Wrench, FileSignature, Bell }
+
+const templates = computed(() =>
+  makonStore.notificationTemplates.map(t => ({ ...t, icon: iconMap[t.iconName] || FileText }))
+)
 
 const activeCount = computed(() => templates.value.filter(t => t.active).length)
 </script>
-
 <style scoped>
 .toggle { position: relative; display: inline-block; width: 40px; height: 22px; }
 .toggle input { opacity: 0; width: 0; height: 0; }

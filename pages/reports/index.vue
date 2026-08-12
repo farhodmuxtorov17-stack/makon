@@ -23,9 +23,9 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="kpi-strip kpi-strip--emerald">
-        <div class="kpi-strip__icon"><Wallet :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="revenue" :size="34" /></div>
         <div class="kpi-strip__body">
-          <div class="kpi-strip__value">227.5<span class="text-sm font-500"> mln</span></div>
+          <div class="kpi-strip__value">{{ formatUZSShort(kpis.totalRevenue) }}</div>
           <div class="kpi-strip__label">Jami daromad (UZS)</div>
         </div>
         <div class="kpi-strip__trend kpi-strip__trend--up">
@@ -33,9 +33,9 @@
         </div>
       </div>
       <div class="kpi-strip kpi-strip--teal">
-        <div class="kpi-strip__icon"><Building2 :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="occupancy" :size="34" /></div>
         <div class="kpi-strip__body">
-          <div class="kpi-strip__value">94.2<span class="text-sm font-500">%</span></div>
+          <div class="kpi-strip__value">{{ kpis.occupancyRate }}<span class="text-sm font-500">%</span></div>
           <div class="kpi-strip__label">Bandlik darajasi</div>
         </div>
         <div class="kpi-strip__trend kpi-strip__trend--up">
@@ -43,9 +43,9 @@
         </div>
       </div>
       <div class="kpi-strip kpi-strip--amber">
-        <div class="kpi-strip__icon"><FileText :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="34" /></div>
         <div class="kpi-strip__body">
-          <div class="kpi-strip__value">240</div>
+          <div class="kpi-strip__value">{{ kpis.activeContracts }}</div>
           <div class="kpi-strip__label">Faol shartnoma</div>
         </div>
         <div class="kpi-strip__trend kpi-strip__trend--up">
@@ -53,9 +53,9 @@
         </div>
       </div>
       <div class="kpi-strip kpi-strip--rose">
-        <div class="kpi-strip__icon"><AlertCircle :size="18" /></div>
+        <div class="kpi-strip__icon"><KpiScene3D type="debt" :size="34" /></div>
         <div class="kpi-strip__body">
-          <div class="kpi-strip__value">24.7<span class="text-sm font-500"> mln</span></div>
+          <div class="kpi-strip__value">{{ formatUZSShort(kpis.totalDebt) }}</div>
           <div class="kpi-strip__label">Qarzdorlik (UZS)</div>
         </div>
         <div class="kpi-strip__trend kpi-strip__trend--down">
@@ -166,6 +166,7 @@ import { Download, Wallet, Building2, FileText, AlertCircle, TrendingUp, Trendin
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const makonStore = useMakonStore()
 const { formatUZS, formatUZSShort } = useFormat()
 
 const activePeriod = ref('month')
@@ -176,35 +177,13 @@ const periods = [
   { value: 'year', label: 'Yil' },
 ]
 
-const monthlyData = [
-  { month: 'Mart', revenue: 28, debt: 3.2 },
-  { month: 'Aprel', revenue: 31, debt: 2.8 },
-  { month: 'May', revenue: 29, debt: 4.1 },
-  { month: 'Iyun', revenue: 34, debt: 2.5 },
-  { month: 'Iyul', revenue: 36, debt: 3.8 },
-  { month: 'Avgust', revenue: 38, debt: 2.9 },
-  { month: 'Sent', revenue: 33, debt: 4.2 },
-  { month: 'Okt', revenue: 38.5, debt: 2.1 },
-]
-const maxVal = 40
+const kpis = computed(() => makonStore.reportKpis)
+const monthlyData = computed(() => makonStore.reportMonthlyData)
+const occupancyData = computed(() => makonStore.reportOccupancyData)
+const buildingCompare = computed(() => makonStore.reportBuildingCompare)
 
-const occupancyData = [
-  { name: 'Tashkent City', pct: 96, occupied: 230, total: 240, color: '#10b981' },
-  { name: 'Trillant Tower', pct: 89, occupied: 89, total: 100, color: '#2563EB' },
-  { name: 'IT Park', pct: 92, occupied: 46, total: 50, color: '#f59e0b' },
-  { name: 'Piramit', pct: 78, occupied: 39, total: 50, color: '#8b5cf6' },
-  { name: 'Savdo Markaz', pct: 84, occupied: 42, total: 50, color: '#ec4899' },
-]
-
-const buildingCompare = [
-  { name: 'Tashkent City', units: 240, occ: 96, revenue: 185000000, debt: 5200000, color: '#10b981' },
-  { name: 'Trillant Tower', units: 100, occ: 89, revenue: 68000000, debt: 3100000, color: '#2563EB' },
-  { name: 'IT Park', units: 50, occ: 92, revenue: 32000000, debt: 1200000, color: '#f59e0b' },
-  { name: 'Piramit', units: 50, occ: 78, revenue: 28000000, debt: 8400000, color: '#8b5cf6' },
-  { name: 'Savdo Markaz', units: 50, occ: 84, revenue: 24000000, debt: 6800000, color: '#ec4899' },
-]
+const maxVal = computed(() => Math.max(...monthlyData.value.map(m => Math.max(m.revenue, m.debt))) + 2)
 </script>
-
 <style scoped>
 .kpi-strip {
   display: flex; align-items: center; gap: 12px; padding: 14px 16px;

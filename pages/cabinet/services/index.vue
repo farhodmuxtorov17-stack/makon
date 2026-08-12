@@ -121,41 +121,35 @@
 </template>
 
 <script setup lang="ts">
-import {
-  Plus, Wallet, AlertCircle, Receipt, Zap, Droplet, Flame, Wrench, Trash2, Bell,
-} from 'lucide-vue-next'
+import { Receipt, Zap, Droplet, Flame, Wrench, Trash2 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
-const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, formatDate, timeAgo } = useFormat()
+const makonStore = useMakonStore()
+const { formatUZS, formatUZSShort } = useFormat()
 
-const serviceCharges = [
-  { name: 'Ijara to\'lovi', icon: Receipt, color: 'var(--accent)', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
-  { name: 'Elektr energiyasi', icon: Zap, color: '#f59e0b', amount: 1320000, details: '440 kWh × 3000 so\'m', unit: 'oylik', percent: 4 },
-  { name: 'Suv ta\'minoti', icon: Droplet, color: '#3b82f6', amount: 182000, details: '130 m³ × 1400 so\'m', unit: 'oylik', percent: 1 },
-  { name: 'Gaz', icon: Flame, color: '#ef4444', amount: 225000, details: '150 m³ × 1500 so\'m', unit: 'oylik', percent: 1 },
-  { name: 'Faqat texnik xizmat', icon: Wrench, color: 'var(--accent)', amount: 500000, details: 'A-301 · oylik', unit: 'oylik', percent: 2 },
-  { name: 'Axlat olib ketish', icon: Trash2, color: '#10b981', amount: 120000, details: 'A-301 · oylik', unit: 'oylik', percent: 1 },
-]
+const iconMap: Record<string, any> = { Receipt, Zap, Droplet, Flame, Wrench, Trash2 }
 
-const invoices = [
-  { id: '1', number: 'INV-2026-052', unit: 'A-301', period: 'Avg 2026', amount: 27247000, status: 'PENDING' },
-  { id: '2', number: 'INV-2026-046', unit: 'B-205', period: 'Iyl 2026', amount: 35000000, status: 'OVERDUE' },
-  { id: '3', number: 'INV-2026-045', unit: 'A-301', period: 'Iyl 2026', amount: 27185000, status: 'PAID' },
-  { id: '4', number: 'INV-2026-040', unit: 'A-301', period: 'Iyn 2026', amount: 26920000, status: 'PAID' },
-]
+const serviceCharges = computed(() =>
+  makonStore.tenantServiceCharges.map(s => ({ ...s, icon: iconMap[s.iconName] || Receipt }))
+)
+const invoices = computed(() => makonStore.tenantInvoices)
+const serviceRequests = computed(() => makonStore.tenantServiceRequests.slice(0, 2).map((s, i) => ({
+  id: s.id,
+  category: s.category,
+  unit: 'A-301',
+  date: s.date,
+  status: s.status,
+  icon: i === 0 ? Zap : Wrench,
+  iconBg: i === 0 ? 'bg-amber-500/10' : 'bg-purple-500/10',
+  iconColor: i === 0 ? 'text-amber-500' : 'text-purple-500',
+})))
 
-const serviceRequests = [
-  { id: 'sr1', category: 'Elektr ta\'miri', unit: 'A-301', date: '2 kun oldin', status: 'IN_PROGRESS', icon: Zap, iconBg: 'bg-amber-500/10', iconColor: 'text-amber-500' },
-  { id: 'sr2', category: 'Sanitariya', unit: 'B-205', date: '5 kun oldin', status: 'ASSIGNED', icon: Wrench, iconBg: 'bg-purple-500/10', iconColor: 'text-purple-500' },
-]
-
-
+const totalCharge = computed(() => serviceCharges.value.reduce((s, c) => s + c.amount, 0))
+const pendingInvoices = computed(() => invoices.value.filter(i => i.status === 'PENDING' || i.status === 'OVERDUE'))
+const pendingAmount = computed(() => pendingInvoices.value.reduce((s, i) => s + i.amount, 0))
 
 function srBadgeClass(s: string) {
-  return { ASSIGNED: 'badge-brand', IN_PROGRESS: 'badge-warning', DONE: 'badge-success' }[s] || 'badge-neutral'
-}
-function srStatusLabel(s: string) {
-  return { ASSIGNED: 'Tayinlandi', IN_PROGRESS: 'Ishda', DONE: 'Yakunlandi' }[s] || s
+  return { IN_PROGRESS: 'badge-warning', ASSIGNED: 'badge-brand', COMPLETED: 'badge-success' }[s] || 'badge-neutral'
 }
 </script>

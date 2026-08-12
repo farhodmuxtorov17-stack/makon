@@ -56,6 +56,7 @@ import { Download, Search, FileText, Edit3, Trash2, CheckCircle, AlertCircle, Lo
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const makonStore = useMakonStore()
 const search = ref('')
 const typeFilter = ref('all')
 
@@ -68,23 +69,10 @@ const typeTabs = [
   { value: 'APPROVE', label: 'Tasdiqlash' },
 ]
 
-const entries = [
-  { id: '1', user: 'Alisher Qodirov', action: 'CONTRACT.SIGN', type: 'APPROVE', description: 'CTR-2026-010 shartnomasini ERI orqali imzoladi', time: '14:32', ip: '85.17.12.34', },
-  { id: '2', user: 'Dilnoza Karimova', action: 'INVOICE.CREATE', type: 'CREATE', description: 'INV-2026-052 invoysini yaratdi (25.0M so\'m)', time: '14:28', ip: '85.17.12.35' },
-  { id: '3', user: 'Sardor Yusupov', action: 'BUILDING.UPDATE', type: 'UPDATE', description: 'Tashkent City binosi ma\'lumotlarini yangiladi', time: '14:15', ip: '94.158.21.10' },
-  { id: '4', user: 'Ravshan Keldiyev', action: 'WORK_ORDER.CREATE', type: 'CREATE', description: 'WO-2026-038 work order yaratdi (A-301 konditsioner)', time: '13:45', ip: '85.17.12.36' },
-  { id: '5', user: 'Alisher Qodirov', action: 'USER.LOGIN', type: 'AUTH', description: 'Tizimga kirdi', time: '13:30', ip: '85.17.12.34' },
-  { id: '6', user: 'Dilnoza Karimova', action: 'INVOICE.APPROVE', type: 'APPROVE', description: 'INV-2026-051 invoysini tasdiqladi (21.0M so\'m)', time: '12:50', ip: '85.17.12.35' },
-  { id: '7', user: 'Jasur Tursunov', action: 'WORK_ORDER.UPDATE', type: 'UPDATE', description: 'WO-2026-035 statusini IN_PROGRESS ga o\'zgartirdi', time: '12:15', ip: '85.17.12.37' },
-  { id: '8', user: 'Kamola Rashidova', action: 'USER.INVITE', type: 'CREATE', description: 'Nodira Azizovani BUILDING_MANAGER rolida taklif qildi', time: '11:30', ip: '85.17.12.38' },
-  { id: '9', user: 'Alisher Qodirov', action: 'BUILDING.CREATE', type: 'CREATE', description: 'Savdo Markaz binosini qo\'shdi', time: '10:45', ip: '85.17.12.34' },
-  { id: '10', user: 'Dilnoza Karimova', action: 'CONTRACT.VIEW', type: 'APPROVE', description: 'CTR-2026-002 shartnomasini ko\'rdi', time: '10:20', ip: '85.17.12.35' },
-  { id: '11', user: 'Otabek Yo\'ldoshev', action: 'USER.LOGIN', type: 'AUTH', description: 'Tizimga kirdi', time: '09:15', ip: '94.158.21.20' },
-  { id: '12', user: 'Ravshan Keldiyev', action: 'METER.READ', type: 'UPDATE', description: 'EL-001 hisoblagich ko\'rsatkichini kiritdi (15420 kWh)', time: '09:00', ip: '85.17.12.36' },
-]
+const entries = computed(() => makonStore.auditLogs)
 
 const filteredEntries = computed(() => {
-  let result = [...entries]
+  let result = [...entries.value]
   if (typeFilter.value !== 'all') result = result.filter(e => e.type === typeFilter.value)
   if (search.value) {
     const q = search.value.toLowerCase()
@@ -100,7 +88,6 @@ function actionIcon(type: string) {
   return { CREATE: FileText, UPDATE: Edit3, DELETE: Trash2, AUTH: LogIn, APPROVE: CheckCircle }[type] || AlertCircle
 }
 </script>
-
 <style scoped>
 .audit-timeline { display: flex; flex-direction: column; gap: 0; }
 .audit-timeline__item { display: flex; gap: 12px; padding-bottom: 16px; position: relative; }

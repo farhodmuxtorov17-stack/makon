@@ -123,42 +123,27 @@
 </template>
 
 <script setup lang="ts">
-import { Server, Gauge, Users, Database, AlertCircle, CheckCircle, Cpu, HardDrive, Activity, Wifi } from 'lucide-vue-next'
+import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const makonStore = useMakonStore()
+
+const metrics = computed(() => [
+  { label: 'API Latency', value: makonStore.monitoringMetrics.apiLatency + 'ms', icon: Zap, color: '#10b981', status: 'healthy' },
+  { label: 'Uptime', value: makonStore.monitoringMetrics.uptime + '%', icon: Activity, color: '#2563EB', status: 'healthy' },
+  { label: 'Faol foydalanuvchilar', value: makonStore.monitoringMetrics.activeUsers, icon: Users, color: '#f59e0b', status: 'normal' },
+  { label: 'DB Hajmi', value: makonStore.monitoringMetrics.dbSize, icon: Database, color: '#8b5cf6', status: 'normal' },
+  { label: "So'rovlar soni", value: makonStore.monitoringMetrics.totalRequests.toLocaleString(), icon: Server, color: '#ec4899', status: 'normal' },
+  { label: 'Xato stavkasi', value: makonStore.monitoringMetrics.errorRate + '%', icon: AlertTriangle, color: '#ef4444', status: 'warning' },
+])
+
 const apiHours = ['00', '02', '04', '06', '08', '10', '12', '14', '16']
-const apiSeries = [
-  { name: 'Javob vaqti', data: [28, 25, 22, 35, 48, 62, 55, 42, 38] },
-]
+const apiSeries = [45, 38, 42, 68, 120, 185, 210, 165, 142]
 
-const onlineUsers = [
-  { id: '1', name: 'Alisher Qodirov', role: 'SUPER_HEAD', page: 'Dashboard / Executive', duration: '2s' },
-  { id: '2', name: 'Dilnoza Karimova', role: 'ACCOUNTANT', page: 'Finance / Invoices', duration: '45s' },
-  { id: '3', name: 'Sardor Yusupov', role: 'BUILDING_MANAGER', page: 'Management / Buildings', duration: '1m' },
-  { id: '4', name: 'Ravshan Keldiyev', role: 'FACILITY', page: 'Facility / Work Orders', duration: '3m' },
-  { id: '5', name: 'Jasur Tursunov', role: 'FACILITY', page: 'Facility / Material Requests', duration: '8m' },
-  { id: '6', name: 'Kamola Rashidova', role: 'SUPER_HEAD', page: 'Admin / Users', duration: '12m' },
-  { id: '7', name: 'Otabek Yo\'ldoshev', role: 'BUILDING_MANAGER', page: 'Cabinet', duration: '25m' },
-]
-
-const errors = [
-  { id: '1', title: 'ERI timeout', details: 'Provayder javob bermadi (10s limit). Retry 2/3', time: '12:45' },
-  { id: '2', title: 'API 429 Rate limit', details: '/api/contracts — user Sardor Yusupov', time: '09:30' },
-]
-
-const metrics = [
-  { label: 'CPU', value: 34, icon: Cpu },
-  { label: 'RAM', value: 62, icon: Activity },
-  { label: 'Disk', value: 12, icon: HardDrive },
-  { label: 'Tarmoq', value: 28, icon: Wifi },
-]
-
-function roleColor(r: string) {
-  return { SUPER_HEAD: 'var(--accent)', BUILDING_MANAGER: 'var(--accent)', ACCOUNTANT: '#10b981', FACILITY: '#f59e0b' }[r] || '#71717a'
-}
+const onlineUsers = computed(() => makonStore.onlineUsers)
+const errors = computed(() => makonStore.monitoringErrors)
 </script>
-
 <style scoped>
 .metric-bar { padding: 4px 0; }
 </style>

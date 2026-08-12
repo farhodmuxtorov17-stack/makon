@@ -122,46 +122,31 @@ import { Plus, Wrench, Clock, CheckCircle2, Star, UserCheck, Loader, XCircle, Li
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const makonStore = useMakonStore()
 const activeTab = ref('all')
 
-const requests = [
-  { id: '1', number: 'SR-0042', category: 'Sanitariya', description: 'Hojatxona jihozi ishlamaydi — suv oqib turibdi', date: '11 Avg 2026', status: 'IN_PROGRESS', rating: null as number | null },
-  { id: '2', number: 'SR-0038', category: 'Elektr', description: 'Ofisda chiroq yoqilmaydi, kontakt yo\'q', date: '08 Avg 2026', status: 'COMPLETED', rating: 5 },
-  { id: '3', number: 'SR-0035', category: 'Konditsioner', description: 'Konditsioner sovutmayapti, isitadan havo beradi', date: '03 Avg 2026', status: 'COMPLETED', rating: 4 },
-  { id: '4', number: 'SR-0031', category: 'Eshik-qulf', description: 'Kirish eshigi qulfi ishlamaydi, kalit burilmaydi', date: '28 Iyl 2026', status: 'COMPLETED', rating: 5 },
-  { id: '5', number: 'SR-0028', category: 'Sanitariya', description: 'Suv quvurida nuqson, bosim past', date: '22 Iyl 2026', status: 'CANCELLED', rating: null as number | null },
-  { id: '6', number: 'SR-0025', category: 'Elektr', description: 'Rozetkada uchqin kuzatilgan', date: '15 Iyl 2026', status: 'COMPLETED', rating: 5 },
-]
+const requests = computed(() => makonStore.tenantServiceRequests)
 
-const activeCount = computed(() => requests.filter(r => r.status === 'IN_PROGRESS').length)
-const resolvedCount = computed(() => requests.filter(r => r.status === 'COMPLETED').length)
-const ratedRequests = requests.filter(r => r.rating !== null)
-const avgRating = ratedRequests.length > 0 ? (ratedRequests.reduce((sum, r) => sum + (r.rating || 0), 0) / ratedRequests.length).toFixed(1) : '—'
-
-const tabs = computed(() => [
-  { value: 'all', label: 'Barchasi', count: requests.length },
-  { value: 'IN_PROGRESS', label: 'Faol', count: activeCount.value },
-  { value: 'COMPLETED', label: 'Yechilgan', count: resolvedCount.value },
-  { value: 'CANCELLED', label: 'Bekor', count: requests.filter(r => r.status === 'CANCELLED').length },
-])
-
-const filteredRequests = computed(() => {
-  if (activeTab.value === 'all') return requests
-  return requests.filter(r => r.status === activeTab.value)
+const activeCount = computed(() => requests.value.filter(r => r.status === 'IN_PROGRESS').length)
+const resolvedCount = computed(() => requests.value.filter(r => r.status === 'COMPLETED').length)
+const ratedRequests = computed(() => requests.value.filter(r => r.rating !== null))
+const avgRating = computed(() => {
+  const rated = ratedRequests.value
+  return rated.length > 0 ? (rated.reduce((sum, r) => sum + (r.rating || 0), 0) / rated.length).toFixed(1) : '—'
 })
 
+const filteredRequests = computed(() => {
+  if (activeTab.value === 'all') return requests.value
+  return requests.value.filter(r => r.status === activeTab.value)
+})
+
+function statusBadge(s: string) {
+  return { IN_PROGRESS: 'badge-warning', COMPLETED: 'badge-success', CANCELLED: 'badge-danger', ASSIGNED: 'badge-brand' }[s] || 'badge-neutral'
+}
 function statusLabel(s: string) {
-  return { PENDING: 'Kutilmoqda', ASSIGNED: 'Tayinlandi', IN_PROGRESS: 'Ishlanmoqda', COMPLETED: 'Yechilgan', CANCELLED: 'Bekor' }[s] || s
-}
-function categoryColor(cat: string) {
-  return { 'Elektr': '#f59e0b', 'Sanitariya': '#3b82f6', 'Konditsioner': '#06b6d4', 'Eshik-qulf': '#8b5cf6' }[cat] || '#71717a'
-}
-function categoryLabel(cat: string) { return cat }
-function categoryIcon(cat: string) {
-  return { 'Elektr': Zap, 'Sanitariya': Droplet, 'Konditsioner': Snowflake, 'Eshik-qulf': DoorOpen }[cat] || Wrench
+  return { IN_PROGRESS: 'Jarayonda', COMPLETED: 'Bajarildi', CANCELLED: 'Bekor qilindi', ASSIGNED: 'Tayinlandi' }[s] || s
 }
 </script>
-
 <style scoped>
 .kpi-strip {
   display: flex; align-items: center; gap: 12px;

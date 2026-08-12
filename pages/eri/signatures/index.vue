@@ -120,21 +120,14 @@ import { Clock, ShieldCheck, RefreshCw, Send, RotateCw, ExternalLink, AlertCircl
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
+const makonStore = useMakonStore()
 const statusFilter = ref('')
 
-const signatures = [
-  { id: '1', documentNumber: 'CTR-2026-008', contractTitle: 'Markaz Savdo MChJ · D-102 Piramit', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'PENDING', sentDate: '10 Avg 14:30', expiresIn: 48, signedDate: '', failReason: '' },
-  { id: '2', documentNumber: 'CTR-2026-010', contractTitle: 'Zomin Invest MChJ · C-205 IT Park', signerRole: 'Ijarachi', signerName: 'Bekzod Aliyev', signerTin: '306782345', provider: 'UZDPI', status: 'PENDING', sentDate: '10 Avg 12:15', expiresIn: 18, signedDate: '', failReason: '' },
-  { id: '3', documentNumber: 'CTR-2026-005', contractTitle: 'Alfa Biznes MChJ · C-201 IT Park', signerRole: 'Ijarachi', signerName: 'Dilnoza Karimova', signerTin: '309215648', provider: 'UZDPI', status: 'SIGNED', sentDate: '01 Iyn 09:00', expiresIn: 0, signedDate: '01 Iyn 14:22', failReason: '' },
-  { id: '4', documentNumber: 'CTR-2026-005', contractTitle: 'Alfa Biznes MChJ · C-201 IT Park', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'SIGNED', sentDate: '01 Iyn 14:25', expiresIn: 0, signedDate: '01 Iyn 16:10', failReason: '' },
-  { id: '5', documentNumber: 'CTR-2026-009', contractTitle: 'Navoiy Trade MChJ · B-302 Trillant Tower', signerRole: 'Ijarachi', signerName: 'Otabek Yo\'ldoshev', signerTin: '307819234', provider: 'UZDPI', status: 'FAILED', sentDate: '08 Avg 10:00', expiresIn: 0, signedDate: '', failReason: 'Sertifikat muddati o\'tgan' },
-  { id: '6', documentNumber: 'CTR-2026-001', contractTitle: 'Orient Logistika MChJ · A-301 Tashkent City', signerRole: 'Ijarachi', signerName: 'Sardor Yusupov', signerTin: '304561287', provider: 'UZDPI', status: 'SIGNED', sentDate: '28 Mar 11:00', expiresIn: 0, signedDate: '28 Mar 15:45', failReason: '' },
-  { id: '7', documentNumber: 'CTR-2026-001', contractTitle: 'Orient Logistika MChJ · A-301 Tashkent City', signerRole: 'Bino egasi', signerName: 'Akmal Rahimov', signerTin: '308745612', provider: 'UZDPI', status: 'SIGNED', sentDate: '28 Mar 15:50', expiresIn: 0, signedDate: '28 Mar 16:20', failReason: '' },
-]
+const signatures = computed(() => makonStore.eriSignatures)
 
-const pendingCount = computed(() => signatures.filter(s => s.status === 'PENDING').length)
-const signedCount = computed(() => signatures.filter(s => s.status === 'SIGNED').length)
-const failedCount = computed(() => signatures.filter(s => s.status === 'FAILED').length)
+const pendingCount = computed(() => signatures.value.filter(s => s.status === 'PENDING').length)
+const signedCount = computed(() => signatures.value.filter(s => s.status === 'SIGNED').length)
+const failedCount = computed(() => signatures.value.filter(s => s.status === 'FAILED').length)
 
 const tabs = computed(() => [
   { value: '', label: 'Hammasi', count: signatures.length },
@@ -143,7 +136,7 @@ const tabs = computed(() => [
   { value: 'FAILED', label: 'Xatolik', count: failedCount.value },
 ])
 
-const filteredSignatures = computed(() => statusFilter.value ? signatures.filter(s => s.status === statusFilter.value) : signatures)
+const filteredSignatures = computed(() => statusFilter.value ? signatures.value.filter(s => s.status === statusFilter.value) : signatures.value)
 
 function statusLabel(s: string) { return { PENDING: 'Kutilmoqda', SIGNED: 'Imzolangan', FAILED: 'Xatolik' }[s] || s }
 </script>

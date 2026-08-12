@@ -1398,6 +1398,367 @@ export const useMakonStore = defineStore('makon', () => {
     })
   }
 
+
+  // ─── Audit Log ───
+  const auditLogs = ref([
+    { id: '1', user: 'Alisher Qodirov', action: 'CONTRACT.SIGN', type: 'APPROVE', description: 'CTR-2026-010 shartnomasini ERI orqali imzoladi', time: '14:32', ip: '85.17.12.34' },
+    { id: '2', user: 'Dilnoza Karimova', action: 'INVOICE.CREATE', type: 'CREATE', description: 'INV-2026-052 invoysini yaratdi (25.0M so\'m)', time: '14:28', ip: '85.17.12.35' },
+    { id: '3', user: 'Sardor Yusupov', action: 'BUILDING.UPDATE', type: 'UPDATE', description: 'Tashkent City binosi ma\'lumotlarini yangiladi', time: '14:15', ip: '94.158.21.10' },
+    { id: '4', user: 'Ravshan Keldiyev', action: 'WORK_ORDER.CREATE', type: 'CREATE', description: 'WO-2026-038 work order yaratdi (A-301 konditsioner)', time: '13:45', ip: '85.17.12.36' },
+    { id: '5', user: 'Alisher Qodirov', action: 'USER.LOGIN', type: 'AUTH', description: 'Tizimga kirdi', time: '13:30', ip: '85.17.12.34' },
+    { id: '6', user: 'Dilnoza Karimova', action: 'INVOICE.APPROVE', type: 'APPROVE', description: 'INV-2026-051 invoysini tasdiqladi (21.0M so\'m)', time: '12:50', ip: '85.17.12.35' },
+    { id: '7', user: 'Jasur Tursunov', action: 'WORK_ORDER.UPDATE', type: 'UPDATE', description: 'WO-2026-035 statusini IN_PROGRESS ga o\'zgartirdi', time: '12:15', ip: '85.17.12.37' },
+    { id: '8', user: 'Kamola Rashidova', action: 'USER.INVITE', type: 'CREATE', description: 'Nodira Azizovani BUILDING_MANAGER rolida taklif qildi', time: '11:30', ip: '85.17.12.38' },
+    { id: '9', user: 'Alisher Qodirov', action: 'BUILDING.CREATE', type: 'CREATE', description: 'Savdo Markaz binosini qo\'shdi', time: '10:45', ip: '85.17.12.34' },
+    { id: '10', user: 'Dilnoza Karimova', action: 'CONTRACT.VIEW', type: 'APPROVE', description: 'CTR-2026-002 shartnomasini ko\'rdi', time: '10:20', ip: '85.17.12.35' },
+    { id: '11', user: 'Otabek Yo\'ldoshev', action: 'USER.LOGIN', type: 'AUTH', description: 'Tizimga kirdi', time: '09:15', ip: '94.158.21.20' },
+    { id: '12', user: 'Ravshan Keldiyev', action: 'METER.READ', type: 'UPDATE', description: 'EL-001 hisoblagich ko\'rsatkichini kiritdi (15420 kWh)', time: '09:00', ip: '85.17.12.36' },
+  ])
+
+  function addAuditLog(entry: { user: string; action: string; type: string; description: string }) {
+    auditLogs.value.unshift({
+      id: Date.now().toString(),
+      ...entry,
+      time: new Date().toLocaleTimeString('uz', { hour: '2-digit', minute: '2-digit' }),
+      ip: '85.17.12.34',
+    })
+  }
+
+  // ─── Monitoring ───
+  const monitoringMetrics = ref({
+    apiLatency: 142,
+    uptime: 99.97,
+    activeUsers: 8,
+    dbSize: '1.2 GB',
+    totalRequests: 48210,
+    errorRate: 0.03,
+  })
+
+  const onlineUsers = ref([
+    { id: '1', name: 'Alisher Qodirov', role: 'Super Rahbar', ip: '85.17.12.34', lastAction: 'Shartnoma imzolash', sessionStart: '13:30' },
+    { id: '2', name: 'Dilnoza Karimova', role: 'Bosh Hisobchi', ip: '85.17.12.35', lastAction: 'Invoys yaratish', sessionStart: '09:15' },
+    { id: '3', name: 'Ravshan Keldiyev', role: 'Texnik xodim', ip: '85.17.12.36', lastAction: 'Work order yangilash', sessionStart: '08:45' },
+    { id: '4', name: 'Jasur Tursunov', role: 'Bino Menejeri', ip: '85.17.12.37', lastAction: 'Servis so\'rov ko\'rish', sessionStart: '08:30' },
+    { id: '5', name: 'Kamola Rashidova', role: 'Operator', ip: '85.17.12.38', lastAction: 'Ariza qabul qilish', sessionStart: '09:00' },
+    { id: '6', name: 'Otabek Yo\'ldoshev', role: 'Hisobchi', ip: '94.158.21.20', lastAction: 'Hisobot ko\'rish', sessionStart: '09:15' },
+    { id: '7', name: 'Sardor Yusupov', role: 'Bino Menejeri', ip: '94.158.21.10', lastAction: 'Bino ma\'lumotlari', sessionStart: '08:50' },
+    { id: '8', name: 'Nodira Azizova', role: 'Bino Menejeri', ip: '94.158.21.25', lastAction: 'Listing tahrir', sessionStart: '09:30' },
+  ])
+
+  const monitoringErrors = ref([
+    { id: '1', time: '14:25', endpoint: '/api/contracts/sign', status: 500, message: 'ERI service timeout', count: 2 },
+    { id: '2', time: '13:10', endpoint: '/api/invoices/export', status: 404, message: 'File not found', count: 1 },
+    { id: '3', time: '11:45', endpoint: '/api/buildings/3/units', status: 403, message: 'Permission denied', count: 3 },
+    { id: '4', time: '10:20', endpoint: '/api/auth/verify', status: 401, message: 'Token expired', count: 5 },
+  ])
+
+  // ─── Reports ───
+  const reportMonthlyData = ref([
+    { month: 'Mart', revenue: 28, debt: 3.2 },
+    { month: 'Aprel', revenue: 31, debt: 2.8 },
+    { month: 'May', revenue: 29, debt: 4.1 },
+    { month: 'Iyun', revenue: 34, debt: 2.5 },
+    { month: 'Iyul', revenue: 36, debt: 3.8 },
+    { month: 'Avgust', revenue: 38, debt: 2.9 },
+    { month: 'Sent', revenue: 33, debt: 4.2 },
+    { month: 'Okt', revenue: 38.5, debt: 2.1 },
+  ])
+
+  const reportOccupancyData = computed(() =>
+    buildings.value.map(b => ({
+      name: b.name,
+      pct: Math.round((b.occupiedUnits / b.totalUnits) * 100),
+      occupied: b.occupiedUnits,
+      total: b.totalUnits,
+      color: b.color || '#2563EB',
+    }))
+  )
+
+  const reportBuildingCompare = computed(() =>
+    buildings.value.map(b => ({
+      name: b.name,
+      units: b.totalUnits,
+      occ: Math.round((b.occupiedUnits / b.totalUnits) * 100),
+      revenue: Math.round(b.totalUnits * b.occupiedUnits * 25000000 / b.totalUnits),
+      debt: Math.round(Math.random() * 8000000),
+      color: b.color || '#2563EB',
+    }))
+  )
+
+  const reportKpis = computed(() => {
+    const totalUnits = buildings.value.reduce((s, b) => s + b.totalUnits, 0)
+    const occupiedUnits = buildings.value.reduce((s, b) => s + b.occupiedUnits, 0)
+    const totalRevenue = invoices.value.filter(i => i.status === 'PAID').reduce((s, i) => s + i.amount, 0)
+    const totalDebt = invoices.value.filter(i => i.status !== 'PAID').reduce((s, i) => s + (i.balance || 0), 0)
+    const activeContracts = contracts.value.filter(c => c.status === 'ACTIVE').length
+  
+  // ─── Login History ───
+  const loginHistory = ref([
+    { id: '1', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGIN', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '14:32:15' },
+    { id: '2', user: 'Dilnoza Karimova', email: 'd.karimova@makon.uz', event: 'LOGIN', ip: '85.17.12.35', device: 'Desktop', browser: 'Firefox 125', time: '14:28:42' },
+    { id: '3', user: 'Sardor Yusupov', email: 's.yusupov@abc.uz', event: 'ERI_LOGIN', ip: '94.158.21.10', device: 'Desktop', browser: 'Chrome 126', time: '14:15:08' },
+    { id: '4', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '13:55:30' },
+    { id: '5', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGIN', ip: '85.17.12.34', device: 'Mobile', browser: 'Safari 17', time: '13:30:12' },
+    { id: '6', user: 'Ravshan Keldiyev', email: 'r.keldiyev@makon.uz', event: 'LOGIN', ip: '85.17.12.36', device: 'Desktop', browser: 'Chrome 126', time: '12:50:45' },
+    { id: '7', user: 'Unknown', email: 'n.umarov@makon.uz', event: 'BLOCK', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '12:15:22' },
+    { id: '8', user: 'Jasur Tursunov', email: 'j.tursunov@makon.uz', event: 'LOGIN', ip: '85.17.12.37', device: 'Desktop', browser: 'Edge 126', time: '12:00:18' },
+    { id: '9', user: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', event: 'ERI_LOGIN', ip: '85.17.12.38', device: 'Desktop', browser: 'Chrome 126', time: '11:30:55' },
+    { id: '10', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGOUT', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '10:45:30' },
+    { id: "11", user: "Otabek Yo'ldoshev", email: 'o.yuldoshev@smart.uz', event: 'LOGIN', ip: '94.158.21.20', device: 'Mobile', browser: 'Chrome 126', time: '09:15:42' },
+    { id: '12', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '08:30:12' },
+  ])
+
+  // ─── Notification Templates ───
+  const notificationTemplates = ref([
+    { id: '1', event: 'Yangi ariza yuborildi', channel: 'Email + Push', iconName: 'FileText', active: true,
+      textUz: "Yangi ariza {{number}} qabul qilindi. Unit: {{unit}}, summa: {{price}} so'm.",
+      textRu: 'Новая заявка {{number}} принята. Юнит: {{unit}}, сумма: {{price}} сум.',
+      variables: ['number', 'unit', 'price'] },
+    { id: '2', event: 'Invoys yaratildi', channel: 'Email + SMS', iconName: 'Receipt', active: true,
+      textUz: "Invoys {{number}} yaratildi. Summa: {{amount}} so'm. Muddat: {{dueDate}}.",
+      textRu: 'Счет {{number}} создан. Сумма: {{amount}} сум. Срок: {{dueDate}}.',
+      variables: ['number', 'amount', 'dueDate'] },
+    { id: '3', event: 'ERI imzo talab qilinadi', channel: 'Email + Push', iconName: 'ShieldCheck', active: true,
+      textUz: "Shartnoma {{number}} uchun ERI imzosi kutilmoqda. Iltimos, imzolang.",
+      textRu: 'Для договора {{number}} ожидается ЭРИ подпись. Пожалуйста, подпишите.',
+      variables: ['number'] },
+    { id: '4', event: "Servis so'rov yangilandi", channel: 'Push', iconName: 'Wrench', active: true,
+      textUz: "Servis so'rov {{number}} statusi: {{status}}. Unit: {{unit}}.",
+      textRu: 'Статус сервисной заявки {{number}}: {{status}}. Юнит: {{unit}}.',
+      variables: ['number', 'status', 'unit'] },
+    { id: '5', event: 'Shartnoma imzolandi', channel: 'Email + SMS', iconName: 'FileSignature', active: true,
+      textUz: "Shartnoma {{number}} tomonlar tomonidan imzolandi. Faol sanasi: {{startDate}}.",
+      textRu: 'Договор {{number}} подписан сторонами. Дата активации: {{startDate}}.',
+      variables: ['number', 'startDate'] },
+    { id: '6', event: "Qarzdorlik eslatmasi", channel: 'SMS', iconName: 'Bell', active: false,
+      textUz: "Sizning qarzdorligingiz: {{debt}} so'm. Iltimos, to'lovni amalga oshiring.",
+      textRu: 'Ваша задолженность: {{debt}} сум. Пожалуйста, произведите оплату.',
+      variables: ['debt'] },
+  ])
+
+
+  // ─── Tenant Cabinet Data ───
+  const tenantContracts = computed(() =>
+    contracts.value.map(c => ({
+      id: c.id,
+      number: c.number,
+      unit: c.unitNumber,
+      buildingName: c.buildingName,
+      monthlyRent: c.monthlyRent,
+      startDate: c.startDate,
+      endDate: c.endDate,
+      status: c.status,
+      eriTenantSigned: c.status === 'ACTIVE' || c.status === 'EXPIRED',
+      eriLandlordSigned: c.status === 'ACTIVE' || c.status === 'EXPIRED',
+      daysLeft: c.status === 'ACTIVE' ? Math.max(0, Math.round((new Date(c.endDate).getTime() - Date.now()) / 86400000)) : 0,
+      progressPct: c.status === 'EXPIRED' ? 100 : c.status === 'ACTIVE' ? Math.round(Math.random() * 50) : 0,
+    }))
+  )
+
+  const tenantServiceRequests = computed(() =>
+    serviceRequests.value.map(s => ({
+      id: s.id,
+      number: s.number,
+      category: s.category,
+      description: s.description,
+      date: s.createdAt,
+      status: s.status,
+      rating: s.rating,
+    }))
+  )
+
+  const tenantUnits = computed(() => {
+    const result: any[] = []
+    buildings.value.forEach(b => {
+      // Pick a few units per building for the tenant
+      if (b.id === 'b1' || b.id === 'b2' || b.id === 'b3') {
+        result.push({
+          id: b.id + '-u1',
+          name: b.id === 'b1' ? 'A-301' : b.id === 'b2' ? 'B-205' : 'C-101',
+          building: b.name,
+          floor: b.id === 'b1' ? 3 : b.id === 'b2' ? 2 : 1,
+          area: b.id === 'b1' ? 85 : b.id === 'b2' ? 120 : 45,
+          rooms: b.id === 'b1' ? 3 : b.id === 'b2' ? 4 : 2,
+          type: 'RENT',
+          rent: b.id === 'b1' ? '25.0M' : b.id === 'b2' ? '35.0M' : '18.0M',
+          photo: b.image || '/buildings/hero-tashkent.jpg',
+          contractNumber: 'CTR-2026-00' + (b.id === 'b1' ? '1' : b.id === 'b2' ? '2' : '5'),
+          contractEnd: b.id === 'b1' ? '15 Mar 2027' : b.id === 'b2' ? '01 Dek 2026' : '31 May 2027',
+          debt: b.id === 'b2' ? 4200000 : 0,
+          statusBadge: b.id === 'b2' ? 'badge-warning' : 'badge-success',
+          statusLabel: b.id === 'b2' ? 'Qarz bor' : 'Faol',
+        })
+      }
+    })
+    return result
+  })
+
+  const tenantMeterHistory = ref([
+    { month: 'Iyul 2026', electricity: 14200, water: 345, gas: 112, total: 637500, status: 'PAID' },
+    { month: 'Iyun 2026', electricity: 13500, water: 320, gas: 98, total: 595000, status: 'PAID' },
+    { month: 'May 2026', electricity: 12800, water: 305, gas: 85, total: 552000, status: 'PAID' },
+    { month: 'Aprel 2026', electricity: 11900, water: 290, gas: 72, total: 508000, status: 'PAID' },
+    { month: 'Mart 2026', electricity: 11200, water: 275, gas: 65, total: 471000, status: 'PAID' },
+  ])
+
+  const tenantInvoices = computed(() =>
+    invoices.value.slice(0, 4).map(inv => ({
+      id: inv.id,
+      number: inv.number,
+      unit: 'A-301',
+      period: inv.period,
+      amount: inv.amount,
+      status: inv.status,
+    }))
+  )
+
+  const tenantServiceCharges = ref([
+    { name: "Ijara to'lovi", iconName: 'Receipt', color: 'var(--accent)', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
+    { name: 'Elektr energiyasi', iconName: 'Zap', color: '#f59e0b', amount: 1320000, details: "440 kWh × 3000 so'm", unit: 'oylik', percent: 4 },
+    { name: "Suv ta'minoti", iconName: 'Droplet', color: '#3b82f6', amount: 182000, details: "130 m³ × 1400 so'm", unit: 'oylik', percent: 1 },
+    { name: 'Gaz', iconName: 'Flame', color: '#ef4444', amount: 225000, details: "150 m³ × 1500 so'm", unit: 'oylik', percent: 1 },
+    { name: 'Faqat texnik xizmat', iconName: 'Wrench', color: 'var(--accent)', amount: 500000, details: 'A-301 · oylik', unit: 'oylik', percent: 2 },
+    { name: 'Axlat olib ketish', iconName: 'Trash2', color: '#10b981', amount: 120000, details: 'A-301 · oylik', unit: 'oylik', percent: 1 },
+  ])
+
+  return {
+      totalRevenue,
+      occupancyRate: Math.round((occupiedUnits / totalUnits) * 100),
+      activeContracts,
+      totalDebt,
+    }
+  })
+
+
+  // ─── Login History ───
+  const loginHistory = ref([
+    { id: '1', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGIN', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '14:32:15' },
+    { id: '2', user: 'Dilnoza Karimova', email: 'd.karimova@makon.uz', event: 'LOGIN', ip: '85.17.12.35', device: 'Desktop', browser: 'Firefox 125', time: '14:28:42' },
+    { id: '3', user: 'Sardor Yusupov', email: 's.yusupov@abc.uz', event: 'ERI_LOGIN', ip: '94.158.21.10', device: 'Desktop', browser: 'Chrome 126', time: '14:15:08' },
+    { id: '4', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '13:55:30' },
+    { id: '5', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGIN', ip: '85.17.12.34', device: 'Mobile', browser: 'Safari 17', time: '13:30:12' },
+    { id: '6', user: 'Ravshan Keldiyev', email: 'r.keldiyev@makon.uz', event: 'LOGIN', ip: '85.17.12.36', device: 'Desktop', browser: 'Chrome 126', time: '12:50:45' },
+    { id: '7', user: 'Unknown', email: 'n.umarov@makon.uz', event: 'BLOCK', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '12:15:22' },
+    { id: '8', user: 'Jasur Tursunov', email: 'j.tursunov@makon.uz', event: 'LOGIN', ip: '85.17.12.37', device: 'Desktop', browser: 'Edge 126', time: '12:00:18' },
+    { id: '9', user: 'Kamola Rashidova', email: 'k.rashidova@makon.uz', event: 'ERI_LOGIN', ip: '85.17.12.38', device: 'Desktop', browser: 'Chrome 126', time: '11:30:55' },
+    { id: '10', user: 'Alisher Qodirov', email: 'a.qodirov@makon.uz', event: 'LOGOUT', ip: '85.17.12.34', device: 'Desktop', browser: 'Chrome 126', time: '10:45:30' },
+    { id: "11", user: "Otabek Yo'ldoshev", email: 'o.yuldoshev@smart.uz', event: 'LOGIN', ip: '94.158.21.20', device: 'Mobile', browser: 'Chrome 126', time: '09:15:42' },
+    { id: '12', user: 'Unknown', email: 'admin@makon.uz', event: 'FAILED', ip: '45.12.33.88', device: 'Desktop', browser: 'Chrome 126', time: '08:30:12' },
+  ])
+
+  // ─── Notification Templates ───
+  const notificationTemplates = ref([
+    { id: '1', event: 'Yangi ariza yuborildi', channel: 'Email + Push', iconName: 'FileText', active: true,
+      textUz: "Yangi ariza {{number}} qabul qilindi. Unit: {{unit}}, summa: {{price}} so'm.",
+      textRu: 'Новая заявка {{number}} принята. Юнит: {{unit}}, сумма: {{price}} сум.',
+      variables: ['number', 'unit', 'price'] },
+    { id: '2', event: 'Invoys yaratildi', channel: 'Email + SMS', iconName: 'Receipt', active: true,
+      textUz: "Invoys {{number}} yaratildi. Summa: {{amount}} so'm. Muddat: {{dueDate}}.",
+      textRu: 'Счет {{number}} создан. Сумма: {{amount}} сум. Срок: {{dueDate}}.',
+      variables: ['number', 'amount', 'dueDate'] },
+    { id: '3', event: 'ERI imzo talab qilinadi', channel: 'Email + Push', iconName: 'ShieldCheck', active: true,
+      textUz: "Shartnoma {{number}} uchun ERI imzosi kutilmoqda. Iltimos, imzolang.",
+      textRu: 'Для договора {{number}} ожидается ЭРИ подпись. Пожалуйста, подпишите.',
+      variables: ['number'] },
+    { id: '4', event: "Servis so'rov yangilandi", channel: 'Push', iconName: 'Wrench', active: true,
+      textUz: "Servis so'rov {{number}} statusi: {{status}}. Unit: {{unit}}.",
+      textRu: 'Статус сервисной заявки {{number}}: {{status}}. Юнит: {{unit}}.',
+      variables: ['number', 'status', 'unit'] },
+    { id: '5', event: 'Shartnoma imzolandi', channel: 'Email + SMS', iconName: 'FileSignature', active: true,
+      textUz: "Shartnoma {{number}} tomonlar tomonidan imzolandi. Faol sanasi: {{startDate}}.",
+      textRu: 'Договор {{number}} подписан сторонами. Дата активации: {{startDate}}.',
+      variables: ['number', 'startDate'] },
+    { id: '6', event: "Qarzdorlik eslatmasi", channel: 'SMS', iconName: 'Bell', active: false,
+      textUz: "Sizning qarzdorligingiz: {{debt}} so'm. Iltimos, to'lovni amalga oshiring.",
+      textRu: 'Ваша задолженность: {{debt}} сум. Пожалуйста, произведите оплату.',
+      variables: ['debt'] },
+  ])
+
+
+  // ─── Tenant Cabinet Data ───
+  const tenantContracts = computed(() =>
+    contracts.value.map(c => ({
+      id: c.id,
+      number: c.number,
+      unit: c.unitNumber,
+      buildingName: c.buildingName,
+      monthlyRent: c.monthlyRent,
+      startDate: c.startDate,
+      endDate: c.endDate,
+      status: c.status,
+      eriTenantSigned: c.status === 'ACTIVE' || c.status === 'EXPIRED',
+      eriLandlordSigned: c.status === 'ACTIVE' || c.status === 'EXPIRED',
+      daysLeft: c.status === 'ACTIVE' ? Math.max(0, Math.round((new Date(c.endDate).getTime() - Date.now()) / 86400000)) : 0,
+      progressPct: c.status === 'EXPIRED' ? 100 : c.status === 'ACTIVE' ? Math.round(Math.random() * 50) : 0,
+    }))
+  )
+
+  const tenantServiceRequests = computed(() =>
+    serviceRequests.value.map(s => ({
+      id: s.id,
+      number: s.number,
+      category: s.category,
+      description: s.description,
+      date: s.createdAt,
+      status: s.status,
+      rating: s.rating,
+    }))
+  )
+
+  const tenantUnits = computed(() => {
+    const result: any[] = []
+    buildings.value.forEach(b => {
+      // Pick a few units per building for the tenant
+      if (b.id === 'b1' || b.id === 'b2' || b.id === 'b3') {
+        result.push({
+          id: b.id + '-u1',
+          name: b.id === 'b1' ? 'A-301' : b.id === 'b2' ? 'B-205' : 'C-101',
+          building: b.name,
+          floor: b.id === 'b1' ? 3 : b.id === 'b2' ? 2 : 1,
+          area: b.id === 'b1' ? 85 : b.id === 'b2' ? 120 : 45,
+          rooms: b.id === 'b1' ? 3 : b.id === 'b2' ? 4 : 2,
+          type: 'RENT',
+          rent: b.id === 'b1' ? '25.0M' : b.id === 'b2' ? '35.0M' : '18.0M',
+          photo: b.image || '/buildings/hero-tashkent.jpg',
+          contractNumber: 'CTR-2026-00' + (b.id === 'b1' ? '1' : b.id === 'b2' ? '2' : '5'),
+          contractEnd: b.id === 'b1' ? '15 Mar 2027' : b.id === 'b2' ? '01 Dek 2026' : '31 May 2027',
+          debt: b.id === 'b2' ? 4200000 : 0,
+          statusBadge: b.id === 'b2' ? 'badge-warning' : 'badge-success',
+          statusLabel: b.id === 'b2' ? 'Qarz bor' : 'Faol',
+        })
+      }
+    })
+    return result
+  })
+
+  const tenantMeterHistory = ref([
+    { month: 'Iyul 2026', electricity: 14200, water: 345, gas: 112, total: 637500, status: 'PAID' },
+    { month: 'Iyun 2026', electricity: 13500, water: 320, gas: 98, total: 595000, status: 'PAID' },
+    { month: 'May 2026', electricity: 12800, water: 305, gas: 85, total: 552000, status: 'PAID' },
+    { month: 'Aprel 2026', electricity: 11900, water: 290, gas: 72, total: 508000, status: 'PAID' },
+    { month: 'Mart 2026', electricity: 11200, water: 275, gas: 65, total: 471000, status: 'PAID' },
+  ])
+
+  const tenantInvoices = computed(() =>
+    invoices.value.slice(0, 4).map(inv => ({
+      id: inv.id,
+      number: inv.number,
+      unit: 'A-301',
+      period: inv.period,
+      amount: inv.amount,
+      status: inv.status,
+    }))
+  )
+
+  const tenantServiceCharges = ref([
+    { name: "Ijara to'lovi", iconName: 'Receipt', color: 'var(--accent)', amount: 25000000, details: 'A-301 · 85 m²', unit: 'oylik', percent: 72 },
+    { name: 'Elektr energiyasi', iconName: 'Zap', color: '#f59e0b', amount: 1320000, details: "440 kWh × 3000 so'm", unit: 'oylik', percent: 4 },
+    { name: "Suv ta'minoti", iconName: 'Droplet', color: '#3b82f6', amount: 182000, details: "130 m³ × 1400 so'm", unit: 'oylik', percent: 1 },
+    { name: 'Gaz', iconName: 'Flame', color: '#ef4444', amount: 225000, details: "150 m³ × 1500 so'm", unit: 'oylik', percent: 1 },
+    { name: 'Faqat texnik xizmat', iconName: 'Wrench', color: 'var(--accent)', amount: 500000, details: 'A-301 · oylik', unit: 'oylik', percent: 2 },
+    { name: 'Axlat olib ketish', iconName: 'Trash2', color: '#10b981', amount: 120000, details: 'A-301 · oylik', unit: 'oylik', percent: 1 },
+  ])
+
   return {
     buildings,
     units,
@@ -1440,5 +1801,22 @@ export const useMakonStore = defineStore('makon', () => {
     approveItem,
     rejectItem,
     createBackup,
+    auditLogs,
+    addAuditLog,
+    monitoringMetrics,
+    onlineUsers,
+    monitoringErrors,
+    reportMonthlyData,
+    reportOccupancyData,
+    reportBuildingCompare,
+    reportKpis,
+    loginHistory,
+    notificationTemplates,
+    tenantContracts,
+    tenantServiceRequests,
+    tenantUnits,
+    tenantMeterHistory,
+    tenantInvoices,
+    tenantServiceCharges,
   }
 })
