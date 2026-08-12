@@ -10,7 +10,7 @@
         </NuxtLink>
         <div class="auth__visual-bottom">
           <h2 class="auth__visual-title">Toshkentning premium obyektlari boshqaruvi</h2>
-          <p class="auth__visual-text">Telegram orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
+          <p class="auth__visual-text">MAKON platformasi orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
             </button>
           </div>
 
-          <NuxtLink to="/auth/telegram" class="auth__back">
+          <NuxtLink to="/auth/verify" class="auth__back">
             <ArrowLeft :size="15" />
             Raqamni o'zgartirish
           </NuxtLink>
@@ -111,7 +111,7 @@ onMounted(() => {
   }
 
   if (!authStore.pendingRegistration?.phone) {
-    navigateTo('/auth/telegram')
+    navigateTo('/auth/verify')
     return
   }
 

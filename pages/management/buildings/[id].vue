@@ -15,22 +15,35 @@
     </div>
 
     <!-- KPI -->
+    <!-- 3D KPI Strip -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Jami unitlar</div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ building?.totalUnits || 0 }}</div>
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="units" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ building?.totalUnits || 0 }}</div>
+          <div class="kpi-strip__label">Jami unitlar</div>
+        </div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Band</div>
-        <div class="text-xl font-bold text-emerald-500">{{ building?.occupiedUnits || 0 }}</div>
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ building?.occupiedUnits || 0 }}</div>
+          <div class="kpi-strip__label">Band</div>
+        </div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Bo'sh</div>
-        <div class="text-xl font-bold text-amber-500">{{ building?.vacantUnits || 0 }}</div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="applications" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ building?.vacantUnits || 0 }}</div>
+          <div class="kpi-strip__label">Bo'sh</div>
+        </div>
       </div>
-      <div class="card p-4">
-        <div class="text-xs text-ink-400 mb-1">Maydon</div>
-        <div class="text-xl font-bold text-ink-900 dark:text-white">{{ building?.totalArea?.toLocaleString('ru-RU') || 0 }} m²</div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="buildings" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ building?.totalArea?.toLocaleString('ru-RU') || 0 }}<span class="text-sm">m²</span></div>
+          <div class="kpi-strip__label">Maydon</div>
+        </div>
       </div>
     </div>
 
@@ -97,4 +110,31 @@ const buildingUnits = computed(() => store.units.filter(u => u.buildingId === ro
 function statusLabel(s: string) {
   return { OCCUPIED: 'Band', RESERVED: 'Reserv', VACANT: 'Bo\'sh' }[s] || s
 }
+
 </script>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+</style>

@@ -10,7 +10,7 @@
         </NuxtLink>
         <div class="auth__visual-bottom">
           <h2 class="auth__visual-title">Toshkentning premium obyektlari boshqaruvi</h2>
-          <p class="auth__visual-text">Telegram orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
+          <p class="auth__visual-text">MAKON platformasi orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
         </div>
       </div>
     </div>
@@ -66,16 +66,16 @@
             <span>YOKI</span>
           </div>
 
-          <NuxtLink to="/auth/telegram" class="auth__tg-btn">
+          <NuxtLink to="/auth/verify" class="auth__sms-btn">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
               <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
             </svg>
-            Telegram orqali ro'yxatdan o'tish
+            SMS orqali ro'yxatdan o'tish
           </NuxtLink>
 
           <p class="auth__signup">
             Yangi foydalanuvchi?
-            <NuxtLink to="/auth/telegram" class="auth__link auth__link--bold">Telegram OTP bilan ro'yxatdan o'ting</NuxtLink>
+            <NuxtLink to="/auth/verify" class="auth__link auth__link--bold">SMS kod bilan ro'yxatdan o'ting</NuxtLink>
           </p>
         </form>
       </div>
@@ -169,8 +169,8 @@ async function handleLogin() {
 .auth__divider span { position: relative; background: #ffffff; padding: 0 14px; font-size: 11px; font-weight: 700; color: #a1a1aa; letter-spacing: 0.1em; }
 .dark .auth__divider span { background: #09090b; }
 
-.auth__tg-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px; padding: 14px; border-radius: 12px; background: rgba(0,136,204,0.06); border: 1.5px solid rgba(0,136,204,0.2); color: #0088cc; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
-.auth__tg-btn:hover { background: rgba(0,136,204,0.1); border-color: rgba(0,136,204,0.4); transform: translateY(-1px); }
+.auth__sms-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px; padding: 14px; border-radius: 12px; background: rgba(0,136,204,0.06); border: 1.5px solid rgba(0,136,204,0.2); color: #0088cc; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+.auth__sms-btn:hover { background: rgba(0,136,204,0.1); border-color: rgba(0,136,204,0.4); transform: translateY(-1px); }
 
 .auth__signup { text-align: center; margin-top: 28px; font-size: 14px; color: #71717a; }
 .dark .auth__signup { color: #a1a1aa; }

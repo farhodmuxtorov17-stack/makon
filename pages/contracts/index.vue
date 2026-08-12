@@ -4,12 +4,36 @@
       <h1 class="text-xl font-bold text-ink-900 dark:text-white">Shartnomalar</h1>
     </div>
 
-    <!-- KPI -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <div class="card p-4"><div class="text-xs text-ink-400 mb-1">Faol</div><div class="text-lg font-bold text-emerald-500">{{ statusCounts.ACTIVE }}</div></div>
-      <div class="card p-4"><div class="text-xs text-ink-400 mb-1">Imzolanmoqda</div><div class="text-lg font-bold text-amber-500">{{ statusCounts.PARTIALLY_SIGNED + statusCounts.DRAFT_READY }}</div></div>
-      <div class="card p-4"><div class="text-xs text-ink-400 mb-1">Muddati o'tgan</div><div class="text-lg font-bold text-red-500">{{ statusCounts.EXPIRED }}</div></div>
-      <div class="card p-4"><div class="text-xs text-ink-400 mb-1">ERI imzolangan</div><div class="text-lg font-bold text-ink-900 dark:text-white">{{ eriSignedCount }}</div></div>
+    <!-- 3D KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      <div class="kpi-strip kpi-strip--emerald">
+        <div class="kpi-strip__icon"><KpiScene3D type="paid" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ statusCounts.ACTIVE }}</div>
+          <div class="kpi-strip__label">Faol</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--amber">
+        <div class="kpi-strip__icon"><KpiScene3D type="signing" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ statusCounts.PARTIALLY_SIGNED + statusCounts.DRAFT_READY }}</div>
+          <div class="kpi-strip__label">Imzolanmoqda</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--blue">
+        <div class="kpi-strip__icon"><KpiScene3D type="overdue" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ statusCounts.EXPIRED }}</div>
+          <div class="kpi-strip__label">Muddati o'tgan</div>
+        </div>
+      </div>
+      <div class="kpi-strip kpi-strip--teal">
+        <div class="kpi-strip__icon"><KpiScene3D type="contract" :size="38" /></div>
+        <div class="kpi-strip__body">
+          <div class="kpi-strip__value">{{ eriSignedCount }}</div>
+          <div class="kpi-strip__label">Imzolangan</div>
+        </div>
+      </div>
     </div>
 
     <!-- Search -->
@@ -95,4 +119,31 @@ function statusLabel(s: string) {
 function statusClass(s: string) {
   return { ACTIVE: 'bg-emerald-500/10 text-emerald-500', PARTIALLY_SIGNED: 'bg-amber-500/10 text-amber-500', DRAFT_READY: 'bg-blue-500/10 text-blue-500', DRAFT: 'bg-blue-500/10 text-blue-500', SIGNED: 'bg-emerald-500/10 text-emerald-500', EXPIRED: 'bg-red-500/10 text-red-500', TERMINATED: 'bg-red-500/10 text-red-500' }[s] || ''
 }
+
 </script>
+
+<style scoped>
+.kpi-strip {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card-bg, rgba(255,255,255,0.9));
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.kpi-strip--emerald::before { background: #10b981; }
+.kpi-strip--teal::before { background: var(--accent, #2563EB); }
+.kpi-strip--amber::before { background: #f59e0b; }
+.kpi-strip--blue::before { background: #3b82f6; }
+.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
+.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
+.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
+.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
+.kpi-strip__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-strip__body { flex: 1; min-width: 0; }
+.kpi-strip__value { font-size: 22px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
+.kpi-strip__label { font-size: 11px; color: var(--text-muted, #71717a); margin-top: 4px; }
+</style>

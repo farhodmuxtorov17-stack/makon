@@ -10,7 +10,7 @@
         </NuxtLink>
         <div class="auth__visual-bottom">
           <h2 class="auth__visual-title">Toshkentning premium obyektlari boshqaruvi</h2>
-          <p class="auth__visual-text">Telegram orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
+          <p class="auth__visual-text">MAKON platformasi orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="auth__form-head">
           <div class="auth__step-badge">
             <span class="auth__step-num auth__step-num--done">✓</span>
-            <span class="auth__step-text auth__step-text--done">Telegram tasdiqlandi</span>
+            <span class="auth__step-text auth__step-text--done">Telefon tasdiqlandi</span>
           </div>
           <div class="auth__step-badge auth__step-badge--active" style="margin-top: 8px;">
             <span class="auth__step-num">3</span>
@@ -184,11 +184,11 @@ onMounted(() => {
     }
   }
 
-  if (!authStore.pendingRegistration?.telegramVerified) {
-    navigateTo('/auth/telegram')
+  if (!authStore.pendingRegistration?.phoneVerified) {
+    navigateTo('/auth/verify')
   }
 
-  // Pre-fill phone from Telegram-verified number
+  // Pre-fill phone from phone-verified number
   if (authStore.pendingRegistration?.phone) {
     const raw = authStore.pendingRegistration.phone.replace('+998', '').replace(/\D/g, '')
     form.phone = raw.slice(0, 9)

@@ -3,7 +3,7 @@ import type { AuthUser, UserRole } from '~/types'
 
 export interface PendingRegistration {
   phone: string
-  telegramVerified: boolean
+  phoneVerified: boolean
   otpCode: string
 }
 
@@ -60,12 +60,12 @@ export const useAuthStore = defineStore('auth', () => {
     return user.value ? roles.includes(user.value.role) : false
   }
 
-  // --- Telegram OTP flow ---
+  // --- Phone OTP flow ---
   function sendOtp(phone: string) {
     const code = String(Math.floor(100000 + Math.random() * 900000))
     pendingRegistration.value = {
       phone,
-      telegramVerified: false,
+      phoneVerified: false,
       otpCode: code,
     }
     otpSent.value = true
@@ -85,7 +85,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
     if (pendingRegistration.value && code === pendingRegistration.value.otpCode) {
       otpVerified.value = true
-      pendingRegistration.value.telegramVerified = true
+      pendingRegistration.value.phoneVerified = true
       if (import.meta.client) {
         localStorage.setItem('makon-pending-reg', JSON.stringify(pendingRegistration.value))
       }
@@ -95,7 +95,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function register(data: { login: string; password: string; fullName: string; phone?: string; email?: string; accountType?: string; inn?: string }): boolean {
-    if (!pendingRegistration.value?.telegramVerified) return false
+    if (!pendingRegistration.value?.phoneVerified) return false
 
     const exists = registeredUsers.value.find(u => u.login === data.login)
     if (exists) return false

@@ -10,7 +10,7 @@
         </NuxtLink>
         <div class="auth__visual-bottom">
           <h2 class="auth__visual-title">Toshkentning premium obyektlari boshqaruvi</h2>
-          <p class="auth__visual-text">Telegram orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
+          <p class="auth__visual-text">MAKON platformasi orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="auth__form-head">
           <div class="auth__step-badge">
             <span class="auth__step-num">1</span>
-            <span class="auth__step-text">Telegram orqali identifikatsiya</span>
+            <span class="auth__step-text">SMS orqali identifikatsiya</span>
           </div>
           <h1 class="auth__form-title">Telefon raqamingizni kiriting</h1>
           <p class="auth__form-sub">Tasdiqlash kodi raqamingizga yuboriladi</p>
@@ -161,8 +161,8 @@ async function handleSendOtp() {
 
 .auth__link { color: var(--accent); text-decoration: none; font-weight: 500; }
 .auth__link:hover { text-decoration: underline; }
-.auth__bot-text { font-size: 11px; color: #71717a; margin: 2px 0 0; }
-.dark .auth__bot-text { color: #a1a1aa; }
+.auth__info-text { font-size: 11px; color: #71717a; margin: 2px 0 0; }
+.dark .auth__info-text { color: #a1a1aa; }
 
 @media (max-width: 900px) {
   .auth__visual { display: none; }
