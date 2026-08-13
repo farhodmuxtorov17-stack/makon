@@ -110,7 +110,7 @@
     <div class="card-premium p-5">
       <h3 class="font-semibold text-ink-900  mb-4">Resurs sarfi</h3>
       <div class="space-y-4">
-        <div v-for="m in metrics" :key="m.label" class="metric-bar">
+        <div v-for="m in resourceMetrics" :key="m.label" class="metric-bar">
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm font-medium text-ink-900  flex items-center gap-2">
               <component :is="m.icon" :size="15" class="text-ink-400" />
@@ -128,7 +128,7 @@
 </template>
 
 <script setup lang="ts">
-import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp, AlertCircle, CheckCircle, RefreshCw, X , Building2, DollarSign, Package} from 'lucide-vue-next'
+import { Activity, Users, AlertTriangle, Server, Database, Cpu, Zap, TrendingUp, AlertCircle, CheckCircle, RefreshCw, X, Building2, DollarSign, Package} from 'lucide-vue-next'
 
 definePageMeta({ roles: ['SUPER_HEAD', 'ADMIN'],  layout: 'admin', middleware: 'role' })
 
@@ -148,6 +148,14 @@ const metrics = computed(() => [
   { label: "So'rovlar soni", value: makonStore.monitoringMetrics.totalRequests.toLocaleString(), icon: Server, color: '#ec4899', status: 'normal' },
   { label: 'Xato stavkasi', value: makonStore.monitoringMetrics.errorRate + '%', icon: AlertTriangle, color: '#ef4444', status: 'warning' },
 ])
+
+// Resource bars use numeric percentages
+const resourceMetrics = [
+  { label: 'CPU', value: 34, icon: Cpu },
+  { label: 'RAM', value: 58, icon: Zap },
+  { label: 'Disk', value: 41, icon: Database },
+  { label: 'Network', value: 22, icon: Activity },
+]
 
 const apiHours = ['00', '02', '04', '06', '08', '10', '12', '14', '16']
 const apiSeries = [45, 38, 42, 68, 120, 185, 210, 165, 142]
