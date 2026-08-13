@@ -14,9 +14,12 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <NuxtLink v-if="contract.status !== 'ACTIVE'" :to="`/contracts/${contract.id}/activate`" class="btn btn-primary btn-sm">
+        <NuxtLink v-if="contract.status !== 'ACTIVE' && contract.status !== 'TERMINATED'" :to="`/contracts/${contract.id}/activate`" class="btn btn-primary btn-sm">
           <CheckCircle :size="14" /> Aktivlashtirish
         </NuxtLink>
+        <button v-if="contract.status === 'ACTIVE'" @click="showTerminate = true" class="btn btn-secondary btn-sm text-red-500 hover:bg-red-500/10">
+          <XCircle :size="14" /> Tugatish
+        </button>
       </div>
     </div>
 
@@ -123,11 +126,37 @@
       </table>
     </div>
   </div>
+    <!-- Terminate confirmation modal -->
+  <div v-if="showTerminate" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" @click.self="showTerminate = false">
+      <div class="card p-6 max-w-md mx-4">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+            <AlertCircle :size="20" class="text-red-500" />
+          </div>
+          <div>
+            <div class="font-semibold text-ink-900">Shartnomani tugatish</div>
+            <div class="text-xs text-ink-400">Bu amal unitni bo'shatadi va kabinet yopiladi</div>
+          </div>
+        </div>
+        <div class="bg-red-500/5 rounded-xl p-4 text-sm text-ink-600 space-y-1">
+          <p>• Unit <b>{{ contract.unitNumber }}</b> → <span class="text-emerald-500 font-medium">Bo'sh (VACANT)</span></p>
+          <p>• Marketplace listing avtomatik qayta nashr etiladi</p>
+          <p>• Ijarachi kabineti yopiladi</p>
+          <p>• Bino statistikasi yangilanadi</p>
+        </div>
+        <div class="flex justify-end gap-3 mt-5">
+          <button @click="showTerminate = false" class="btn btn-secondary btn-md">Bekor</button>
+          <button @click="confirmTerminate" class="btn btn-md bg-red-500 hover:bg-red-600 text-white border-red-500">
+            <XCircle :size="16" /> Tugatishni tasdiqlash
+          </button>
+        </div>
+      </div>
+    </div>
   <div v-else class="text-center py-20 text-ink-400">Shartnoma topilmadi</div>
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, CheckCircle, Clock , AlertCircle, FileSignature, PenTool} from 'lucide-vue-next'
+import { ArrowLeft, CheckCircle, Clock, AlertCircle, FileSignature, PenTool, XCircle } from 'lucide-vue-next'
 
 definePageMeta({ roles: ['SUPER_HEAD', 'BUILDING_MANAGER', 'ACCOUNTANT'],  layout: 'admin', middleware: 'role' })
 
@@ -135,6 +164,15 @@ const route = useRoute()
 const store = useMakonStore()
 
 const contract = computed(() => store.contracts.find(c => c.id === route.params.id))
+const showTerminate = ref(false)
+
+function confirmTerminate() {
+  if (contract.value) {
+    store.terminateContract(contract.value.id)
+    showTerminate.value = false
+    navigateTo('/contracts')
+  }
+}
 
 function statusLabel(s: string) {
   return { ACTIVE: 'Faol', PARTIALLY_SIGNED: 'Qisman imzo', DRAFT_READY: 'Qoralama', DRAFT: 'Qoralama', SIGNED: 'Imzolangan', EXPIRED: 'Muddati o\'tgan', TERMINATED: 'Bekor' }[s] || s

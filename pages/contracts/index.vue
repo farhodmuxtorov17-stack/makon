@@ -53,6 +53,7 @@
         <option value="PARTIALLY_SIGNED">Qisman imzo</option>
         <option value="DRAFT_READY">Qoralama</option>
         <option value="EXPIRED">Muddati o'tgan</option>
+        <option value="TERMINATED">Bekor qilingan</option>
       </select>
     </div>
 
