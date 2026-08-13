@@ -134,22 +134,3 @@ function eventLabel(e: string) {
   return { LOGIN: 'Kirish', DIGITAL_LOGIN: 'Imzo', LOGOUT: 'Chiqish', FAILED: 'Muvaffaqiyatsiz', BLOCK: 'Blok' }[e] || e
 }
 </script>
-<style scoped>
-.kpi-strip {
-  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
-  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 14px; position: relative; overflow: hidden; flex-wrap: wrap;
-}
-.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-.kpi-strip--emerald::before { background: #10b981; }
-.kpi-strip--rose::before { background: #f43f5e; }
-.kpi-strip--violet::before { background: #8b5cf6; }
-.kpi-strip--amber::before { background: #f59e0b; }
-.kpi-strip__icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
-.kpi-strip--rose .kpi-strip__icon { background: rgba(244,63,94,0.1); }
-.kpi-strip--violet .kpi-strip__icon { background: rgba(139,92,246,0.1); }
-.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
-.dash-kpi__value { font-size: 22px; font-weight: 800; line-height: 1; }
-.dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
-</style>

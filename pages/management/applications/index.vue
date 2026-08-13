@@ -351,28 +351,3 @@ function confirmDecision() {
 
 </script>
 
-<style scoped>
-.kpi-strip {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: var(--card-bg, rgba(255,255,255,0.9));
-  border: 1px solid rgba(0,0,0,0.06);
-  position: relative; overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.kpi-strip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-.kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-.kpi-strip--emerald::before { background: #10b981; }
-.kpi-strip--teal::before { background: var(--accent, #2563EB); }
-.kpi-strip--amber::before { background: #f59e0b; }
-.kpi-strip--blue::before { background: #3b82f6; }
-.kpi-strip--emerald .kpi-strip__icon { background: rgba(16,185,129,0.1); }
-.kpi-strip--teal .kpi-strip__icon { background: rgba(37,99,235,0.1); }
-.kpi-strip--amber .kpi-strip__icon { background: rgba(245,158,11,0.1); }
-.kpi-strip--blue .kpi-strip__icon { background: rgba(59,130,246,0.1); }
-.kpi-strip__icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.dash-kpi__body { flex: 1; min-width: 0; }
-.dash-kpi__value { font-size: 20px; font-weight: 800; line-height: 1; color: var(--text, #1a1a2e); }
-.dash-kpi__label { font-size: 10px; color: var(--text-muted, #71717a); margin-top: 3px; }
-</style>
