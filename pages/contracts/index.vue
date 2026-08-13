@@ -1,8 +1,11 @@
 <template>
   <div class="space-y-5">
-    <div class="flex items-center justify-between mb-6">
-      <div class="eyebrow">Shartnomalar</div>
-      <h1 class="page-title">Shartnomalar</h1>
+    <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+      <div>
+        <div class="eyebrow">Shartnomalar</div>
+        <h1 class="page-title">Shartnomalar</h1>
+        <p class="text-sm text-ink-400 mt-1">Barcha shartnomalar va imzolash holati</p>
+      </div>
     </div>
 
     <!-- 3D KPI Strip -->

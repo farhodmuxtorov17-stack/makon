@@ -6,8 +6,7 @@
       <div>
         <div class="eyebrow">Listinglar</div>
       <h1 class="page-title">Listinglar</h1>
-      <p class="page-sub">Public marketplace listinglari va holatlari</p>
-        <p class="text-ink-500 text-sm mt-1">Ommaviy katalogdagi ijara va sotuv e'lonlari</p>
+      <p class="text-sm text-ink-400 mt-1">Ommaviy katalogdagi ijara va sotuv e'lonlari</p>
       </div>
       <button @click="openCreateModal()" class="btn btn-primary btn-sm flex items-center gap-2">
         <Plus :size="16" /> Yangi listing e'lon qilish

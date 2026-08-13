@@ -274,6 +274,7 @@ const filteredNav = computed(() => {
 const titles: Record<string,string> = {
   '/dashboard/executive': 'Boshqaruv paneli', '/dashboard/building': 'Bino paneli',
   '/management/buildings': 'Binolar', '/management/applications': 'Arizalar',
+  '/applications': 'Arizalar',
   '/contracts': 'Shartnomalar', '/management/tenants': 'Ijarachilar',
   '/management/listings': 'Listinglar', '/finance/invoices': 'Invoyslar',
   '/finance/periods': 'Moliya Davrlar', '/finance/debts': 'Qarzlar',
