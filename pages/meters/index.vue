@@ -3,7 +3,6 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">Sanoqchilar</div>
         <div class="eyebrow">Sanoqchilar</div>
       <h1 class="page-title">Hisoblagichlar</h1>
         <p class="text-sm text-ink-500 mt-1">Elektr, suv, gaz ko'rsatkichlari va avtomatik hisob-kitob</p>

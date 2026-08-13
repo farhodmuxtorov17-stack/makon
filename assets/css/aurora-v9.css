@@ -1011,3 +1011,122 @@ html.dark .input {
   margin-top: 4px;
   font-weight: 400;
 }
+
+/* ═══════════════════════════════════════════════
+   BUILDING CARDS — Premium solid white
+   ═══════════════════════════════════════════════ */
+.building-card {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 4px 16px -4px rgba(15,23,42,0.05) !important;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.building-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px -6px rgba(15,23,42,0.08), 0 20px 48px -12px rgba(15,23,42,0.12) !important;
+  border-color: var(--border-strong) !important;
+}
+.building-card__img {
+  height: 200px !important;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-light) !important;
+}
+
+/* Listing / Role / Approval / Period cards — solid white */
+.listing-card, .role-card, .approval-card, .period-card {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 4px 16px -4px rgba(15,23,42,0.05) !important;
+}
+.listing-card:hover, .role-card:hover, .approval-card:hover, .period-card:hover {
+  box-shadow: 0 8px 24px -6px rgba(15,23,42,0.08) !important;
+  border-color: var(--border-strong) !important;
+}
+
+/* ═══════════════════════════════════════════════
+   PERIOD KPI — Premium override
+   ═══════════════════════════════════════════════ */
+.period-kpi {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04) !important;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.period-kpi:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px -6px rgba(15,23,42,0.08) !important;
+}
+
+/* ═══════════════════════════════════════════════
+   EYEBROW + PAGE TITLE — Premium header
+   ═══════════════════════════════════════════════ */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+  display: block;
+}
+.page-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  line-height: 1.15;
+}
+
+/* ═══════════════════════════════════════════════
+   GLOBAL GLASSMORPHISM KILL — Solid white everywhere
+   ═══════════════════════════════════════════════ */
+.admin-card,
+.stat-card,
+.info-card,
+.glass-card,
+.dash-card,
+.metric-card,
+.unit-card,
+.org-card,
+.sig-card,
+.wo-card,
+.inv-card,
+.req-card {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 4px 16px -4px rgba(15,23,42,0.05) !important;
+}
+
+/* Notification card override */
+.notif-card {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+/* Modal/dialog override */
+.modal-card, .dialog-card {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 24px 64px -16px rgba(15,23,42,0.2) !important;
+}

@@ -4,7 +4,6 @@
     <div>
       <div class="eyebrow">Tasdiqlar</div>
       <h1 class="page-title">Tasdiqlash jarayoni</h1>
-      <p class="page-sub">Invoys va to'lov tasdiqlarini bosqichma-bosqich boshqaring</p>
     </div>
 
     <!-- Approval flow visualization -->
