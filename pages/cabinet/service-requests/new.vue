@@ -25,7 +25,7 @@
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
           <button v-for="cat in categories" :key="cat.value" @click="form.category = cat.value"
             class="p-3 rounded-xl border-2 transition-all text-sm text-left"
-            :class="form.category === cat.value ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 dark:border-white/5'">
+            :class="form.category === cat.value ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 '">
             <component :is="cat.icon" :size="18" class="mb-1" :class="form.category === cat.value ? 'text-brand-500' : 'text-ink-500'" />
             <div class="font-medium">{{ cat.label }}</div>
           </button>
@@ -41,7 +41,7 @@
       <!-- Photo upload -->
       <div>
         <label class="label">Foto biriktirish</label>
-        <div class="border-2 border-dashed border-black/10 dark:border-white/10 rounded-2xl p-6 text-center cursor-pointer hover:border-brand-500/30 transition-all"
+        <div class="border-2 border-dashed border-black/10  rounded-2xl p-6 text-center cursor-pointer hover:border-brand-500/30 transition-all"
           @click="triggerUpload" @dragover.prevent @drop.prevent="handleDrop">
           <input ref="fileInput" type="file" multiple accept="image/*" class="hidden" @change="handleFileSelect" />
           <Camera :size="24" class="text-ink-500 mx-auto mb-2" />
@@ -49,7 +49,7 @@
           <div class="text-xs text-ink-500 mt-1">JPG, PNG · maks 5 MB</div>
         </div>
         <div v-if="uploadedFiles.length" class="mt-3 flex flex-wrap gap-2">
-          <div v-for="(f, i) in uploadedFiles" :key="i" class="relative w-20 h-20 rounded-xl overflow-hidden bg-black/5 dark:bg-white/5">
+          <div v-for="(f, i) in uploadedFiles" :key="i" class="relative w-20 h-20 rounded-xl overflow-hidden bg-black/5 ">
             <img :src="f.preview" class="w-full h-full object-cover" />
             <button @click="uploadedFiles.splice(i, 1)" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/50 text-white flex items-center justify-center">
               <X :size="12" />
@@ -64,7 +64,7 @@
         <div class="grid grid-cols-4 gap-2">
           <button v-for="p in priorities" :key="p.value" @click="form.priority = p.value"
             class="p-3 rounded-xl border-2 transition-all text-sm text-center"
-            :class="form.priority === p.value ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 dark:border-white/5'">
+            :class="form.priority === p.value ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 '">
             <div class="w-3 h-3 rounded-full mx-auto mb-1" :class="p.dot"></div>
             <div class="text-xs font-medium">{{ p.label }}</div>
           </button>

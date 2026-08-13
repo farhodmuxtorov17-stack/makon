@@ -498,15 +498,15 @@
             <div class="footer__col">
               <div class="footer__col-title">Platforma</div>
               <NuxtLink to="/catalog">Katalog</NuxtLink>
-              <NuxtLink to="/catalog">Binolar</NuxtLink>
+              <a href="#buildings">Binolar</a>
               <a href="#how">Jarayon</a>
               <a href="#features">Imkoniyatlar</a>
             </div>
             <div class="footer__col">
               <div class="footer__col-title">Tizim</div>
+              <NuxtLink to="/login">Tizimga kirish</NuxtLink>
               <NuxtLink to="/register">Ro'yxatdan o'tish</NuxtLink>
-              <NuxtLink to="/register">Ro'yxatdan o'tish</NuxtLink>
-              <NuxtLink to="/dashboard/executive">Dashboard</NuxtLink>
+              <NuxtLink to="/catalog">Katalog</NuxtLink>
             </div>
             <div class="footer__col">
               <div class="footer__col-title">Aloqa</div>
@@ -577,6 +577,10 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* Reveal Animation */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
 /* ═══ BASE ═══ */
 .landing {
   scroll-behavior: smooth;

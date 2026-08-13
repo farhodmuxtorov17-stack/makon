@@ -2,12 +2,12 @@
   <div class="relative">
     <button
       @click="open = !open"
-      class="flex items-center gap-2 px-3 py-2 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-all text-sm"
+      class="flex items-center gap-2 px-3 py-2 rounded-xl bg-black/5  hover:bg-black/10  transition-all text-sm"
     >
       <div class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold" :class="currentRole.color">
         {{ currentRole.short }}
       </div>
-      <span class="font-medium text-ink-900 dark:text-white">{{ currentRole.label }}</span>
+      <span class="font-medium text-ink-900 ">{{ currentRole.label }}</span>
       <ChevronDown :size="14" class="text-ink-500 transition-transform" :class="{ 'rotate-180': open }" />
     </button>
 
@@ -18,14 +18,14 @@
           v-for="role in roles"
           :key="role.value"
           @click="selectRole(role)"
-          class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all text-left"
+          class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-black/5  transition-all text-left"
           :class="{ 'bg-brand-500/10': currentRoleValue === role.value }"
         >
           <div class="w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" :class="role.color">
             {{ role.short }}
           </div>
           <div class="flex-1 min-w-0">
-            <div class="text-sm font-medium text-ink-900 dark:text-white">{{ role.label }}</div>
+            <div class="text-sm font-medium text-ink-900 ">{{ role.label }}</div>
             <div class="text-xs text-ink-500 truncate">{{ role.desc }}</div>
           </div>
           <Check v-if="currentRoleValue === role.value" :size="16" class="text-brand-500 flex-shrink-0" />

@@ -42,10 +42,10 @@
     </div>
 
     <!-- Filter -->
-    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5 w-fit">
+    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5  w-fit">
       <button v-for="tab in tabs" :key="tab.value" @click="statusFilter = tab.value"
         class="px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-all font-medium"
-        :class="statusFilter === tab.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+        :class="statusFilter === tab.value ? 'bg-white  text-ink-900  shadow-sm' : 'text-ink-500'">
         {{ tab.label }}
         <span v-if="tab.count > 0" class="ml-1 text-xs opacity-60">{{ tab.count }}</span>
       </button>

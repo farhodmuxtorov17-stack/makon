@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
@@ -19,7 +19,7 @@
 
     <!-- New work order form -->
     <div v-if="showNew" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Yangi work order yaratish</h3>
+      <h3 class="font-semibold ">Yangi work order yaratish</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label class="label">Servis so'rovi</label>
@@ -57,42 +57,6 @@
       </div>
     </div>
 
-        <!-- KPI Strip -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 stagger">
-      <div class="dash-kpi dash-kpi--blue">
-        <div class="dash-kpi__glow"></div>
-        <div class="dash-kpi__icon"><Wrench :size="24" :stroke-width="1.8" /></div>
-        <div class="dash-kpi__body">
-          <div class="dash-kpi__value">{{ orders.length }}</div>
-          <div class="dash-kpi__label">Jami work order</div>
-        </div>
-      </div>
-      <div class="dash-kpi dash-kpi--amber">
-        <div class="dash-kpi__glow"></div>
-        <div class="dash-kpi__icon"><Clock :size="24" :stroke-width="1.8" /></div>
-        <div class="dash-kpi__body">
-          <div class="dash-kpi__value">{{ orders.filter(o => o.status === 'IN_PROGRESS').length }}</div>
-          <div class="dash-kpi__label">Ishlanmoqda</div>
-        </div>
-      </div>
-      <div class="dash-kpi dash-kpi--emerald">
-        <div class="dash-kpi__glow"></div>
-        <div class="dash-kpi__icon"><CheckCircle :size="24" :stroke-width="1.8" /></div>
-        <div class="dash-kpi__body">
-          <div class="dash-kpi__value">{{ orders.filter(o => o.status === 'COMPLETED').length }}</div>
-          <div class="dash-kpi__label">Tugatilgan</div>
-        </div>
-      </div>
-      <div class="dash-kpi dash-kpi--rose">
-        <div class="dash-kpi__glow"></div>
-        <div class="dash-kpi__icon"><AlertCircle :size="24" :stroke-width="1.8" /></div>
-        <div class="dash-kpi__body">
-          <div class="dash-kpi__value">{{ orders.filter(o => o.status === 'OVERDUE').length }}</div>
-          <div class="dash-kpi__label">Muddati o'tgan</div>
-        </div>
-      </div>
-    </div>
-
     <!-- Filters -->
     <div v-if="showFilters" class="card p-4 flex flex-wrap gap-3 items-center">
       <select v-model="filters.status" class="input max-w-40">
@@ -123,7 +87,7 @@
     <!-- Category progress rings -->
     <div>
       <div class="flex items-center justify-between mb-3">
-        <h3 class="text-sm font-bold text-ink-900 dark:text-white">Kategoriyalar bo'yicha bajarilish</h3>
+        <h3 class="text-sm font-bold text-ink-900 ">Kategoriyalar bo'yicha bajarilish</h3>
         <span class="text-xs text-ink-400">Joriy oy</span>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -138,7 +102,7 @@
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead class="bg-ink-50 dark:bg-ink-900/50 text-ink-500">
+          <thead class="bg-ink-50  text-ink-500">
             <tr>
               <th class="text-left px-4 py-3 font-medium">Nomer</th>
               <th class="text-left px-4 py-3 font-medium">Kategoriya</th>
@@ -150,8 +114,8 @@
               <th class="text-left px-4 py-3 font-medium">Amal</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-ink-100 dark:divide-ink-800">
-            <tr v-for="order in filteredOrders" :key="order.id" class="hover:bg-ink-50 dark:hover:bg-ink-900/30 cursor-pointer" @click="selectedOrder = order">
+          <tbody class="divide-y divide-ink-100 ">
+            <tr v-for="order in filteredOrders" :key="order.id" class="hover:bg-ink-50  cursor-pointer" @click="selectedOrder = order">
               <td class="px-4 py-3 font-mono text-xs">{{ order.number }}</td>
               <td class="px-4 py-3">{{ order.category }}</td>
               <td class="px-4 py-3">{{ order.buildingName }}</td>
@@ -264,6 +228,9 @@ const serviceRequests = [
 ]
 
 
+const store = useMakonStore()
+const workOrders = computed(() => store.workOrders)
+
 const inProgressCount = computed(() => workOrders.value.filter(o => o.status === 'IN_PROGRESS').length)
 const completedCount = computed(() => workOrders.value.filter(o => o.status === 'COMPLETED' || o.status === 'DONE').length)
 const slaBreachedCount = computed(() => workOrders.value.filter(o => o.slaBreached).length)
@@ -281,9 +248,6 @@ const categoryProgress = computed(() => {
     umumiy: calc('Umumiy toza') || 90,
   }
 })
-const store = useMakonStore()
-const workOrders = computed(() => store.workOrders)
-
 const filteredOrders = computed(() => {
   return workOrders.value.filter(o => {
     if (filters.status && o.status !== filters.status) return false

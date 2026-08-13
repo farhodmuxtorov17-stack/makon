@@ -23,7 +23,7 @@
 
     <!-- New reading form -->
     <div v-if="showNewReading" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Yangi ko'rsatkich kiritish</h3>
+      <h3 class="font-semibold ">Yangi ko'rsatkich kiritish</h3>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
           <label class="label">Hisoblagich</label>
@@ -111,7 +111,7 @@
     <div v-if="tab === 'meters'" class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead class="bg-ink-50 dark:bg-ink-900/50 text-ink-500">
+          <thead class="bg-ink-50  text-ink-500">
             <tr>
               <th class="text-left px-4 py-3 font-medium">Bino</th>
               <th class="text-left px-4 py-3 font-medium">Unit</th>
@@ -125,8 +125,8 @@
               <th class="text-left px-4 py-3 font-medium">Oxirgi o'qish</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-ink-100 dark:divide-ink-800">
-            <tr v-for="m in meters" :key="m.id" class="hover:bg-ink-50 dark:hover:bg-ink-900/30">
+          <tbody class="divide-y divide-ink-100 ">
+            <tr v-for="m in meters" :key="m.id" class="hover:bg-ink-50 ">
               <td class="px-4 py-3">{{ m.buildingName }}</td>
               <td class="px-4 py-3 font-mono text-xs">{{ m.unitCode }}</td>
               <td class="px-4 py-3">
@@ -149,7 +149,7 @@
     <div v-if="tab === 'readings'" class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead class="bg-ink-50 dark:bg-ink-900/50 text-ink-500">
+          <thead class="bg-ink-50  text-ink-500">
             <tr>
               <th class="text-left px-4 py-3 font-medium">Sana</th>
               <th class="text-left px-4 py-3 font-medium">Hisoblagich</th>
@@ -161,8 +161,8 @@
               <th class="text-left px-4 py-3 font-medium">Izoh</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-ink-100 dark:divide-ink-800">
-            <tr v-for="r in readings" :key="r.id" class="hover:bg-ink-50 dark:hover:bg-ink-900/30">
+          <tbody class="divide-y divide-ink-100 ">
+            <tr v-for="r in readings" :key="r.id" class="hover:bg-ink-50 ">
               <td class="px-4 py-3 text-ink-500">{{ r.date }}</td>
               <td class="px-4 py-3 font-mono text-xs">{{ r.serialNumber }}</td>
               <td class="px-4 py-3 font-mono text-xs">{{ r.unitCode }}</td>

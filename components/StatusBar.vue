@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<{
   batteryLevel?: number
 }>(), {
   device: 'phone',
-  dark: false,
+   false,
   time: '9:41',
   batteryLevel: 87,
 })

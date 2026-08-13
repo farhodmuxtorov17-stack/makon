@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
@@ -14,7 +14,7 @@
 
     <!-- New request form -->
     <div v-if="showNew" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Yangi material so'rovi</h3>
+      <h3 class="font-semibold ">Yangi material so'rovi</h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label class="label">Work order</label>
@@ -41,30 +41,30 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger stagger">
       <div class="dash-kpi dash-kpi--blue">
-        <div class="kpi-strip__icon"><Package :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><Package :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ requests.length }}</div>
           <div class="dash-kpi__label">Jami so'rov</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ requests.filter(r => r.status === 'APPROVED').length }}</div>
           <div class="dash-kpi__label">Tasdiqlangan</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--amber">
-        <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ requests.filter(r => r.status === 'PENDING').length }}</div>
           <div class="dash-kpi__label">Kutilmoqda</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--rose">
-        <div class="kpi-strip__icon"><AlertCircle :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ requests.filter(r => r.status === 'REJECTED').length }}</div>
           <div class="dash-kpi__label">Rad etilgan</div>

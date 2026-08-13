@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-6 animate-fade-up">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
@@ -13,7 +13,7 @@
     </div>
 
     <!-- Premium Stats -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 stagger">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 stagger stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
@@ -79,11 +79,11 @@
         </select>
       </div>
 
-      <div class="flex items-center p-1 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5">
-        <button @click="viewMode = 'card'" class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all" :class="viewMode === 'card' ? 'bg-white dark:bg-ink-800 text-brand-500 shadow-sm' : 'text-ink-500 hover:text-ink-900 dark:hover:text-white'">
+      <div class="flex items-center p-1 rounded-xl bg-black/5  border border-black/5 ">
+        <button @click="viewMode = 'card'" class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all" :class="viewMode === 'card' ? 'bg-white  text-brand-500 shadow-sm' : 'text-ink-500 hover:text-ink-900 '">
           <LayoutGrid :size="16" /> Card
         </button>
-        <button @click="viewMode = 'table'" class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all" :class="viewMode === 'table' ? 'bg-white dark:bg-ink-800 text-brand-500 shadow-sm' : 'text-ink-500 hover:text-ink-900 dark:hover:text-white'">
+        <button @click="viewMode = 'table'" class="p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all" :class="viewMode === 'table' ? 'bg-white  text-brand-500 shadow-sm' : 'text-ink-500 hover:text-ink-900 '">
           <List :size="16" /> Jadval
         </button>
       </div>
@@ -106,27 +106,27 @@
         </div>
         <div class="p-5 space-y-4">
           <div>
-            <div class="font-bold text-lg text-ink-900 dark:text-white line-clamp-1">{{ b.name }}</div>
+            <div class="font-bold text-lg text-ink-900  line-clamp-1">{{ b.name }}</div>
             <p class="text-xs text-ink-500 flex items-center gap-1.5 mt-1">
               <MapPin :size="13" class="text-brand-500 flex-shrink-0" /> {{ b.address }}, {{ b.district }}
             </p>
           </div>
-          <div class="grid grid-cols-4 gap-2 py-2 px-3 rounded-xl bg-black/5 dark:bg-white/5 text-xs text-center">
-            <div><div class="text-ink-500 text-[10px] uppercase">Qavat</div><div class="font-bold text-ink-900 dark:text-white">{{ b.floorsCount }}</div></div>
-            <div><div class="text-ink-500 text-[10px] uppercase">Unit</div><div class="font-bold text-ink-900 dark:text-white">{{ b.totalUnits }}</div></div>
+          <div class="grid grid-cols-4 gap-2 py-2 px-3 rounded-xl bg-black/5  text-xs text-center">
+            <div><div class="text-ink-500 text-[10px] uppercase">Qavat</div><div class="font-bold text-ink-900 ">{{ b.floorsCount }}</div></div>
+            <div><div class="text-ink-500 text-[10px] uppercase">Unit</div><div class="font-bold text-ink-900 ">{{ b.totalUnits }}</div></div>
             <div><div class="text-ink-500 text-[10px] uppercase">Band</div><div class="font-bold text-emerald-500">{{ b.occupiedUnits }}</div></div>
-            <div><div class="text-ink-500 text-[10px] uppercase">Maydon</div><div class="font-bold text-ink-900 dark:text-white">{{ (b.totalArea / 1000).toFixed(1) }}k m²</div></div>
+            <div><div class="text-ink-500 text-[10px] uppercase">Maydon</div><div class="font-bold text-ink-900 ">{{ (b.totalArea / 1000).toFixed(1) }}k m²</div></div>
           </div>
           <div>
             <div class="flex justify-between items-center text-xs mb-1">
               <span class="text-ink-500">Bandlik ko'rsatkichi</span>
               <span class="font-bold text-brand-500">{{ occupancyPct(b) }}%</span>
             </div>
-            <div class="h-2 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
+            <div class="h-2 rounded-full bg-black/10  overflow-hidden">
               <div class="h-full bg-gradient-to-r from-brand-500 to-brand-600 rounded-full transition-all duration-500" :style="{ width: occupancyPct(b) + '%' }"></div>
             </div>
           </div>
-          <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs">
+          <div class="flex items-center justify-between pt-2 border-t border-black/5  text-xs">
             <div class="flex items-center gap-2">
               <span v-if="b.has3dModel" class="badge badge-neutral text-[10px]"><Box :size="10" class="mr-1 inline" /> 3D</span>
               <span v-if="b.has2dPlan" class="badge badge-neutral text-[10px]"><Layers :size="10" class="mr-1 inline" /> 2D</span>
@@ -143,7 +143,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-wider text-left bg-black/5 dark:bg-white/5">
+            <tr class="border-b border-black/5  text-ink-500 text-xs uppercase tracking-wider text-left bg-black/5 ">
               <th class="px-4 py-3">Bino</th>
               <th class="px-4 py-3">Turi</th>
               <th class="px-4 py-3">Tuman</th>
@@ -154,7 +154,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="b in filteredBuildings" :key="b.id" class="border-b border-black/5 dark:border-white/5 hover:bg-brand-500/5 transition-colors cursor-pointer" @click="openBuilding(b)">
+            <tr v-for="b in filteredBuildings" :key="b.id" class="border-b border-black/5  hover:bg-brand-500/5 transition-colors cursor-pointer" @click="openBuilding(b)">
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-lg bg-ink-800 overflow-hidden flex-shrink-0">
@@ -162,7 +162,7 @@
                     <div v-else class="w-full h-full flex items-center justify-center text-ink-500"><Building2 :size="18" /></div>
                   </div>
                   <div>
-                    <div class="font-medium text-ink-900 dark:text-white">{{ b.name }}</div>
+                    <div class="font-medium text-ink-900 ">{{ b.name }}</div>
                     <div class="text-xs text-ink-500">{{ b.address }}</div>
                   </div>
                 </div>
@@ -173,7 +173,7 @@
               <td class="px-4 py-3 text-center">
                 <div class="flex items-center justify-center gap-2">
                   <span class="font-bold text-xs">{{ occupancyPct(b) }}%</span>
-                  <div class="w-16 h-1.5 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
+                  <div class="w-16 h-1.5 rounded-full bg-black/10  overflow-hidden">
                     <div class="h-full bg-brand-500" :style="{ width: occupancyPct(b) + '%' }"></div>
                   </div>
                 </div>
@@ -201,12 +201,12 @@
     <DrawerModal :open="showCreateModal" title="Yangi bino qo'shish" width="480px" @close="showCreateModal = false">
       <div class="space-y-4">
         <div>
-          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Bino nomi</label>
+          <label class="text-sm font-medium text-ink-700  mb-1.5 block">Bino nomi</label>
           <input v-model="newBuilding.name" type="text" class="input w-full" placeholder="Masalan: Tashkent City" />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Turi</label>
+            <label class="text-sm font-medium text-ink-700  mb-1.5 block">Turi</label>
             <select v-model="newBuilding.type" class="input w-full">
               <option value="BUSINESS_CENTER">Biznes markaz</option>
               <option value="OFFICE">Ofis binosi</option>
@@ -216,32 +216,32 @@
             </select>
           </div>
           <div>
-            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Tuman</label>
+            <label class="text-sm font-medium text-ink-700  mb-1.5 block">Tuman</label>
             <select v-model="newBuilding.district" class="input w-full">
               <option v-for="d in districts" :key="d" :value="d">{{ d }}</option>
             </select>
           </div>
         </div>
         <div>
-          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Manzil</label>
+          <label class="text-sm font-medium text-ink-700  mb-1.5 block">Manzil</label>
           <input v-model="newBuilding.address" type="text" class="input w-full" placeholder="Masalan: Mirzo Ulug'bek tumani" />
         </div>
         <div class="grid grid-cols-3 gap-3">
           <div>
-            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Qavatlar</label>
+            <label class="text-sm font-medium text-ink-700  mb-1.5 block">Qavatlar</label>
             <input v-model.number="newBuilding.floorsCount" type="number" class="input w-full" placeholder="12" />
           </div>
           <div>
-            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Unitlar</label>
+            <label class="text-sm font-medium text-ink-700  mb-1.5 block">Unitlar</label>
             <input v-model.number="newBuilding.totalUnits" type="number" class="input w-full" placeholder="420" />
           </div>
           <div>
-            <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Maydon (m²)</label>
+            <label class="text-sm font-medium text-ink-700  mb-1.5 block">Maydon (m²)</label>
             <input v-model.number="newBuilding.totalArea" type="number" class="input w-full" placeholder="45000" />
           </div>
         </div>
         <div>
-          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Rasm URL</label>
+          <label class="text-sm font-medium text-ink-700  mb-1.5 block">Rasm URL</label>
           <input v-model="newBuilding.gallery" type="text" class="input w-full" placeholder="https://..." />
         </div>
       </div>
@@ -268,17 +268,17 @@
         </div>
         <div>
           <div class="text-xs text-ink-500 mb-1">Manzil</div>
-          <div class="text-sm font-medium text-ink-900 dark:text-white flex items-center gap-1.5">
+          <div class="text-sm font-medium text-ink-900  flex items-center gap-1.5">
             <MapPin :size="14" class="text-brand-500" /> {{ selectedBuilding.address }}, {{ selectedBuilding.district }}
           </div>
         </div>
         <div class="grid grid-cols-4 gap-3">
-          <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 text-center">
-            <div class="text-lg font-bold text-ink-900 dark:text-white">{{ selectedBuilding.floorsCount }}</div>
+          <div class="p-3 rounded-xl bg-black/5  text-center">
+            <div class="text-lg font-bold text-ink-900 ">{{ selectedBuilding.floorsCount }}</div>
             <div class="text-[10px] text-ink-500 uppercase">Qavat</div>
           </div>
-          <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 text-center">
-            <div class="text-lg font-bold text-ink-900 dark:text-white">{{ selectedBuilding.totalUnits }}</div>
+          <div class="p-3 rounded-xl bg-black/5  text-center">
+            <div class="text-lg font-bold text-ink-900 ">{{ selectedBuilding.totalUnits }}</div>
             <div class="text-[10px] text-ink-500 uppercase">Unit</div>
           </div>
           <div class="p-3 rounded-xl bg-emerald-500/5 text-center">
@@ -295,18 +295,18 @@
             <span class="text-ink-500">Bandlik</span>
             <span class="font-bold text-brand-500">{{ occupancyPct(selectedBuilding) }}%</span>
           </div>
-          <div class="h-2.5 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden">
+          <div class="h-2.5 rounded-full bg-black/10  overflow-hidden">
             <div class="h-full bg-gradient-to-r from-brand-500 to-brand-600 rounded-full" :style="{ width: occupancyPct(selectedBuilding) + '%' }"></div>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
-          <div class="p-3 rounded-xl border border-black/5 dark:border-white/5">
+          <div class="p-3 rounded-xl border border-black/5 ">
             <div class="text-xs text-ink-500">Maydon</div>
-            <div class="text-sm font-bold text-ink-900 dark:text-white">{{ selectedBuilding.totalArea.toLocaleString() }} m²</div>
+            <div class="text-sm font-bold text-ink-900 ">{{ selectedBuilding.totalArea.toLocaleString() }} m²</div>
           </div>
-          <div class="p-3 rounded-xl border border-black/5 dark:border-white/5">
+          <div class="p-3 rounded-xl border border-black/5 ">
             <div class="text-xs text-ink-500">Boshqaruvchi</div>
-            <div class="text-sm font-bold text-ink-900 dark:text-white">{{ selectedBuilding.managedBy || 'Tayinlanmagan' }}</div>
+            <div class="text-sm font-bold text-ink-900 ">{{ selectedBuilding.managedBy || 'Tayinlanmagan' }}</div>
           </div>
         </div>
       </div>

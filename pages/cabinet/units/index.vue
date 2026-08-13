@@ -55,7 +55,7 @@
         <div class="unit-detail-card__body">
           <div class="flex items-start justify-between mb-2">
             <div>
-              <div class="font-semibold text-ink-900 dark:text-white">{{ unit.name }}</div>
+              <div class="font-semibold text-ink-900 ">{{ unit.name }}</div>
               <div class="text-xs text-ink-500">{{ unit.building }} · {{ unit.floor }}-qavat</div>
             </div>
             <span class="badge text-[10px]" :class="unit.statusBadge">{{ unit.statusLabel }}</span>
@@ -63,16 +63,16 @@
 
           <!-- Specs -->
           <div class="grid grid-cols-3 gap-2 my-4">
-            <div class="text-center p-2 rounded-lg bg-black/5 dark:bg-white/5">
-              <div class="text-sm font-bold text-ink-900 dark:text-white">{{ unit.area }}</div>
+            <div class="text-center p-2 rounded-lg bg-black/5 ">
+              <div class="text-sm font-bold text-ink-900 ">{{ unit.area }}</div>
               <div class="text-[10px] text-ink-500">m²</div>
             </div>
-            <div class="text-center p-2 rounded-lg bg-black/5 dark:bg-white/5">
-              <div class="text-sm font-bold text-ink-900 dark:text-white">{{ unit.rooms }}</div>
+            <div class="text-center p-2 rounded-lg bg-black/5 ">
+              <div class="text-sm font-bold text-ink-900 ">{{ unit.rooms }}</div>
               <div class="text-[10px] text-ink-500">xona</div>
             </div>
-            <div class="text-center p-2 rounded-lg bg-black/5 dark:bg-white/5">
-              <div class="text-sm font-bold text-ink-900 dark:text-white">{{ unit.rent || '—' }}</div>
+            <div class="text-center p-2 rounded-lg bg-black/5 ">
+              <div class="text-sm font-bold text-ink-900 ">{{ unit.rent || '—' }}</div>
               <div class="text-[10px] text-ink-500">UZS/oy</div>
             </div>
           </div>
@@ -81,11 +81,11 @@
           <div class="space-y-1.5 text-xs mb-4">
             <div class="flex items-center justify-between">
               <span class="text-ink-500">Shartnoma:</span>
-              <span class="font-mono font-medium text-ink-900 dark:text-white">{{ unit.contractNumber || '—' }}</span>
+              <span class="font-mono font-medium text-ink-900 ">{{ unit.contractNumber || '—' }}</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-ink-500">Muddat:</span>
-              <span class="font-medium text-ink-900 dark:text-white">{{ unit.contractEnd || '—' }}</span>
+              <span class="font-medium text-ink-900 ">{{ unit.contractEnd || '—' }}</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-ink-500">Qarzdorlik:</span>

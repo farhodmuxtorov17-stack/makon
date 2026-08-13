@@ -67,9 +67,15 @@ input:focus, select:focus, textarea:focus { outline: none; }
 
 /* ═══ SIDEBAR ═══ */
 .admin-sidebar-premium {
-  background: linear-gradient(180deg, #0B1228 0%, #0E1B33 50%, #0B1228 100%);
-  border-right: 1px solid rgba(255,255,255,0.04);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+  border-right: 1px solid rgba(15, 23, 42, 0.06);
+  position: relative;
 }
+.admin-sidebar-premium::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 100% 40% at 50% 0%, rgba(37,99,235,0.04) 0%, transparent 60%);
+}
+.admin-sidebar-premium > * { position: relative; z-index: 1; }
 
 /* ═══ ADMIN BG ═══ */
 .admin-bg { background: var(--aurora-bg); }

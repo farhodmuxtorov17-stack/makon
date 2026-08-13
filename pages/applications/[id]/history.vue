@@ -18,7 +18,7 @@
       <!-- Left 2 Cols: Vertical Timeline -->
       <div class="lg:col-span-2 space-y-6">
         <div class="card p-5 space-y-6">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white flex items-center gap-2 pb-3 border-b border-black/5 dark:border-white/5">
+          <h3 class="font-bold text-base text-ink-900  flex items-center gap-2 pb-3 border-b border-black/5 ">
             <History :size="18" class="text-brand-500" /> Barcha O'zgarishlar va Bosqichlar (Timeline)
           </h3>
 
@@ -26,25 +26,25 @@
             <div v-for="(event, idx) in timelineEvents" :key="idx" class="relative group">
               <!-- Timeline Dot -->
               <span
-                class="absolute -left-[31px] top-0 w-4 h-4 rounded-full border-2 border-white dark:border-ink-900 flex items-center justify-center text-[10px]"
+                class="absolute -left-[31px] top-0 w-4 h-4 rounded-full border-2 border-white  flex items-center justify-center text-[10px]"
                 :class="event.dotClass"
               ></span>
 
               <div class="space-y-1">
                 <div class="flex items-center justify-between">
-                  <span class="font-bold text-sm text-ink-900 dark:text-white">{{ event.title }}</span>
+                  <span class="font-bold text-sm text-ink-900 ">{{ event.title }}</span>
                   <span class="text-[11px] font-mono text-ink-500">{{ event.timestamp }}</span>
                 </div>
 
                 <div class="text-xs text-ink-500 flex items-center gap-2">
-                  <span class="font-medium text-ink-700 dark:text-ink-300">{{ event.actor }}</span>
+                  <span class="font-medium text-ink-700 ">{{ event.actor }}</span>
                   <span>·</span>
                   <span>{{ event.role }}</span>
                 </div>
 
                 <!-- Reviewer Notes / Comments -->
-                <div v-if="event.comment" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 text-xs text-ink-700 dark:text-ink-300 mt-2 border border-black/5 dark:border-white/5">
-                  <span class="font-semibold text-ink-900 dark:text-white block mb-0.5">Menejer Izohi:</span>
+                <div v-if="event.comment" class="p-3 rounded-xl bg-black/5  text-xs text-ink-700  mt-2 border border-black/5 ">
+                  <span class="font-semibold text-ink-900  block mb-0.5">Menejer Izohi:</span>
                   "{{ event.comment }}"
                 </div>
 
@@ -68,12 +68,12 @@
       <!-- Right Col: Technical Audit Trace -->
       <div class="space-y-6">
         <div class="card p-5 space-y-4">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white flex items-center gap-2">
+          <h3 class="font-bold text-base text-ink-900  flex items-center gap-2">
             <ShieldCheck :size="18" class="text-emerald-500" /> Texnik Audit Izlari (IP Trace)
           </h3>
 
           <div class="space-y-3">
-            <div v-for="(log, idx) in auditTrace" :key="idx" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-1 text-xs">
+            <div v-for="(log, idx) in auditTrace" :key="idx" class="p-3 rounded-xl bg-black/5  space-y-1 text-xs">
               <div class="flex items-center justify-between font-mono text-[11px]">
                 <span class="text-brand-500 font-bold">{{ log.action }}</span>
                 <span class="text-ink-500">{{ log.time }}</span>

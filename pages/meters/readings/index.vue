@@ -21,9 +21,9 @@
     <div class="flex flex-wrap items-center gap-2">
       <div class="relative flex-1 min-w-[200px]">
         <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-        <input v-model="search" type="text" placeholder="Unit, bino yoki hisoblagich..." class="w-full text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+        <input v-model="search" type="text" placeholder="Unit, bino yoki hisoblagich..." class="w-full text-sm border border-black/10  rounded-xl pl-9 pr-3 py-2 bg-white  text-ink-700 " />
       </div>
-      <select v-model="typeFilter" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
+      <select v-model="typeFilter" class="text-sm border border-black/10  rounded-xl px-3 py-2 bg-white  text-ink-700 ">
         <option value="">Barcha turlari</option>
         <option value="ELECTRIC">Elektr</option>
         <option value="WATER">Suv</option>
@@ -35,7 +35,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+            <tr class="border-b border-black/5  text-ink-500 text-xs uppercase tracking-widest">
               <th class="text-left font-medium px-4 py-3">Hisoblagich</th>
               <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Unit</th>
               <th class="text-center font-medium px-4 py-3">Tur</th>
@@ -47,14 +47,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="r in filteredReadings" :key="r.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer" @click="navigateTo('/meters/readings')">
-              <td class="px-4 py-3 font-mono text-xs text-ink-900 dark:text-white">{{ r.meterNumber }}</td>
+            <tr v-for="r in filteredReadings" :key="r.id" class="border-b border-black/5  hover:bg-black/5  transition-colors cursor-pointer" @click="navigateTo('/meters/readings')">
+              <td class="px-4 py-3 font-mono text-xs text-ink-900 ">{{ r.meterNumber }}</td>
               <td class="px-4 py-3 hidden sm:table-cell text-ink-500">{{ r.unit }} · {{ r.building }}</td>
               <td class="px-4 py-3 text-center">
                 <component :is="typeIcon(r.type)" :size="16" :class="typeColor(r.type)" />
               </td>
               <td class="px-4 py-3 text-right hidden md:table-cell text-ink-500 font-mono">{{ r.previous }}</td>
-              <td class="px-4 py-3 text-right font-mono font-medium text-ink-900 dark:text-white">{{ r.current }}</td>
+              <td class="px-4 py-3 text-right font-mono font-medium text-ink-900 ">{{ r.current }}</td>
               <td class="px-4 py-3 text-right hidden lg:table-cell font-mono text-brand-500">{{ r.consumption }}</td>
               <td class="px-4 py-3 text-center hidden md:table-cell text-xs text-ink-500">{{ r.date }}</td>
               <td class="px-4 py-3 text-center">

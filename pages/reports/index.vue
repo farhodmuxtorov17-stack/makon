@@ -91,8 +91,8 @@
         </div>
         <div class="space-y-3 pt-2">
           <div v-for="b in buildingOccupancy" :key="b.name" class="flex items-center gap-3">
-            <div class="text-xs font-medium text-ink-600 dark:text-ink-300 w-28 truncate">{{ b.name }}</div>
-            <div class="flex-1 h-6 rounded-full bg-ink-100 dark:bg-white/5 overflow-hidden">
+            <div class="text-xs font-medium text-ink-600  w-28 truncate">{{ b.name }}</div>
+            <div class="flex-1 h-6 rounded-full bg-ink-100  overflow-hidden">
               <div
                 class="h-full rounded-full transition-all duration-700"
                 :class="b.pct > 85 ? 'bg-gradient-to-r from-emerald-400 to-emerald-500' : b.pct > 60 ? 'bg-gradient-to-r from-amber-400 to-amber-500' : 'bg-gradient-to-r from-red-400 to-red-500'"
@@ -116,9 +116,9 @@
           <div v-for="s in appStatusData" :key="s.label" class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full" :class="s.color"></span>
-              <span class="text-sm text-ink-600 dark:text-ink-300">{{ s.label }}</span>
+              <span class="text-sm text-ink-600 ">{{ s.label }}</span>
             </div>
-            <span class="text-sm font-bold tabular-nums text-ink-900 dark:text-white">{{ s.count }}</span>
+            <span class="text-sm font-bold tabular-nums text-ink-900 ">{{ s.count }}</span>
           </div>
         </div>
       </div>
@@ -132,9 +132,9 @@
           <div v-for="s in contractStatusData" :key="s.label" class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full" :class="s.color"></span>
-              <span class="text-sm text-ink-600 dark:text-ink-300">{{ s.label }}</span>
+              <span class="text-sm text-ink-600 ">{{ s.label }}</span>
             </div>
-            <span class="text-sm font-bold tabular-nums text-ink-900 dark:text-white">{{ s.count }}</span>
+            <span class="text-sm font-bold tabular-nums text-ink-900 ">{{ s.count }}</span>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@
           <div v-for="(b, i) in topBuildings" :key="b.name" class="flex items-center gap-3">
             <div class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold" :class="i === 0 ? 'bg-amber-500/15 text-amber-500' : i === 1 ? 'bg-slate-400/15 text-slate-400' : i === 2 ? 'bg-orange-700/15 text-orange-700' : 'bg-ink-100 text-ink-400'">{{ i + 1 }}</div>
             <div class="flex-1 min-w-0">
-              <div class="text-sm font-medium text-ink-900 dark:text-white truncate">{{ b.name }}</div>
+              <div class="text-sm font-medium text-ink-900  truncate">{{ b.name }}</div>
               <div class="text-xs text-ink-400">{{ b.units }} unit · {{ b.occ }}% band</div>
             </div>
           </div>

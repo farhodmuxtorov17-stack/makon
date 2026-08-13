@@ -53,7 +53,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+            <tr class="border-b border-black/5  text-ink-500 text-xs uppercase tracking-widest">
               <th class="text-left font-medium px-4 py-3">Nusxa</th>
               <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Tur</th>
               <th class="text-right font-medium px-4 py-3 hidden md:table-cell">Hajm</th>
@@ -63,8 +63,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="b in backups" :key="b.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-              <td class="px-4 py-3 font-mono text-xs text-ink-900 dark:text-white">{{ b.name }}</td>
+            <tr v-for="b in backups" :key="b.id" class="border-b border-black/5  hover:bg-black/5  transition-colors">
+              <td class="px-4 py-3 font-mono text-xs text-ink-900 ">{{ b.name }}</td>
               <td class="px-4 py-3 hidden sm:table-cell">
                 <span class="badge text-[10px]" :class="b.type === 'AUTO' ? 'badge-brand' : 'badge-neutral'">{{ b.type === 'AUTO' ? 'Avtomatik' : 'Qo\'lda' }}</span>
               </td>

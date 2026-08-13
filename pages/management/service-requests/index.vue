@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-6 animate-fade-up">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
@@ -23,7 +23,7 @@
     </div>
 
     <!-- KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Wrench :size="22" :stroke-width="1.8" /></div>
@@ -61,13 +61,13 @@
 
     <!-- Kanban -->
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 overflow-x-auto pb-4">
-      <div v-for="col in kanbanColumns" :key="col.status" class="bg-black/5 dark:bg-white/5 p-3 rounded-2xl border border-black/5 dark:border-white/5 space-y-3 min-w-[240px]">
+      <div v-for="col in kanbanColumns" :key="col.status" class="bg-black/5  p-3 rounded-2xl border border-black/5  space-y-3 min-w-[240px]">
         <div class="flex items-center justify-between px-1">
-          <span class="text-xs font-bold text-ink-900 dark:text-white flex items-center gap-1.5">
+          <span class="text-xs font-bold text-ink-900  flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full" :class="col.color"></span>
             {{ col.label }}
           </span>
-          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/10 dark:bg-white/10 text-ink-500">
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/10  text-ink-500">
             {{ getColumnRequests(col.status).length }}
           </span>
         </div>
@@ -76,7 +76,7 @@
         <div class="space-y-3">
           <div
             v-for="sr in getColumnRequests(col.status)" :key="sr.id"
-            class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer bg-white dark:bg-ink-900"
+            class="card p-3 space-y-2.5 hover:border-brand-500/50 transition-all cursor-pointer bg-white "
             @click="selectedRequest = sr"
           >
             <!-- Header badges -->
@@ -87,14 +87,14 @@
 
             <!-- Title & Category -->
             <div>
-              <div class="font-bold text-xs text-ink-900 dark:text-white line-clamp-1">{{ sr.title }}</div>
+              <div class="font-bold text-xs text-ink-900  line-clamp-1">{{ sr.title }}</div>
               <div class="text-[11px] text-ink-500 flex items-center justify-between mt-0.5">
                 <span>{{ sr.buildingName }}</span>
-                <span class="font-mono text-ink-900 dark:text-white">Unit {{ sr.unitNumber }}</span>
+                <span class="font-mono text-ink-900 ">Unit {{ sr.unitNumber }}</span>
               </div>
             </div>
 
-            <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-[11px]">
+            <div class="flex items-center justify-between pt-2 border-t border-black/5  text-[11px]">
               <span class="flex items-center gap-1 text-amber-500 font-medium">
                 <Clock :size="12" /> SLA: 2-soat qoldi
               </span>
@@ -102,13 +102,13 @@
             </div>
 
             <!-- Assignee Footer -->
-            <div class="flex items-center justify-between pt-1 border-t border-black/5 dark:border-white/5 text-[10px]">
-              <span class="text-ink-500">Ijrochi: <b class="text-ink-900 dark:text-white">{{ sr.assignedTo || 'Biriktirilmagan' }}</b></span>
+            <div class="flex items-center justify-between pt-1 border-t border-black/5  text-[10px]">
+              <span class="text-ink-500">Ijrochi: <b class="text-ink-900 ">{{ sr.assignedTo || 'Biriktirilmagan' }}</b></span>
               <button @click.stop="openAssignModal(sr)" class="text-brand-500 hover:underline">O'zgartirish</button>
             </div>
           </div>
 
-          <div v-if="getColumnRequests(col.status).length === 0" class="p-6 text-center text-ink-500 text-xs border border-dashed border-black/10 dark:border-white/10 rounded-xl">
+          <div v-if="getColumnRequests(col.status).length === 0" class="p-6 text-center text-ink-500 text-xs border border-dashed border-black/10  rounded-xl">
             So'rovlar yo'q
           </div>
         </div>
@@ -119,10 +119,10 @@
     <Teleport to="body">
       <div v-if="showCreateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showCreateModal = false"></div>
-        <div class="relative w-full max-w-md bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white">Yangi Xizmat So'rovi</h3>
-            <button @click="showCreateModal = false" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="20" /></button>
+        <div class="relative w-full max-w-md bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-black/5 ">
+            <h3 class="text-lg font-bold text-ink-900 ">Yangi Xizmat So'rovi</h3>
+            <button @click="showCreateModal = false" class="p-1 rounded-lg hover:bg-black/5  text-ink-400"><X :size="20" /></button>
           </div>
 
           <form @submit.prevent="handleCreateRequest" class="space-y-3">
@@ -181,7 +181,7 @@
               <textarea v-model="newSr.description" rows="2" placeholder="Xatolik tafsilotlari..." class="input w-full text-xs"></textarea>
             </div>
 
-            <div class="flex items-center justify-end gap-3 pt-3 border-t border-black/5 dark:border-white/5">
+            <div class="flex items-center justify-end gap-3 pt-3 border-t border-black/5 ">
               <button type="button" @click="showCreateModal = false" class="btn btn-secondary">Bekor qilish</button>
               <button type="submit" class="btn btn-primary">So'rovni yaratish</button>
             </div>
@@ -194,8 +194,8 @@
     <Teleport to="body">
       <div v-if="assigningRequest" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="assigningRequest = null"></div>
-        <div class="relative w-full max-w-sm bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <h3 class="text-lg font-bold text-ink-900 dark:text-white">Facility Xodimini Biriktirish</h3>
+        <div class="relative w-full max-w-sm bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4">
+          <h3 class="text-lg font-bold text-ink-900 ">Facility Xodimini Biriktirish</h3>
           <div>
             <label class="label">Xodim / Pudratchi</label>
             <select v-model="assignedWorker" class="input w-full">

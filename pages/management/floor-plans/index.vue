@@ -46,18 +46,18 @@
     <div class="flex items-center gap-2">
       <div v-for="(step, i) in steps" :key="i" class="flex items-center gap-2 flex-1">
         <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all"
-          :class="currentStep >= i ? 'bg-brand-500 text-white' : 'bg-black/5 dark:bg-white/5 text-ink-500'">
+          :class="currentStep >= i ? 'bg-brand-500 text-white' : 'bg-black/5  text-ink-500'">
           {{ i + 1 }}
         </div>
-        <span class="text-xs hidden md:block" :class="currentStep >= i ? 'text-ink-900 dark:text-white' : 'text-ink-500'">{{ step }}</span>
-        <div v-if="i < steps.length - 1" class="flex-1 h-px mx-1" :class="currentStep > i ? 'bg-brand-500' : 'bg-black/10 dark:bg-white/10'"></div>
+        <span class="text-xs hidden md:block" :class="currentStep >= i ? 'text-ink-900 ' : 'text-ink-500'">{{ step }}</span>
+        <div v-if="i < steps.length - 1" class="flex-1 h-px mx-1" :class="currentStep > i ? 'bg-brand-500' : 'bg-black/10 '"></div>
       </div>
     </div>
 
     <!-- Step 1: Upload -->
     <div v-if="currentStep === 0" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Fayl yuklash</h3>
-      <div class="border-2 border-dashed border-black/10 dark:border-white/10 rounded-2xl p-12 text-center cursor-pointer hover:border-brand-500/30 transition-all" @click="fileInput?.click()">
+      <h3 class="font-semibold ">Fayl yuklash</h3>
+      <div class="border-2 border-dashed border-black/10  rounded-2xl p-12 text-center cursor-pointer hover:border-brand-500/30 transition-all" @click="fileInput?.click()">
         <input ref="fileInput" type="file" accept=".dwg,.dxf,.pdf,.png,.jpg" class="hidden" @change="handleFile" />
         <Upload :size="32" class="text-ink-500 mx-auto mb-3" />
         <div class="text-sm font-medium">{{ uploadedFile ? uploadedFile.name : 'DWG / DXF / PDF / PNG faylni yuklang' }}</div>
@@ -75,7 +75,7 @@
 
     <!-- Step 2: Configure floor -->
     <div v-if="currentStep === 1" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Qavat konfiguratsiyasi</h3>
+      <h3 class="font-semibold ">Qavat konfiguratsiyasi</h3>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div>
           <label class="label">Bino</label>
@@ -111,12 +111,12 @@
     <!-- Step 3: Polygon detection -->
     <div v-if="currentStep === 2" class="card p-6 space-y-4">
       <div class="flex items-center justify-between mb-2">
-        <h3 class="font-semibold dark:text-white">Poligonlarni aniqlash va tahrir</h3>
+        <h3 class="font-semibold ">Poligonlarni aniqlash va tahrir</h3>
         <span class="badge badge-success">{{ detectedPolygons.length }} poligon topildi</span>
       </div>
 
       <!-- Canvas preview -->
-      <div class="rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5 p-4" style="height: 400px;">
+      <div class="rounded-2xl overflow-hidden bg-black/5  p-4" style="height: 400px;">
         <svg viewBox="0 0 800 350" class="w-full h-full">
           <rect x="40" y="40" width="720" height="270" fill="none" stroke="rgba(37,99,235,0.2)" stroke-width="1" stroke-dasharray="4 4" />
           <polygon v-for="(poly, i) in detectedPolygons" :key="i"
@@ -136,7 +136,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
+            <tr class="text-left text-xs text-ink-500 border-b border-black/5 ">
               <th class="px-3 py-2">#</th>
               <th class="px-3 py-2">Maydon</th>
               <th class="px-3 py-2">Turi (avtomatik)</th>
@@ -146,7 +146,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(poly, i) in detectedPolygons" :key="i" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3">
+            <tr v-for="(poly, i) in detectedPolygons" :key="i" class="border-b border-black/5  hover:bg-black/3 ">
               <td class="px-3 py-2 font-medium">{{ i + 1 }}</td>
               <td class="px-3 py-2">{{ poly.area }} m²</td>
               <td class="px-3 py-2 text-ink-500">{{ poly.autoType }}</td>
@@ -183,7 +183,7 @@
       <div class="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto">
         <CheckCircle2 :size="32" class="text-emerald-500" />
       </div>
-      <h3 class="text-lg font-semibold dark:text-white">Reja muvaffaqiyatli import qilindi!</h3>
+      <h3 class="text-lg font-semibold ">Reja muvaffaqiyatli import qilindi!</h3>
       <p class="text-sm text-ink-500">{{ assignedCount }} ta unit poligon bilan biriktirildi. Endi 2D rejani ko'rishingiz mumkin.</p>
       <div class="flex justify-center gap-3 pt-2">
         <NuxtLink to="/floors/f3/plan" class="btn btn-primary"><Eye :size="16" /> 2D reja</NuxtLink>

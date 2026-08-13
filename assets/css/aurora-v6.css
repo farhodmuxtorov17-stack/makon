@@ -1,3 +1,4 @@
+html { color-scheme: light !important; } html.dark { color-scheme: light !important; } html.dark, html.dark * { background-image: none !important; }
 /* ═══════════════════════════════════════════════════════════
    AURORA V6 — "2050" FUTURE PREMIUM SYSTEM
    Glassmorphism · Neon Glow · Gradient Mesh · 3D Depth
@@ -626,14 +627,14 @@ tbody tr:last-child td { border-bottom: none; }
 /* ═══════════════════════════════════════════════
    SIDEBAR PREMIUM
    ═══════════════════════════════════════════════ */
-.admin-sidebar-premium {
-  background: linear-gradient(180deg, #0A1124 0%, #0E1B33 50%, #0A1124 100%);
-  border-right: 1px solid rgba(96,165,250,0.08);
+.admin-sidebar-premium { background: #ffffff !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+  border-right: 1px solid rgba(15, 23, 42, 0.06);
   position: relative;
 }
 .admin-sidebar-premium::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 100% 50% at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 60%);
+  background: radial-gradient(ellipse 100% 40% at 50% 0%, rgba(37,99,235,0.04) 0%, transparent 60%);
 }
 .admin-sidebar-premium > * { position: relative; z-index: 1; }
 

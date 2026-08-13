@@ -9,7 +9,7 @@
 
     <!-- Approval flow visualization -->
     <div class="card-premium p-6">
-      <h3 class="font-semibold text-ink-900 dark:text-white mb-5">Tasdiqlash bosqichlari</h3>
+      <h3 class="font-semibold text-ink-900  mb-5">Tasdiqlash bosqichlari</h3>
       <div class="flow">
         <div v-for="(step, i) in approvalSteps" :key="i" class="flow__node" :class="{ 'flow__node--done': i < currentStepIndex, 'flow__node--active': i === currentStepIndex }">
           <div class="flow__icon">
@@ -61,7 +61,7 @@
 
     <!-- Pending approvals -->
     <div>
-      <h3 class="font-semibold mb-3 text-ink-900 dark:text-white">Tasdiqlash kutilmoqda</h3>
+      <h3 class="font-semibold mb-3 text-ink-900 ">Tasdiqlash kutilmoqda</h3>
       <div class="space-y-3">
         <div v-for="a in pendingApprovals" :key="a.id" class="approval-card">
           <div class="approval-card__icon" :class="stepBg(a.currentStep)">
@@ -69,13 +69,13 @@
           </div>
           <div class="approval-card__body">
             <div class="flex items-center gap-2 flex-wrap">
-              <span class="font-semibold text-ink-900 dark:text-white">{{ a.title }}</span>
+              <span class="font-semibold text-ink-900 ">{{ a.title }}</span>
               <span class="badge badge-sm" :class="stepBadge(a.currentStep)">{{ stepLabel(a.currentStep) }}</span>
             </div>
             <div class="text-xs text-ink-500 mt-1">{{ a.submitter }} · {{ a.date }} · {{ a.contract }}</div>
           </div>
           <div class="approval-card__amount">
-            <div class="font-bold text-ink-900 dark:text-white">{{ formatUZS(a.amount) }}</div>
+            <div class="font-bold text-ink-900 ">{{ formatUZS(a.amount) }}</div>
             <div class="text-xs text-ink-400">{{ a.type }}</div>
           </div>
           <div class="approval-card__actions">
@@ -96,12 +96,12 @@
 
     <!-- History -->
     <div>
-      <h3 class="font-semibold mb-3 text-ink-900 dark:text-white">Tarix</h3>
+      <h3 class="font-semibold mb-3 text-ink-900 ">Tarix</h3>
       <div class="card overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
             <thead>
-              <tr class="text-left text-xs text-ink-500 uppercase tracking-widest border-b border-black/5 dark:border-white/5">
+              <tr class="text-left text-xs text-ink-500 uppercase tracking-widest border-b border-black/5 ">
                 <th class="px-4 py-3">Hujjat</th>
                 <th class="px-4 py-3 hidden md:table-cell">Yuboruvchi</th>
                 <th class="px-4 py-3 text-right">Summa</th>
@@ -110,8 +110,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="h in history" :key="h.id" class="border-b border-black/5 dark:border-white/5">
-                <td class="px-4 py-3 font-medium text-ink-900 dark:text-white">{{ h.title }}</td>
+              <tr v-for="h in history" :key="h.id" class="border-b border-black/5 ">
+                <td class="px-4 py-3 font-medium text-ink-900 ">{{ h.title }}</td>
                 <td class="px-4 py-3 hidden md:table-cell text-ink-500">{{ h.submitter }}</td>
                 <td class="px-4 py-3 text-right">{{ formatUZS(h.amount) }}</td>
                 <td class="px-4 py-3 hidden md:table-cell text-center text-xs text-ink-400">{{ h.date }}</td>

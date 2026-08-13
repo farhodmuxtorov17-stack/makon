@@ -71,7 +71,7 @@
       <div class="card p-5 lg:col-span-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
           <div>
-            <h3 class="text-sm font-semibold text-ink-900 dark:text-white">Bandlik darajasi</h3>
+            <h3 class="text-sm font-semibold text-ink-900 ">Bandlik darajasi</h3>
             <p class="text-xs text-ink-400 mt-0.5">O'tgan oyga nisbatan +4.2%</p>
           </div>
           <div class="stat-pill stat-pill--success"><TrendingUp :size="14" /><span>{{ occupancyRate }}%</span></div>
@@ -88,7 +88,7 @@
               </defs>
             </svg>
             <div class="absolute inset-0 flex flex-col items-center justify-center">
-              <div class="text-3xl font-extrabold text-ink-900 dark:text-white tabular-nums">{{ occupancyRate }}%</div>
+              <div class="text-3xl font-extrabold text-ink-900  tabular-nums">{{ occupancyRate }}%</div>
               <div class="text-xs text-ink-400 mt-1">to'liq bandlik</div>
             </div>
           </div>
@@ -110,8 +110,8 @@
       </div>
 
       <div class="card overflow-hidden lg:col-span-2 flex flex-col">
-        <div class="px-5 py-4 border-b border-ink-100 dark:border-white/10 flex items-center justify-between">
-          <h3 class="text-sm font-semibold text-ink-900 dark:text-white">Binolar bo'yicha</h3>
+        <div class="px-5 py-4 border-b border-ink-100  flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-ink-900 ">Binolar bo'yicha</h3>
           <NuxtLink to="/management/buildings" class="text-xs text-brand-500 hover:underline font-medium">Barchasi →</NuxtLink>
         </div>
         <table class="data-table flex-1">
@@ -122,12 +122,12 @@
           </thead>
           <tbody>
             <tr v-for="building in store.buildings" :key="building.id" class="cursor-pointer" @click="navigateTo(`/management/buildings/${building.id}`)">
-              <td class="font-medium text-ink-900 dark:text-white">{{ building.name }}</td>
+              <td class="font-medium text-ink-900 ">{{ building.name }}</td>
               <td class="text-ink-400">{{ building.district }}</td>
               <td class="text-right tabular-nums">{{ building.totalUnits }}</td>
               <td class="text-right">
                 <div class="flex items-center justify-end gap-2">
-                  <div class="w-16 h-1.5 rounded-full bg-ink-100 dark:bg-white/5 overflow-hidden">
+                  <div class="w-16 h-1.5 rounded-full bg-ink-100  overflow-hidden">
                     <div class="h-full rounded-full transition-all duration-700" :class="getOccupancyPct(building) > 85 ? 'bg-emerald-500' : 'bg-amber-500'" :style="{ width: getOccupancyPct(building) + '%' }" />
                   </div>
                   <span class="text-sm font-medium tabular-nums" :class="getOccupancyPct(building) > 85 ? 'text-emerald-500' : 'text-amber-500'">{{ getOccupancyPct(building) }}%</span>
@@ -142,9 +142,9 @@
 
     <!-- Recent Applications -->
     <div class="card overflow-hidden">
-      <div class="px-5 py-4 border-b border-ink-100 dark:border-white/10 flex items-center justify-between">
+      <div class="px-5 py-4 border-b border-ink-100  flex items-center justify-between">
         <div>
-          <h3 class="text-sm font-semibold text-ink-900 dark:text-white">So'nggi arizalar</h3>
+          <h3 class="text-sm font-semibold text-ink-900 ">So'nggi arizalar</h3>
           <p class="text-xs text-ink-400 mt-0.5">Oxirgi 5 ta ariza</p>
         </div>
         <NuxtLink to="/management/applications" class="text-xs text-brand-500 hover:underline font-medium">Barchasi →</NuxtLink>
@@ -155,8 +155,8 @@
         </thead>
         <tbody>
           <tr v-for="app in recentApplications" :key="app.id" class="cursor-pointer" @click="navigateTo(`/applications/${app.id}/offer`)">
-            <td class="font-medium text-ink-900 dark:text-white">{{ app.number }}</td>
-            <td class="text-ink-600 dark:text-ink-300">{{ app.applicantName }}</td>
+            <td class="font-medium text-ink-900 ">{{ app.number }}</td>
+            <td class="text-ink-600 ">{{ app.applicantName }}</td>
             <td class="text-ink-400">{{ app.unitNumber }}</td>
             <td class="text-right"><span class="badge" :class="statusBadge(app.status)">{{ statusLabel(app.status) }}</span></td>
           </tr>

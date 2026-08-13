@@ -42,13 +42,13 @@
     </div>
 
     <!-- Status filter tabs -->
-    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5 w-fit">
+    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5  w-fit">
       <button
         v-for="tab in tabs"
         :key="tab.value"
         @click="activeTab = tab.value"
         class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
-        :class="activeTab === tab.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500 hover:text-ink-800 dark:text-ink-100'"
+        :class="activeTab === tab.value ? 'bg-white  text-ink-900  shadow-sm' : 'text-ink-500 hover:text-ink-800 '"
       >
         {{ tab.label }}
         <span v-if="tab.count > 0" class="ml-1 text-xs opacity-60">{{ tab.count }}</span>

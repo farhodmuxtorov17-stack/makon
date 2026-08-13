@@ -12,28 +12,28 @@
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ successCount }}</div>
           <div class="dash-kpi__label">Muvaffaqiyatli</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--rose">
-        <div class="kpi-strip__icon"><CreditCard :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><CreditCard :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ failedCount }}</div>
           <div class="dash-kpi__label">Muvaffaqiyatsiz</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--violet">
-        <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ eriCount }}</div>
           <div class="dash-kpi__label">Raqamli kirish</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--amber">
-        <div class="kpi-strip__icon"><AlertCircle :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><AlertCircle :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ blockedCount }}</div>
           <div class="dash-kpi__label">Bloklangan</div>
@@ -45,9 +45,9 @@
     <div class="flex flex-wrap items-center gap-2">
       <div class="relative flex-1 min-w-[200px]">
         <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-        <input v-model="search" type="text" placeholder="Foydalanuvchi qidirish..." class="w-full text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+        <input v-model="search" type="text" placeholder="Foydalanuvchi qidirish..." class="w-full text-sm border border-black/10  rounded-xl pl-9 pr-3 py-2 bg-white  text-ink-700 " />
       </div>
-      <select v-model="eventFilter" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
+      <select v-model="eventFilter" class="text-sm border border-black/10  rounded-xl px-3 py-2 bg-white  text-ink-700 ">
         <option value="">Barcha hodisalar</option>
         <option value="LOGIN">Kirish</option>
         <option value="LOGOUT">Chiqish</option>
@@ -55,14 +55,14 @@
         <option value="FAILED">Muvaffaqiyatsiz</option>
         <option value="BLOCK">Blok</option>
       </select>
-      <input type="date" v-model="dateFilter" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+      <input type="date" v-model="dateFilter" class="text-sm border border-black/10  rounded-xl px-3 py-2 bg-white  text-ink-700 " />
     </div>
 
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+            <tr class="border-b border-black/5  text-ink-500 text-xs uppercase tracking-widest">
               <th class="text-left font-medium px-4 py-3">Foydalanuvchi</th>
               <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Hodisa</th>
               <th class="text-left font-medium px-4 py-3 hidden md:table-cell">IP manzil</th>
@@ -72,12 +72,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="entry in filteredEntries" :key="entry.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <tr v-for="entry in filteredEntries" :key="entry.id" class="border-b border-black/5  hover:bg-black/5  transition-colors">
               <td class="px-4 py-3">
                 <div class="flex items-center gap-2">
                   <span class="w-2 h-2 rounded-full flex-shrink-0" :class="eventDot(entry.event)"></span>
                   <div>
-                    <div class="font-medium text-ink-900 dark:text-white text-sm">{{ entry.user }}</div>
+                    <div class="font-medium text-ink-900  text-sm">{{ entry.user }}</div>
                     <div class="text-xs text-ink-500">{{ entry.email }}</div>
                   </div>
                 </div>

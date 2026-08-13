@@ -18,7 +18,7 @@
       <div class="flex items-start gap-5">
         <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-blue-500/20 flex-shrink-0">A</div>
         <div class="flex-1">
-          <h2 class="text-xl font-bold text-ink-900 dark:text-white">Admin User</h2>
+          <h2 class="text-xl font-bold text-ink-900 ">Admin User</h2>
           <p class="text-sm text-ink-400 mt-1">{{ authStore.user?.email || "user@makon.uz" }}</p>
           <div class="flex items-center gap-3 mt-3">
             <span class="badge badge-brand">SUPER_HEAD</span>
@@ -82,13 +82,13 @@
           <input type="password" placeholder="••••••••" class="input" />
         </div>
       </div>
-      <div class="flex items-center justify-between mt-5 pt-5 border-t border-ink-100 dark:border-white/10">
+      <div class="flex items-center justify-between mt-5 pt-5 border-t border-ink-100 ">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl surface-brand flex items-center justify-center">
             <Smartphone :size="18" class="text-blue-500" />
           </div>
           <div>
-            <div class="text-sm font-medium text-ink-900 dark:text-white">Telefon tasdiqlangan</div>
+            <div class="text-sm font-medium text-ink-900 ">Telefon tasdiqlangan</div>
             <div class="text-xs text-ink-400">+998 90 *** ** 67</div>
           </div>
         </div>

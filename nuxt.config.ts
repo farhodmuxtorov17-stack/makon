@@ -1,14 +1,8 @@
 export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
-  css: ['~/assets/css/aurora.css', '~/assets/css/aurora-v5.css', '~/assets/css/aurora-v6.css'],
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/color-mode'],
-  colorMode: {
-    preference: 'light',
-    fallback: 'light',
-    classSuffix: '',
-    storageKey: 'makon-theme',
-  },
+  css: ['~/assets/css/aurora.css', '~/assets/css/aurora-v8.css'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
   app: {
     baseURL: '/makon/',
     head: {
@@ -18,7 +12,8 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover' },
         { name: 'description', content: 'MAKON — Toshkentdagi premium biznes markazlari, ofislar va ombor maydonlari uchun yagona boshqaruv platformasi.' },
-        { name: 'theme-color', content: '#6366f1' },
+        { name: 'theme-color', content: '#2563eb' },
+        { name: 'color-scheme', content: 'light' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
         { name: 'mobile-web-app-capable', content: 'yes' },
@@ -33,8 +28,7 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/svg+xml', href: '/makon/favicon.svg' },
         { rel: 'stylesheet', href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' },
       ],
-      script: [
-      ],
+      script: [],
     },
   },
   runtimeConfig: {
@@ -44,8 +38,28 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      crawlLinks: false,
-      routes: ['/', '/catalog', '/login', '/register', '/register/eri', '/auth/register', '/auth/verify', '/200.html', '/dashboard', '/dashboard/executive', '/dashboard/building', '/profile'],
+      crawlLinks: true,
+      routes: [
+        '/', '/catalog', '/login', '/register', '/register/eri',
+        '/auth/register', '/auth/verify',
+        '/200.html', '/404.html',
+        '/dashboard', '/dashboard/executive', '/dashboard/building',
+        '/profile', '/notifications', '/reports',
+        '/management/buildings', '/management/units', '/management/listings',
+        '/management/applications', '/management/contracts', '/management/tenants',
+        '/management/service-requests', '/management/floor-plans', '/management/visual-settings',
+        '/contracts', '/applications/new',
+        '/finance/periods', '/finance/invoices', '/finance/debts', '/finance/approvals',
+        '/finance/inventory', '/finance/stock-issues',
+        '/facility/work-orders', '/facility/material-requests',
+        '/meters', '/meters/readings',
+        '/admin/users', '/admin/roles', '/admin/settings',
+        '/admin/audit', '/admin/backups', '/admin/monitoring',
+        '/admin/notification-templates', '/admin/login-history',
+        '/didox/signatures', '/eri/signatures',
+        '/cabinet', '/cabinet/units', '/cabinet/applications', '/cabinet/contracts',
+        '/cabinet/services', '/cabinet/service-requests', '/cabinet/meter-readings',
+      ],
       failOnError: false,
     },
   },

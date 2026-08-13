@@ -56,10 +56,10 @@
         v-for="tab in tabs" :key="tab.id"
         @click="activeTab = tab.id"
         class="px-4 py-2 text-sm font-medium rounded-xl transition-all whitespace-nowrap"
-        :class="activeTab === tab.id ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'bg-black/5 dark:bg-white/5 text-ink-500 hover:bg-black/10 dark:hover:bg-white/10'"
+        :class="activeTab === tab.id ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'bg-black/5  text-ink-500 hover:bg-black/10 '"
       >
         {{ tab.label }}
-        <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded-full" :class="activeTab === tab.id ? 'bg-white/20' : 'bg-black/10 dark:bg-white/10'">{{ tab.count }}</span>
+        <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded-full" :class="activeTab === tab.id ? 'bg-white/20' : 'bg-black/10 '">{{ tab.count }}</span>
       </button>
     </div>
 
@@ -79,7 +79,7 @@
         <!-- Content -->
         <div class="flex-1 min-w-0">
           <div class="flex items-center justify-between gap-2">
-            <h3 class="text-sm font-semibold text-ink-900 dark:text-white truncate">{{ n.title }}</h3>
+            <h3 class="text-sm font-semibold text-ink-900  truncate">{{ n.title }}</h3>
             <span class="text-xs text-ink-400 flex-shrink-0">{{ n.time }}</span>
           </div>
           <p class="text-sm text-ink-400 mt-1 line-clamp-2">{{ n.message }}</p>

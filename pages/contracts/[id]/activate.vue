@@ -14,17 +14,17 @@
 
     <!-- Activation Readiness Checklist Card -->
     <div class="card p-6 space-y-5">
-      <h3 class="font-bold text-base text-ink-900 dark:text-white pb-3 border-b border-black/5 dark:border-white/5 flex items-center gap-2">
+      <h3 class="font-bold text-base text-ink-900  pb-3 border-b border-black/5  flex items-center gap-2">
         <ShieldCheck :size="18" class="text-brand-500" /> Aktivlashtirish Shartlari Tekshiruvi
       </h3>
 
       <div class="space-y-3 text-xs">
         <!-- Check 1: Tenant imzo -->
-        <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
+        <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 ">
           <div class="flex items-center gap-2.5">
             <CheckCircle :size="18" class="text-emerald-500" />
             <div>
-              <div class="font-bold text-ink-900 dark:text-white">Ijarachi raqamli imzosi</div>
+              <div class="font-bold text-ink-900 ">Ijarachi raqamli imzosi</div>
               <div class="text-[10px] text-ink-500">{{ contract.tenantName }} (STIR: {{ contract.tenantTin }})</div>
             </div>
           </div>
@@ -32,11 +32,11 @@
         </div>
 
         <!-- Check 2: Landlord imzo -->
-        <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
+        <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 ">
           <div class="flex items-center gap-2.5">
             <CheckCircle :size="18" class="text-emerald-500" />
             <div>
-              <div class="font-bold text-ink-900 dark:text-white">Bino egasi raqamli imzosi</div>
+              <div class="font-bold text-ink-900 ">Bino egasi raqamli imzosi</div>
               <div class="text-[10px] text-ink-500">MAKON Management MChJ</div>
             </div>
           </div>
@@ -44,11 +44,11 @@
         </div>
 
         <!-- Check 3: SHA-256 Hash -->
-        <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
+        <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 ">
           <div class="flex items-center gap-2.5">
             <ShieldCheck :size="18" class="text-purple-400" />
             <div>
-              <div class="font-bold text-ink-900 dark:text-white">Hujjat Butunligi (SHA-256)</div>
+              <div class="font-bold text-ink-900 ">Hujjat Butunligi (SHA-256)</div>
               <div class="text-[10px] font-mono text-ink-500 truncate max-w-xs">{{ contract.sha256Hash }}</div>
             </div>
           </div>
@@ -61,7 +61,7 @@
         <div class="font-bold text-brand-400 flex items-center gap-1.5">
           <Zap :size="14" /> Aktivlashtirish natijasida avtomatik bajariladigan amallar:
         </div>
-        <ul class="list-disc pl-4 space-y-1 text-ink-700 dark:text-ink-300 text-[11px]">
+        <ul class="list-disc pl-4 space-y-1 text-ink-700  text-[11px]">
           <li>Unit statusi <b>OCCUPIED (Band)</b> ga o'zgartiriladi — public katalogdan avtomatik olib tashlanadi.</li>
           <li>Ushbu unitga bog'langan listing <b>avtomatik yashiriladi (Hidden)</b> — marketplace sinxron.</li>
           <li>Bino statistikasi (vacant/occupied) <b>avtomatik qayta hisoblanadi</b>.</li>
@@ -71,7 +71,7 @@
         </ul>
       </div>
 
-      <div class="pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-end gap-3">
+      <div class="pt-4 border-t border-black/5  flex items-center justify-end gap-3">
         <NuxtLink :to="`/contracts/${contract.id}`" class="btn btn-secondary">
           Bekor qilish
         </NuxtLink>
@@ -85,18 +85,18 @@
     <Teleport to="body">
       <div v-if="showConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-md" @click="showConfirmModal = false"></div>
-        <div class="relative w-full max-w-md bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4 text-center">
+        <div class="relative w-full max-w-md bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4 text-center">
           <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto">
             <CheckCircle :size="36" />
           </div>
 
-          <h3 class="text-xl font-bold text-ink-900 dark:text-white">Shartnoma Muvaffaqiyatli Aktivlashtirildi!</h3>
+          <h3 class="text-xl font-bold text-ink-900 ">Shartnoma Muvaffaqiyatli Aktivlashtirildi!</h3>
 
           <p class="text-xs text-ink-500 leading-relaxed">
             Unit statusi <b>OCCUPIED</b> ga o'tdi. Marketplace listing yashirildi. Bino statistikasi yangilandi. Ijarachi shaxsiy kabineti avtomatik yaratildi.
           </p>
 
-          <div class="pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-center gap-3">
+          <div class="pt-3 border-t border-black/5  flex items-center justify-center gap-3">
             <button @click="executeActivation" class="btn btn-primary w-full">
               Shartnomaga Qaytish
             </button>

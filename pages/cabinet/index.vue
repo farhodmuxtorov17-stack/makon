@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div class="flex items-center gap-3">
@@ -29,7 +29,7 @@
       <!-- Payment history chart -->
       <div class="card p-5 lg:col-span-2">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-ink-900 dark:text-white">To'lovlar tarixi</h3>
+          <h3 class="font-semibold text-ink-900 ">To'lovlar tarixi</h3>
           <span class="text-xs text-ink-500">So'nggi 6 oy</span>
         </div>
         <MakonChart type="bar" :series="paymentSeries" :categories="months" :height="200" :colors="['#10b981', '#ef4444']" :stacked="true" />
@@ -38,7 +38,7 @@
       <!-- Recent notifications -->
       <div class="card-premium p-5">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-ink-900 dark:text-white">Bildirishnomalar</h3>
+          <h3 class="font-semibold text-ink-900 ">Bildirishnomalar</h3>
           <NuxtLink to="/notifications" class="text-xs text-brand-500">Barchasi →</NuxtLink>
         </div>
         <div class="space-y-2">
@@ -47,7 +47,7 @@
               <component :is="n.icon" :size="15" :class="n.iconColor" />
             </div>
             <div class="flex-1 min-w-0">
-              <div class="text-sm font-medium truncate" :class="!n.read ? 'text-ink-900 dark:text-white' : 'text-ink-500'">{{ n.title }}</div>
+              <div class="text-sm font-medium truncate" :class="!n.read ? 'text-ink-900 ' : 'text-ink-500'">{{ n.title }}</div>
               <div class="text-xs text-ink-400">{{ n.time }}</div>
             </div>
             <span v-if="!n.read" class="w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
@@ -59,21 +59,21 @@
     <!-- My Units -->
     <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-ink-900 dark:text-white">Mening unitlarim</h3>
+        <h3 class="font-semibold text-ink-900 ">Mening unitlarim</h3>
         <NuxtLink to="/cabinet/units" class="text-xs text-brand-500">Barchasini ko'rish →</NuxtLink>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div v-for="unit in units" :key="unit.id" class="unit-card">
           <div class="unit-card__header">
             <div>
-              <div class="font-semibold text-sm text-ink-900 dark:text-white">{{ unit.name }}</div>
+              <div class="font-semibold text-sm text-ink-900 ">{{ unit.name }}</div>
               <div class="text-xs text-ink-500">{{ unit.building }} · {{ unit.floor }}-qavat</div>
             </div>
             <span class="badge text-[10px]" :class="unit.type === 'RENT' ? 'badge-brand' : 'badge-success'">{{ unit.type === 'RENT' ? 'Ijara' : 'Mulk' }}</span>
           </div>
           <div class="grid grid-cols-2 gap-2 text-xs mt-3">
-            <div><span class="text-ink-500">Maydon:</span> <span class="font-medium text-ink-900 dark:text-white">{{ unit.area }} m²</span></div>
-            <div><span class="text-ink-500">Shartnoma:</span> <span class="font-medium text-ink-900 dark:text-white">{{ unit.contractEnd }}</span></div>
+            <div><span class="text-ink-500">Maydon:</span> <span class="font-medium text-ink-900 ">{{ unit.area }} m²</span></div>
+            <div><span class="text-ink-500">Shartnoma:</span> <span class="font-medium text-ink-900 ">{{ unit.contractEnd }}</span></div>
           </div>
           <div class="mt-3 flex gap-2">
             <NuxtLink to="/cabinet/units" class="btn btn-secondary btn-sm flex-1 text-xs">Tafsilot</NuxtLink>
@@ -87,16 +87,16 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div class="card-premium p-5">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-ink-900 dark:text-white">So'nggi arizalar</h3>
+          <h3 class="font-semibold text-ink-900 ">So'nggi arizalar</h3>
           <NuxtLink to="/cabinet/applications" class="text-xs text-brand-500">Barchasi →</NuxtLink>
         </div>
         <div class="space-y-2">
-          <div v-for="app in applications" :key="app.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+          <div v-for="app in applications" :key="app.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5  transition-colors">
             <div class="w-9 h-9 rounded-xl flex items-center justify-center text-[10px] font-bold" :class="appStatusClass(app.status)">
               {{ app.number.slice(-3) }}
             </div>
             <div class="flex-1 min-w-0">
-              <div class="text-sm font-medium text-ink-900 dark:text-white truncate">{{ app.number }}</div>
+              <div class="text-sm font-medium text-ink-900  truncate">{{ app.number }}</div>
               <div class="text-xs text-ink-500">{{ app.unit }} · {{ formatUZSShort(app.price) }} UZS</div>
             </div>
             <span class="badge text-[10px] flex-shrink-0" :class="appStatusBadge(app.status)">{{ appStatusLabel(app.status) }}</span>
@@ -106,18 +106,18 @@
 
       <div class="card-premium p-5">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-ink-900 dark:text-white">Servis so'rovlari</h3>
+          <h3 class="font-semibold text-ink-900 ">Servis so'rovlari</h3>
           <NuxtLink to="/cabinet/service-requests/new" class="btn btn-secondary btn-sm text-xs">
             <Plus :size="12" /> Yangi
           </NuxtLink>
         </div>
         <div class="space-y-2">
-          <div v-for="sr in serviceRequests" :key="sr.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+          <div v-for="sr in serviceRequests" :key="sr.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5  transition-colors">
             <div class="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
               <Wrench :size="16" class="text-amber-500" />
             </div>
             <div class="flex-1 min-w-0">
-              <div class="text-sm font-medium text-ink-900 dark:text-white truncate">{{ sr.category }}</div>
+              <div class="text-sm font-medium text-ink-900  truncate">{{ sr.category }}</div>
               <div class="text-xs text-ink-500">{{ sr.unit }} · {{ sr.date }}</div>
             </div>
             <span class="badge text-[10px] flex-shrink-0" :class="srBadgeClass(sr.status)">{{ srStatusLabel(sr.status) }}</span>

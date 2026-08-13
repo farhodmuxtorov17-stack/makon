@@ -60,13 +60,13 @@
     <!-- Permission matrix -->
     <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-ink-900 dark:text-white">{{ selectedRoleLabel }} — huquqlar matritsasi</h3>
+        <h3 class="font-semibold text-ink-900 ">{{ selectedRoleLabel }} — huquqlar matritsasi</h3>
         <button class="btn btn-secondary btn-sm" @click="() => {}"><Save :size="14" /> Saqlash</button>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+            <tr class="border-b border-black/5  text-ink-500 text-xs uppercase tracking-widest">
               <th class="text-left font-medium px-3 py-3">Modul / Amal</th>
               <th class="text-center font-medium px-3 py-3 w-20">Ko'rish</th>
               <th class="text-center font-medium px-3 py-3 w-20">Yaratish</th>
@@ -76,8 +76,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="perm in permissions" :key="perm.module" class="border-b border-black/5 dark:border-white/5">
-              <td class="px-3 py-3 font-medium text-ink-900 dark:text-white">
+            <tr v-for="perm in permissions" :key="perm.module" class="border-b border-black/5 ">
+              <td class="px-3 py-3 font-medium text-ink-900 ">
                 <div class="flex items-center gap-2">
                   <component :is="perm.icon" :size="15" class="text-ink-400 flex-shrink-0" />
                   {{ perm.label }}
@@ -88,7 +88,7 @@
                   <span v-if="perm.permissions[action]" class="w-6 h-6 rounded-lg bg-emerald-500/10 flex items-center justify-center">
                     <Check :size="14" class="text-emerald-500" />
                   </span>
-                  <span v-else class="w-6 h-6 rounded-lg bg-black/5 dark:bg-white/5 flex items-center justify-center">
+                  <span v-else class="w-6 h-6 rounded-lg bg-black/5  flex items-center justify-center">
                     <X :size="14" class="text-ink-300" />
                   </span>
                 </div>

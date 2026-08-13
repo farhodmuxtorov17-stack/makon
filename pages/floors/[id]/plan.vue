@@ -67,10 +67,10 @@
     <div class="card overflow-hidden relative" style="height: 560px;">
       <!-- Zoom controls -->
       <div class="absolute top-4 left-4 flex flex-col gap-1.5 z-10">
-        <button @click="zoom = Math.min(zoom + 0.15, 1.8)" class="w-9 h-9 rounded-xl bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 flex items-center justify-center hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors"><Plus :size="16" /></button>
-        <button @click="zoom = Math.max(zoom - 0.15, 0.6)" class="w-9 h-9 rounded-xl bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 flex items-center justify-center hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors"><Minus :size="16" /></button>
-        <button @click="zoom = 1" class="w-9 h-9 rounded-xl bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 flex items-center justify-center hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors"><Maximize :size="15" /></button>
-        <button @click="resetView" class="w-9 h-9 rounded-xl bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 flex items-center justify-center hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors"><RotateCw :size="15" /></button>
+        <button @click="zoom = Math.min(zoom + 0.15, 1.8)" class="w-9 h-9 rounded-xl bg-white  shadow-md border border-ink-100  flex items-center justify-center hover:bg-ink-50  transition-colors"><Plus :size="16" /></button>
+        <button @click="zoom = Math.max(zoom - 0.15, 0.6)" class="w-9 h-9 rounded-xl bg-white  shadow-md border border-ink-100  flex items-center justify-center hover:bg-ink-50  transition-colors"><Minus :size="16" /></button>
+        <button @click="zoom = 1" class="w-9 h-9 rounded-xl bg-white  shadow-md border border-ink-100  flex items-center justify-center hover:bg-ink-50  transition-colors"><Maximize :size="15" /></button>
+        <button @click="resetView" class="w-9 h-9 rounded-xl bg-white  shadow-md border border-ink-100  flex items-center justify-center hover:bg-ink-50  transition-colors"><RotateCw :size="15" /></button>
       </div>
 
       <!-- Mode badge -->
@@ -79,7 +79,7 @@
       </div>
 
       <!-- SVG floor plan -->
-      <div class="absolute inset-0 flex items-center justify-center overflow-auto bg-[#FAFBFF] dark:bg-ink-950 p-8">
+      <div class="absolute inset-0 flex items-center justify-center overflow-auto bg-[#FAFBFF]  p-8">
         <Transition name="floor-fade" mode="out-in" appear>
         <svg :key="floor.num" :viewBox="`0 0 ${planW} ${planH}`" :style="{ width: (zoom * 100) + '%', maxWidth: '95%' }" class="transition-all duration-200">
           <!-- Outer shell -->
@@ -114,7 +114,7 @@
       </div>
 
       <!-- Legend -->
-      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white dark:bg-ink-800 shadow-md border border-ink-100 dark:border-ink-700 rounded-full px-5 py-2.5 text-xs font-medium z-10">
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white  shadow-md border border-ink-100  rounded-full px-5 py-2.5 text-xs font-medium z-10">
         <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:#10B981"></span> Bo'sh</div>
         <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:#3B82F6"></span> Ijarada</div>
         <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:#EF4444"></span> Sotilgan</div>
@@ -126,7 +126,7 @@
         <button class="btn btn-ghost btn-sm"><Square :size="14" /> To'rtburchak</button>
         <button class="btn btn-ghost btn-sm"><PenTool :size="14" /> Poligon</button>
         <button class="btn btn-ghost btn-sm"><Trash2 :size="14" /> O'chirish</button>
-        <div class="w-px h-6 bg-black/10 dark:bg-white/10"></div>
+        <div class="w-px h-6 bg-black/10 "></div>
         <button class="btn btn-primary btn-sm"><Save :size="14" /> Saqlash</button>
       </div>
     </div>
@@ -134,10 +134,10 @@
     <!-- Unit detail panel -->
     <Transition name="fade-up">
       <div v-if="selectedUnitData" class="card overflow-hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr_220px] divide-y lg:divide-y-0 lg:divide-x divide-ink-100 dark:divide-ink-800">
+        <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr_220px] divide-y lg:divide-y-0 lg:divide-x divide-ink-100 ">
           <!-- 3D interior render -->
           <div class="p-4 flex flex-col">
-            <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF] dark:from-ink-800 dark:to-ink-900 aspect-[4/3] flex items-center justify-center">
+            <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF]   aspect-[4/3] flex items-center justify-center">
               <img :src="img('/buildings/real_nest-one2.jpg')" :alt="selectedUnitData.name" class="w-full h-full object-cover" />
             </div>
           </div>
@@ -145,7 +145,7 @@
           <!-- Details -->
           <div class="p-6 flex flex-col justify-center">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="font-bold text-lg dark:text-white">Unit {{ selectedUnitData.name }} — Batafsil</h3>
+              <h3 class="font-bold text-lg ">Unit {{ selectedUnitData.name }} — Batafsil</h3>
               <button @click="deselectUnit" class="btn btn-ghost btn-sm !p-2"><X :size="14" /></button>
             </div>
             <div class="grid grid-cols-2 gap-x-8 gap-y-3.5 text-sm">
@@ -166,13 +166,13 @@
           <!-- Location -->
           <div class="p-4 flex flex-col gap-3">
             <div class="text-xs font-semibold text-ink-500">Joylashuv</div>
-            <div class="rounded-xl bg-ink-50 dark:bg-ink-900 border border-ink-100 dark:border-ink-800 p-2 flex-1 flex items-center justify-center">
+            <div class="rounded-xl bg-ink-50  border border-ink-100  p-2 flex-1 flex items-center justify-center">
               <svg viewBox="0 0 100 60" class="w-full">
                 <rect x="2" y="2" width="96" height="56" fill="none" stroke="#CBD5E1" stroke-width="1.5" rx="2" />
                 <rect v-for="r in miniRooms" :key="r.id" :x="r.x" :y="r.y" :width="r.w" :height="r.h" :fill="r.id === selectedUnitData.id ? '#EF4444' : '#E2E8F0'" stroke="#CBD5E1" stroke-width="0.6" />
               </svg>
             </div>
-            <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF] dark:from-ink-800 dark:to-ink-900 h-24 flex items-center justify-center">
+            <div class="rounded-xl overflow-hidden bg-gradient-to-br from-[#F0F7FF] to-[#E0EFFF]   h-24 flex items-center justify-center">
               <img :src="img('/buildings/real_finance-center.jpg')" alt="Building" class="h-full object-contain py-1" />
             </div>
           </div>

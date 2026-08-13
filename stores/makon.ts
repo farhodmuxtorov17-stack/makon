@@ -2087,6 +2087,7 @@ export const useMakonStore = defineStore('makon', () => {
     serviceRequests,
     contracts,
     eriSignatures,
+    didoxSignatures: eriSignatures,
     invoices,
     periods,
     workOrders,

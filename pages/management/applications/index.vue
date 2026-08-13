@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-6 animate-fade-up">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
@@ -98,23 +98,23 @@
 
             <!-- Applicant Info -->
             <div>
-              <div class="font-bold text-xs text-ink-900 dark:text-white group-hover:text-brand-500 transition-colors line-clamp-1">
+              <div class="font-bold text-xs text-ink-900  group-hover:text-brand-500 transition-colors line-clamp-1">
                 {{ app.applicantName }}
               </div>
               <div class="text-[11px] text-ink-500 flex items-center justify-between mt-0.5">
                 <span>{{ app.buildingName }}</span>
-                <span class="font-mono text-ink-900 dark:text-white font-medium">Unit {{ app.unitNumber }}</span>
+                <span class="font-mono text-ink-900  font-medium">Unit {{ app.unitNumber }}</span>
               </div>
             </div>
 
             <!-- Price & Duration -->
-            <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs">
+            <div class="flex items-center justify-between pt-2 border-t border-black/5  text-xs">
               <span class="font-bold text-brand-500">{{ formatUZS(app.offeredPrice) }}</span>
               <span class="text-ink-500 text-[10px]">{{ app.durationMonths }} oy</span>
             </div>
 
             <!-- Advance Simulation Actions -->
-            <div class="flex items-center justify-between pt-1 border-t border-black/5 dark:border-white/5 gap-1">
+            <div class="flex items-center justify-between pt-1 border-t border-black/5  gap-1">
               <NuxtLink :to="`/applications/${app.id}/history`" @click.stop class="text-[10px] text-purple-400 hover:underline flex items-center gap-0.5">
                 <History :size="10" /> Tarix
               </NuxtLink>
@@ -132,7 +132,7 @@
             </div>
           </div>
 
-          <div v-if="getColumnApps(col.status).length === 0" class="p-6 text-center text-ink-500 text-xs border border-dashed border-black/10 dark:border-white/10 rounded-xl">
+          <div v-if="getColumnApps(col.status).length === 0" class="p-6 text-center text-ink-500 text-xs border border-dashed border-black/10  rounded-xl">
             Arizalar yo'q
           </div>
         </div>
@@ -143,25 +143,25 @@
     <Teleport to="body">
       <div v-if="selectedApp" class="fixed inset-0 z-50 flex justify-end" @click.self="selectedApp = null">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="selectedApp = null" />
-        <div class="relative w-full max-w-lg bg-white dark:bg-ink-900 border-l border-black/10 dark:border-white/10 h-full overflow-y-auto p-6 space-y-6">
-          <div class="flex items-center justify-between pb-4 border-b border-black/5 dark:border-white/5">
+        <div class="relative w-full max-w-lg bg-white  border-l border-black/10  h-full overflow-y-auto p-6 space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-black/5 ">
             <div>
               <span class="text-xs font-mono font-bold text-brand-500">{{ selectedApp.number }}</span>
-              <h3 class="text-xl font-bold text-ink-900 dark:text-white">{{ selectedApp.applicantName }}</h3>
+              <h3 class="text-xl font-bold text-ink-900 ">{{ selectedApp.applicantName }}</h3>
             </div>
-            <button @click="selectedApp = null" class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="18" /></button>
+            <button @click="selectedApp = null" class="p-2 rounded-lg hover:bg-black/5  text-ink-400"><X :size="18" /></button>
           </div>
 
           <!-- Details -->
           <div class="space-y-4 text-sm">
-            <div class="grid grid-cols-2 gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5">
+            <div class="grid grid-cols-2 gap-3 p-3 rounded-xl bg-black/5 ">
               <div>
                 <span class="text-xs text-ink-500 block">Bino va Unit</span>
-                <span class="font-bold text-ink-900 dark:text-white">{{ selectedApp.buildingName }} (Unit {{ selectedApp.unitNumber }})</span>
+                <span class="font-bold text-ink-900 ">{{ selectedApp.buildingName }} (Unit {{ selectedApp.unitNumber }})</span>
               </div>
               <div>
                 <span class="text-xs text-ink-500 block">Arizachi STIR (TIN)</span>
-                <span class="font-mono font-medium text-ink-900 dark:text-white">{{ selectedApp.tin || '305987123' }}</span>
+                <span class="font-mono font-medium text-ink-900 ">{{ selectedApp.tin || '305987123' }}</span>
               </div>
               <div>
                 <span class="text-xs text-ink-500 block">Taklif qilingan ijara</span>
@@ -169,28 +169,28 @@
               </div>
               <div>
                 <span class="text-xs text-ink-500 block">Depozit summasi</span>
-                <span class="font-medium text-ink-900 dark:text-white">{{ formatUZS(selectedApp.depositAmount) }}</span>
+                <span class="font-medium text-ink-900 ">{{ formatUZS(selectedApp.depositAmount) }}</span>
               </div>
               <div>
                 <span class="text-xs text-ink-500 block">Telefon</span>
-                <span class="text-ink-900 dark:text-white">{{ selectedApp.applicantPhone }}</span>
+                <span class="text-ink-900 ">{{ selectedApp.applicantPhone }}</span>
               </div>
               <div>
                 <span class="text-xs text-ink-500 block">Boshlanish sanasi</span>
-                <span class="text-ink-900 dark:text-white">{{ selectedApp.startDate }}</span>
+                <span class="text-ink-900 ">{{ selectedApp.startDate }}</span>
               </div>
             </div>
 
-            <div v-if="selectedApp.notes" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-1">
+            <div v-if="selectedApp.notes" class="p-3 rounded-xl bg-black/5  space-y-1">
               <span class="text-xs text-ink-500 block font-semibold">Izohlar:</span>
-              <p class="text-xs text-ink-700 dark:text-ink-300">{{ selectedApp.notes }}</p>
+              <p class="text-xs text-ink-700 ">{{ selectedApp.notes }}</p>
             </div>
 
             <!-- Documents -->
             <div class="space-y-2">
               <span class="text-xs text-ink-500 font-semibold block">Biriktirilgan hujjatlar:</span>
-              <div v-for="(doc, idx) in selectedApp.documents" :key="idx" class="flex items-center justify-between p-2 rounded-lg bg-black/5 dark:bg-white/5 text-xs">
-                <span class="font-medium text-ink-900 dark:text-white flex items-center gap-1.5"><FileText :size="14" class="text-brand-500" /> {{ doc.title }}</span>
+              <div v-for="(doc, idx) in selectedApp.documents" :key="idx" class="flex items-center justify-between p-2 rounded-lg bg-black/5  text-xs">
+                <span class="font-medium text-ink-900  flex items-center gap-1.5"><FileText :size="14" class="text-brand-500" /> {{ doc.title }}</span>
                 <span class="text-[10px] text-ink-500">{{ doc.uploadedAt }}</span>
               </div>
             </div>
@@ -207,7 +207,7 @@
           </div>
 
           <!-- Review Decision Actions -->
-          <div class="pt-4 border-t border-black/5 dark:border-white/5 space-y-2">
+          <div class="pt-4 border-t border-black/5  space-y-2">
             <div class="flex items-center gap-2">
               <button @click="openReasonModal('APPROVE')" class="btn btn-primary flex-1 text-xs">
                 <Check :size="14" /> Tasdiqlash (Approve)
@@ -228,8 +228,8 @@
     <Teleport to="body">
       <div v-if="showReasonModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showReasonModal = false"></div>
-        <div class="relative w-full max-w-md bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <h3 class="text-lg font-bold text-ink-900 dark:text-white">
+        <div class="relative w-full max-w-md bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4">
+          <h3 class="text-lg font-bold text-ink-900 ">
             {{ actionType === 'APPROVE' ? 'Arizani tasdiqlash' : actionType === 'RETURN' ? 'Qayta ko\'rib chiqishga qaytarish' : 'Arizani rad etish' }}
           </h3>
 

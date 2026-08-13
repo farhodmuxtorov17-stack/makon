@@ -49,10 +49,10 @@
     <div class="flex flex-wrap items-center gap-3">
       <div class="relative">
         <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-        <input v-model="search" type="text" placeholder="Amal yoki foydalanuvchi..." class="w-64 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+        <input v-model="search" type="text" placeholder="Amal yoki foydalanuvchi..." class="w-64 text-sm border border-black/10  rounded-xl pl-9 pr-3 py-2 bg-white  text-ink-700 " />
       </div>
-      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
-        <button v-for="t in typeTabs" :key="t.value" @click="typeFilter = t.value" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all" :class="typeFilter === t.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 ">
+        <button v-for="t in typeTabs" :key="t.value" @click="typeFilter = t.value" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all" :class="typeFilter === t.value ? 'bg-white  text-ink-900  shadow-sm' : 'text-ink-500'">
           {{ t.label }}
         </button>
       </div>
@@ -68,7 +68,7 @@
           <div class="audit-timeline__body">
             <div class="flex items-start justify-between gap-3">
               <div>
-                <div class="text-sm text-ink-900 dark:text-white">
+                <div class="text-sm text-ink-900 ">
                   <span class="font-medium">{{ entry.user }}</span>
                   <span class="text-ink-500"> · </span>
                   <span class="font-mono text-xs">{{ entry.action }}</span>

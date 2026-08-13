@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">Foydalanuvchilar</div>
@@ -9,30 +9,30 @@
       <button @click="showInvite = true" class="btn btn-primary btn-sm btn-glow"><UserPlus :size="14" /> Taklif yuborish</button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger stagger">
       <div class="dash-kpi dash-kpi--blue">
-        <div class="kpi-strip__icon"><Building2 :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><Building2 :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ users.length }}</div>
           <div class="dash-kpi__label">Jami foydalanuvchi</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--emerald">
-        <div class="kpi-strip__icon"><Home :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><Home :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ activeCount }}</div>
           <div class="dash-kpi__label">Faol</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--amber">
-        <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ pendingCount }}</div>
           <div class="dash-kpi__label">Taklif kutilmoqda</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--violet">
-        <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><FileSignature :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ adminCount }}</div>
           <div class="dash-kpi__label">Adminlar</div>
@@ -44,10 +44,10 @@
     <div class="flex flex-wrap items-center justify-between gap-3">
       <div class="relative">
         <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-        <input v-model="search" type="text" placeholder="Ism, email yoki telefon..." class="w-64 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+        <input v-model="search" type="text" placeholder="Ism, email yoki telefon..." class="w-64 text-sm border border-black/10  rounded-xl pl-9 pr-3 py-2 bg-white  text-ink-700 " />
       </div>
-      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
-        <button v-for="r in roleTabs" :key="r.value" @click="roleFilter = r.value" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all" :class="roleFilter === r.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 ">
+        <button v-for="r in roleTabs" :key="r.value" @click="roleFilter = r.value" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all" :class="roleFilter === r.value ? 'bg-white  text-ink-900  shadow-sm' : 'text-ink-500'">
           {{ r.label }}
         </button>
       </div>
@@ -58,7 +58,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+            <tr class="border-b border-black/5  text-ink-500 text-xs uppercase tracking-widest">
               <th class="text-left font-medium px-4 py-3">Foydalanuvchi</th>
               <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Rol</th>
               <th class="text-left font-medium px-4 py-3 hidden md:table-cell">Tashkilot</th>
@@ -68,14 +68,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="u in filteredUsers" :key="u.id" class="border-b border-black/5 dark:border-white/5 hover:bg-brand-500/5 transition-colors cursor-pointer" @click="openUser(u)">
+            <tr v-for="u in filteredUsers" :key="u.id" class="border-b border-black/5  hover:bg-brand-500/5 transition-colors cursor-pointer" @click="openUser(u)">
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
                   <div class="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold text-white flex-shrink-0" :style="{ background: roleColor(u.role) }">
                     {{ u.name.charAt(0) }}
                   </div>
                   <div>
-                    <div class="font-medium text-ink-900 dark:text-white text-sm">{{ u.name }}</div>
+                    <div class="font-medium text-ink-900  text-sm">{{ u.name }}</div>
                     <div class="text-xs text-ink-500">{{ u.email }}</div>
                   </div>
                 </div>
@@ -107,21 +107,21 @@
             {{ selectedUser.name.charAt(0) }}
           </div>
           <div>
-            <div class="font-bold text-lg text-ink-900 dark:text-white">{{ selectedUser.name }}</div>
+            <div class="font-bold text-lg text-ink-900 ">{{ selectedUser.name }}</div>
             <div class="text-sm text-ink-500">{{ selectedUser.email }}</div>
             <span class="badge text-[10px] mt-1" :style="{ background: roleColor(selectedUser.role) + '15', color: roleColor(selectedUser.role) }">{{ roleLabel(selectedUser.role) }}</span>
           </div>
         </div>
         <div class="space-y-3">
-          <div class="flex justify-between items-center p-3 rounded-xl bg-black/5 dark:bg-white/5">
+          <div class="flex justify-between items-center p-3 rounded-xl bg-black/5 ">
             <span class="text-sm text-ink-500">Tashkilot</span>
-            <span class="text-sm font-medium text-ink-900 dark:text-white">{{ selectedUser.org }}</span>
+            <span class="text-sm font-medium text-ink-900 ">{{ selectedUser.org }}</span>
           </div>
-          <div class="flex justify-between items-center p-3 rounded-xl bg-black/5 dark:bg-white/5">
+          <div class="flex justify-between items-center p-3 rounded-xl bg-black/5 ">
             <span class="text-sm text-ink-500">Oxirgi kirish</span>
-            <span class="text-sm font-medium text-ink-900 dark:text-white">{{ selectedUser.lastLogin }}</span>
+            <span class="text-sm font-medium text-ink-900 ">{{ selectedUser.lastLogin }}</span>
           </div>
-          <div class="flex justify-between items-center p-3 rounded-xl bg-black/5 dark:bg-white/5">
+          <div class="flex justify-between items-center p-3 rounded-xl bg-black/5 ">
             <span class="text-sm text-ink-500">Status</span>
             <span class="badge" :class="selectedUser.status === 'ACTIVE' ? 'badge-success' : selectedUser.status === 'PENDING' ? 'badge-warning' : 'badge-neutral'">
               {{ selectedUser.status === 'ACTIVE' ? 'Faol' : selectedUser.status === 'PENDING' ? 'Taklif' : 'Nofaol' }}
@@ -141,15 +141,15 @@
     <DrawerModal :open="showInvite" title="Foydalanuvchini taklif qilish" width="440px" @close="showInvite = false">
       <div class="space-y-4">
         <div>
-          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Ism familiya</label>
+          <label class="text-sm font-medium text-ink-700  mb-1.5 block">Ism familiya</label>
           <input v-model="inviteForm.name" type="text" class="input w-full" placeholder="Alisher Qodirov" />
         </div>
         <div>
-          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Email</label>
+          <label class="text-sm font-medium text-ink-700  mb-1.5 block">Email</label>
           <input v-model="inviteForm.email" type="email" class="input w-full" placeholder="user@example.com" />
         </div>
         <div>
-          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Rol</label>
+          <label class="text-sm font-medium text-ink-700  mb-1.5 block">Rol</label>
           <select v-model="inviteForm.role" class="input w-full">
             <option value="SUPER_HEAD">Super Rahbar</option>
             <option value="BUILDING_MANAGER">Bino Rahbari</option>
@@ -161,7 +161,7 @@
           </select>
         </div>
         <div>
-          <label class="text-sm font-medium text-ink-700 dark:text-ink-200 mb-1.5 block">Tashkilot</label>
+          <label class="text-sm font-medium text-ink-700  mb-1.5 block">Tashkilot</label>
           <input v-model="inviteForm.org" type="text" class="input w-full" placeholder="MAKON Management" />
         </div>
       </div>

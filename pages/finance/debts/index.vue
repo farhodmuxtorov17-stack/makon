@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
@@ -18,7 +18,7 @@
       <!-- Total debt -->
       <div class="debt-card debt-card--red">
         <div class="debt-card__top">
-          <div class="debt-card__icon"><CreditCard :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+          <div class="debt-card__icon"><CreditCard :size="36" :stroke-width="1.5" class="text-slate-600 " /></div>
           <div class="debt-card__label">Jami qarzdorlik</div>
         </div>
         <div class="debt-card__value">{{ formatUZSShort(totalDebt) }}</div>
@@ -33,7 +33,7 @@
       <!-- Overdue -->
       <div class="debt-card debt-card--amber">
         <div class="debt-card__top">
-          <div class="debt-card__icon"><AlertCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+          <div class="debt-card__icon"><AlertCircle :size="36" :stroke-width="1.5" class="text-slate-600 " /></div>
           <div class="debt-card__label">Muddati o'tgan</div>
         </div>
         <div class="debt-card__value">{{ formatUZSShort(overdueDebt) }}</div>
@@ -48,7 +48,7 @@
       <!-- Debtors -->
       <div class="debt-card debt-card--teal">
         <div class="debt-card__top">
-          <div class="debt-card__icon"><Home :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+          <div class="debt-card__icon"><Home :size="36" :stroke-width="1.5" class="text-slate-600 " /></div>
           <div class="debt-card__label">Qarzdorlar soni</div>
         </div>
         <div class="debt-card__value">{{ debtors.length }}</div>
@@ -64,7 +64,7 @@
     <!-- Debt aging chart -->
     <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-ink-900 dark:text-white">Qarzning muddat bo'yicha taqsimoti</h3>
+        <h3 class="font-semibold text-ink-900 ">Qarzning muddat bo'yicha taqsimoti</h3>
         <div class="flex items-center gap-3 text-xs text-ink-500">
           <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span> 30 kungacha</span>
           <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-amber-500"></span> 30-60 kun</span>
@@ -77,8 +77,8 @@
 
     <!-- Debtors table -->
     <div class="card overflow-hidden">
-      <div class="flex items-center justify-between p-4 border-b border-black/5 dark:border-white/5">
-        <h3 class="font-semibold text-ink-900 dark:text-white">Qarzdorlar ro'yxati</h3>
+      <div class="flex items-center justify-between p-4 border-b border-black/5 ">
+        <h3 class="font-semibold text-ink-900 ">Qarzdorlar ro'yxati</h3>
         <div class="flex items-center gap-2">
           <div class="relative">
             <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
@@ -94,7 +94,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="text-left text-xs text-ink-500 uppercase tracking-widest border-b border-black/5 dark:border-white/5">
+            <tr class="text-left text-xs text-ink-500 uppercase tracking-widest border-b border-black/5 ">
               <th class="px-4 py-3">Ijarachi</th>
               <th class="px-4 py-3 hidden md:table-cell">Invoys</th>
               <th class="px-4 py-3 text-right">Summa</th>
@@ -106,12 +106,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="inv in filteredDebtors" :key="inv.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
+            <tr v-for="inv in filteredDebtors" :key="inv.id" class="border-b border-black/5  hover:bg-black/[0.02] [0.02] transition-colors">
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
                   <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold" :class="inv.color">{{ inv.initials }}</div>
                   <div>
-                    <div class="font-medium text-ink-900 dark:text-white">{{ inv.tenantName }}</div>
+                    <div class="font-medium text-ink-900 ">{{ inv.tenantName }}</div>
                     <div class="text-xs text-ink-400">{{ inv.contract }}</div>
                   </div>
                 </div>
@@ -123,7 +123,7 @@
               </td>
               <td class="px-4 py-3 hidden lg:table-cell">
                 <div class="flex items-center gap-2">
-                  <div class="flex-1 h-1.5 rounded-full bg-black/5 dark:bg-white/5 max-w-[80px]">
+                  <div class="flex-1 h-1.5 rounded-full bg-black/5  max-w-[80px]">
                     <div class="h-full rounded-full transition-all" :style="{ width: (inv.paidPct) + '%', background: inv.paidPct >= 80 ? '#10b981' : inv.paidPct >= 50 ? '#f59e0b' : '#ef4444' }"></div>
                   </div>
                   <span class="text-xs text-ink-400 w-8">{{ inv.paidPct }}%</span>

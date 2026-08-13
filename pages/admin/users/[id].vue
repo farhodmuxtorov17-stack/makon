@@ -22,17 +22,17 @@
     </div>
 
     <!-- Tabs -->
-    <div class="flex gap-1 border-b border-black/5 dark:border-white/5">
+    <div class="flex gap-1 border-b border-black/5 ">
       <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
         class="px-4 py-2 text-sm font-medium border-b-2 transition-colors"
-        :class="activeTab === tab.id ? 'border-brand-500 text-brand-500' : 'border-transparent text-ink-500 hover:text-ink-900 dark:hover:text-white'">
+        :class="activeTab === tab.id ? 'border-brand-500 text-brand-500' : 'border-transparent text-ink-500 hover:text-ink-900 '">
         {{ tab.label }}
       </button>
     </div>
 
     <!-- Profile tab -->
     <div v-if="activeTab === 'profile'" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Asosiy ma'lumotlar</h3>
+      <h3 class="font-semibold ">Asosiy ma'lumotlar</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div><label class="label">To'liq ism</label><input v-model="user.name" class="input" /></div>
         <div><label class="label">Email</label><input v-model="user.email" type="email" class="input" /></div>
@@ -42,7 +42,7 @@
         <div><label class="label">Lavozim</label><input v-model="user.position" class="input" /></div>
       </div>
 
-      <h3 class="font-semibold dark:text-white pt-4">Rol va huquqlar</h3>
+      <h3 class="font-semibold  pt-4">Rol va huquqlar</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label class="label">Rol</label>
@@ -76,9 +76,9 @@
     <!-- Activity tab -->
     <div v-if="activeTab === 'activity'" class="space-y-4">
       <div class="card-premium p-6">
-        <h3 class="font-semibold dark:text-white mb-4">Tizimga kirish tarixi</h3>
+        <h3 class="font-semibold  mb-4">Tizimga kirish tarixi</h3>
         <div class="space-y-2">
-          <div v-for="login in logins" :key="login.id" class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
+          <div v-for="login in logins" :key="login.id" class="flex items-center justify-between p-3 rounded-xl bg-black/5 ">
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="login.success ? 'bg-emerald-500/10' : 'bg-red-500/10'">
                 <CheckCircle2 v-if="login.success" :size="14" class="text-emerald-500" />
@@ -95,9 +95,9 @@
       </div>
 
       <div class="card-premium p-6">
-        <h3 class="font-semibold dark:text-white mb-4">So'nggi amallar</h3>
+        <h3 class="font-semibold  mb-4">So'nggi amallar</h3>
         <div class="space-y-2">
-          <div v-for="act in activities" :key="act.id" class="flex items-center gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5 text-sm">
+          <div v-for="act in activities" :key="act.id" class="flex items-center gap-3 p-3 rounded-xl bg-black/5  text-sm">
             <component :is="act.icon" :size="14" class="text-brand-500" />
             <span class="flex-1">{{ act.action }}</span>
             <span class="text-xs text-ink-500">{{ formatDateTime(act.time) }}</span>
@@ -108,9 +108,9 @@
 
     <!-- Contracts tab -->
     <div v-if="activeTab === 'contracts'" class="card-premium p-6">
-      <h3 class="font-semibold dark:text-white mb-4">Bog'liq shartnomalar</h3>
+      <h3 class="font-semibold  mb-4">Bog'liq shartnomalar</h3>
       <div class="space-y-2">
-        <div v-for="c in userContracts" :key="c.id" class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
+        <div v-for="c in userContracts" :key="c.id" class="flex items-center justify-between p-3 rounded-xl bg-black/5 ">
           <div class="flex items-center gap-3">
             <ScrollText :size="18" class="text-brand-500" />
             <div>
@@ -133,7 +133,7 @@
           <AlertTriangle :size="24" class="text-red-500" />
         </div>
         <div>
-          <h3 class="font-semibold dark:text-white">Foydalanuvchini o'chirish</h3>
+          <h3 class="font-semibold ">Foydalanuvchini o'chirish</h3>
           <p class="text-sm text-ink-500 mt-1">{{ user.name }} ni tizimdan o'chirish tasdiqlansinmi?</p>
         </div>
         <div class="flex gap-3">

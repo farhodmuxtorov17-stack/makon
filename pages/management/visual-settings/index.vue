@@ -7,10 +7,10 @@
     </div>
 
     <!-- Tabs -->
-    <div class="flex gap-1 border-b border-black/5 dark:border-white/5">
+    <div class="flex gap-1 border-b border-black/5 ">
       <button v-for="tab in tabs" :key="tab.id" @click="activeTab = tab.id"
         class="px-4 py-2 text-sm font-medium transition-colors border-b-2"
-        :class="activeTab === tab.id ? 'border-brand-500 text-brand-500' : 'border-transparent text-ink-500 hover:text-ink-900 dark:hover:text-white'">
+        :class="activeTab === tab.id ? 'border-brand-500 text-brand-500' : 'border-transparent text-ink-500 hover:text-ink-900 '">
         {{ tab.label }}
       </button>
     </div>
@@ -54,7 +54,7 @@
     <!-- Catalog settings -->
     <div v-if="activeTab === 'catalog'" class="space-y-4">
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Katalog sahifasi</h3>
+        <h3 class="font-semibold ">Katalog sahifasi</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="label">Katalog sarlavhasi (UZ)</label>
@@ -87,7 +87,7 @@
       </div>
 
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Katalog kartochkasi</h3>
+        <h3 class="font-semibold ">Katalog kartochkasi</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="label">Kartochka uslubi</label>
@@ -115,9 +115,9 @@
     <!-- Building page settings -->
     <div v-if="activeTab === 'building'" class="space-y-4">
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Bino sahifasi tuzilishi</h3>
+        <h3 class="font-semibold ">Bino sahifasi tuzilishi</h3>
         <div class="space-y-3">
-          <div v-for="(section, i) in buildingSections" :key="i" class="flex items-center gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5">
+          <div v-for="(section, i) in buildingSections" :key="i" class="flex items-center gap-3 p-3 rounded-xl bg-black/5 ">
             <input type="checkbox" v-model="section.enabled" class="toggle" />
             <component :is="section.icon" :size="18" class="text-brand-500" />
             <div class="flex-1">
@@ -133,7 +133,7 @@
       </div>
 
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Galereya sozlamalari</h3>
+        <h3 class="font-semibold ">Galereya sozlamalari</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="label">Galereya uslubi</label>
@@ -158,7 +158,7 @@
     <!-- Listing settings -->
     <div v-if="activeTab === 'listing'" class="space-y-4">
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Listing kartochkasi</h3>
+        <h3 class="font-semibold ">Listing kartochkasi</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="label">Sarlavha formati</label>
@@ -179,7 +179,7 @@
       </div>
 
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Listing sahifasi</h3>
+        <h3 class="font-semibold ">Listing sahifasi</h3>
         <div class="space-y-2">
           <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="toggle" /> Galereya</label>
           <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="toggle" /> Xarita (joylashuv)</label>
@@ -193,11 +193,11 @@
     <!-- Theme -->
     <div v-if="activeTab === 'theme'" class="space-y-4">
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Rang sxemasi</h3>
+        <h3 class="font-semibold ">Rang sxemasi</h3>
         <div class="grid grid-cols-4 md:grid-cols-6 gap-3">
           <div v-for="color in colors" :key="color.name" @click="selectedColor = color.name"
             class="p-3 rounded-xl border-2 cursor-pointer transition-all"
-            :class="selectedColor === color.name ? 'border-brand-500' : 'border-transparent hover:border-black/10 dark:hover:border-white/10'">
+            :class="selectedColor === color.name ? 'border-brand-500' : 'border-transparent hover:border-black/10 '">
             <div class="w-full h-12 rounded-lg mb-2" :style="{ background: color.value }"></div>
             <div class="text-xs text-center">{{ color.label }}</div>
           </div>
@@ -205,7 +205,7 @@
       </div>
 
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Shrift</h3>
+        <h3 class="font-semibold ">Shrift</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="label">Asosiy shrift</label>
@@ -227,7 +227,7 @@
       </div>
 
       <div class="card p-6 space-y-4">
-        <h3 class="font-semibold dark:text-white">Tungi rejim</h3>
+        <h3 class="font-semibold ">Tungi rejim</h3>
         <div class="space-y-3">
           <label class="flex items-center gap-3 cursor-pointer">
             <input type="checkbox" checked class="toggle" />

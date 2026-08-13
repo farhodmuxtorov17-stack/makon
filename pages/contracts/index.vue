@@ -57,7 +57,7 @@
     <div class="card overflow-hidden">
       <table class="w-full">
         <thead>
-          <tr class="border-b border-ink-100 dark:border-white/10">
+          <tr class="border-b border-ink-100 ">
             <th class="text-left text-xs text-ink-400 px-4 py-3">Nomer</th>
             <th class="text-left text-xs text-ink-400 px-4 py-3">Ijarachi</th>
             <th class="text-left text-xs text-ink-400 px-4 py-3">Unit</th>
@@ -68,11 +68,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="c in filteredContracts" :key="c.id" class="border-b border-ink-50 dark:border-white/5 hover:bg-ink-50 dark:hover:bg-white/5 cursor-pointer" @click="navigateTo(`/contracts/${c.id}`)">
-            <td class="px-4 py-3 text-sm font-medium text-ink-900 dark:text-white">{{ c.number }}</td>
-            <td class="px-4 py-3 text-sm text-ink-600 dark:text-ink-300">{{ c.tenantName }}</td>
+          <tr v-for="c in filteredContracts" :key="c.id" class="border-b border-ink-50  hover:bg-ink-50  cursor-pointer" @click="navigateTo(`/contracts/${c.id}`)">
+            <td class="px-4 py-3 text-sm font-medium text-ink-900 ">{{ c.number }}</td>
+            <td class="px-4 py-3 text-sm text-ink-600 ">{{ c.tenantName }}</td>
             <td class="px-4 py-3 text-sm text-ink-400">{{ c.buildingName }} · {{ c.unitNumber }}</td>
-            <td class="px-4 py-3 text-right text-sm font-medium text-ink-900 dark:text-white">{{ c.monthlyRent.toLocaleString('ru-RU') }} {{ c.currency }}</td>
+            <td class="px-4 py-3 text-right text-sm font-medium text-ink-900 ">{{ c.monthlyRent.toLocaleString('ru-RU') }} {{ c.currency }}</td>
             <td class="px-4 py-3 text-sm text-ink-400">{{ c.startDate }} → {{ c.endDate }}</td>
             <td class="px-4 py-3 text-right">
               <span class="text-xs px-2 py-1 rounded-full" :class="statusClass(c.status)">{{ statusLabel(c.status) }}</span>

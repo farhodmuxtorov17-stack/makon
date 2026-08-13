@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">Invoyslar</div>
@@ -17,7 +17,7 @@
     </div>
 
     <!-- 3D KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger stagger">
       <div class="dash-kpi dash-kpi--emerald">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
@@ -56,9 +56,9 @@
     <div class="flex gap-1 overflow-x-auto pb-1">
       <button v-for="tab in statusTabs" :key="tab.id" @click="activeStatus = tab.id"
         class="px-4 py-2 text-sm font-medium rounded-xl transition-all whitespace-nowrap"
-        :class="activeStatus === tab.id ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'bg-black/5 dark:bg-white/5 text-ink-500 hover:bg-black/10 dark:hover:bg-white/10'">
+        :class="activeStatus === tab.id ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'bg-black/5  text-ink-500 hover:bg-black/10 '">
         {{ tab.label }}
-        <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded-full" :class="activeStatus === tab.id ? 'bg-white/20' : 'bg-black/10 dark:bg-white/10'">{{ tab.count }}</span>
+        <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded-full" :class="activeStatus === tab.id ? 'bg-white/20' : 'bg-black/10 '">{{ tab.count }}</span>
       </button>
     </div>
 
@@ -79,7 +79,7 @@
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead>
-            <tr class="border-b border-ink-100 dark:border-white/10 bg-black/5 dark:bg-white/5">
+            <tr class="border-b border-ink-100  bg-black/5 ">
               <th class="text-left text-xs font-bold text-ink-500 uppercase tracking-wider px-4 py-3">#</th>
               <th class="text-left text-xs font-bold text-ink-500 uppercase tracking-wider px-4 py-3">Shartnoma</th>
               <th class="text-left text-xs font-bold text-ink-500 uppercase tracking-wider px-4 py-3">Ijarachi</th>
@@ -90,12 +90,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(inv, i) in filteredInvoices" :key="inv.id" class="border-b border-ink-50 dark:border-white/5 hover:bg-brand-500/5 transition-colors cursor-pointer" @click="selectedInvoice = inv">
+            <tr v-for="(inv, i) in filteredInvoices" :key="inv.id" class="border-b border-ink-50  hover:bg-brand-500/5 transition-colors cursor-pointer" @click="selectedInvoice = inv">
               <td class="px-4 py-3 text-sm text-ink-400 font-mono">{{ String(i + 1).padStart(3, '0') }}</td>
-              <td class="px-4 py-3 text-sm font-medium text-ink-900 dark:text-white">{{ inv.contractNumber }}</td>
-              <td class="px-4 py-3 text-sm text-ink-600 dark:text-ink-300">{{ inv.tenantName }}</td>
+              <td class="px-4 py-3 text-sm font-medium text-ink-900 ">{{ inv.contractNumber }}</td>
+              <td class="px-4 py-3 text-sm text-ink-600 ">{{ inv.tenantName }}</td>
               <td class="px-4 py-3 text-sm text-ink-500">{{ inv.date }}</td>
-              <td class="px-4 py-3 text-right text-sm font-bold text-ink-900 dark:text-white">{{ inv.amount.toLocaleString('ru-RU') }} {{ inv.currency }}</td>
+              <td class="px-4 py-3 text-right text-sm font-bold text-ink-900 ">{{ inv.amount.toLocaleString('ru-RU') }} {{ inv.currency }}</td>
               <td class="px-4 py-3 text-center">
                 <span class="text-xs px-2.5 py-1 rounded-full font-medium" :class="statusClass(inv.status)">
                   <span class="inline-block w-1.5 h-1.5 rounded-full mr-1" :class="statusDot(inv.status)"></span>
@@ -122,7 +122,7 @@
 
       <!-- Empty state -->
       <div v-if="filteredInvoices.length === 0" class="p-12 text-center">
-        <div class="w-16 h-16 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center mx-auto mb-3">
+        <div class="w-16 h-16 rounded-full bg-black/5  flex items-center justify-center mx-auto mb-3">
           <FileText :size="28" class="text-ink-400" />
         </div>
         <p class="text-ink-500 text-sm">Invoyslar topilmadi</p>
@@ -130,10 +130,10 @@
       </div>
 
       <!-- Summary footer -->
-      <div v-if="filteredInvoices.length > 0" class="px-4 py-3 bg-black/5 dark:bg-white/5 flex items-center justify-between text-sm">
-        <div class="text-ink-500">Jami: <b class="text-ink-900 dark:text-white">{{ filteredInvoices.length }}</b> ta invoys</div>
+      <div v-if="filteredInvoices.length > 0" class="px-4 py-3 bg-black/5  flex items-center justify-between text-sm">
+        <div class="text-ink-500">Jami: <b class="text-ink-900 ">{{ filteredInvoices.length }}</b> ta invoys</div>
         <div class="flex items-center gap-4">
-          <div class="text-ink-500">Jami summa: <b class="text-ink-900 dark:text-white">{{ totalAmount.toLocaleString('ru-RU') }} {{ filteredInvoices[0]?.currency || 'USD' }}</b></div>
+          <div class="text-ink-500">Jami summa: <b class="text-ink-900 ">{{ totalAmount.toLocaleString('ru-RU') }} {{ filteredInvoices[0]?.currency || 'USD' }}</b></div>
           <div class="text-emerald-500">To'langan: <b>{{ totalPaid.toLocaleString('ru-RU') }}</b></div>
         </div>
       </div>
@@ -145,17 +145,17 @@
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
         <div class="relative card p-6 w-full max-w-lg space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white">Invoys tafsilotlari</h3>
-            <button @click="selectedInvoice = null" class="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5">
+            <h3 class="text-lg font-bold text-ink-900 ">Invoys tafsilotlari</h3>
+            <button @click="selectedInvoice = null" class="p-1.5 rounded-lg hover:bg-black/5 ">
               <X :size="18" class="text-ink-500" />
             </button>
           </div>
           <div class="grid grid-cols-2 gap-4 text-sm">
-            <div><div class="text-xs text-ink-500 mb-1">Shartnoma</div><div class="font-medium text-ink-900 dark:text-white">{{ selectedInvoice.contractNumber }}</div></div>
-            <div><div class="text-xs text-ink-500 mb-1">Ijarachi</div><div class="font-medium text-ink-900 dark:text-white">{{ selectedInvoice.tenantName }}</div></div>
-            <div><div class="text-xs text-ink-500 mb-1">Davr</div><div class="font-medium text-ink-900 dark:text-white">{{ selectedInvoice.date }}</div></div>
+            <div><div class="text-xs text-ink-500 mb-1">Shartnoma</div><div class="font-medium text-ink-900 ">{{ selectedInvoice.contractNumber }}</div></div>
+            <div><div class="text-xs text-ink-500 mb-1">Ijarachi</div><div class="font-medium text-ink-900 ">{{ selectedInvoice.tenantName }}</div></div>
+            <div><div class="text-xs text-ink-500 mb-1">Davr</div><div class="font-medium text-ink-900 ">{{ selectedInvoice.date }}</div></div>
             <div><div class="text-xs text-ink-500 mb-1">Status</div><span class="text-xs px-2.5 py-1 rounded-full font-medium" :class="statusClass(selectedInvoice.status)">{{ statusLabel(selectedInvoice.status) }}</span></div>
-            <div class="col-span-2 pt-3 border-t border-black/5 dark:border-white/10"><div class="text-xs text-ink-500 mb-1">Summa</div><div class="page-title">{{ selectedInvoice.amount.toLocaleString('ru-RU') }} {{ selectedInvoice.currency }}</div></div>
+            <div class="col-span-2 pt-3 border-t border-black/5 "><div class="text-xs text-ink-500 mb-1">Summa</div><div class="page-title">{{ selectedInvoice.amount.toLocaleString('ru-RU') }} {{ selectedInvoice.currency }}</div></div>
           </div>
           <div class="flex gap-2 pt-2">
             <button v-if="selectedInvoice.status === 'PENDING'" @click="markPaid(selectedInvoice); selectedInvoice = null" class="btn btn-success btn-sm flex-1">

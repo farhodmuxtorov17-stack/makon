@@ -52,7 +52,7 @@
       <div class="card p-5 bg-gradient-to-br from-emerald-500/5 to-transparent border-emerald-500/20">
         <div class="flex items-center gap-2 mb-3">
           <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center"><Wallet :size="20" class="text-emerald-500" /></div>
-          <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Joriy balans</span>
+          <span class="text-sm font-medium text-ink-700 ">Joriy balans</span>
         </div>
         <div class="text-2xl font-bold text-emerald-500">{{ formatUZS(0) }}</div>
         <div class="text-xs text-ink-500 mt-1">Qarzdorlik yo'q (unit A-301)</div>
@@ -60,7 +60,7 @@
       <div class="card p-5 bg-gradient-to-br from-red-500/5 to-transparent border-red-500/20">
         <div class="flex items-center gap-2 mb-3">
           <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center"><AlertCircle :size="20" class="text-red-500" /></div>
-          <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Qarzdorlik</span>
+          <span class="text-sm font-medium text-ink-700 ">Qarzdorlik</span>
         </div>
         <div class="text-2xl font-bold text-red-500">{{ formatUZS(4200000) }}</div>
         <div class="text-xs text-ink-500 mt-1">Unit B-205 · 5 kun kechikish</div>
@@ -68,7 +68,7 @@
       <div class="card-premium p-5">
         <div class="flex items-center gap-2 mb-3">
           <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center"><Receipt :size="20" class="text-blue-500" /></div>
-          <span class="text-sm font-medium text-ink-700 dark:text-ink-300">Keyingi to'lov</span>
+          <span class="text-sm font-medium text-ink-700 ">Keyingi to'lov</span>
         </div>
         <div class="page-title">15 Avg</div>
         <div class="text-xs text-ink-500 mt-1">25.0M UZS · INV-2026-052</div>
@@ -77,7 +77,7 @@
 
     <!-- Service charges breakdown -->
     <div class="card-premium p-5">
-      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Servis to'lovlari tarkibi</h3>
+      <h3 class="font-semibold text-ink-900  mb-4">Servis to'lovlari tarkibi</h3>
       <div class="space-y-3">
         <div v-for="charge in serviceCharges" :key="charge.name" class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" :style="{ background: charge.color + '15' }">
@@ -85,15 +85,15 @@
           </div>
           <div class="flex-1">
             <div class="flex items-center justify-between mb-1">
-              <span class="text-sm font-medium text-ink-900 dark:text-white">{{ charge.name }}</span>
-              <span class="text-sm font-bold text-ink-900 dark:text-white">{{ formatUZS(charge.amount) }}</span>
+              <span class="text-sm font-medium text-ink-900 ">{{ charge.name }}</span>
+              <span class="text-sm font-bold text-ink-900 ">{{ formatUZS(charge.amount) }}</span>
             </div>
             <div class="flex items-center gap-3 text-xs text-ink-500">
               <span>{{ charge.details }}</span>
               <span>·</span>
               <span>{{ charge.unit }}</span>
             </div>
-            <div class="h-1.5 rounded-full bg-black/5 dark:bg-white/5 mt-2 overflow-hidden">
+            <div class="h-1.5 rounded-full bg-black/5  mt-2 overflow-hidden">
               <div class="h-full rounded-full" :style="{ width: charge.percent + '%', background: charge.color }"></div>
             </div>
           </div>
@@ -104,13 +104,13 @@
     <!-- Recent invoices -->
     <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-ink-900 dark:text-white">So'nggi invoyslar</h3>
+        <h3 class="font-semibold text-ink-900 ">So'nggi invoyslar</h3>
         <NuxtLink to="/finance/invoices" class="text-xs text-brand-500">Barchasi →</NuxtLink>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="text-ink-500 text-xs uppercase tracking-widest border-b border-black/5 dark:border-white/5">
+            <tr class="text-ink-500 text-xs uppercase tracking-widest border-b border-black/5 ">
               <th class="text-left font-medium px-3 py-2">Raqam</th>
               <th class="text-left font-medium px-3 py-2 hidden sm:table-cell">Unit</th>
               <th class="text-left font-medium px-3 py-2 hidden md:table-cell">Davr</th>
@@ -119,11 +119,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="inv in invoices" :key="inv.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer" @click="navigateTo('/cabinet/services')">
-              <td class="px-3 py-3 font-mono text-xs text-ink-700 dark:text-ink-300">{{ inv.number }}</td>
+            <tr v-for="inv in invoices" :key="inv.id" class="border-b border-black/5  hover:bg-black/5  transition-colors cursor-pointer" @click="navigateTo('/cabinet/services')">
+              <td class="px-3 py-3 font-mono text-xs text-ink-700 ">{{ inv.number }}</td>
               <td class="px-3 py-3 hidden sm:table-cell text-ink-500">{{ inv.unit }}</td>
               <td class="px-3 py-3 hidden md:table-cell text-ink-500">{{ inv.period }}</td>
-              <td class="px-3 py-3 text-right font-semibold text-ink-900 dark:text-white">{{ formatUZS(inv.amount) }}</td>
+              <td class="px-3 py-3 text-right font-semibold text-ink-900 ">{{ formatUZS(inv.amount) }}</td>
               <td class="px-3 py-3 text-center">
                 <span class="badge text-[10px]" :class="inv.status === 'PAID' ? 'badge-success' : inv.status === 'OVERDUE' ? 'badge-danger' : 'badge-warning'">
                   {{ inv.status === 'PAID' ? 'To\'langan' : inv.status === 'OVERDUE' ? 'Muddati o\'tgan' : 'Kutilmoqda' }}
@@ -138,16 +138,16 @@
     <!-- Service requests -->
     <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold text-ink-900 dark:text-white">Servis so'rovlari</h3>
+        <h3 class="font-semibold text-ink-900 ">Servis so'rovlari</h3>
         <NuxtLink to="/cabinet/service-requests/new" class="btn btn-secondary btn-sm text-xs"><Plus :size="12" /> Yangi</NuxtLink>
       </div>
       <div class="space-y-2">
-        <div v-for="sr in serviceRequests" :key="sr.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+        <div v-for="sr in serviceRequests" :key="sr.id" class="flex items-center gap-3 p-3 rounded-xl hover:bg-black/5  transition-colors">
           <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" :class="sr.iconBg">
             <component :is="sr.icon" :size="16" :class="sr.iconColor" />
           </div>
           <div class="flex-1 min-w-0">
-            <div class="text-sm font-medium text-ink-900 dark:text-white">{{ sr.category }}</div>
+            <div class="text-sm font-medium text-ink-900 ">{{ sr.category }}</div>
             <div class="text-xs text-ink-500">{{ sr.unit }} · {{ sr.date }}</div>
           </div>
           <span class="badge text-[10px] flex-shrink-0" :class="srBadgeClass(sr.status)">{{ srStatusLabel(sr.status) }}</span>

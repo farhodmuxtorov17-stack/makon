@@ -10,10 +10,10 @@
     </div>
 
     <!-- Status tabs -->
-    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5 w-fit overflow-x-auto">
+    <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5  w-fit overflow-x-auto">
       <button v-for="tab in tabs" :key="tab.value" @click="statusFilter = tab.value"
         class="px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-all font-medium"
-        :class="statusFilter === tab.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+        :class="statusFilter === tab.value ? 'bg-white  text-ink-900  shadow-sm' : 'text-ink-500'">
         {{ tab.label }}
         <span v-if="tab.count > 0" class="ml-1 text-xs" :class="statusFilter === tab.value ? 'text-brand-500' : 'text-ink-400'">{{ tab.count }}</span>
       </button>
@@ -65,12 +65,12 @@
               {{ app.number.slice(-3) }}
             </div>
             <div>
-              <div class="font-semibold text-ink-900 dark:text-white text-sm">{{ app.number }}</div>
+              <div class="font-semibold text-ink-900  text-sm">{{ app.number }}</div>
               <div class="text-xs text-ink-500 mt-0.5">{{ app.unit }} · {{ app.type === 'RENT' ? 'Ijara' : 'Sotib olish' }}</div>
             </div>
           </div>
           <div class="text-right">
-            <div class="text-sm font-bold text-ink-900 dark:text-white">{{ formatUZS(app.price) }}</div>
+            <div class="text-sm font-bold text-ink-900 ">{{ formatUZS(app.price) }}</div>
             <span class="badge text-xs mt-1 inline-block" :class="appStatusBadge(app.status)">{{ appStatusLabel(app.status) }}</span>
           </div>
         </div>
@@ -81,15 +81,15 @@
             <div class="flex flex-col items-center gap-1.5">
               <div
                 class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all"
-                :class="step.done ? 'bg-emerald-500/10 text-emerald-500' : step.current ? 'bg-brand-500/10 text-brand-500' : 'bg-black/5 dark:bg-white/5 text-ink-400'"
+                :class="step.done ? 'bg-emerald-500/10 text-emerald-500' : step.current ? 'bg-brand-500/10 text-brand-500' : 'bg-black/5  text-ink-400'"
               >
                 <Check v-if="step.done" :size="14" />
                 <Clock v-else-if="step.current" :size="14" />
                 <span v-else class="text-[10px]">{{ i + 1 }}</span>
               </div>
-              <span class="text-[10px] whitespace-nowrap font-medium" :class="step.done ? 'text-ink-900 dark:text-white' : step.current ? 'text-brand-500' : 'text-ink-400'">{{ step.label }}</span>
+              <span class="text-[10px] whitespace-nowrap font-medium" :class="step.done ? 'text-ink-900 ' : step.current ? 'text-brand-500' : 'text-ink-400'">{{ step.label }}</span>
             </div>
-            <div v-if="i < app.timeline.length - 1" class="w-6 sm:w-12 h-0.5 mx-1 rounded-full flex-shrink-0" :class="step.done && app.timeline[i+1].done ? 'bg-emerald-500/40' : 'bg-black/10 dark:bg-white/10'"></div>
+            <div v-if="i < app.timeline.length - 1" class="w-6 sm:w-12 h-0.5 mx-1 rounded-full flex-shrink-0" :class="step.done && app.timeline[i+1].done ? 'bg-emerald-500/40' : 'bg-black/10 '"></div>
           </div>
         </div>
 
@@ -97,15 +97,15 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-xs">
           <div>
             <div class="text-ink-500 mb-0.5">Yaratilgan</div>
-            <div class="font-medium text-ink-900 dark:text-white">{{ app.createdDate }}</div>
+            <div class="font-medium text-ink-900 ">{{ app.createdDate }}</div>
           </div>
           <div>
             <div class="text-ink-500 mb-0.5">Muddat</div>
-            <div class="font-medium text-ink-900 dark:text-white">{{ app.durationMonths }} oy</div>
+            <div class="font-medium text-ink-900 ">{{ app.durationMonths }} oy</div>
           </div>
           <div>
             <div class="text-ink-500 mb-0.5">Boshlash</div>
-            <div class="font-medium text-ink-900 dark:text-white">{{ app.startDate }}</div>
+            <div class="font-medium text-ink-900 ">{{ app.startDate }}</div>
           </div>
           <div>
             <div class="text-ink-500 mb-0.5">Raqamli imzo</div>
@@ -114,7 +114,7 @@
         </div>
 
         <!-- Actions -->
-        <div class="flex items-center gap-2 flex-wrap pt-3 border-t border-black/5 dark:border-white/5">
+        <div class="flex items-center gap-2 flex-wrap pt-3 border-t border-black/5 ">
           <NuxtLink :to="`/applications/${app.id}/offer`" class="btn btn-secondary btn-sm">
             <FileText :size="14" /> Tijoriy taklif
           </NuxtLink>

@@ -6,7 +6,7 @@
       <ChevronRight :size="14" />
       <NuxtLink :to="`/buildings/${building.slug}`" class="hover:text-brand-500">{{ building.name }}</NuxtLink>
       <ChevronRight :size="14" />
-      <span class="text-ink-900 dark:text-white">{{ unit.name }}</span>
+      <span class="text-ink-900 ">{{ unit.name }}</span>
     </div>
 
     <!-- 3D KPI Strip -->
@@ -75,7 +75,7 @@
 
         <!-- Features -->
         <div class="card-premium p-6">
-          <h3 class="font-semibold dark:text-white mb-4">Unit xususiyatlari</h3>
+          <h3 class="font-semibold  mb-4">Unit xususiyatlari</h3>
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div v-for="f in unit.features" :key="f.label" class="flex items-center gap-2">
               <component :is="f.icon" :size="16" class="text-brand-500" />
@@ -173,7 +173,7 @@
             </div>
           </Transition>
 
-          <div v-if="!showApplyForm" class="mt-4 pt-4 border-t border-black/5 dark:border-white/5">
+          <div v-if="!showApplyForm" class="mt-4 pt-4 border-t border-black/5 ">
             <div class="text-xs text-ink-500 mb-2">Bu unit bilan bog'liq</div>
             <NuxtLink :to="`/buildings/${building.slug}`" class="block text-sm text-brand-500 hover:underline mb-1">Bino sahifasi</NuxtLink>
             <NuxtLink to="/catalog" class="block text-sm text-brand-500 hover:underline">Katalogga qaytish</NuxtLink>

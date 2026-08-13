@@ -18,13 +18,13 @@
             <Settings :size="18" class="text-blue-500" />
           </div>
           <div>
-            <div class="text-sm font-semibold text-ink-900 dark:text-white">Umumiy sozlamalar</div>
+            <div class="text-sm font-semibold text-ink-900 ">Umumiy sozlamalar</div>
             <div class="text-xs text-ink-400">Asosiy konfiguratsiya</div>
           </div>
         </div>
         <div class="space-y-3">
           <div class="flex items-center justify-between py-2">
-            <span class="text-sm text-ink-600 dark:text-ink-300">Til</span>
+            <span class="text-sm text-ink-600 ">Til</span>
             <select class="input w-auto text-sm">
               <option>O'zbekcha</option>
               <option>Русский</option>
@@ -32,14 +32,14 @@
             </select>
           </div>
           <div class="flex items-center justify-between py-2">
-            <span class="text-sm text-ink-600 dark:text-ink-300">Valyuta</span>
+            <span class="text-sm text-ink-600 ">Valyuta</span>
             <select class="input w-auto text-sm">
               <option>UZS</option>
               <option>USD</option>
             </select>
           </div>
           <div class="flex items-center justify-between py-2">
-            <span class="text-sm text-ink-600 dark:text-ink-300">Vaqt zonasi</span>
+            <span class="text-sm text-ink-600 ">Vaqt zonasi</span>
             <select class="input w-auto text-sm">
               <option>UTC+5 (Tashkent)</option>
             </select>
@@ -54,25 +54,25 @@
             <Shield :size="18" class="text-emerald-500" />
           </div>
           <div>
-            <div class="text-sm font-semibold text-ink-900 dark:text-white">Xavfsizlik</div>
+            <div class="text-sm font-semibold text-ink-900 ">Xavfsizlik</div>
             <div class="text-xs text-ink-400">Autentifikatsiya</div>
           </div>
         </div>
         <div class="space-y-3">
           <div class="flex items-center justify-between py-2">
-            <span class="text-sm text-ink-600 dark:text-ink-300">OTP orqali kirish</span>
+            <span class="text-sm text-ink-600 ">OTP orqali kirish</span>
             <div class="relative w-10 h-6 rounded-full bg-emerald-500 cursor-pointer">
               <div class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white transition-all"></div>
             </div>
           </div>
           <div class="flex items-center justify-between py-2">
-            <span class="text-sm text-ink-600 dark:text-ink-300">Ikki faktorli autent.</span>
-            <div class="relative w-10 h-6 rounded-full bg-ink-200 dark:bg-white/10 cursor-pointer">
+            <span class="text-sm text-ink-600 ">Ikki faktorli autent.</span>
+            <div class="relative w-10 h-6 rounded-full bg-ink-200  cursor-pointer">
               <div class="absolute left-1 top-1 w-4 h-4 rounded-full bg-white transition-all"></div>
             </div>
           </div>
           <div class="flex items-center justify-between py-2">
-            <span class="text-sm text-ink-600 dark:text-ink-300">Sessiya timeout</span>
+            <span class="text-sm text-ink-600 ">Sessiya timeout</span>
             <select class="input w-auto text-sm">
               <option>30 daqiqa</option>
               <option>1 soat</option>
@@ -89,7 +89,7 @@
             <Plug :size="18" class="text-amber-500" />
           </div>
           <div>
-            <div class="text-sm font-semibold text-ink-900 dark:text-white">Integratsiyalar</div>
+            <div class="text-sm font-semibold text-ink-900 ">Integratsiyalar</div>
             <div class="text-xs text-ink-400">Tashqi tizimlar</div>
           </div>
         </div>
@@ -97,18 +97,18 @@
           <div class="flex items-center justify-between py-2 px-3 rounded-xl bg-emerald-500/5">
             <div class="flex items-center gap-2">
               <FileSignature :size="16" class="text-emerald-500" />
-              <span class="text-sm font-medium text-ink-900 dark:text-white">Didox</span>
+              <span class="text-sm font-medium text-ink-900 ">Didox</span>
             </div>
             <span class="badge badge-success">Faol</span>
           </div>
-          <div class="flex items-center justify-between py-2 px-3 rounded-xl bg-ink-100 dark:bg-white/5">
+          <div class="flex items-center justify-between py-2 px-3 rounded-xl bg-ink-100 ">
             <div class="flex items-center gap-2">
               <Mail :size="16" class="text-ink-400" />
               <span class="text-sm text-ink-500">Email bildirishnomalar</span>
             </div>
             <span class="badge badge-neutral">O'chirilgan</span>
           </div>
-          <div class="flex items-center justify-between py-2 px-3 rounded-xl bg-ink-100 dark:bg-white/5">
+          <div class="flex items-center justify-between py-2 px-3 rounded-xl bg-ink-100 ">
             <div class="flex items-center gap-2">
               <MessageSquare :size="16" class="text-ink-400" />
               <span class="text-sm text-ink-500">SMS gateway</span>
@@ -125,19 +125,19 @@
             <Database :size="18" class="text-blue-500" />
           </div>
           <div>
-            <div class="text-sm font-semibold text-ink-900 dark:text-white">Rezerv nusxa</div>
+            <div class="text-sm font-semibold text-ink-900 ">Rezerv nusxa</div>
             <div class="text-xs text-ink-400">Ma'lumotlar xavfsizligi</div>
           </div>
         </div>
         <div class="space-y-3">
           <div class="flex items-center justify-between py-2">
-            <span class="text-sm text-ink-600 dark:text-ink-300">Avto rezerv nusxa</span>
+            <span class="text-sm text-ink-600 ">Avto rezerv nusxa</span>
             <div class="relative w-10 h-6 rounded-full bg-emerald-500 cursor-pointer">
               <div class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white"></div>
             </div>
           </div>
           <div class="flex items-center justify-between py-2">
-            <span class="text-sm text-ink-600 dark:text-ink-300"> chastotasi</span>
+            <span class="text-sm text-ink-600 "> chastotasi</span>
             <select class="input w-auto text-sm">
               <option>Har kuni</option>
               <option>Haftada</option>

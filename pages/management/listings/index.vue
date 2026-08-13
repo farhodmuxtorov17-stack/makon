@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-  <div class="space-y-6">
+  <div class="space-y-6 animate-fade-up">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
@@ -15,7 +15,7 @@
     </div>
 
     <!-- KPI Strip -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><Building2 :size="22" :stroke-width="1.8" /></div>
@@ -106,14 +106,14 @@
 
         <!-- Card Body -->
         <div class="p-5 space-y-3">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white line-clamp-1 group-hover:text-brand-500 transition-colors">
+          <h3 class="font-bold text-base text-ink-900  line-clamp-1 group-hover:text-brand-500 transition-colors">
             {{ l.titleUz }}
           </h3>
           <p class="text-xs text-ink-500 line-clamp-2 leading-relaxed">
             {{ l.descriptionUz }}
           </p>
 
-          <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5">
+          <div class="flex items-center justify-between pt-2 border-t border-black/5 ">
             <div>
               <div class="text-[10px] text-ink-500 uppercase tracking-wider">Narx</div>
               <div class="text-lg font-bold text-brand-500">{{ formatUZS(l.price) }}</div>
@@ -130,7 +130,7 @@
           </div>
 
           <!-- Footer Buttons -->
-          <div class="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-xs">
+          <div class="flex items-center justify-between pt-2 border-t border-black/5  text-xs">
             <button @click="previewListing = l" class="btn btn-ghost btn-sm text-xs flex items-center gap-1">
               <Eye :size="14" /> Ko'rish
             </button>
@@ -150,10 +150,10 @@
     <Teleport to="body">
       <div v-if="showCreateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showCreateModal = false"></div>
-        <div class="relative w-full max-w-2xl bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4 max-h-[90vh] overflow-y-auto">
-          <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white">Yangi Listing yaratish</h3>
-            <button @click="showCreateModal = false" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="20" /></button>
+        <div class="relative w-full max-w-2xl bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4 max-h-[90vh] overflow-y-auto">
+          <div class="flex items-center justify-between pb-3 border-b border-black/5 ">
+            <h3 class="text-lg font-bold text-ink-900 ">Yangi Listing yaratish</h3>
+            <button @click="showCreateModal = false" class="p-1 rounded-lg hover:bg-black/5  text-ink-400"><X :size="20" /></button>
           </div>
 
           <form @submit.prevent="handleCreateListing" class="space-y-4">
@@ -225,7 +225,7 @@
               </div>
             </div>
 
-            <div class="flex items-center justify-end gap-3 pt-4 border-t border-black/5 dark:border-white/5">
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-black/5 ">
               <button type="button" @click="showCreateModal = false" class="btn btn-secondary">Bekor qilish</button>
               <button type="submit" class="btn btn-primary">Chop etish / Yaratish</button>
             </div>
@@ -238,10 +238,10 @@
     <Teleport to="body">
       <div v-if="previewListing" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" @click="previewListing = null"></div>
-        <div class="relative w-full max-w-lg bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white">Listing Preview</h3>
-            <button @click="previewListing = null" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="20" /></button>
+        <div class="relative w-full max-w-lg bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-black/5 ">
+            <h3 class="text-lg font-bold text-ink-900 ">Listing Preview</h3>
+            <button @click="previewListing = null" class="p-1 rounded-lg hover:bg-black/5  text-ink-400"><X :size="20" /></button>
           </div>
 
           <div class="h-48 rounded-xl overflow-hidden bg-ink-800">
@@ -249,11 +249,11 @@
           </div>
 
           <div>
-            <h4 class="font-bold text-base text-ink-900 dark:text-white">{{ previewListing.titleUz }}</h4>
+            <h4 class="font-bold text-base text-ink-900 ">{{ previewListing.titleUz }}</h4>
             <p class="text-xs text-ink-500 mt-1">{{ previewListing.descriptionUz }}</p>
           </div>
 
-          <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 dark:bg-white/5">
+          <div class="flex items-center justify-between p-3 rounded-xl bg-black/5 ">
             <div class="text-xl font-bold text-brand-500">{{ formatUZS(previewListing.price) }}</div>
             <span class="badge" :class="statusBadgeClass(previewListing.status)">{{ statusLabel(previewListing.status) }}</span>
           </div>

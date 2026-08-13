@@ -12,7 +12,7 @@
 
     <!-- New form -->
     <div v-if="showNew" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Ombordan material chiqarish</h3>
+      <h3 class="font-semibold ">Ombordan material chiqarish</h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label class="label">Material</label>
@@ -38,28 +38,28 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
       <div class="dash-kpi dash-kpi--blue">
-        <div class="kpi-strip__icon"><Package :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><Package :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ issues.length }}</div>
           <div class="dash-kpi__label">Jami chiqarish</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--emerald">
-        <div class="kpi-strip__icon"><CheckCircle :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><CheckCircle :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ issues.filter(i => i.status === 'COMPLETED').length }}</div>
           <div class="dash-kpi__label">Berilgan</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--amber">
-        <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><FileText :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ issues.filter(i => i.status === 'PENDING').length }}</div>
           <div class="dash-kpi__label">Kutilmoqda</div>
         </div>
       </div>
       <div class="dash-kpi dash-kpi--violet">
-        <div class="kpi-strip__icon"><CreditCard :size="34" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="kpi-strip__icon"><CreditCard :size="34" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="dash-kpi__body">
           <div class="dash-kpi__value">{{ formatUZSShort(totalValue) }}</div>
           <div class="dash-kpi__label">Jami qiymat</div>

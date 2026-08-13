@@ -22,20 +22,20 @@
 
     <!-- Category filter + search -->
     <div class="flex items-center justify-between flex-wrap gap-3">
-      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
+      <div class="flex items-center gap-1 p-1 rounded-xl bg-black/5 ">
         <button
           v-for="cat in categories"
           :key="cat.value"
           @click="activeCategory = cat.value"
           class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
-          :class="activeCategory === cat.value ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500 hover:text-ink-800 dark:text-ink-100'"
+          :class="activeCategory === cat.value ? 'bg-white  text-ink-900  shadow-sm' : 'text-ink-500 hover:text-ink-800 '"
         >
           {{ cat.label }}
         </button>
       </div>
       <div class="relative">
         <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-        <input v-model="search" type="text" placeholder="Material qidirish..." class="w-56 text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+        <input v-model="search" type="text" placeholder="Material qidirish..." class="w-56 text-sm border border-black/10  rounded-xl pl-9 pr-3 py-2 bg-white  text-ink-700 " />
       </div>
     </div>
 
@@ -44,7 +44,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-widest">
+            <tr class="border-b border-black/5  text-ink-500 text-xs uppercase tracking-widest">
               <th class="text-left font-medium px-4 py-3">Material</th>
               <th class="text-left font-medium px-4 py-3 hidden sm:table-cell">Kategoriya</th>
               <th class="text-right font-medium px-4 py-3">Miqdor</th>
@@ -56,8 +56,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="mat in filteredMaterials" :key="mat.id" class="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer" @click="navigateTo('/finance/inventory')">
-              <td class="px-4 py-3 font-medium text-ink-900 dark:text-white">
+            <tr v-for="mat in filteredMaterials" :key="mat.id" class="border-b border-black/5  hover:bg-black/5  transition-colors cursor-pointer" @click="navigateTo('/finance/inventory')">
+              <td class="px-4 py-3 font-medium text-ink-900 ">
                 <div class="flex items-center gap-2">
                   <div class="w-8 h-8 rounded-lg flex items-center justify-center" :style="{ background: categoryColor(mat.category) + '15' }">
                     <component :is="categoryIcon(mat.category)" :size="14" :style="{ color: categoryColor(mat.category) }" />
@@ -68,7 +68,7 @@
               <td class="px-4 py-3 hidden sm:table-cell">
                 <span class="text-xs text-ink-500">{{ categoryLabel(mat.category) }}</span>
               </td>
-              <td class="px-4 py-3 text-right font-mono text-sm text-ink-900 dark:text-white">{{ mat.quantity }} <span class="text-xs text-ink-400">{{ mat.unit }}</span></td>
+              <td class="px-4 py-3 text-right font-mono text-sm text-ink-900 ">{{ mat.quantity }} <span class="text-xs text-ink-400">{{ mat.unit }}</span></td>
               <td class="px-4 py-3 text-right hidden md:table-cell font-mono text-xs text-ink-500">{{ mat.minStock }} {{ mat.unit }}</td>
               <td class="px-4 py-3 text-right hidden sm:table-cell font-medium">{{ formatUZSShort(mat.unitPrice) }}</td>
               <td class="px-4 py-3 text-right hidden lg:table-cell font-semibold">{{ formatUZSShort(mat.quantity * mat.unitPrice) }}</td>

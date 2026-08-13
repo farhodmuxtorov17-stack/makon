@@ -25,7 +25,7 @@
     <div class="bdash__kpis">
       <div v-for="kpi in kpis" :key="kpi.label" class="bdash__kpi">
         <div class="bdash__kpi-top">
-          <div class="bdash__kpi-icon"><Building2 :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+          <div class="bdash__kpi-icon"><Building2 :size="36" :stroke-width="1.5" class="text-slate-600 " /></div>
           <span class="bdash__kpi-trend" :class="kpi.trend > 0 ? 'bdash__kpi-trend--up' : 'bdash__kpi-trend--down'">
             <TrendingUp v-if="kpi.trend > 0" :size="11" />
             <TrendingDown v-else :size="11" />

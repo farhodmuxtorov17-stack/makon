@@ -42,40 +42,40 @@
         
         <!-- Key Terms Cards -->
         <div class="card p-5 space-y-4">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white pb-2 border-b border-black/5 dark:border-white/5 flex items-center gap-2">
+          <h3 class="font-bold text-base text-ink-900  pb-2 border-b border-black/5  flex items-center gap-2">
             <DollarSign :size="18" class="text-brand-500" /> Tijorat Shartlari
           </h3>
 
           <div class="grid grid-cols-2 gap-4 text-sm">
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-0.5">
+            <div class="p-3 rounded-xl bg-black/5  space-y-0.5">
               <span class="text-xs text-ink-500">Oylik Ijara Narxi</span>
               <div class="text-xl font-bold text-brand-500">${{ offerTerms.monthlyRent.toLocaleString() }} / oy</div>
             </div>
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-0.5">
+            <div class="p-3 rounded-xl bg-black/5  space-y-0.5">
               <span class="text-xs text-ink-500">Kafolat Depoziti</span>
-              <div class="text-xl font-bold text-ink-900 dark:text-white">${{ offerTerms.depositAmount.toLocaleString() }}</div>
+              <div class="text-xl font-bold text-ink-900 ">${{ offerTerms.depositAmount.toLocaleString() }}</div>
             </div>
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-0.5">
+            <div class="p-3 rounded-xl bg-black/5  space-y-0.5">
               <span class="text-xs text-ink-500">Ekspluatatsiya va Servis (m²)</span>
-              <div class="text-base font-semibold text-ink-900 dark:text-white">${{ offerTerms.serviceChargePerSqM }} / m² / oy</div>
+              <div class="text-base font-semibold text-ink-900 ">${{ offerTerms.serviceChargePerSqM }} / m² / oy</div>
             </div>
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-0.5">
+            <div class="p-3 rounded-xl bg-black/5  space-y-0.5">
               <span class="text-xs text-ink-500">Ijara Muddati</span>
-              <div class="text-base font-semibold text-ink-900 dark:text-white">{{ offerTerms.durationMonths }} Oy ({{ app.startDate }} dan)</div>
+              <div class="text-base font-semibold text-ink-900 ">{{ offerTerms.durationMonths }} Oy ({{ app.startDate }} dan)</div>
             </div>
           </div>
         </div>
 
         <!-- Payment Schedule Breakdown Table -->
         <div class="card p-5 space-y-4">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white flex items-center gap-2">
+          <h3 class="font-bold text-base text-ink-900  flex items-center gap-2">
             <Calendar :size="18" class="text-brand-500" /> To'lovlar Grafigi (Quarterly Schedule)
           </h3>
 
           <div class="overflow-x-auto">
             <table class="w-full text-xs">
               <thead>
-                <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 uppercase tracking-wider text-left bg-black/5 dark:bg-white/5">
+                <tr class="border-b border-black/5  text-ink-500 uppercase tracking-wider text-left bg-black/5 ">
                   <th class="px-3 py-2">Muddati (Sana)</th>
                   <th class="px-3 py-2">Tavsifi</th>
                   <th class="px-3 py-2 text-right">Summa ($)</th>
@@ -83,8 +83,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(p, idx) in paymentSchedule" :key="idx" class="border-b border-black/5 dark:border-white/5">
-                  <td class="px-3 py-2 font-mono font-medium text-ink-900 dark:text-white">{{ p.date }}</td>
+                <tr v-for="(p, idx) in paymentSchedule" :key="idx" class="border-b border-black/5 ">
+                  <td class="px-3 py-2 font-mono font-medium text-ink-900 ">{{ p.date }}</td>
                   <td class="px-3 py-2 text-ink-500">{{ p.title }}</td>
                   <td class="px-3 py-2 text-right font-bold text-brand-500">${{ p.amount.toLocaleString() }}</td>
                   <td class="px-3 py-2 text-center"><span class="badge badge-warning text-[10px]">Kutilmoqda</span></td>
@@ -99,14 +99,14 @@
       <!-- Right Col: Version History Timeline -->
       <div class="space-y-6">
         <div class="card p-5 space-y-4">
-          <h3 class="font-bold text-base text-ink-900 dark:text-white flex items-center gap-2">
+          <h3 class="font-bold text-base text-ink-900  flex items-center gap-2">
             <History :size="18" class="text-purple-400" /> Versiyalar Tarixi
           </h3>
 
           <div class="relative pl-4 border-l-2 border-brand-500/30 space-y-4 text-xs">
             <div v-for="ver in versionHistory" :key="ver.version" class="relative group">
-              <span class="absolute -left-[21px] top-0 w-3.5 h-3.5 rounded-full bg-brand-500 border-2 border-white dark:border-ink-900"></span>
-              <div class="font-bold text-ink-900 dark:text-white flex items-center justify-between">
+              <span class="absolute -left-[21px] top-0 w-3.5 h-3.5 rounded-full bg-brand-500 border-2 border-white "></span>
+              <div class="font-bold text-ink-900  flex items-center justify-between">
                 <span>Versiya {{ ver.version }}</span>
                 <span class="text-[10px] text-ink-500 font-normal">{{ ver.date }}</span>
               </div>
@@ -135,8 +135,8 @@
     <Teleport to="body">
       <div v-if="showReviseModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showReviseModal = false"></div>
-        <div class="relative w-full max-w-md bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <h3 class="text-lg font-bold text-ink-900 dark:text-white">O'zgartirish bo'yicha e'tiroz va izoh</h3>
+        <div class="relative w-full max-w-md bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4">
+          <h3 class="text-lg font-bold text-ink-900 ">O'zgartirish bo'yicha e'tiroz va izoh</h3>
           <textarea v-model="reviseComment" rows="3" placeholder="Masalan: Depozit summasini 1 oylik narxga tushirish..." class="input w-full text-xs"></textarea>
 
           <div class="flex items-center justify-end gap-3 pt-3">

@@ -79,7 +79,7 @@
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/5 dark:border-white/5 text-ink-500 text-xs uppercase tracking-wider text-left bg-black/5 dark:bg-white/5">
+            <tr class="border-b border-black/5  text-ink-500 text-xs uppercase tracking-wider text-left bg-black/5 ">
               <th class="px-4 py-3">Unit №</th>
               <th class="px-4 py-3">Qavat</th>
               <th class="px-4 py-3">Kategoriya</th>
@@ -91,8 +91,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="u in filteredUnits" :key="u.id" @click="navigateTo(`/units/${u.id}`)" class="border-b border-black/5 dark:border-white/5 hover:bg-black/3 dark:hover:bg-white/3 transition-colors cursor-pointer">
-              <td class="px-4 py-3 font-bold font-mono text-ink-900 dark:text-white">
+            <tr v-for="u in filteredUnits" :key="u.id" @click="navigateTo(`/units/${u.id}`)" class="border-b border-black/5  hover:bg-black/3  transition-colors cursor-pointer">
+              <td class="px-4 py-3 font-bold font-mono text-ink-900 ">
                 {{ u.unitNumber }}
               </td>
               <td class="px-4 py-3 text-ink-500">{{ u.floor }}-qavat</td>
@@ -105,7 +105,7 @@
                 <button
                   @click="openRoomLinkModal(u)"
                   class="text-xs px-2 py-1 rounded-lg border transition-colors flex items-center justify-center gap-1 mx-auto"
-                  :class="u.roomId ? 'bg-purple-500/10 text-purple-400 border-purple-500/30' : 'bg-black/5 dark:bg-white/5 text-ink-500 border-dashed border-black/20 dark:border-white/20 hover:border-brand-500'"
+                  :class="u.roomId ? 'bg-purple-500/10 text-purple-400 border-purple-500/30' : 'bg-black/5  text-ink-500 border-dashed border-black/20  hover:border-brand-500'"
                 >
                   <Link :size="12" /> {{ u.roomId || 'Ulash' }}
                 </button>
@@ -117,9 +117,9 @@
                   class="text-xs font-semibold px-2 py-1 rounded-lg border cursor-pointer bg-transparent"
                   :class="statusClass(u.status)"
                 >
-                  <option value="VACANT" class="bg-white dark:bg-ink-900 text-ink-900 dark:text-white">Bo'sh (Vacant)</option>
-                  <option value="RESERVED" class="bg-white dark:bg-ink-900 text-ink-900 dark:text-white">Rezerv (Reserved)</option>
-                  <option value="OCCUPIED" class="bg-white dark:bg-ink-900 text-ink-900 dark:text-white">Band (Occupied)</option>
+                  <option value="VACANT" class="bg-white  text-ink-900 ">Bo'sh (Vacant)</option>
+                  <option value="RESERVED" class="bg-white  text-ink-900 ">Rezerv (Reserved)</option>
+                  <option value="OCCUPIED" class="bg-white  text-ink-900 ">Band (Occupied)</option>
                 </select>
               </td>
               <td class="px-4 py-3 text-right space-x-1">
@@ -153,10 +153,10 @@
     <Teleport to="body">
       <div v-if="showCreateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showCreateModal = false"></div>
-        <div class="relative w-full max-w-md bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white">Yangi Unit yaratish</h3>
-            <button @click="showCreateModal = false" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400">
+        <div class="relative w-full max-w-md bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-black/5 ">
+            <h3 class="text-lg font-bold text-ink-900 ">Yangi Unit yaratish</h3>
+            <button @click="showCreateModal = false" class="p-1 rounded-lg hover:bg-black/5  text-ink-400">
               <X :size="20" />
             </button>
           </div>
@@ -212,7 +212,7 @@
               </select>
             </div>
 
-            <div class="flex items-center justify-end gap-3 pt-4 border-t border-black/5 dark:border-white/5">
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-black/5 ">
               <button type="button" @click="showCreateModal = false" class="btn btn-secondary">Bekor qilish</button>
               <button type="submit" class="btn btn-primary">Unitni yaratish</button>
             </div>
@@ -225,12 +225,12 @@
     <Teleport to="body">
       <div v-if="linkingUnit" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="linkingUnit = null"></div>
-        <div class="relative w-full max-w-lg bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white flex items-center gap-2">
+        <div class="relative w-full max-w-lg bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-black/5 ">
+            <h3 class="text-lg font-bold text-ink-900  flex items-center gap-2">
               <Link :size="18" class="text-purple-400" /> CAD Rejadagi xona elementi bilan ulash
             </h3>
-            <button @click="linkingUnit = null" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="20" /></button>
+            <button @click="linkingUnit = null" class="p-1 rounded-lg hover:bg-black/5  text-ink-400"><X :size="20" /></button>
           </div>
 
           <p class="text-xs text-ink-500">Unit: <b>{{ linkingUnit.unitNumber }}</b> ({{ linkingUnit.floor }}-qavat) uchun 2D rejadagi ko'pburchak xona ID'sini biriktiring.</p>
@@ -239,7 +239,7 @@
             <label class="label">Poligon / CAD Room ID</label>
             <input v-model="selectedRoomId" type="text" placeholder="Masalan: ROOM-104-POLYGON" class="input w-full font-mono" />
 
-            <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 text-xs text-ink-500 space-y-1">
+            <div class="p-3 rounded-xl bg-black/5  text-xs text-ink-500 space-y-1">
               <div><b>Eslatma:</b> CAD kontur ulanganidan so'ng, ushbu unit 2D qavat rejasida interaktiv bosiluvchan holatga o'tadi.</div>
             </div>
           </div>
@@ -256,18 +256,18 @@
     <Teleport to="body">
       <div v-if="selectedHistoryUnit" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="selectedHistoryUnit = null"></div>
-        <div class="relative w-full max-w-lg bg-white dark:bg-ink-900 rounded-2xl border border-black/10 dark:border-white/10 p-6 z-10 space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 class="text-lg font-bold text-ink-900 dark:text-white flex items-center gap-2">
+        <div class="relative w-full max-w-lg bg-white  rounded-2xl border border-black/10  p-6 z-10 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-black/5 ">
+            <h3 class="text-lg font-bold text-ink-900  flex items-center gap-2">
               <History :size="18" class="text-purple-400" /> Unit {{ selectedHistoryUnit.unitNumber }} — Ijara tarixi
             </h3>
-            <button @click="selectedHistoryUnit = null" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-ink-400"><X :size="20" /></button>
+            <button @click="selectedHistoryUnit = null" class="p-1 rounded-lg hover:bg-black/5  text-ink-400"><X :size="20" /></button>
           </div>
 
           <div class="space-y-3">
-            <div v-for="(h, idx) in selectedHistoryUnit.rentalHistory" :key="idx" class="p-3 rounded-xl bg-black/5 dark:bg-white/5 space-y-1 text-xs">
+            <div v-for="(h, idx) in selectedHistoryUnit.rentalHistory" :key="idx" class="p-3 rounded-xl bg-black/5  space-y-1 text-xs">
               <div class="flex items-center justify-between">
-                <span class="font-bold text-ink-900 dark:text-white text-sm">{{ h.tenantName }}</span>
+                <span class="font-bold text-ink-900  text-sm">{{ h.tenantName }}</span>
                 <span class="font-mono text-brand-500 font-bold">{{ formatUZS(h.monthlyRent) }}/oy</span>
               </div>
               <div class="text-ink-500">

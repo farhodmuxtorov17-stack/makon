@@ -56,7 +56,7 @@
     <div class="card overflow-hidden twin-card">
       <div class="twin-card__head">
         <div>
-          <h3 class="font-semibold text-ink-900 dark:text-white">Raqamli ikiz (3D model)</h3>
+          <h3 class="font-semibold text-ink-900 ">Raqamli ikiz (3D model)</h3>
           <p class="text-ink-500 text-xs mt-0.5">Binoning ichki tuzilishi va qavatlar joylashuvi</p>
         </div>
         <span class="badge badge-success text-xs">Faol</span>
@@ -68,12 +68,12 @@
 
     <!-- Building units -->
     <div class="card overflow-hidden">
-      <div class="px-4 py-3 border-b border-ink-100 dark:border-white/10">
-        <h3 class="text-sm font-semibold text-ink-900 dark:text-white">Unitlar ({{ buildingUnits.length }})</h3>
+      <div class="px-4 py-3 border-b border-ink-100 ">
+        <h3 class="text-sm font-semibold text-ink-900 ">Unitlar ({{ buildingUnits.length }})</h3>
       </div>
       <table class="w-full" v-if="buildingUnits.length">
         <thead>
-          <tr class="border-b border-ink-100 dark:border-white/10">
+          <tr class="border-b border-ink-100 ">
             <th class="text-left text-xs text-ink-400 px-4 py-3">Unit</th>
             <th class="text-left text-xs text-ink-400 px-4 py-3">Qavat</th>
             <th class="text-left text-xs text-ink-400 px-4 py-3">Maydon</th>
@@ -82,8 +82,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="u in buildingUnits" :key="u.id" class="border-b border-ink-50 dark:border-white/5 hover:bg-ink-50 dark:hover:bg-white/5">
-            <td class="px-4 py-3 text-sm font-medium text-ink-900 dark:text-white">{{ u.unitNumber }}</td>
+          <tr v-for="u in buildingUnits" :key="u.id" class="border-b border-ink-50  hover:bg-ink-50 ">
+            <td class="px-4 py-3 text-sm font-medium text-ink-900 ">{{ u.unitNumber }}</td>
             <td class="px-4 py-3 text-sm text-ink-400">{{ u.floor }}</td>
             <td class="px-4 py-3 text-sm text-ink-400">{{ u.area }} m²</td>
             <td class="px-4 py-3">
@@ -91,7 +91,7 @@
                 {{ statusLabel(u.status) }}
               </span>
             </td>
-            <td class="px-4 py-3 text-right text-sm text-ink-600 dark:text-ink-300">{{ u.monthlyRent?.toLocaleString('ru-RU') || '—' }} {{ u.currency }}</td>
+            <td class="px-4 py-3 text-right text-sm text-ink-600 ">{{ u.monthlyRent?.toLocaleString('ru-RU') || '—' }} {{ u.currency }}</td>
           </tr>
         </tbody>
       </table>
@@ -100,16 +100,16 @@
 
     <!-- Building info -->
     <div class="card p-5" v-if="building">
-      <h3 class="font-semibold text-ink-900 dark:text-white mb-4">Bino pasporti</h3>
+      <h3 class="font-semibold text-ink-900  mb-4">Bino pasporti</h3>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-        <div><div class="text-xs text-ink-500">Tuman</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.district }}</div></div>
-        <div><div class="text-xs text-ink-500">Qurilish yili</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.buildYear }}</div></div>
-        <div><div class="text-xs text-ink-500">Kadastr</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.cadastralNumber }}</div></div>
+        <div><div class="text-xs text-ink-500">Tuman</div><div class="font-medium text-ink-900  mt-1">{{ building.district }}</div></div>
+        <div><div class="text-xs text-ink-500">Qurilish yili</div><div class="font-medium text-ink-900  mt-1">{{ building.buildYear }}</div></div>
+        <div><div class="text-xs text-ink-500">Kadastr</div><div class="font-medium text-ink-900  mt-1">{{ building.cadastralNumber }}</div></div>
         <div><div class="text-xs text-ink-500">Status</div>
           <span class="badge mt-1 text-xs" :class="building.isPublished ? 'badge-success' : 'badge-warning'">{{ building.isPublished ? 'Faol' : 'Qoralama' }}</span>
         </div>
-        <div><div class="text-xs text-ink-500">3D model</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.has3dModel ? 'Bor' : 'Yo\'q' }}</div></div>
-        <div><div class="text-xs text-ink-500">Qulayliklar</div><div class="font-medium text-ink-900 dark:text-white mt-1">{{ building.amenities?.length || 0 }} ta</div></div>
+        <div><div class="text-xs text-ink-500">3D model</div><div class="font-medium text-ink-900  mt-1">{{ building.has3dModel ? 'Bor' : 'Yo\'q' }}</div></div>
+        <div><div class="text-xs text-ink-500">Qulayliklar</div><div class="font-medium text-ink-900  mt-1">{{ building.amenities?.length || 0 }} ta</div></div>
       </div>
     </div>
   </div>

@@ -79,7 +79,7 @@
     <!-- Reading form -->
     <div class="card p-6 space-y-4">
       <div class="flex items-center justify-between">
-        <h3 class="font-semibold dark:text-white">Ko'rsatkich kiritish — {{ selectedMonthLabel }}</h3>
+        <h3 class="font-semibold ">Ko'rsatkich kiritish — {{ selectedMonthLabel }}</h3>
         <span class="badge" :class="currentMonthData?.status === 'SUBMITTED' ? 'badge-success' : 'badge-warning'">
           {{ currentMonthData?.status === 'SUBMITTED' ? 'Topshirilgan' : 'Kutilmoqda' }}
         </span>
@@ -135,11 +135,11 @@
 
     <!-- History -->
     <div class="card-premium p-6">
-      <h3 class="font-semibold dark:text-white mb-4">Tarix</h3>
+      <h3 class="font-semibold  mb-4">Tarix</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="text-left text-xs text-ink-500 border-b border-black/5 dark:border-white/5">
+            <tr class="text-left text-xs text-ink-500 border-b border-black/5 ">
               <th class="px-3 py-2">Oy</th>
               <th class="px-3 py-2 text-right">Elektr</th>
               <th class="px-3 py-2 text-right">Suv</th>
@@ -149,7 +149,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="h in history" :key="h.month" class="border-b border-black/5 dark:border-white/5">
+            <tr v-for="h in history" :key="h.month" class="border-b border-black/5 ">
               <td class="px-3 py-2 font-medium">{{ h.month }}</td>
               <td class="px-3 py-2 text-right">{{ formatNum(h.electricity) }} kWh</td>
               <td class="px-3 py-2 text-right">{{ formatNum(h.water) }} m³</td>

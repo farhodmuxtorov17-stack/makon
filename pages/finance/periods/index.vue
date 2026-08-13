@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
@@ -13,28 +13,28 @@
     <!-- Metrics -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="period-kpi period-kpi--teal">
-        <div class="period-kpi__icon"><Building2 :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="period-kpi__icon"><Building2 :size="36" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ periods.length }}</div>
           <div class="period-kpi__label">Jami davrlar</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--green">
-        <div class="period-kpi__icon"><CheckCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="period-kpi__icon"><CheckCircle :size="36" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ closedCount }}</div>
           <div class="period-kpi__label">Yopilgan</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--red">
-        <div class="period-kpi__icon"><AlertCircle :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="period-kpi__icon"><AlertCircle :size="36" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ openCount }}</div>
           <div class="period-kpi__label">Faol davr</div>
         </div>
       </div>
       <div class="period-kpi period-kpi--amber">
-        <div class="period-kpi__icon"><DollarSign :size="36" :stroke-width="1.5" class="text-slate-600 dark:text-slate-300" /></div>
+        <div class="period-kpi__icon"><DollarSign :size="36" :stroke-width="1.5" class="text-slate-600 " /></div>
         <div class="period-kpi__body">
           <div class="period-kpi__val">{{ formatUZSShort(totalRevenue) }}</div>
           <div class="period-kpi__label">Jami daromad</div>
@@ -46,7 +46,7 @@
     <div class="card-premium p-5">
       <div class="flex items-center justify-between mb-4">
         <div>
-          <h3 class="font-semibold text-ink-900 dark:text-white">Daromad va qarz dinamikasi</h3>
+          <h3 class="font-semibold text-ink-900 ">Daromad va qarz dinamikasi</h3>
           <p class="text-xs text-ink-400 mt-0.5">So'nggi 8 oy</p>
         </div>
         <div class="flex items-center gap-3 text-xs text-ink-500">
@@ -59,10 +59,10 @@
 
     <!-- Status filter + search -->
     <div class="flex items-center justify-between gap-3 flex-wrap">
-      <div class="flex gap-1 p-1 rounded-xl bg-black/5 dark:bg-white/5">
+      <div class="flex gap-1 p-1 rounded-xl bg-black/5 ">
         <button v-for="tab in statusTabs" :key="tab.id" @click="statusFilter = tab.id"
           class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap"
-          :class="statusFilter === tab.id ? 'bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm' : 'text-ink-500'">
+          :class="statusFilter === tab.id ? 'bg-white  text-ink-900  shadow-sm' : 'text-ink-500'">
           {{ tab.label }}
           <span class="ml-1 text-xs" :class="statusFilter === tab.id ? 'text-brand-500' : 'text-ink-400'">{{ tab.count }}</span>
         </button>

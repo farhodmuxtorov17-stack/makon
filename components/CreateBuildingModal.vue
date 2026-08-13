@@ -1,7 +1,7 @@
 <template>
   <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40" @click.self="$emit('close')">
     <div class="card w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between p-6 border-b border-black/5 dark:border-white/5 sticky top-0 bg-inherit z-10">
+      <div class="flex items-center justify-between p-6 border-b border-black/5  sticky top-0 bg-inherit z-10">
         <h3 class="text-lg font-semibold">Yangi bino qo'shish</h3>
         <button @click="$emit('close')" class="btn btn-ghost btn-sm"><X :size="18" /></button>
       </div>
@@ -85,7 +85,7 @@
         </div>
       </div>
 
-      <div class="flex gap-3 p-6 border-t border-black/5 dark:border-white/5 sticky bottom-0 bg-inherit">
+      <div class="flex gap-3 p-6 border-t border-black/5  sticky bottom-0 bg-inherit">
         <button @click="$emit('close')" class="btn btn-secondary flex-1">Bekor qilish</button>
         <button @click="submit" class="btn btn-primary flex-1"><Check :size="16" /> Yaratish</button>
       </div>

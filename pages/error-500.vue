@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-[100dvh] admin-bg text-ink-900 dark:text-white flex items-center justify-center px-4">
+  <div class="min-h-[100dvh] admin-bg text-ink-900  flex items-center justify-center px-4">
     <div class="text-center max-w-md">
       <!-- 500 illustration -->
       <div class="relative mb-8">
@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <h1 class="text-2xl font-bold text-ink-900 dark:text-white mb-2">Server xatosi</h1>
+      <h1 class="text-2xl font-bold text-ink-900  mb-2">Server xatosi</h1>
       <p class="text-ink-500 mb-8">
         Texnik nosozlik yuz berdi. Biz bu haqda xabardor qilindik.
         Iltimos, birozdan keyin qayta urinib ko'ring.
@@ -33,7 +33,7 @@
       </div>
 
       <!-- Support -->
-      <div class="mt-8 pt-6 border-t border-black/5 dark:border-white/5">
+      <div class="mt-8 pt-6 border-t border-black/5 ">
         <p class="text-sm text-ink-500">
           Muammo davom etmoqdami?
           <a href="mailto:support@makon.uz" class="text-brand-500 hover:text-brand-600 font-medium">support@makon.uz</a>

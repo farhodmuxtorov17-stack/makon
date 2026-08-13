@@ -31,11 +31,11 @@
     <div class="flex items-center gap-2 mb-4">
       <div v-for="(step, i) in steps" :key="i" class="flex items-center gap-2 flex-1">
         <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all"
-          :class="currentStep >= i ? 'bg-brand-500 text-white' : 'bg-black/5 dark:bg-white/5 text-ink-500'">
+          :class="currentStep >= i ? 'bg-brand-500 text-white' : 'bg-black/5  text-ink-500'">
           {{ i + 1 }}
         </div>
-        <span class="text-xs hidden md:block" :class="currentStep >= i ? 'text-ink-900 dark:text-white' : 'text-ink-500'">{{ step }}</span>
-        <div v-if="i < steps.length - 1" class="flex-1 h-px mx-1" :class="currentStep > i ? 'bg-brand-500' : 'bg-black/10 dark:bg-white/10'"></div>
+        <span class="text-xs hidden md:block" :class="currentStep >= i ? 'text-ink-900 ' : 'text-ink-500'">{{ step }}</span>
+        <div v-if="i < steps.length - 1" class="flex-1 h-px mx-1" :class="currentStep > i ? 'bg-brand-500' : 'bg-black/10 '"></div>
       </div>
     </div>
 
@@ -78,14 +78,14 @@
 
 <!-- Step 1: Application type -->
     <div v-if="currentStep === 0" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Ariza turi va tijoriy parametrlar</h3>
+      <h3 class="font-semibold ">Ariza turi va tijoriy parametrlar</h3>
       <div class="grid grid-cols-2 gap-3">
-        <button @click="form.type = 'RENT'" class="p-4 rounded-xl border-2 transition-all text-left" :class="form.type === 'RENT' ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 dark:border-white/5'">
+        <button @click="form.type = 'RENT'" class="p-4 rounded-xl border-2 transition-all text-left" :class="form.type === 'RENT' ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 '">
           <Building2 :size="20" class="mb-2" :class="form.type === 'RENT' ? 'text-brand-500' : 'text-ink-500'" />
           <div class="font-medium text-sm">Ijara</div>
           <div class="text-xs text-ink-500">Doimiy oylik to\'lov</div>
         </button>
-        <button @click="form.type = 'SALE'" class="p-4 rounded-xl border-2 transition-all text-left" :class="form.type === 'SALE' ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 dark:border-white/5'">
+        <button @click="form.type = 'SALE'" class="p-4 rounded-xl border-2 transition-all text-left" :class="form.type === 'SALE' ? 'border-brand-500 bg-brand-500/5' : 'border-black/5 '">
           <ShoppingBag :size="20" class="mb-2" :class="form.type === 'SALE' ? 'text-brand-500' : 'text-ink-500'" />
           <div class="font-medium text-sm">Sotib olish</div>
           <div class="text-xs text-ink-500">To\'liq mulk huquqi</div>
@@ -110,7 +110,7 @@
 
     <!-- Step 2: Organization info -->
     <div v-if="currentStep === 1" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Tashkilot ma\'lumotlari (profile dan olindi)</h3>
+      <h3 class="font-semibold ">Tashkilot ma\'lumotlari (profile dan olindi)</h3>
       <div class="grid grid-cols-2 gap-4">
         <div><label class="label">Tashkilot nomi</label><input type="text" class="input" value="Orient Logistika MChJ" disabled /></div>
         <div><label class="label">STIR</label><input type="text" class="input" value="308745612" disabled /></div>
@@ -126,8 +126,8 @@
 
     <!-- Step 3: Documents -->
     <div v-if="currentStep === 2" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Hujjatlar yuklash</h3>
-      <div class="border-2 border-dashed border-black/10 dark:border-white/10 rounded-2xl p-8 text-center cursor-pointer hover:border-brand-500/30 transition-all">
+      <h3 class="font-semibold ">Hujjatlar yuklash</h3>
+      <div class="border-2 border-dashed border-black/10  rounded-2xl p-8 text-center cursor-pointer hover:border-brand-500/30 transition-all">
         <Upload :size="24" class="text-ink-500 mx-auto mb-2" />
         <div class="text-sm text-ink-500">Hujjatlarni yuklang (pasport, guvohnoma, hujjatlar)</div>
         <div class="text-xs text-ink-500 mt-1">PDF, JPG, PNG · maks 10 MB</div>
@@ -140,7 +140,7 @@
 
     <!-- Step 4: Raqamli imzo confirm -->
     <div v-if="currentStep === 3" class="card p-6 space-y-4">
-      <h3 class="font-semibold dark:text-white">Raqamli imzo orqali tasdiqlash</h3>
+      <h3 class="font-semibold ">Raqamli imzo orqali tasdiqlash</h3>
       <div class="p-4 rounded-xl bg-brand-500/5 border border-brand-500/10 flex items-start gap-3">
         <FileSignature :size="20" class="text-brand-500 flex-shrink-0" />
         <div class="text-sm text-ink-500">

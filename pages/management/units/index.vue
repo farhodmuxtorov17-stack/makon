@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">Unitlar</div>
@@ -9,7 +9,7 @@
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi unit</button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger stagger">
       <div class="dash-kpi dash-kpi--blue">
         <div class="kpi-strip__icon"><Layers :size="18" /></div>
         <div class="dash-kpi__body">
@@ -45,22 +45,22 @@
     <div class="flex flex-wrap items-center gap-2">
       <div class="relative flex-1 min-w-[200px]">
         <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
-        <input v-model="search" type="text" placeholder="Unit nomi, bino..." class="w-full text-sm border border-black/10 dark:border-white/10 rounded-xl pl-9 pr-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200" />
+        <input v-model="search" type="text" placeholder="Unit nomi, bino..." class="w-full text-sm border border-black/10  rounded-xl pl-9 pr-3 py-2 bg-white  text-ink-700 " />
       </div>
-      <select v-model="statusFilter" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
+      <select v-model="statusFilter" class="text-sm border border-black/10  rounded-xl px-3 py-2 bg-white  text-ink-700 ">
         <option value="">Holat: Barchasi</option>
         <option value="VACANT">Bo'sh</option>
         <option value="OCCUPIED">Band</option>
         <option value="RESERVED">Rezerv</option>
       </select>
-      <select v-model="typeFilter" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
+      <select v-model="typeFilter" class="text-sm border border-black/10  rounded-xl px-3 py-2 bg-white  text-ink-700 ">
         <option value="">Tur: Barchasi</option>
         <option value="OFFICE">Ofis</option>
         <option value="RETAIL">Savdo</option>
         <option value="WAREHOUSE">Ombor</option>
         <option value="MIXED">Aralash</option>
       </select>
-      <select v-model="buildingFilter" class="text-sm border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200">
+      <select v-model="buildingFilter" class="text-sm border border-black/10  rounded-xl px-3 py-2 bg-white  text-ink-700 ">
         <option value="">Bino: Barchasi</option>
         <option v-for="b in buildings" :key="b" :value="b">{{ b }}</option>
       </select>

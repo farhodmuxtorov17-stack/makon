@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 animate-fade-up">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <div class="eyebrow">Shartnomalar</div>
@@ -52,16 +52,16 @@
           </thead>
           <tbody>
             <tr v-for="c in filteredContracts" :key="c.id" class="cursor-pointer" @click="navigateTo(`/contracts/${c.id}`)">
-              <td class="font-mono font-bold text-xs text-ink-900 dark:text-white">{{ c.number }}</td>
+              <td class="font-mono font-bold text-xs text-ink-900 ">{{ c.number }}</td>
               <td>
-                <div class="font-medium text-ink-900 dark:text-white">{{ c.tenantName }}</div>
+                <div class="font-medium text-ink-900 ">{{ c.tenantName }}</div>
                 <div class="text-xs text-ink-500 font-mono">STIR: {{ c.tenantTin }}</div>
               </td>
               <td class="hidden md:table-cell">
-                <div class="text-sm text-ink-900 dark:text-white">{{ c.buildingName }}</div>
+                <div class="text-sm text-ink-900 ">{{ c.buildingName }}</div>
                 <div class="text-xs text-brand-500 font-mono">{{ c.unitNumber }}</div>
               </td>
-              <td class="text-right font-bold text-brand-600 dark:text-brand-400">{{ formatUZSShort(c.monthlyRent) }}</td>
+              <td class="text-right font-bold text-brand-600 ">{{ formatUZSShort(c.monthlyRent) }}</td>
               <td class="hidden lg:table-cell text-center text-xs text-ink-500 font-mono">{{ c.startDate }} — {{ c.endDate }}</td>
               <td class="text-center">
                 <div class="flex items-center justify-center gap-1">
@@ -84,10 +84,10 @@
     <!-- Detail -->
     <DrawerModal :show="!!selectedContract" title="Shartnoma tafsilotlari" @close="selectedContract = null">
       <template v-if="selectedContract">
-        <div class="space-y-5">
+        <div class="space-y-5 animate-fade-up">
           <div class="flex items-center justify-between">
             <div>
-              <div class="font-mono font-bold text-lg text-ink-900 dark:text-white">{{ selectedContract.number }}</div>
+              <div class="font-mono font-bold text-lg text-ink-900 ">{{ selectedContract.number }}</div>
               <div class="text-sm text-ink-500 mt-0.5">{{ selectedContract.tenantName }}</div>
             </div>
             <span class="badge" :class="contractBadge(selectedContract.status)">{{ contractLabel(selectedContract.status) }}</span>
@@ -96,27 +96,27 @@
           <div class="grid grid-cols-2 gap-3">
             <div class="card p-3">
               <div class="text-xs text-ink-500 mb-1">Ijarachi STIR</div>
-              <div class="font-mono font-bold text-sm text-ink-900 dark:text-white">{{ selectedContract.tenantTin }}</div>
+              <div class="font-mono font-bold text-sm text-ink-900 ">{{ selectedContract.tenantTin }}</div>
             </div>
             <div class="card p-3">
               <div class="text-xs text-ink-500 mb-1">Bino</div>
-              <div class="font-medium text-sm text-ink-900 dark:text-white">{{ selectedContract.buildingName }}</div>
+              <div class="font-medium text-sm text-ink-900 ">{{ selectedContract.buildingName }}</div>
             </div>
             <div class="card p-3">
               <div class="text-xs text-ink-500 mb-1">Unit</div>
-              <div class="font-mono font-bold text-sm text-brand-600 dark:text-brand-400">{{ selectedContract.unitNumber }}</div>
+              <div class="font-mono font-bold text-sm text-brand-600 ">{{ selectedContract.unitNumber }}</div>
             </div>
             <div class="card p-3">
               <div class="text-xs text-ink-500 mb-1">Oylik to'lov</div>
-              <div class="font-bold text-sm text-ink-900 dark:text-white">{{ formatUZS(selectedContract.monthlyRent) }}</div>
+              <div class="font-bold text-sm text-ink-900 ">{{ formatUZS(selectedContract.monthlyRent) }}</div>
             </div>
             <div class="card p-3">
               <div class="text-xs text-ink-500 mb-1">Boshlanish</div>
-              <div class="font-mono text-sm text-ink-900 dark:text-white">{{ selectedContract.startDate }}</div>
+              <div class="font-mono text-sm text-ink-900 ">{{ selectedContract.startDate }}</div>
             </div>
             <div class="card p-3">
               <div class="text-xs text-ink-500 mb-1">Tugash</div>
-              <div class="font-mono text-sm text-ink-900 dark:text-white">{{ selectedContract.endDate }}</div>
+              <div class="font-mono text-sm text-ink-900 ">{{ selectedContract.endDate }}</div>
             </div>
           </div>
 

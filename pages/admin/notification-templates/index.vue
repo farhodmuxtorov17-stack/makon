@@ -53,7 +53,7 @@
               <component :is="tpl.icon" :size="18" :class="tpl.active ? 'text-emerald-500' : 'text-ink-400'" />
             </div>
             <div>
-              <div class="font-semibold text-sm text-ink-900 dark:text-white">{{ tpl.event }}</div>
+              <div class="font-semibold text-sm text-ink-900 ">{{ tpl.event }}</div>
               <div class="text-xs text-ink-500">{{ tpl.channel }}</div>
             </div>
           </div>
@@ -66,15 +66,15 @@
         <div class="space-y-2 mt-4">
           <div class="template-lang">
             <span class="badge badge-brand text-[10px]">UZ</span>
-            <p class="text-sm text-ink-700 dark:text-ink-300 mt-1">{{ tpl.textUz }}</p>
+            <p class="text-sm text-ink-700  mt-1">{{ tpl.textUz }}</p>
           </div>
           <div class="template-lang">
             <span class="badge badge-neutral text-[10px]">RU</span>
-            <p class="text-sm text-ink-700 dark:text-ink-300 mt-1">{{ tpl.textRu }}</p>
+            <p class="text-sm text-ink-700  mt-1">{{ tpl.textRu }}</p>
           </div>
         </div>
 
-        <div class="flex items-center justify-between mt-4 pt-3 border-t border-black/5 dark:border-white/5">
+        <div class="flex items-center justify-between mt-4 pt-3 border-t border-black/5 ">
           <span class="text-xs text-ink-400">{{ tpl.variables.length }} ta o'zgaruvchi</span>
           <button class="btn btn-ghost btn-sm text-xs" @click="() => {}"><Edit3 :size="12" /> Tahrir</button>
         </div>
