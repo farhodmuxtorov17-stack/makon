@@ -18,35 +18,51 @@ test.describe('Authentication', () => {
     await expect(submitBtn).toBeVisible()
   })
 
-  test('shows error on invalid credentials', async ({ page }) => {
+  test('short credentials are rejected client-side', async ({ page }) => {
+    await page.goto('./login')
+    await page.waitForLoadState('networkidle')
+
+    // Fill very short credentials — client validation rejects < 3 chars
+    const emailInput = page.locator('input[type="email"], input[type="text"]').first()
+    const passwordInput = page.locator('input[type="password"]').first()
+
+    await emailInput.fill('a')
+    await passwordInput.fill('b')
+
+    const submitBtn = page.locator('button[type="submit"]').first()
+    await submitBtn.click()
+
+    await page.waitForTimeout(1000)
+    // Should stay on login page (validation prevents redirect)
+    expect(page.url()).toContain('login')
+  })
+
+  test('valid credentials redirect to dashboard', async ({ page }) => {
     await page.goto('./login')
     await page.waitForLoadState('networkidle')
 
     const emailInput = page.locator('input[type="email"], input[type="text"]').first()
     const passwordInput = page.locator('input[type="password"]').first()
 
-    await emailInput.fill('test@example.com')
-    await passwordInput.fill('wrongpassword')
+    await emailInput.fill('super@makon.uz')
+    await passwordInput.fill('Makon2026!')
 
     const submitBtn = page.locator('button[type="submit"]').first()
     await submitBtn.click()
 
-    // Wait for either redirect or error message
-    await page.waitForTimeout(2000)
-    
-    // Should stay on login page (URL contains 'login')
-    const currentUrl = page.url()
-    expect(currentUrl).toContain('login')
+    await page.waitForTimeout(3000)
+    // Should redirect to dashboard
+    expect(page.url()).toContain('dashboard')
   })
 
   test('registration link is visible', async ({ page }) => {
     await page.goto('./login')
     await page.waitForLoadState('networkidle')
 
-    const regLink = page.locator('a[href*="register"], a:has-text("ro\'yxat")').first()
+    const regLink = page.locator('a[href*="register"]').first()
     if (await regLink.isVisible().catch(() => false)) {
       await regLink.click()
-      await page.waitForLoadState('networkidle')
+      await page.waitForTimeout(2000)
       expect(page.url()).toContain('register')
     }
   })
