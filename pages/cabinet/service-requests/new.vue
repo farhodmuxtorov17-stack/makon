@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-2xl mx-auto space-y-6">
     <div>
-      <div class="eyebrow">CABINET / SERVICE</div>
+      <div class="eyebrow">Servis so'rovi</div>
       <h1 class="page-title">Yangi servis so\'rovi</h1>
       <p class="text-ink-500 text-sm mt-1">Muammo yoki jihoz zarurati haqida murojaat yuborish</p>
     </div>

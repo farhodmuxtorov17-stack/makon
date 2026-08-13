@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">CABINET / SERVICE-REQUESTS</div>
+        <div class="eyebrow">Servis so'rovlari</div>
       <h1 class="page-title">Servis so'rovlari</h1>
         <p class="text-ink-500 text-sm mt-1">Texnik xizmat so'rovlari tarixi va holati</p>
       </div>

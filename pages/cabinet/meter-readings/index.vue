@@ -5,7 +5,7 @@
     </div>
 
     <div>
-      <div class="eyebrow">CABINET / METER-READINGS</div>
+      <div class="eyebrow">Sanoqchilar</div>
       <h1 class="page-title">Hisoblagich ko'rsatkichlari</h1>
       <p class="text-ink-500 text-sm mt-1">Elektr, suv va gaz — joriy oy</p>
     </div>

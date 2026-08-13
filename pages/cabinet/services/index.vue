@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">CABINET / SERVICES</div>
+        <div class="eyebrow">Mening xizmatlarim</div>
       <h1 class="page-title">Hisob va servis</h1>
         <p class="text-ink-500 text-sm mt-1">To'lovlar, invoyslar va servis so'rovlari</p>
       </div>

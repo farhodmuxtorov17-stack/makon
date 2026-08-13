@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">FACILITY / WORK ORDERS</div>
+        <div class="eyebrow">Texnik xizmat</div>
       <h1 class="page-title">Work orderlar</h1>
         <p class="text-sm text-ink-500 mt-1">Servis so'rovlari asosida yaratilgan ish buyruqlari</p>
       </div>

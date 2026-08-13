@@ -9,7 +9,7 @@
       <div class="flex items-center gap-3">
         <div class="w-9 h-9 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500"><Layers :size="18" /></div>
         <div>
-          <div class="eyebrow">FLOOR PLAN / {{ floor.num }}-QAVAT</div>
+          <div class="eyebrow">Qavat reja - {{ floor.num }}-QAVAT</div>
         <h1 class="page-title">{{ floor.num }}-qavat sketch-rejasi</h1>
           <p class="text-ink-500 text-xs mt-0.5">{{ buildingName }} · Unit poligonlari va atributlari</p>
         </div>

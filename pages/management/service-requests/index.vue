@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">MANAGEMENT / SERVICE REQUESTS</div>
+        <div class="eyebrow">Servis so'rovlari</div>
       <h1 class="page-title">Xizmat so'rovlari</h1>
       <p class="page-sub">Ijarachilardan kelgan so'rovlar va ularning holati</p>
         <p class="text-ink-500 text-sm mt-1">Xizmat ko'rsatish so'rovlari oqimi va SLA ijro nazorati</p>

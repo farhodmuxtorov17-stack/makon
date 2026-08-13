@@ -92,7 +92,7 @@ input:focus, select:focus, textarea:focus { outline: none; }
 }
 .sidebar-link__icon { flex-shrink: 0; transition: transform 0.2s; }
 .sidebar-link:hover .sidebar-link__icon { transform: scale(1.1); }
-.sidebar-link__label { white-space: nowrap; overflow: hidden; }
+.sidebar-link__label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
 .sidebar-group-label {
   font-size: 10px; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.08em; color: rgba(255,255,255,0.25);

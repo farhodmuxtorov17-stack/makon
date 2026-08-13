@@ -2,7 +2,7 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="eyebrow">CABINET / APPLICATIONS</div>
+        <div class="eyebrow">Mening arizalarim</div>
       <h1 class="page-title">Ariza va hujjatlar</h1>
         <p class="text-ink-500 text-sm mt-1">{{ apps.length }} ta ariza · {{ activeCount }} faol</p>
       </div>
