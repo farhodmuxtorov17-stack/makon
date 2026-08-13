@@ -58,7 +58,7 @@
               <td class="px-4 py-3 text-right hidden lg:table-cell font-mono text-brand-500">{{ r.consumption }}</td>
               <td class="px-4 py-3 text-center hidden md:table-cell text-xs text-ink-500">{{ r.date }}</td>
               <td class="px-4 py-3 text-center">
-                <span class="badge text-[10px]" :class="r.read ? 'badge-success' : 'badge-warning'">{{ r.read ? "O'qilgan" : "Kutilmoqda" }}</span>
+                <span class="badge text-[10px]" :class="r.read ? 'badge-success' : 'badge-warning'">{{ r.read ? 'O\'qilgan' : "Kutilmoqda" }}</span>
               </td>
             </tr>
           </tbody>

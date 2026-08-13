@@ -2,7 +2,7 @@
   <button
     @click="toggleTheme"
     class="relative w-10 h-10 rounded-xl flex items-center justify-center transition-all hover:bg-black/5 dark:hover:bg-white/5"
-    :title="isDark ? 'Yorug rejimga otish' : 'Qorongi rejimga otish'"
+    :title="isDark ? 'Yorug\'lik rejimiga otish' : 'Qorongi rejimga otish'"
   >
     <transition name="theme-fade" mode="out-in">
       <Sun v-if="isDark" key="sun" :size="18" class="text-amber-400" />
