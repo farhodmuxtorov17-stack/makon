@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
-  css: ['~/assets/css/aurora.css', '~/assets/css/aurora-v8.css'],
+  css: ['~/assets/css/aurora.css', '~/assets/css/aurora-v9.css'],
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
   app: {
     baseURL: '/makon/',
