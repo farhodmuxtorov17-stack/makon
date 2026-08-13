@@ -14,8 +14,15 @@ test.describe('Authentication', () => {
     const passwordInput = page.locator('input[type="password"]').first()
     await expect(passwordInput).toBeVisible()
 
-    const submitBtn = page.locator('button[type="submit"], button:has-text(/kirish/i), button:has-text("Login")').first()
-    await expect(submitBtn).toBeVisible()
+    // Try submit button by type, then by text
+    const submitBtn = page.locator('button[type="submit"]')
+    const submitVisible = await submitBtn.isVisible().catch(() => false)
+    if (submitVisible) {
+      await expect(submitBtn.first()).toBeVisible()
+    } else {
+      const textBtn = page.getByRole('button', { name: /kirish|login/i })
+      await expect(textBtn.first()).toBeVisible()
+    }
   })
 
   test('short credentials are rejected client-side', async ({ page }) => {
