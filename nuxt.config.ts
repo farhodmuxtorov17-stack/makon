@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
-  css: ['~/assets/css/aurora.css', '~/assets/css/aurora-v5.css'],
+  css: ['~/assets/css/aurora.css', '~/assets/css/aurora-v5.css', '~/assets/css/aurora-v6.css'],
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/color-mode'],
   colorMode: {
     preference: 'light',
