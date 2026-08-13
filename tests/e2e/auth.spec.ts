@@ -6,6 +6,7 @@ import { test, expect } from '@playwright/test'
 test.describe('Authentication', () => {
   test('login page renders with correct elements', async ({ page }) => {
     await page.goto('./login')
+    await page.waitForLoadState('networkidle')
 
     const emailInput = page.locator('input[type="email"], input[type="text"], input[placeholder*="email" i], input[placeholder*="login" i]').first()
     await expect(emailInput).toBeVisible()
@@ -13,12 +14,13 @@ test.describe('Authentication', () => {
     const passwordInput = page.locator('input[type="password"]').first()
     await expect(passwordInput).toBeVisible()
 
-    const submitBtn = page.locator('button[type="submit"], button:has-text("Kirish"), button:has-text("kirish"), button:has-text("Login")').first()
+    const submitBtn = page.locator('button[type="submit"], button:has-text("kirish" i), button:has-text("Login")').first()
     await expect(submitBtn).toBeVisible()
   })
 
   test('shows error on invalid credentials', async ({ page }) => {
     await page.goto('./login')
+    await page.waitForLoadState('networkidle')
 
     const emailInput = page.locator('input[type="email"], input[type="text"]').first()
     const passwordInput = page.locator('input[type="password"]').first()
@@ -29,12 +31,17 @@ test.describe('Authentication', () => {
     const submitBtn = page.locator('button[type="submit"]').first()
     await submitBtn.click()
 
-    await page.waitForTimeout(1000)
-    expect(page.url()).toContain('login')
+    // Wait for either redirect or error message
+    await page.waitForTimeout(2000)
+    
+    // Should stay on login page (URL contains 'login')
+    const currentUrl = page.url()
+    expect(currentUrl).toContain('login')
   })
 
   test('registration link is visible', async ({ page }) => {
     await page.goto('./login')
+    await page.waitForLoadState('networkidle')
 
     const regLink = page.locator('a[href*="register"], a:has-text("ro\'yxat")').first()
     if (await regLink.isVisible().catch(() => false)) {
