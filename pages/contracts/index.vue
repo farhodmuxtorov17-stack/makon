@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Shartnomalar</div>
         <h1 class="page-title">Shartnomalar</h1>
-        <p class="text-sm text-ink-400 mt-1">Barcha shartnomalar va imzolash holati</p>
+        <p class="page-sub">Barcha shartnomalar va imzolash holati</p>
       </div>
     </div>
 

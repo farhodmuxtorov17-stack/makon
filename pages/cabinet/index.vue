@@ -7,7 +7,7 @@
         <div>
           <div class="eyebrow">Mening kabinetim</div>
         <h1 class="page-title">{{ org.name }}</h1>
-        <p class="text-sm text-ink-400 mt-1">STIR: {{ org.tin }} · {{ units.length }} ta unit · {{ activeContracts }} ta faol shartnoma</p>
+        <p class="page-sub">STIR: {{ org.tin }} · {{ units.length }} ta unit · {{ activeContracts }} ta faol shartnoma</p>
         </div>
       </div>
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow">

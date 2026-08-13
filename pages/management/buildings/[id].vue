@@ -6,7 +6,7 @@
         <div>
           <div class="eyebrow">Binolar</div>
       <h1 class="page-title">{{ building?.name || 'Bino' }}</h1>
-          <p class="text-ink-500 text-sm mt-0.5">{{ building?.address }} · {{ building?.floorsCount }} qavat · {{ building?.totalUnits }} unit</p>
+          <p class="page-sub">{{ building?.address }} · {{ building?.floorsCount }} qavat · {{ building?.totalUnits }} unit</p>
         </div>
       </div>
       <div class="flex items-center gap-2">

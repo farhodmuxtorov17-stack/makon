@@ -2,10 +2,9 @@
   <div class="space-y-5">
     <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-brand-500 uppercase">Raqamli imzolar</div>
         <div class="eyebrow">Raqamli imzolar</div>
       <h1 class="page-title">Raqamli imzo navbati</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
+        <p class="page-sub">{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="() => {}"><RefreshCw :size="14" /> Yangilash</button>
     </div>

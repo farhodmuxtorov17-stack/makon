@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Servis so'rovlari</div>
       <h1 class="page-title">Xizmat so'rovlari</h1>
-        <p class="text-ink-500 text-sm mt-1">Xizmat ko'rsatish so'rovlari oqimi va SLA ijro nazorati</p>
+        <p class="page-sub">Xizmat ko'rsatish so'rovlari oqimi va SLA ijro nazorati</p>
       </div>
 
       <div class="flex items-center gap-3">

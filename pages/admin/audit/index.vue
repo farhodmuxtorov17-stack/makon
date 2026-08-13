@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Audit</div>
       <h1 class="page-title">Audit jurnali</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ entries.length }} ta yozuv · So'nggi 24 soat</p>
+        <p class="page-sub">{{ entries.length }} ta yozuv · So'nggi 24 soat</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> Eksport</button>
     </div>

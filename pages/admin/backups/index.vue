@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Rezerv nusxa</div>
       <h1 class="page-title">Rezerv nusxalar</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ backups.length }} nusxa · Oxirgi: {{ backups[0]?.time }}</p>
+        <p class="page-sub">{{ backups.length }} nusxa · Oxirgi: {{ backups[0]?.time }}</p>
       </div>
       <div class="flex items-center gap-2">
         <button class="btn btn-secondary btn-sm" @click="() => {}"><RotateCcw :size="14" /> Avtomatik: Har 6 soat</button>

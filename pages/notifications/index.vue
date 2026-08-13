@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Bildirishnomalar</div>
         <h1 class="page-title">Bildirishnomalar</h1>
-        <p class="text-sm text-ink-400 mt-1">Jami {{ notifications.length }} ta bildirishnoma · {{ unreadCount }} o'qilmagan</p>
+        <p class="page-sub">Jami {{ notifications.length }} ta bildirishnoma · {{ unreadCount }} o'qilmagan</p>
       </div>
       <div class="flex items-center gap-2">
         <button @click="markAllRead" class="btn btn-secondary btn-sm">

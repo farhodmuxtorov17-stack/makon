@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Rollar</div>
       <h1 class="page-title">Rollar va huquqlar</h1>
-        <p class="text-ink-500 text-sm mt-1">5 ta rol · {{ permissions.length }} ta huquq</p>
+        <p class="page-sub">5 ta rol · {{ permissions.length }} ta huquq</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi rol</button>
     </div>

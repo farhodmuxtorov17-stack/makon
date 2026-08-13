@@ -4,7 +4,7 @@
       <div>
         <div class='eyebrow'>Raqamli imzolar</div>
       <h1 class='page-title'>Raqamli imzo navbati</h1>
-        <p class='text-ink-500 text-sm mt-1'>{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
+        <p class='page-sub'>{{ signatures.length }} ta so'rov · {{ pendingCount }} kutilmoqda</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="showToast('Yangilanmoqda...', 'info')"><RefreshCw :size='14' /> Yangilash</button>
     </div>

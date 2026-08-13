@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Inventar</div>
         <h1 class="page-title">Ombor boshqaruvi</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ materials.length }} ta material · {{ lowStockCount }} ta kam qoldi</p>
+        <p class="page-sub">{{ materials.length }} ta material · {{ lowStockCount }} ta kam qoldi</p>
       </div>
       <div class="flex items-center gap-2">
         <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> Eksport</button>

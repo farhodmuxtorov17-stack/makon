@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Texnik xizmat</div>
       <h1 class="page-title">Work orderlar</h1>
-        <p class="text-sm text-ink-500 mt-1">Servis so'rovlari asosida yaratilgan ish buyruqlari</p>
+        <p class="page-sub">Servis so'rovlari asosida yaratilgan ish buyruqlari</p>
       </div>
       <div class="flex items-center gap-2">
         <button class="btn btn-secondary btn-sm" @click="showFilters = !showFilters">

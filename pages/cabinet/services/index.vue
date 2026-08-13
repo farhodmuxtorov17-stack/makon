@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Mening xizmatlarim</div>
       <h1 class="page-title">Hisob va servis</h1>
-        <p class="text-ink-500 text-sm mt-1">To'lovlar, invoyslar va servis so'rovlari</p>
+        <p class="page-sub">To'lovlar, invoyslar va servis so'rovlari</p>
       </div>
       <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm btn-glow">
         <Plus :size="14" /> Servis so'rov

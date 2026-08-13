@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Material so'rovlari</div>
       <h1 class="page-title">Material so'rovlari</h1>
-        <p class="text-ink-500 text-sm mt-1">Work orderlar uchun materiallar zaruriyati</p>
+        <p class="page-sub">Work orderlar uchun materiallar zaruriyati</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="showNew = !showNew">
         <Plus :size="14" /> Yangi so'rov

@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Hisobotlar</div>
         <h1 class="page-title">Hisobotlar</h1>
-        <p class="text-sm text-ink-400 mt-1">Tizim analitikasi va statistika</p>
+        <p class="page-sub">Tizim analitikasi va statistika</p>
       </div>
       <div class="flex items-center gap-2">
         <select v-model="period" class="input w-auto">

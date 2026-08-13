@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Shartnomalar</div>
       <h1 class="page-title">Shartnomalar</h1>
-      <p class="text-sm text-ink-400 mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} aktiv · Barcha shartnomalar, holatlar va muddatlar</p>
+      <p class="page-sub">{{ contracts.length }} ta shartnoma · {{ activeCount }} aktiv · Barcha shartnomalar, holatlar va muddatlar</p>
       </div>
       <NuxtLink to="/management/applications" class="btn btn-primary btn-sm btn-glow">
         <Plus :size="14" /> Arizadan shartnoma

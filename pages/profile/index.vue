@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Profil sozlamalari</div>
         <h1 class="page-title">Profil sozlamalari</h1>
-        <p class="text-sm text-ink-400 mt-1">Shaxsiy ma'lumotlaringizni boshqaring</p>
+        <p class="page-sub">Shaxsiy ma'lumotlaringizni boshqaring</p>
       </div>
       <div class="stat-pill stat-pill--brand">
         <ShieldCheck :size="14" />
@@ -19,7 +19,7 @@
         <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-blue-500/20 flex-shrink-0">A</div>
         <div class="flex-1">
           <h2 class="text-xl font-bold text-ink-900 ">Admin User</h2>
-          <p class="text-sm text-ink-400 mt-1">{{ authStore.user?.email || "user@makon.uz" }}</p>
+          <p class="page-sub">{{ authStore.user?.email || "user@makon.uz" }}</p>
           <div class="flex items-center gap-3 mt-3">
             <span class="badge badge-brand">SUPER_HEAD</span>
             <span class="badge badge-success">Faol</span>

@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Boshqaruv paneli</div>
         <h1 class="page-title">Ish stoli</h1>
-        <p class="text-sm text-ink-400 mt-1">{{ store.buildings.length }} ta biznes markaz · {{ totalUnits }} ta unit</p>
+        <p class="page-sub">{{ store.buildings.length }} ta biznes markaz · {{ totalUnits }} ta unit</p>
       </div>
       <div class="flex items-center gap-3">
         <button class="btn btn-secondary btn-md" @click="() => {}">

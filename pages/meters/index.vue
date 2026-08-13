@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Sanoqchilar</div>
       <h1 class="page-title">Hisoblagichlar</h1>
-        <p class="text-sm text-ink-500 mt-1">Elektr, suv, gaz ko'rsatkichlari va avtomatik hisob-kitob</p>
+        <p class="page-sub">Elektr, suv, gaz ko'rsatkichlari va avtomatik hisob-kitob</p>
       </div>
       <div class="flex gap-2">
         <button class="btn btn-secondary btn-sm" @click="tab = 'meters'">

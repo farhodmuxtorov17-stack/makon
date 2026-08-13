@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Kirish tarixi</div>
       <h1 class="page-title">Kirish-chiqish tarixi</h1>
-        <p class="text-ink-500 text-sm mt-1">Faqat ko'rish uchun — yozuvlar tahrirlanmaydi</p>
+        <p class="page-sub">Faqat ko'rish uchun — yozuvlar tahrirlanmaydi</p>
       </div>
       <button class="btn btn-secondary btn-sm" @click="() => {}"><Download :size="14" /> Eksport</button>
     </div>

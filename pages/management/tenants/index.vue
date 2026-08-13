@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Ijarachilar</div>
       <h1 class="page-title">Ijarachi kabinetlari</h1>
-      <p class="text-sm text-ink-400 mt-1">Shartnoma imzolangan ijarachilar va ularning kabinetlari</p>
+      <p class="page-sub">Shartnoma imzolangan ijarachilar va ularning kabinetlari</p>
       </div>
       <div class="flex items-center gap-3">
         <div class="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-500 flex items-center gap-2">

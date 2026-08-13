@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Monitoring</div>
       <h1 class="page-title">Tizim monitoringi</h1>
-        <p class="text-ink-500 text-sm mt-1">Server holati, API va foydalanuvchilar faolligi</p>
+        <p class="page-sub">Server holati, API va foydalanuvchilar faolligi</p>
       </div>
       <div class="flex items-center gap-3">
         <button @click="refreshData" class="btn btn-secondary btn-sm" :class="{ 'animate-spin': isRefreshing }">

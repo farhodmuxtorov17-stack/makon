@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Ombor chiqimlari</div>
       <h1 class="page-title">Ombordan chiqarish</h1>
-        <p class="text-ink-500 text-sm mt-1">Materiallarni ombordan chiqarish hujjatlari</p>
+        <p class="page-sub">Materiallarni ombordan chiqarish hujjatlari</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="showNew = !showNew"><Plus :size="14" /> Yangi chiqarish</button>
     </div>

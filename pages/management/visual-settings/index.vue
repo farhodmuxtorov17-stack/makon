@@ -3,7 +3,7 @@
     <div>
       <div class="eyebrow">Vizual sozlamalar</div>
       <h1 class="page-title">Vizual sozlamalar</h1>
-      <p class="text-ink-500 text-sm mt-1">Bino sahifalari, katalog va listing ko'rinishi</p>
+      <p class="page-sub">Bino sahifalari, katalog va listing ko'rinishi</p>
     </div>
 
     <!-- Tabs -->

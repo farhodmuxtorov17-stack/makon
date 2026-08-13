@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Sanoqchilar o'qi</div>
       <h1 class="page-title">Hisoblagich ko'rsatkichlari</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ readings.length }} ta yozuv · {{ unreadCount }} o'qilmagan</p>
+        <p class="page-sub">{{ readings.length }} ta yozuv · {{ unreadCount }} o'qilmagan</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi ko'rsatkich</button>
     </div>

@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Invoyslar</div>
       <h1 class="page-title">Invoyslar</h1>
-        <p class="text-ink-500 text-sm mt-1">Shartnoma bo'yicha to'lov hujjatlari</p>
+        <p class="page-sub">Shartnoma bo'yicha to'lov hujjatlari</p>
       </div>
       <div class="flex items-center gap-2">
         <button @click="exportCSV" class="btn btn-secondary btn-sm">

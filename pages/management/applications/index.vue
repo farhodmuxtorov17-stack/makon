@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Arizalar</div>
       <h1 class="page-title">Arizalar oqimi (Kanban)</h1>
-      <p class="text-sm text-ink-400 mt-1">SUBMITTED → OPERATION → FINANCE → DRAFT_READY → SIGNED → ACTIVE</p>
+      <p class="page-sub">SUBMITTED → OPERATION → FINANCE → DRAFT_READY → SIGNED → ACTIVE</p>
       </div>
 
       <!-- Building Scope Filter -->

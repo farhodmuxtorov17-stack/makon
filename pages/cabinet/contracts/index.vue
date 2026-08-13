@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Shartnomalar</div>
       <h1 class="page-title">Mening shartnomalarim</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ contracts.length }} ta shartnoma · {{ activeCount }} faol · {{ signingCount }} imzolanmoqda</p>
+        <p class="page-sub">{{ contracts.length }} ta shartnoma · {{ activeCount }} faol · {{ signingCount }} imzolanmoqda</p>
       </div>
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
     </div>

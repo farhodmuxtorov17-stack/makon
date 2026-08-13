@@ -7,7 +7,7 @@
     <div>
       <div class="eyebrow">Arizalar</div>
       <h1 class="page-title">Ijara / sotib olish arizasi</h1>
-      <p class="text-ink-500 text-sm mt-1">Tanlangan unit bo\'yicha ariza yuborish</p>
+      <p class="page-sub">Tanlangan unit bo\'yicha ariza yuborish</p>
     </div>
 
     <!-- Pre-filled listing info -->

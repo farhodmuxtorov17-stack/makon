@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Foydalanuvchilar</div>
       <h1 class="page-title">Foydalanuvchilar</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ filteredUsers.length }} foydalanuvchi · {{ activeCount }} faol</p>
+        <p class="page-sub">{{ filteredUsers.length }} foydalanuvchi · {{ activeCount }} faol</p>
       </div>
       <button @click="showInvite = true" class="btn btn-primary btn-sm btn-glow"><UserPlus :size="14" /> Taklif yuborish</button>
     </div>

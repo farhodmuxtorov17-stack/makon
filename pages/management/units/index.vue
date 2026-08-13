@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Unitlar</div>
       <h1 class="page-title">Unitlar</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ filteredUnits.length }} ta unit · {{ occupiedCount }} band · {{ vacantCount }} bo'sh</p>
+        <p class="page-sub">{{ filteredUnits.length }} ta unit · {{ occupiedCount }} band · {{ vacantCount }} bo'sh</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi unit</button>
     </div>

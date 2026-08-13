@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Bildirishnoma shablonlari</div>
       <h1 class="page-title">Bildirishnoma shablonlari</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ templates.length }} ta shablon · {{ activeCount }} faol</p>
+        <p class="page-sub">{{ templates.length }} ta shablon · {{ activeCount }} faol</p>
       </div>
       <button class="btn btn-primary btn-sm btn-glow" @click="() => {}"><Plus :size="14" /> Yangi shablon</button>
     </div>

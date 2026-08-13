@@ -3,7 +3,7 @@
     <div>
       <div class="eyebrow">Servis so'rovi</div>
       <h1 class="page-title">Yangi servis so\'rovi</h1>
-      <p class="text-ink-500 text-sm mt-1">Muammo yoki jihoz zarurati haqida murojaat yuborish</p>
+      <p class="page-sub">Muammo yoki jihoz zarurati haqida murojaat yuborish</p>
     </div>
 
     <!-- Form -->

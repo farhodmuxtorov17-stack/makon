@@ -5,7 +5,7 @@
       <div>
         <div class="eyebrow">Servis so'rovlari</div>
       <h1 class="page-title">Servis so'rovlari</h1>
-        <p class="text-ink-500 text-sm mt-1">Texnik xizmat so'rovlari tarixi va holati</p>
+        <p class="page-sub">Texnik xizmat so'rovlari tarixi va holati</p>
       </div>
       <NuxtLink to="/cabinet/service-requests/new" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi so'rov</NuxtLink>
     </div>

@@ -4,7 +4,7 @@
       <div>
         <div class="eyebrow">Mening unitlarim</div>
       <h1 class="page-title">Mening unitlarim</h1>
-        <p class="text-ink-500 text-sm mt-1">{{ units.length }} ta unit · {{ totalArea }} m² jami maydon</p>
+        <p class="page-sub">{{ units.length }} ta unit · {{ totalArea }} m² jami maydon</p>
       </div>
       <NuxtLink to="/catalog" class="btn btn-primary btn-sm btn-glow"><Plus :size="14" /> Yangi ariza</NuxtLink>
     </div>

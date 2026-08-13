@@ -7,7 +7,7 @@
     <div>
       <div class="eyebrow">Sanoqchilar</div>
       <h1 class="page-title">Hisoblagich ko'rsatkichlari</h1>
-      <p class="text-ink-500 text-sm mt-1">Elektr, suv va gaz — joriy oy</p>
+      <p class="page-sub">Elektr, suv va gaz — joriy oy</p>
     </div>
 
     <!-- Period selector -->

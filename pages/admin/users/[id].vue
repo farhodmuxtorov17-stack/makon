@@ -134,7 +134,7 @@
         </div>
         <div>
           <h3 class="font-semibold ">Foydalanuvchini o'chirish</h3>
-          <p class="text-sm text-ink-500 mt-1">{{ user.name }} ni tizimdan o'chirish tasdiqlansinmi?</p>
+          <p class="page-sub">{{ user.name }} ni tizimdan o'chirish tasdiqlansinmi?</p>
         </div>
         <div class="flex gap-3">
           <button @click="showDelete = false" class="btn btn-secondary flex-1">Bekor qilish</button>
