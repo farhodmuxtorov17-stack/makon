@@ -135,6 +135,6 @@ const timelineEvents = ref([
 const auditTrace = [
   { action: 'FINANCE_DECISION_APPROVE', time: '2026-08-05 16:30:11', ip: '185.139.137.10', userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' },
   { action: 'OPERATIONAL_CHECK_PASS', time: '2026-08-04 11:15:04', ip: '185.139.137.12', userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
-  { action: 'APPLICATION_SUBMIT_Raqamli imzo', time: '2026-08-02 10:15:44', ip: '213.230.101.45', userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' },
+  { action: 'APPLICATION_SUBMIT_DIGITAL_SIGN', time: '2026-08-02 10:15:44', ip: '213.230.101.45', userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' },
 ]
 </script>
