@@ -35,7 +35,7 @@
       <div class="hero__content">
         <div class="hero__badge animate-fade-up" style="animation-delay: 0.1s;">
           <span class="hero__badge-dot"></span>
-          Davlat standartlariga muvofiq · Raqamli shartnoma
+          Raqamli shartnoma · Online boshqaruv
         </div>
         <h1 class="hero__title font-heading animate-fade-up" style="animation-delay: 0.2s;">
           Binolarning<br/><span class="hero__title-accent">raqamli boshqaruvi</span>
@@ -518,11 +518,7 @@
         </div>
         <div class="footer__bottom">
           <div>© 2026 MAKON. Barcha huquqlar himoyalangan.</div>
-          <div class="footer__badges">
-            <span>Raqamli imzo integratsiyasi</span>
-            <span>·</span>
-            <span>Davlat standarti</span>
-          </div>
+          
         </div>
       </div>
     </footer>

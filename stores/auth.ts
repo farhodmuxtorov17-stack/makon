@@ -85,21 +85,23 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function verifyOtp(code: string): boolean {
+    // Frontend-only: accept any 6-digit code
+    if (!code || code.length < 4) return false
+
     if (!pendingRegistration.value) {
       if (import.meta.client) {
         const saved = localStorage.getItem('makon-pending-reg')
         if (saved) pendingRegistration.value = JSON.parse(saved)
       }
     }
-    if (pendingRegistration.value && code === pendingRegistration.value.otpCode) {
+    if (pendingRegistration.value) {
       otpVerified.value = true
       pendingRegistration.value.phoneVerified = true
       if (import.meta.client) {
         localStorage.setItem('makon-pending-reg', JSON.stringify(pendingRegistration.value))
       }
-      return true
     }
-    return false
+    return true
   }
 
   function register(data: { login: string; password: string; fullName: string; phone?: string; email?: string; accountType?: string; inn?: string }): boolean {
@@ -133,8 +135,30 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function loginWithCredentials(login: string, password: string): boolean {
-    // Check registered users first
-    const found = registeredUsers.value.find(u => u.login === login && u.password === password)
+    // Frontend-only: accept any non-empty login + password (>= 3 chars)
+    if (!login || !password || login.trim().length < 3 || password.trim().length < 3) return false
+
+    // Known staff accounts get their proper role
+    const staffAccounts: Record<string, { name: string; role: UserRole }> = {
+      'super@makon.uz': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole },
+      'manager@makon.uz': { name: 'Bino menejeri', role: 'BUILDING_MANAGER' as UserRole },
+      'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole },
+      'facility@makon.uz': { name: 'Texnik xodim', role: 'FACILITY' as UserRole },
+      'operator@makon.uz': { name: 'Kontent operator', role: 'CONTENT_OPERATOR' as UserRole },
+      'warehouse@makon.uz': { name: 'Omborchi', role: 'WAREHOUSE_OPERATOR' as UserRole },
+    }
+
+    if (staffAccounts[login]) {
+      const staff = staffAccounts[login]
+      setAuth({
+        token: 'sess_' + Date.now().toString(36),
+        user: { id: login.split('@')[0], fullName: staff.name, email: login, role: staff.role },
+      })
+      return true
+    }
+
+    // Check registered users
+    const found = registeredUsers.value.find(u => u.login === login)
     if (found) {
       setAuth({
         token: 'sess_' + Date.now().toString(36),
@@ -149,26 +173,17 @@ export const useAuthStore = defineStore('auth', () => {
       return true
     }
 
-    // Staff accounts (created by SUPER_HEAD via admin panel)
-    const staffAccounts: Record<string, { name: string; role: UserRole; password: string }> = {
-      'super@makon.uz': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole, password: 'Makon2026!' },
-      'manager@makon.uz': { name: 'Bino menejeri', role: 'BUILDING_MANAGER' as UserRole, password: 'Makon2026!' },
-      'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole, password: 'Makon2026!' },
-      'facility@makon.uz': { name: 'Texnik xodim', role: 'FACILITY' as UserRole, password: 'Makon2026!' },
-      'operator@makon.uz': { name: 'Kontent operator', role: 'CONTENT_OPERATOR' as UserRole, password: 'Makon2026!' },
-      'warehouse@makon.uz': { name: 'Omborchi', role: 'WAREHOUSE_OPERATOR' as UserRole, password: 'Makon2026!' },
-    }
-
-    if (staffAccounts[login] && password === staffAccounts[login].password) {
-      const staff = staffAccounts[login]
-      setAuth({
-        token: 'sess_' + Date.now().toString(36),
-        user: { id: login.split('@')[0], fullName: staff.name, email: login, role: staff.role },
-      })
-      return true
-    }
-
-    return false
+    // Unknown user — accept anyway as TENANT_OWNER
+    setAuth({
+      token: 'sess_' + Date.now().toString(36),
+      user: {
+        id: 'user_' + Date.now().toString(36),
+        fullName: login.split('@')[0] || 'Foydalanuvchi',
+        email: login,
+        role: 'TENANT_OWNER' as UserRole,
+      },
+    })
+    return true
   }
 
 

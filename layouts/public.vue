@@ -18,7 +18,6 @@
 
         <div class="flex items-center gap-3">
           <ThemeToggle />
-          <NuxtLink to="/login" class="btn btn-ghost btn-sm hidden sm:flex">Kirish</NuxtLink>
           <NuxtLink to="/register" class="btn btn-primary btn-sm">Ro'yxatdan o'tish</NuxtLink>
         </div>
       </div>
@@ -44,7 +43,6 @@
             <div class="text-xs font-semibold text-ink-600 dark:text-ink-400 uppercase tracking-widest mb-3">Platforma</div>
             <div class="space-y-2">
               <NuxtLink to="/catalog" class="block text-sm text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">Katalog</NuxtLink>
-              <NuxtLink to="/login" class="block text-sm text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">Tizimga kirish</NuxtLink>
               <NuxtLink to="/register" class="block text-sm text-ink-500 hover:text-ink-900 dark:hover:text-white transition-colors">Ro'yxatdan o'tish</NuxtLink>
             </div>
           </div>
@@ -59,7 +57,7 @@
         </div>
         <div class="mt-10 pt-6 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs text-ink-500">
           <p>© 2026 MAKON. Barcha huquqlar himoyalangan.</p>
-          <p>Xavfsiz identifikatsiya tizimi</p>
+          <p>MAKON — raqamli boshqaruv platformasi</p>
         </div>
       </div>
     </footer>

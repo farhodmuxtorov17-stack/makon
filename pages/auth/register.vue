@@ -9,8 +9,8 @@
           <span>MAKON</span>
         </NuxtLink>
         <div class="auth__visual-bottom">
-          <h2 class="auth__visual-title">Toshkentning premium obyektlari boshqaruvi</h2>
-          <p class="auth__visual-text">MAKON platformasi orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
+          <h2 class="auth__visual-title">Raqamli boshqaruv binolar va obyektlar</h2>
+          <p class="auth__visual-text">MAKON platformasi orqali obyektlarni samarali boshqaring.</p>
         </div>
       </div>
     </div>

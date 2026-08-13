@@ -13,18 +13,8 @@
             <span>MAKON</span>
           </NuxtLink>
           <div class="auth__visual-bottom">
-            <h2 class="auth__visual-title">Toshkentning premium<br>obyektlari boshqaruvi</h2>
-            <p class="auth__visual-text">MAKON platformasi orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
-            <div class="auth__visual-badges">
-              <div class="auth__visual-badge">
-                <ShieldCheck :size="16" class="text-blue-400" />
-                <span>Bank darajasidagi xavfsizlik</span>
-              </div>
-              <div class="auth__visual-badge">
-                <Zap :size="16" class="text-blue-400" />
-                <span>Real vaqt rejimida</span>
-              </div>
-            </div>
+            <h2 class="auth__visual-title">Raqamli boshqaruv<br>binolar va obyektlar</h2>
+            <p class="auth__visual-text">MAKON platformasi orqali obyektlarni samarali boshqaring.</p>
           </div>
         </div>
       </div>
@@ -95,19 +85,13 @@
             <ArrowRight :size="15" />
           </NuxtLink>
         </div>
-
-        <div class="auth__form-foot">
-          <div class="auth__form-foot-item"><ShieldCheck :size="13" /> Bank darajasidagi xavfsizlik</div>
-          <span class="auth__form-foot-dot">·</span>
-          <div class="auth__form-foot-item">Davlat standartiga muvofiq</div>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { AlertCircle, ArrowRight, ArrowLeft, Phone, Send, ShieldCheck, Zap, Lock } from 'lucide-vue-next'
+import { AlertCircle, ArrowRight, ArrowLeft, Phone, Send, Lock } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })
 

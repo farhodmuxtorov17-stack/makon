@@ -13,8 +13,8 @@
           <span>MAKON</span>
         </NuxtLink>
         <div class="auth__visual-bottom">
-          <h2 class="auth__visual-title">Toshkentning premium obyektlari boshqaruvi</h2>
-          <p class="auth__visual-text">MAKON platformasi orqali xavfsiz identifikatsiya va to'liq raqamli boshqaruv.</p>
+          <h2 class="auth__visual-title">Raqamli boshqaruv binolar va obyektlar</h2>
+          <p class="auth__visual-text">MAKON platformasi orqali obyektlarni samarali boshqaring.</p>
         </div>
       </div>
     </div>
@@ -79,19 +79,14 @@
         </form>
       </div>
 
-      <div class="auth__form-foot">
-        <div class="auth__form-foot-item"><ShieldCheck :size="13" /> Bank darajasidagi xavfsizlik</div>
-        <span class="auth__form-foot-dot">·</span>
-        <div class="auth__form-foot-item">Davlat standartiga muvofiq</div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
 const { img } = useImg()
-import { CheckCircle, AlertCircle, ArrowLeft, ShieldCheck } from 'lucide-vue-next'
+import { CheckCircle, AlertCircle, ArrowLeft } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'blank' })
 
@@ -257,9 +252,6 @@ function resendCode() {
 .auth__form-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); text-decoration: none; align-self: flex-start; transition: color 0.2s; margin-bottom: 28px; }
 .auth__form-back:hover { color: var(--accent); }
 
-.auth__form-foot { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 11.5px; color: var(--text-faint); padding-top: 24px; }
-.auth__form-foot-item { display: flex; align-items: center; gap: 5px; }
-.auth__form-foot-dot { opacity: 0.5; }
 
 @media (max-width: 900px) {
   .auth__form-back { display: none; }
