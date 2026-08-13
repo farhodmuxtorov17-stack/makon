@@ -16,9 +16,8 @@
         </div>
         <div class="nav__right">
           <ThemeToggle />
-          <NuxtLink to="/login" class="nav__link">Kirish</NuxtLink>
-          <NuxtLink to="/login" class="nav__btn-try">
-            Kabinetga kirish <ArrowRight :size="14" />
+          <NuxtLink to="/register" class="nav__btn-try">
+            Ro'yxatdan o'tish <ArrowRight :size="14" />
           </NuxtLink>
         </div>
       </div>
@@ -48,7 +47,7 @@
 
 
         <div class="hero__try animate-fade-up" style="animation-delay: 0.4s;">
-          <NuxtLink to="/login" class="hero__try-btn">
+          <NuxtLink to="/register" class="hero__try-btn">
             <span>Boshlash</span>
             <ArrowRight :size="20" />
           </NuxtLink>
@@ -505,7 +504,7 @@
             </div>
             <div class="footer__col">
               <div class="footer__col-title">Tizim</div>
-              <NuxtLink to="/login">Kirish</NuxtLink>
+              <NuxtLink to="/register">Ro'yxatdan o'tish</NuxtLink>
               <NuxtLink to="/register">Ro'yxatdan o'tish</NuxtLink>
               <NuxtLink to="/dashboard/executive">Dashboard</NuxtLink>
             </div>
