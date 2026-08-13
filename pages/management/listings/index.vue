@@ -88,7 +88,7 @@
               {{ statusLabel(l.status) }}
             </span>
             <span v-if="getUnitStatus(l.unitId)" class="badge text-[10px] shadow-sm"
-              :class="getUnitStatus(l.unitId) === 'OCCUPIED' ? 'badge-error' : getUnitStatus(l.unitId) === 'RESERVED' ? 'badge-warning' : 'badge-success'">
+              :class="getUnitStatus(l.unitId) === 'OCCUPIED' ? 'badge-error' : getUnitStatus(l.unitId) === 'RESERVED' ? 'badge-warning' : getUnitStatus(l.unitId) === 'SOLD' ? 'badge-purple' : getUnitStatus(l.unitId) === 'REPAIR' ? 'badge-error' : 'badge-success'">
               {{ getUnitStatusLabel(l.unitId) }}
             </span>
           </div>
@@ -357,6 +357,8 @@ function getUnitStatusLabel(unitId?: string) {
   if (s === 'OCCUPIED') return 'Band'
   if (s === 'RESERVED') return 'Rezerv'
   if (s === 'VACANT') return "Bo'sh"
+  if (s === 'SOLD') return 'Sotildi'
+  if (s === 'REPAIR') return 'Remont'
   return ''
 }
 

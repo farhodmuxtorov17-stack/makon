@@ -50,6 +50,8 @@
       <select v-model="statusFilter" class="text-sm border border-black/10  rounded-xl px-3 py-2 bg-white  text-ink-700 ">
         <option value="">Holat: Barchasi</option>
         <option value="VACANT">Bo'sh</option>
+        <option value="SOLD">Sotildi</option>
+        <option value="REPAIR">Remont</option>
         <option value="OCCUPIED">Band</option>
         <option value="RESERVED">Rezerv</option>
       </select>

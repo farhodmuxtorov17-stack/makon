@@ -13,6 +13,8 @@ export interface BuildingItem {
   occupiedUnits: number
   reservedUnits: number
   vacantUnits: number
+  soldUnits?: number
+  repairUnits?: number
   totalArea: number
   gallery: string[]
   publicDescription: string
@@ -36,7 +38,7 @@ export interface UnitItem {
   unitNumber: string
   floor: number
   area: number
-  status: 'VACANT' | 'RESERVED' | 'OCCUPIED'
+  status: 'VACANT' | 'RESERVED' | 'OCCUPIED' | 'SOLD' | 'REPAIR'
   monthlyRent: number
   currency: 'USD' | 'UZS'
   roomId?: string
@@ -1334,6 +1336,8 @@ export const useMakonStore = defineStore('makon', () => {
       VACANT: '#10B981',
       RESERVED: '#F59E0B',
       OCCUPIED: '#3B82F6',
+      SOLD: '#8B5CF6',
+      REPAIR: '#EF4444',
       MAINTENANCE: '#EF4444',
       SUBMITTED: '#6B7280',
       DRAFT: '#8B5CF6',
@@ -1396,7 +1400,7 @@ export const useMakonStore = defineStore('makon', () => {
     return newUnit
   }
 
-  function updateUnitStatus(unitId: string, status: 'VACANT' | 'RESERVED' | 'OCCUPIED') {
+  function updateUnitStatus(unitId: string, status: 'VACANT' | 'RESERVED' | 'OCCUPIED' | 'SOLD' | 'REPAIR') {
     const u = units.value.find(item => item.id === unitId)
     if (!u) return
 
@@ -1407,7 +1411,7 @@ export const useMakonStore = defineStore('makon', () => {
     // Auto-update the related listings visibility based on unit status
     const listing = listings.value.find(l => l.unitId === unitId)
     if (listing) {
-      if (status === 'OCCUPIED') {
+      if (status === 'OCCUPIED' || status === 'SOLD' || status === 'REPAIR') {
         listing.status = 'HIDDEN'  // Remove from public catalog
       } else if (status === 'VACANT') {
         listing.status = 'PUBLISHED'  // Show on public catalog
@@ -1428,6 +1432,8 @@ export const useMakonStore = defineStore('makon', () => {
     b.occupiedUnits = bldgUnits.filter(u => u.status === 'OCCUPIED').length
     b.reservedUnits = bldgUnits.filter(u => u.status === 'RESERVED').length
     b.vacantUnits = bldgUnits.filter(u => u.status === 'VACANT').length
+    b.soldUnits = bldgUnits.filter(u => u.status === 'SOLD').length
+    b.repairUnits = bldgUnits.filter(u => u.status === 'REPAIR').length
     b.totalUnits = bldgUnits.length
   }
 
@@ -1437,10 +1443,35 @@ export const useMakonStore = defineStore('makon', () => {
     if (!l || !l.unitId) return
     const u = units.value.find(item => item.id === l.unitId)
     if (!u) return
-    // If unit is occupied, listing should be hidden
-    if (u.status === 'OCCUPIED') {
+    // If unit is occupied, sold, or under repair — listing should be hidden
+    if (u.status === 'OCCUPIED' || u.status === 'SOLD' || u.status === 'REPAIR') {
       l.status = 'HIDDEN'
     }
+  }
+
+  // ─── Contract termination: revert unit to VACANT and re-publish listing ───
+  function terminateContract(contractId: string) {
+    const cnt = contracts.value.find(c => c.id === contractId)
+    if (!cnt) return
+    cnt.status = 'TERMINATED'
+    cnt.endDate = new Date().toISOString().split('T')[0]
+    // Revert unit to VACANT — auto re-publishes listing and recalculates building stats
+    updateUnitStatus(cnt.unitId, 'VACANT')
+    // Remove tenant cabinet association
+    const cab = tenantCabinets.value.find(tc => tc.contractId === contractId)
+    if (cab) {
+      cab.status = 'CLOSED'
+    }
+  }
+
+  // ─── Mark unit for repair: hide from catalog, set REPAIR status ───
+  function setUnitRepair(unitId: string) {
+    updateUnitStatus(unitId, 'REPAIR')
+  }
+
+  // ─── Mark unit as sold: hide from rental catalog, set SOLD status ───
+  function setUnitSold(unitId: string) {
+    updateUnitStatus(unitId, 'SOLD')
   }
 
   function addListing(l: Omit<ListingItem, 'id' | 'viewsCount' | 'createdAt'>) {
@@ -2101,6 +2132,9 @@ export const useMakonStore = defineStore('makon', () => {
     addBuilding,
     addUnit,
     updateUnitStatus,
+    terminateContract,
+    setUnitRepair,
+    setUnitSold,
     addListing,
     addApplication,
     updateApplicationStatus,

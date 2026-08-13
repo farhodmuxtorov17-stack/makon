@@ -70,6 +70,8 @@
           <option value="VACANT">Bo'sh (Vacant)</option>
           <option value="RESERVED">Rezerv (Reserved)</option>
           <option value="OCCUPIED">Band (Occupied)</option>
+          <option value="SOLD">Sotildi (Sold)</option>
+          <option value="REPAIR">Remont (Repair)</option>
         </select>
       </div>
     </div>
@@ -120,6 +122,8 @@
                   <option value="VACANT" class="bg-white  text-ink-900 ">Bo'sh (Vacant)</option>
                   <option value="RESERVED" class="bg-white  text-ink-900 ">Rezerv (Reserved)</option>
                   <option value="OCCUPIED" class="bg-white  text-ink-900 ">Band (Occupied)</option>
+                  <option value="SOLD" class="bg-white  text-ink-900 ">Sotildi (Sold)</option>
+                  <option value="REPAIR" class="bg-white  text-ink-900 ">Remont (Repair)</option>
                 </select>
               </td>
               <td class="px-4 py-3 text-right space-x-1">
@@ -209,6 +213,8 @@
                 <option value="VACANT">Bo'sh (Vacant)</option>
                 <option value="RESERVED">Rezerv (Reserved)</option>
                 <option value="OCCUPIED">Band (Occupied)</option>
+          <option value="SOLD">Sotildi (Sold)</option>
+          <option value="REPAIR">Remont (Repair)</option>
               </select>
             </div>
 
@@ -346,10 +352,12 @@ const filteredUnits = computed(() => {
 function statusClass(status: string) {
   if (status === 'OCCUPIED') return 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
   if (status === 'RESERVED') return 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+  if (status === 'SOLD') return 'bg-purple-500/10 text-purple-500 border-purple-500/30'
+  if (status === 'REPAIR') return 'bg-red-500/10 text-red-500 border-red-500/30'
   return 'bg-brand-500/10 text-brand-500 border-brand-500/30'
 }
 
-function onStatusChange(unitId: string, newStatus: 'VACANT' | 'RESERVED' | 'OCCUPIED') {
+function onStatusChange(unitId: string, newStatus: 'VACANT' | 'RESERVED' | 'OCCUPIED' | 'SOLD' | 'REPAIR') {
   makonStore.updateUnitStatus(unitId, newStatus)
 }
 

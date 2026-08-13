@@ -87,7 +87,7 @@
             <td class="px-4 py-3 text-sm text-ink-400">{{ u.floor }}</td>
             <td class="px-4 py-3 text-sm text-ink-400">{{ u.area }} m²</td>
             <td class="px-4 py-3">
-              <span class="text-xs px-2 py-1 rounded-full" :class="u.status === 'OCCUPIED' ? 'bg-emerald-500/10 text-emerald-500' : u.status === 'RESERVED' ? 'bg-amber-500/10 text-amber-500' : 'bg-blue-500/10 text-blue-500'">
+              <span class="text-xs px-2 py-1 rounded-full" :class="u.status === 'OCCUPIED' ? 'bg-emerald-500/10 text-emerald-500' : u.status === 'RESERVED' ? 'bg-amber-500/10 text-amber-500' : u.status === 'SOLD' ? 'bg-purple-500/10 text-purple-500' : u.status === 'REPAIR' ? 'bg-red-500/10 text-red-500' : 'bg-blue-500/10 text-blue-500'">
                 {{ statusLabel(u.status) }}
               </span>
             </td>
