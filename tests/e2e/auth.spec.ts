@@ -14,7 +14,7 @@ test.describe('Authentication', () => {
     const passwordInput = page.locator('input[type="password"]').first()
     await expect(passwordInput).toBeVisible()
 
-    const submitBtn = page.locator('button[type="submit"], button:has-text("kirish" i), button:has-text("Login")').first()
+    const submitBtn = page.locator('button[type="submit"], button:has-text(/kirish/i), button:has-text("Login")').first()
     await expect(submitBtn).toBeVisible()
   })
 
@@ -22,7 +22,6 @@ test.describe('Authentication', () => {
     await page.goto('./login')
     await page.waitForLoadState('networkidle')
 
-    // Fill very short credentials — client validation rejects < 3 chars
     const emailInput = page.locator('input[type="email"], input[type="text"]').first()
     const passwordInput = page.locator('input[type="password"]').first()
 
@@ -33,7 +32,6 @@ test.describe('Authentication', () => {
     await submitBtn.click()
 
     await page.waitForTimeout(1000)
-    // Should stay on login page (validation prevents redirect)
     expect(page.url()).toContain('login')
   })
 
@@ -51,7 +49,6 @@ test.describe('Authentication', () => {
     await submitBtn.click()
 
     await page.waitForTimeout(3000)
-    // Should redirect to dashboard
     expect(page.url()).toContain('dashboard')
   })
 
