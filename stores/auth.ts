@@ -171,6 +171,96 @@ export const useAuthStore = defineStore('auth', () => {
     return false
   }
 
+
+  // --- Phone login (existing users) ---
+  function loginWithPhone(phone: string): string | null {
+    // Check registered users by phone
+    const found = registeredUsers.value.find(u => u.phone === phone)
+    if (found) {
+      const code = sendOtp(phone)
+      // Store that this is a login attempt, not registration
+      pendingRegistration.value = {
+        phone,
+        phoneVerified: false,
+        otpCode: code,
+      }
+      if (import.meta.client) {
+        localStorage.setItem('makon-pending-reg', JSON.stringify(pendingRegistration.value))
+        localStorage.setItem('makon-login-attempt', JSON.stringify({ phone, login: found.login }))
+      }
+      return code
+    }
+
+    // Check staff accounts by phone (add phone field to staff lookup)
+    const staffPhones: Record<string, { name: string; role: UserRole; login: string }> = {
+      '+998901234567': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole, login: 'super@makon.uz' },
+    }
+    const staff = staffPhones[phone]
+    if (staff) {
+      const code = sendOtp(phone)
+      pendingRegistration.value = {
+        phone,
+        phoneVerified: false,
+        otpCode: code,
+      }
+      if (import.meta.client) {
+        localStorage.setItem('makon-pending-reg', JSON.stringify(pendingRegistration.value))
+        localStorage.setItem('makon-login-attempt', JSON.stringify({ phone, login: staff.login }))
+      }
+      return code
+    }
+
+    return null
+  }
+
+  function loginWithOtpCode(code: string): boolean {
+    if (!verifyOtp(code)) return false
+
+    if (import.meta.client) {
+      const attempt = localStorage.getItem('makon-login-attempt')
+      if (attempt) {
+        const { login } = JSON.parse(attempt)
+        localStorage.removeItem('makon-login-attempt')
+
+        // Find user by login
+        const found = registeredUsers.value.find(u => u.login === login)
+        if (found) {
+          setAuth({
+            token: 'sess_' + Date.now().toString(36),
+            user: {
+              id: 'reg_' + Date.now().toString(36),
+              fullName: found.fullName,
+              email: login,
+              role: 'TENANT_OWNER' as UserRole,
+              phone: found.phone,
+            },
+          })
+          return true
+        }
+
+        // Staff
+        const staffAccounts: Record<string, { name: string; role: UserRole; password: string }> = {
+          'super@makon.uz': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole, password: 'Makon2026!' },
+          'manager@makon.uz': { name: 'Bino menejeri', role: 'BUILDING_MANAGER' as UserRole, password: 'Makon2026!' },
+          'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole, password: 'Makon2026!' },
+          'facility@makon.uz': { name: 'Texnik xodim', role: 'FACILITY' as UserRole, password: 'Makon2026!' },
+          'operator@makon.uz': { name: 'Kontent operator', role: 'CONTENT_OPERATOR' as UserRole, password: 'Makon2026!' },
+          'warehouse@makon.uz': { name: 'Omborchi', role: 'WAREHOUSE_OPERATOR' as UserRole, password: 'Makon2026!' },
+        }
+        if (staffAccounts[login]) {
+          const staff = staffAccounts[login]
+          setAuth({
+            token: 'sess_' + Date.now().toString(36),
+            user: { id: login.split('@')[0], fullName: staff.name, email: login, role: staff.role },
+          })
+          return true
+        }
+      }
+    }
+
+    return false
+  }
+
   function clearOtpState() {
     pendingRegistration.value = null
     otpSent.value = false
@@ -184,6 +274,6 @@ export const useAuthStore = defineStore('auth', () => {
     user, token, isAuthenticated,
     pendingRegistration, otpSent, otpVerified, registeredUsers,
     setUser, setToken, setAuth, init, logout, hasRole,
-    sendOtp, verifyOtp, register, loginWithCredentials, clearOtpState,
+    sendOtp, verifyOtp, register, loginWithCredentials, loginWithPhone, loginWithOtpCode, clearOtpState,
   }
 })
