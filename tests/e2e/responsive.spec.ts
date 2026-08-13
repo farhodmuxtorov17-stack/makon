@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test'
 
 /**
  * Responsive layout E2E tests
- * Tests mobile, tablet, and desktop breakpoints
  */
 
 const viewports = [
@@ -18,33 +17,31 @@ test.describe('Responsive Layout', () => {
   for (const vp of viewports) {
     test(`renders correctly on ${vp.name} (${vp.width}x${vp.height})`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height })
-      await page.goto('/')
+      await page.goto('./')
+      await page.waitForLoadState('networkidle')
       
-      // Page should render without horizontal scroll
       const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth)
       const clientWidth = await page.evaluate(() => document.documentElement.clientWidth)
-      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1) // 1px tolerance
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1)
     })
   }
 
   test('mobile sidebar is hidden by default', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 })
-    await page.goto('/login')
-    await page.fill('input[type="text"]', 'admin@makon.uz')
-    await page.fill('input[type="password"]', 'password')
-    await page.click('button:has-text("Kirish")')
-    await page.waitForTimeout(1500)
+    await page.goto('./login')
+    await page.fill('input[type="text"]', 'super@makon.uz')
+    await page.fill('input[type="password"]', 'Makon2026!')
+    await page.click('button[type="submit"]')
+    await page.waitForTimeout(2000)
     
-    // On mobile, sidebar should be hidden (drawer mode)
     if (!page.url().includes('login')) {
       const sidebar = page.locator('aside, [class*="sidebar"]').first()
-      if (await sidebar.isVisible()) {
-        // Sidebar might be off-screen or collapsed
+      if (await sidebar.isVisible().catch(() => false)) {
         const box = await sidebar.boundingBox()
         if (box) {
-          // Either hidden or very narrow on mobile
-          const isOffscreen = box.x < 0 || box.x > vp_width
-          // Just check it exists
+          // On mobile sidebar should be off-screen or collapsed
+          const isOffscreen = box.x < 0 || box.x > 375
+          expect(isOffscreen || box.width < 100).toBeTruthy()
         }
       }
     }
@@ -52,37 +49,28 @@ test.describe('Responsive Layout', () => {
 
   test('desktop shows persistent sidebar', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
-    await page.goto('/login')
-    await page.fill('input[type="text"]', 'admin@makon.uz')
-    await page.fill('input[type="password"]', 'password')
-    await page.click('button:has-text("Kirish")')
-    await page.waitForTimeout(1500)
+    await page.goto('./login')
+    await page.fill('input[type="text"]', 'super@makon.uz')
+    await page.fill('input[type="password"]', 'Makon2026!')
+    await page.click('button[type="submit"]')
+    await page.waitForTimeout(2000)
     
     if (!page.url().includes('login')) {
-      // Sidebar should be visible on desktop
       const sidebar = page.locator('aside, [class*="sidebar"]').first()
       const isVisible = await sidebar.isVisible().catch(() => false)
-      // On desktop, sidebar should be visible
+      expect(isVisible).toBeTruthy()
     }
   })
 
-  test('login page mockups show/hide by viewport', async ({ page }) => {
-    // Desktop: mockups visible
-    await page.setViewportSize({ width: 1280, height: 800 })
-    await page.goto('/login')
-    
-    const phoneMockup = page.locator('.phone-mockup').first()
-    const isDesktopVisible = await phoneMockup.isVisible().catch(() => false)
-    
-    // Mobile: mockups hidden
-    await page.setViewportSize({ width: 375, height: 667 })
-    await page.goto('/login')
-    
-    const isMobileVisible = await phoneMockup.isVisible().catch(() => false)
-    
-    // On desktop mockups should be visible, on mobile hidden
-    if (isDesktopVisible) {
-      expect(isMobileVisible).toBeFalsy()
+  test('login page renders on all viewports', async ({ page }) => {
+    for (const vp of viewports) {
+      await page.setViewportSize({ width: vp.width, height: vp.height })
+      await page.goto('./login')
+      await page.waitForLoadState('networkidle')
+      
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth)
+      const clientWidth = await page.evaluate(() => document.documentElement.clientWidth)
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1)
     }
   })
 })
