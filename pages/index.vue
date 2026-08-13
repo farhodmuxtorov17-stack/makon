@@ -426,7 +426,7 @@
             </div>
           </div>
           <div class="contact-form-wrap">
-            <div class="contact-form-card glass">
+            <div class="contact-form-card">
               <div class="contact-form-head">
                 <h3 class="contact-form-title font-heading">Xabar qoldiring</h3>
                 <p class="contact-form-sub">Tez orada jamoamiz siz bilan bog'lanadi.</p>
