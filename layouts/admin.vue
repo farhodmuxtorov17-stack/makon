@@ -451,20 +451,27 @@ function handleLogout() {
 </style>
 
 <style>
-/* FORCE WHITE SIDEBAR — highest priority override */
+/* FORCE DARK-NAVY SIDEBAR — highest priority override */
 aside {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+  background: #0a0e1a !important;
+  background-color: #0a0e1a !important;
   background-image: none !important;
 }
 aside > div {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+  background: #0a0e1a !important;
+  background-color: #0a0e1a !important;
   background-image: none !important;
 }
-aside .sidebar-link { color: #475569; }
+aside .sidebar-link { color: #94a3b8 !important; }
+aside .sidebar-link:hover { color: #e2e8f0 !important; background: rgba(255,255,255,0.04) !important; }
 aside .sidebar-link--active {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-  color: #fff !important;
+  background: rgba(37,99,235,0.15) !important;
+  color: #60a5fa !important;
 }
+aside .sidebar-logo-text { color: #f1f5f9 !important; }
+aside .sidebar-logo-role { color: #60a5fa !important; }
+aside .sidebar-group-label { color: #475569 !important; }
+aside .sidebar-user-name { color: #e2e8f0 !important; }
+aside .sidebar-user-logout { color: #64748b !important; }
+aside .sidebar-user-section { border-color: rgba(255,255,255,0.06) !important; }
 </style>
