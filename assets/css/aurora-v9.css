@@ -1336,3 +1336,221 @@ html.dark .admin-user-dropdown__item:hover {
 html.dark .admin-user-dropdown__divider {
   background: rgba(255,255,255,0.06) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM ENHANCEMENTS — Visual polish upgrade
+   ═══════════════════════════════════════════════════════════ */
+
+/* KPI Cards — Premium gradient overlay */
+.kpi-card, .dash-kpi, .kpi-strip__card {
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card::before, .dash-kpi::before, .kpi-strip__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(37,99,235,0.03) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.kpi-card:hover::before, .dash-kpi:hover::before, .kpi-strip__card:hover::before {
+  opacity: 1;
+}
+.kpi-card::after, .dash-kpi::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(37,99,235,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.kpi-card:hover::after, .dash-kpi:hover::after {
+  opacity: 1;
+}
+
+/* Dark mode KPI — deeper premium feel */
+html.dark .kpi-card,
+html.dark .dash-kpi,
+html.dark .kpi-strip__card {
+  background: linear-gradient(135deg, #1c2030 0%, #181b26 100%) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  box-shadow: 0 4px 24px -8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03) !important;
+}
+html.dark .kpi-card:hover,
+html.dark .dash-kpi:hover,
+html.dark .kpi-strip__card:hover {
+  border-color: rgba(37,99,235,0.25) !important;
+  box-shadow: 0 8px 32px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(37,99,235,0.1), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+}
+
+/* Premium table — refined look */
+.data-table {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.data-table thead th {
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  padding: 14px 20px;
+  background: linear-gradient(180deg, var(--bg-subtle), var(--bg-surface));
+}
+.data-table tbody td {
+  padding: 15px 20px;
+  font-size: 13.5px;
+}
+.data-table tbody tr {
+  transition: all 0.2s ease;
+}
+.data-table tbody tr:hover {
+  background: rgba(37,99,235,0.02);
+}
+
+html.dark .data-table thead th {
+  background: rgba(255,255,255,0.03) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+  color: #64748b !important;
+}
+html.dark .data-table tbody tr:hover {
+  background: rgba(37,99,235,0.06) !important;
+}
+html.dark .data-table tbody td {
+  border-color: rgba(255,255,255,0.04) !important;
+}
+
+/* Premium card hover — light mode */
+.card-premium {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-premium:hover {
+  box-shadow: 0 20px 48px -12px rgba(15,23,42,0.12), 0 8px 24px -8px rgba(37,99,235,0.06) !important;
+}
+html.dark .card-premium {
+  background: linear-gradient(135deg, #1c2030 0%, #181b26 100%) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+html.dark .card-premium:hover {
+  border-color: rgba(37,99,235,0.2) !important;
+  box-shadow: 0 16px 40px -10px rgba(0,0,0,0.4), 0 0 0 1px rgba(37,99,235,0.08) !important;
+}
+
+/* Premium button — refined */
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 2px 12px rgba(37,99,235,0.25), inset 0 1px rgba(255,255,255,0.15) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.35), inset 0 1px rgba(255,255,255,0.2) !important;
+  transform: translateY(-1px);
+}
+
+/* Premium page header — enhanced */
+.page-title {
+  letter-spacing: -0.03em !important;
+  font-weight: 800 !important;
+}
+
+/* Status badges — refined */
+.status-badge, .badge {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.01em;
+}
+
+/* Smooth scrollbar — premium */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148,163,184,0.3);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148,163,184,0.5);
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(148,163,184,0.15);
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(148,163,184,0.25);
+}
+
+/* Fade-in animation for page content */
+main.page-enter-active > * {
+  animation: contentFadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes contentFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Landing page — premium card hover */
+.b-card {
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.b-card:hover {
+  transform: translateY(-4px);
+}
+.b-card__media img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.b-card:hover .b-card__media img {
+  transform: scale(1.06);
+}
+
+/* Portfolio featured — premium hover */
+.portfolio__featured {
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.portfolio__featured:hover {
+  transform: translateY(-2px);
+}
+.portfolio__featured-media img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.portfolio__featured:hover .portfolio__featured-media img {
+  transform: scale(1.04);
+}
+
+/* Bento cards — premium interaction */
+.bento__card {
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bento__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px -10px rgba(15,23,42,0.12);
+}
+
+/* Timeline items — smooth reveal */
+.tl-item {
+  transition: all 0.3s ease;
+}
+.tl-item:hover .tl-item__marker {
+  transform: scale(1.05);
+}
+.tl-item__marker {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Stats band — premium numbers */
+.stats-band__item {
+  transition: all 0.3s ease;
+}
+.stats-band__item:hover .stats-band__num {
+  transform: scale(1.05);
+}
+.stats-band__num {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
