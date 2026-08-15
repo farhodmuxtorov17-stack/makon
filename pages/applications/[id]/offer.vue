@@ -189,10 +189,8 @@ function handleAccept() {
   offerStatus.value = 'ACCEPTED'
   makonStore.updateApplicationStatus(app.value.id, 'DRAFT_READY')
 
-  // Create Contract Draft
-  const newCnt = {
-    id: `cnt-${Date.now()}`,
-    number: `CNT-2026-${String(makonStore.contracts.length + 1).padStart(3, '0')}`,
+  // Create Contract Draft via store function
+  const newCnt = makonStore.createContract({
     applicationId: app.value.id,
     buildingId: app.value.buildingId,
     buildingName: app.value.buildingName,
@@ -201,22 +199,13 @@ function handleAccept() {
     tenantName: app.value.applicantName,
     tenantTin: app.value.tin || '305987123',
     tenantDirector: 'Botirov Anvar',
-    type: 'RENT' as 'RENT' | 'SALE',
+    type: 'RENT',
     monthlyRent: offerTerms.value.monthlyRent,
     depositAmount: offerTerms.value.depositAmount,
-    currency: 'UZS' as 'UZS' | 'UZS',
+    currency: 'UZS',
     startDate: app.value.startDate,
     endDate: '2027-09-01',
-    status: 'DRAFT_READY' as any,
-    sha256Hash: 'a8f5f167f44f4964e6c998dee827110c',
-    eriLandlordSigned: false,
-    eriTenantSigned: false,
-    version: '1.0',
-    documentUrl: '/docs/cnt-draft.pdf',
-    schedule: []
-  }
-
-  makonStore.contracts.unshift(newCnt)
+  })
   createdContractId.value = newCnt.id
 }
 

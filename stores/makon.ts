@@ -1474,6 +1474,57 @@ export const useMakonStore = defineStore('makon', () => {
     updateUnitStatus(unitId, 'SOLD')
   }
 
+  // ─── Create contract from application: links app → contract, reserves unit ───
+  function createContract(data: {
+    applicationId: string
+    buildingId: string
+    buildingName: string
+    unitId: string
+    unitNumber: string
+    tenantName: string
+    tenantTin: string
+    tenantDirector: string
+    type: 'RENT' | 'SALE'
+    monthlyRent: number
+    depositAmount: number
+    currency: 'USD' | 'UZS'
+    startDate: string
+    endDate: string
+  }) {
+    const num = `CNT-${new Date().getFullYear()}-${String(contracts.value.length + 1).padStart(3, '0')}`
+    const newCnt: ContractItem = {
+      id: `cnt-${Date.now()}`,
+      number: num,
+      applicationId: data.applicationId,
+      buildingId: data.buildingId,
+      buildingName: data.buildingName,
+      unitId: data.unitId,
+      unitNumber: data.unitNumber,
+      tenantName: data.tenantName,
+      tenantTin: data.tenantTin,
+      tenantDirector: data.tenantDirector,
+      type: data.type,
+      monthlyRent: data.monthlyRent,
+      depositAmount: data.depositAmount,
+      currency: data.currency,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      status: 'DRAFT_READY',
+      sha256Hash: '',
+      eriLandlordSigned: false,
+      eriTenantSigned: false,
+      version: '1.0',
+      documentUrl: '',
+      schedule: []
+    }
+    contracts.value.unshift(newCnt)
+
+    // Auto-reserve the unit
+    updateUnitStatus(data.unitId, 'RESERVED')
+
+    return newCnt
+  }
+
   function addListing(l: Omit<ListingItem, 'id' | 'viewsCount' | 'createdAt'>) {
     const id = `l-${Date.now()}`
     const newListing: ListingItem = {
@@ -1512,6 +1563,15 @@ export const useMakonStore = defineStore('makon', () => {
       const u = units.value.find(item => item.id === app.unitId)
       if (u && u.status === 'VACANT') {
         updateUnitStatus(app.unitId, 'RESERVED')
+        // ─── Auto-reject other pending applications for the same unit ───
+        const competingApps = applications.value.filter(
+          a => a.unitId === app.unitId && a.id !== appId &&
+                ['SUBMITTED', 'UNDER_REVIEW', 'OPERATION_REVIEW'].includes(a.status)
+        )
+        competingApps.forEach(ca => {
+          ca.status = 'REJECTED'
+          ca.rejectionReason = 'Boshqa ariza tasdiqlandi — unit bron qilindi'
+        })
       }
     }
 
@@ -1519,7 +1579,14 @@ export const useMakonStore = defineStore('makon', () => {
     if (status === 'REJECTED') {
       const u = units.value.find(item => item.id === app.unitId)
       if (u && u.status === 'RESERVED') {
-        updateUnitStatus(app.unitId, 'VACANT')
+        // Only free the unit if no other active applications exist for it
+        const activeApps = applications.value.filter(
+          a => a.unitId === app.unitId && a.id !== appId &&
+                ['OPERATION_APPROVED', 'FINANCE_APPROVED', 'DRAFT_READY'].includes(a.status)
+        )
+        if (activeApps.length === 0) {
+          updateUnitStatus(app.unitId, 'VACANT')
+        }
       }
     }
   }
@@ -2135,6 +2202,7 @@ export const useMakonStore = defineStore('makon', () => {
     terminateContract,
     setUnitRepair,
     setUnitSold,
+    createContract,
     addListing,
     addApplication,
     updateApplicationStatus,
