@@ -2,11 +2,11 @@
   <div class="min-h-screen flex admin-bg">
     <!-- Premium Collapsible Sidebar -->
     <aside
-      class="fixed lg:sticky top-0 left-0 h-screen z-40 sidebar-transition overflow-hidden bg-white"
-      :style="{ width: sidebarCollapsed ? '72px' : '260px', background: '#ffffff !important' }"
+      class="fixed lg:sticky top-0 left-0 h-screen z-40 sidebar-transition overflow-hidden"
+      :style="{ width: sidebarCollapsed ? '72px' : '260px' }"
       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
     >
-      <div class="h-full flex flex-col admin-sidebar-premium" style="background:#fff !important;">
+      <div class="h-full flex flex-col admin-sidebar-premium">
         <!-- Logo -->
         <div class="sidebar-logo-row" :class="{ 'sidebar-logo-row--collapsed': sidebarCollapsed }">
           <div class="sidebar-logo-icon">M</div>

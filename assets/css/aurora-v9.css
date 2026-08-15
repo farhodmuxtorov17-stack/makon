@@ -375,13 +375,13 @@ select.input {
 
 /* ═══ SIDEBAR — Premium refined ═══ */
 .admin-sidebar-premium {
-  background: #ffffff !important;
-  border-right: 1px solid var(--border-light);
+  background: #0a0e1a;
+  border-right: 1px solid rgba(255,255,255,0.06);
 }
 
 .sidebar-logo-row {
   padding: 18px 20px;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .sidebar-logo-icon {
   width: 36px;
@@ -396,14 +396,14 @@ select.input {
   font-weight: 800;
   font-size: 18px;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+  box-shadow: 0 2px 12px rgba(37,99,235,0.4);
 }
 .sidebar-logo-text {
   font-family: 'Sora', sans-serif;
   font-weight: 800;
   font-size: 18px;
   letter-spacing: -0.02em;
-  color: var(--text-primary);
+  color: #f1f5f9;
   line-height: 1;
 }
 .sidebar-logo-role {
@@ -411,7 +411,7 @@ select.input {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #64748b;
   margin-top: 3px;
 }
 
@@ -421,7 +421,7 @@ select.input {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #475569;
   padding: 16px 12px 6px;
   margin-top: 4px;
 }
@@ -434,18 +434,18 @@ select.input {
   border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-secondary);
-  transition: all 0.15s ease;
+  color: #94a3b8;
+  transition: all 0.18s ease;
   margin-bottom: 2px;
   position: relative;
 }
 .sidebar-link:hover {
-  background: var(--bg-subtle);
-  color: var(--text-primary);
+  background: rgba(255,255,255,0.04);
+  color: #e2e8f0;
 }
 .sidebar-link--active {
-  background: var(--accent-subtle) !important;
-  color: var(--accent) !important;
+  background: rgba(37,99,235,0.15) !important;
+  color: #60a5fa !important;
   font-weight: 600;
 }
 .sidebar-link--active::before {
@@ -456,15 +456,16 @@ select.input {
   transform: translateY(-50%);
   width: 3px;
   height: 20px;
-  background: var(--accent);
+  background: #3b82f6;
   border-radius: 0 3px 3px 0;
 }
 .sidebar-link__icon {
   flex-shrink: 0;
-  opacity: 0.7;
+  opacity: 0.65;
 }
 .sidebar-link--active .sidebar-link__icon {
   opacity: 1;
+  color: #60a5fa;
 }
 .sidebar-link__label {
   flex: 1;
@@ -478,13 +479,13 @@ select.input {
   font-weight: 700;
   padding: 2px 7px;
   border-radius: 999px;
-  background: #fef2f2;
-  color: #e11d48;
+  background: rgba(244,63,94,0.15);
+  color: #fb7185;
 }
 
 .sidebar-user-section {
   padding: 12px;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid rgba(255,255,255,0.06);
   margin-top: auto;
 }
 .sidebar-user-btn {
@@ -494,9 +495,9 @@ select.input {
   width: 100%;
   padding: 8px;
   border-radius: var(--radius-md);
-  transition: background 0.15s;
+  transition: background 0.18s;
 }
-.sidebar-user-btn:hover { background: var(--bg-subtle); }
+.sidebar-user-btn:hover { background: rgba(255,255,255,0.04); }
 .sidebar-user-avatar {
   width: 34px;
   height: 34px;
@@ -513,12 +514,12 @@ select.input {
 .sidebar-user-name {
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #e2e8f0;
   line-height: 1.2;
 }
 .sidebar-user-logout {
   font-size: 11px;
-  color: var(--text-muted);
+  color: #64748b;
   margin-top: 2px;
   display: flex;
   align-items: center;
@@ -661,10 +662,12 @@ select.input {
 .sidebar-nav-scroll::-webkit-scrollbar { width: 4px; }
 .sidebar-nav-scroll::-webkit-scrollbar-track { background: transparent; }
 .sidebar-nav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
   background: var(--border-medium);
   border-radius: 4px;
 }
 .sidebar-nav-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.15);
   background: var(--border-strong);
 }
 
@@ -737,15 +740,8 @@ select.input {
 }
 
 /* Dark mode overrides — force light */
-html.dark .admin-bg,
-html.dark .admin-bg * {
-  background-color: #ffffff !important;
-  color: var(--text-primary) !important;
-}
-html.dark .admin-sidebar-premium,
-html.dark .admin-sidebar-premium * {
-  background: #ffffff !important;
-}
+/* Dark mode admin-bg handled by individual component styles */
+/* Sidebar is always dark-navy — no dark mode override needed */
 html.dark .card,
 html.dark .card-premium {
   background: #ffffff !important;
@@ -939,13 +935,13 @@ html.dark .input {
   width: 24px;
   height: 24px;
   border-radius: var(--radius-sm);
-  color: var(--text-muted);
-  transition: all 0.15s;
+  color: #64748b;
+  transition: all 0.18s;
   margin: 4px auto 0;
 }
 .sidebar-collapse-btn:hover {
-  background: var(--bg-subtle);
-  color: var(--text-primary);
+  background: rgba(255,255,255,0.05);
+  color: #e2e8f0;
 }
 
 /* ═══ DIVIDER IN HEADER ═══ */
