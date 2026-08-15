@@ -2,7 +2,7 @@
   <div class="min-h-screen flex admin-bg">
     <!-- Premium Collapsible Sidebar -->
     <aside
-      class="fixed lg:sticky top-0 left-0 h-screen z-40 sidebar-transition overflow-hidden"
+      class="fixed lg:sticky top-0 left-0 h-screen z-40 sidebar-transition overflow-hidden admin-sidebar-premium"
       :style="{ width: sidebarCollapsed ? '72px' : '260px' }"
       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
     >
