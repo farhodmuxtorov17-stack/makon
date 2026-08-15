@@ -141,6 +141,7 @@ export const useAuthStore = defineStore('auth', () => {
     // Known staff accounts get their proper role
     const staffAccounts: Record<string, { name: string; role: UserRole }> = {
       'super@makon.uz': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole },
+      'admin@makon.uz': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole },
       'manager@makon.uz': { name: 'Bino menejeri', role: 'BUILDING_MANAGER' as UserRole },
       'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole },
       'facility@makon.uz': { name: 'Texnik xodim', role: 'FACILITY' as UserRole },
@@ -256,6 +257,7 @@ export const useAuthStore = defineStore('auth', () => {
         // Staff
         const staffAccounts: Record<string, { name: string; role: UserRole; password: string }> = {
           'super@makon.uz': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole, password: 'Makon2026!' },
+          'admin@makon.uz': { name: 'Bosh administrator', role: 'SUPER_HEAD' as UserRole, password: 'admin123' },
           'manager@makon.uz': { name: 'Bino menejeri', role: 'BUILDING_MANAGER' as UserRole, password: 'Makon2026!' },
           'accountant@makon.uz': { name: 'Buxgalter', role: 'ACCOUNTANT' as UserRole, password: 'Makon2026!' },
           'facility@makon.uz': { name: 'Texnik xodim', role: 'FACILITY' as UserRole, password: 'Makon2026!' },

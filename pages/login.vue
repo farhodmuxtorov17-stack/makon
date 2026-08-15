@@ -113,6 +113,29 @@
               <NuxtLink to="/register" class="auth__link auth__link--bold">Ro'yxatdan o'ting</NuxtLink>
             </p>
           </form>
+
+          <!-- Demo credentials -->
+          <div class="auth__demo">
+            <p class="auth__demo-title">Demo kirishlar:</p>
+            <div class="auth__demo-grid">
+              <button type="button" class="auth__demo-btn" @click="fillDemo('super@makon.uz', 'Makon2026!')">
+                <span class="auth__demo-role">Bosh admin</span>
+                <span class="auth__demo-login">super@makon.uz</span>
+              </button>
+              <button type="button" class="auth__demo-btn" @click="fillDemo('manager@makon.uz', 'Makon2026!')">
+                <span class="auth__demo-role">Menejer</span>
+                <span class="auth__demo-login">manager@makon.uz</span>
+              </button>
+              <button type="button" class="auth__demo-btn" @click="fillDemo('accountant@makon.uz', 'Makon2026!')">
+                <span class="auth__demo-role">Buxgalter</span>
+                <span class="auth__demo-login">accountant@makon.uz</span>
+              </button>
+              <button type="button" class="auth__demo-btn" @click="fillDemo('facility@makon.uz', 'Makon2026!')">
+                <span class="auth__demo-role">Texnik</span>
+                <span class="auth__demo-login">facility@makon.uz</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -135,6 +158,12 @@ const showPassword = ref(false)
 const showRecovery = ref(false)
 const recoveryPhone = ref('')
 const authStore = useAuthStore()
+
+function fillDemo(login: string, password: string) {
+  form.login = login
+  form.password = password
+  loginError.value = false
+}
 
 onMounted(() => {
   const saved = localStorage.getItem('makon-remembered-login')
