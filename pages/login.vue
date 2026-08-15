@@ -114,27 +114,10 @@
             </p>
           </form>
 
-          <!-- Demo credentials -->
-          <div class="auth__demo">
-            <p class="auth__demo-title">Demo kirishlar:</p>
-            <div class="auth__demo-grid">
-              <button type="button" class="auth__demo-btn" @click="fillDemo('super@makon.uz', 'Makon2026!')">
-                <span class="auth__demo-role">Bosh admin</span>
-                <span class="auth__demo-login">super@makon.uz</span>
-              </button>
-              <button type="button" class="auth__demo-btn" @click="fillDemo('manager@makon.uz', 'Makon2026!')">
-                <span class="auth__demo-role">Menejer</span>
-                <span class="auth__demo-login">manager@makon.uz</span>
-              </button>
-              <button type="button" class="auth__demo-btn" @click="fillDemo('accountant@makon.uz', 'Makon2026!')">
-                <span class="auth__demo-role">Buxgalter</span>
-                <span class="auth__demo-login">accountant@makon.uz</span>
-              </button>
-              <button type="button" class="auth__demo-btn" @click="fillDemo('facility@makon.uz', 'Makon2026!')">
-                <span class="auth__demo-role">Texnik</span>
-                <span class="auth__demo-login">facility@makon.uz</span>
-              </button>
-            </div>
+          <!-- Security Badge -->
+          <div class="auth__security">
+            <ShieldCheck :size="15" class="auth__security-icon" />
+            <span class="auth__security-text">Himoyalangan platforma · 256-bit shifrlash</span>
           </div>
         </div>
       </div>
@@ -158,12 +141,6 @@ const showPassword = ref(false)
 const showRecovery = ref(false)
 const recoveryPhone = ref('')
 const authStore = useAuthStore()
-
-function fillDemo(login: string, password: string) {
-  form.login = login
-  form.password = password
-  loginError.value = false
-}
 
 onMounted(() => {
   const saved = localStorage.getItem('makon-remembered-login')
@@ -281,6 +258,19 @@ function sendRecovery() {
 
 .auth__signup { text-align: center; margin-top: 18px; font-size: 13px; color: #71717a; }
 .dark .auth__signup { color: #a1a1aa; }
+
+.auth__security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.dark .auth__security { border-top-color: rgba(255,255,255,0.06); }
+.auth__security-icon { color: #22c55e; flex-shrink: 0; }
+.auth__security-text { font-size: 11.5px; color: #a1a1aa; font-weight: 500; letter-spacing: 0.01em; }
 
 .auth__forgot-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 50; }
 .auth__forgot-box { background: white; border-radius: 20px; padding: 32px; max-width: 380px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }

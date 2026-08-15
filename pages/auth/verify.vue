@@ -117,7 +117,7 @@ onMounted(() => {
     return
   }
 
-  // Auto-fill OTP for testing
+  
 
   // Focus first input
   setTimeout(() => otpRefs.value[0]?.focus(), 100)
