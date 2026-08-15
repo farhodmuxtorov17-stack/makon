@@ -88,6 +88,9 @@
           <span>Tizim faol</span>
         </div>
 
+        <!-- Dark Mode Toggle -->
+        <ThemeToggle />
+
         <!-- Notifications -->
         <button class="admin-header__icon-btn" @click="toggleNotifs">
           <Bell :size="18" />
