@@ -47,6 +47,7 @@ test.describe('Theme', () => {
 
   test('all pages render without major horizontal scroll', async ({ page }) => {
     const routes = ['./', './catalog', './login']
+    const maxOverflow = 20
 
     for (const route of routes) {
       await page.goto(route)
@@ -56,9 +57,12 @@ test.describe('Theme', () => {
         scrollWidth: document.documentElement.scrollWidth,
         clientWidth: document.documentElement.clientWidth,
       }))
-      // Allow up to 20px overflow for mobile scrollbar and sub-pixel rounding
       const overflow = dims.scrollWidth - dims.clientWidth
-      expect(overflow).toBeLessThanOrEqual(20)
+      if (overflow > maxOverflow) {
+        // Log which page and overflow for debugging
+        console.log(`OVERFLOW on ${route}: scrollWidth=${dims.scrollWidth} clientWidth=${dims.clientWidth} overflow=${overflow}px`)
+      }
+      expect(overflow, `Route ${route} has ${overflow}px horizontal overflow`).toBeLessThanOrEqual(maxOverflow)
     }
   })
 })

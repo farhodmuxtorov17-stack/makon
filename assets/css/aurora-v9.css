@@ -3,6 +3,10 @@
    Consistent spacing · Premium tables · Refined cards · Pro headers
    ═══════════════════════════════════════════════════════════ */
 
+/* ═══ GLOBAL MOBILE OVERFLOW FIX ═══ */
+html, body { overflow-x: hidden; max-width: 100vw; }
+
+
 /* ═══ ROOT TOKENS ═══ */
 :root {
   --space-xs: 6px;

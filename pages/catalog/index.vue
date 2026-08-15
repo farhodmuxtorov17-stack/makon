@@ -639,6 +639,8 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   flex-direction: column;
   min-height: 100vh;
   background: #f4f4f5;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 .dark .catalog-page { background: #09090b; }
 
@@ -986,9 +988,10 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   .catalog-map-col--split { min-height: 380px; flex: 0 0 380px; }
 }
 @media (max-width: 640px) {
-  .catalog-topbar__search { max-width: 150px; }
+  .catalog-topbar__search { max-width: 120px; }
   .catalog-cta-btn span { display: none; }
   .catalog-lang-btn { display: none; }
+  .catalog-topbar__right { gap: 4px; }
   .catalog-toolbar { flex-direction: column; gap: 8px; align-items: stretch; }
   .catalog-tabs { justify-content: center; }
   .catalog-toolbar__actions { justify-content: center; }
