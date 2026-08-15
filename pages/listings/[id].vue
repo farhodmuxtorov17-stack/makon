@@ -48,7 +48,7 @@
         <div class="dash-kpi__glow"></div>
         <div class="dash-kpi__icon"><CheckCircle :size="22" :stroke-width="1.8" /></div>
         <div class="dash-kpi__body">
-          <div class="dash-kpi__value">{{ listing?.price?.toLocaleString('ru-RU') || '—' }}</div>
+          <div class="dash-kpi__value">{{ formatPrice() }}</div>
           <div class="dash-kpi__label">Narx</div>
         </div>
       </div>
@@ -261,7 +261,7 @@
           <div class="lg:sticky lg:top-6 h-fit space-y-4">
             <div class="card-premium p-6">
               <div class="mb-4">
-                <div class="text-3xl font-bold text-brand-400">{{ formatUZS(listing.price) }}</div>
+                <div class="text-3xl font-bold text-brand-400">{{ formatPrice() }}</div>
                 <div class="text-xs text-ink-500 mt-1">{{ listing.offerType === 'RENT' ? 'oyiga' : 'bir martalik to\'lov' }}</div>
               </div>
 
@@ -344,40 +344,32 @@ const { formatUZS, formatUZSShort, formatUZSCompact, formatPerM2, formatNumber, 
 const route = useRoute()
 const config = useRuntimeConfig()
 
-// First fetch the catalog to find the listing by id
-const catalogData = ref({
-  buildings: [
-    { id: 'b1', name: 'Tashkent City', slug: 'tashkent-city', gallery: ['/buildings/real_tashkent-night.jpg'], address: 'Mirzo Ulug\'bek, Tashkent', floorsCount: 12, totalArea: 45000, totalUnits: 420, vacantUnits: 42, type: 'BUSINESS_CENTER' },
-  ],
-  listings: [
-    { id: 'l1', buildingId: 'b1', titleUz: 'A-301 · 85 m² ofis', titleRu: 'A-301 · 85 м² офис', offerType: 'RENT', price: 25000000, currency: 'UZS', photos: ['/buildings/bc-navroz.jpg'], viewsCount: 234, status: 'PUBLISHED', virtualTourUrl: '', descriptionUz: 'Tashkent City 3-qavatda 85 m² ofis maydoni. Tashqi devor, 4 deraza, konditsioner.', descriptionRu: 'Офис 85 м² на 3 этаже Tashkent City. Окна, кондиционер.', floorPlanType: 'office', area: 85, rooms: [
-      { name: 'Resepshn', w: 25, h: 15, x: 5, y: 5, type: 'reception' },
-      { name: 'Ochiq ofis', w: 55, h: 35, x: 5, y: 25, type: 'open' },
-      { name: 'Yig\'ilish xonasi', w: 20, h: 15, x: 65, y: 5, type: 'meeting' },
-      { name: 'Oshxona', w: 20, h: 10, x: 65, y: 25, type: 'kitchen' },
-      { name: 'WC', w: 20, h: 10, x: 65, y: 40, type: 'wc' },
-    ] },
-  ],
-})
+// Use Pinia store for real data
+const makonStore = useMakonStore()
 
 const listingId = route.params.id as string
 const listing = computed(() => {
-  const l = catalogData.value?.listings?.find((l: any) => l.id === listingId)
+  const l = makonStore.listings.find((l: any) => l.id === listingId)
   if (!l) return null
+  // Enrich with unit data
+  const unit = makonStore.units.find((u: any) => u.id === l.unitId)
   // Default rooms if not specified
-  if (!l.rooms) {
-    l.rooms = [
-      { name: 'Asosiy maydon', w: 60, h: 40, x: 5, y: 5, type: 'office' },
-      { name: 'Yordamchi', w: 25, h: 15, x: 70, y: 5, type: 'storage' },
-      { name: 'WC', w: 20, h: 10, x: 70, y: 25, type: 'wc' },
-    ]
-    l.area = l.area || 85
+  const rooms = [
+    { name: 'Asosiy maydon', w: 60, h: 40, x: 5, y: 5, type: 'office' },
+    { name: 'Yordamchi', w: 25, h: 15, x: 70, y: 5, type: 'storage' },
+    { name: 'WC', w: 20, h: 10, x: 70, y: 25, type: 'wc' },
+  ]
+  return {
+    ...l,
+    area: unit?.area || 85,
+    floorPlanType: 'office',
+    rooms,
   }
-  return l
 })
 const data = computed(() => {
-  if (!listing.value || !catalogData.value) return null
-  const building = catalogData.value.buildings.find((b: any) => b.id === listing.value.buildingId)
+  if (!listing.value) return null
+  const building = makonStore.buildings.find((b: any) => b.id === listing.value.buildingId)
+  if (!building) return null
   return { listing: listing.value, building }
 })
 const pending = ref(false)
@@ -433,6 +425,14 @@ async function submitApplication() {
 
 function typeLabel(type: string) {
   return BUILDING_TYPE_LABELS[type as keyof typeof BUILDING_TYPE_LABELS]?.uz || type
+}
+
+function formatPrice() {
+  if (!listing.value) return '—'
+  const p = listing.value.price
+  const cur = listing.value.currency || 'USD'
+  if (cur === 'USD') return `$${p.toLocaleString('en-US')}`
+  return `${p.toLocaleString('ru-RU')} so'm`
 }
 
 function formatArea(m2: number) {
