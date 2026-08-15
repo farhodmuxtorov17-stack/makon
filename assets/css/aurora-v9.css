@@ -1231,3 +1231,104 @@ html.dark .bg-ink-100 {
   border-radius: var(--radius-lg) !important;
   box-shadow: 0 24px 64px -16px rgba(15,23,42,0.2) !important;
 }
+
+/* ═══ FORCE DARK-NAVY SIDEBAR — always dark, in both light and dark mode ═══ */
+/* Moved here from admin.vue non-scoped style block for correct CSS ordering */
+aside,
+aside > div {
+  background: #0a0e1a !important;
+  background-color: #0a0e1a !important;
+  background-image: none !important;
+}
+aside .sidebar-link {
+  color: #94a3b8 !important;
+}
+aside .sidebar-link:hover {
+  color: #e2e8f0 !important;
+  background: rgba(255,255,255,0.04) !important;
+}
+aside .sidebar-link--active {
+  background: rgba(37,99,235,0.15) !important;
+  color: #60a5fa !important;
+}
+aside .sidebar-logo-text {
+  color: #f1f5f9 !important;
+}
+aside .sidebar-logo-role {
+  color: #60a5fa !important;
+}
+aside .sidebar-group-label {
+  color: #475569 !important;
+}
+aside .sidebar-user-name {
+  color: #e2e8f0 !important;
+}
+aside .sidebar-user-logout {
+  color: #64748b !important;
+}
+aside .sidebar-user-section {
+  border-color: rgba(255,255,255,0.06) !important;
+}
+aside .sidebar-logo-icon {
+  box-shadow: 0 4px 14px rgba(37,99,235,0.35) !important;
+}
+
+/* Dark mode header fix */
+html.dark .admin-header {
+  background: #161821 !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+html.dark .admin-header__crumb-role {
+  background: rgba(255,255,255,0.06) !important;
+  color: #64748b !important;
+}
+html.dark .admin-header__crumb-sep {
+  color: #475569 !important;
+}
+html.dark .admin-header__crumb-page {
+  color: #e2e8f0 !important;
+}
+html.dark .admin-header__mobile-menu {
+  color: #94a3b8 !important;
+}
+html.dark .admin-header__mobile-menu:hover {
+  background: rgba(255,255,255,0.05) !important;
+}
+html.dark .admin-header__icon-badge {
+  border-color: #161821 !important;
+}
+html.dark .admin-notif-dropdown,
+html.dark .admin-user-dropdown {
+  background: #1a1d28 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  box-shadow: 0 20px 60px -10px rgba(0,0,0,0.5), 0 8px 24px -6px rgba(0,0,0,0.3) !important;
+}
+html.dark .admin-notif-dropdown__head {
+  color: #e2e8f0 !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+html.dark .admin-notif-dropdown__item:hover {
+  background: rgba(255,255,255,0.03) !important;
+}
+html.dark .admin-notif-dropdown__text {
+  color: #cbd5e1 !important;
+}
+html.dark .admin-user-dropdown__head {
+  border-color: rgba(255,255,255,0.06) !important;
+}
+html.dark .admin-user-dropdown__name {
+  color: #e2e8f0 !important;
+}
+html.dark .admin-user-dropdown__role {
+  color: #64748b !important;
+}
+html.dark .admin-user-dropdown__item {
+  color: #94a3b8 !important;
+}
+html.dark .admin-user-dropdown__item:hover {
+  background: rgba(255,255,255,0.05) !important;
+  color: #e2e8f0 !important;
+}
+html.dark .admin-user-dropdown__divider {
+  background: rgba(255,255,255,0.06) !important;
+}
