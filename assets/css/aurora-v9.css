@@ -740,23 +740,124 @@ select.input {
 }
 
 /* Dark mode overrides — force light */
-/* Dark mode admin-bg handled by individual component styles */
+/* ═══ DARK MODE — Premium dark theme for content area ═══ */
 /* Sidebar is always dark-navy — no dark mode override needed */
+html.dark .admin-bg {
+  background: #0f1117 !important;
+}
+html.dark .admin-header {
+  background: #161821 !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
 html.dark .card,
 html.dark .card-premium {
-  background: #ffffff !important;
-  border-color: var(--border-medium) !important;
-  color: var(--text-primary) !important;
+  background: #1a1d28 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  color: #e2e8f0 !important;
 }
 html.dark .dash-kpi,
 html.dark .kpi-strip__card,
 html.dark .kpi-card {
-  background: #ffffff !important;
-  border-color: var(--border-medium) !important;
+  background: #1a1d28 !important;
+  border-color: rgba(255,255,255,0.08) !important;
 }
-html.dark .input {
-  background: #ffffff !important;
-  color: var(--text-primary) !important;
+html.dark .input,
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background: #161821 !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #e2e8f0 !important;
+}
+html.dark .input::placeholder {
+  color: #64748b !important;
+}
+html.dark .btn-secondary {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #e2e8f0 !important;
+}
+html.dark .btn-ghost {
+  color: #94a3b8 !important;
+}
+html.dark .btn-ghost:hover {
+  background: rgba(255,255,255,0.05) !important;
+}
+html.dark .page-title {
+  color: #f1f5f9 !important;
+}
+html.dark .page-sub {
+  color: #64748b !important;
+}
+html.dark .eyebrow {
+  color: #60a5fa !important;
+}
+html.dark .admin-header__search {
+  background: #161821 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+html.dark .admin-header__search-input {
+  color: #e2e8f0 !important;
+}
+html.dark .admin-header__search-input::placeholder {
+  color: #64748b !important;
+}
+html.dark .admin-header__icon-btn {
+  background: transparent !important;
+  color: #94a3b8 !important;
+}
+html.dark .admin-header__icon-btn:hover {
+  background: rgba(255,255,255,0.05) !important;
+}
+html.dark .admin-header__crumb-role {
+  color: #64748b !important;
+}
+html.dark .admin-header__crumb-page {
+  color: #e2e8f0 !important;
+}
+html.dark .admin-header__status {
+  color: #94a3b8 !important;
+}
+html.dark table thead th {
+  color: #64748b !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+html.dark table tbody td {
+  color: #cbd5e1 !important;
+  border-color: rgba(255,255,255,0.04) !important;
+}
+html.dark table tbody tr:hover {
+  background: rgba(255,255,255,0.03) !important;
+}
+html.dark .admin-notif-dropdown {
+  background: #1a1d28 !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+html.dark .bg-white {
+  background: #1a1d28 !important;
+}
+html.dark .text-ink-900,
+html.dark .text-ink-800,
+html.dark .text-ink-700 {
+  color: #e2e8f0 !important;
+}
+html.dark .text-ink-600,
+html.dark .text-ink-500 {
+  color: #94a3b8 !important;
+}
+html.dark .text-ink-400,
+html.dark .text-ink-300 {
+  color: #64748b !important;
+}
+html.dark .border-ink-100 {
+  border-color: rgba(255,255,255,0.06) !important;
+}
+html.dark .border-ink-200 {
+  border-color: rgba(255,255,255,0.08) !important;
+}
+html.dark .bg-ink-50,
+html.dark .bg-ink-100 {
+  background: rgba(255,255,255,0.04) !important;
 }
 
 /* ═══ KPI TREND — Refined ═══ */
