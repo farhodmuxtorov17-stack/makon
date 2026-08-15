@@ -121,7 +121,7 @@ h4
 .admin-layout{grid-template-columns:1fr!important}
 .admin-main{margin-left:0}
 .admin-mobile-toggle{display:flex!important}
-.admin-sidebar-premium{background:#fff !important;background-image:linear-gradient(180deg,#fff,#f8fafc 50%,#fff);border-right:1px solid rgba(15,23,42,.06);position:relative}
+.admin-sidebar-premium{background:#0a0e1a !important;background-image:none;border-right:1px solid rgba(15,23,42,.06);position:relative}
 .admin-sidebar-premium:before{background:radial-gradient(ellipse 100% 40% at 50% 0,rgba(37,99,235,.04) 0,transparent 60%);content:"";inset:0;pointer-events:none;position:absolute}
 
 .admin-sidebar-premium>*{position:relative;z-index:1}

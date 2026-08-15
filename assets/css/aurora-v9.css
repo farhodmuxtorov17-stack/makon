@@ -1233,12 +1233,16 @@ html.dark .bg-ink-100 {
 }
 
 /* ═══ FORCE DARK-NAVY SIDEBAR — always dark, in both light and dark mode ═══ */
-/* Moved here from admin.vue non-scoped style block for correct CSS ordering */
-aside,
-aside > div {
+/* Must use .admin-sidebar-premium class for specificity to beat aurora.css !important */
+.admin-sidebar-premium,
+aside.admin-sidebar-premium,
+aside > div.admin-sidebar-premium {
   background: #0a0e1a !important;
   background-color: #0a0e1a !important;
   background-image: none !important;
+}
+.admin-sidebar-premium::before {
+  display: none !important;
 }
 aside .sidebar-link {
   color: #94a3b8 !important;
