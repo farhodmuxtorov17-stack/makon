@@ -1812,6 +1812,60 @@ onUnmounted(() => {
 .footer__col a:hover { color: var(--accent) !important; padding-left: 4px !important; }
 
 
+/* ═══ DARK MODE LANDING OVERRIDES ═══ */
+.dark .footer { background: var(--bg-sunken) !important; border-color: var(--border) !important; }
+.dark .footer__logo span { color: var(--text) !important; }
+.dark .footer__col-title { color: var(--text) !important; }
+.dark .footer__col a { color: var(--text-secondary) !important; }
+.dark .footer__col a:hover { color: var(--accent) !important; }
+.dark .footer__bottom { color: var(--text-muted) !important; border-color: var(--border) !important; }
+.dark .footer__tag { color: var(--text-secondary) !important; }
+.dark .nav__logo { background: var(--gradient-button) !important; }
+
+/* Dark mode search band */
+.dark .search-band { background: var(--bg-card) !important; border-color: var(--border) !important; }
+.dark .search-band__inner { background: var(--bg-elevated) !important; }
+.dark .search-band__input { color: var(--text) !important; }
+.dark .search-band__input::placeholder { color: var(--text-muted) !important; }
+.dark .search-band__select { color: var(--text) !important; background: transparent !important; }
+.dark .search-band__select option { background: var(--bg-card) !important; color: var(--text) !important; }
+.dark .search-band__chip { background: var(--bg-elevated) !important; color: var(--text-secondary) !important; border-color: var(--border) !important; }
+.dark .search-band__chip:hover { color: var(--text) !important; border-color: var(--accent) !important; }
+
+/* Dark mode sections */
+.dark .portfolio { background: var(--bg) !important; }
+.dark .how { background: var(--bg) !important; }
+.dark .features { background: var(--bg) !important; }
+.dark .stats-band { background: var(--bg-sunken) !important; }
+.dark .stats-band__item { background: var(--bg-card) !important; border-color: var(--border) !important; }
+
+/* Dark mode contact form */
+.dark .contact { background: var(--bg) !important; }
+.dark .contact__form { background: var(--bg-card) !important; border-color: var(--border) !important; }
+.dark .contact__input { background: var(--bg-elevated) !important; color: var(--text) !important; border-color: var(--border-strong) !important; }
+.dark .contact__input::placeholder { color: var(--text-muted) !important; }
+
+/* Dark mode step cards */
+.dark .step { background: var(--bg-card) !important; border-color: var(--border) !important; }
+.dark .step__num { color: var(--accent) !important; }
+.dark .step__title { color: var(--text) !important; }
+.dark .step__desc { color: var(--text-secondary) !important; }
+
+/* Dark mode feature cards */
+.dark .feat { background: var(--bg-card) !important; border-color: var(--border) !important; }
+.dark .feat__title { color: var(--text) !important; }
+.dark .feat__desc { color: var(--text-secondary) !important; }
+
+/* Dark mode section headers */
+.dark .section-eyebrow { color: var(--accent) !important; }
+.dark .section-title { color: var(--text) !important; }
+.dark .section-sub { color: var(--text-secondary) !important; }
+
+/* Dark mode nav */
+.dark .nav { background: rgba(10,15,26,0.8) !important; border-color: var(--border) !important; }
+.dark .nav__link { color: var(--text-secondary) !important; }
+.dark .nav__link:hover { color: var(--text) !important; }
+
 /* ═══ PREMIUM ANIMATIONS ═══ */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
