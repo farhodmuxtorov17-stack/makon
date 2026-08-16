@@ -51,6 +51,34 @@ html{scrollbar-color:#64748b transparent}
 /* Dark mode placeholder */
 .dark input::placeholder, .dark textarea::placeholder { color: var(--text-muted) !important; }
 
+/* Dark mode form elements */
+.dark select { background-color: var(--bg-card) !important; color: var(--text) !important; }
+.dark select option { background-color: var(--bg-card) !important; color: var(--text) !important; }
+.dark input, .dark textarea { color: var(--text) !important; }
+.dark input[type="checkbox"] { accent-color: var(--accent) !important; }
+.dark input[type="radio"] { accent-color: var(--accent) !important; }
+
+/* Dark mode table */
+.dark table { color: var(--text) !important; }
+.dark th { color: var(--text-muted) !important; }
+.dark td { color: var(--text) !important; }
+
+/* Dark mode badges */
+.dark .badge { border-color: var(--border) !important; }
+.dark .badge-success { background: var(--success-bg) !important; color: var(--success) !important; }
+.dark .badge-warning { background: var(--warning-bg) !important; color: var(--warning) !important; }
+.dark .badge-danger { background: var(--danger-bg) !important; color: var(--danger) !important; }
+.dark .badge-info { background: var(--info-bg) !important; color: var(--info) !important; }
+
+/* Dark mode cards */
+.dark .building-card { background: var(--bg-card) !important; border-color: var(--border) !important; }
+.dark .card { background: var(--bg-card) !important; border-color: var(--border) !important; }
+
+/* Dark mode brand text */
+.dark .text-brand-500 { color: var(--accent-light) !important; }
+.dark .text-brand-600 { color: var(--accent) !important; }
+.dark .text-brand-700 { color: var(--accent-hover) !important; }
+
 /* Dark mode scrollbar for code blocks */
 .dark pre::-webkit-scrollbar-thumb { background: rgba(148,163,184,.2) !important; }
 
