@@ -53,4 +53,12 @@ defineProps<{
 
 // Use error layout (no admin sidebar)
 definePageMeta({ layout: 'public' })
+
+// Apply saved theme on mount
+onMounted(() => {
+  const stored = localStorage.getItem('makon-theme')
+  if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark')
+  }
+})
 </script>
