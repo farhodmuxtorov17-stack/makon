@@ -13,7 +13,7 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover' },
         { name: 'description', content: 'MAKON — Toshkentdagi premium biznes markazlari, ofislar va ombor maydonlari uchun yagona boshqaruv platformasi.' },
         { name: 'theme-color', content: '#2563eb' },
-        { name: 'color-scheme', content: 'light' },
+        { name: 'color-scheme', content: 'light dark' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
         { name: 'mobile-web-app-capable', content: 'yes' },
@@ -28,7 +28,13 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/svg+xml', href: '/makon/favicon.svg' },
         { rel: 'stylesheet', href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' },
       ],
-      script: [],
+      script: [
+        {
+          innerHTML: "(function(){try{var t=localStorage.getItem('makon-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()",
+          type: 'text/javascript',
+          tagPosition: 'head',
+        },
+      ],
     },
   },
   runtimeConfig: {
