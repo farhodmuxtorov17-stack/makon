@@ -190,7 +190,7 @@ const approvals = [
 .bdash__sub { font-size: 13px; color: #71717a; margin: 2px 0 0; }
 .dark .bdash__sub { color: #a1a1aa; }
 .bdash__head-right { display: flex; gap: 10px; align-items: center; }
-.bdash__select-wrap { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08); background: white; }
+.bdash__select-wrap { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-card); }
 .dark .bdash__select-wrap { background: #1c1c1e; border-color: rgba(255,255,255,0.08); }
 .bdash__select-label { font-size: 11px; color: #a1a1aa; white-space: nowrap; }
 .bdash__select { font-size: 13px; font-weight: 600; border: none; background: transparent; color: #18181b; cursor: pointer; outline: none; }
@@ -198,8 +198,8 @@ const approvals = [
 .dark .bdash__select option { background: #1c1c1e; }
 .bdash__date {
   display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px;
-  border-radius: 10px; font-size: 13px; font-weight: 500; border: 1px solid rgba(0,0,0,0.08);
-  background: white; color: #52525b; cursor: pointer;
+  border-radius: 10px; font-size: 13px; font-weight: 500; border: 1px solid var(--border);
+  background: var(--bg-card); color: #52525b; cursor: pointer;
 }
 .dark .bdash__date { background: #1c1c1e; border-color: rgba(255,255,255,0.08); color: #a1a1aa; }
 
@@ -207,7 +207,7 @@ const approvals = [
 .bdash__kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 20px; }
 @media (max-width: 1100px) { .bdash__kpis { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 640px) { .bdash__kpis { grid-template-columns: repeat(2, 1fr); } }
-.bdash__kpi { padding: 16px 18px; border-radius: 16px; background: white; border: 1px solid rgba(0,0,0,0.05); transition: all 0.25s; }
+.bdash__kpi { padding: 16px 18px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border); transition: all 0.25s; }
 .dark .bdash__kpi { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
 .bdash__kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.06); }
 .bdash__kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
@@ -226,7 +226,7 @@ const approvals = [
 .bdash__row3 { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 16px; margin-bottom: 20px; }
 .bdash__row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 1024px) { .bdash__row3, .bdash__row2 { grid-template-columns: 1fr; } }
-.bdash__panel { padding: 20px; border-radius: 18px; background: white; border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+.bdash__panel { padding: 20px; border-radius: 18px; background: var(--bg-card); border: 1px solid var(--border); display: flex; flex-direction: column; }
 .dark .bdash__panel { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
 .bdash__panel-head { margin-bottom: 14px; }
 .bdash__panel-title { font-size: 14px; font-weight: 700; color: #18181b; margin: 0; }

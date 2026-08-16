@@ -174,7 +174,7 @@ function formatUZSShort(n: number) {
 
 .period-kpi { position: relative; overflow: hidden;
   display: flex; align-items: center; gap: 12px; padding: 16px;
-  border-radius: 16px; background: white; border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border);
   transition: all 0.3s;
 }
 .dark .period-kpi { position: relative; overflow: hidden; background: #18181b; border-color: rgba(255,255,255,0.06); }
@@ -189,7 +189,7 @@ function formatUZSShort(n: number) {
 .dark .period-kpi__label { color: #a1a1aa; }
 
 .period-card {
-  border-radius: 18px; padding: 20px; background: white; border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 18px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border);
   cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 .dark .period-card { background: #18181b; border-color: rgba(255,255,255,0.06); }

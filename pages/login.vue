@@ -236,7 +236,7 @@ function sendRecovery() {
 .auth__input { width: 100%; padding: 12px 14px 12px 42px; border-radius: 11px; border: 1.5px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.02); font-size: 14px; color: #18181b; outline: none; transition: all 0.25s; }
 .dark .auth__input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
 .auth__input::placeholder { color: #c4c4c8; }
-.auth__input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+.auth__input:focus { border-color: var(--accent); background: var(--bg-card); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
 .dark .auth__input:focus { background: rgba(255,255,255,0.06); }
 .auth__input-toggle { position: absolute; right: 12px; background: none; border: none; color: #a1a1aa; cursor: pointer; display: flex; padding: 4px; }
 .auth__input-toggle:hover { color: #71717a; }
@@ -273,7 +273,7 @@ function sendRecovery() {
 .auth__security-text { font-size: 11.5px; color: #a1a1aa; font-weight: 500; letter-spacing: 0.01em; }
 
 .auth__forgot-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 50; }
-.auth__forgot-box { background: white; border-radius: 20px; padding: 32px; max-width: 380px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+.auth__forgot-box { background: var(--bg-card); border-radius: 20px; padding: 32px; max-width: 380px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
 .dark .auth__forgot-box { background: #18181b; }
 .auth__forgot-title { font-size: 20px; font-weight: 800; margin: 0 0 8px; color: #18181b; }
 .dark .auth__forgot-title { color: white; }

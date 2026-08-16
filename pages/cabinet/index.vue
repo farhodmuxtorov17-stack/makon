@@ -211,7 +211,7 @@ function srStatusLabel(s: string) {
 .unit-card {
   padding: 16px;
   border-radius: 14px;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   background: #ffffff;
   transition: all 0.15s;
 }

@@ -282,7 +282,7 @@ async function submitApplication() {
 .dark .apply-field__label { color: #a1a1aa; }
 .apply-field__input { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid rgba(0,0,0,0.08); background: rgba(255,255,255,0.8); font-size: 13px; color: #18181b; transition: all 0.2s; outline: none; }
 .dark .apply-field__input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
-.apply-field__input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+.apply-field__input:focus { border-color: var(--accent); background: var(--bg-card); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
 .dark .apply-field__input:focus { background: rgba(255,255,255,0.06); }
 .apply-field__input--textarea { resize: none; }
 .apply-field__phone-wrap { display: flex; align-items: center; position: relative; }
@@ -304,7 +304,7 @@ async function submitApplication() {
   padding: 16px 18px;
   border-radius: 16px;
   background: var(--card-bg, rgba(255,255,255,0.9));
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   position: relative; overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
 }

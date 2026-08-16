@@ -234,8 +234,8 @@ function formatUZSShort(n: number) {
 .dark .page-title { color: white; }
 
 .debt-card {
-  border-radius: 18px; padding: 20px; border: 1px solid rgba(0,0,0,0.05);
-  background: white; transition: all 0.3s;
+  border-radius: 18px; padding: 20px; border: 1px solid var(--border);
+  background: var(--bg-card); transition: all 0.3s;
 }
 .dark .debt-card { background: #18181b; border-color: rgba(255,255,255,0.06); }
 .debt-card--red { border-left: 3px solid #ef4444; }

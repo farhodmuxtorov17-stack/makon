@@ -741,13 +741,13 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   width: 34px; height: 32px; display: flex; align-items: center; justify-content: center;
   border-radius: 7px; color: #71717a;
 }
-.catalog-view-toggle button.active { background: #fff; color: var(--accent-hover); box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+.catalog-view-toggle button.active { background: var(--bg-card); color: var(--accent-hover); box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
 .dark .catalog-view-toggle button.active { background: #27272a; color: var(--accent); }
 .catalog-filter-btn {
   display: flex; align-items: center; gap: 6px;
   font-size: 13px; font-weight: 600; color: #52525b;
   padding: 8px 14px; border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid var(--border);
 }
 .dark .catalog-filter-btn { color: #d4d4d8; border-color: rgba(255,255,255,0.08); }
 .catalog-filter-btn__count {
@@ -798,7 +798,7 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
 .catalog-vip__nav button {
   width: 30px; height: 30px; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  border: 1px solid rgba(0,0,0,0.08); color: #52525b;
+  border: 1px solid var(--border); color: #52525b;
 }
 .catalog-vip__nav button:hover { background: rgba(0,0,0,0.04); }
 .catalog-vip__nav button:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -1004,7 +1004,7 @@ const avgPrice = computed(() => { const prices = store.listings.map((l: any) => 
   padding: 16px 18px;
   border-radius: 16px;
   background: var(--card-bg, rgba(255,255,255,0.9));
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   position: relative; overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
 }

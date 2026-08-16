@@ -201,7 +201,7 @@ async function handleSendOtp() {
 .auth__input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #a1a1aa; pointer-events: none; }
 .auth__input { width: 100%; padding: 14px 14px 14px 44px; border-radius: 12px; border: 1.5px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.02); font-size: 15px; color: #18181b; outline: none; transition: all 0.2s; }
 .dark .auth__input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
-.auth__input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+.auth__input:focus { border-color: var(--accent); background: var(--bg-card); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
 .dark .auth__input:focus { background: rgba(255,255,255,0.06); }
 .auth__error { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); margin-bottom: 18px; font-size: 13px; color: #ef4444; }
 .auth__info-notice { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); margin-bottom: 18px; font-size: 13px; color: #52525b; }

@@ -174,7 +174,7 @@ function typeIcon(t: string) { return { OFFICE: Building2, RETAIL: Store, WAREHO
 <style scoped>
 .kpi-strip {
   display: flex; align-items: center; gap: 12px; padding: 14px 16px;
-  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  background: var(--card-bg, #fff); border: 1px solid var(--border);
   border-radius: 14px; position: relative; overflow: hidden;
 }
 .kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
@@ -193,7 +193,7 @@ function typeIcon(t: string) { return { OFFICE: Building2, RETAIL: Store, WAREHO
 .kpi-strip__pct { font-size: 11px; font-weight: 700; color: #10b981; padding: 3px 8px; border-radius: 6px; background: rgba(16,185,129,0.1); }
 
 .unit-card {
-  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  background: var(--card-bg, #fff); border: 1px solid var(--border);
   border-radius: 16px; padding: 16px 18px; cursor: pointer;
   transition: all 0.2s ease; position: relative; overflow: hidden;
 }

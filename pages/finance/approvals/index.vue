@@ -194,7 +194,7 @@ function formatUZSShort(n: number) {
 }
 .flow__node--done .flow__icon { background: var(--accent); color: white; }
 .flow__node--active .flow__icon { background: var(--accent); color: white; box-shadow: 0 0 0 4px var(--accent-glow); }
-.flow__check { position: absolute; top: -4px; right: -4px; color: #10b981; background: white; border-radius: 50%; }
+.flow__check { position: absolute; top: -4px; right: -4px; color: #10b981; background: var(--bg-card); border-radius: 50%; }
 .dark .flow__check { background: #18181b; }
 .flow__label { font-size: 14px; font-weight: 600; color: #18181b; margin-bottom: 4px; }
 .dark .flow__label { color: white; }
@@ -210,7 +210,7 @@ function formatUZSShort(n: number) {
 /* Stats */
 .approval-stat { position: relative; overflow: hidden;
   border-radius: 16px; padding: 18px; text-align: center;
-  border: 1px solid rgba(0,0,0,0.05); background: white;
+  border: 1px solid var(--border); background: var(--bg-card);
 }
 .dark .approval-stat { position: relative; overflow: hidden; background: #18181b; border-color: rgba(255,255,255,0.06); }
 .approval-stat--amber { border-top: 3px solid #f59e0b; }
@@ -225,7 +225,7 @@ function formatUZSShort(n: number) {
 /* Approval cards */
 .approval-card {
   display: flex; align-items: center; gap: 16px; padding: 16px;
-  border-radius: 16px; background: white; border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border);
   transition: all 0.3s;
 }
 .dark .approval-card { background: #18181b; border-color: rgba(255,255,255,0.06); }
@@ -248,7 +248,7 @@ function formatUZSShort(n: number) {
   padding: 16px 18px;
   border-radius: 16px;
   background: var(--card-bg, rgba(255,255,255,0.9));
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   position: relative; overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
 }

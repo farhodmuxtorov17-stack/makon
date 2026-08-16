@@ -649,10 +649,10 @@ const vacantUnits = computed(() => building_floors.reduce((s, f) => s + f.units.
 .dark .b-units__filters { background: rgba(255,255,255,0.04); }
 .b-units__filters button { padding: 8px 16px; border-radius: 9px; font-size: 13px; font-weight: 500; color: #71717a; background: none; border: none; cursor: pointer; transition: all 0.25s; }
 .dark .b-units__filters button { color: #a1a1aa; }
-.b-units__filters button.active { background: white; color: #18181b; box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-weight: 600; }
+.b-units__filters button.active { background: var(--bg-card); color: #18181b; box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-weight: 600; }
 .dark .b-units__filters button.active { background: rgba(255,255,255,0.08); color: white; }
 .b-units__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.unit-card { border-radius: 18px; overflow: hidden; background: white; cursor: pointer; box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+.unit-card { border-radius: 18px; overflow: hidden; background: var(--bg-card); cursor: pointer; box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
 .dark .unit-card { background: #18181b; box-shadow: 0 2px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06); }
 .unit-card:hover { box-shadow: 0 24px 56px rgba(0,0,0,0.1), 0 0 0 1px rgba(37,99,235,0.1); transform: translateY(-4px); }
 .dark .unit-card:hover { box-shadow: 0 24px 56px rgba(0,0,0,0.5), 0 0 0 1px rgba(37,99,235,0.15); }
@@ -728,7 +728,7 @@ const vacantUnits = computed(() => building_floors.reduce((s, f) => s + f.units.
 /* BUILDING KPI */
 .b-kpi { padding: 32px 0; }
 .b-kpi__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.b-kpi__item { display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: 16px; background: var(--card-bg, rgba(255,255,255,0.9)); border: 1px solid rgba(0,0,0,0.06); position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.b-kpi__item { display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: 16px; background: var(--card-bg, rgba(255,255,255,0.9)); border: 1px solid var(--border); position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
 .b-kpi__item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
 .b-kpi__item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
 .b-kpi__item:nth-child(1)::before { background: #2563EB; }

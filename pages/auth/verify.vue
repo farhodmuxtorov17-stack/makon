@@ -229,7 +229,7 @@ function resendCode() {
 .otp-inputs { display: flex; gap: 10px; justify-content: center; margin-bottom: 24px; }
 .otp-box { width: 52px; height: 60px; text-align: center; font-size: 22px; font-weight: 700; border-radius: 14px; border: 2px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.02); color: #18181b; outline: none; transition: all 0.25s; }
 .dark .otp-box { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: white; }
-.otp-box:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); transform: translateY(-1px); }
+.otp-box:focus { border-color: var(--accent); background: var(--bg-card); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); transform: translateY(-1px); }
 .dark .otp-box:focus { background: rgba(255,255,255,0.06); }
 .otp-box--filled { border-color: rgba(37,99,235,0.3); }
 .otp-box--error { border-color: #ef4444 !important; animation: shake 0.4s; }

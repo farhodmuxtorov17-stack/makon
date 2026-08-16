@@ -166,7 +166,7 @@ function categoryIcon(cat: string) {
   display: flex; align-items: center; gap: 12px;
   padding: 14px 16px;
   background: var(--card-bg, #fff);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   border-radius: 14px; position: relative; overflow: hidden;
 }
 .kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
@@ -184,7 +184,7 @@ function categoryIcon(cat: string) {
 
 .sr-card {
   background: var(--card-bg, #fff);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   border-radius: 16px; padding: 16px 18px;
   cursor: pointer; transition: all 0.2s ease;
   position: relative; overflow: hidden;

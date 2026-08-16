@@ -40,7 +40,7 @@ defineEmits(['close'])
   display: flex; justify-content: flex-end;
 }
 .drawer-panel {
-  background: white; height: 100%; overflow-y: auto;
+  background: var(--bg-card); height: 100%; overflow-y: auto;
   display: flex; flex-direction: column;
   box-shadow: -20px 0 60px rgba(0,0,0,0.15);
 }

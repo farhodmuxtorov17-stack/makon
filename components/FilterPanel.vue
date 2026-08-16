@@ -249,7 +249,7 @@ function toNum(v: string): number | null {
   padding: 9px 12px;
   border-radius: 10px;
   background: rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
 }
 .dark .filter-search { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08); }
 .filter-search input {
@@ -267,7 +267,7 @@ function toNum(v: string): number | null {
   padding: 9px 12px;
   border-radius: 10px;
   background: rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   font-size: 13px;
   color: #18181b;
 }
@@ -332,7 +332,7 @@ function toNum(v: string): number | null {
   padding: 9px 10px;
   border-radius: 10px;
   background: rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   font-size: 12.5px;
   color: #18181b;
 }

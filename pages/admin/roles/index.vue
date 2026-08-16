@@ -154,7 +154,7 @@ function getRolePermissions(role: string) {
 .role-card {
   padding: 16px;
   border-radius: 14px;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   background: #ffffff;
   cursor: pointer;
   transition: all 0.15s;
@@ -173,7 +173,7 @@ function getRolePermissions(role: string) {
   padding: 16px 18px;
   border-radius: 16px;
   background: var(--card-bg, rgba(255,255,255,0.9));
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   position: relative; overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
 }

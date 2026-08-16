@@ -111,7 +111,7 @@ const channels = computed(() => 3)
 .dark .toggle__slider { background: rgba(255,255,255,0.1); }
 .toggle__slider::before {
   position: absolute; content: ''; height: 16px; width: 16px;
-  left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s;
+  left: 3px; bottom: 3px; background: var(--bg-card); border-radius: 50%; transition: 0.2s;
 }
 .toggle input:checked + .toggle__slider { background: var(--accent); }
 .toggle input:checked + .toggle__slider::before { transform: translateX(18px); }

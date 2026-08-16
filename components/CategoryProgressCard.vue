@@ -49,7 +49,7 @@ const offset = computed(() => circumference - (props.value / 100) * circumferenc
 <style scoped>
 .cpc {
   background: var(--card-bg, #fff);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px;
   display: flex;

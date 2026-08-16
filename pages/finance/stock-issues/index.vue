@@ -169,7 +169,7 @@ function formatDate(d: string) {
 <style scoped>
 .kpi-strip { position: relative; overflow: hidden;
   display: flex; align-items: center; gap: 12px; padding: 14px 16px;
-  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  background: var(--card-bg, #fff); border: 1px solid var(--border);
   border-radius: 14px; position: relative; overflow: hidden;
 }
 .kpi-strip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
@@ -186,7 +186,7 @@ function formatDate(d: string) {
 .dash-kpi__label { font-size: 11px; color: var(--ink-500); margin-top: 3px; font-weight: 500; }
 
 .si-card {
-  background: var(--card-bg, #fff); border: 1px solid rgba(0,0,0,0.06);
+  background: var(--card-bg, #fff); border: 1px solid var(--border);
   border-radius: 16px; padding: 16px 18px; transition: all 0.2s ease; position: relative; overflow: hidden;
 }
 .si-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
